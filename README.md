@@ -6,7 +6,7 @@
 
 # ![CODEX](https://i.postimg.cc/hGrNkc8z/descarga-3.jpg) = 🟠
 
-# ![ARCEUS](https://i.postimg.cc/P5vc51Wj/ronix-081525.webp) = 🟠
+# ![ARCEUS](https://i.postimg.cc/R0cDc9pp/descarga-4.jpg) = 🟠
 
 # ![FLUXUS](https://i.postimg.cc/XY9Rgwpg/descarga-2.png) = 🔴
 
