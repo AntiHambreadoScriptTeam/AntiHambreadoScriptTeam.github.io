@@ -4,10 +4,10 @@
 
 # ![KRNK](https://i.postimg.cc/xTcp6LFz/new-logo.png) = 🌟
 
-# ![CODEX](https://i.postimg.cc/P5vc51Wj/ronix-081525.webp) = 🟠
+# ![CODEX](https://i.postimg.cc/hGrNkc8z/descarga-3.jpg) = 🟠
 
 # ![ARCEUS](https://i.postimg.cc/P5vc51Wj/ronix-081525.webp) = 🟠
 
-# ![FLUXUS](https://i.postimg.cc/P5vc51Wj/ronix-081525.webp) = 🔴
+# ![FLUXUS](https://i.postimg.cc/XY9Rgwpg/descarga-2.png) = 🔴
 
-# ![DELTAx](https://i.postimg.cc/P5vc51Wj/ronix-081525.webp) = 🚫
+# ![DELTAx](https://i.postimg.cc/VkyyM7L6/images.jpg) = 🚫
