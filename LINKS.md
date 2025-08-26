@@ -20,4 +20,4 @@
 ### [📥 CLICK AQUÍ PARA DESCARGAR 📥](https://webfiles.pro/file/Fluxus.apk)
 
 # ![DELTAx](https://i.postimg.cc/VkyyM7L6/images.jpg) = 🚫
-### [📥 CLICK AQUÍ PARA DESCARGAR 📥](https://deltaexploits.gg/android_dl)
+### [📥 CLICK AQUÍ PARA DESCARGAR 📥](https://deltaexploits.gg/delta-executor-android)
