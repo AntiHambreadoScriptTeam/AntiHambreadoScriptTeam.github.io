@@ -190,19 +190,7 @@
     height: 240px;
     border-radius: 10px;
     box-shadow: 0 0 20px #9333ea;
-    animation: rotate360 10s linear infinite;
     cursor: pointer;
-  }
-
-  @keyframes rotate360 {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
   }
 
   @keyframes shake {
@@ -211,16 +199,8 @@
     75% { transform: translateX(5px); }
   }
 
-  .pulse {
-    animation: pulse 1s ease-in-out;
-  }
-
   .shake {
     animation: shake 0.5s ease-in-out;
-  }
-
-  .spin {
-    animation: rotate360 1s linear;
   }
 
   .discord-section {
@@ -251,16 +231,10 @@
 <script>
   const logo = document.getElementById("discordLogo");
 
-  logo.addEventListener("click", () => {
-    const animations = ["pulse", "shake", "spin"];
-    const random = animations[Math.floor(Math.random() * animations.length)];
-
-    logo.classList.remove("pulse", "shake", "spin");
-    void logo.offsetWidth;
-    logo.classList.add(random);
-
+  setInterval(() => {
+    logo.classList.add("shake");
     setTimeout(() => {
-      logo.classList.remove(random);
-    }, 1000);
-  });
+      logo.classList.remove("shake");
+    }, 500); // duración de la animación
+  }, 3000); // cada 3 segundos
 </script>
