@@ -242,12 +242,19 @@
   }, 3000); // cada 3 segundos
 </script>
 
-<audio id="bgAudio" autoplay loop>
+<audio id="bgAudio" loop>
   <source src="https://files.catbox.moe/ydjl0r.m4a" type="audio/mp4">
   Tu navegador no soporta audio HTML5.
 </audio>
 
 <script>
   const audio = document.getElementById("bgAudio");
-  audio.volume = 0.5; // volumen al 50%
+  audio.volume = 0.5;
+
+  // Activar audio tras el primer clic
+  document.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play();
+    }
+  }, { once: true }); // Solo se activa una vez
 </script>
