@@ -69,12 +69,12 @@
       box-shadow: 0 0 10px #ffffff44;
     }
 
-    .ronix { color: #c084fc; }
-    .krnl { color: #a855f7; }
-    .codex { color: #f87171; }
-    .arceus { color: #7dd3fc; }
-    .fluxus { color: #9ca3af; }
-    .delta { color: #60a5fa; }
+.executor.ronix a { color: #c084fc; }
+.executor.krnl a { color: #a855f7; }
+.executor.codex a { color: #f87171; }
+.executor.arceus a { color: #7dd3fc; }
+.executor.fluxus a { color: #9ca3af; }
+.executor.delta a { color: #60a5fa; }
 
     @keyframes rotate360 {
       0% { transform: rotate(0deg); }
@@ -193,15 +193,18 @@
     cursor: pointer;
   }
 
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-  }
+@keyframes shake {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-15px, 0); }
+  40% { transform: translate(15px, 0); }
+  60% { transform: translate(-10px, 0); }
+  80% { transform: translate(10px, 0); }
+  100% { transform: translate(0, 0); }
+}
 
-  .shake {
-    animation: shake 0.5s ease-in-out;
-  }
+.shake {
+  animation: shake 0.6s ease-in-out;
+}
 
   .discord-section {
     margin-top: 60px;
