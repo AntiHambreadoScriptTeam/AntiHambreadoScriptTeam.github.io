@@ -7,12 +7,15 @@
     body {
       background-color: #121212;
       color: white;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       padding: 20px;
     }
+
     h1, h2, h3 {
-      color: white;
+      color: #ffffff;
+      text-shadow: 0 0 10px #00ffff;
     }
+
     h2 {
       margin-top: 40px;
       display: flex;
@@ -21,31 +24,106 @@
       font-weight: bold;
       font-size: 1.8em;
     }
-    h2 img {
-      width: 100px;
-      height: 100px;
-      vertical-align: middle;
+
+    h3 {
+      font-weight: normal;
+      font-size: 1.1em;
+      margin: 5px 0;
     }
+
     a {
-      color: #00aaff;
       text-decoration: none;
-      font-size: 2.5em;
+      font-size: 1.5em;
       display: inline-block;
       margin-top: 5px;
+      transition: color 0.3s ease;
     }
+
     a:hover {
       text-decoration: underline;
+      color: #00ffff;
     }
+
     .executor {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
+      padding: 15px;
+      border-radius: 10px;
+      background-color: #1e1e1e;
+      box-shadow: 0 0 15px #00ffff;
+      transition: transform 0.3s ease;
     }
+
+    .executor:hover {
+      transform: scale(1.02);
+    }
+
     .status {
-      font-size: 3.0em;
+      font-size: 2.5em;
     }
-    img {
+
+    img.executor-logo {
       height: 100px;
       vertical-align: middle;
       margin-right: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ffffff44;
+    }
+
+    /* Colores personalizados por executor */
+    .ronix { color: #c084fc; }
+    .krnl { color: #a855f7; }
+    .codex { color: #f87171; }
+    .arceus { color: #7dd3fc; }
+    .fluxus { color: #9ca3af; }
+    .delta { color: #60a5fa; }
+
+    /* Discord Animations */
+    @keyframes rotate360 {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+ {
+      height: 100px;
+      animation: rotate360 10s linear infinite, pulse 3s ease-in-out infinite, shake 2s ease-in-out infinite;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #9333ea;
+    }
+
+    .discord-section {
+      margin-top: 60px;
+      padding: 20px;
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #9333ea;
+      text-align: center;
+    }
+
+    .discord-section h2 {
+      color: #c084fc;
+      text-shadow: 0 0 10px #c084fc;
+    }
+
+    .discord-section a {
+      color: #c084fc;
+      font-size: 2em;
+    }
+
+    .discord-section a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 5px #c084fc;
     }
   </style>
 </head>
@@ -56,46 +134,55 @@
   <h3>🔴 = DESACTUALIZADO</h3>
   <h3>🚫 = PELIGRO DE USAR PERO ACTUALIZADO</h3>
   <h3>﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌</h3>
-  
-  <div class="executor">
-    <img src="https://i.postimg.cc/P5vc51Wj/ronix-081525.webp" alt="Ronix" /> <strong>RONIX = </strong><span class="status">🚫</span>
+
+  <div class="executor ronix">
+    <img src="https://i.postimg.cc/P5vc51Wj/ronix-081525.webp" alt="Ronix" class="executor-logo" />
+    <strong>RONIX = </strong><span class="status">🚫</span>
     <br />
     <a href="https://wrdcdn.net/r/154522/1756076289297/Ronix_687.apk" target="_blank">📥 CLICK AQUÍ PARA DESCARGAR 📥</a>
   </div>
 
-  <div class="executor">
-    <img src="https://i.postimg.cc/xTcp6LFz/new-logo.png" alt="KRNL" /> <strong>KRNL = </strong><span class="status">🌟</span>
+  <div class="executor krnl">
+    <img src="https://i.postimg.cc/xTcp6LFz/new-logo.png" alt="KRNL" class="executor-logo" />
+    <strong>KRNL = </strong><span class="status">🌟</span>
     <br />
     <a href="https://krnl.webfiles.pro/file/krnl_release_2.689.880_2025.9.7_47.apk" target="_blank">📥 CLICK AQUÍ PARA DESCARGAR 📥</a>
   </div>
 
-  <div class="executor">
-    <img src="https://i.postimg.cc/hGrNkc8z/descarga-3.jpg" alt="CODEX" /> <strong>CODEX = </strong><span class="status">🟠</span> 
+  <div class="executor codex">
+    <img src="https://i.postimg.cc/hGrNkc8z/descarga-3.jpg" alt="CODEX" class="executor-logo" />
+    <strong>CODEX = </strong><span class="status">🟠</span>
     <br />
     <a href="https://www.mediafire.com/file/k3vddklbtobgor3/Codex+v2.685.apk/file" target="_blank">📥 CLICK AQUÍ PARA DESCARGAR 📥</a>
   </div>
 
-  <div class="executor">
-    <img src="https://i.postimg.cc/R0cDc9pp/descarga-4.jpg" alt="ARCEUS" /> <strong>ARCEUS = </strong><span class="status">🟠</span>
+  <div class="executor arceus">
+    <img src="https://i.postimg.cc/R0cDc9pp/descarga-4.jpg" alt="ARCEUS" class="executor-logo" />
+    <strong>ARCEUS = </strong><span class="status">🟠</span>
     <br />
     <a href="https://android.spdmteam.com/" target="_blank">📥 CLICK AQUÍ PARA DESCARGAR 📥</a>
   </div>
 
-  <div class="executor">
-    <img src="https://i.postimg.cc/XY9Rgwpg/descarga-2.png" alt="FLUXUS" /> <strong>FLUXUS = </strong><span class="status">🟠</span> 
+  <div class="executor fluxus">
+    <img src="https://i.postimg.cc/XY9Rgwpg/descarga-2.png" alt="FLUXUS" class="executor-logo" />
+    <strong>FLUXUS = </strong><span class="status">🟠</span>
     <br />
     <a href="https://app.box.com/s/h5wxr4yuuuoxr105aba10aceyxge94lo" target="_blank">📥 CLICK AQUÍ PARA DESCARGAR 📥</a>
   </div>
 
-  <div class="executor">
-    <img src="https://i.postimg.cc/VkyyM7L6/images.jpg" alt="DELTA" /> <strong>DELTA = </strong><span class="status">🟠</span>
+  <div class="executor delta">
+    <img src="https://i.postimg.cc/VkyyM7L6/images.jpg" alt="DELTA" class="executor-logo" />
+    <strong>DELTA = </strong><span class="status">🟠</span>
     <br />
     <a href="https://deltaexploits.gg/delta-executor-android" target="_blank">📥 CLICK AQUÍ PARA DESCARGAR 📥</a>
   </div>
+
   <h3>﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌</h3>
-  
-  <div style="display: flex; align-items: center; gap: 10px; margin-top: 30px; color: white;">
-  <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" style="height: 100px;" />
-  <h2 style="margin: 0;">ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL:</h2>
-</div>
-<a href="https://discord.gg/rTGF5xhe3h" target="_blank" style="font-size: 2.5em; color: #00aaff; text-decoration: none; display: inline-block; margin-top: 5px;">💬 https://discord.gg/rTGF5xhe3h</a>
+
+  <div class="discord-section">
+    <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" class="discord-logo" />
+    <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL:</h2>
+    <a href="https://discord.gg/rTGF5xhe3h" target="_blank">💬 https://discord.gg/rTGF5xhe3h</a>
+  </div>
+</body>
+</html>
