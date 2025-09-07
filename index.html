@@ -177,6 +177,7 @@
 
   <h3>﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌</h3>
 
+<!-- Discord Section -->
 <div class="discord-section">
   <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" class="discord-logo" id="discordLogo" />
   <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL:</h2>
@@ -185,8 +186,8 @@
 
 <style>
   .discord-logo {
-    width: 100px;
-    height: 100px;
+    width: 320px;
+    height: 240px;
     border-radius: 10px;
     box-shadow: 0 0 20px #9333ea;
     animation: rotate360 10s linear infinite;
@@ -221,6 +222,30 @@
   .spin {
     animation: rotate360 1s linear;
   }
+
+  .discord-section {
+    margin-top: 60px;
+    padding: 20px;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #9333ea;
+    text-align: center;
+  }
+
+  .discord-section h2 {
+    color: #c084fc;
+    text-shadow: 0 0 10px #c084fc;
+  }
+
+  .discord-section a {
+    color: #c084fc;
+    font-size: 2em;
+  }
+
+  .discord-section a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 5px #c084fc;
+  }
 </style>
 
 <script>
@@ -230,16 +255,10 @@
     const animations = ["pulse", "shake", "spin"];
     const random = animations[Math.floor(Math.random() * animations.length)];
 
-    // Remove existing animation classes
     logo.classList.remove("pulse", "shake", "spin");
-
-    // Trigger reflow to restart animation
     void logo.offsetWidth;
-
-    // Add new animation class
     logo.classList.add(random);
 
-    // Remove the animation class after it finishes
     setTimeout(() => {
       logo.classList.remove(random);
     }, 1000);
