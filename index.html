@@ -107,6 +107,17 @@
       color: #ffffff;
       text-shadow: 0 0 5px #c084fc;
     }
+
+    /* Animación de shake para el logo de Discord */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+      20%, 40%, 60%, 80% { transform: translateX(8px); }
+    }
+
+    .discord-logo-shake {
+      animation: shake 0.6s ease-in-out;
+    }
   </style>
 </head>
 <body>
@@ -163,7 +174,7 @@
 
   <!-- Discord Section -->
   <div class="discord-section">
-    <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" class="discord-logo" />
+    <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" class="discord-logo discord-logo-shake" id="discordLogo" />
     <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL:</h2>
     <a href="https://discord.gg/rTGF5xhe3h" target="_blank">💬 https://discord.gg/rTGF5xhe3h</a>
   </div>
@@ -184,6 +195,25 @@
         audio.play();
       }
     }, { once: true });
+
+    // Función para el efecto de shake en el logo de Discord
+    function shakeDiscordLogo() {
+      const discordLogo = document.getElementById('discordLogo');
+      
+      // Remover la clase primero para reiniciar la animación
+      discordLogo.classList.remove('discord-logo-shake');
+      
+      // Pequeño retraso para permitir que se reinicie la animación
+      setTimeout(() => {
+        discordLogo.classList.add('discord-logo-shake');
+      }, 10);
+    }
+
+    // Iniciar la animación inmediatamente al cargar
+    shakeDiscordLogo();
+    
+    // Repetir la animación cada 3 segundos
+    setInterval(shakeDiscordLogo, 3000);
   </script>
 </body>
 </html>
