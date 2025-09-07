@@ -113,7 +113,6 @@
       font-size: 1.5em;
       color: #c084fc;
       margin-top: 10px;
-      display: none;
       animation: neonPulse 1.5s infinite;
     }
 
@@ -132,47 +131,7 @@
   <h3>🚫 = PELIGRO DE USAR PERO ACTUALIZADO</h3>
   <h3>﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌</h3>
 
-  <div class="executor ronix">
-    <img src="https://i.postimg.cc/P5vc51Wj/ronix-081525.webp" alt="Ronix" class="executor-logo" />
-    <strong>RONIX = </strong><span class="status">🚫</span>
-    <br />
-    <a href="https://wrdcdn.net/r/154522/1756076289297/Ronix_687.apk" target="_blank">📥 CLICK AQUÍ PARA DESCARGAR 📥</a>
-  </div>
-
-  <div class="executor krnl">
-    <img src="https://i.postimg.cc/xTcp6LFz/new-logo.png" alt="KRNL" class="executor-logo" />
-    <strong>KRNL = </strong><span class="status">🌟</span>
-    <br />
-    <a href="https://krnl.webfiles.pro/file/krnl_release_2.689.880_2025.9.7_47.apk" target="_blank">📥 CLICK AQUÍ PARA DESCARGAR 📥</a>
-  </div>
-
-  <div class="executor codex">
-    <img src="https://i.postimg.cc/hGrNkc8z/descarga-3.jpg" alt="CODEX" class="executor-logo" />
-    <strong>CODEX = </strong><span class="status">🟠</span>
-    <br />
-    <a href="https://www.mediafire.com/file/k3vddklbtobgor3/Codex+v2.685.apk/file" target="_blank">📥 CLICK AQUÍ PARA DESCARGAR 📥</a>
-  </div>
-
-  <div class="executor arceus">
-    <img src="https://i.postimg.cc/R0cDc9pp/descarga-4.jpg" alt="ARCEUS" class="executor-logo" />
-    <strong>ARCEUS = </strong><span class="status">🟠</span>
-    <br />
-    <a href="https://android.spdmteam.com/" target="_blank">📥 CLICK AQUÍ PARA DESCARGAR 📥</a>
-  </div>
-
-  <div class="executor fluxus">
-    <img src="https://i.postimg.cc/XY9Rgwpg/descarga-2.png" alt="FLUXUS" class="executor-logo" />
-    <strong>FLUXUS = </strong><span class="status">🟠</span>
-    <br />
-    <a href="https://app.box.com/s/h5wxr4yuuuoxr105aba10aceyxge94lo" target="_blank">📥 CLICK AQUÍ PARA DESCARGAR 📥</a>
-  </div>
-
-  <div class="executor delta">
-    <img src="https://i.postimg.cc/VkyyM7L6/images.jpg" alt="DELTA" class="executor-logo" />
-    <strong>DELTA = </strong><span class="status">🟠</span>
-    <br />
-    <a href="https://deltaexploits.gg/delta-executor-android" target="_blank">📥 CLICK AQUÍ PARA DESCARGAR 📥</a>
-  </div>
+  <!-- Aquí van tus bloques de executors... -->
 
   <h3>﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌</h3>
 
@@ -187,4 +146,78 @@
   <!-- AUDIO -->
   <audio id="bgAudio" loop>
     <source src="https://files.catbox.moe/ydjl0r.m4a" type="audio/mp4">
-    Tu navegador
+    Tu navegador no soporta audio HTML5.
+  </audio>
+
+  <!-- SCRIPT FINAL -->
+  <script>
+    const logo = document.getElementById("discordLogo");
+    const audio = document.getElementById("bgAudio");
+    const body = document.body;
+    const clickText = document.getElementById("clickText");
+
+    const style = document.createElement("style");
+    style.innerHTML = `
+      .blurred {
+        filter: blur(8px);
+        transition: filter 0.5s ease;
+      }
+
+      .edit-mode {
+        position: fixed;
+        z-index: 9999;
+        animation: crazyMove 1s infinite, shakeHard 0.3s infinite;
+      }
+
+      @keyframes crazyMove {
+        0% { top: 10%; left: 10%; }
+        25% { top: 70%; left: 20%; }
+        50% { top: 30%; left: 80%; }
+        75% { top: 60%; left: 50%; }
+        100% { top: 10%; left: 90%; }
+      }
+
+      @keyframes shakeHard {
+        0%, 100% { transform: translate(0, 0); }
+        20% { transform: translate(-20px, 0); }
+        40% { transform: translate(20px, 0); }
+        60% { transform: translate(-10px, 0); }
+        80% { transform: translate(10px, 0); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    logo.addEventListener("click", () => {
+      audio.volume = 0.25;
+      audio.play();
+
+      [...body.children].forEach(el => {
+        if (!el.contains(logo) && el !== style && el !== clickText) {
+          el.classList.add("blurred");
+        }
+      });
+
+      logo.classList.add("edit-mode");
+
+      for (let i = 0; i < 15; i++) {
+        const clone = logo.cloneNode(true);
+        clone.style.position = "fixed";
+        clone.style.width = "80px";
+        clone.style.height = "60px";
+        clone.style.top = `${Math.random() * 80 + 10}%`;
+        clone.style.left = `${Math.random() * 80 + 10}%`;
+        clone.style.zIndex = "9999";
+        clone.style.animation = "crazyMove 1s infinite, shakeHard 0.3s infinite";
+        document.body.appendChild(clone);
+
+        setTimeout(() => clone.remove(), 10000);
+      }
+
+      setTimeout(() => {
+        [...body.children].forEach(el => el.classList.remove("blurred"));
+        logo.classList.remove("edit-mode");
+      }, 10000);
+    });
+  </script>
+</body>
+</html>
