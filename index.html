@@ -9,6 +9,7 @@
       color: white;
       font-family: 'Segoe UI', sans-serif;
       padding: 20px;
+      transition: filter 0.5s ease;
     }
 
     h1, h2, h3 {
@@ -76,14 +77,6 @@
     .executor.fluxus a { color: #9ca3af; }
     .executor.delta a { color: #60a5fa; }
 
-    .discord-logo {
-      width: 320px;
-      height: 240px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #9333ea;
-      cursor: pointer;
-    }
-
     .discord-section {
       margin-top: 60px;
       padding: 20px;
@@ -91,6 +84,8 @@
       border-radius: 10px;
       box-shadow: 0 0 20px #9333ea;
       text-align: center;
+      position: relative;
+      z-index: 10;
     }
 
     .discord-section h2 {
@@ -106,6 +101,113 @@
     .discord-section a:hover {
       color: #ffffff;
       text-shadow: 0 0 5px #c084fc;
+    }
+
+    /* Estilos para el logo de Discord */
+    .discord-logo-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+    
+    .discord-logo {
+      width: 320px;
+      height: 240px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #9333ea;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .discord-logo:hover {
+      transform: scale(1.05);
+    }
+    
+    .click-text {
+      position: absolute;
+      bottom: -25px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #c084fc;
+      font-size: 1.2em;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    .click-text.visible {
+      opacity: 1;
+    }
+    
+    /* Estilos para la animación */
+    .crazy-mode .discord-logo {
+      position: fixed;
+      z-index: 1000;
+      animation: crazyAnimation 10s forwards;
+    }
+    
+    .logo-copy {
+      position: fixed;
+      width: 100px;
+      height: 75px;
+      border-radius: 5px;
+      z-index: 999;
+      pointer-events: none;
+      animation: copyAnimation 2s forwards;
+    }
+    
+    @keyframes crazyAnimation {
+      0% {
+        transform: scale(1) translate(0, 0) rotate(0deg);
+        filter: brightness(1) blur(0);
+      }
+      20% {
+        transform: scale(1.5) translate(100px, 50px) rotate(10deg);
+        filter: brightness(1.5) blur(1px);
+      }
+      40% {
+        transform: scale(0.8) translate(-150px, 200px) rotate(-15deg);
+        filter: brightness(0.8) blur(2px);
+      }
+      60% {
+        transform: scale(1.2) translate(200px, -100px) rotate(5deg);
+        filter: brightness(1.3) blur(1px);
+      }
+      80% {
+        transform: scale(1.1) translate(-100px, -200px) rotate(-5deg);
+        filter: brightness(1.2) blur(1px);
+      }
+      100% {
+        transform: scale(1) translate(0, 0) rotate(0deg);
+        filter: brightness(1) blur(0);
+      }
+    }
+    
+    @keyframes copyAnimation {
+      0% {
+        opacity: 0.8;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.5);
+      }
+    }
+    
+    .vibration {
+      animation: vibration 0.1s infinite;
+    }
+    
+    @keyframes vibration {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(2px, 2px); }
+      50% { transform: translate(0, 0); }
+      75% { transform: translate(-2px, -2px); }
+      100% { transform: translate(0, 0); }
+    }
+    
+    .blur-background {
+      filter: blur(5px) brightness(0.7);
     }
   </style>
 </head>
@@ -163,13 +265,16 @@
 
   <!-- Discord Section -->
   <div class="discord-section">
-    <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" class="discord-logo" />
+    <div class="discord-logo-container">
+      <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" class="discord-logo" id="discordLogo" />
+      <div class="click-text" id="clickText">Hazme click</div>
+    </div>
     <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL:</h2>
     <a href="https://discord.gg/rTGF5xhe3h" target="_blank">💬 https://discord.gg/rTGF5xhe3h</a>
   </div>
 
   <!-- AUDIO -->
-  <audio id="bgAudio" loop>
+  <audio id="bgAudio">
     <source src="https://files.catbox.moe/ydjl0r.m4a" type="audio/mp4">
     Tu navegador no soporta audio HTML5.
   </audio>
@@ -177,8 +282,84 @@
   <!-- SCRIPT -->
   <script>
     const audio = document.getElementById("bgAudio");
+    const discordLogo = document.getElementById("discordLogo");
+    const clickText = document.getElementById("clickText");
+    const body = document.body;
+    
     audio.volume = 0.25;
-
+    
+    // Mostrar el texto después de cargar la página
+    setTimeout(() => {
+      clickText.classList.add('visible');
+    }, 1000);
+    
+    // Función para crear copias del logo
+    function createLogoCopy(x, y) {
+      const copy = document.createElement('img');
+      copy.src = discordLogo.src;
+      copy.classList.add('logo-copy');
+      copy.style.left = `${x - 50}px`;
+      copy.style.top = `${y - 37.5}px`;
+      document.body.appendChild(copy);
+      
+      // Eliminar la copia después de la animación
+      setTimeout(() => {
+        copy.remove();
+      }, 2000);
+    }
+    
+    // Función para la animación loca
+    function startCrazyAnimation() {
+      // Añadir clase para difuminar el fondo
+      body.classList.add('blur-background');
+      body.classList.add('crazy-mode');
+      
+      // Reproducir audio
+      audio.play();
+      
+      // Añadir efecto de vibración
+      discordLogo.classList.add('vibration');
+      
+      // Crear múltiples copias del logo durante la animación
+      const intervals = [];
+      
+      for (let i = 0; i < 5; i++) {
+        const interval = setTimeout(() => {
+          const x = Math.random() * window.innerWidth;
+          const y = Math.random() * window.innerHeight;
+          createLogoCopy(x, y);
+        }, i * 1000);
+        
+        intervals.push(interval);
+      }
+      
+      // Terminar la animación después de 10 segundos
+      setTimeout(() => {
+        // Detener vibración
+        discordLogo.classList.remove('vibration');
+        
+        // Quitar clases de animación
+        body.classList.remove('blur-background');
+        body.classList.remove('crazy-mode');
+        
+        // Limpiar los timeouts
+        intervals.forEach(interval => clearTimeout(interval));
+        
+        // Mostrar el texto "Hazme click" de nuevo
+        clickText.classList.add('visible');
+      }, 10000);
+    }
+    
+    // Evento de clic en el logo de Discord
+    discordLogo.addEventListener('click', () => {
+      // Ocultar el texto durante la animación
+      clickText.classList.remove('visible');
+      
+      // Iniciar la animación
+      startCrazyAnimation();
+    });
+    
+    // Reproducir audio al hacer clic en cualquier parte de la página (solo una vez)
     document.addEventListener("click", () => {
       if (audio.paused) {
         audio.play();
