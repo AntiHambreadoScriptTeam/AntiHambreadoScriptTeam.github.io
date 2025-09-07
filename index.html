@@ -4,6 +4,95 @@
   <meta charset="UTF-8" />
   <title>Estado de cada Executor</title>
   <style>
+
+<audio id="bgAudio" loop>
+  <source src="https://files.catbox.moe/ydjl0r.m4a" type="audio/mp4">
+  Tu navegador no soporta audio HTML5.
+</audio>
+
+<!-- TEXTO DE CLICK -->
+<div id="clickText" style="text-align:center; font-size:1.5em; color:#c084fc; margin-top:10px; display:none;">
+  Hazme click
+</div>
+
+<script>
+  const logo = document.getElementById("discordLogo");
+  const audio = document.getElementById("bgAudio");
+  const body = document.body;
+  const clickText = document.getElementById("clickText");
+
+  // Estilos dinámicos
+  const style = document.createElement("style");
+  style.innerHTML = `
+    .blurred {
+      filter: blur(8px);
+      transition: filter 0.5s ease;
+    }
+
+    .edit-mode {
+      position: fixed;
+      z-index: 9999;
+      animation: crazyMove 1s infinite, shakeHard 0.3s infinite;
+    }
+
+    @keyframes crazyMove {
+      0% { top: 10%; left: 10%; }
+      25% { top: 70%; left: 20%; }
+      50% { top: 30%; left: 80%; }
+      75% { top: 60%; left: 50%; }
+      100% { top: 10%; left: 90%; }
+    }
+
+    @keyframes shakeHard {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-20px, 0); }
+      40% { transform: translate(20px, 0); }
+      60% { transform: translate(-10px, 0); }
+      80% { transform: translate(10px, 0); }
+    }
+  `;
+  document.head.appendChild(style);
+
+  logo.addEventListener("click", () => {
+    // Reproducir audio
+    audio.volume = 0.25;
+    audio.play();
+
+    // Difuminar todo menos el logo
+    [...body.children].forEach(el => {
+      if (el !== logo.parentElement && el !== style && el !== clickText) {
+        el.classList.add("blurred");
+      }
+    });
+
+    // Activar edit
+    logo.classList.add("edit-mode");
+
+    // Clonar logos
+    for (let i = 0; i < 15; i++) {
+      const clone = logo.cloneNode(true);
+      clone.style.position = "fixed";
+      clone.style.width = "80px";
+      clone.style.height = "60px";
+      clone.style.top = `${Math.random() * 80 + 10}%`;
+      clone.style.left = `${Math.random() * 80 + 10}%`;
+      clone.style.zIndex = "9999";
+      clone.style.animation = "crazyMove 1s infinite, shakeHard 0.3s infinite";
+      document.body.appendChild(clone);
+
+      // Eliminar clones después de 10s
+      setTimeout(() => clone.remove(), 10000);
+    }
+
+    // Finalizar edit
+    setTimeout(() => {
+      [...body.children].forEach(el => el.classList.remove("blurred"));
+      logo.classList.remove("edit-mode");
+      clickText.style.display = "block";
+    }, 10000);
+  });
+</script>
+
     body {
       background-color: #121212;
       color: white;
@@ -240,21 +329,4 @@
       logo.classList.remove("shake");
     }, 500); // duración de la animación
   }, 3000); // cada 3 segundos
-</script>
-
-<audio id="bgAudio" loop>
-  <source src="https://files.catbox.moe/ydjl0r.m4a" type="audio/mp4">
-  Tu navegador no soporta audio HTML5.
-</audio>
-
-<script>
-  const audio = document.getElementById("bgAudio");
-  audio.volume = 0.25;
-
-  // Activar audio tras el primer clic
-  document.addEventListener("click", () => {
-    if (audio.paused) {
-      audio.play();
-    }
-  }, { once: true }); // Solo se activa una vez
 </script>
