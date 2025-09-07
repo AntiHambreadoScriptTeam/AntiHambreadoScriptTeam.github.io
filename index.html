@@ -4,95 +4,6 @@
   <meta charset="UTF-8" />
   <title>Estado de cada Executor</title>
   <style>
-
-<audio id="bgAudio" loop>
-  <source src="https://files.catbox.moe/ydjl0r.m4a" type="audio/mp4">
-  Tu navegador no soporta audio HTML5.
-</audio>
-
-<!-- TEXTO DE CLICK -->
-<div id="clickText" style="text-align:center; font-size:1.5em; color:#c084fc; margin-top:10px; display:none;">
-  Hazme click
-</div>
-
-<script>
-  const logo = document.getElementById("discordLogo");
-  const audio = document.getElementById("bgAudio");
-  const body = document.body;
-  const clickText = document.getElementById("clickText");
-
-  // Estilos dinámicos
-  const style = document.createElement("style");
-  style.innerHTML = `
-    .blurred {
-      filter: blur(8px);
-      transition: filter 0.5s ease;
-    }
-
-    .edit-mode {
-      position: fixed;
-      z-index: 9999;
-      animation: crazyMove 1s infinite, shakeHard 0.3s infinite;
-    }
-
-    @keyframes crazyMove {
-      0% { top: 10%; left: 10%; }
-      25% { top: 70%; left: 20%; }
-      50% { top: 30%; left: 80%; }
-      75% { top: 60%; left: 50%; }
-      100% { top: 10%; left: 90%; }
-    }
-
-    @keyframes shakeHard {
-      0%, 100% { transform: translate(0, 0); }
-      20% { transform: translate(-20px, 0); }
-      40% { transform: translate(20px, 0); }
-      60% { transform: translate(-10px, 0); }
-      80% { transform: translate(10px, 0); }
-    }
-  `;
-  document.head.appendChild(style);
-
-  logo.addEventListener("click", () => {
-    // Reproducir audio
-    audio.volume = 0.25;
-    audio.play();
-
-    // Difuminar todo menos el logo
-    [...body.children].forEach(el => {
-      if (el !== logo.parentElement && el !== style && el !== clickText) {
-        el.classList.add("blurred");
-      }
-    });
-
-    // Activar edit
-    logo.classList.add("edit-mode");
-
-    // Clonar logos
-    for (let i = 0; i < 15; i++) {
-      const clone = logo.cloneNode(true);
-      clone.style.position = "fixed";
-      clone.style.width = "80px";
-      clone.style.height = "60px";
-      clone.style.top = `${Math.random() * 80 + 10}%`;
-      clone.style.left = `${Math.random() * 80 + 10}%`;
-      clone.style.zIndex = "9999";
-      clone.style.animation = "crazyMove 1s infinite, shakeHard 0.3s infinite";
-      document.body.appendChild(clone);
-
-      // Eliminar clones después de 10s
-      setTimeout(() => clone.remove(), 10000);
-    }
-
-    // Finalizar edit
-    setTimeout(() => {
-      [...body.children].forEach(el => el.classList.remove("blurred"));
-      logo.classList.remove("edit-mode");
-      clickText.style.display = "block";
-    }, 10000);
-  });
-</script>
-
     body {
       background-color: #121212;
       color: white;
@@ -158,35 +69,19 @@
       box-shadow: 0 0 10px #ffffff44;
     }
 
-.executor.ronix a { color: #c084fc; }
-.executor.krnl a { color: #a855f7; }
-.executor.codex a { color: #f87171; }
-.executor.arceus a { color: #7dd3fc; }
-.executor.fluxus a { color: #9ca3af; }
-.executor.delta a { color: #60a5fa; }
+    .executor.ronix a { color: #c084fc; }
+    .executor.krnl a { color: #a855f7; }
+    .executor.codex a { color: #f87171; }
+    .executor.arceus a { color: #7dd3fc; }
+    .executor.fluxus a { color: #9ca3af; }
+    .executor.delta a { color: #60a5fa; }
 
-    @keyframes rotate360 {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
-    }
-
- {
-      height: 100px;
-      animation: rotate360 10s linear infinite, pulse 3s ease-in-out infinite, shake 2s ease-in-out infinite;
+    .discord-logo {
+      width: 320px;
+      height: 240px;
       border-radius: 10px;
       box-shadow: 0 0 20px #9333ea;
+      cursor: pointer;
     }
 
     .discord-section {
@@ -211,6 +106,21 @@
     .discord-section a:hover {
       color: #ffffff;
       text-shadow: 0 0 5px #c084fc;
+    }
+
+    #clickText {
+      text-align: center;
+      font-size: 1.5em;
+      color: #c084fc;
+      margin-top: 10px;
+      display: none;
+      animation: neonPulse 1.5s infinite;
+    }
+
+    @keyframes neonPulse {
+      0% { text-shadow: 0 0 5px #9333ea; }
+      50% { text-shadow: 0 0 20px #c084fc; }
+      100% { text-shadow: 0 0 5px #9333ea; }
     }
   </style>
 </head>
@@ -266,67 +176,15 @@
 
   <h3>﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌</h3>
 
-<!-- Discord Section -->
-<div class="discord-section">
-  <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" class="discord-logo" id="discordLogo" />
-  <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL:</h2>
-  <a href="https://discord.gg/rTGF5xhe3h" target="_blank">💬 https://discord.gg/rTGF5xhe3h</a>
-</div>
+  <!-- Discord Section -->
+  <div class="discord-section">
+    <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" class="discord-logo" id="discordLogo" />
+    <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL:</h2>
+    <a href="https://discord.gg/rTGF5xhe3h" target="_blank">💬 https://discord.gg/rTGF5xhe3h</a>
+    <div id="clickText">Hazme click</div>
+  </div>
 
-<style>
-  .discord-logo {
-    width: 320px;
-    height: 240px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px #9333ea;
-    cursor: pointer;
-  }
-
-@keyframes shake {
-  0% { transform: translate(0, 0); }
-  20% { transform: translate(-15px, 0); }
-  40% { transform: translate(15px, 0); }
-  60% { transform: translate(-10px, 0); }
-  80% { transform: translate(10px, 0); }
-  100% { transform: translate(0, 0); }
-}
-
-.shake {
-  animation: shake 0.6s ease-in-out;
-}
-
-  .discord-section {
-    margin-top: 60px;
-    padding: 20px;
-    background-color: #1a1a1a;
-    border-radius: 10px;
-    box-shadow: 0 0 20px #9333ea;
-    text-align: center;
-  }
-
-  .discord-section h2 {
-    color: #c084fc;
-    text-shadow: 0 0 10px #c084fc;
-  }
-
-  .discord-section a {
-    color: #c084fc;
-    font-size: 2em;
-  }
-
-  .discord-section a:hover {
-    color: #ffffff;
-    text-shadow: 0 0 5px #c084fc;
-  }
-</style>
-
-<script>
-  const logo = document.getElementById("discordLogo");
-
-  setInterval(() => {
-    logo.classList.add("shake");
-    setTimeout(() => {
-      logo.classList.remove("shake");
-    }, 500); // duración de la animación
-  }, 3000); // cada 3 segundos
-</script>
+  <!-- AUDIO -->
+  <audio id="bgAudio" loop>
+    <source src="https://files.catbox.moe/ydjl0r.m4a" type="audio/mp4">
+    Tu navegador
