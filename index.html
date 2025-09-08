@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Estado de cada Executor</title>
-<link rel="icon" type="image/jpeg" href="https://files.catbox.moe/63pk9i.jpeg">
+  <link rel="icon" type="image/jpeg" href="https://files.catbox.moe/63pk9i.jpeg">
   <style>
     body {
       background-color: #121212;
@@ -109,7 +109,6 @@
       text-shadow: 0 0 5px #c084fc;
     }
 
-    /* Animación de shake para el logo de Discord */
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
       10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
@@ -117,7 +116,24 @@
     }
 
     .discord-logo-shake {
-      animation: shake 0.6s ease-in-out infinite; /* animación en bucle automáticamente */
+      animation: shake 0.6s ease-in-out infinite;
+    }
+
+    /* ADVERTENCIA KRNL */
+    .krnl-warning {
+      color: #ff3b3b;
+      font-size: 1.1em;
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: left;
+      animation: pulseGlow 1.5s infinite;
+      text-shadow: 0 0 5px #ff3b3b88;
+    }
+
+    @keyframes pulseGlow {
+      0% { text-shadow: 0 0 5px #ff3b3b88; }
+      50% { text-shadow: 0 0 10px #ff3b3bcc; }
+      100% { text-shadow: 0 0 5px #ff3b3b88; }
     }
   </style>
 </head>
@@ -141,6 +157,9 @@
     <strong>KRNL = </strong><span class="status">🌟</span>
     <br />
     <a href="https://krnl.webfiles.pro/file/krnl_release_2.689.880_2025.9.7_47.apk" target="_blank">📥 CLICK AQUÍ PARA DESCARGAR 📥</a>
+    <div class="krnl-warning">
+      ⚠️ NO INSTALES EL ARCHIVO CON "VNG", ES PARA USUARIOS DE VIETNAM Y PUEDE CAMBIAR LA REGIÓN DE TU CUENTA
+    </div>
   </div>
 
   <div class="executor codex">
@@ -173,7 +192,7 @@
 
   <h3>﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌</h3>
 
-  <!-- Discord Section -->
+    <!-- Discord Section -->
   <div class="discord-section">
     <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" class="discord-logo discord-logo-shake" id="discordLogo" />
     <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL:</h2>
