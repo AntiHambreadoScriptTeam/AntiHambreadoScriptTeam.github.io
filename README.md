@@ -1,8 +1,7 @@
 # ESTADO DE CADA EXECUTOR:
-### 🌟 = INDETECTABLE Y ACTUALIZADO 
-### 🟠 = DETECTABLE PERO ACTUALIZADO 
-### 🔴 = DESACTUALIZADO
-### 🚫 = PELIGRO DE USAR PERO ACTUALIZADO
+### 🌟 = INDETECTABLE
+### 🟠 = DETECTABLE
+### 🚫 = PELIGRO DE USAR
 
 # ![Ronix](https://i.postimg.cc/P5vc51Wj/ronix-081525.webp) = 🚫
 ### [📥 CLICK AQUÍ PARA DESCARGAR 📥](https://wrdcdn.net/r/154522/1756076289297/Ronix_687.apk) 
