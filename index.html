@@ -21,19 +21,26 @@
       --danger: #f44336;
       --inactive: #616161;
     }
-    
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    
-    body {
+
+    html, body {
+      height: 100%;
       margin: 0;
+    }
+
+    body {
       font-family: 'Segoe UI', 'Roboto', sans-serif;
       background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
       color: var(--text);
       line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     header {
@@ -44,7 +51,7 @@
       position: relative;
       overflow: hidden;
     }
-    
+
     header::before {
       content: '';
       position: absolute;
@@ -63,7 +70,7 @@
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
       position: relative;
     }
-    
+
     header h1 i {
       color: var(--primary-light);
       margin-right: 10px;
@@ -111,7 +118,7 @@
       border: 1px solid rgba(255, 255, 255, 0.05);
       overflow: hidden;
     }
-    
+
     .card::before {
       content: '';
       position: absolute;
@@ -230,7 +237,7 @@
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.05);
     }
-    
+
     .discord-section::before {
       content: '';
       position: absolute;
@@ -279,11 +286,12 @@
       padding: 25px 20px;
       color: var(--text-secondary);
       font-size: 0.9em;
-      margin-top: 40px;
+      margin-top: auto;
       background: var(--secondary);
       border-top: 1px solid rgba(255, 255, 255, 0.05);
+      width: 100%;
     }
-    
+
     footer p:first-child {
       margin-bottom: 8px;
     }
@@ -293,11 +301,11 @@
         flex-direction: column;
         align-items: center;
       }
-      
+
       header h1 {
         font-size: 1.8em;
       }
-      
+
       .card {
         width: 100%;
         max-width: 350px;
@@ -321,7 +329,7 @@
       <img src="https://i.postimg.cc/P5vc51Wj/ronix-081525.webp" alt="Ronix" />
       <h2>Ronix</h2>
       <div class="status-label"><span class="status-dot dot-danger"></span> Peligroso</div>
-      <a class="download-btn" href="https://wrdcdn.net/r/154522/1757349822750/Ronix_688_(arm64).apk" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+      <a class="download-btn" href="https://wrdcdn.net/r/154522/1757349822750/Ronix688(arm64).apk" target="_blank"><i class="fas fa-download"></i> Descargar</a>
     </div>
 
     <div class="card">
@@ -329,7 +337,7 @@
       <img src="https://i.postimg.cc/xTcp6LFz/new-logo.png" alt="KRNL" />
       <h2>KRNL</h2>
       <div class="status-label"><span class="status-dot dot-ok"></span> Indetectable</div>
-      <a class="download-btn" href="https://krnl.webfiles.pro/file/krnl_release_2.689.880_2025.9.7_47.apk" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+      <a class="download-btn" href="https://krnl.webfiles.pro/file/krnlrelease2.689.8802025.9.747.apk" target="_blank"><i class="fas fa-download"></i> Descargar</a>
       <div class="warning">⚠️ No instales el archivo con "VNG", es para Vietnam y puede cambiar tu región</div>
     </div>
 
@@ -338,7 +346,7 @@
       <img src="https://i.postimg.cc/hGrNkc8z/descarga-3.jpg" alt="Codex" />
       <h2>Codex</h2>
       <div class="status-label"><span class="status-dot dot-warn"></span> Detectable</div>
-      <a class="download-btn" href="https://www.mediafire.com/file/iqdowzljfuagptd/Codex_v2.689.880.apk/file" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+      <a class="download-btn" href="https://www.mediafire.com/file/iqdowzljfuagptd/Codexv2.689.880.apk/file" target="blank"><i class="fas fa-download"></i> Descargar</a>
     </div>
 
     <div class="card">
