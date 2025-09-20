@@ -28,20 +28,12 @@
       padding: 0;
     }
     
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-    
     body {
+      margin: 0;
       font-family: 'Segoe UI', 'Roboto', sans-serif;
       background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
       color: var(--text);
       line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
     }
 
     header {
@@ -105,7 +97,6 @@
       padding: 20px;
       max-width: 1400px;
       margin: 0 auto;
-      flex: 1;
     }
 
     .card {
@@ -288,10 +279,9 @@
       padding: 25px 20px;
       color: var(--text-secondary);
       font-size: 0.9em;
+      margin-top: 40px;
       background: var(--secondary);
       border-top: 1px solid rgba(255, 255, 255, 0.05);
-      width: 100%;
-      flex-shrink: 0;
     }
     
     footer p:first-child {
@@ -302,12 +292,6 @@
       .container {
         flex-direction: column;
         align-items: center;
-        padding: 15px;
-        gap: 20px;
-      }
-      
-      header {
-        padding: 20px 15px;
       }
       
       header h1 {
@@ -317,43 +301,6 @@
       .card {
         width: 100%;
         max-width: 350px;
-      }
-      
-      .status-legend {
-        margin: 20px 15px;
-        font-size: 0.85em;
-        padding: 10px;
-      }
-      
-      .discord-section {
-        margin: 40px 15px;
-        padding: 20px;
-      }
-      
-      .discord-section img {
-        width: 180px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      header h1 {
-        font-size: 1.6em;
-      }
-      
-      header p {
-        font-size: 0.9em;
-      }
-      
-      .card h2 {
-        font-size: 1.4em;
-      }
-      
-      .discord-section h2 {
-        font-size: 1.2em;
-      }
-      
-      .discord-section a {
-        font-size: 1em;
       }
     }
   </style>
@@ -430,4 +377,4 @@
     <p>Diseñado con ❤️ para la comunidad de scripters</p>
   </footer>
 </body>
-  </html>
+</html>
