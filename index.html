@@ -70,7 +70,7 @@
     gap: 1.5rem;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 3rem;
+    margin-bottom: 1.8rem;
     position: relative;
     z-index: 10;
   }
@@ -156,6 +156,21 @@
     font-size: 1.3rem;
     pointer-events: none;
     user-select: none;
+  }
+
+  /* TEXTO DE LEMA */
+  .motto {
+    max-width: 700px;
+    font-size: 1.06rem;
+    line-height: 1.5;
+    margin-bottom: 2.2rem;
+    color: #f3c0c0;
+    text-shadow: 0 0 3px rgba(231, 76, 76, 0.4);
+    letter-spacing: 0.02em;
+    font-weight: 500;
+    text-align: center;
+    position: relative;
+    z-index: 10;
   }
 
   /* CUERPO DE TEXTO - APARECER SUAVE AL SCROLL */
@@ -244,7 +259,7 @@
     h2 {
       font-size: 1.5rem;
     }
-    p.intro, p.section-text, ul.team-list {
+    p.intro, p.section-text, ul.team-list, .motto {
       max-width: 95vw;
       font-size: 0.98rem;
     }
@@ -270,13 +285,22 @@
     <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="btn" aria-label="Nuestra página de scripts">
       <span class="emoji">📜</span> Nuestra página de scripts
     </a>
-    <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn" aria-label="Nuestra página de ejecutores">
+    <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn" aria-label="Nuestra página de executores">
       <span class="emoji">⚙️</span> Nuestra página de executores
+    </a>
+    <a href="https://youtube.com/@anti-hambreadoscript-team" target="_blank" class="btn" aria-label="Nuestro canal de YouTube">
+      <span class="emoji">🎥</span> Nuestro canal de YouTube
     </a>
   </div>
 
+  <p class="motto fade-in-section">
+    Anti-Hambreado Script Team es el canal donde los verdaderos jugadores consiguen scripts y executors sin rodeos: links directos, sin virus, sin anuncios, sin loot-link ni tonterías. Aquí no te llenamos la pantalla de publicidad ni te hacemos saltar obstáculos para conseguir lo que buscas.<br><br>
+    A diferencia de Campione Script, que parece más interesado en llenar su cartera que en ayudar a la comunidad —con sus acortadores eternos y páginas llenas de anuncios— nosotros sí respetamos tu tiempo.<br><br>
+    Menos hambre, más calidad. Eso es Anti-Hambreado Script Team.
+  </p>
+
   <p class="intro fade-in-section">
-    Hola, somos Anti-Hambreado Script Team, muchos ya nos conocerán. Somos un equipo que busca dar scripts y executores con link directo, sin anuncios y sin hambre, porque nosotros no somos hambreados como Campione Script.
+    Hola, somos Anti-Hambreado Script Team, muchos ya nos conocerán. Somos un equipo que busca dar scripts y ejecutores con link directo, sin anuncios y sin hambre, porque nosotros no somos hambreados como Campione Script.
   </p>
 
   <ul class="team-list fade-in-section">
@@ -322,7 +346,7 @@
   </footer>
 
 <script>
-  // PARTICULAS CANVAS (igual que antes)
+  // PARTICULAS CANVAS
   const canvas = document.getElementById('particles');
   const ctx = canvas.getContext('2d');
   let width, height;
@@ -434,4 +458,4 @@
   fadeEls.forEach(el => observer.observe(el));
 </script>
 </body>
-    </html>
+</html>
