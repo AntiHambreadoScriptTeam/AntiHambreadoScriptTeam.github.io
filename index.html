@@ -19,10 +19,11 @@
             min-height: 100vh;
             color: #fff;
             overflow-x: hidden;
-            /* Suave transición para cualquier cambio visual */
-            transition: background-color 0.6s ease, color 0.6s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
+        /* Canvas para partículas */
         #particles-js {
             position: fixed;
             width: 100%;
@@ -39,15 +40,14 @@
             right: -400px;
             width: 400px;
             height: 100vh;
-            background: linear-gradient(180deg, rgba(0,0,0,0.98), rgba(45,27,27,0.98));
-            backdrop-filter: blur(30px);
-            transition: right 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+            background: linear-gradient(180deg, rgba(0,0,0,0.98) 0%, rgba(45,27,27,0.98) 100%);
+            backdrop-filter: blur(25px);
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 999;
             padding: 90px 0 20px 0;
-            box-shadow: -12px 0 60px rgba(255, 0, 0, 0.25);
+            box-shadow: -10px 0 40px rgba(255, 0, 0, 0.3);
             overflow-y: auto;
-            border-left: 3px solid rgba(255, 0, 0, 0.4);
-            border-radius: 12px 0 0 12px;
+            border-left: 3px solid rgba(255, 0, 0, 0.3);
         }
 
         .sidebar.active {
@@ -58,28 +58,32 @@
             padding: 18px 30px;
             border-bottom: 1px solid rgba(255, 0, 0, 0.12);
             cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+            transition: all 0.5s ease;
             display: flex;
             align-items: center;
             position: relative;
             overflow: hidden;
-            color: #ff3b3b;
-            font-size: 1.15rem;
-            font-weight: 700;
+            color: #ff4444;
             text-decoration: none;
-            text-shadow: 0 0 6px rgba(255, 0, 0, 0.6);
+            font-size: 1.1rem;
+            filter: drop-shadow(0 0 5px rgba(255, 60, 60, 0.6));
+            font-weight: 600;
         }
 
         .sidebar-item::before {
             content: '';
             position: absolute;
-            left: -120%;
+            left: -100%;
             top: 0;
-            width: 120%;
+            width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.12), transparent);
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 100, 100, 0.15),
+                transparent
+            );
             transition: left 0.7s ease;
-            filter: drop-shadow(0 0 4px rgba(255,0,0,0.35));
         }
 
         .sidebar-item:hover::before {
@@ -87,26 +91,31 @@
         }
 
         .sidebar-item:hover {
-            background: rgba(255, 0, 0, 0.05);
+            background: linear-gradient(
+                90deg,
+                rgba(255, 0, 0, 0.15),
+                rgba(255, 0, 0, 0.07)
+            );
             transform: translateX(-8px);
-            border-left: 4px solid #ff0000;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.35);
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255, 30, 30, 0.8);
+            border-left: 4px solid #ff5555;
+            box-shadow: 0 0 25px rgba(255, 60, 60, 0.3);
+            color: #ff8888;
+            text-shadow: 0 0 8px #ff6666;
         }
 
+        /* Overlay menú */
         .menu-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.65);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 998;
             display: none;
             opacity: 0;
             transition: opacity 0.4s ease;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(3px);
         }
 
         .menu-overlay.active {
@@ -114,6 +123,7 @@
             opacity: 1;
         }
 
+        /* Botón hamburguesa */
         .menu-toggle {
             position: fixed;
             top: 20px;
@@ -123,26 +133,25 @@
             flex-direction: column;
             cursor: pointer;
             gap: 6px;
-            padding: 10px 12px;
-            border-radius: 8px;
-            background: rgba(18, 18, 18, 0.6);
-            transition: all 0.35s ease;
+            padding: 12px;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.6);
+            transition: background 0.4s ease, box-shadow 0.4s ease;
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
-            user-select: none;
         }
 
         .menu-toggle:hover {
-            background: rgba(255, 0, 0, 0.2);
-            box-shadow: 0 0 26px rgba(255, 0, 0, 0.65);
+            background: rgba(255, 0, 0, 0.18);
+            box-shadow: 0 0 20px rgba(255, 40, 40, 0.7);
         }
 
         .menu-toggle span {
-            width: 30px;
-            height: 3.5px;
-            background: #ff0000;
-            border-radius: 3px;
-            transition: all 0.35s ease;
-            box-shadow: 0 0 6px rgba(255, 0, 0, 0.8);
+            width: 32px;
+            height: 3px;
+            background: #ff4444;
+            border-radius: 2px;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            filter: drop-shadow(0 0 5px rgba(255, 80, 80, 0.8));
         }
 
         .menu-toggle.active span:nth-child(1) {
@@ -160,47 +169,42 @@
         header {
             text-align: center;
             margin-top: 80px;
-            padding: 22px 16px;
-            animation: fadeInDown 1s ease forwards;
-            filter: drop-shadow(0 0 12px rgba(255, 50, 50, 0.7));
+            padding: 20px;
+            animation: fadeInDown 0.9s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         header h1 {
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             margin-bottom: 0.6rem;
-            background: linear-gradient(270deg, #ff0000, #ff6666, #ff0000);
-            background-size: 400% 100%;
+            text-shadow:
+                0 0 12px rgba(255, 50, 50, 0.6),
+                0 0 18px rgba(255, 20, 20, 0.8),
+                0 0 30px rgba(255, 0, 0, 0.5);
+            background: linear-gradient(90deg, #ff0000, #ff6666, #ff0000);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: neonGlow 4s ease-in-out infinite alternate;
-            letter-spacing: 1.5px;
-            text-shadow:
-                0 0 8px #ff0000,
-                0 0 20px #ff4d4d,
-                0 0 30px #ff4d4d,
-                0 0 40px #ff1919,
-                0 0 50px #ff0000;
+            animation: neonGlow 3.5s linear infinite;
+            user-select: none;
+            filter: drop-shadow(0 0 6px #ff4444);
         }
 
         header p {
             font-size: 1.05rem;
-            color: #f2f2f2cc;
+            color: #ddd;
             margin-top: 12px;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            text-shadow: 0 0 6px rgba(255, 50, 50, 0.3);
+            opacity: 0.85;
         }
 
         .status-legend {
             max-width: 600px;
-            margin: 30px auto;
+            margin: 30px auto 20px;
             font-size: 1rem;
-            background: rgba(20, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.52);
             padding: 18px 25px;
             border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
-            animation: fadeIn 1.2s ease 0.3s both;
-            color: #ffc2c2;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 1s ease 0.3s both;
             user-select: none;
         }
 
@@ -208,57 +212,61 @@
             list-style: none;
             padding-left: 0;
             line-height: 2;
+            color: #ffbbbb;
+            font-weight: 600;
+            text-shadow: 0 0 5px rgba(255, 60, 60, 0.6);
         }
 
         .container {
             display: flex;
             flex-wrap: wrap;
-            gap: 26px;
+            gap: 24px;
             justify-content: center;
-            padding: 24px 20px 40px 20px;
+            padding: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .card {
-            background: linear-gradient(145deg, rgba(10, 0, 0, 0.85), rgba(45, 25, 25, 0.75));
-            width: 260px;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.85), rgba(45, 15, 15, 0.7));
+            width: 270px;
             border-radius: 18px;
-            padding: 18px 23px 22px;
-            box-shadow: 0 15px 60px rgba(255, 0, 0, 0.22);
+            padding: 20px 18px 24px;
+            box-shadow: 0 18px 50px rgba(255, 0, 0, 0.25);
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: all 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            animation: fadeInUp 0.9s ease forwards;
-            cursor: default;
-        }
-
-        .card:hover {
-            transform: translateY(-12px) scale(1.05);
-            box-shadow:
-                0 0 18px #ff3838,
-                0 0 45px #ff1a1a,
-                0 0 60px #ff0d0d,
-                0 10px 30px rgba(255, 0, 0, 0.6);
+            animation: fadeInUp 0.9s cubic-bezier(0.4, 0, 0.2, 1) both;
+            user-select: none;
+            filter: drop-shadow(0 0 6px rgba(255, 30, 30, 0.7));
         }
 
         .card::before {
             content: '';
             position: absolute;
-            top: -60%;
-            left: -60%;
-            width: 220%;
-            height: 220%;
-            background: radial-gradient(circle, rgba(255,0,0,0.12) 0%, transparent 75%);
+            top: -45%;
+            left: -45%;
+            width: 190%;
+            height: 190%;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.12) 0%, transparent 75%);
             opacity: 0;
             transition: opacity 0.6s ease;
             pointer-events: none;
-            filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.3));
+            filter: blur(10px);
         }
 
         .card:hover::before {
             opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-14px) scale(1.05);
+            box-shadow: 0 25px 65px rgba(255, 50, 50, 0.45);
+            filter: drop-shadow(0 0 10px rgba(255, 50, 50, 0.9));
+            z-index: 12;
         }
 
         .card:nth-child(1) { animation-delay: 0.12s; }
@@ -269,45 +277,47 @@
         .card:nth-child(6) { animation-delay: 0.72s; }
 
         .card img {
-            width: 150px;
-            height: 150px;
+            width: 160px;
+            height: 160px;
             object-fit: contain;
-            margin-bottom: 12px;
-            transition: transform 0.55s ease, filter 0.6s ease;
-            filter: drop-shadow(0 0 8px rgba(255, 50, 50, 0.7));
-            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: transform 0.6s ease, filter 0.6s ease;
+            filter: drop-shadow(0 0 8px rgba(255, 20, 20, 0.7));
+            border-radius: 30px;
+            user-select: none;
+            cursor: default;
         }
 
         .card:hover img {
-            transform: scale(1.12) rotate(6deg);
-            filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.9));
+            transform: scale(1.15) rotate(5deg);
+            filter: drop-shadow(0 0 18px rgba(255, 80, 80, 0.9));
         }
 
         .status-label {
-            margin: 12px 0 10px;
-            font-weight: 900;
-            font-size: 1.15rem;
-            color: #ff4d4d;
-            letter-spacing: 0.03em;
+            margin: 12px 0;
+            font-weight: 700;
             text-shadow:
-                0 0 8px rgba(255, 100, 100, 0.85),
-                0 0 15px rgba(255, 0, 0, 0.9);
+                0 0 6px rgba(255, 255, 255, 0.45),
+                0 0 12px rgba(255, 50, 50, 0.7);
+            user-select: none;
         }
 
         .download-btn {
             background: linear-gradient(45deg, #ff1a1a, #cc0000);
             color: white;
-            padding: 11px 25px;
-            font-weight: 700;
-            border-radius: 10px;
+            padding: 12px 28px;
             text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.4s ease;
             box-shadow:
-                0 4px 15px rgba(255, 40, 40, 0.5),
-                inset 0 0 6px #ff0000;
-            transition: all 0.35s ease;
+                0 6px 22px rgba(255, 0, 0, 0.4),
+                inset 0 -3px 8px rgba(255, 50, 50, 0.7);
             position: relative;
             overflow: hidden;
             user-select: none;
+            cursor: pointer;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
         }
 
         .download-btn::before {
@@ -317,10 +327,14 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
-            transition: left 0.55s ease;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.25),
+                transparent
+            );
+            transition: left 0.6s ease;
             pointer-events: none;
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
         }
 
         .download-btn:hover::before {
@@ -328,7 +342,300 @@
         }
 
         .download-btn:hover {
-            background: linear-gradient(45deg, #ff4d4d, #e60000);
+            background: linear-gradient(45deg, #ff4444, #ff0000);
+            box-shadow:
+                0 9px 28px rgba(255, 0, 0, 0.7),
+                inset 0 -4px 12px rgba(255, 80, 80, 0.9);
+            transform: translateY(-3px);
+        }
+
+        .warning {
+            font-size: 0.9rem;
+            color: #ffd91a;
+            margin-top: 14px;
+            text-align: center;
+            text-shadow: 0 0 6px rgba(255, 255, 50, 0.75);
+            user-select: none;
+            font-weight: 600;
+        }
+
+        .discord-section {
+            text-align: center;
+            margin: 50px auto;
+            padding: 36px 30px;
+            background: rgba(0, 0, 0, 0.55);
+            border-radius: 18px;
+            max-width: 820px;
+            box-shadow: 0 12px 38px rgba(0, 0, 0, 0.35);
+            animation: fadeIn 1s ease 0.8s both;
+            position: relative;
+            overflow: hidden;
+            filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.5));
+            user-select: none;
+        }
+
+        .discord-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                #ff0000,
+                transparent
+            );
+            filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.8));
+        }
+
+        .discord-section img {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 15px;
+            border-radius: 50%;
+            transition: transform 0.6s ease;
+            filter: drop-shadow(0 0 12px rgba(255, 60, 60, 0.8));
+            cursor: default;
+        }
+
+        .discord-section:hover img {
+            transform: scale(1.13) rotate(5deg);
+            filter: drop-shadow(0 0 18px rgba(255, 80, 80, 0.9));
+        }
+
+        .discord-section h2 {
+            margin-bottom: 18px;
+            text-shadow: 0 0 14px rgba(255, 0, 0, 0.7);
+            font-weight: 700;
+            font-size: 1.9rem;
+            user-select: none;
+        }
+
+        .discord-section a {
+            color: #7289da;
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            text-shadow: 0 0 6px rgba(114, 137, 218, 0.5);
+            user-select: text;
+        }
+
+        .discord-section a:hover {
+            color: #99aab5;
+            text-shadow: 0 0 14px rgba(114, 137, 218, 0.85);
+        }
+
+        footer {
+            text-align: center;
+            padding: 22px;
+            background: rgba(0, 0, 0, 0.55);
+            margin-top: 42px;
+            animation: fadeIn 1s ease 1s both;
+            font-weight: 600;
+            color: #eee;
+            user-select: none;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            margin: 6px 0;
+            filter: drop-shadow(0 0 3px rgba(255, 50, 50, 0.5));
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes neonGlow {
+            0% {
+                background-position: 0% 50%;
+                text-shadow: 0 0 5px #ff5555, 0 0 8px #ff6666;
+            }
+            50% {
+                background-position: 100% 50%;
+                text-shadow: 0 0 15px #ff3333, 0 0 20px #ff4444;
+            }
+            100% {
+                background-position: 0% 50%;
+                text-shadow: 0 0 5px #ff5555, 0 0 8px #ff6666;
+            }
+        }
+
+        /* Efecto pulso suave para botones */
+        .download-btn {
+            animation: pulseGlow 3.5s ease-in-out infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow:
+                    0 6px 22px rgba(255, 0, 0, 0.4),
+                    inset 0 -3px 8px rgba(255, 50, 50, 0.7);
+            }
+            50% {
+                box-shadow:
+                    0 10px 32px rgba(255, 30, 30, 0.6),
+                    inset 0 -5px 12px rgba(255, 80, 80, 0.9);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 300px;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Canvas para partículas -->
+    <div id="particles-js"></div>
+
+    <!-- Menú hamburguesa -->
+    <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" role="button" tabindex="0">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Panel del menú -->
+    <div class="sidebar" id="menuPanel" aria-hidden="true">
+        <a class="sidebar-item" href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" rel="noopener noreferrer">
+            📜 | Scripts aquí
+        </a>
+    </div>
+
+    <!-- Overlay -->
+    <div class="menu-overlay" id="menuOverlay" tabindex="-1"></div>
+
+    <header>
+        <h1>Estado de los Executores</h1>
+        <p>Última actualización: Septiembre 2025</p>
+    </header>
+
+    <div class="status-legend" aria-label="Leyenda de estados">
+        <ul>
+            <li>🟢 Indetectable y actualizado</li>
+            <li>🟠 Detectable pero actualizado</li>
+            <li>🔴 Peligro de usar pero actualizado</li>
+            <li>⚫ Desactualizado</li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="card" tabindex="0">
+            <img src="https://i.postimg.cc/P5vc51Wj/ronix-081525.webp" alt="Ronix" />
+            <h2>Ronix</h2>
+            <div class="status-label">🚫 Peligroso</div>
+            <a class="download-btn" href="https://wrdcdn.net/r/154522/1757349822750/Ronix_688_(arm64).apk" target="_blank" rel="noopener noreferrer">Descargar</a>
+        </div>
+
+        <div class="card" tabindex="0">
+            <img src="https://i.postimg.cc/xTcp6LFz/new-logo.png" alt="KRNL" />
+            <h2>KRNL</h2>
+            <div class="status-label">🟢 Indetectable</div>
+            <a class="download-btn" href="https://krnl.webfiles.pro/android.html" target="_blank" rel="noopener noreferrer">Descargar</a>
+            <div class="warning">⚠️ No instales el archivo con "VNG", es para Vietnam y puede cambiar tu región</div>
+        </div>
+
+        <div class="card" tabindex="0">
+            <img src="https://i.postimg.cc/hGrNkc8z/descarga-3.jpg" alt="Codex" />
+            <h2>Codex</h2>
+            <div class="status-label">🟠 Detectable</div>
+            <a class="download-btn" href="https://www.mediafire.com/file/iqdowzljfuagptd/Codex_v2.689.880.apk/file" target="_blank" rel="noopener noreferrer">Descargar</a>
+        </div>
+
+        <div class="card" tabindex="0">
+            <img src="https://i.postimg.cc/R0cDc9pp/descarga-4.jpg" alt="Arceus" />
+            <h2>Arceus</h2>
+            <div class="status-label">🟠 Detectable</div>
+            <a class="download-btn" href="https://android.spdmteam.com/" target="_blank" rel="noopener noreferrer">Descargar</a>
+        </div>
+
+        <div class="card" tabindex="0">
+            <img src="https://i.postimg.cc/XY9Rgwpg/descarga-2.png" alt="Fluxus" />
+            <h2>Fluxus</h2>
+            <div class="status-label">💀 Descontinuado</div>
+            <a class="download-btn" href="https://i.postimg.cc/WpyRFyJp/Screenshot-20250922-103258-857.png" target="_blank" rel="noopener noreferrer">Descargar</a>
+        </div>
+
+        <div class="card" tabindex="0">
+            <img src="https://i.postimg.cc/VkyyM7L6/images.jpg" alt="Delta" />
+            <h2>Delta</h2>
+            <div class="status-label">🟠 Detectable</div>
+            <a class="download-btn" href="https://updowncontent.com/android.html" target="_blank" rel="noopener noreferrer">Descargar</a>
+        </div>
+    </div>
+
+    <div class="discord-section">
+        <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" />
+        <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL</h2>
+        <a href="https://discord.gg/rTGF5xhe3h" target="_blank" rel="noopener noreferrer">💬 https://discord.gg/rTGF5xhe3h</a>
+    </div>
+
+    <footer>
+        <p>© 2025 Anti-Hambreado Script Team. Todos los derechos reservados.</p>
+        <p>Diseñado con ❤️ para la comunidad de scripters</p>
+    </footer>
+
+    <!-- Script para partículas -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Configuración de partículas con brillo/neón rojo suave para un efecto más cool
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 90,
+                    density: { enable: true, value_area: 900 }
+                },
+                color: { value: "#ff4444" },
+                shape: {
+                    type: "circle",
+                    stroke: { width: 0, color: "#000000" }
+                },
+                opacity: {
+                    value: 0.6,
+                    random: true,
+                    anim: { enable: true, speed: 1.5, opacity_min: 0.2, sync: fff4d4d, #e60000);
             box-shadow:
                 0 6px 22px rgba(255, 90, 90, 0.75),
                 inset 0 0 12px #ff3900;
