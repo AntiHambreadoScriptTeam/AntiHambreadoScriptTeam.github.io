@@ -1,257 +1,339 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Estado de los Executores</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* Reset ligero */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      transition: all 0.3s ease;
-    }
-    html, body {
-      height: 100%;
-      background-color: #0d0d0d;
-      color: #f0f0f0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      overflow-x: hidden;
-    }
-    a {
-      color: #ff3366;
-      text-decoration: none;
-    }
-    a:hover {
-      color: #ff6699;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti-Hambreado Script Team</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 
-    /* Contenedor principal */
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 40px 20px;
-      position: relative;
-      z-index: 1;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    h1, h2 {
-      text-align: center;
-      text-shadow: 0 0 10px rgba(255, 0, 60, 0.7);
-    }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-    h2 {
-      font-size: 1.8em;
-      margin-top: 30px;
-      margin-bottom: 15px;
-    }
+        body {
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, #0f0f0f 0%, #2d1b1b 50%, #1a0000 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
 
-    .status-list {
-      list-style-type: none;
-      padding: 0;
-      margin-top: 20px;
-    }
+        /* Menú lateral */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: linear-gradient(180deg, rgba(0,0,0,0.98) 0%, rgba(45,27,27,0.98) 100%);
+            backdrop-filter: blur(25px);
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 999;
+            padding: 90px 0 20px 0;
+            box-shadow: -10px 0 40px rgba(255, 0, 0, 0.3);
+            overflow-y: auto;
+            border-left: 3px solid rgba(255, 0, 0, 0.3);
+        }
 
-    .status-list li {
-      background-color: #1a1a1a;
-      border: 1px solid #333;
-      border-left: 5px solid #ff3366;
-      margin-bottom: 15px;
-      padding: 15px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s forwards;
-    }
+        .sidebar.active {
+            right: 0;
+        }
 
-    .status-list li:nth-child(1) {
-      animation-delay: 0.2s;
-    }
-    .status-list li:nth-child(2) {
-      animation-delay: 0.4s;
-    }
-    .status-list li:nth-child(3) {
-      animation-delay: 0.6s;
-    }
-    .status-list li:nth-child(4) {
-      animation-delay: 0.8s;
-    }
-    .status-list li:nth-child(5) {
-      animation-delay: 1.0s;
-    }
+        .sidebar-item {
+            padding: 18px 30px;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            color: white; /* Texto blanco */
+        }
 
-    .status-label {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-weight: bold;
-      color: #f0f0f0;
-      background-color: #333;
-      text-shadow: none;
-      margin-left: 10px;
-      box-shadow: 0 0 5px rgba(255, 0, 60, 0.6);
-    }
+        .sidebar-item::before {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
 
-    .dangerous {
-      background-color: #ff0000;
-    }
-    .indetectable {
-      background-color: #00b300;
-    }
-    .detectable {
-      background-color: #ffcc00;
-    }
-    .outdated {
-      background-color: #555555;
-    }
+        .sidebar-item:hover::before {
+            left: 100%;
+        }
 
-    .footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #bbb;
-    }
+        .sidebar-item:hover {
+            background: linear-gradient(90deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.05));
+            transform: translateX(-8px);
+            border-left: 4px solid #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+        }
 
-    /* Animaciones */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        /* Overlay menú */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 998;
+            display: none;
+        }
 
-    /* Efecto Neón suave para enlaces destacados */
-    .neon {
-      color: #ff3366;
-      text-shadow:
-        0 0 5px #ff3366,
-        0 0 10px #ff3366,
-        0 0 20px #ff6699,
-        0 0 30px #ff6699;
-    }
-    .neon:hover {
-      color: #ff99aa;
-      text-shadow:
-        0 0 10px #ff99aa,
-        0 0 20px #ff99aa,
-        0 0 30px #ffccbb,
-        0 0 40px #ffccbb;
-    }
+        .menu-overlay.active {
+            display: block;
+        }
 
-    /* Partículas rojas de fondo */
-    #particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      background: transparent;
-      overflow: hidden;
-    }
-    .particle {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      background-color: rgba(255,0,60,0.8);
-      border-radius: 50%;
-      will-change: transform, opacity;
-      animation: particleMove 10s linear infinite, particleFade 5s ease-in-out infinite alternate;
-    }
-    @keyframes particleMove {
-      from { transform: translate3d(0,0,0); }
-      to { transform: translate3d(100vw, 100vh, 0); }
-    }
-    @keyframes particleFade {
-      from { opacity: 0.2; }
-      to { opacity: 0.8; }
-    }
+        /* Botón hamburguesa */
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
 
-  </style>
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: #ff0000;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        header {
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        .status-legend {
+            max-width: 600px;
+            margin: 20px auto;
+            font-size: 0.95rem;
+        }
+
+        .status-legend ul {
+            list-style:none;
+            padding-left:0;
+            line-height:1.8;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(45, 27, 27, 0.6));
+            width: 260px;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .card img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .status-label {
+            margin: 10px 0;
+        }
+
+        .download-btn {
+            background: #ff0000;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #ff6666;
+        }
+
+        .warning {
+            font-size: 0.85rem;
+            color: yellow;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .discord-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .discord-section img {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.5);
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 0.85rem;
+        }
+    </style>
 </head>
 <body>
-  <div id="particles"></div>
-
-  <div class="container">
-    <h1 class="neon">Estado de los Executores</h1>
-    <p style="text-align:center; margin-top:10px;">Última actualización: Septiembre 2025</p>
-
-    <ul class="status-list">
-      <li>
-        <img src="https://i.postimg.cc/P5vc51Wj/Ronix-Logo.webp" alt="Ronix">
-        <strong>Ronix</strong>
-        <span class="status-label dangerous">Peligroso</span>
-        <div><a href="https://wrdcdn.net/r/154522/1757349822750/Ronix_688_(arm64).apk">Descargar</a></div>
-      </li>
-      <li>
-        <img src="https://i.postimg.cc/xTcp6LFz/KRNL-Logo.png" alt="KRNL">
-        <strong>KRNL</strong>
-        <span class="status-label indetectable">Indetectable</span>
-        <div><a href="https://krnl.webfiles.pro/android.html">Descargar</a></div>
-        <p style="margin-top:5px; font-size:0.9em; color:#ccc;">⚠️ No instales el archivo con "VNG", es para Vietnam y puede cambiar tu región</p>
-      </li>
-      <li>
-        <img src="https://i.postimg.cc/hGrNkc8z/Codex-Logo.jpg" alt="Codex">
-        <strong>Codex</strong>
-        <span class="status-label detectable">Detectable</span>
-        <div><a href="https://www.mediafire.com/file/iqdowzljfuagptd/Codex_v2.689.880.apk/file">Descargar</a></div>
-      </li>
-      <li>
-        <img src="https://i.postimg.cc/R0cDc9pp/Arceus-Logo.jpg" alt="Arceus">
-        <strong>Arceus</strong>
-        <span class="status-label detectable">Detectable</span>
-        <div><a href="https://android.spdmteam.com/">Descargar</a></div>
-        <span class="status-label outdated">🟠</span>
-      </li>
-      <li>
-        <img src="https://i.postimg.cc/VkyyM7L6/Virus-Logo.jpg" alt="Delta">
-        <strong>Delta</strong>
-        <span class="status-label detectable">Detectable</span>
-        <div><a href="https://deltaexploits.gg/delta-executor-android">Descargar</a></div>
-      </li>
-    </ul>
-
-    <div style="text-align:center; margin-top:30px;">
-      <a class="neon" href="https://discord.gg/rTGF5xhe3h">ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL</a>
+    <!-- Menú hamburguesa -->
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
 
-    <div class="footer">
-      © 2025 Anti-Hambreado Script Team. Todos los derechos reservados.<br>
-      Diseñado con ❤️ para la comunidad de scripters
+    <!-- Panel del menú -->
+    <div class="sidebar" id="menuPanel">
+        <a class="sidebar-item" href="https://antihambreadoscriptteam.github.io/scripts" target="_blank">
+            <i class="fas fa-code"></i>📜 | Scripts aquí
+        </a>
     </div>
-  </div>
 
-  <script>
-    // Crear partículas rojas suaves
-    const particlesContainer = document.getElementById('particles');
-    const numParticles = 80;
+    <!-- Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
 
-    for (let i = 0; i < numParticles; i++) {
-      const p = document.createElement('div');
-      p.classList.add('particle');
-      const size = Math.random() * 4 + 2; // entre 2px y 6px
-      p.style.width = `${size}px`;
-      p.style.height = `${size}px`;
-      p.style.left = `${Math.random() * 100}vw`;
-      p.style.top = `${Math.random() * 100}vh`;
-      const delay = Math.random() * -20;
-      p.style.animationDelay = `${delay}s, ${delay / 2}s`;
-      const durationMove = 20 + Math.random() * 10;
-      p.style.animationDuration = `${durationMove}s, ${10 + Math.random()*5}s`;
-      particlesContainer.appendChild(p);
-    }
+    <header>
+        <h1><i class="fas fa-chart-bar"></i> Estado de los Executores</h1>
+        <p>Última actualización: Septiembre 2025</p>
+    </header>
 
-    // Puede agregar efecto de brillo intermitente suave si quieres
-  </script>
+    <div class="status-legend">
+        <ul>
+            <li>🟢 Indetectable y actualizado</li>
+            <li>🟠 Detectable pero actualizado</li>
+            <li>🔴 Peligro de usar pero actualizado</li>
+            <li>⚫ Desactualizado</li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <img src="https://i.postimg.cc/P5vc51Wj/ronix-081525.webp" alt="Ronix" />
+            <h2>Ronix</h2>
+            <div class="status-label"><span class="status-dot dot-danger"></span>🚫 Peligroso</div>
+            <a class="download-btn" href="https://wrdcdn.net/r/154522/1757349822750/Ronix_688_(arm64).apk" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/xTcp6LFz/new-logo.png" alt="KRNL" />
+            <h2>KRNL</h2>
+            <div class="status-label"><span class="status-dot dot-ok"></span>🟢 Indetectable</div>
+            <a class="download-btn" href="https://krnl.webfiles.pro/file/krnl_release_2.689.880_2025.9.7_47.apk" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+            <div class="warning">⚠️ No instales el archivo con "VNG", es para Vietnam y puede cambiar tu región</div>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/hGrNkc8z/descarga-3.jpg" alt="Codex" />
+            <h2>Codex</h2>
+            <div class="status-label"><span class="status-dot dot-warn"></span>🟠 Detectable</div>
+            <a class="download-btn" href="https://www.mediafire.com/file/iqdowzljfuagptd/Codex_v2.689.880.apk/file" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/R0cDc9pp/descarga-4.jpg" alt="Arceus" />
+            <h2>Arceus</h2>
+            <div class="status-label"><span class="status-dot dot-warn"></span>🟠 Detectable</div>
+            <a class="download-btn" href="https://android.spdmteam.com/" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/XY9Rgwpg/descarga-2.png" alt="Fluxus" />
+            <h2>Fluxus</h2>
+            <div class="status-label"><span class="status-dot dot-bad"></span>💀 Descontinuado</div>
+            <a class="download-btn" href="https://i.postimg.cc/WpyRFyJp/Screenshot-20250922-103258-857.png" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/VkyyM7L6/images.jpg" alt="Delta" />
+            <h2>Delta</h2>
+            <div class="status-label"><span class="status-dot dot-warn"></span>🟠 Detectable</div>
+            <a class="download-btn" href="https://updowncontent.com/android.html" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+    </div>
+
+    <div class="discord-section">
+        <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" />
+        <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL</h2>
+        <a href="https://discord.gg/rTGF5xhe3h" target="_blank">💬 https://discord.gg/rTGF5xhe3h</a>
+    </div>
+
+    <footer>
+        <p>© 2025 Anti-Hambreado Script Team. Todos los derechos reservados.</p>
+        <p>Diseñado con ❤️ para la comunidad de scripters</p>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const menuPanel = document.getElementById('menuPanel');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            menuPanel.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+        });
+
+        menuOverlay.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            menuPanel.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        });
+    </script>
 </body>
 </html>
