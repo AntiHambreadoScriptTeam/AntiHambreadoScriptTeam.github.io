@@ -4,173 +4,332 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anti-Hambreado Script Team</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Orbitron', monospace; background:linear-gradient(135deg, #0f0f0f 0%, #2d1b1b 50%, #1a0000 100%); color:#fff; overflow-x:hidden; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        /* Partículas */
-        .particles { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
-        .particle { position:absolute; width:2px; height:2px; background:#ff0000; border-radius:50%; animation:float 6s ease-in-out infinite; }
-        @keyframes float { 0%,100%{ transform:translateY(0px) translateX(0px) rotate(0deg); opacity:0; } 50%{ transform:translateY(-20px) translateX(10px) rotate(180deg); opacity:1; } }
+        body {
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, #0f0f0f 0%, #2d1b1b 50%, #1a0000 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
 
-        /* Header y hamburguesa */
-        .header { position:fixed; top:0; left:0; right:0; background:linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(45,27,27,0.95) 50%, rgba(26,0,0,0.95) 100%); backdrop-filter:blur(15px); padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; z-index:1000; box-shadow:0 4px 30px rgba(255,0,0,0.3); border-bottom:2px solid rgba(255,0,0,0.2); }
-        .logo { font-size:1.8rem; font-weight:900; background:linear-gradient(45deg, #ff0000, #ff6666); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-shadow:0 0 20px rgba(255,0,0,0.5); animation:glow 2s ease-in-out infinite alternate; }
-        @keyframes glow { from { filter:drop-shadow(0 0 5px #ff0000); } to { filter:drop-shadow(0 0 15px #ff0000); } }
-        .hamburger { display:flex; flex-direction:column; cursor:pointer; padding:8px; transition:all 0.3s ease; border:2px solid transparent; border-radius:8px; }
-        .hamburger:hover { border-color: rgba(255,0,0,0.5); background: rgba(255,0,0,0.1); }
-        .hamburger span { width:28px; height:3px; background:linear-gradient(45deg, #ff0000, #ff3333); margin:3px 0; transition:all 0.4s ease; border-radius:2px; box-shadow:0 0 10px rgba(255,0,0,0.3); }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px,6px); }
-        .hamburger.active span:nth-child(2) { opacity:0; transform:scale(0); }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px,-6px); }
+        /* Menú lateral */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: linear-gradient(180deg, rgba(0,0,0,0.98) 0%, rgba(45,27,27,0.98) 100%);
+            backdrop-filter: blur(25px);
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 999;
+            padding: 90px 0 20px 0;
+            box-shadow: -10px 0 40px rgba(255, 0, 0, 0.3);
+            overflow-y: auto;
+            border-left: 3px solid rgba(255, 0, 0, 0.3);
+        }
 
-        /* Sidebar */
-        .sidebar { position:fixed; top:0; right:-400px; width:400px; height:100vh; background:linear-gradient(180deg, rgba(0,0,0,0.98) 0%, rgba(45,27,27,0.98) 100%); backdrop-filter:blur(25px); transition:right 0.4s cubic-bezier(0.25,0.46,0.45,0.94); z-index:999; padding:90px 0 20px 0; box-shadow:-10px 0 40px rgba(255,0,0,0.3); overflow-y:auto; border-left:3px solid rgba(255,0,0,0.3); }
-        .sidebar.active { right:0; }
-        .sidebar-item { padding:18px 30px; border-bottom:1px solid rgba(255,0,0,0.1); cursor:pointer; display:flex; align-items:center; position:relative; overflow:hidden; transition:all 0.4s ease; }
-        .sidebar-item:hover { background:linear-gradient(90deg, rgba(255,0,0,0.1), rgba(255,0,0,0.05)); transform:translateX(-8px); border-left:4px solid #ff0000; box-shadow:0 0 20px rgba(255,0,0,0.2); }
+        .sidebar.active {
+            right: 0;
+        }
 
-        /* Contenido principal */
-        .content { padding:110px 2rem 3rem 2rem; max-width:1400px; margin:0 auto; position:relative; z-index:2; }
-        .status-legend { text-align:center; margin-top:90px; margin-bottom:20px; font-size:0.9rem; }
+        .sidebar-item {
+            padding: 18px 30px;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            color: white; /* Texto blanco */
+        }
 
-        .container { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem; }
-        .card { background:linear-gradient(145deg, rgba(0,0,0,0.8), rgba(45,27,27,0.6)); border-radius:20px; overflow:hidden; box-shadow:0 15px 40px rgba(255,0,0,0.2); border:1px solid rgba(255,0,0,0.2); text-align:center; transition:all 0.4s ease; padding-bottom:1rem; }
-        .card:hover { transform:translateY(-8px) scale(1.02); box-shadow:0 25px 60px rgba(255,0,0,0.4); border-color:rgba(255,0,0,0.5); }
-        .card img { width:150px; height:150px; object-fit:cover; border-radius:15px; margin-top:1rem; }
-        .card h2 { margin:10px 0; font-size:1.4rem; }
-        .status-label { margin-bottom:10px; font-weight:700; }
-        .status-dot { display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:6px; }
-        .dot-danger { background:red; }
-        .dot-ok { background:lime; }
-        .dot-warn { background:orange; }
-        .dot-bad { background:#333; }
-        .download-btn { display:inline-block; background:linear-gradient(45deg, rgba(255,0,0,0.2), rgba(255,51,51,0.2)); color:#fff; border:2px solid #ff0000; padding:10px 20px; border-radius:25px; text-decoration:none; transition:all 0.3s; margin-top:5px; }
-        .download-btn:hover { transform:scale(1.05); background:linear-gradient(45deg, rgba(255,0,0,0.4), rgba(255,51,51,0.4)); }
+        .sidebar-item::before {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
 
-        .discord-section { text-align:center; margin-top:3rem; }
-        .discord-section img { width:100px; margin-bottom:1rem; }
-        footer { text-align:center; margin:2rem 0 1rem 0; font-size:0.85rem; color:rgba(255,255,255,0.7); }
+        .sidebar-item:hover::before {
+            left: 100%;
+        }
 
-        @media(max-width:768px){ .container{grid-template-columns:1fr;} .card img{width:120px;height:120px;} }
+        .sidebar-item:hover {
+            background: linear-gradient(90deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.05));
+            transform: translateX(-8px);
+            border-left: 4px solid #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+        }
+
+        /* Overlay menú */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 998;
+            display: none;
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        /* Botón hamburguesa */
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: #ff0000;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        header {
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        .status-legend {
+            max-width: 600px;
+            margin: 20px auto;
+            font-size: 0.95rem;
+        }
+
+        .status-legend ul {
+            list-style:none;
+            padding-left:0;
+            line-height:1.8;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(45, 27, 27, 0.6));
+            width: 260px;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .card img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .status-label {
+            margin: 10px 0;
+        }
+
+        .download-btn {
+            background: #ff0000;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #ff6666;
+        }
+
+        .warning {
+            font-size: 0.85rem;
+            color: yellow;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .discord-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .discord-section img {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.5);
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 0.85rem;
+        }
     </style>
 </head>
 <body>
-    <div class="particles"></div>
-
-    <!-- Header -->
-    <div class="header">
-        <div class="logo">Anti-Hambreado</div>
-        <div class="hamburger" id="menuToggle"><span></span><span></span><span></span></div>
+    <!-- Menú hamburguesa -->
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
 
-    <!-- Sidebar -->
+    <!-- Panel del menú -->
     <div class="sidebar" id="menuPanel">
-        <a class="sidebar-item" href="https://antihambreadoscriptteam.github.io/scripts" target="_blank"><i class="fas fa-code"></i> Scripts aquí</a>
+        <a class="sidebar-item" href="https://antihambreadoscriptteam.github.io/scripts" target="_blank">
+            <i class="fas fa-code"></i> Scripts aquí
+        </a>
     </div>
-    <div class="overlay" id="menuOverlay"></div>
 
-    <!-- Contenido -->
-    <div class="content">
-        <header>
-            <h1><i class="fas fa-chart-bar"></i> Estado de los Executores</h1>
-            <p>Última actualización: Septiembre 2025</p>
-        </header>
+    <!-- Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
 
-        <div class="status-legend">
-            🟢 = Indetectable y actualizado | 🟠 = Detectable pero actualizado | 🔴 = Peligro de usar pero actualizado | ⚫ = Desactualizado
-        </div>
+    <header>
+        <h1><i class="fas fa-chart-bar"></i> Estado de los Executores</h1>
+        <p>Última actualización: Septiembre 2025</p>
+    </header>
 
-        <div class="container">
-            <div class="card">
-                <div class="status-icon">🚫</div>
-                <img src="https://i.postimg.cc/P5vc51Wj/ronix-081525.webp" alt="Ronix" />
-                <h2>Ronix</h2>
-                <div class="status-label"><span class="status-dot dot-danger"></span> Peligroso</div>
-                <a class="download-btn" href="https://wrdcdn.net/r/154522/1757349822750/Ronix_688_(arm64).apk" target="_blank"><i class="fas fa-download"></i> Descargar</a>
-            </div>
-
-            <div class="card">
-                <div class="status-icon">🌟</div>
-                <img src="https://i.postimg.cc/xTcp6LFz/new-logo.png" alt="KRNL" />
-                <h2>KRNL</h2>
-                <div class="status-label"><span class="status-dot dot-ok"></span> Indetectable</div>
-                <a class="download-btn" href="https://krnl.webfiles.pro/file/krnl_release_2.689.880_2025.9.7_47.apk" target="_blank"><i class="fas fa-download"></i> Descargar</a>
-                <div class="warning">⚠️ No instales el archivo con "VNG", es para Vietnam y puede cambiar tu región</div>
-            </div>
-
-            <div class="card">
-                <div class="status-icon">🟠</div>
-                <img src="https://i.postimg.cc/hGrNkc8z/descarga-3.jpg" alt="Codex" />
-                <h2>Codex</h2>
-                <div class="status-label"><span class="status-dot dot-warn"></span> Detectable</div>
-                <a class="download-btn" href="https://www.mediafire.com/file/iqdowzljfuagptd/Codex_v2.689.880.apk/file" target="_blank"><i class="fas fa-download"></i> Descargar</a>
-            </div>
-
-            <div class="card">
-                <div class="status-icon">🟠</div>
-                <img src="https://i.postimg.cc/R0cDc9pp/descarga-4.jpg" alt="Arceus" />
-                <h2>Arceus</h2>
-                <div class="status-label"><span class="status-dot dot-warn"></span> Detectable</div>
-                <a class="download-btn" href="https://android.spdmteam.com/" target="_blank"><i class="fas fa-download"></i> Descargar</a>
-            </div>
-
-            <div class="card">
-                <div class="status-icon">⚫</div>
-                <img src="https://i.postimg.cc/XY9Rgwpg/descarga-2.png" alt="Fluxus" />
-                <h2>Fluxus</h2>
-                <div class="status-label"><span class="status-dot dot-bad"></span> Desactualizado</div>
-                <a class="download-btn" href="https://app.box.com/s/h5wxr4yuuuoxr105aba10aceyxge94lo" target="_blank"><i class="fas fa-download"></i> Descargar</a>
-            </div>
-
-            <div class="card">
-                <div class="status-icon">🟠</div>
-                <img src="https://i.postimg.cc/VkyyM7L6/images.jpg" alt="Delta" />
-                <h2>Delta</h2>
-                <div class="status-label"><span class="status-dot dot-warn"></span> Detectable</div>
-                <a class="download-btn" href="https://updowncontent.com/android.html" target="_blank"><i class="fas fa-download"></i> Descargar</a>
-            </div>
-        </div>
-
-        <div class="discord-section">
-            <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" />
-            <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL</h2>
-            <a href="https://discord.gg/rTGF5xhe3h" target="_blank">💬 https://discord.gg/rTGF5xhe3h</a>
-        </div>
-
-        <footer>
-            <p>© 2025 Anti-Hambreado Script Team. Todos los derechos reservados.</p>
-            <p>Diseñado con ❤️ para la comunidad de scripters</p>
-        </footer>
+    <div class="status-legend">
+        <ul>
+            <li>🟢 Indetectable y actualizado</li>
+            <li>🟠 Detectable pero actualizado</li>
+            <li>🔴 Peligro de usar pero actualizado</li>
+            <li>⚫ Desactualizado</li>
+        </ul>
     </div>
+
+    <div class="container">
+        <div class="card">
+            <img src="https://i.postimg.cc/P5vc51Wj/ronix-081525.webp" alt="Ronix" />
+            <h2>Ronix</h2>
+            <div class="status-label"><span class="status-dot dot-danger"></span> Peligroso</div>
+            <a class="download-btn" href="https://wrdcdn.net/r/154522/1757349822750/Ronix_688_(arm64).apk" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/xTcp6LFz/new-logo.png" alt="KRNL" />
+            <h2>KRNL</h2>
+            <div class="status-label"><span class="status-dot dot-ok"></span> Indetectable</div>
+            <a class="download-btn" href="https://krnl.webfiles.pro/file/krnl_release_2.689.880_2025.9.7_47.apk" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+            <div class="warning">⚠️ No instales el archivo con "VNG", es para Vietnam y puede cambiar tu región</div>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/hGrNkc8z/descarga-3.jpg" alt="Codex" />
+            <h2>Codex</h2>
+            <div class="status-label"><span class="status-dot dot-warn"></span> Detectable</div>
+            <a class="download-btn" href="https://www.mediafire.com/file/iqdowzljfuagptd/Codex_v2.689.880.apk/file" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/R0cDc9pp/descarga-4.jpg" alt="Arceus" />
+            <h2>Arceus</h2>
+            <div class="status-label"><span class="status-dot dot-warn"></span> Detectable</div>
+            <a class="download-btn" href="https://android.spdmteam.com/" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/XY9Rgwpg/descarga-2.png" alt="Fluxus" />
+            <h2>Fluxus</h2>
+            <div class="status-label"><span class="status-dot dot-bad"></span> Desactualizado</div>
+            <a class="download-btn" href="https://app.box.com/s/h5wxr4yuuuoxr105aba10aceyxge94lo" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/VkyyM7L6/images.jpg" alt="Delta" />
+            <h2>Delta</h2>
+            <div class="status-label"><span class="status-dot dot-warn"></span> Detectable</div>
+            <a class="download-btn" href="https://updowncontent.com/android.html" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+    </div>
+
+    <div class="discord-section">
+        <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" />
+        <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL</h2>
+        <a href="https://discord.gg/rTGF5xhe3h" target="_blank">💬 https://discord.gg/rTGF5xhe3h</a>
+    </div>
+
+    <footer>
+        <p>© 2025 Anti-Hambreado Script Team. Todos los derechos reservados.</p>
+        <p>Diseñado con ❤️ para la comunidad de scripters</p>
+    </footer>
 
     <script>
-        // Partículas dinámicas
-        const particlesContainer = document.querySelector('.particles');
-        for(let i=0;i<80;i++){
-            const p = document.createElement('div');
-            p.className='particle';
-            p.style.top=Math.random()*100+'%';
-            p.style.left=Math.random()*100+'%';
-            p.style.animationDelay=Math.random()*6+'s';
-            particlesContainer.appendChild(p);
-        }
-
-        // Sidebar hamburguesa
         const menuToggle = document.getElementById('menuToggle');
         const menuPanel = document.getElementById('menuPanel');
         const menuOverlay = document.getElementById('menuOverlay');
 
-        menuToggle.addEventListener('click', ()=>{
+        menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('active');
             menuPanel.classList.toggle('active');
             menuOverlay.classList.toggle('active');
         });
 
-        menuOverlay.addEventListener('click', ()=>{
+        menuOverlay.addEventListener('click', () => {
             menuToggle.classList.remove('active');
             menuPanel.classList.remove('active');
             menuOverlay.classList.remove('active');
