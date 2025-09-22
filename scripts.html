@@ -1395,6 +1395,32 @@ print("V1")</pre>
             }
         }
 
+// Función global para toggle del sidebar
+window.toggleSidebar = function() {
+    const hamburger = document.querySelector('.hamburger');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.overlay');
+    
+    if (hamburger && sidebar && overlay) {
+        hamburger.classList.toggle('active');
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+}
+
+// Función global para cerrar sidebar
+window.closeSidebar = function() {
+    const hamburger = document.querySelector('.hamburger');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.overlay');
+    
+    if (hamburger && sidebar && overlay) {
+        hamburger.classList.remove('active');
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+}
+
         // Función global para mostrar contenido - VERSION INTELIGENTE
 window.showContent = function(sectionId) {
     // Ocultar pantalla de bienvenida
