@@ -7,144 +7,224 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 
+  /* RESET Y BASE */
+  * {
+    box-sizing: border-box;
+  }
   body {
     margin: 0;
     font-family: 'Orbitron', sans-serif;
-    background-color: #0a0000;
-    color: #ff2626;
+    background-color: #120000;
+    color: #e74c4c;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    padding: 2rem;
-    background: linear-gradient(135deg, #1a0000, #0a0000);
+    padding: 2rem 1.5rem 3rem;
+    background: radial-gradient(circle at center, #1b0000 20%, #120000 80%);
     overflow-x: hidden;
     position: relative;
-    z-index: 0;
+    user-select: none;
   }
 
+  /* CANVAS PARA PARTICULAS */
   canvas#particles {
     position: fixed;
     top: 0; left: 0;
     width: 100vw;
     height: 100vh;
     pointer-events: none;
+    z-index: 5;
+  }
+
+  /* LOGO */
+  img.logo {
+    width: 160px;
+    margin-bottom: 1.8rem;
+    filter: drop-shadow(0 0 6px rgba(231, 76, 76, 0.7));
+    animation: subtleGlow 4s ease-in-out infinite;
+    position: relative;
+    z-index: 10;
+  }
+  @keyframes subtleGlow {
+    0%,100% { filter: drop-shadow(0 0 6px rgba(231, 76, 76, 0.7)); }
+    50% { filter: drop-shadow(0 0 12px rgba(231, 76, 76, 0.9)); }
+  }
+
+  /* TITULO PRINCIPAL */
+  h1 {
+    font-size: 2rem;
+    letter-spacing: 2px;
+    color: #f65e5e;
+    text-align: center;
+    text-shadow: 0 0 8px rgba(231, 76, 76, 0.7);
+    margin: 0 0 1.2rem;
+    font-weight: 700;
+    position: relative;
     z-index: 10;
   }
 
-  img.logo {
-    width: 180px;
-    margin-bottom: 1.5rem;
-    filter: drop-shadow(0 0 8px #ff0000);
-    animation: glow 3s ease-in-out infinite;
-    position: relative;
-    z-index: 20;
-  }
-
-  @keyframes glow {
-    0%, 100% { filter: drop-shadow(0 0 6px #ff0000); }
-    50% { filter: drop-shadow(0 0 14px #ff2626); }
-  }
-
-  h1 {
-    text-align: center;
-    font-size: 2.8rem;
-    text-shadow: 0 0 8px #ff2626;
-    margin-bottom: 0.5rem;
-    position: relative;
-    z-index: 20;
-  }
-
   h2 {
-    margin-top: 2.5rem;
-    font-size: 2rem;
-    color: #ff5555;
-    text-shadow: 0 0 6px #ff4444;
+    margin-top: 2.4rem;
+    font-size: 1.8rem;
+    color: #d94a4a;
+    text-shadow: 0 0 6px rgba(217, 74, 74, 0.8);
+    font-weight: 600;
     position: relative;
-    z-index: 20;
+    z-index: 10;
   }
 
+  /* PARAGRAFOS */
   p.intro, p.section-text {
-    max-width: 650px;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    text-shadow: 0 0 4px #ff0000;
+    max-width: 700px;
+    font-size: 1.03rem;
+    line-height: 1.55;
+    margin-bottom: 1.2rem;
+    color: #f0b7b7;
+    text-shadow: 0 0 2px rgba(231, 76, 76, 0.3);
+    letter-spacing: 0.02em;
+    font-weight: 400;
     position: relative;
-    z-index: 20;
+    z-index: 10;
   }
 
+  /* LISTA DEL EQUIPO */
   ul.team-list {
     list-style: none;
-    padding: 0;
+    padding-left: 0;
     font-size: 1.1rem;
     margin-bottom: 2rem;
-    color: #ff4444;
+    max-width: 700px;
+    color: #f08080;
+    font-weight: 500;
     position: relative;
-    z-index: 20;
+    z-index: 10;
   }
 
   ul.team-list li {
-    margin: 0.3rem 0;
+    margin: 0.35rem 0;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+  ul.team-list li::before {
+    content: "🔥";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.1rem;
   }
 
+  /* BOTONES */
   .buttons {
     display: flex;
     gap: 1.5rem;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 3rem;
+    margin-bottom: 3.5rem;
     position: relative;
-    z-index: 20;
+    z-index: 10;
   }
 
   .btn {
-    text-decoration: none;
-    padding: 0.75rem 1.8rem;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 1rem;
-    box-shadow: 0 0 10px #ff2626;
-    color: #ff2626;
-    border: 2px solid #ff2626;
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
+    gap: 0.6rem;
+    padding: 0.82rem 2.2rem;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    box-shadow: 0 0 12px rgba(231, 76, 76, 0.4);
+    color: #e74c4c;
+    border: 2.5px solid #e74c4c;
+    background-color: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.33s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
     position: relative;
-    z-index: 20;
+    overflow: hidden;
+  }
+
+  .btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(231, 76, 76, 0.15);
+    border-radius: 30px;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+
+  .btn:hover::after {
+    opacity: 1;
   }
 
   .btn:hover {
-    color: #0a0000;
-    background-color: #ff2626;
-    box-shadow: 0 0 25px #ff4c4c;
+    color: #ffeaea;
+    border-color: #ff6666;
+    box-shadow: 0 0 24px rgba(255, 102, 102, 0.6);
+    background: rgba(231, 76, 76, 0.25);
   }
 
+  /* DISCORD - PURPURA */
   .btn.discord {
     background-color: #5865f2;
     color: white;
     border: none;
-    box-shadow: 0 0 12px #5865f2;
+    box-shadow: 0 0 16px #5865f2;
+    font-weight: 800;
+    letter-spacing: 0.04em;
   }
 
   .btn.discord:hover {
     background-color: #4752c4;
-    box-shadow: 0 0 25px #4752c4;
+    box-shadow: 0 0 26px #4752c4;
   }
 
   .btn.discord img {
-    height: 18px;
-    margin-right: 8px;
-    filter: drop-shadow(0 0 2px #fff);
+    height: 20px;
+    filter: drop-shadow(0 0 4px rgba(255,255,255,0.8));
   }
 
+  /* EMOJIS BOTONES */
+  .btn span.emoji {
+    font-size: 1.3rem;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* FOOTER */
   footer {
-    font-size: 0.9rem;
-    color: #770000;
+    font-size: 0.92rem;
+    color: #8b2e2e;
     text-align: center;
-    max-width: 600px;
+    max-width: 650px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
     position: relative;
-    z-index: 20;
+    z-index: 10;
+  }
+
+  /* MOBILE ADAPTACION */
+  @media (max-width: 600px) {
+    body {
+      padding: 1.5rem 1rem 2.5rem;
+    }
+    h1 {
+      font-size: 1.6rem;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    p.intro, p.section-text, ul.team-list {
+      max-width: 95vw;
+      font-size: 0.98rem;
+    }
+    .btn {
+      font-size: 0.95rem;
+      padding: 0.68rem 1.6rem;
+    }
   }
 </style>
 </head>
@@ -198,11 +278,16 @@
   </p>
 
   <div class="buttons">
-    <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn discord">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord logo" /> Nuestro Discord
+    <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn discord" aria-label="Nuestro Discord">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Icono Discord" />
+      <span class="emoji">💬</span> Nuestro Discord
     </a>
-    <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="btn">Nuestra página de scripts</a>
-    <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn">Nuestra página de ejecutores</a>
+    <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="btn" aria-label="Nuestra página de scripts">
+      <span class="emoji">📜</span> Nuestra página de scripts
+    </a>
+    <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn" aria-label="Nuestra página de ejecutores">
+      <span class="emoji">⚙️</span> Nuestra página de executores
+    </a>
   </div>
 
   <footer>
@@ -230,45 +315,42 @@
     }
 
     reset() {
-      // Randomly spawn along the edges
       const edge = Math.floor(Math.random() * 4);
       switch(edge) {
-        case 0: // top
+        case 0:
           this.x = Math.random() * width;
           this.y = 0;
           break;
-        case 1: // right
+        case 1:
           this.x = width;
           this.y = Math.random() * height;
           break;
-        case 2: // bottom
+        case 2:
           this.x = Math.random() * width;
           this.y = height;
           break;
-        case 3: // left
+        case 3:
           this.x = 0;
           this.y = Math.random() * height;
           break;
       }
-      // Velocities for drifting inward
-      this.vx = (width/2 - this.x) * 0.002 * (Math.random() * 0.5 + 0.5);
-      this.vy = (height/2 - this.y) * 0.002 * (Math.random() * 0.5 + 0.5);
+      this.vx = (width/2 - this.x) * 0.002 * (Math.random() * 0.6 + 0.4);
+      this.vy = (height/2 - this.y) * 0.002 * (Math.random() * 0.6 + 0.4);
       this.radius = Math.random() * 2 + 1;
       this.life = 0;
-      this.maxLife = 300 + Math.random() * 200;
+      this.maxLife = 300 + Math.random() * 250;
       this.alpha = 0;
-      this.alphaSpeed = 0.01 + Math.random()*0.01;
+      this.alphaSpeed = 0.008 + Math.random()*0.007;
     }
 
     update() {
       this.x += this.vx;
       this.y += this.vy;
       this.life++;
-      // fade in/out effect
       if (this.life < this.maxLife / 3) {
         this.alpha += this.alphaSpeed;
-        if (this.alpha > 0.3) this.alpha = 0.3;
-      } else if (this.life > this.maxLife * 0.7) {
+        if (this.alpha > 0.25) this.alpha = 0.25;
+      } else if (this.life > this.maxLife * 0.75) {
         this.alpha -= this.alphaSpeed;
         if (this.alpha < 0) this.alpha = 0;
       }
@@ -278,14 +360,14 @@
     draw() {
       ctx.beginPath();
       const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius*4);
-      gradient.addColorStop(0, `rgba(255, 38, 38, ${this.alpha})`);
-      gradient.addColorStop(1, 'rgba(255, 38, 38, 0)');
+      gradient.addColorStop(0, `rgba(231, 76, 76, ${this.alpha})`);
+      gradient.addColorStop(1, 'rgba(231, 76, 76, 0)');
       ctx.fillStyle = gradient;
       ctx.arc(this.x, this.y, this.radius*4, 0, Math.PI * 2);
       ctx.fill();
 
       ctx.beginPath();
-      ctx.fillStyle = `rgba(255, 38, 38, ${this.alpha})`;
+      ctx.fillStyle = `rgba(231, 76, 76, ${this.alpha})`;
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
       ctx.fill();
     }
@@ -308,4 +390,5 @@
   animate();
 </script>
 </body>
-</html>
+    </html>
+    
