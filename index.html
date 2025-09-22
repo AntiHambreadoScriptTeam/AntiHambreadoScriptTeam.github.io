@@ -1,631 +1,339 @@
-<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Anti-Hambreado Script Team</title> <style> @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-text
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    :root{
-        --bg1:#0f0f0f;
-        --bg2:#2d1b1b;
-        --bg3:#1a0000;
-        --red:#ff1a1a;
-        --red-soft:#ff4d4d;
-        --neon:#ff2a2a;
-        --white:#ffffff;
-        --muted:#cccccc;
-        --glass: rgba(255,255,255,0.06);
-        --border: rgba(255,0,0,0.25);
-        --shadow: 0 10px 40px rgba(255,0,0,0.18);
-    }
-
-    /* Fondo con gradiente animado muy suave */
-    body {
-        font-family: 'Orbitron', monospace;
-        background: radial-gradient(1200px 800px at 20% 10%, rgba(255,0,0,0.05), transparent 60%),
-                    radial-gradient(900px 700px at 80% 90%, rgba(255,0,0,0.04), transparent 60%),
-                    linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
-        min-height: 100vh;
-        color: var(--white);
-        overflow-x: hidden;
-        animation: bgFloat 18s ease-in-out infinite alternate;
-    }
-
-    @keyframes bgFloat{
-        0%{ background-position: 0px 0px, 0px 0px, 0 0; }
-        100%{ background-position: 20px -20px, -20px 20px, 0 0; }
-    }
-
-    /* Sutil brillo neón reutilizable */
-    .neon-soft{
-        text-shadow:
-            0 0 6px rgba(255, 40, 40, 0.5),
-            0 0 16px rgba(255, 40, 40, 0.25);
-    }
-
-    /* Línea de brillo suave para bordes */
-    .neon-border{
-        box-shadow:
-            0 0 0 1px rgba(255,0,0,0.18) inset,
-            0 0 16px rgba(255,0,0,0.18),
-            0 6px 30px rgba(255,0,0,0.12);
-    }
-
-    /* Menú lateral */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        right: -400px;
-        width: 400px;
-        height: 100vh;
-        background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(45,27,27,0.9) 100%);
-        backdrop-filter: blur(14px);
-        transition: right 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.45s ease;
-        z-index: 999;
-        padding: 90px 0 20px 0;
-        box-shadow: -10px 0 40px rgba(255, 0, 0, 0.22);
-        overflow-y: auto;
-        border-left: 2px solid var(--border);
-    }
-
-    .sidebar.active {
-        right: 0;
-    }
-
-    .sidebar-item {
-        padding: 18px 30px;
-        border-bottom: 1px solid rgba(255, 0, 0, 0.08);
-        cursor: pointer;
-        transition: transform 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
-        display: flex;
-        align-items: center;
-        position: relative;
-        overflow: hidden;
-        color: white;
-        letter-spacing: 0.5px;
-    }
-
-    .sidebar-item::before {
-        content: '';
-        position: absolute;
-        left: -100%;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.12), transparent);
-        transition: left 0.6s ease;
-    }
-
-    .sidebar-item:hover::before {
-        left: 100%;
-    }
-
-    .sidebar-item:hover {
-        background: linear-gradient(90deg, rgba(255, 0, 0, 0.08), rgba(255, 0, 0, 0.04));
-        transform: translateX(-6px);
-        border-left: 3px solid var(--neon);
-        box-shadow: 0 0 18px rgba(255, 0, 0, 0.18);
-    }
-
-    /* Overlay menú con fade */
-    .menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.6);
-        z-index: 998;
-        display: none;
-        opacity: 0;
-        transition: opacity 0.35s ease;
-    }
-
-    .menu-overlay.active {
-        display: block;
-        opacity: 1;
-    }
-
-    /* Botón hamburguesa con microinteracciones */
-    .menu-toggle {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
-        display: flex;
-        flex-direction: column;
-        cursor: pointer;
-        gap: 6px;
-        padding: 10px;
-        border-radius: 10px;
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,0,0,0.18);
-        transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
-    }
-
-    .menu-toggle:hover{
-        transform: translateY(-1px);
-        box-shadow: 0 8px 24px rgba(255,0,0,0.18);
-        background: rgba(255,255,255,0.05);
-    }
-
-    .menu-toggle span {
-        width: 28px;
-        height: 3px;
-        background: var(--neon);
-        border-radius: 2px;
-        transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
-        filter: drop-shadow(0 0 6px rgba(255,0,0,0.25));
-    }
-
-    .menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 6px);
-    }
-
-    .menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(6px, -7px);
-    }
-
-    /* Header con sutil entrada */
-    header {
-        text-align: center;
-        margin-top: 92px;
-        animation: fadeUp 0.7s ease both 0.05s;
-    }
-
-    @keyframes fadeUp{
-        from{ opacity:0; transform: translateY(8px); }
-        to{ opacity:1; transform: translateY(0); }
-    }
-
-    header h1 {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-        letter-spacing: 1px;
-        line-height: 1.2;
-    }
-
-    header h1 i{
-        color: var(--red);
-        filter: drop-shadow(0 0 8px rgba(255,0,0,0.25));
-    }
-
-    header p {
-        font-size: 1rem;
-        color: var(--muted);
-    }
-
-    /* Leyenda de estados con pill glass */
-    .status-legend {
-        max-width: 680px;
-        margin: 22px auto;
-        font-size: 0.95rem;
-        padding: 12px 16px;
-        background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-        border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 14px;
-        backdrop-filter: blur(6px);
-        animation: fadeUp 0.7s ease both 0.12s;
-    }
-
-    .status-legend ul {
-        list-style:none;
-        padding-left:0;
-        line-height:1.85;
-    }
-
-    /* Contenedor de tarjetas con sutil stagger */
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 22px;
-        justify-content: center;
-        padding: 24px;
-    }
-
-    .card {
-        background: linear-gradient(145deg, rgba(0, 0, 0, 0.78), rgba(45, 27, 27, 0.55));
-        width: 260px;
-        border-radius: 16px;
-        padding: 16px;
-        box-shadow: var(--shadow);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, border-color 0.35s ease;
-        border: 1px solid rgba(255,255,255,0.06);
-        position: relative;
-        overflow: hidden;
-        isolation: isolate;
-        animation: cardIn 0.6s ease both;
-    }
-
-    .card:nth-child(1){ animation-delay: 0.05s; }
-    .card:nth-child(2){ animation-delay: 0.10s; }
-    .card:nth-child(3){ animation-delay: 0.15s; }
-    .card:nth-child(4){ animation-delay: 0.20s; }
-    .card:nth-child(5){ animation-delay: 0.25s; }
-    .card:nth-child(6){ animation-delay: 0.30s; }
-
-    @keyframes cardIn{
-        from{ opacity:0; transform: translateY(8px) scale(0.99); }
-        to{ opacity:1; transform: translateY(0) scale(1); }
-    }
-
-    .card::after{
-        content:"";
-        position:absolute;
-        inset:-2px;
-        background: radial-gradient(300px 120px at 10% 0%, rgba(255,0,0,0.08), transparent 60%);
-        z-index:-1;
-        opacity:0.6;
-        transition: opacity 0.35s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-6px) scale(1.015);
-        box-shadow: 0 16px 48px rgba(255,0,0,0.22);
-    }
-
-    .card:hover::after{
-        opacity:0.85;
-    }
-
-    .card img {
-        width: 150px;
-        height: 150px;
-        object-fit: contain;
-        margin-bottom: 10px;
-        filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
-        transition: transform 0.35s ease;
-    }
-
-    .card:hover img{
-        transform: translateY(-2px);
-    }
-
-    .card h2{
-        font-size: 1.15rem;
-        margin-bottom: 6px;
-        letter-spacing: 0.5px;
-    }
-
-    .status-label {
-        margin: 8px 0 12px;
-        padding: 6px 12px;
-        border-radius: 999px;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    /* Botón con efecto neón suave */
-    .download-btn {
-        background: linear-gradient(180deg, var(--neon), var(--red));
-        color: white;
-        padding: 9px 16px;
-        text-decoration: none;
-        border-radius: 10px;
-        font-weight: bold;
-        transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
-        box-shadow:
-            0 0 0 1px rgba(255,0,0,0.22) inset,
-            0 10px 24px rgba(255,0,0,0.22);
-        letter-spacing: 0.3px;
-    }
-
-    .download-btn:hover {
-        transform: translateY(-2px);
-        box-shadow:
-            0 0 0 1px rgba(255,0,0,0.28) inset,
-            0 14px 32px rgba(255,0,0,0.28);
-        filter: saturate(1.05);
-    }
-
-    .warning {
-        font-size: 0.85rem;
-        color: #ffe680;
-        margin-top: 8px;
-        text-align: center;
-        line-height: 1.35;
-    }
-
-    /* Discord */
-    .discord-section {
-        text-align: center;
-        margin: 44px 0;
-        padding: 18px;
-        border-radius: 16px;
-        background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-        border: 1px solid rgba(255,255,255,0.06);
-        animation: fadeUp 0.7s ease both 0.18s;
-    }
-
-    .discord-section img {
-        width: 120px;
-        height: 120px;
-        margin-bottom: 15px;
-        filter: drop-shadow(0 6px 16px rgba(255,0,0,0.18));
-    }
-
-    .discord-section h2{
-        margin-bottom: 6px;
-    }
-
-    .discord-section a{
-        color: #ffdede;
-        text-decoration: none;
-        transition: color 0.25s ease, text-shadow 0.25s ease;
-        text-shadow: 0 0 10px rgba(255,0,0,0.18);
-    }
-
-    .discord-section a:hover{
-        color: #ffffff;
-        text-shadow: 0 0 12px rgba(255,0,0,0.28);
-    }
-
-    /* Footer */
-    footer {
-        text-align: center;
-        padding: 20px;
-        background: rgba(0,0,0,0.4);
-        margin-top: 40px;
-        border-top: 1px solid rgba(255,255,255,0.06);
-    }
-
-    footer p {
-        font-size: 0.85rem;
-        color: #e6e6e6;
-    }
-
-    /* Partículas rojas discretas */
-    #particles{
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        pointer-events: none;
-    }
-
-    canvas#particleCanvas{
-        width: 100%;
-        height: 100%;
-        display: block;
-        opacity: 0.55;
-        filter: blur(0.2px) saturate(1.05);
-        mix-blend-mode: screen;
-    }
-
-    /* Capa de contenido encima de partículas */
-    main, header, .menu-toggle, .sidebar, .menu-overlay, footer{
-        position: relative;
-        z-index: 1;
-    }
-
-    /* Microdecoraciones neon suaves */
-    .glow-line{
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 76px;
-        height: 1px;
-        background: radial-gradient(50% 200% at 50% 50%, rgba(255,0,0,0.25), transparent 70%);
-        opacity: 0.6;
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    /* Scrollbar sutil */
-    ::-webkit-scrollbar{ width: 10px; }
-    ::-webkit-scrollbar-thumb{
-        background: rgba(255,255,255,0.1);
-        border-radius: 10px;
-        border: 2px solid rgba(0,0,0,0.2);
-    }
-    ::-webkit-scrollbar-track{ background: rgba(0,0,0,0.25); }
-
-    /* A11y foco */
-    a:focus, button:focus, .download-btn:focus, .sidebar-item:focus{
-        outline: 2px solid rgba(255,0,0,0.45);
-        outline-offset: 2px;
-    }
-</style>
-</head> <body> <!-- Capa de partículas --> <div id="particles" aria-hidden="true"> <canvas id="particleCanvas"></canvas> </div> <div class="glow-line" aria-hidden="true"></div>
-text
-<!-- Menú hamburguesa -->
-<div class="menu-toggle" id="menuToggle" title="Menú">
-    <span></span>
-    <span></span>
-    <span></span>
-</div>
-
-<!-- Panel del menú -->
-<div class="sidebar" id="menuPanel">
-    <a class="sidebar-item" href="https://antihambreadoscriptteam.github.io/scripts" target="_blank">
-        <i class="fas fa-code"></i>📜 | Scripts aquí
-    </a>
-</div>
-
-<!-- Overlay -->
-<div class="menu-overlay" id="menuOverlay"></div>
-
-<header class="neon-soft">
-    <h1><i class="fas fa-chart-bar"></i> Estado de los Executores</h1>
-    <p>Última actualización: Septiembre 2025</p>
-</header>
-
-<div class="status-legend">
-    <ul>
-        <li>🟢 Indetectable y actualizado</li>
-        <li>🟠 Detectable pero actualizado</li>
-        <li>🔴 Peligro de usar pero actualizado</li>
-        <li>⚫ Desactualizado</li>
-    </ul>
-</div>
-
-<div class="container">
-    <div class="card neon-border">
-        <img src="https://i.postimg.cc/P5vc51Wj/ronix-081525.webp" alt="Ronix" />
-        <h2>Ronix</h2>
-        <div class="status-label"><span class="status-dot dot-danger"></span>🚫 Peligroso</div>
-        <a class="download-btn" href="https://wrdcdn.net/r/154522/1757349822750/Ronix_688_(arm64).apk" target="_blank"><i class="fas fa-download"></i> Descargar</a>
-    </div>
-
-    <div class="card neon-border">
-        <img src="https://i.postimg.cc/xTcp6LFz/new-logo.png" alt="KRNL" />
-        <h2>KRNL</h2>
-        <div class="status-label"><span class="status-dot dot-ok"></span>🟢 Indetectable</div>
-        <a class="download-btn" href="https://krnl.webfiles.pro/file/krnl_release_2.689.880_2025.9.7_47.apk" target="_blank"><i class="fas fa-download"></i> Descargar</a>
-        <div class="warning">⚠️ No instales el archivo con "VNG", es para Vietnam y puede cambiar tu región</div>
-    </div>
-
-    <div class="card neon-border">
-        <img src="https://i.postimg.cc/hGrNkc8z/descarga-3.jpg" alt="Codex" />
-        <h2>Codex</h2>
-        <div class="status-label"><span class="status-dot dot-warn"></span>🟠 Detectable</div>
-        <a class="download-btn" href="https://www.mediafire.com/file/iqdowzljfuagptd/Codex_v2.689.880.apk/file" target="_blank"><i class="fas fa-download"></i> Descargar</a>
-    </div>
-
-    <div class="card neon-border">
-        <img src="https://i.postimg.cc/R0cDc9pp/descarga-4.jpg" alt="Arceus" />
-        <h2>Arceus</h2>
-        <div class="status-label"><span class="status-dot dot-warn"></span>🟠 Detectable</div>
-        <a class="download-btn" href="https://android.spdmteam.com/" target="_blank"><i class="fas fa-download"></i> Descargar</a>
-    </div>
-
-    <div class="card neon-border">
-        <img src="https://i.postimg.cc/XY9Rgwpg/descarga-2.png" alt="Fluxus" />
-        <h2>Fluxus</h2>
-        <div class="status-label"><span class="status-dot dot-bad"></span>💀 Descontinuado</div>
-        <a class="download-btn" href="https://i.postimg.cc/WpyRFyJp/Screenshot-20250922-103258-857.png" target="_blank"><i class="fas fa-download"></i> Descargar</a>
-    </div>
-
-    <div class="card neon-border">
-        <img src="https://i.postimg.cc/VkyyM7L6/images.jpg" alt="Delta" />
-        <h2>Delta</h2>
-        <div class="status-label"><span class="status-dot dot-warn"></span>🟠 Detectable</div>
-        <a class="download-btn" href="https://updowncontent.com/android.html" target="_blank"><i class="fas fa-download"></i> Descargar</a>
-    </div>
-</div>
-
-<div class="discord-section neon-border">
-    <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" />
-    <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL</h2>
-    <a href="https://discord.gg/rTGF5xhe3h" target="_blank">💬 https://discord.gg/rTGF5xhe3h</a>
-</div>
-
-<footer>
-    <p>© 2025 Anti-Hambreado Script Team. Todos los derechos reservados.</p>
-    <p>Diseñado con ❤️ para la comunidad de scripters</p>
-</footer>
-
-<script>
-    // Menú
-    const menuToggle = document.getElementById('menuToggle');
-    const menuPanel = document.getElementById('menuPanel');
-    const menuOverlay = document.getElementById('menuOverlay');
-
-    menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        menuPanel.classList.toggle('active');
-        menuOverlay.classList.toggle('active');
-    });
-
-    menuOverlay.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        menuPanel.classList.remove('active');
-        menuOverlay.classList.remove('active');
-    });
-
-    // Partículas rojas sutiles
-    const canvas = document.getElementById('particleCanvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    const DPR = Math.min(window.devicePixelRatio || 1, 2);
-
-    function resize(){
-        canvas.width = canvas.clientWidth * DPR;
-        canvas.height = canvas.clientHeight * DPR;
-    }
-    window.addEventListener('resize', resize, { passive: true });
-    resize();
-
-    const PARTICLE_COUNT = 70; // Cantidad moderada para no saturar
-    const COLOR = 'rgba(255,40,40,';
-    const MAX_SPEED = 0.35;
-    const R_MIN = 1.2, R_MAX = 2.6;
-
-    function rand(min, max){ return Math.random() * (max - min) + min; }
-
-    function initParticles(){
-        particles = [];
-        for(let i=0;i<PARTICLE_COUNT;i++){
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                r: rand(R_MIN*DPR, R_MAX*DPR),
-                vx: rand(-MAX_SPEED, MAX_SPEED),
-                vy: rand(-MAX_SPEED, MAX_SPEED),
-                a: rand(0.25, 0.7)
-            });
-        }
-    }
-
-    function step(){
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-
-        // sutil línea de conexión
-        const connectDist = 130 * DPR;
-        for(let i=0;i<particles.length;i++){
-            const p = particles[i];
-            p.x += p.vx;
-            p.y += p.vy;
-
-            if(p.x < -50 || p.x > canvas.width + 50) p.vx *= -1;
-            if(p.y < -50 || p.y > canvas.height + 50) p.vy *= -1;
-
-            ctx.beginPath();
-            ctx.fillStyle = COLOR + p.a + ')';
-            ctx.shadowColor = 'rgba(255,40,40,0.35)';
-            ctx.shadowBlur = 6 * DPR;
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-            ctx.fill();
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti-Hambreado Script Team</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        // Conexiones
-        ctx.lineWidth = 0.6 * DPR;
-        for(let i=0;i<particles.length;i++){
-            for(let j=i+1;j<particles.length;j++){
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const d = Math.hypot(dx, dy);
-                if(d < connectDist){
-                    const alpha = (1 - d / connectDist) * 0.25;
-                    ctx.strokeStyle = COLOR + alpha + ')';
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
-                }
-            }
+        body {
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, #0f0f0f 0%, #2d1b1b 50%, #1a0000 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
         }
 
-        requestAnimationFrame(step);
-    }
-
-    initParticles();
-    step();
-
-    // Prefiere performance en pestaña inactiva
-    document.addEventListener('visibilitychange', ()=>{
-        if(document.hidden){
-            particles.forEach(p=>{ p.vx*=0.6; p.vy*=0.6; });
-        }else{
-            particles.forEach(p=>{ p.vx = Math.sign(p.vx) * Math.max(Math.abs(p.vx), 0.22); p.vy = Math.sign(p.vy) * Math.max(Math.abs(p.vy), 0.22); });
+        /* Menú lateral */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: linear-gradient(180deg, rgba(0,0,0,0.98) 0%, rgba(45,27,27,0.98) 100%);
+            backdrop-filter: blur(25px);
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 999;
+            padding: 90px 0 20px 0;
+            box-shadow: -10px 0 40px rgba(255, 0, 0, 0.3);
+            overflow-y: auto;
+            border-left: 3px solid rgba(255, 0, 0, 0.3);
         }
-    }, { passive: true });
-</script>
-</body> </html>
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-item {
+            padding: 18px 30px;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            color: white; /* Texto blanco */
+        }
+
+        .sidebar-item::before {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .sidebar-item:hover::before {
+            left: 100%;
+        }
+
+        .sidebar-item:hover {
+            background: linear-gradient(90deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.05));
+            transform: translateX(-8px);
+            border-left: 4px solid #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+        }
+
+        /* Overlay menú */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 998;
+            display: none;
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        /* Botón hamburguesa */
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: #ff0000;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        header {
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        .status-legend {
+            max-width: 600px;
+            margin: 20px auto;
+            font-size: 0.95rem;
+        }
+
+        .status-legend ul {
+            list-style:none;
+            padding-left:0;
+            line-height:1.8;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(45, 27, 27, 0.6));
+            width: 260px;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .card img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .status-label {
+            margin: 10px 0;
+        }
+
+        .download-btn {
+            background: #ff0000;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #ff6666;
+        }
+
+        .warning {
+            font-size: 0.85rem;
+            color: yellow;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .discord-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .discord-section img {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.5);
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menú hamburguesa -->
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Panel del menú -->
+    <div class="sidebar" id="menuPanel">
+        <a class="sidebar-item" href="https://antihambreadoscriptteam.github.io/scripts" target="_blank">
+            <i class="fas fa-code"></i>📜 | Scripts aquí
+        </a>
+    </div>
+
+    <!-- Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <header>
+        <h1><i class="fas fa-chart-bar"></i> Estado de los Executores</h1>
+        <p>Última actualización: Septiembre 2025</p>
+    </header>
+
+    <div class="status-legend">
+        <ul>
+            <li>🟢 Indetectable y actualizado</li>
+            <li>🟠 Detectable pero actualizado</li>
+            <li>🔴 Peligro de usar pero actualizado</li>
+            <li>⚫ Desactualizado</li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <img src="https://i.postimg.cc/P5vc51Wj/ronix-081525.webp" alt="Ronix" />
+            <h2>Ronix</h2>
+            <div class="status-label"><span class="status-dot dot-danger"></span>🚫 Peligroso</div>
+            <a class="download-btn" href="https://wrdcdn.net/r/154522/1757349822750/Ronix_688_(arm64).apk" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/xTcp6LFz/new-logo.png" alt="KRNL" />
+            <h2>KRNL</h2>
+            <div class="status-label"><span class="status-dot dot-ok"></span>🟢 Indetectable</div>
+            <a class="download-btn" href="https://krnl.webfiles.pro/file/krnl_release_2.689.880_2025.9.7_47.apk" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+            <div class="warning">⚠️ No instales el archivo con "VNG", es para Vietnam y puede cambiar tu región</div>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/hGrNkc8z/descarga-3.jpg" alt="Codex" />
+            <h2>Codex</h2>
+            <div class="status-label"><span class="status-dot dot-warn"></span>🟠 Detectable</div>
+            <a class="download-btn" href="https://www.mediafire.com/file/iqdowzljfuagptd/Codex_v2.689.880.apk/file" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/R0cDc9pp/descarga-4.jpg" alt="Arceus" />
+            <h2>Arceus</h2>
+            <div class="status-label"><span class="status-dot dot-warn"></span>🟠 Detectable</div>
+            <a class="download-btn" href="https://android.spdmteam.com/" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/XY9Rgwpg/descarga-2.png" alt="Fluxus" />
+            <h2>Fluxus</h2>
+            <div class="status-label"><span class="status-dot dot-bad"></span>💀 Descontinuado</div>
+            <a class="download-btn" href="https://i.postimg.cc/WpyRFyJp/Screenshot-20250922-103258-857.png" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+
+        <div class="card">
+            <img src="https://i.postimg.cc/VkyyM7L6/images.jpg" alt="Delta" />
+            <h2>Delta</h2>
+            <div class="status-label"><span class="status-dot dot-warn"></span>🟠 Detectable</div>
+            <a class="download-btn" href="https://updowncontent.com/android.html" target="_blank"><i class="fas fa-download"></i> Descargar</a>
+        </div>
+    </div>
+
+    <div class="discord-section">
+        <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" />
+        <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL</h2>
+        <a href="https://discord.gg/rTGF5xhe3h" target="_blank">💬 https://discord.gg/rTGF5xhe3h</a>
+    </div>
+
+    <footer>
+        <p>© 2025 Anti-Hambreado Script Team. Todos los derechos reservados.</p>
+        <p>Diseñado con ❤️ para la comunidad de scripters</p>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const menuPanel = document.getElementById('menuPanel');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            menuPanel.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+        });
+
+        menuOverlay.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            menuPanel.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
