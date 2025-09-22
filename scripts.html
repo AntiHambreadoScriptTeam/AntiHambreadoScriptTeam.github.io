@@ -1395,95 +1395,56 @@ print("V1")</pre>
             }
         }
 
-        // Función global para toggle del sidebar
-        window.toggleSidebar = function() {
-            const hamburger = document.querySelector('.hamburger');
-            const sidebar = document.querySelector('.sidebar');
-            const overlay = document.querySelector('.overlay');
-            
-            if (hamburger && sidebar && overlay) {
-                hamburger.classList.toggle('active');
-                sidebar.classList.toggle('active');
-                overlay.classList.toggle('active');
-            }
+        // Función global para mostrar contenido - VERSION INTELIGENTE
+window.showContent = function(sectionId) {
+    // Ocultar pantalla de bienvenida
+    const welcomeScreen = document.getElementById('welcome');
+    if (welcomeScreen) {
+        welcomeScreen.style.display = 'none';
+    }
+    
+    // Ocultar todos los contenidos
+    const contents = document.querySelectorAll('.content');
+    contents.forEach(content => {
+        content.classList.remove('active');
+    });
+    
+    // Remover clase active de sidebar items
+    const sidebarItems = document.querySelectorAll('.sidebar-item');
+    sidebarItems.forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Mostrar contenido seleccionado
+    if (sectionId === 'welcome') {
+        if (welcomeScreen) {
+            welcomeScreen.style.display = 'flex';
         }
-
-        // Función global para cerrar sidebar
-        window.closeSidebar = function() {
-            const hamburger = document.querySelector('.hamburger');
-            const sidebar = document.querySelector('.sidebar');
-            const overlay = document.querySelector('.overlay');
-            
-            if (hamburger && sidebar && overlay) {
-                hamburger.classList.remove('active');
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-            }
+        // Activar primer item (Inicio)
+        if (sidebarItems[0]) {
+            sidebarItems[0].classList.add('active');
         }
-
-        // Función global para mostrar contenido
-        window.showContent = function(sectionId) {
-            // Ocultar pantalla de bienvenida
-            const welcomeScreen = document.getElementById('welcome');
-            if (welcomeScreen) {
-                welcomeScreen.style.display = 'none';
-            }
+    } else {
+        // Buscar y mostrar el contenido por ID
+        const targetContent = document.getElementById(sectionId);
+        if (targetContent) {
+            targetContent.classList.add('active');
             
-            // Ocultar todos los contenidos
-            const contents = document.querySelectorAll('.content');
-            contents.forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Remover clase active de sidebar items
-            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            // ⭐ DETECCIÓN AUTOMÁTICA: Encontrar el sidebar item correspondiente
             sidebarItems.forEach(item => {
-                item.classList.remove('active');
+                const itemOnClick = item.getAttribute('onclick');
+                // Si el onclick contiene el sectionId, activar ese item
+                if (itemOnClick && itemOnClick.includes("'" + sectionId + "'")) {
+                    item.classList.add('active');
+                }
             });
-            
-            // Mostrar contenido seleccionado
-            if (sectionId === 'welcome') {
-                if (welcomeScreen) {
-                    welcomeScreen.style.display = 'flex';
-                }
-                // Activar primer item (Inicio)
-                if (sidebarItems[0]) {
-                    sidebarItems[0].classList.add('active');
-                }
-            } else {
-                const targetContent = document.getElementById(sectionId);
-                if (targetContent) {
-                    targetContent.classList.add('active');
-                }
-                
-                // Encontrar y activar el item del sidebar correspondiente
-                sidebarItems.forEach(item => {
-                    const itemText = item.textContent.trim();
-                    if (itemText.includes('99 NOCHES') && sectionId === 'noches-bosque' ||
-                        itemText.includes('ARISE') && sectionId === 'arise-crossover' ||
-                        itemText.includes('ATTACK') && sectionId === 'attack-titan' ||
-                        itemText.includes('BLUE LOCK') && sectionId === 'blue-lock' ||
-                        itemText.includes('Block Spin') && sectionId === 'block-spin' ||
-                        itemText.includes('Blox Fruits') && sectionId === 'blox-fruits' ||
-                        itemText.includes('DIG') && sectionId === 'dig' ||
-                        itemText.includes('Dead Rails') && sectionId === 'dead-rails' ||
-                        itemText.includes('FISCH') && sectionId === 'fisch' ||
-                        itemText.includes('GROW') && sectionId === 'grow-garden' ||
-                        itemText.includes('HUNTY') && sectionId === 'hunty-zombie' ||
-                        itemText.includes('INK') && sectionId === 'ink-game' ||
-                        itemText.includes('KING') && sectionId === 'king-legacy' ||
-                        itemText.includes('PROSPECTING') && sectionId === 'prospecting' ||
-                        itemText.includes('Steal') && sectionId === 'steal-brainrot' ||
-                        itemText.includes('VOX') && sectionId === 'vox-seas') ||
-                        itemText.includes('FORSAKEN') && sectionId === 'forsaken' ||
-                        itemText.includes('ignorame') && sectionId === 'saludo') {
-                        item.classList.add('active');
-                    }
-                });
-            }
-            
-            window.closeSidebar();
+        } else {
+            console.warn('Sección no encontrada:', sectionId);
         }
+    }
+    
+    window.closeSidebar();
+}
 
         // Función global para copiar scripts
         window.copyScript = function(button, scriptId) {
