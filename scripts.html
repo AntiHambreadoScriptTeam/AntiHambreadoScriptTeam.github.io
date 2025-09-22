@@ -1474,7 +1474,8 @@ print("V1")</pre>
                         itemText.includes('KING') && sectionId === 'king-legacy' ||
                         itemText.includes('PROSPECTING') && sectionId === 'prospecting' ||
                         itemText.includes('Steal') && sectionId === 'steal-brainrot' ||
-                        itemText.includes('VOX') && sectionId === 'vox-seas') {
+                        itemText.includes('VOX') && sectionId === 'vox-seas') || itemText.includes('FORSAKEN') && sectionId === 'forsaken' ||
+    itemText.includes('ignorame') && sectionId === 'saludo') {
                         item.classList.add('active');
                     }
                 });
