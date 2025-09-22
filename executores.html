@@ -173,53 +173,52 @@
             animation: fadeInDown 0.9s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-       header h1 {
-    font-size: 2.8rem;
-    margin-bottom: 0.6rem;
-    background: linear-gradient(270deg, #ff0000, #ff6666, #ff0000);
-    background-size: 400% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: neonGlow 4s ease-in-out infinite alternate;
-    letter-spacing: 1.5px;
-    /* Neón menos intenso para fondo */
-    text-shadow:
-        0 0 4px rgba(255, 0, 0, 0.3),
-        0 0 10px rgba(255, 50, 50, 0.35),
-        0 0 15px rgba(255, 80, 80, 0.3);
-}
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.6rem;
+            background: linear-gradient(270deg, #ff0000, #ff6666, #ff0000);
+            background-size: 400% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: neonGlow 4s ease-in-out infinite alternate;
+            letter-spacing: 1.5px;
+            text-shadow:
+                0 0 4px rgba(255, 0, 0, 0.3),
+                0 0 10px rgba(255, 50, 50, 0.35),
+                0 0 15px rgba(255, 80, 80, 0.3);
+        }
 
-/* Neones por estado: */
-.status-label.peligro {
-    color: #ff4d4d;
-    text-shadow:
-        0 0 8px #ff0000,
-        0 0 15px #ff2a2a,
-        0 0 25px #ff1a1a;
-}
+        /* Neones por estado: */
+        .status-label.peligro {
+            color: #ff4d4d;
+            text-shadow:
+                0 0 8px #ff0000,
+                0 0 15px #ff2a2a,
+                0 0 25px #ff1a1a;
+        }
 
-.status-label.detectable {
-    color: #ff9e4d;
-    text-shadow:
-        0 0 7px #ffa500,
-        0 0 14px #ffb733,
-        0 0 22px #ff8c00;
-}
+        .status-label.detectable {
+            color: #ff9e4d;
+            text-shadow:
+                0 0 7px #ffa500,
+                0 0 14px #ffb733,
+                0 0 22px #ff8c00;
+        }
 
-.status-label.indetectable {
-    color: #4dff4d;
-    text-shadow:
-        0 0 8px #00c000,
-        0 0 17px #00e500,
-        0 0 28px #00b200;
-}
+        .status-label.indetectable {
+            color: #4dff4d;
+            text-shadow:
+                0 0 8px #00c000,
+                0 0 17px #00e500,
+                0 0 28px #00b200;
+        }
 
-.status-label.desactualizado {
-    color: #333333;
-    text-shadow:
-        0 0 4px #111111,
-        0 0 8px #222222;
-}
+        .status-label.desactualizado {
+            color: #333333;
+            text-shadow:
+                0 0 4px #111111,
+                0 0 8px #222222;
+        }
 
         header p {
             font-size: 1.05rem;
@@ -350,6 +349,7 @@
             user-select: none;
             cursor: pointer;
             filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
+            animation: pulseGlow 3.5s ease-in-out infinite;
         }
 
         .download-btn::before {
@@ -524,10 +524,6 @@
             }
         }
 
-        /* Efecto pulso suave para botones */
-        .download-btn {
-            animation: pulseGlow 3.5s ease-in-out infinite;
-        }
         @keyframes pulseGlow {
             0%, 100% {
                 box-shadow:
@@ -562,7 +558,7 @@
     <!-- Canvas para partículas -->
     <div id="particles-js"></div>
 
-    <!-- Menú hamburguesa -->
+    <!-- Botón hamburguesa -->
     <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" role="button" tabindex="0">
         <span></span>
         <span></span>
@@ -574,7 +570,6 @@
         <a class="sidebar-item" href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" rel="noopener noreferrer">
             📜 | Scripts aquí
         </a>
-        <div class="sidebar" id="menuPanel" aria-hidden="true">
         <a class="sidebar-item" href="https://youtube.com/@anti-hambreadoscript-team" target="_blank" rel="noopener noreferrer">
             🎥 | Nuestro canal de YouTube
         </a>
@@ -591,10 +586,9 @@
     <div class="status-legend" aria-label="Leyenda de estados">
         <ul>
             <div class="status-label peligro">🚫 Peligroso</div>
-<div class="status-label indetectable">🟢 Indetectable</div>
-<div class="status-label detectable">🟠 Detectable</div>
-<div class="status-label desactualizado">⚫ Desactualizado</div>
-
+            <div class="status-label indetectable">🟢 Indetectable</div>
+            <div class="status-label detectable">🟠 Detectable</div>
+            <div class="status-label desactualizado">⚫ Desactualizado</div>
         </ul>
     </div>
 
@@ -651,7 +645,7 @@
 
     <footer>
         <p>© 2025 Anti-Hambreado Script Team. Todos los derechos reservados.</p>
-        <p>Diseñado con ❤️ para la comunidad de scripters</p>
+        <p>Diseñado con ❤️ para nuestra comunidad</p>
     </footer>
 
     <!-- Script para partículas -->
@@ -672,307 +666,23 @@
                 opacity: {
                     value: 0.6,
                     random: true,
-                    anim: { enable: true, speed: 1.5, opacity_min: 0.2, sync: fff4d4d, #e60000);
-            box-shadow:
-                0 6px 22px rgba(255, 90, 90, 0.75),
-                inset 0 0 12px #ff3900;
-            transform: translateY(-3px);
-        }
-
-        .warning {
-            font-size: 0.9rem;
-            color: #ffdb58;
-            margin-top: 11px;
-            text-align: center;
-            font-weight: 600;
-            user-select: none;
-            text-shadow: 0 0 8px rgba(255, 255, 0, 0.65);
-        }
-
-        .discord-section {
-            text-align: center;
-            margin: 45px auto 55px;
-            padding: 34px;
-            background: rgba(20, 0, 0, 0.8);
-            border-radius: 18px;
-            max-width: 790px;
-            animation: fadeIn 1.1s ease 0.7s forwards;
-            box-shadow:
-                0 0 20px rgba(255, 0, 0, 0.4),
-                inset 0 0 30px rgba(255, 10, 10, 0.3);
-            position: relative;
-            overflow: hidden;
-            user-select: none;
-        }
-
-        .discord-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #ff2a2a, transparent);
-            filter: drop-shadow(0 0 7px #ff0000);
-            border-radius: 4px 4px 0 0;
-        }
-
-        .discord-section img {
-            width: 120px;
-            height: 120px;
-            margin-bottom: 18px;
-            border-radius: 50%;
-            transition: transform 0.6s ease, filter 0.6s ease;
-            filter: drop-shadow(0 0 15px rgba(255, 10, 10, 0.8));
-        }
-
-        .discord-section:hover img {
-            transform: scale(1.15) rotate(6deg);
-            filter: drop-shadow(0 0 26px rgba(255, 0, 0, 1));
-        }
-
-        .discord-section h2 {
-            margin-bottom: 18px;
-            font-weight: 900;
-            color: #ff3333;
-            text-shadow:
-                0 0 12px rgba(255, 0, 0, 0.75),
-                0 0 25px rgba(255, 50, 50, 0.85);
-            letter-spacing: 0.05em;
-            font-size: 1.9rem;
-        }
-
-        .discord-section a {
-            color: #7389da;
-            text-decoration: none;
-            font-size: 1.25rem;
-            transition: all 0.35s ease;
-            user-select: text;
-            font-weight: 600;
-            text-shadow: 0 0 8px rgba(114, 137, 218, 0.5);
-        }
-
-        .discord-section a:hover {
-            color: #99aab5;
-            text-shadow: 0 0 18px rgba(114, 137, 218, 0.9);
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0,0,0,0.7);
-            margin-top: 50px;
-            animation: fadeIn 1.2s ease 0.9s forwards;
-            color: #ccc;
-            letter-spacing: 0.04em;
-            user-select: none;
-            font-weight: 500;
-            text-shadow: 0 0 6px rgba(255, 0, 0, 0.3);
-        }
-
-        footer p {
-            font-size: 0.9rem;
-            margin: 6px 0;
-        }
-
-        /* Animaciones */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes neonGlow {
-            0% {
-                background-position: 0% 50%;
-                text-shadow:
-                    0 0 7px #ff0000,
-                    0 0 15px #ff3333,
-                    0 0 20px #ff4d4d,
-                    0 0 30px #ff1a1a;
-            }
-            50% {
-                background-position: 100% 50%;
-                text-shadow:
-                    0 0 12px #ff3333,
-                    0 0 22px #ff6666,
-                    0 0 26px #ff4d4d,
-                    0 0 38px #ff1a1a;
-            }
-            100% {
-                background-position: 0% 50%;
-                text-shadow:
-                    0 0 7px #ff0000,
-                    0 0 15px #ff3333,
-                    0 0 20px #ff4d4d,
-                    0 0 30px #ff1a1a;
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 320px;
-                border-radius: 0;
-            }
-
-            header h1 {
-                font-size: 2.2rem;
-            }
-
-            .card {
-                width: 100%;
-                max-width: 320px;
-                border-radius: 14px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div id="particles-js"></div>
-
-    <div class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-
-    <nav class="sidebar" id="menuPanel" role="navigation" aria-hidden="true">
-        <a class="sidebar-item" href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" rel="noopener">
-            📜 | Scripts aquí
-        </a>
-    </nav>
-
-    <div class="menu-overlay" id="menuOverlay" tabindex="-1" aria-hidden="true"></div>
-
-    <header>
-        <h1>Estado de los Executores</h1>
-        <p>Última actualización: Septiembre 2025</p>
-    </header>
-
-    <section class="status-legend" aria-label="Leyenda de estados">
-        <ul>
-            <li>🟢 Indetectable y actualizado</li>
-            <li>🟠 Detectable pero actualizado</li>
-            <li>🔴 Peligro de usar pero actualizado</li>
-            <li>⚫ Desactualizado</li>
-        </ul>
-    </section>
-
-    <main class="container" aria-live="polite">
-        <article class="card" tabindex="0">
-            <img src="https://i.postimg.cc/P5vc51Wj/ronix-081525.webp" alt="Ronix" />
-            <h2>Ronix</h2>
-            <div class="status-label">🚫 Peligroso</div>
-            <a class="download-btn" href="https://wrdcdn.net/r/154522/1757349822750/Ronix_688_(arm64).apk" target="_blank" rel="noopener">Descargar</a>
-        </article>
-
-        <article class="card" tabindex="0">
-            <img src="https://i.postimg.cc/xTcp6LFz/new-logo.png" alt="KRNL" />
-            <h2>KRNL</h2>
-            <div class="status-label">🟢 Indetectable</div>
-            <a class="download-btn" href="https://krnl.webfiles.pro/android.html" target="_blank" rel="noopener">Descargar</a>
-            <div class="warning">⚠️ No instales el archivo con "VNG", es para Vietnam y puede cambiar tu región</div>
-        </article>
-
-        <article class="card" tabindex="0">
-            <img src="https://i.postimg.cc/hGrNkc8z/descarga-3.jpg" alt="Codex" />
-            <h2>Codex</h2>
-            <div class="status-label">🟠 Detectable</div>
-            <a class="download-btn" href="https://www.mediafire.com/file/iqdowzljfuagptd/Codex_v2.689.880.apk/file" target="_blank" rel="noopener">Descargar</a>
-        </article>
-
-        <article class="card" tabindex="0">
-            <img src="https://i.postimg.cc/R0cDc9pp/descarga-4.jpg" alt="Arceus" />
-            <h2>Arceus</h2>
-            <div class="status-label">🟠 Detectable</div>
-            <a class="download-btn" href="https://android.spdmteam.com/" target="_blank" rel="noopener">Descargar</a>
-        </article>
-
-        <article class="card" tabindex="0">
-            <img src="https://i.postimg.cc/XY9Rgwpg/descarga-2.png" alt="Fluxus" />
-            <h2>Fluxus</h2>
-            <div class="status-label">💀 Descontinuado</div>
-            <a class="download-btn" href="https://i.postimg.cc/WpyRFyJp/Screenshot-20250922-103258-857.png" target="_blank" rel="noopener">Descargar</a>
-        </article>
-
-        <article class="card" tabindex="0">
-            <img src="https://i.postimg.cc/VkyyM7L6/images.jpg" alt="Delta" />
-            <h2>Delta</h2>
-            <div class="status-label">🟠 Detectable</div>
-            <a class="download-btn" href="https://updowncontent.com/android.html" target="_blank" rel="noopener">Descargar</a>
-        </article>
-    </main>
-
-    <section class="discord-section" aria-label="Invitación al servidor Discord">
-        <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Discord Logo" />
-        <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL</h2>
-        <a href="https://discord.gg/rTGF5xhe3h" target="_blank" rel="noopener">💬 https://discord.gg/rTGF5xhe3h</a>
-    </section>
-
-    <footer>
-        <p>© 2025 Anti-Hambreado Script Team. Todos los derechos reservados.</p>
-        <p>Diseñado con ❤️ para la comunidad de scripters</p>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        // Configuración partículas rojas suaves y sutiles, con animaciones fluidas
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 70, density: { enable: true, value_area: 900 } },
-                color: { value: "#ff4d4d" },
-                shape: {
-                    type: 'circle',
-                    stroke: { width: 0, color: '#ff0000' }
-                },
-                opacity: {
-                    value: 0.4,
-                    random: true,
-                    anim: { enable: true, speed: 1.8, opacity_min: 0.15, sync: false }
+                    anim: { enable: true, speed: 1.5, opacity_min: 0.2, sync: false }
                 },
                 size: {
                     value: 3,
                     random: true,
-                    anim: { enable: true, speed: 2.5, size_min: 0.2, sync: false }
+                    anim: { enable: true, speed: 2, size_min: 0.3, sync: false }
                 },
                 line_linked: {
                     enable: true,
-                    distance: 140,
-                    color: "#ff2a2a",
-                    opacity: 0.18,
-                    width: 1.1
+                    distance: 150,
+                    color: "#ff3333",
+                    opacity: 0.2,
+                    width: 1
                 },
                 move: {
                     enable: true,
-                    speed: 1.3,
+                    speed: 1.2,
                     direction: "none",
                     random: true,
                     straight: false,
@@ -988,8 +698,8 @@
                     resize: true
                 },
                 modes: {
-                    grab: { distance: 150, line_linked: { opacity: 0.5 } },
-                    push: { particles_nb: 4 }
+                    grab: { distance: 140, line_linked: { opacity: 0.4 } },
+                    push: { particles_nb: 3 }
                 }
             },
             retina_detect: true
@@ -1041,5 +751,4 @@
         });
     </script>
 </body>
-</html>
-   
+    </html>
