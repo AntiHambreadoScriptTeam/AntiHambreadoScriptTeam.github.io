@@ -173,21 +173,53 @@
             animation: fadeInDown 0.9s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        header h1 {
-            font-size: 2.6rem;
-            margin-bottom: 0.6rem;
-            text-shadow:
-                0 0 12px rgba(255, 50, 50, 0.6),
-                0 0 18px rgba(255, 20, 20, 0.8),
-                0 0 30px rgba(255, 0, 0, 0.5);
-            background: linear-gradient(90deg, #ff0000, #ff6666, #ff0000);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: neonGlow 3.5s linear infinite;
-            user-select: none;
-            filter: drop-shadow(0 0 6px #ff4444);
-        }
+       header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.6rem;
+    background: linear-gradient(270deg, #ff0000, #ff6666, #ff0000);
+    background-size: 400% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: neonGlow 4s ease-in-out infinite alternate;
+    letter-spacing: 1.5px;
+    /* Neón menos intenso para fondo */
+    text-shadow:
+        0 0 4px rgba(255, 0, 0, 0.3),
+        0 0 10px rgba(255, 50, 50, 0.35),
+        0 0 15px rgba(255, 80, 80, 0.3);
+}
+
+/* Neones por estado: */
+.status-label.peligro {
+    color: #ff4d4d;
+    text-shadow:
+        0 0 8px #ff0000,
+        0 0 15px #ff2a2a,
+        0 0 25px #ff1a1a;
+}
+
+.status-label.detectable {
+    color: #ff9e4d;
+    text-shadow:
+        0 0 7px #ffa500,
+        0 0 14px #ffb733,
+        0 0 22px #ff8c00;
+}
+
+.status-label.indetectable {
+    color: #4dff4d;
+    text-shadow:
+        0 0 8px #00c000,
+        0 0 17px #00e500,
+        0 0 28px #00b200;
+}
+
+.status-label.desactualizado {
+    color: #333333;
+    text-shadow:
+        0 0 4px #111111,
+        0 0 8px #222222;
+}
 
         header p {
             font-size: 1.05rem;
