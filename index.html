@@ -58,71 +58,33 @@
     color: #f65e5e;
     text-align: center;
     text-shadow: 0 0 8px rgba(231, 76, 76, 0.7);
-    margin: 0 0 1.2rem;
+    margin: 0 0 1rem;
     font-weight: 700;
     position: relative;
     z-index: 10;
   }
 
-  h2 {
-    margin-top: 2.4rem;
-    font-size: 1.8rem;
-    color: #d94a4a;
-    text-shadow: 0 0 6px rgba(217, 74, 74, 0.8);
-    font-weight: 600;
-    position: relative;
-    z-index: 10;
-  }
-
-  /* PARAGRAFOS */
-  p.intro, p.section-text {
-    max-width: 700px;
-    font-size: 1.03rem;
-    line-height: 1.55;
-    margin-bottom: 1.2rem;
-    color: #f0b7b7;
-    text-shadow: 0 0 2px rgba(231, 76, 76, 0.3);
-    letter-spacing: 0.02em;
-    font-weight: 400;
-    position: relative;
-    z-index: 10;
-  }
-
-  /* LISTA DEL EQUIPO */
-  ul.team-list {
-    list-style: none;
-    padding-left: 0;
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    max-width: 700px;
-    color: #f08080;
-    font-weight: 500;
-    position: relative;
-    z-index: 10;
-  }
-
-  ul.team-list li {
-    margin: 0.35rem 0;
-    padding-left: 1.1rem;
-    position: relative;
-  }
-  ul.team-list li::before {
-    content: "🔥";
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 1.1rem;
-  }
-
-  /* BOTONES */
+  /* BOTONES DEBAJO DEL TITULO */
   .buttons {
     display: flex;
     gap: 1.5rem;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 3.5rem;
+    margin-bottom: 3rem;
     position: relative;
     z-index: 10;
+  }
+
+  /* ANIMACION PULSACION LOOP */
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 15px rgba(231, 76, 76, 0.4);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(231, 76, 76, 0.75);
+    }
   }
 
   .btn {
@@ -143,6 +105,7 @@
     user-select: none;
     position: relative;
     overflow: hidden;
+    animation: pulse 4s ease-in-out infinite;
   }
 
   .btn::after {
@@ -169,6 +132,7 @@
 
   /* DISCORD - PURPURA */
   .btn.discord {
+    animation: pulse 4s ease-in-out infinite;
     background-color: #5865f2;
     color: white;
     border: none;
@@ -192,6 +156,69 @@
     font-size: 1.3rem;
     pointer-events: none;
     user-select: none;
+  }
+
+  /* CUERPO DE TEXTO - APARECER SUAVE AL SCROLL */
+  .fade-in-section {
+    opacity: 0;
+    transform: translateY(15px);
+    visibility: hidden;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out, visibility 0.8s;
+  }
+  .fade-in-section.is-visible {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+  }
+
+  /* TEXTO */
+  p.intro, p.section-text {
+    max-width: 700px;
+    font-size: 1.03rem;
+    line-height: 1.55;
+    margin-bottom: 1.2rem;
+    color: #f0b7b7;
+    text-shadow: 0 0 2px rgba(231, 76, 76, 0.3);
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    position: relative;
+    z-index: 10;
+  }
+
+  ul.team-list {
+    list-style: none;
+    padding-left: 0;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    max-width: 700px;
+    color: #f08080;
+    font-weight: 500;
+    position: relative;
+    z-index: 10;
+  }
+
+  ul.team-list li {
+    margin: 0.35rem 0;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+  ul.team-list li::before {
+    content: "🔥";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.1rem;
+  }
+
+  /* TITULO H2 */
+  h2 {
+    margin-top: 2.4rem;
+    font-size: 1.8rem;
+    color: #d94a4a;
+    text-shadow: 0 0 6px rgba(217, 74, 74, 0.8);
+    font-weight: 600;
+    position: relative;
+    z-index: 10;
   }
 
   /* FOOTER */
@@ -235,49 +262,7 @@
 
   <h1>Anti-Hambreado Script Team</h1>
 
-  <p class="intro">
-    Hola, somos Anti-Hambreado Script Team, muchos ya nos conocerán. Somos un equipo que busca dar scripts y ejecutores con link directo, sin anuncios y sin hambre, porque nosotros no somos hambreados como Campione Script.
-  </p>
-
-  <ul class="team-list">
-    <li>FeliciaXxxTop</li>
-    <li>IWOOZY</li>
-    <li>AngellltfmXD</li>
-    <li>BanHammer</li>
-    <li>No-Slowww</li>
-  </ul>
-
-  <p class="intro">
-    Y nosotros somos socios y amigos de FloppHub Team, el mejor servidor para hacer bypass a Linkvertise, Lootlink, Keys, etc. ¡Sin hambre y sin anuncios, a diferencia de Campione Script!
-  </p>
-
-  <h2>Campione Script: El hambre con WiFi disfrazado de youtuber 😹</h2>
-
-  <p class="section-text">
-    Oye, ¿y qué es lo que Campione Script se cree? ¿Un youtuber serio? ¡El diablo, oe! Ese tipo no escribe código, él escribe trampas. Tú entras a su página y lo que hay es un virusaso, pero cuando vas a su canal… ¡ay mi madre! Eso es otro nivel de hambre.
-  </p>
-
-  <p class="section-text">
-    Scripts con veneno: Tú crees que vas a descargar algo útil y lo que te cae es un link con más anuncios que un canal de YouTube en diciembre. Si das un click en falso, te sale un popup, un virus, y hasta una suscripción a una página rara. ¿Cómo así?
-  </p>
-
-  <p class="section-text">
-    Publicidad por pila: Cada script viene con cinco acortadores, tres redirecciones y un captcha que parece examen de matemáticas. Tú no sabes si estás programando o jugando a escapar de un malware.
-  </p>
-
-  <p class="section-text">
-    Canal lleno de bulto: Tú entras buscando ayuda y lo que encuentras es un mercado. “¡Descarga mi script!”, “¡Suscríbete a mi canal!”, “¡Suscríbete a este otro canal!” — pero de contenido útil, ni la sombra. Es como si el tipo estuviera vendiendo sueños y pesadillas al mismo tiempo.
-  </p>
-
-  <p class="section-text">
-    Cero ética, cero respeto: Un youtuber de verdad te da herramientas, te enseña, te ayuda. Este lo que hace es tirar carnada pa’ ver quién cae. ¡El hueso, compai! Y lo peor es que hay gente que todavía lo defiende. ¿Qué fue?
-  </p>
-
-  <p class="section-text">
-    Esto no es un youtuber, esto es hambre con estrategia. Campione Script no sube videos de calidad, él pesca incautos. Si tú quieres aprender, crecer, y montar algo serio, sal corriendo. Porque aquí lo que hay es bulto, paquete y un virus esperando en la esquina.
-  </p>
-
-  <div class="buttons">
+  <div class="buttons fade-in-section">
     <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn discord" aria-label="Nuestro Discord">
       <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Icono Discord" />
       <span class="emoji">💬</span> Nuestro Discord
@@ -286,15 +271,58 @@
       <span class="emoji">📜</span> Nuestra página de scripts
     </a>
     <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn" aria-label="Nuestra página de ejecutores">
-      <span class="emoji">⚙️</span> Nuestra página de executores
+      <span class="emoji">⚙️</span> Nuestra página de ejecutores
     </a>
   </div>
 
-  <footer>
+  <p class="intro fade-in-section">
+    Hola, somos Anti-Hambreado Script Team, muchos ya nos conocerán. Somos un equipo que busca dar scripts y ejecutores con link directo, sin anuncios y sin hambre, porque nosotros no somos hambreados como Campione Script.
+  </p>
+
+  <ul class="team-list fade-in-section">
+    <li>FeliciaXxxTop</li>
+    <li>IWOOZY</li>
+    <li>AngellltfmXD</li>
+    <li>BanHammer</li>
+    <li>No-Slowww</li>
+  </ul>
+
+  <p class="intro fade-in-section">
+    Y nosotros somos socios y amigos de FloppHub Team, el mejor servidor para hacer bypass a Linkvertise, Lootlink, Keys, etc. ¡Sin hambre y sin anuncios, a diferencia de Campione Script!
+  </p>
+
+  <h2 class="fade-in-section">Campione Script: El hambre con WiFi disfrazado de youtuber 😹</h2>
+
+  <p class="section-text fade-in-section">
+    Oye, ¿y qué es lo que Campione Script se cree? ¿Un youtuber serio? ¡El diablo, oe! Ese tipo no escribe código, él escribe trampas. Tú entras a su página y lo que hay es un virusaso, pero cuando vas a su canal… ¡ay mi madre! Eso es otro nivel de hambre.
+  </p>
+
+  <p class="section-text fade-in-section">
+    Scripts con veneno: Tú crees que vas a descargar algo útil y lo que te cae es un link con más anuncios que un canal de YouTube en diciembre. Si das un click en falso, te sale un popup, un virus, y hasta una suscripción a una página rara. ¿Cómo así?
+  </p>
+
+  <p class="section-text fade-in-section">
+    Publicidad por pila: Cada script viene con cinco acortadores, tres redirecciones y un captcha que parece examen de matemáticas. Tú no sabes si estás programando o jugando a escapar de un malware.
+  </p>
+
+  <p class="section-text fade-in-section">
+    Canal lleno de bulto: Tú entras buscando ayuda y lo que encuentras es un mercado. “¡Descarga mi script!”, “¡Suscríbete a mi canal!”, “¡Suscríbete a este otro canal!” — pero de contenido útil, ni la sombra. Es como si el tipo estuviera vendiendo sueños y pesadillas al mismo tiempo.
+  </p>
+
+  <p class="section-text fade-in-section">
+    Cero ética, cero respeto: Un youtuber de verdad te da herramientas, te enseña, te ayuda. Este lo que hace es tirar carnada pa’ ver quién cae. ¡El hueso, compai! Y lo peor es que hay gente que todavía lo defiende. ¿Qué fue?
+  </p>
+
+  <p class="section-text fade-in-section">
+    Esto no es un youtuber, esto es hambre con estrategia. Campione Script no sube videos de calidad, él pesca incautos. Si tú quieres aprender, crecer, y montar algo serio, sal corriendo. Porque aquí lo que hay es bulto, paquete y un virus esperando en la esquina.
+  </p>
+
+  <footer class="fade-in-section">
     © Anti-Hambreado Script Team 2025 - ¡No seas hambread@ como Campione!
   </footer>
 
 <script>
+  // PARTICULAS CANVAS (igual que antes)
   const canvas = document.getElementById('particles');
   const ctx = canvas.getContext('2d');
   let width, height;
@@ -388,7 +416,22 @@
     requestAnimationFrame(animate);
   }
   animate();
+
+  // APARICIÓN SUAVE: Intersection Observer
+  const fadeEls = document.querySelectorAll('.fade-in-section');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  fadeEls.forEach(el => observer.observe(el));
 </script>
 </body>
     </html>
-    
