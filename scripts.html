@@ -654,6 +654,10 @@
     <span class="folder-icon">📁</span>
     FORSAKEN
 </div>
+<div class="sidebar-item" onclick="showContent('dragon-ball-rage')">
+    <span class="folder-icon">📁</span>
+    DRAGON BALL RAGE
+</div>
     <div class="sidebar-item" onclick="showContent('saludo')">
         <span class="folder-icon">📁</span>
         Si lees esto, ignorame
@@ -1367,6 +1371,20 @@ print("V1")</pre>
     </div>
 </div>
 
+<div id="dragon-ball-rage" class="content">
+    <h2 class="section-title">🐉 DRAGON BALL RAGE</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">IMP HUB</div>
+            <button class="copy-button" onclick="copyScript(this, 'dbr1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="dbr1">https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 HOLA</h2>
     
@@ -1463,25 +1481,26 @@ window.showContent = function(sectionId) {
         sidebarItems.forEach(item => {
             const itemText = item.textContent.trim();
             if ((itemText.includes('99 NOCHES') && sectionId === 'noches-bosque') ||
-                (itemText.includes('ARISE') && sectionId === 'arise-crossover') ||
-                (itemText.includes('ATTACK') && sectionId === 'attack-titan') ||
-                (itemText.includes('BLUE LOCK') && sectionId === 'blue-lock') ||
-                (itemText.includes('Block Spin') && sectionId === 'block-spin') ||
-                (itemText.includes('Blox Fruits') && sectionId === 'blox-fruits') ||
-                (itemText.includes('DIG') && sectionId === 'dig') ||
-                (itemText.includes('Dead Rails') && sectionId === 'dead-rails') ||
-                (itemText.includes('FISCH') && sectionId === 'fisch') ||
-                (itemText.includes('GROW') && sectionId === 'grow-garden') ||
-                (itemText.includes('HUNTY') && sectionId === 'hunty-zombie') ||
-                (itemText.includes('INK') && sectionId === 'ink-game') ||
-                (itemText.includes('KING') && sectionId === 'king-legacy') ||
-                (itemText.includes('PROSPECTING') && sectionId === 'prospecting') ||
-                (itemText.includes('Steal') && sectionId === 'steal-brainrot') ||
-                (itemText.includes('VOX') && sectionId === 'vox-seas') ||
-                (itemText.includes('FORSAKEN') && sectionId === 'forsaken') ||
-                (itemText.includes('Si lees esto, ignorame') && sectionId === 'saludo')) {
-                item.classList.add('active');
-            }
+    (itemText.includes('ARISE') && sectionId === 'arise-crossover') ||
+    (itemText.includes('ATTACK') && sectionId === 'attack-titan') ||
+    (itemText.includes('BLUE LOCK') && sectionId === 'blue-lock') ||
+    (itemText.includes('Block Spin') && sectionId === 'block-spin') ||
+    (itemText.includes('Blox Fruits') && sectionId === 'blox-fruits') ||
+    (itemText.includes('DIG') && sectionId === 'dig') ||
+    (itemText.includes('Dead Rails') && sectionId === 'dead-rails') ||
+    (itemText.includes('FISCH') && sectionId === 'fisch') ||
+    (itemText.includes('GROW') && sectionId === 'grow-garden') ||
+    (itemText.includes('HUNTY') && sectionId === 'hunty-zombie') ||
+    (itemText.includes('INK') && sectionId === 'ink-game') ||
+    (itemText.includes('KING') && sectionId === 'king-legacy') ||
+    (itemText.includes('PROSPECTING') && sectionId === 'prospecting') ||
+    (itemText.includes('Steal') && sectionId === 'steal-brainrot') ||
+    (itemText.includes('VOX') && sectionId === 'vox-seas') ||
+    (itemText.includes('FORSAKEN') && sectionId === 'forsaken') ||
+    (itemText.includes('DRAGON BALL RAGE') && sectionId === 'dragon-ball-rage') ||
+    (itemText.includes('Si lees esto, ignorame') && sectionId === 'saludo')) {
+    item.classList.add('active');
+}
         });
     }
     
