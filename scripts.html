@@ -658,6 +658,10 @@
     <span class="folder-icon">📁</span>
     DRAGON BALL RAGE
 </div>
+<div class="sidebar-item" onclick="showContent('evade')">
+    <span class="folder-icon">📁</span>
+    EVADE
+</div>
     <div class="sidebar-item" onclick="showContent('saludo')">
         <span class="folder-icon">📁</span>
         Si lees esto, ignorame
@@ -1414,6 +1418,20 @@ print("V1")</pre>
     </div>
 </div>
 
+<div id="evade" class="content">
+    <h2 class="section-title">🏃 EVADE</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">SPEEDHAX</div>
+            <button class="copy-button" onclick="copyScript(this, 'evade1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="evade1">loadstring(game:HttpGet("https://raw.githubusercontent.com/thesigmacorex/RobloxScripts/main/speedhax"))()</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">🤨 TE DIJE QUE IGNORARAS</h2>
     
@@ -1527,6 +1545,7 @@ window.showContent = function(sectionId) {
     (itemText.includes('VOX') && sectionId === 'vox-seas') ||
     (itemText.includes('FORSAKEN') && sectionId === 'forsaken') ||
     (itemText.includes('DRAGON BALL RAGE') && sectionId === 'dragon-ball-rage') ||
+    (itemText.includes('EVADE') && sectionId === 'evade') ||  // 
     (itemText.includes('Si lees esto, ignorame') && sectionId === 'saludo')) {
     item.classList.add('active');
 }
