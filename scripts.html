@@ -737,6 +737,10 @@
     <span class="folder-icon">📁</span>
     EVADE
 </div>
+<div class="sidebar-item" onclick="showContent('basically-fnf')">
+    <span class="folder-icon">📁</span>
+    Basically FNF: Remix
+</div>
     <div class="sidebar-item" onclick="showContent('saludo')">
         <span class="folder-icon">📁</span>
         Si lees esto, ignorame
@@ -1507,6 +1511,20 @@ print("V1")</pre>
     </div>
 </div>
 
+<div id="basically-fnf" class="content">
+    <h2 class="section-title">🎵 Basically FNF: Remix</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">AUTO PLAYER</div>
+            <button class="copy-button" onclick="copyScript(this, 'fnf1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="fnf1">Subiendo el video...</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -1620,7 +1638,8 @@ window.showContent = function(sectionId) {
     (itemText.includes('VOX') && sectionId === 'vox-seas') ||
     (itemText.includes('FORSAKEN') && sectionId === 'forsaken') ||
     (itemText.includes('DRAGON BALL RAGE') && sectionId === 'dragon-ball-rage') ||
-    (itemText.includes('EVADE') && sectionId === 'evade') ||  // 
+    (itemText.includes('EVADE') && sectionId === 'evade') ||
+    (itemText.includes('Basically FNF: Remix') && sectionId === 'basically-fnf') ||
     (itemText.includes('Si lees esto, ignorame') && sectionId === 'saludo')) {
     item.classList.add('active');
 }
