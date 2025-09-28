@@ -661,6 +661,10 @@
     <span class="folder-icon">🎥</span>
     NUESTRO CANAL DE YOUTUBE
     </div>
+<div class="sidebar-item" onclick="showContent('servidores-privados')">
+    <span class="folder-icon">📁</span>
+    🔥 SERVIDORES PRIVADOS GRATIS 🔥
+</div>
 <div class="sidebar-item" onclick="showContent('script-hub-universales')">
     <span class="folder-icon">📁</span>
     SCRIPT HUB UNIVERSALES
@@ -1278,16 +1282,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ChopLoris/ArcHub/main
 
     <div id="steal-brainrot" class="content">
         <h2 class="section-title">🧠 STEAL A BRAINROT</h2>
-        
-<div class="script-card">
-    <div class="script-header">
-        <div class="script-title">SERVIDORES GRATIS</div>
-        <button class="copy-button" onclick="copyScript(this, 'sb14')">📋 Copiar</button>
-    </div>
-    <div class="script-content">
-        <pre class="script-code" id="sb14">loadstring(game:HttpGet("https://pastebin.com/raw/Ru4UQDpN"))()</pre>
-    </div>
-</div>
 
         <div class="script-card">
             <div class="script-header">
@@ -1598,6 +1592,20 @@ en nuestro canal de YouTube: @anti-hambreadoscript-team
 </div>
 </div>
 
+<div id="servidores-privados" class="content">
+    <h2 class="section-title">🔒 SERVIDORES PRIVADOS GRATIS 🔥</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">SERVIDORES GRATIS</div>
+            <button class="copy-button" onclick="copyScript(this, 'servidores1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="servidores1">loadstring(game:HttpGet("https://pastebin.com/raw/Ru4UQDpN"))()</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -1714,7 +1722,8 @@ window.showContent = function(sectionId) {
     (itemText.includes('EVADE') && sectionId === 'evade') ||
     (itemText.includes('Basically FNF: Remix') && sectionId === 'basically-fnf') ||
     (itemText.includes('PLANTAS VS BRAINROTS') && sectionId === 'plantas-vs-brainrots') ||
-    (itemText.includes('SCRIPT HUB UNIVERSALES') && sectionId === 'script-hub-universales') ||  // 
+    (itemText.includes('SCRIPT HUB UNIVERSALES') && sectionId === 'script-hub-universales') ||
+    (itemText.includes('SERVIDORES PRIVADOS GRATIS') && sectionId === 'servidores-privados') ||  
     (itemText.includes('Si lees esto, ignorame') && sectionId === 'saludo')) {
     item.classList.add('active');
 }
