@@ -74,431 +74,558 @@
 
 
 
-<!DOCTYPE html>  <html lang="es">  
-<head>  
-<meta charset="UTF-8" />  
-<meta name="viewport" content="width=device-width, initial-scale=1" />  
-<title>Anti-Hambreado Script Team</title>  
-<style>  
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');  /* RESET Y BASE */
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Anti-Hambreado Script Team</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
 
-{
-box-sizing: border-box;
-}
-body {
-margin: 0;
-font-family: 'Orbitron', sans-serif;
-background-color: #120000;
-color: #e74c4c;
-display: flex;
-flex-direction: column;
-align-items: center;
-min-height: 100vh;
-padding: 2rem 1.5rem 3rem;
-background: radial-gradient(circle at center, #1b0000 20%, #120000 80%);
-overflow-x: hidden;
-position: relative;
-user-select: none;
-}
+  /* RESET Y BASE */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #0a0000;
+    color: #d94a4a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 1.5rem 3rem;
+    background: radial-gradient(ellipse at top, #1a0000 0%, #0a0000 70%);
+    overflow-x: hidden;
+    position: relative;
+    user-select: none;
+  }
 
+  /* CANVAS PARA PARTICULAS */
+  canvas#particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 5;
+  }
 
-/* CANVAS PARA PARTICULAS */
-canvas#particles {
-position: fixed;
-top: 0; left: 0;
-width: 100vw;
-height: 100vh;
-pointer-events: none;
-z-index: 5;
-}
+  /* EFECTO DE NEÓN PARA ELEMENTOS PRINCIPALES */
+  .neon-glow {
+    position: relative;
+  }
+  .neon-glow::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(45deg, #ff0000, #ff4d4d, #ff0000, #ff4d4d);
+    background-size: 400%;
+    animation: neon-border 8s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .neon-glow:hover::before {
+    opacity: 0.7;
+  }
+  @keyframes neon-border {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+  }
 
-/* LOGO */
-img.logo {
-width: 160px;
-margin-bottom: 1.8rem;
-filter: drop-shadow(0 0 6px rgba(231, 76, 76, 0.7));
-animation: subtleGlow 4s ease-in-out infinite;
-position: relative;
-z-index: 10;
-}
-@keyframes subtleGlow {
-0%,100% { filter: drop-shadow(0 0 6px rgba(231, 76, 76, 0.7)); }
-50% { filter: drop-shadow(0 0 12px rgba(231, 76, 76, 0.9)); }
-}
+  /* LOGO */
+  img.logo {
+    width: 180px;
+    margin-bottom: 1.8rem;
+    filter: drop-shadow(0 0 8px rgba(217, 74, 74, 0.6));
+    animation: logoFloat 6s ease-in-out infinite, subtleGlow 4s ease-in-out infinite;
+    position: relative;
+    z-index: 10;
+    border-radius: 50%;
+    padding: 8px;
+    background: rgba(20, 0, 0, 0.7);
+  }
+  @keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes subtleGlow {
+    0%,100% { filter: drop-shadow(0 0 8px rgba(217, 74, 74, 0.6)); }
+    50% { filter: drop-shadow(0 0 16px rgba(217, 74, 74, 0.8)); }
+  }
 
-/* TITULO PRINCIPAL */
-h1 {
-font-size: 2rem;
-letter-spacing: 2px;
-color: #f65e5e;
-text-align: center;
-text-shadow: 0 0 8px rgba(231, 76, 76, 0.7);
-margin: 0 0 1rem;
-font-weight: 700;
-position: relative;
-z-index: 10;
-}
+  /* TITULO PRINCIPAL */
+  h1 {
+    font-size: 2.2rem;
+    letter-spacing: 3px;
+    color: #f65e5e;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(246, 94, 94, 0.7);
+    margin: 0 0 1rem;
+    font-weight: 700;
+    position: relative;
+    z-index: 10;
+    animation: titlePulse 5s ease-in-out infinite;
+  }
+  @keyframes titlePulse {
+    0%, 100% { text-shadow: 0 0 10px rgba(246, 94, 94, 0.7); }
+    50% { text-shadow: 0 0 20px rgba(246, 94, 94, 0.9), 0 0 30px rgba(246, 94, 94, 0.5); }
+  }
 
-/* BOTONES DEBAJO DEL TITULO */
-.buttons {
-display: flex;
-gap: 1.5rem;
-flex-wrap: wrap;
-justify-content: center;
-margin-bottom: 1.8rem;
-position: relative;
-z-index: 10;
-}
+  /* BOTONES DEBAJO DEL TITULO */
+  .buttons {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1.8rem;
+    position: relative;
+    z-index: 10;
+  }
 
-/* ANIMACION PULSACION LOOP */
-@keyframes pulse {
-0%, 100% {
-transform: scale(1);
-box-shadow: 0 0 15px rgba(231, 76, 76, 0.4);
-}
-50% {
-transform: scale(1.05);
-box-shadow: 0 0 30px rgba(231, 76, 76, 0.75);
-}
-}
+  /* ANIMACION PULSACION LOOP */
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 15px rgba(217, 74, 74, 0.4);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(217, 74, 74, 0.6);
+    }
+  }
 
-.btn {
-display: flex;
-align-items: center;
-gap: 0.6rem;
-padding: 0.82rem 2.2rem;
-border-radius: 30px;
-font-weight: 700;
-font-size: 1.05rem;
-box-shadow: 0 0 12px rgba(231, 76, 76, 0.4);
-color: #e74c4c;
-border: 2.5px solid #e74c4c;
-background-color: transparent;
-cursor: pointer;
-text-decoration: none;
-transition: all 0.33s cubic-bezier(0.4, 0, 0.2, 1);
-user-select: none;
-position: relative;
-overflow: hidden;
-animation: pulse 4s ease-in-out infinite;
-}
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.82rem 2.2rem;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    box-shadow: 0 0 12px rgba(217, 74, 74, 0.4);
+    color: #d94a4a;
+    border: 2.5px solid #d94a4a;
+    background-color: rgba(20, 0, 0, 0.7);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.33s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+    animation: pulse 4s ease-in-out infinite;
+  }
 
-.btn::after {
-content: "";
-position: absolute;
-inset: 0;
-background: rgba(231, 76, 76, 0.15);
-border-radius: 30px;
-opacity: 0;
-transition: opacity 0.35s ease;
-pointer-events: none;
-}
+  .btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(217, 74, 74, 0.15);
+    border-radius: 30px;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
 
-.btn:hover::after {
-opacity: 1;
-}
+  .btn:hover::after {
+    opacity: 1;
+  }
 
-.btn:hover {
-color: #ffeaea;
-border-color: #ff6666;
-box-shadow: 0 0 24px rgba(255, 102, 102, 0.6);
-background: rgba(231, 76, 76, 0.25);
-}
+  .btn:hover {
+    color: #ffeaea;
+    border-color: #ff6666;
+    box-shadow: 0 0 24px rgba(255, 102, 102, 0.6);
+    background: rgba(217, 74, 74, 0.25);
+    transform: translateY(-2px);
+  }
 
-/* DISCORD - PURPURA */
-.btn.discord {
-animation: pulse 4s ease-in-out infinite;
-background-color: #5865f2;
-color: white;
-border: none;
-box-shadow: 0 0 16px #5865f2;
-font-weight: 800;
-letter-spacing: 0.04em;
-}
+  /* DISCORD - PURPURA */
+  .btn.discord {
+    animation: pulse 4s ease-in-out infinite;
+    background-color: #5865f2;
+    color: white;
+    border: none;
+    box-shadow: 0 0 16px #5865f2;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
 
-.btn.discord:hover {
-background-color: #4752c4;
-box-shadow: 0 0 26px #4752c4;
-}
+  .btn.discord:hover {
+    background-color: #4752c4;
+    box-shadow: 0 0 26px #4752c4;
+    transform: translateY(-2px);
+  }
 
-.btn.discord img {
-height: 20px;
-filter: drop-shadow(0 0 4px rgba(255,255,255,0.8));
-}
+  .btn.discord img {
+    height: 20px;
+    filter: drop-shadow(0 0 4px rgba(255,255,255,0.8));
+  }
 
-/* EMOJIS BOTONES */
-.btn span.emoji {
-font-size: 1.3rem;
-pointer-events: none;
-user-select: none;
-}
+  /* EMOJIS BOTONES */
+  .btn span.emoji {
+    font-size: 1.3rem;
+    pointer-events: none;
+    user-select: none;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
+  }
 
-/* TEXTO DE LEMA */
-.motto {
-max-width: 700px;
-font-size: 1.06rem;
-line-height: 1.5;
-margin-bottom: 2.2rem;
-color: #f3c0c0;
-text-shadow: 0 0 3px rgba(231, 76, 76, 0.4);
-letter-spacing: 0.02em;
-font-weight: 500;
-text-align: center;
-position: relative;
-z-index: 10;
-}
+  /* TEXTO DE LEMA */
+  .motto {
+    max-width: 700px;
+    font-size: 1.06rem;
+    line-height: 1.5;
+    margin-bottom: 2.2rem;
+    color: #f3c0c0;
+    text-shadow: 0 0 3px rgba(217, 74, 74, 0.4);
+    letter-spacing: 0.02em;
+    font-weight: 500;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    background: rgba(20, 0, 0, 0.5);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 3px solid #d94a4a;
+  }
 
-/* CUERPO DE TEXTO - APARECER SUAVE AL SCROLL */
-.fade-in-section {
-opacity: 0;
-transform: translateY(15px);
-visibility: hidden;
-transition: opacity 0.8s ease-out, transform 0.8s ease-out, visibility 0.8s;
-}
-.fade-in-section.is-visible {
-opacity: 1;
-transform: none;
-visibility: visible;
-}
+  /* CUERPO DE TEXTO - APARECER SUAVE AL SCROLL */
+  .fade-in-section {
+    opacity: 0;
+    transform: translateY(15px);
+    visibility: hidden;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out, visibility 0.8s;
+  }
+  .fade-in-section.is-visible {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+  }
 
-/* TEXTO */
-p.intro, p.section-text {
-max-width: 700px;
-font-size: 1.03rem;
-line-height: 1.55;
-margin-bottom: 1.2rem;
-color: #f0b7b7;
-text-shadow: 0 0 2px rgba(231, 76, 76, 0.3);
-letter-spacing: 0.02em;
-font-weight: 400;
-position: relative;
-z-index: 10;
-}
+  /* TEXTO */
+  p.intro, p.section-text {
+    max-width: 700px;
+    font-size: 1.03rem;
+    line-height: 1.55;
+    margin-bottom: 1.2rem;
+    color: #f0b7b7;
+    text-shadow: 0 0 2px rgba(217, 74, 74, 0.3);
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    position: relative;
+    z-index: 10;
+    background: rgba(20, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+  }
 
-ul.team-list {
-list-style: none;
-padding-left: 0;
-font-size: 1.1rem;
-margin-bottom: 2rem;
-max-width: 700px;
-color: #f08080;
-font-weight: 500;
-position: relative;
-z-index: 10;
-}
+  ul.team-list {
+    list-style: none;
+    padding-left: 0;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    max-width: 700px;
+    color: #f08080;
+    font-weight: 500;
+    position: relative;
+    z-index: 10;
+    background: rgba(20, 0, 0, 0.3);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 3px solid #d94a4a;
+  }
 
-ul.team-list li {
-margin: 0.35rem 0;
-padding-left: 1.1rem;
-position: relative;
-}
-ul.team-list li::before {
-content: "🔥";
-position: absolute;
-left: 0;
-top: 0;
-font-size: 1.1rem;
-}
+  ul.team-list li {
+    margin: 0.35rem 0;
+    padding-left: 1.1rem;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  ul.team-list li:hover {
+    transform: translateX(5px);
+  }
+  ul.team-list li::before {
+    content: "🔥";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.1rem;
+    filter: drop-shadow(0 0 3px rgba(255, 100, 0, 0.7));
+  }
 
-/* TITULO H2 */
-h2 {
-margin-top: 2.4rem;
-font-size: 1.8rem;
-color: #d94a4a;
-text-shadow: 0 0 6px rgba(217, 74, 74, 0.8);
-font-weight: 600;
-position: relative;
-z-index: 10;
-}
+  /* TITULO H2 */
+  h2 {
+    margin-top: 2.4rem;
+    font-size: 1.8rem;
+    color: #d94a4a;
+    text-shadow: 0 0 6px rgba(217, 74, 74, 0.8);
+    font-weight: 600;
+    position: relative;
+    z-index: 10;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: rgba(20, 0, 0, 0.5);
+    display: inline-block;
+  }
 
-/* FOOTER */
-footer {
-font-size: 0.92rem;
-color: #8b2e2e;
-text-align: center;
-max-width: 650px;
-font-weight: 500;
-letter-spacing: 0.03em;
-position: relative;
-z-index: 10;
-}
+  /* FOOTER */
+  footer {
+    font-size: 0.92rem;
+    color: #8b2e2e;
+    text-align: center;
+    max-width: 650px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    position: relative;
+    z-index: 10;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(20, 0, 0, 0.3);
+    border-radius: 8px;
+    border-top: 1px solid rgba(217, 74, 74, 0.3);
+  }
 
-/* MOBILE ADAPTACION */
-@media (max-width: 600px) {
-body {
-padding: 1.5rem 1rem 2.5rem;
-}
-h1 {
-font-size: 1.6rem;
-}
-h2 {
-font-size: 1.5rem;
-}
-p.intro, p.section-text, ul.team-list, .motto {
-max-width: 95vw;
-font-size: 0.98rem;
-}
-.btn {
-font-size: 0.95rem;
-padding: 0.68rem 1.6rem;
-}
-}
+  /* ELEMENTOS DECORATIVOS */
+  .decoration {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.1;
+    font-size: 2rem;
+    animation: float 15s infinite linear;
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+    100% { transform: translateY(0) rotate(360deg); }
+  }
+
+  /* MOBILE ADAPTACION */
+  @media (max-width: 600px) {
+    body {
+      padding: 1.5rem 1rem 2.5rem;
+    }
+    h1 {
+      font-size: 1.6rem;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    p.intro, p.section-text, ul.team-list, .motto {
+      max-width: 95vw;
+      font-size: 0.98rem;
+    }
+    .btn {
+      font-size: 0.95rem;
+      padding: 0.68rem 1.6rem;
+    }
+    .buttons {
+      gap: 1rem;
+    }
+  }
 </style>
+</head>
+<body>
+  <!-- Elementos decorativos -->
+  <div class="decoration" style="top: 10%; left: 5%;">🔥</div>
+  <div class="decoration" style="top: 20%; right: 8%;">⚡</div>
+  <div class="decoration" style="bottom: 15%; left: 10%;">💻</div>
+  <div class="decoration" style="bottom: 25%; right: 5%;">🚀</div>
+  <div class="decoration" style="top: 40%; left: 15%;">🎮</div>
+  
+  <canvas id="particles"></canvas>
 
-</head>  
-<body>  
-  <canvas id="particles"></canvas>    <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Logo Anti-Hambreado Script Team" class="logo" />    <h1>Anti-Hambreado Script Team</h1>    <div class="buttons fade-in-section">  
-    <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn discord" aria-label="Nuestro Discord">  
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Icono Discord" />  
-      <span class="emoji">💬</span> Nuestro Discord  
-    </a>  
-    <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="btn" aria-label="Nuestra página de scripts">  
-      <span class="emoji">📜</span> Nuestra página de scripts  
-    </a>  
-    <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn" aria-label="Nuestra página de executores">  
-      <span class="emoji">⚙️</span> Nuestra página de executores  
-    </a>  
-    <a href="https://youtube.com/@anti-hambreadoscript-team" target="_blank" class="btn" aria-label="Nuestro canal de YouTube">  
-      <span class="emoji">🎥</span> Nuestro canal de YouTube  
-    </a>  
-  </div>    <p class="motto fade-in-section">  
-    Anti-Hambreado Script Team es el canal donde los verdaderos jugadores consiguen scripts y executores sin rodeos: links directos, sin virus, sin anuncios, sin loot-link ni tonterías. Aquí no te llenamos la pantalla de publicidad ni te hacemos saltar obstáculos para conseguir lo que buscas.<br><br>  
-    A diferencia de Campione Script, que parece más interesado en llenar su cartera que en ayudar a la comunidad —con sus acortadores eternos y páginas llenas de anuncios— nosotros sí respetamos tu tiempo.<br><br>  
-    Menos hambre, más calidad. Eso es Anti-Hambreado Script Team.  
-  </p>    <p class="intro fade-in-section">  
-    Hola, somos Anti-Hambreado Script Team, muchos ya nos conocerán. Somos un equipo que busca dar scripts y executores con link directo, sin anuncios y sin hambre, porque nosotros no somos hambreados como Campione Script.  
-  </p>    <ul class="team-list fade-in-section">  
-    <li>FELICIAXXXTOP</li>  
-    <li>IWOOZY</li>  
-    <li>ANGELLLTFMXD</li>  
-    <li>BANHAMMER</li>  
-    <li>NO-SLOWWW</li>  
-  </ul>    <p class="intro fade-in-section">  
-    Y nosotros somos socios y amigos de FloppHub Team, el mejor servidor para hacer bypass a Linkvertise, Lootlink, Keys, etc. ¡Sin hambre y sin anuncios, a diferencia de Campione Script!  
-  </p>    <h2 class="fade-in-section">Campione Script: El hambre con WiFi disfrazado de youtuber 😹</h2>    <p class="section-text fade-in-section">  
-    Oye, ¿y qué es lo que Campione Script se cree? ¿Un youtuber serio? ¡El diablo, oe! Ese tipo no escribe código, él escribe trampas. Tú entras a su página y lo que hay es un virusaso, pero cuando vas a su canal… ¡ay mi madre! Eso es otro nivel de hambre.  
-  </p>    <p class="section-text fade-in-section">  
-    Scripts con veneno: Tú crees que vas a descargar algo útil y lo que te cae es un link con más anuncios que un canal de YouTube en diciembre. Si das un click en falso, te sale un popup, un virus, y hasta una suscripción a una página rara. ¿Cómo así?  
-  </p>    <p class="section-text fade-in-section">  
-    Publicidad por pila: Cada script viene con cinco acortadores, tres redirecciones y un captcha que parece examen de matemáticas. Tú no sabes si estás programando o jugando a escapar de un malware.  
-  </p>    <p class="section-text fade-in-section">  
-    Canal lleno de bulto: Tú entras buscando ayuda y lo que encuentras es un mercado. “¡Descarga mi script!”, “¡Suscríbete a mi canal!”, “¡Suscríbete a este otro canal!” — pero de contenido útil, ni la sombra. Es como si el tipo estuviera vendiendo sueños y pesadillas al mismo tiempo.  
-  </p>    <p class="section-text fade-in-section">  
-    Cero ética, cero respeto: Un youtuber de verdad te da herramientas, te enseña, te ayuda. Este lo que hace es tirar carnada pa’ ver quién cae. ¡El hueso, compai! Y lo peor es que hay gente que todavía lo defiende. ¿Qué fue?  
-  </p>    <p class="section-text fade-in-section">  
-    Esto no es un youtuber, esto es hambre con estrategia. Campione Script no sube videos de calidad, él pesca incautos. Si tú quieres aprender, crecer, y montar algo serio, sal corriendo. Porque aquí lo que hay es bulto, paquete y un virus esperando en la esquina.  
-  </p>    <footer class="fade-in-section">  
-    © Anti-Hambreado Script Team 2025 - ¡No seas hambread@ como Campione!  
-  </footer>  <script>  
-  // PARTICULAS CANVAS  
-  const canvas = document.getElementById('particles');  
-  const ctx = canvas.getContext('2d');  
-  let width, height;  
-  
-  function resize() {  
-    width = window.innerWidth;  
-    height = window.innerHeight;  
-    canvas.width = width;  
-    canvas.height = height;  
-  }  
-  
-  window.addEventListener('resize', resize);  
-  resize();  
-  
-  class Particle {  
-    constructor() {  
-      this.reset();  
-    }  
-  
-    reset() {  
-      const edge = Math.floor(Math.random() * 4);  
-      switch(edge) {  
-        case 0:  
-          this.x = Math.random() * width;  
-          this.y = 0;  
-          break;  
-        case 1:  
-          this.x = width;  
-          this.y = Math.random() * height;  
-          break;  
-        case 2:  
-          this.x = Math.random() * width;  
-          this.y = height;  
-          break;  
-        case 3:  
-          this.x = 0;  
-          this.y = Math.random() * height;  
-          break;  
-      }  
-      this.vx = (width/2 - this.x) * 0.002 * (Math.random() * 0.6 + 0.4);  
-      this.vy = (height/2 - this.y) * 0.002 * (Math.random() * 0.6 + 0.4);  
-      this.radius = Math.random() * 2 + 1;  
-      this.life = 0;  
-      this.maxLife = 300 + Math.random() * 250;  
-      this.alpha = 0;  
-      this.alphaSpeed = 0.008 + Math.random()*0.007;  
-    }  
-  
-    update() {  
-      this.x += this.vx;  
-      this.y += this.vy;  
-      this.life++;  
-      if (this.life < this.maxLife / 3) {  
-        this.alpha += this.alphaSpeed;  
-        if (this.alpha > 0.25) this.alpha = 0.25;  
-      } else if (this.life > this.maxLife * 0.75) {  
-        this.alpha -= this.alphaSpeed;  
-        if (this.alpha < 0) this.alpha = 0;  
-      }  
-      if (this.life > this.maxLife || this.alpha <= 0) this.reset();  
-    }  
-  
-    draw() {  
-      ctx.beginPath();  
-      const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius*4);  
-      gradient.addColorStop(0, `rgba(231, 76, 76, ${this.alpha})`);  
-      gradient.addColorStop(1, 'rgba(231, 76, 76, 0)');  
-      ctx.fillStyle = gradient;  
-      ctx.arc(this.x, this.y, this.radius*4, 0, Math.PI * 2);  
-      ctx.fill();  
-  
-      ctx.beginPath();  
-      ctx.fillStyle = `rgba(231, 76, 76, ${this.alpha})`;  
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);  
-      ctx.fill();  
-    }  
-  }  
-  
-  const particlesCount = 40;  
-  const particles = [];  
-  for (let i = 0; i < particlesCount; i++) {  
-    particles.push(new Particle());  
-  }  
-  
-  function animate() {  
-    ctx.clearRect(0, 0, width, height);  
-    particles.forEach(p => {  
-      p.update();  
-      p.draw();  
-    });  
-    requestAnimationFrame(animate);  
-  }  
-  animate();  
-  
-  // APARICIÓN SUAVE: Intersection Observer  
-  const fadeEls = document.querySelectorAll('.fade-in-section');  
-  
-  const observer = new IntersectionObserver((entries) => {  
-    entries.forEach(entry => {  
-      if (entry.isIntersecting) {  
-        entry.target.classList.add('is-visible');  
-        observer.unobserve(entry.target);  
-      }  
-    });  
-  }, {  
-    threshold: 0.1  
-  });  
-  
-  fadeEls.forEach(el => observer.observe(el));  
-</script>  </body>  
+  <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Logo Anti-Hambreado Script Team" class="logo" />
+
+  <h1>Anti-Hambreado Script Team</h1>
+
+  <div class="buttons fade-in-section">
+    <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn discord neon-glow" aria-label="Nuestro Discord">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Icono Discord" />
+      <span class="emoji">💬</span> Nuestro Discord
+    </a>
+    <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="btn neon-glow" aria-label="Nuestra página de scripts">
+      <span class="emoji">📜</span> Nuestra página de scripts
+    </a>
+    <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn neon-glow" aria-label="Nuestra página de executores">
+      <span class="emoji">⚙️</span> Nuestra página de executores
+    </a>
+    <a href="https://youtube.com/@anti-hambreadoscript-team" target="_blank" class="btn neon-glow" aria-label="Nuestro canal de YouTube">
+      <span class="emoji">🎥</span> Nuestro canal de YouTube
+    </a>
+  </div>
+
+  <p class="motto fade-in-section">
+    Anti-Hambreado Script Team es el canal donde los verdaderos jugadores consiguen scripts y executores sin rodeos: links directos, sin virus, sin anuncios, sin loot-link ni tonterías. Aquí no te llenamos la pantalla de publicidad ni te hacemos saltar obstáculos para conseguir lo que buscas.<br><br>
+    A diferencia de Campione Script, que parece más interesado en llenar su cartera que en ayudar a la comunidad —con sus acortadores eternos y páginas llenas de anuncios— nosotros sí respetamos tu tiempo.<br><br>
+    Menos hambre, más calidad. Eso es Anti-Hambreado Script Team.
+  </p>
+
+  <p class="intro fade-in-section">
+    Hola, somos Anti-Hambreado Script Team, muchos ya nos conocerán. Somos un equipo que busca dar scripts y executores con link directo, sin anuncios y sin hambre, porque nosotros no somos hambreados como Campione Script.
+  </p>
+
+  <ul class="team-list fade-in-section">
+    <li>FELICIAXXXTOP</li>
+    <li>IWOOZY</li>
+    <li>ANGELLLTFMXD</li>
+    <li>BANHAMMER</li>
+    <li>NO-SLOWWW</li>
+  </ul>
+
+  <p class="intro fade-in-section">
+    Y nosotros somos socios y amigos de FloppHub Team, el mejor servidor para hacer bypass a Linkvertise, Lootlink, Keys, etc. ¡Sin hambre y sin anuncios, a diferencia de Campione Script!
+  </p>
+
+  <h2 class="fade-in-section">Campione Script: El hambre con WiFi disfrazado de youtuber 😹</h2>
+
+  <p class="section-text fade-in-section">
+    Oye, ¿y qué es lo que Campione Script se cree? ¿Un youtuber serio? ¡El diablo, oe! Ese tipo no escribe código, él escribe trampas. Tú entras a su página y lo que hay es un virusaso, pero cuando vas a su canal… ¡ay mi madre! Eso es otro nivel de hambre.
+  </p>
+
+  <p class="section-text fade-in-section">
+    Scripts con veneno: Tú crees que vas a descargar algo útil y lo que te cae es un link con más anuncios que un canal de YouTube en diciembre. Si das un click en falso, te sale un popup, un virus, y hasta una suscripción a una página rara. ¿Cómo así?
+  </p>
+
+  <p class="section-text fade-in-section">
+    Publicidad por pila: Cada script viene con cinco acortadores, tres redirecciones y un captcha que parece examen de matemáticas. Tú no sabes si estás programando o jugando a escapar de un malware.
+  </p>
+
+  <p class="section-text fade-in-section">
+    Canal lleno de bulto: Tú entras buscando ayuda y lo que encuentras es un mercado. "¡Descarga mi script!", "¡Suscríbete a mi canal!", "¡Suscríbete a este otro canal!" — pero de contenido útil, ni la sombra. Es como si el tipo estuviera vendiendo sueños y pesadillas al mismo tiempo.
+  </p>
+
+  <p class="section-text fade-in-section">
+    Cero ética, cero respeto: Un youtuber de verdad te da herramientas, te enseña, te ayuda. Este lo que hace es tirar carnada pa' ver quién cae. ¡El hueso, compai! Y lo peor es que hay gente que todavía lo defiende. ¿Qué fue?
+  </p>
+
+  <p class="section-text fade-in-section">
+    Esto no es un youtuber, esto es hambre con estrategia. Campione Script no sube videos de calidad, él pesca incautos. Si tú quieres aprender, crecer, y montar algo serio, sal corriendo. Porque aquí lo que hay es bulto, paquete y un virus esperando en la esquina.
+  </p>
+
+  <footer class="fade-in-section">
+    © Anti-Hambreado Script Team 2025 - ¡No seas hambread@ como Campione!
+  </footer>
+
+<script>
+  // PARTICULAS CANVAS
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+
+    reset() {
+      const edge = Math.floor(Math.random() * 4);
+      switch(edge) {
+        case 0:
+          this.x = Math.random() * width;
+          this.y = 0;
+          break;
+        case 1:
+          this.x = width;
+          this.y = Math.random() * height;
+          break;
+        case 2:
+          this.x = Math.random() * width;
+          this.y = height;
+          break;
+        case 3:
+          this.x = 0;
+          this.y = Math.random() * height;
+          break;
+      }
+      this.vx = (width/2 - this.x) * 0.002 * (Math.random() * 0.6 + 0.4);
+      this.vy = (height/2 - this.y) * 0.002 * (Math.random() * 0.6 + 0.4);
+      this.radius = Math.random() * 2 + 1;
+      this.life = 0;
+      this.maxLife = 300 + Math.random() * 250;
+      this.alpha = 0;
+      this.alphaSpeed = 0.008 + Math.random()*0.007;
+      this.color = `rgba(${217 + Math.random()*30}, ${74 + Math.random()*30}, ${74 + Math.random()*30}, `;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.life++;
+      if (this.life < this.maxLife / 3) {
+        this.alpha += this.alphaSpeed;
+        if (this.alpha > 0.25) this.alpha = 0.25;
+      } else if (this.life > this.maxLife * 0.75) {
+        this.alpha -= this.alphaSpeed;
+        if (this.alpha < 0) this.alpha = 0;
+      }
+      if (this.life > this.maxLife || this.alpha <= 0) this.reset();
+    }
+
+    draw() {
+      ctx.beginPath();
+      const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius*4);
+      gradient.addColorStop(0, this.color + `${this.alpha})`);
+      gradient.addColorStop(1, this.color + '0)');
+      ctx.fillStyle = gradient;
+      ctx.arc(this.x, this.y, this.radius*4, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.fillStyle = this.color + `${this.alpha})`;
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  const particlesCount = 40;
+  const particles = [];
+  for (let i = 0; i < particlesCount; i++) {
+    particles.push(new Particle());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // APARICIÓN SUAVE: Intersection Observer
+  const fadeEls = document.querySelectorAll('.fade-in-section');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  fadeEls.forEach(el => observer.observe(el));
+</script>
+</body>
 </html>
