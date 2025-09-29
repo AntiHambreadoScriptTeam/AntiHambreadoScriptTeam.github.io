@@ -697,6 +697,10 @@
     <span class="folder-icon">📁</span>
     BLUE LOCK RIVALS
 </div>
+<div class="sidebar-item" onclick="showContent('bloodmoney')">
+    <span class="folder-icon">📁</span>
+    BLOODMONEY
+</div>
 <div class="sidebar-item" onclick="showContent('dead-rails')">
     <span class="folder-icon">📁</span>
     DEAD RAILS
@@ -1615,6 +1619,30 @@ en nuestro canal de YouTube: @anti-hambreadoscript-team
     </div>
 </div>
 
+<div id="bloodmoney" class="content">
+    <h2 class="section-title">🩸 BLOODMONEY</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">ANTI-HAMBREADO SCRIPT TEAM | BLOODMONEY</div>
+            <button class="copy-button" onclick="copyScript(this, 'bloodmoney1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="bloodmoney1">🎯 ¡PRÓXIMAMENTE! 🎯
+
+ANTI-HAMBREADO SCRIPT TEAM | BLOODMONEY
+
+📢 Este script será lanzado oficialmente mañana 
+junto a un video en nuestro canal de YouTube.
+
+⏰ ¡Espéralo, será épico! 🔥
+
+📺 Suscríbete para no perdértelo:
+https://youtube.com/@anti-hambreadoscript-team</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -1732,7 +1760,8 @@ window.showContent = function(sectionId) {
     (itemText.includes('Basically FNF: Remix') && sectionId === 'basically-fnf') ||
     (itemText.includes('PLANTAS VS BRAINROTS') && sectionId === 'plantas-vs-brainrots') ||
     (itemText.includes('SCRIPT HUB UNIVERSALES') && sectionId === 'script-hub-universales') ||
-    (itemText.includes('SERVIDORES PRIVADOS GRATIS') && sectionId === 'servidores-privados') ||  
+    (itemText.includes('SERVIDORES PRIVADOS GRATIS') && sectionId === 'servidores-privados') ||
+    (itemText.includes('BLOODMONEY') && sectionId === 'bloodmoney') ||  // 
     (itemText.includes('Si lees esto, ignorame') && sectionId === 'saludo')) {
     item.classList.add('active');
 }
