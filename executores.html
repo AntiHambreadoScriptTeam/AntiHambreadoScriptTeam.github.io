@@ -538,13 +538,14 @@
             filter: drop-shadow(0 0 3px rgba(255, 50, 50, 0.5));
         }
 
+        /* Modal de advertencia - MEJORADO PARA MÓVIL */
         .warning-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -552,6 +553,7 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.4s ease;
+            padding: 15px;
         }
 
         .warning-modal.active {
@@ -561,16 +563,19 @@
 
         .warning-content {
             background: linear-gradient(135deg, #1a0000 0%, #4a0000 100%);
-            width: 90%;
-            max-width: 600px;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 0 50px rgba(255, 0, 0, 0.7);
-            border: 3px solid #ff3333;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
+            border: 2px solid #ff3333;
             position: relative;
             overflow: hidden;
-            transform: scale(0.8);
+            transform: scale(0.9);
             transition: transform 0.4s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .warning-modal.active .warning-content {
@@ -591,47 +596,63 @@
 
         .warning-header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             position: relative;
             z-index: 1;
         }
 
         .warning-title {
-            font-size: 3rem;
+            font-size: 2rem;
             color: #ff3333;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
-            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            margin-bottom: 8px;
             animation: pulse 2s infinite;
+            line-height: 1.2;
         }
 
         .warning-subtitle {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             color: #ff9999;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            line-height: 1.3;
         }
 
         .warning-body {
             background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            border-left: 4px solid #ff3333;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 3px solid #ff3333;
             position: relative;
             z-index: 1;
+            flex: 1;
+            overflow-y: auto;
+            max-height: 50vh;
         }
 
         .warning-body p {
-            margin-bottom: 15px;
-            line-height: 1.6;
-            font-size: 1.1rem;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            font-size: 0.95rem;
             color: #ffcccc;
+        }
+
+        .warning-body ul {
+            margin-left: 15px;
+            margin-bottom: 15px;
+        }
+
+        .warning-body li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+            font-size: 0.9rem;
         }
 
         .warning-recommendation {
             background: rgba(0, 0, 0, 0.7);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
             border: 1px solid #ff9933;
             position: relative;
             z-index: 1;
@@ -639,21 +660,26 @@
 
         .warning-recommendation h3 {
             color: #ff9933;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .warning-recommendation p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
         }
 
         .warning-buttons {
             display: flex;
-            justify-content: space-between;
-            gap: 15px;
+            flex-direction: column;
+            gap: 10px;
             position: relative;
             z-index: 1;
+            margin-top: auto;
         }
 
         .warning-btn {
-            flex: 1;
-            padding: 12px 20px;
+            padding: 14px 20px;
             border: none;
             border-radius: 10px;
             font-weight: 700;
@@ -661,11 +687,13 @@
             transition: all 0.3s ease;
             font-family: 'Orbitron', monospace;
             font-size: 1rem;
+            width: 100%;
         }
 
         .warning-btn.cancel {
             background: linear-gradient(45deg, #333, #555);
             color: #fff;
+            order: 2;
         }
 
         .warning-btn.cancel:hover {
@@ -676,6 +704,7 @@
         .warning-btn.continue {
             background: linear-gradient(45deg, #ff3333, #cc0000);
             color: #fff;
+            order: 1;
         }
 
         .warning-btn.continue:hover {
@@ -747,37 +776,173 @@
                 text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
             }
             50% {
-                text-shadow: 0 0 25px rgba(255, 0, 0, 1), 0 0 35px rgba(255, 50, 50, 0.8);
+                text-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 50, 50, 0.8);
             }
             100% {
                 text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
             }
         }
 
+        /* MEJORAS ESPECÍFICAS PARA MÓVIL */
         @media (max-width: 768px) {
             .sidebar {
-                width: 300px;
+                width: 85%;
+                max-width: 300px;
+            }
+
+            header {
+                margin-top: 60px;
+                padding: 15px;
             }
 
             header h1 {
                 font-size: 2rem;
+                line-height: 1.2;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+
+            .status-legend {
+                margin: 20px 15px;
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+
+            .container {
+                padding: 15px;
+                gap: 15px;
             }
 
             .card {
                 width: 100%;
-                max-width: 320px;
+                max-width: 280px;
+                padding: 15px;
+            }
+
+            .card img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .download-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .warning {
+                font-size: 0.8rem;
+                margin-top: 10px;
+            }
+
+            .discord-section {
+                margin: 30px 15px;
+                padding: 25px 20px;
+            }
+
+            .discord-section img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .discord-section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 12px;
+            }
+
+            .discord-section a {
+                font-size: 1rem;
+            }
+
+            footer {
+                padding: 15px;
+                margin-top: 30px;
+            }
+
+            footer p {
+                font-size: 0.8rem;
+            }
+
+            /* Modal mejorado para móvil */
+            .warning-modal {
+                padding: 10px;
+            }
+
+            .warning-content {
+                max-height: 85vh;
+                padding: 15px;
+                border-radius: 12px;
             }
 
             .warning-title {
-                font-size: 2.2rem;
+                font-size: 1.8rem;
             }
 
             .warning-subtitle {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
 
-            .warning-buttons {
-                flex-direction: column;
+            .warning-body {
+                padding: 12px;
+                max-height: 45vh;
+            }
+
+            .warning-body p {
+                font-size: 0.9rem;
+            }
+
+            .warning-body li {
+                font-size: 0.85rem;
+            }
+
+            .warning-recommendation {
+                padding: 10px;
+            }
+
+            .warning-recommendation h3 {
+                font-size: 0.95rem;
+            }
+
+            .warning-recommendation p {
+                font-size: 0.85rem;
+            }
+
+            .warning-btn {
+                padding: 12px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.7rem;
+            }
+
+            .card {
+                max-width: 100%;
+            }
+
+            .warning-title {
+                font-size: 1.6rem;
+            }
+
+            .warning-content {
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .warning-title {
+                font-size: 1.4rem;
+            }
+
+            .warning-subtitle {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -1000,7 +1165,7 @@
                     <p>🔴 <strong>RONIX representa una grave amenaza para tu seguridad digital.</strong></p>
                     <p>📛 <strong>¿Por qué es peligroso?</strong> Este executor malicioso está diseñado para robar información personal de sus usuarios de forma sistemática.</p>
                     <p>🕵️‍♂️ <strong>Actividades maliciosas confirmadas:</strong></p>
-                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <ul>
                         <li>🔓 Robo de direcciones IP y datos de localización</li>
                         <li>📧 Sustracción de cuentas de Gmail y credenciales de acceso</li>
                         <li>💳 Recopilación de información personal sensible</li>
@@ -1022,7 +1187,7 @@
                     <p>🔴 <strong>DELTA representa un riesgo significativo para tu seguridad en línea.</strong></p>
                     <p>📛 <strong>¿Por qué es peligroso?</strong> Este executor compromete activamente la seguridad de tus credenciales y datos personales.</p>
                     <p>🕵️‍♂️ <strong>Actividades maliciosas confirmadas:</strong></p>
-                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <ul>
                         <li>👤 Robo de nombres de usuario y perfiles de usuario</li>
                         <li>🔐 Sustracción de contraseñas y credenciales de acceso</li>
                         <li>📧 Interceptación de cuentas de Gmail asociadas</li>
@@ -1068,6 +1233,12 @@
 
         warningModal.addEventListener('click', function(e) {
             if (e.target === warningModal) {
+                warningModal.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && warningModal.classList.contains('active')) {
                 warningModal.classList.remove('active');
             }
         });
