@@ -89,7 +89,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Canvas para partículas */
         #particles-js {
             position: fixed;
             width: 100%;
@@ -99,7 +98,6 @@
             z-index: -1;
         }
 
-        /* Menú lateral */
         .sidebar {
             position: fixed;
             top: 0;
@@ -169,7 +167,6 @@
             text-shadow: 0 0 8px #ff6666;
         }
 
-        /* Overlay menú */
         .menu-overlay {
             position: fixed;
             top: 0;
@@ -189,7 +186,6 @@
             opacity: 1;
         }
 
-        /* Botón hamburguesa */
         .menu-toggle {
             position: fixed;
             top: 20px;
@@ -254,7 +250,6 @@
                 0 0 15px rgba(255, 80, 80, 0.3);
         }
 
-        /* Neones por estado: */
         .status-label.peligro {
             color: #ff4d4d;
             text-shadow:
@@ -543,7 +538,151 @@
             filter: drop-shadow(0 0 3px rgba(255, 50, 50, 0.5));
         }
 
-        /* Animaciones */
+        .warning-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .warning-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .warning-content {
+            background: linear-gradient(135deg, #1a0000 0%, #4a0000 100%);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.7);
+            border: 3px solid #ff3333;
+            position: relative;
+            overflow: hidden;
+            transform: scale(0.8);
+            transition: transform 0.4s ease;
+        }
+
+        .warning-modal.active .warning-content {
+            transform: scale(1);
+        }
+
+        .warning-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ff0000' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .warning-header {
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .warning-title {
+            font-size: 3rem;
+            color: #ff3333;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .warning-subtitle {
+            font-size: 1.5rem;
+            color: #ff9999;
+            margin-bottom: 15px;
+        }
+
+        .warning-body {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid #ff3333;
+            position: relative;
+            z-index: 1;
+        }
+
+        .warning-body p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            color: #ffcccc;
+        }
+
+        .warning-recommendation {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 1px solid #ff9933;
+            position: relative;
+            z-index: 1;
+        }
+
+        .warning-recommendation h3 {
+            color: #ff9933;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .warning-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .warning-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+        }
+
+        .warning-btn.cancel {
+            background: linear-gradient(45deg, #333, #555);
+            color: #fff;
+        }
+
+        .warning-btn.cancel:hover {
+            background: linear-gradient(45deg, #555, #777);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .warning-btn.continue {
+            background: linear-gradient(45deg, #ff3333, #cc0000);
+            color: #fff;
+        }
+
+        .warning-btn.continue:hover {
+            background: linear-gradient(45deg, #ff5555, #ff0000);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -603,7 +742,18 @@
             }
         }
 
-        /* Responsive */
+        @keyframes pulse {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            }
+            50% {
+                text-shadow: 0 0 25px rgba(255, 0, 0, 1), 0 0 35px rgba(255, 50, 50, 0.8);
+            }
+            100% {
+                text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            }
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 width: 300px;
@@ -617,21 +767,45 @@
                 width: 100%;
                 max-width: 320px;
             }
+
+            .warning-title {
+                font-size: 2.2rem;
+            }
+
+            .warning-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .warning-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Canvas para partículas -->
     <div id="particles-js"></div>
 
-    <!-- Botón hamburguesa -->
+    <div class="warning-modal" id="warningModal">
+        <div class="warning-content">
+            <div class="warning-header">
+                <h2 class="warning-title" id="warningTitle">PELIGRO ⚠️</h2>
+                <p class="warning-subtitle" id="warningSubtitle">Este executor actualmente es peligroso de usar</p>
+            </div>
+            <div class="warning-body" id="warningBody">
+            </div>
+            <div class="warning-buttons">
+                <button class="warning-btn cancel" id="cancelBtn">❌ Cancelar Descarga</button>
+                <button class="warning-btn continue" id="continueBtn">⚠️ Continuar bajo mi responsabilidad</button>
+            </div>
+        </div>
+    </div>
+
     <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" role="button" tabindex="0">
         <span></span>
         <span></span>
         <span></span>
     </div>
 
-    <!-- Panel del menú -->
     <div class="sidebar" id="menuPanel" aria-hidden="true">
         <a class="sidebar-item" href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" rel="noopener noreferrer">
             📜 | Scripts aquí
@@ -641,7 +815,6 @@
         </a>
     </div>
 
-    <!-- Overlay -->
     <div class="menu-overlay" id="menuOverlay" tabindex="-1"></div>
 
     <header>
@@ -663,7 +836,7 @@
             <img src="https://i.postimg.cc/P5vc51Wj/ronix-081525.webp" alt="Ronix" />
             <h2>Ronix</h2>
             <div class="status-label peligro">🚫 Peligroso</div>
-            <a class="download-btn" href="https://www.mediafire.com/file/zavfdnwnd4deplk/RONIX_2.691.apk/file" target="_blank" rel="noopener noreferrer">Descargar</a>
+            <a class="download-btn" href="#" data-executor="ronix">Descargar</a>
         </div>
 
         <div class="card" tabindex="0">
@@ -699,7 +872,7 @@
             <img src="https://i.postimg.cc/VkyyM7L6/images.jpg" alt="Delta" />
             <h2>Delta</h2>
             <div class="status-label peligro">🚫 Peligroso</div>
-            <a class="download-btn" href="https://deltaexploits.gg/delta-executor-android" target="_blank" rel="noopener noreferrer">Descargar</a>
+            <a class="download-btn" href="#" data-executor="delta">Descargar</a>
         </div>
     </div>
 
@@ -714,10 +887,8 @@
         <p>Diseñado con ❤️ para nuestra comunidad</p>
     </footer>
 
-    <!-- Script para partículas -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Configuración de partículas con brillo/neón rojo suave para un efecto más cool
         particlesJS('particles-js', {
             particles: {
                 number: {
@@ -771,7 +942,6 @@
             retina_detect: true
         });
 
-        // Toggle menú lateral con accesibilidad mejorada
         const menuToggle = document.getElementById('menuToggle');
         const menuPanel = document.getElementById('menuPanel');
         const menuOverlay = document.getElementById('menuOverlay');
@@ -799,7 +969,6 @@
             menuToggle.focus();
         });
 
-        // Animación suave para las cards al cargar página
         document.addEventListener('DOMContentLoaded', () => {
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
@@ -815,6 +984,93 @@
                 });
             }, 150);
         });
+
+        const warningModal = document.getElementById('warningModal');
+        const warningTitle = document.getElementById('warningTitle');
+        const warningSubtitle = document.getElementById('warningSubtitle');
+        const warningBody = document.getElementById('warningBody');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const continueBtn = document.getElementById('continueBtn');
+
+        const warnings = {
+            ronix: {
+                title: "PELIGRO ⚠️",
+                subtitle: "Este executor actualmente es peligroso de usar",
+                body: `
+                    <p>🔴 <strong>RONIX representa una grave amenaza para tu seguridad digital.</strong></p>
+                    <p>📛 <strong>¿Por qué es peligroso?</strong> Este executor malicioso está diseñado para robar información personal de sus usuarios de forma sistemática.</p>
+                    <p>🕵️‍♂️ <strong>Actividades maliciosas confirmadas:</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li>🔓 Robo de direcciones IP y datos de localización</li>
+                        <li>📧 Sustracción de cuentas de Gmail y credenciales de acceso</li>
+                        <li>💳 Recopilación de información personal sensible</li>
+                        <li>📝 Falsificación de su certificado UNC (Universal Naming Convention)</li>
+                        <li>💻 Plagio de líneas de código de otros executores legítimos</li>
+                    </ul>
+                    <p>⚠️ <strong>Advertencia adicional:</strong> Los desarrolladores de RONIX han demostrado prácticas éticas cuestionables y falta de transparencia en el manejo de datos de usuarios.</p>
+                    <div class="warning-recommendation">
+                        <h3>💡 RECOMENDACIÓN DE SEGURIDAD</h3>
+                        <p>Para proteger tu privacidad y seguridad, te recomendamos utilizar alternativas confiables como <strong>KRNL</strong> o <strong>Codex</strong>, que cuentan con historiales verificables de seguridad y transparencia.</p>
+                    </div>
+                `,
+                continueUrl: "https://www.mediafire.com/file/zavfdnwnd4deplk/RONIX_2.691.apk/file"
+            },
+            delta: {
+                title: "PELIGRO ⚠️",
+                subtitle: "Este executor actualmente es peligroso de usar",
+                body: `
+                    <p>🔴 <strong>DELTA representa un riesgo significativo para tu seguridad en línea.</strong></p>
+                    <p>📛 <strong>¿Por qué es peligroso?</strong> Este executor compromete activamente la seguridad de tus credenciales y datos personales.</p>
+                    <p>🕵️‍♂️ <strong>Actividades maliciosas confirmadas:</strong></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li>👤 Robo de nombres de usuario y perfiles de usuario</li>
+                        <li>🔐 Sustracción de contraseñas y credenciales de acceso</li>
+                        <li>📧 Interceptación de cuentas de Gmail asociadas</li>
+                        <li>🛡️ API desactualizada que incrementa la detectabilidad</li>
+                        <li>📊 Vulnerabilidades de seguridad no parcheadas</li>
+                    </ul>
+                    <p>⚠️ <strong>Problema técnico crítico:</strong> La API de DELTA utiliza tecnologías obsoletas que no cumplen con los estándares actuales de seguridad, haciendo que sea más fácilmente detectable por sistemas de protección.</p>
+                    <div class="warning-recommendation">
+                        <h3>💡 RECOMENDACIÓN DE SEGURIDAD</h3>
+                        <p>Para mantener tu información segura y evitar posibles bloqueos, te sugerimos utilizar alternativas más seguras y actualizadas como <strong>KRNL</strong> o <strong>Codex</strong>, que ofrecen mejores medidas de protección y actualizaciones regulares.</p>
+                    </div>
+                `,
+                continueUrl: "https://deltaexploits.gg/delta-executor-android"
+            }
+        };
+
+        document.querySelectorAll('.download-btn[data-executor]').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const executor = this.getAttribute('data-executor');
+                
+                if (warnings[executor]) {
+                    showWarning(warnings[executor]);
+                }
+            });
+        });
+
+        function showWarning(warning) {
+            warningTitle.innerHTML = warning.title;
+            warningSubtitle.textContent = warning.subtitle;
+            warningBody.innerHTML = warning.body;
+            warningModal.classList.add('active');
+            
+            continueBtn.onclick = function() {
+                window.open(warning.continueUrl, '_blank');
+                warningModal.classList.remove('active');
+            };
+        }
+
+        cancelBtn.addEventListener('click', function() {
+            warningModal.classList.remove('active');
+        });
+
+        warningModal.addEventListener('click', function(e) {
+            if (e.target === warningModal) {
+                warningModal.classList.remove('active');
+            }
+        });
     </script>
 </body>
-    </html>
+</html>
