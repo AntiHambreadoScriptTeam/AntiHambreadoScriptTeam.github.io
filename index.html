@@ -74,6 +74,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -92,17 +93,17 @@
 
   body {
     font-family: 'Orbitron', sans-serif;
-    background-color: #000;
+    background-color: #000000; /* Fondo negro puro AMOLED */
     color: #ff6666;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
     padding: 2rem 1.5rem 3rem;
-    background: radial-gradient(ellipse at top, #0d0000 0%, #000000 70%);
     overflow-x: hidden;
     position: relative;
     user-select: none;
+    /* La animación de fondo se mantiene para añadir un poco de dinamismo, pero sobre negro puro */
     background-image:
       radial-gradient(circle at 10% 20%, rgba(255, 0, 0, 0.03) 0%, transparent 15%),
       radial-gradient(circle at 90% 80%, rgba(255, 0, 255, 0.03) 0%, transparent 15%);
@@ -186,7 +187,7 @@
     animation: titlePulse 5s ease-in-out infinite;
     padding: 0.5rem 1.5rem;
     border-radius: 15px;
-    background: rgba(30, 0, 0, 0.5);
+    background: rgba(30, 0, 0, 0.8); /* Fondo más oscuro para contraste */
   }
   @keyframes titlePulse {
     0%, 100% { text-shadow: 0 0 8px rgba(255, 0, 0, 0.6); }
@@ -224,7 +225,7 @@
     font-size: 1.15rem;
     color: #ff4d4d;
     border: 3px solid #ff4d4d;
-    background-color: rgba(30, 0, 0, 0.8);
+    background-color: rgba(20, 0, 0, 0.9); /* Fondo más oscuro para AMOLED */
     cursor: pointer;
     text-decoration: none;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -324,7 +325,7 @@
     text-align: center;
     position: relative;
     z-index: 10;
-    background: rgba(30, 0, 0, 0.6);
+    background: rgba(20, 0, 0, 0.8); /* Fondo más oscuro para AMOLED */
     padding: 2rem;
     border-radius: 18px;
     border-left: 4px solid #ff4d4d;
@@ -354,7 +355,7 @@
     font-weight: 400;
     position: relative;
     z-index: 10;
-    background: rgba(30, 0, 0, 0.4);
+    background: rgba(20, 0, 0, 0.7); /* Fondo más oscuro para AMOLED */
     padding: 1.5rem;
     border-radius: 12px;
     border-left: 3px solid #ff4d4d;
@@ -371,7 +372,7 @@
     font-weight: 600;
     position: relative;
     z-index: 10;
-    background: rgba(30, 0, 0, 0.4);
+    background: rgba(20, 0, 0, 0.7); /* Fondo más oscuro para AMOLED */
     padding: 2rem;
     border-radius: 15px;
     border-left: 4px solid #ff4d4d;
@@ -408,7 +409,7 @@
     z-index: 10;
     padding: 1rem 1.5rem;
     border-radius: 12px;
-    background: rgba(30, 0, 0, 0.6);
+    background: rgba(20, 0, 0, 0.8); /* Fondo más oscuro para AMOLED */
     display: inline-block;
     border: 1px solid rgba(255, 102, 102, 0.2);
   }
@@ -437,7 +438,7 @@
     z-index: 10;
     margin-top: 2.5rem;
     padding: 1.5rem;
-    background: rgba(30, 0, 0, 0.5);
+    background: rgba(20, 0, 0, 0.8); /* Fondo más oscuro para AMOLED */
     border-radius: 12px;
     border-top: 2px solid rgba(255, 77, 77, 0.3);
   }
@@ -445,7 +446,7 @@
   .decoration {
     position: absolute;
     z-index: 1;
-    opacity: 0.1;
+    opacity: 0.08; /* Menor opacidad para no destacar en AMOLED */
     font-size: 2.5rem;
     animation: float 18s infinite linear;
     animation-delay: calc(var(--delay, 0) * 1s);
@@ -473,7 +474,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #000;
+    background-color: #000000; /* Fondo negro puro AMOLED */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -615,7 +616,7 @@
       <span class="emoji">📜</span> Nuestra página de scripts
     </a>
     <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn neon-glow" aria-label="Nuestra página de executores">
-      <span class="emoji">📱</span> Nuestra página de executores
+      <span class="emoji">⚙️</span> Nuestra página de executores
     </a>
     <a href="https://youtube.com/@anti-hambreadoscript-team" target="_blank" class="btn neon-glow" aria-label="Nuestro canal de YouTube">
       <span class="emoji">🎥</span> Nuestro canal de YouTube
@@ -790,8 +791,7 @@
   window.addEventListener('load', () => {
     setTimeout(() => {
       document.getElementById('splash-screen').classList.add('hidden');
-    }, 2500); 
-
+    }, 2500); // Mostrar splash durante 2.5 segundos
   });
 </script>
 </body>
