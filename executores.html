@@ -72,14 +72,10 @@
     <title>Anti-Hambreado Script Team</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-        /* Optimización 5: Aplicar box-sizing de forma más específica */
-        *, *::before, *::after {
+        * {
             margin: 0;
             padding: 0;
-            box-sizing: inherit; /* Hereda el valor de 'inherit' del padre */
-        }
-        html {
-            box-sizing: border-box; /* Establece el valor base */
+            box-sizing: border-box;
         }
         body {
             font-family: 'Orbitron', monospace;
@@ -89,8 +85,6 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            /* Optimización 4: Añadir propiedad para mejorar renderizado en algunos casos */
-            transform: translateZ(0); /* Activa aceleración por hardware */
         }
         #particles-js {
             position: fixed;
@@ -99,8 +93,6 @@
             top: 0;
             left: 0;
             z-index: -1;
-            /* Optimización 1: Ocultar partículas en móviles si se desactivan via JS */
-            /* display: none; */ /* Comentado, se controla via JS */
         }
         .sidebar {
             position: fixed;
@@ -109,7 +101,6 @@
             width: 400px;
             height: 100vh;
             background: linear-gradient(180deg, rgba(0,0,0,0.98) 0%, rgba(45,27,27,0.98) 100%);
-            /* Optimización 4: Condicionar backdrop-filter */
             backdrop-filter: blur(25px);
             transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 999;
@@ -125,7 +116,6 @@
             padding: 18px 30px;
             border-bottom: 1px solid rgba(255, 0, 0, 0.12);
             cursor: pointer;
-            /* Optimización 3: Ajustar transición en móviles */
             transition: all 0.5s ease;
             display: flex;
             align-items: center;
@@ -233,7 +223,6 @@
             background-size: 400% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            /* Optimización 3: Ajustar animación neonGlow en móviles */
             animation: neonGlow 4s ease-in-out infinite alternate;
             letter-spacing: 1.5px;
             text-shadow:
@@ -311,15 +300,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Optimización 3: Ajustar transición en móviles */
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             animation: fadeInUp 0.9s cubic-bezier(0.4, 0, 0.2, 1) both;
             user-select: none;
             filter: drop-shadow(0 0 6px rgba(255, 30, 30, 0.7));
-            /* Optimización 3: Indicar que la transformación se hará en hardware */
-            will-change: transform;
         }
         .card::before {
             content: '';
@@ -330,11 +316,9 @@
             height: 190%;
             background: radial-gradient(circle, rgba(255, 0, 0, 0.12) 0%, transparent 75%);
             opacity: 0;
-            /* Optimización 3: Ajustar transición en móviles */
             transition: opacity 0.6s ease;
             pointer-events: none;
-            /* Optimización 2: Eliminar blur costoso en pseudo-elemento */
-            /* filter: blur(10px); */
+            filter: blur(10px);
         }
         .card:hover::before {
             opacity: 1;
@@ -356,7 +340,6 @@
             height: 160px;
             object-fit: contain;
             margin-bottom: 15px;
-            /* Optimización 3: Ajustar transición en móviles */
             transition: transform 0.6s ease, filter 0.6s ease;
             filter: drop-shadow(0 0 8px rgba(255, 20, 20, 0.7));
             border-radius: 30px;
@@ -382,7 +365,6 @@
             text-decoration: none;
             border-radius: 12px;
             font-weight: 700;
-            /* Optimización 3: Ajustar transición en móviles */
             transition: all 0.4s ease;
             box-shadow:
                 0 6px 22px rgba(255, 0, 0, 0.4),
@@ -392,7 +374,6 @@
             user-select: none;
             cursor: pointer;
             filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
-            /* Optimización 3: Ajustar animación pulseGlow en móviles */
             animation: pulseGlow 3.5s ease-in-out infinite;
         }
         .download-btn::before {
@@ -408,7 +389,6 @@
                 rgba(255, 255, 255, 0.25),
                 transparent
             );
-            /* Optimización 3: Ajustar transición en móviles */
             transition: left 0.6s ease;
             pointer-events: none;
         }
@@ -508,7 +488,6 @@
             margin: 6px 0;
             filter: drop-shadow(0 0 3px rgba(255, 50, 50, 0.5));
         }
-        /* Modal de advertencia - MEJORADO PARA MÓVIL */
         .warning-modal {
             position: fixed;
             top: 0;
@@ -555,7 +534,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url("image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ff0000' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ff0000' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
             opacity: 0.3;
             pointer-events: none;
         }
@@ -726,24 +705,18 @@
                 text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
             }
         }
-        /* MEJORAS ESPECÍFICAS PARA MÓVIL */
         @media (max-width: 768px) {
-            /* Optimización 4: Desactivar backdrop-filter en móviles si es necesario */
             .sidebar {
-                backdrop-filter: none; /* Elimina el blur costoso */
-                background: rgba(0,0,0,0.95); /* Fallback */
                 width: 85%;
                 max-width: 300px;
             }
             header {
-                margin-top: 60px;
+                margin-top: 80px;
                 padding: 15px;
             }
             header h1 {
                 font-size: 2rem;
                 line-height: 1.2;
-                /* Optimización 3: Detener la animación de neón en móviles */
-                animation: neonGlowMobile 4s ease-in-out infinite alternate;
             }
             header p {
                 font-size: 0.9rem;
@@ -761,30 +734,14 @@
                 width: 100%;
                 max-width: 280px;
                 padding: 15px;
-                /* Optimización 3: Ajustar transición en móviles */
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             }
-            /* Optimización 3: Ajustar transición en móviles */
             .card img {
                 width: 120px;
                 height: 120px;
-                transition: transform 0.4s ease, filter 0.4s ease; /* Reducir duración */
-            }
-            .card:hover img {
-                transform: scale(1.12) rotate(3deg); /* Menor transformación */
-            }
-            .card:hover {
-                 transform: translateY(-10px) scale(1.03); /* Menor transformación */
-                 box-shadow: 0 20px 50px rgba(255, 50, 50, 0.35); /* Menor sombra */
-            }
-            .card::before { /* Eliminar blur costoso */
-                /* filter: blur(10px); */
             }
             .download-btn {
                 padding: 10px 20px;
                 font-size: 0.9rem;
-                /* Optimización 3: Detener la animación de pulso en móviles */
-                animation: pulseGlowMobile 3.5s ease-in-out infinite;
             }
             .warning {
                 font-size: 0.8rem;
@@ -812,7 +769,6 @@
             footer p {
                 font-size: 0.8rem;
             }
-            /* Modal mejorado para móvil */
             .warning-modal {
                 padding: 10px;
             }
@@ -851,37 +807,6 @@
                 font-size: 0.9rem;
             }
         }
-
-        /* Animaciones específicas para móviles */
-        @media (max-width: 768px) {
-            @keyframes neonGlowMobile {
-                0% {
-                    background-position: 0% 50%;
-                    text-shadow: 0 0 4px #ff5555, 0 0 6px #ff6666; /* Menos intensidad */
-                }
-                50% {
-                    background-position: 100% 50%;
-                    text-shadow: 0 0 10px #ff3333, 0 0 14px #ff4444; /* Menos intensidad */
-                }
-                100% {
-                    background-position: 0% 50%;
-                    text-shadow: 0 0 4px #ff5555, 0 0 6px #ff6666; /* Menos intensidad */
-                }
-            }
-            @keyframes pulseGlowMobile {
-                0%, 100% {
-                    box-shadow:
-                        0 4px 15px rgba(255, 0, 0, 0.3), /* Menos intensidad */
-                        inset 0 -2px 6px rgba(255, 50, 50, 0.6); /* Menos intensidad */
-                }
-                50% {
-                    box-shadow:
-                        0 7px 25px rgba(255, 30, 30, 0.5), /* Menos intensidad */
-                        inset 0 -3px 9px rgba(255, 80, 80, 0.7); /* Menos intensidad */
-                }
-            }
-        }
-
         @media (max-width: 480px) {
             header h1 {
                 font-size: 1.7rem;
@@ -999,100 +924,85 @@
         <p>© 2025 Anti-Hambreado Script Team. Todos los derechos reservados.</p>
         <p>Diseñado con ❤️ para nuestra comunidad</p>
     </footer>
-    <!-- Cargamos particles.js -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Optimización 1: Detectar dispositivo móvil y condicionalmente inicializar particles.js
-            const isMobile = window.innerWidth <= 768; // O usar window.matchMedia('(pointer: coarse)').matches
-            if (!isMobile) {
-                // Inicializar particles.js solo si NO es móvil
-                particlesJS('particles-js', {
-                    particles: {
-                        number: {
-                            value: 90, // Puedes reducir este número si decides mantenerlo en móviles (Optimización 1 - Opcional)
-                            density: { enable: true, value_area: 900 }
-                        },
-                        color: { value: "#ff4444" },
-                        shape: {
-                            type: "circle",
-                            stroke: { width: 0, color: "#000000" }
-                        },
-                        opacity: {
-                            value: 0.6,
-                            random: true,
-                            anim: { enable: true, speed: 1.5, opacity_min: 0.2, sync: false }
-                        },
-                        size: {
-                            value: 3,
-                            random: true,
-                            anim: { enable: true, speed: 2, size_min: 0.3, sync: false }
-                        },
-                        line_linked: {
-                            enable: true,
-                            distance: 150,
-                            color: "#ff3333",
-                            opacity: 0.2,
-                            width: 1
-                        },
-                        move: {
-                            enable: true,
-                            speed: 1.2,
-                            direction: "none",
-                            random: true,
-                            straight: false,
-                            out_mode: "out",
-                            bounce: false
-                        }
-                    },
-                    interactivity: {
-                        detect_on: "canvas",
-                        events: {
-                            onhover: { enable: true, mode: "grab" },
-                            onclick: { enable: true, mode: "push" },
-                            resize: true
-                        },
-                        modes: {
-                            grab: { distance: 140, line_linked: { opacity: 0.4 } },
-                            push: { particles_nb: 3 }
-                        }
-                    },
-                    retina_detect: true
-                });
-            } else {
-                // Si es móvil, ocultar el contenedor de partículas para ahorrar recursos
-                const particlesContainer = document.getElementById('particles-js');
-                if (particlesContainer) {
-                    particlesContainer.style.display = 'none';
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 90,
+                    density: { enable: true, value_area: 900 }
+                },
+                color: { value: "#ff4444" },
+                shape: {
+                    type: "circle",
+                    stroke: { width: 0, color: "#000000" }
+                },
+                opacity: {
+                    value: 0.6,
+                    random: true,
+                    anim: { enable: true, speed: 1.5, opacity_min: 0.2, sync: false }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: { enable: true, speed: 2, size_min: 0.3, sync: false }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#ff3333",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1.2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
                 }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "grab" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 0.4 } },
+                    push: { particles_nb: 3 }
+                }
+            },
+            retina_detect: true
+        });
+        const menuToggle = document.getElementById('menuToggle');
+        const menuPanel = document.getElementById('menuPanel');
+        const menuOverlay = document.getElementById('menuOverlay');
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            menuPanel.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            const expanded = menuToggle.classList.contains('active');
+            menuToggle.setAttribute('aria-expanded', expanded);
+            menuPanel.setAttribute('aria-hidden', !expanded);
+            menuOverlay.setAttribute('aria-hidden', !expanded);
+            if (expanded) {
+                menuPanel.focus();
             }
-
-            // Resto del código JavaScript existente...
-            const menuToggle = document.getElementById('menuToggle');
-            const menuPanel = document.getElementById('menuPanel');
-            const menuOverlay = document.getElementById('menuOverlay');
-            menuToggle.addEventListener('click', () => {
-                menuToggle.classList.toggle('active');
-                menuPanel.classList.toggle('active');
-                menuOverlay.classList.toggle('active');
-                const expanded = menuToggle.classList.contains('active');
-                menuToggle.setAttribute('aria-expanded', expanded);
-                menuPanel.setAttribute('aria-hidden', !expanded);
-                menuOverlay.setAttribute('aria-hidden', !expanded);
-                if (expanded) {
-                    menuPanel.focus();
-                }
-            });
-            menuOverlay.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                menuPanel.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', false);
-                menuPanel.setAttribute('aria-hidden', true);
-                menuOverlay.setAttribute('aria-hidden', true);
-                menuToggle.focus();
-            });
-            // (El código de animación de las tarjetas ya está en DOMContentLoaded)
+        });
+        menuOverlay.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            menuPanel.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', false);
+            menuPanel.setAttribute('aria-hidden', true);
+            menuOverlay.setAttribute('aria-hidden', true);
+            menuToggle.focus();
+        });
+        document.addEventListener('DOMContentLoaded', () => {
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
                 card.style.opacity = '0';
@@ -1105,92 +1015,91 @@
                     card.style.transform = 'translateY(0)';
                 });
             }, 150);
-
-            const warningModal = document.getElementById('warningModal');
-            const warningTitle = document.getElementById('warningTitle');
-            const warningSubtitle = document.getElementById('warningSubtitle');
-            const warningBody = document.getElementById('warningBody');
-            const cancelBtn = document.getElementById('cancelBtn');
-            const continueBtn = document.getElementById('continueBtn');
-            const warnings = {
-                ronix: {
-                    title: "PELIGRO ⚠️",
-                    subtitle: "Este executor actualmente es peligroso de usar",
-                    body: `
-                        <p>🔴 <strong>RONIX representa una grave amenaza para tu seguridad digital.</strong></p>
-                        <p>📛 <strong>¿Por qué es peligroso?</strong> Este executor malicioso está diseñado para robar información personal de sus usuarios de forma sistemática.</p>
-                        <p>🕵️‍♂️ <strong>Actividades maliciosas confirmadas:</strong></p>
-                        <ul>
-                            <li>🔓 Robo de direcciones IP y datos de localización</li>
-                            <li>📧 Sustracción de cuentas de Gmail y credenciales de acceso</li>
-                            <li>💳 Recopilación de información personal sensible</li>
-                            <li>📝 Falsificación de su certificado UNC y sUNC (Indetectabilidad general y en scripts)</li>
-                            <li>💻 Plagio de líneas de código de otros executores legítimos</li>
-                        </ul>
-                        <p>⚠️ <strong>Advertencia adicional:</strong> Los desarrolladores de RONIX han demostrado prácticas éticas cuestionables y falta de transparencia en el manejo de datos de usuarios.</p>
-                        <div class="warning-recommendation">
-                            <h3>💡 RECOMENDACIÓN DE SEGURIDAD</h3>
-                            <p>Para proteger tu privacidad y seguridad, te recomendamos utilizar alternativas confiables como <strong>KRNL</strong> o <strong>Codex</strong>, que cuentan con historiales verificables de seguridad y transparencia.</p>
-                        </div>
-                    `,
-                    continueUrl: "https://www.mediafire.com/file/zavfdnwnd4deplk/RONIX_2.691.apk/file"
-                },
-                delta: {
-                    title: "PELIGRO ⚠️",
-                    subtitle: "Este executor actualmente es peligroso de usar",
-                    body: `
-                        <p>🔴 <strong>DELTA representa un riesgo significativo para tu seguridad en línea.</strong></p>
-                        <p>📛 <strong>¿Por qué es peligroso?</strong> Este executor compromete activamente la seguridad de tus credenciales y datos personales.</p>
-                        <p>🕵️‍♂️ <strong>Actividades maliciosas confirmadas:</strong></p>
-                        <ul>
-                            <li>👤 Robo de nombres de usuario y perfiles de usuario</li>
-                            <li>🔐 Sustracción de contraseñas y credenciales de acceso</li>
-                            <li>📧 Interceptación de cuentas de Gmail asociadas</li>
-                            <li>🛡️ API desactualizada que incrementa la detectabilidad</li>
-                            <li>📊 Vulnerabilidades de seguridad no parcheadas</li>
-                        </ul>
-                        <p>⚠️ <strong>Problema técnico crítico:</strong> La API de DELTA utiliza tecnologías obsoletas que no cumplen con los estándares actuales de seguridad, haciendo que sea más fácilmente detectable por sistemas de protección.</p>
-                        <div class="warning-recommendation">
-                            <h3>💡 RECOMENDACIÓN DE SEGURIDAD</h3>
-                            <p>Para mantener tu información segura y evitar posibles bloqueos, te sugerimos utilizar alternativas más seguras y actualizadas como <strong>KRNL</strong> o <strong>Codex</strong>, que ofrecen mejores medidas de protección y actualizaciones regulares.</p>
-                        </div>
-                    `,
-                    continueUrl: "https://deltaexploits.gg/delta-executor-android"
-                }
-            };
-            document.querySelectorAll('.download-btn[data-executor]').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const executor = this.getAttribute('data-executor');
-                    if (warnings[executor]) {
-                        showWarning(warnings[executor]);
-                    }
-                });
-            });
-            function showWarning(warning) {
-                warningTitle.innerHTML = warning.title;
-                warningSubtitle.textContent = warning.subtitle;
-                warningBody.innerHTML = warning.body;
-                warningModal.classList.add('active');
-                continueBtn.onclick = function() {
-                    window.open(warning.continueUrl, '_blank');
-                    warningModal.classList.remove('active');
-                };
+        });
+        const warningModal = document.getElementById('warningModal');
+        const warningTitle = document.getElementById('warningTitle');
+        const warningSubtitle = document.getElementById('warningSubtitle');
+        const warningBody = document.getElementById('warningBody');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const continueBtn = document.getElementById('continueBtn');
+        const warnings = {
+            ronix: {
+                title: "PELIGRO ⚠️",
+                subtitle: "Este executor actualmente es peligroso de usar",
+                body: `
+                    <p>🔴 <strong>RONIX representa una grave amenaza para tu seguridad digital.</strong></p>
+                    <p>📛 <strong>¿Por qué es peligroso?</strong> Este executor malicioso está diseñado para robar información personal de sus usuarios de forma sistemática.</p>
+                    <p>🕵️‍♂️ <strong>Actividades maliciosas confirmadas:</strong></p>
+                    <ul>
+                        <li>🔓 Robo de direcciones IP y datos de localización</li>
+                        <li>📧 Sustracción de cuentas de Gmail y credenciales de acceso</li>
+                        <li>💳 Recopilación de información personal sensible</li>
+                        <li>📝 Falsificación de su certificado UNC y sUNC (Indetectabilidad general y en scripts)</li>
+                        <li>💻 Plagio de líneas de código de otros executores legítimos</li>
+                    </ul>
+                    <p>⚠️ <strong>Advertencia adicional:</strong> Los desarrolladores de RONIX han demostrado prácticas éticas cuestionables y falta de transparencia en el manejo de datos de usuarios.</p>
+                    <div class="warning-recommendation">
+                        <h3>💡 RECOMENDACIÓN DE SEGURIDAD</h3>
+                        <p>Para proteger tu privacidad y seguridad, te recomendamos utilizar alternativas confiables como <strong>KRNL</strong> o <strong>Codex</strong>, que cuentan con historiales verificables de seguridad y transparencia.</p>
+                    </div>
+                `,
+                continueUrl: "https://www.mediafire.com/file/zavfdnwnd4deplk/RONIX_2.691.apk/file"
+            },
+            delta: {
+                title: "PELIGRO ⚠️",
+                subtitle: "Este executor actualmente es peligroso de usar",
+                body: `
+                    <p>🔴 <strong>DELTA representa un riesgo significativo para tu seguridad en línea.</strong></p>
+                    <p>📛 <strong>¿Por qué es peligroso?</strong> Este executor compromete activamente la seguridad de tus credenciales y datos personales.</p>
+                    <p>🕵️‍♂️ <strong>Actividades maliciosas confirmadas:</strong></p>
+                    <ul>
+                        <li>👤 Robo de nombres de usuario y perfiles de usuario</li>
+                        <li>🔐 Sustracción de contraseñas y credenciales de acceso</li>
+                        <li>📧 Interceptación de cuentas de Gmail asociadas</li>
+                        <li>🛡️ API desactualizada que incrementa la detectabilidad</li>
+                        <li>📊 Vulnerabilidades de seguridad no parcheadas</li>
+                    </ul>
+                    <p>⚠️ <strong>Problema técnico crítico:</strong> La API de DELTA utiliza tecnologías obsoletas que no cumplen con los estándares actuales de seguridad, haciendo que sea más fácilmente detectable por sistemas de protección.</p>
+                    <div class="warning-recommendation">
+                        <h3>💡 RECOMENDACIÓN DE SEGURIDAD</h3>
+                        <p>Para mantener tu información segura y evitar posibles bloqueos, te sugerimos utilizar alternativas más seguras y actualizadas como <strong>KRNL</strong> o <strong>Codex</strong>, que ofrecen mejores medidas de protección y actualizaciones regulares.</p>
+                    </div>
+                `,
+                continueUrl: "https://deltaexploits.gg/delta-executor-android"
             }
-            cancelBtn.addEventListener('click', function() {
+        };
+        document.querySelectorAll('.download-btn[data-executor]').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const executor = this.getAttribute('data-executor');
+                if (warnings[executor]) {
+                    showWarning(warnings[executor]);
+                }
+            });
+        });
+        function showWarning(warning) {
+            warningTitle.innerHTML = warning.title;
+            warningSubtitle.textContent = warning.subtitle;
+            warningBody.innerHTML = warning.body;
+            warningModal.classList.add('active');
+            continueBtn.onclick = function() {
+                window.open(warning.continueUrl, '_blank');
                 warningModal.classList.remove('active');
-            });
-            warningModal.addEventListener('click', function(e) {
-                if (e.target === warningModal) {
-                    warningModal.classList.remove('active');
-                }
-            });
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && warningModal.classList.contains('active')) {
-                    warningModal.classList.remove('active');
-                }
-            });
-        }); // Cierre del DOMContentLoaded
+            };
+        }
+        cancelBtn.addEventListener('click', function() {
+            warningModal.classList.remove('active');
+        });
+        warningModal.addEventListener('click', function(e) {
+            if (e.target === warningModal) {
+                warningModal.classList.remove('active');
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && warningModal.classList.contains('active')) {
+                warningModal.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
