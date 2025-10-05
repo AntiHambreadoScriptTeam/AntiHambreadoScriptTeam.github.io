@@ -93,6 +93,8 @@
     border-radius: 50%;
     padding: 10px; /* Ajustado */
     background: rgba(30, 0, 0, 0.8); /* Fondo más oscuro */
+    pointer-events: none; /* CRUCIAL: Evita que la imagen interfiera con clics/press */
+    /* draggable="false" se aplica en HTML */
   }
   @keyframes logoFloat {
     0%, 100% { transform: translateY(0) scale(1); } /* Añadido scale */
@@ -469,45 +471,88 @@
     animation: textBounce 2.5s infinite alternate; /* Añadida animación */
   }
 
-  /* MOBILE ADAPTACION */
+  /* MOBILE ADAPTACION - Optimizado para táctil */
   @media (max-width: 600px) {
     body {
-      padding: 1.5rem 1rem 2.5rem;
+      padding: 1.2rem 0.8rem 2rem; /* Ajustado */
     }
     h1 {
-      font-size: 1.9rem; /* Ajustado */
+      font-size: 1.8rem; /* Ajustado */
+      padding: 0.6rem 1.2rem; /* Ajustado */
     }
     h2 {
-      font-size: 1.7rem; /* Ajustado */
+      font-size: 1.6rem; /* Ajustado */
+      padding: 0.8rem 1.2rem; /* Ajustado */
     }
     .logo {
-      width: 160px; /* Ajustado */
+      width: 150px; /* Ajustado */
+      margin-bottom: 1.5rem; /* Ajustado */
+      padding: 8px; /* Ajustado */
     }
     #splash-screen img {
-      width: 220px; /* Ajustado */
+      width: 180px; /* Ajustado */
+      margin-bottom: 2rem; /* Ajustado */
     }
     #splash-screen p {
-      font-size: 1.1rem; /* Ajustado */
-      max-width: 90%;
+      font-size: 1rem; /* Ajustado */
+      max-width: 95%; /* Ajustado */
+      line-height: 1.6; /* Ajustado */
+      margin-bottom: 1rem; /* Ajustado */
     }
-    p.intro, p.section-text, ul.team-list, .motto {
-      max-width: 95vw; /* Ajustado */
-      font-size: 1.05rem; /* Ajustado */
-      padding: 1.2rem; /* Ajustado */
+    #splash-screen small {
+        font-size: 0.85rem; /* Ajustado */
+    }
+    .buttons {
+      gap: 1.2rem; /* Ajustado */
+      margin-bottom: 1.8rem; /* Ajustado */
     }
     .btn {
       font-size: 1rem; /* Ajustado */
-      padding: 0.85rem 1.9rem; /* Ajustado */
+      padding: 0.85rem 1.8rem; /* Ajustado - más generoso para táctil */
       gap: 0.6rem; /* Ajustado */
-    }
-    .buttons {
-      gap: 1.3rem; /* Ajustado */
+      border-radius: 35px; /* Ajustado */
+      border-width: 2.5px; /* Ajustado */
     }
     .btn.discord i {
         font-size: 1.6rem; /* Ajustado */
     }
     .btn span.emoji {
         font-size: 1.4rem; /* Ajustado */
+    }
+    p.intro, p.section-text, ul.team-list, .motto {
+      max-width: 95vw; /* Ajustado */
+      font-size: 1rem; /* Ajustado */
+      padding: 1.2rem; /* Ajustado */
+      margin-bottom: 1.2rem; /* Ajustado */
+      border-radius: 10px; /* Ajustado */
+    }
+    ul.team-list {
+        padding: 1.5rem; /* Ajustado */
+        margin-bottom: 2rem; /* Ajustado */
+    }
+    ul.team-list li {
+        margin: 0.4rem 0; /* Ajustado */
+        padding-left: 1.2rem; /* Ajustado */
+        font-size: 1.1rem; /* Ajustado */
+    }
+    ul.team-list li::before {
+        font-size: 1.2rem; /* Ajustado */
+    }
+    h2 {
+        margin-top: 2.2rem; /* Ajustado */
+    }
+    h2 span.emoji-animated {
+        margin-right: 0.5rem; /* Ajustado */
+    }
+    footer {
+        font-size: 0.9rem; /* Ajustado */
+        margin-top: 2rem; /* Ajustado */
+        padding: 1.2rem; /* Ajustado */
+        border-radius: 10px; /* Ajustado */
+    }
+    .decoration {
+        font-size: 2rem; /* Ajustado */
+        opacity: 0.06; /* Ajustado */
     }
   }
 </style>
@@ -531,7 +576,7 @@
   <canvas id="particles"></canvas>
 
   <!-- Contenido Principal -->
-  <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Logo Anti-Hambreado Script Team" class="logo" />
+  <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Logo Anti-Hambreado Script Team" class="logo" draggable="false"/>
 
   <h1 class="flicker">Anti-Hambreado Script Team</h1>
 
