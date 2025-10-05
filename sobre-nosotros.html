@@ -134,9 +134,13 @@
     .team-member {
       background: rgba(30, 30, 30, 0.7);
       padding: 1.2rem;
-      margin-bottom: 1.2rem;
-      border-radius: 10px;
+      margin-bottom: 1.8rem;
+      border-radius: 12px;
       border: 1px solid #444;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 1rem;
       transition: all 0.3s ease;
     }
 
@@ -145,19 +149,44 @@
       box-shadow: 0 0 12px rgba(255, 0, 60, 0.4);
     }
 
+    .member-avatar {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid #444;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .team-member:hover .member-avatar {
+      border-color: var(--rojo-neon);
+      box-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+    }
+
+    .member-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      flex: 1;
+      min-width: 0;
+    }
+
     .member-name {
       font-weight: bold;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       color: var(--rojo-neon);
-      margin-bottom: 0.4rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      margin: 0;
+      align-self: flex-start;
+      padding-top: 4px;
     }
 
     .member-role {
       color: #ddd;
       font-style: italic;
+      line-height: 1.5;
+      width: 100%;
+      margin-top: 0.8rem;
     }
 
     .contact-links {
@@ -197,10 +226,26 @@
     }
 
     @media (max-width: 600px) {
-      h1 { font-size: 1.8rem; }
-      h2 { font-size: 1.4rem; }
-      .contact-btn { padding: 0.7rem 1.2rem; font-size: 0.95rem; }
-      .team-member { padding: 1rem; }
+      .team-member {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .member-avatar {
+        width: 100px;
+        height: 100px;
+      }
+      .member-header {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .member-name {
+        padding-top: 0;
+      }
+      .contact-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.95rem;
+      }
     }
   </style>
 </head>
@@ -237,28 +282,43 @@
       <p>El Anti-Hambreado Script Team no es un héroe solitario, sino una escuadra de cinco guerreros digitales que defienden la causa:</p>
 
       <div class="team-member">
-        <div class="member-name"><span class="emoji">👩‍💻</span> FeliciaXxxTop</div>
-        <div class="member-role">Estratega y voz firme contra el hambre digital.</div>
+        <img src="https://i.postimg.cc/bJc1fnTs/Felicia-Xxx-Top.png" alt="FeliciaXxxTop" class="member-avatar">
+        <div class="member-header">
+          <h3 class="member-name">FeliciaXxxTop</h3>
+        </div>
+        <p class="member-role">Estratega y voz firme contra el hambre digital.</p>
       </div>
 
       <div class="team-member">
-        <div class="member-name"><span class="emoji">⏱️</span> iWoozy</div>
-        <div class="member-role">Maestro del timing, siempre un paso adelante en la batalla contra los acortadores.</div>
+        <img src="https://i.postimg.cc/B692fFgt/IWoozy.png" alt="iWoozy" class="member-avatar">
+        <div class="member-header">
+          <h3 class="member-name">iWoozy</h3>
+        </div>
+        <p class="member-role">Maestro del timing, siempre un paso adelante en la batalla contra los acortadores.</p>
       </div>
 
       <div class="team-member">
-        <div class="member-name"><span class="emoji">⚡</span> No-Slowww</div>
-        <div class="member-role">Como su nombre indica, velocidad pura: scripts directos, sin retrasos.</div>
+        <img src="https://i.postimg.cc/j50yYfX5/No-Slowww.png" alt="No-Slowww" class="member-avatar">
+        <div class="member-header">
+          <h3 class="member-name">No-Slowww</h3>
+        </div>
+        <p class="member-role">Como su nombre indica, velocidad pura: scripts directos, sin retrasos.</p>
       </div>
 
       <div class="team-member">
-        <div class="member-name"><span class="emoji">🎨</span> AngelltfmXD</div>
-        <div class="member-role">El toque creativo y humorístico, porque la lucha también se gana con risas.</div>
+        <img src="https://i.postimg.cc/fLcmzb2k/Angelltfm-XD.png" alt="AngelltfmXD" class="member-avatar">
+        <div class="member-header">
+          <h3 class="member-name">AngelltfmXD</h3>
+        </div>
+        <p class="member-role">El toque creativo y humorístico, porque la lucha también se gana con risas.</p>
       </div>
 
       <div class="team-member">
-        <div class="member-name"><span class="emoji">🔨</span> TheBanHammer</div>
-        <div class="member-role">Fundador y guardián del propósito original: cero anuncios, cero hambre.</div>
+        <img src="https://i.postimg.cc/W3L0cZnd/TheBanHammer.png" alt="TheBanHammer" class="member-avatar">
+        <div class="member-header">
+          <h3 class="member-name">TheBanHammer</h3>
+        </div>
+        <p class="member-role">Fundador y guardián del propósito original: cero anuncios, cero hambre.</p>
       </div>
 
       <p style="margin-top: 1.5rem;">Cada integrante aporta su estilo, pero todos comparten la misma convicción: la comunidad primero, el dinero después (o nunca).</p>
@@ -314,6 +374,9 @@
         </a>
         <a href="mailto:antianunciostest@gmail.com" class="contact-btn">
           <i class="fas fa-envelope"></i> Envíanos un correo
+        </a>
+        <a href="https://antihambreadoscriptteam.github.io/" target="_blank" class="contact-btn">
+          <i class="fas fa-home"></i> Página Principal
         </a>
       </div>
     </section>
