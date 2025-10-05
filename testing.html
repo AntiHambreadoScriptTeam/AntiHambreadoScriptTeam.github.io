@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Anti-Hambreado Script Team</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+  /* RESET Y BASE */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #000000; /* Fondo negro puro AMOLED */
+    color: #ff6666; /* Rojo más vivo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 1.5rem 3rem;
+    /* Fondo animado sutil sobre negro puro */
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(255, 0, 0, 0.03) 0%, transparent 15%),
+      radial-gradient(circle at 90% 80%, rgba(255, 0, 255, 0.03) 0%, transparent 15%);
+    background-size: 400% 400%;
+    animation: bgAnimation 20s infinite alternate;
+    overflow-x: hidden;
+    position: relative;
+    user-select: none; /* Se mantiene, no debería afectar a los enlaces hijos */
+  }
+
+  @keyframes bgAnimation {
+    0% { background-position: 0% 0%, 100% 100%; }
+    100% { background-position: 100% 100%, 0% 0%; }
+  }
+
+  /* CANVAS PARA PARTICULAS - FIJADO DETRÁS DE TODO */
+  canvas#particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* CRUCIAL: permite clics a través del canvas */
+    z-index: -1; /* Detrás de TODO el contenido */
+  }
+
+  /* CONTENEDOR PRINCIPAL - ASEGURA QUE ESTÉ POR ENCIMA DEL CANVAS */
+  .main-content {
+    position: relative;
+    z-index: 10; /* Por encima del canvas */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* EFECTO DE NEÓN GENERAL */
+  .neon-glow, h1, h2, .btn, .motto, .team-list, .section-text, footer {
+    position: relative;
+    box-shadow: 0 0 5px currentColor, 0 0 10px rgba(255, 0, 0, 0.3);
+  }
+
+  /* EFECTO DE NEÓN PARA ELEMENTOS PRINCIPALES */
+  .neon-glow {
+    position: relative;
+  }
+  .neon-glow::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -1; /* Siempre detrás del contenido del botón */
+    border-radius: inherit;
+    background: linear-gradient(45deg, #ff0000, #ff4d4d, #ff0000, #ff4d4d);
+    background-size: 400%;
+    animation: neon-border 8s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .neon-glow:hover::before {
+    opacity: 0.4; /* Menos intenso que el original */
+  }
+  @keyframes neon-border {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+  }
+
+  /* LOGO */
+  img.logo {
+    width: 220px; /* Aumentado */
+    margin-bottom: 1.8rem;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7)); /* Rojo neón */
+    animation: logoFloat 6s ease-in-out infinite, subtleGlow 4s ease-in-out infinite;
+    position: relative;
+    z-index: 10;
+    border-radius: 50%;
+    padding: 10px; /* Ajustado */
+    background: rgba(30, 0, 0, 0.8); /* Fondo más oscuro */
+    pointer-events: none; /* CRUCIAL: Evita que la imagen interfiera con clics/press */
+    /* draggable="false" se aplica en HTML */
+  }
+  @keyframes logoFloat {
+    0%, 100% { transform: translateY(0) scale(1); } /* Añadido scale */
+    50% { transform: translateY(-10px) scale(1.05); } /* Ajustado */
+  }
+  @keyframes subtleGlow {
+    0%,100% { filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7)); } /* Rojo neón */
+    50% { filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.85)); } /* Ajustado */
+  }
+
+  /* TITULO PRINCIPAL */
+  h1 {
+    font-size: 3.2rem; /* Aumentado */
+    letter-spacing: 4px; /* Aumentado */
+    color: #ff4d4d; /* Rojo más vivo */
+    text-align: center;
+    text-shadow: 0 0 12px rgba(255, 0, 0, 0.7), 0 0 20px rgba(255, 0, 0, 0.5); /* Rojo neón */
+    margin: 0 0 1.5rem; /* Ajustado */
+    font-weight: 900; /* Aumentado */
+    position: relative;
+    z-index: 10;
+    animation: titlePulse 5s ease-in-out infinite;
+    padding: 0.8rem 1.8rem; /* Añadido padding */
+    border-radius: 15px; /* Añadido */
+    background: rgba(30, 0, 0, 0.6); /* Fondo más oscuro */
+  }
+  @keyframes titlePulse {
+    0%, 100% { text-shadow: 0 0 12px rgba(255, 0, 0, 0.7), 0 0 20px rgba(255, 0, 0, 0.5); }
+    50% { text-shadow: 0 0 20px rgba(255, 0, 0, 0.85), 0 0 35px rgba(255, 0, 0, 0.6); } /* Ajustado */
+  }
+
+  /* BOTONES DEBAJO DEL TITULO */
+  .buttons {
+    display: flex;
+    gap: 1.8rem; /* Aumentado */
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 2.2rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* ANIMACION PULSACION LOOP - Simplificada para evitar conflictos */
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4), 0 0 20px rgba(255, 0, 0, 0.2);
+    }
+    50% {
+      transform: scale(1.03); /* Menor escala */
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.6), 0 0 35px rgba(255, 0, 0, 0.35);
+    }
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem; /* Ajustado */
+    padding: 1rem 2.5rem; /* Ajustado */
+    border-radius: 40px; /* Ajustado */
+    font-weight: 700;
+    font-size: 1.15rem; /* Ajustado */
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.4), 0 0 18px rgba(255, 0, 0, 0.2); /* Rojo neón */
+    color: #ff4d4d; /* Rojo vivo */
+    border: 3px solid #ff4d4d; /* Rojo vivo */
+    background-color: rgba(30, 0, 0, 0.8); /* Fondo más oscuro */
+    cursor: pointer;
+    text-decoration: none; /* Quita subrayado */
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+    /* animation: pulse 4s ease-in-out infinite; REMOVIDA para evitar conflictos */
+  }
+
+  .btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, rgba(255, 0, 0, 0.2), rgba(255, 102, 102, 0.2)); /* Gradiente rojo */
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none; /* Asegura que no interfiera con clics */
+  }
+
+  .btn:hover::after {
+    opacity: 1;
+  }
+
+  .btn:hover {
+    color: #ffffff; /* Blanco al hover */
+    border-color: #ff6666; /* Rojo más claro */
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.7), 0 0 40px rgba(255, 0, 0, 0.45); /* Rojo neón */
+    background: rgba(255, 0, 0, 0.3); /* Fondo rojo al hover */
+    transform: translateY(-3px) scale(1.03); /* Ajustado */
+  }
+
+  /* DISCORD - Púrpura */
+  .btn.discord {
+    background-color: #5865f2; /* Púrpura original */
+    color: white;
+    border: none;
+    box-shadow: 0 0 16px #5865f2, 0 0 24px rgba(88, 101, 242, 0.5); /* Púrpura neón */
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  .btn.discord:hover {
+    background-color: #4752c4; /* Púrpura más oscuro */
+    box-shadow: 0 0 26px #4752c4, 0 0 40px rgba(71, 82, 196, 0.6); /* Púrpura neón */
+    transform: translateY(-3px) scale(1.03); /* Ajustado */
+  }
+
+  .btn.discord i {
+    font-size: 1.8rem; /* Ajustado */
+    margin-right: 0.6rem; /* Ajustado */
+    filter: drop-shadow(0 0 4px rgba(255,255,255,0.8));
+  }
+
+  /* EMOJIS BOTONES */
+  .btn span.emoji {
+    font-size: 1.6rem; /* Ajustado */
+    pointer-events: none; /* Evita que el emoji capture el clic */
+    user-select: none;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6)); /* Ajustado */
+    animation: emojiFloat 3s infinite ease-in-out; /* Añadida animación */
+  }
+
+  @keyframes emojiFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); } /* Ajustado */
+  }
+
+  /* TEXTO DE LEMA */
+  .motto {
+    max-width: 800px; /* Ajustado */
+    font-size: 1.16rem; /* Ajustado */
+    line-height: 1.6; /* Ajustado */
+    margin-bottom: 2.5rem; /* Ajustado */
+    color: #ffcccc; /* Rojo claro */
+    text-shadow: 0 0 4px rgba(255, 0, 0, 0.4); /* Rojo neón */
+    letter-spacing: 0.03em; /* Ajustado */
+    font-weight: 500;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    background: rgba(30, 0, 0, 0.7); /* Fondo más oscuro */
+    padding: 2rem; /* Ajustado */
+    border-radius: 18px; /* Ajustado */
+    border-left: 4px solid #ff4d4d; /* Rojo vivo */
+    border-top: 1px solid rgba(255, 77, 77, 0.2); /* Añadido */
+  }
+
+  /* CUERPO DE TEXTO - APARECER SUAVE AL SCROLL */
+  .fade-in-section {
+    opacity: 0;
+    transform: translateY(20px); /* Ajustado */
+    visibility: hidden;
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out, visibility 0.9s;
+  }
+  .fade-in-section.is-visible {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+  }
+
+  /* TEXTO */
+  p.intro, p.section-text {
+    max-width: 800px; /* Ajustado */
+    font-size: 1.13rem; /* Ajustado */
+    line-height: 1.65; /* Ajustado */
+    margin-bottom: 1.5rem; /* Ajustado */
+    color: #ffb3b3; /* Rojo claro */
+    text-shadow: 0 0 3px rgba(255, 0, 0, 0.3); /* Rojo neón */
+    letter-spacing: 0.03em; /* Ajustado */
+    font-weight: 400;
+    position: relative;
+    z-index: 10;
+    background: rgba(30, 0, 0, 0.5); /* Fondo más oscuro */
+    padding: 1.5rem; /* Ajustado */
+    border-radius: 12px; /* Ajustado */
+    border-left: 3px solid #ff4d4d; /* Rojo vivo */
+    border-top: 1px solid rgba(255, 77, 77, 0.15); /* Añadido */
+  }
+
+  ul.team-list {
+    list-style: none;
+    padding-left: 0;
+    font-size: 1.2rem; /* Ajustado */
+    margin-bottom: 2.5rem; /* Ajustado */
+    max-width: 800px; /* Ajustado */
+    color: #ff9999; /* Rojo claro */
+    font-weight: 600; /* Ajustado */
+    position: relative;
+    z-index: 10;
+    background: rgba(30, 0, 0, 0.5); /* Fondo más oscuro */
+    padding: 2rem; /* Ajustado */
+    border-radius: 15px; /* Ajustado */
+    border-left: 4px solid #ff4d4d; /* Rojo vivo */
+    border-top: 1px solid rgba(255, 77, 77, 0.15); /* Añadido */
+  }
+
+  ul.team-list li {
+    margin: 0.5rem 0; /* Ajustado */
+    padding-left: 1.5rem; /* Ajustado */
+    position: relative;
+    transition: transform 0.35s ease, color 0.35s ease; /* Ajustado */
+  }
+  ul.team-list li:hover {
+    transform: translateX(8px); /* Ajustado */
+    color: #ffffff; /* Blanco al hover */
+  }
+  ul.team-list li::before {
+    content: "🔥";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.4rem; /* Ajustado */
+    filter: drop-shadow(0 0 5px rgba(255, 100, 0, 0.8)); /* Ajustado */
+    animation: emojiFloat 3s infinite ease-in-out; /* Añadida animación */
+  }
+
+  /* TITULO H2 */
+  h2 {
+    margin-top: 3rem; /* Ajustado */
+    font-size: 2.2rem; /* Ajustado */
+    color: #ff6666; /* Rojo vivo */
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.6); /* Rojo neón */
+    font-weight: 700; /* Ajustado */
+    position: relative;
+    z-index: 10;
+    padding: 1rem 1.5rem; /* Ajustado */
+    border-radius: 12px; /* Ajustado */
+    background: rgba(30, 0, 0, 0.6); /* Fondo más oscuro */
+    display: inline-block;
+    border: 1px solid rgba(255, 102, 102, 0.2); /* Añadido */
+  }
+
+  /* Animación para el emoji del título */
+  h2 span.emoji-animated {
+    display: inline-block;
+    animation: catHeadShake 1.5s infinite ease-in-out;
+    margin-right: 0.6rem; /* Ajustado */
+  }
+
+  @keyframes catHeadShake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+  }
+
+
+  /* FOOTER */
+  footer {
+    font-size: 1.02rem; /* Ajustado */
+    color: #b34747; /* Rojo oscuro */
+    text-align: center;
+    max-width: 700px; /* Ajustado */
+    font-weight: 500;
+    letter-spacing: 0.04em; /* Ajustado */
+    position: relative;
+    z-index: 10;
+    margin-top: 2.5rem; /* Ajustado */
+    padding: 1.5rem; /* Ajustado */
+    background: rgba(30, 0, 0, 0.6); /* Fondo más oscuro */
+    border-radius: 12px; /* Ajustado */
+    border-top: 2px solid rgba(255, 77, 77, 0.3); /* Ajustado */
+  }
+
+  /* ELEMENTOS DECORATIVOS */
+  .decoration {
+    position: absolute;
+    z-index: 5; /* Detrás del contenido principal, pero encima del canvas */
+    opacity: 0.08; /* Menos opaco para AMOLED */
+    font-size: 2.5rem; /* Ajustado */
+    animation: float 18s infinite linear; /* Ajustado */
+    animation-delay: calc(var(--delay, 0) * 1s);
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-25px) rotate(180deg); } /* Ajustado */
+    100% { transform: translateY(0) rotate(360deg); }
+  }
+
+  /* Animación flicker para el título */
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+  }
+
+  h1.flicker {
+    animation: flicker 3s infinite alternate;
+  }
+
+  /* Pantalla de Presentación */
+  #splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000; /* Fondo negro puro AMOLED */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Muy alto para estar encima de todo */
+    /* Animación de entrada */
+    opacity: 0;
+    transform: scale(1.2);
+    animation: splashIn 0.8s ease-out forwards;
+  }
+
+  #splash-screen.hidden {
+    /* Animación de salida */
+    animation: splashOut 0.8s ease-in forwards;
+  }
+
+  @keyframes splashIn {
+    0% {
+      opacity: 0;
+      transform: scale(1.2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes splashOut {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  }
+
+  #splash-screen img {
+    width: 300px; /* Ajustado */
+    margin-bottom: 2.5rem; /* Ajustado */
+    filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.8)); /* Rojo neón */
+    animation: splashLogoPulse 2s infinite alternate; /* Añadida animación */
+  }
+
+  @keyframes splashLogoPulse {
+    0% { transform: scale(1); filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.8)); }
+    100% { transform: scale(1.05); filter: drop-shadow(0 0 22px rgba(255, 0, 0, 0.9)); } /* Ajustado */
+  }
+
+  #splash-screen p {
+    color: #ffcccc; /* Rojo claro */
+    text-align: center;
+    font-size: 1.3rem; /* Ajustado */
+    max-width: 85%; /* Ajustado */
+    line-height: 1.7; /* Ajustado */
+    margin-bottom: 1.2rem; /* Ajustado */
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.6); /* Rojo neón */
+    animation: textBounce 2.2s infinite alternate; /* Añadida animación */
+  }
+
+  @keyframes textBounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-6px); } /* Ajustado */
+  }
+
+  #splash-screen small {
+    color: #b34747; /* Rojo oscuro */
+    font-size: 1rem; /* Ajustado */
+    animation: textBounce 2.5s infinite alternate; /* Añadida animación */
+  }
+
+  /* MOBILE ADAPTACION - Optimizado para táctil */
+  @media (max-width: 600px) {
+    body {
+      padding: 1.2rem 0.8rem 2rem; /* Ajustado */
+    }
+    h1 {
+      font-size: 1.8rem; /* Ajustado */
+      padding: 0.6rem 1.2rem; /* Ajustado */
+    }
+    h2 {
+      font-size: 1.6rem; /* Ajustado */
+      padding: 0.8rem 1.2rem; /* Ajustado */
+    }
+    .logo {
+      width: 150px; /* Ajustado */
+      margin-bottom: 1.5rem; /* Ajustado */
+      padding: 8px; /* Ajustado */
+    }
+    #splash-screen img {
+      width: 180px; /* Ajustado */
+      margin-bottom: 2rem; /* Ajustado */
+    }
+    #splash-screen p {
+      font-size: 1rem; /* Ajustado */
+      max-width: 95%; /* Ajustado */
+      line-height: 1.6; /* Ajustado */
+      margin-bottom: 1rem; /* Ajustado */
+    }
+    #splash-screen small {
+        font-size: 0.85rem; /* Ajustado */
+    }
+    .buttons {
+      gap: 1.2rem; /* Ajustado */
+      margin-bottom: 1.8rem; /* Ajustado */
+    }
+    .btn {
+      font-size: 1rem; /* Ajustado */
+      padding: 0.85rem 1.8rem; /* Ajustado - más generoso para táctil */
+      gap: 0.6rem; /* Ajustado */
+      border-radius: 35px; /* Ajustado */
+      border-width: 2.5px; /* Ajustado */
+    }
+    .btn.discord i {
+        font-size: 1.6rem; /* Ajustado */
+    }
+    .btn span.emoji {
+        font-size: 1.4rem; /* Ajustado */
+    }
+    p.intro, p.section-text, ul.team-list, .motto {
+      max-width: 95vw; /* Ajustado */
+      font-size: 1rem; /* Ajustado */
+      padding: 1.2rem; /* Ajustado */
+      margin-bottom: 1.2rem; /* Ajustado */
+      border-radius: 10px; /* Ajustado */
+    }
+    ul.team-list {
+        padding: 1.5rem; /* Ajustado */
+        margin-bottom: 2rem; /* Ajustado */
+    }
+    ul.team-list li {
+        margin: 0.4rem 0; /* Ajustado */
+        padding-left: 1.2rem; /* Ajustado */
+        font-size: 1.1rem; /* Ajustado */
+    }
+    ul.team-list li::before {
+        font-size: 1.2rem; /* Ajustado */
+    }
+    h2 {
+        margin-top: 2.2rem; /* Ajustado */
+    }
+    h2 span.emoji-animated {
+        margin-right: 0.5rem; /* Ajustado */
+    }
+    footer {
+        font-size: 0.9rem; /* Ajustado */
+        margin-top: 2rem; /* Ajustado */
+        padding: 1.2rem; /* Ajustado */
+        border-radius: 10px; /* Ajustado */
+    }
+    .decoration {
+        font-size: 2rem; /* Ajustado */
+        opacity: 0.06; /* Ajustado */
+    }
+  }
+</style>
+</head>
+<body>
+  <!-- Canvas de Partículas - AHORA DETRÁS DE TODO -->
+  <canvas id="particles"></canvas>
+
+  <!-- Elementos decorativos -->
+  <div class="decoration" style="top: 10%; left: 5%; --delay: 0;">🔥</div>
+  <div class="decoration" style="top: 20%; right: 8%; --delay: 3;">⚡</div>
+  <div class="decoration" style="bottom: 15%; left: 10%; --delay: 6;">💻</div>
+  <div class="decoration" style="bottom: 25%; right: 5%; --delay: 9;">🚀</div>
+  <div class="decoration" style="top: 40%; left: 15%; --delay: 12;">🎮</div>
+
+  <!-- Pantalla de Presentación -->
+  <div id="splash-screen">
+    <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Logo Anti-Hambreado Script Team">
+    <p>Anti-Hambreado Script Team, juntos por un mundo sin anuncios ni acortadores</p>
+    <small>Todos los derechos reservados | Hecho con ❤️ para nuestra comunidad</small>
+  </div>
+
+  <!-- Contenido Principal - ENVUELTO EN UN CONTENEDOR CON Z-INDEX ALTO -->
+  <div class="main-content">
+    <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Logo Anti-Hambreado Script Team" class="logo" draggable="false"/>
+
+    <h1 class="flicker">Anti-Hambreado Script Team</h1>
+
+    <div class="buttons fade-in-section">
+      <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn discord neon-glow" aria-label="Nuestro Discord">
+        <i class="fab fa-discord"></i> <!-- Icono Font Awesome -->
+        Nuestro Discord
+      </a>
+      <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="btn neon-glow" aria-label="Nuestra página de scripts">
+        <span class="emoji">📜</span> Nuestra página de scripts
+      </a>
+      <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn neon-glow" aria-label="Nuestra página de executores">
+        <span class="emoji">⚙️</span> Nuestra página de executores
+      </a>
+      <a href="https://youtube.com/@anti-hambreadoscript-team" target="_blank" class="btn neon-glow" aria-label="Nuestro canal de YouTube">
+        <span class="emoji">🎥</span> Nuestro canal de YouTube
+      </a>
+    </div>
+
+    <p class="motto fade-in-section">
+      Anti-Hambreado Script Team es el canal donde los verdaderos jugadores consiguen scripts y executores sin rodeos: links directos, sin virus, sin anuncios, sin loot-link ni tonterías. Aquí no te llenamos la pantalla de publicidad ni te hacemos saltar obstáculos para conseguir lo que buscas.<br><br>
+      A diferencia de Campione Script, que parece más interesado en llenar su cartera que en ayudar a la comunidad —con sus acortadores eternos y páginas llenas de anuncios— nosotros sí respetamos tu tiempo.<br><br>
+      Menos hambre, más calidad. Eso es Anti-Hambreado Script Team.
+    </p>
+
+    <p class="intro fade-in-section">
+      Hola, somos Anti-Hambreado Script Team, muchos ya nos conocerán. Somos un equipo que busca dar scripts y executores con link directo, sin anuncios y sin hambre, porque nosotros no somos hambreados como Campione Script.
+    </p>
+
+    <ul class="team-list fade-in-section">
+      <li>FELICIAXXXTOP</li>
+      <li>IWOOZY</li>
+      <li>ANGELLLTFMXD</li>
+      <li>BANHAMMER</li>
+      <li>NO-SLOWWW</li>
+    </ul>
+
+    <p class="intro fade-in-section">
+      Y nosotros somos socios y amigos de FloppHub Team, el mejor servidor para hacer bypass a Linkvertise, Lootlink, Keys, etc. ¡Sin hambre y sin anuncios, a diferencia de Campione Script!
+    </p>
+
+    <h2 class="fade-in-section"><span class="emoji-animated">😹</span>Campione Script: El hambre con WiFi disfrazado de youtuber</h2>
+
+    <p class="section-text fade-in-section">
+      Oye, ¿y qué es lo que Campione Script se cree? ¿Un youtuber serio? ¡El diablo, oe! Ese tipo no escribe código, él escribe trampas. Tú entras a su página y lo que hay es un virusaso, pero cuando vas a su canal… ¡ay mi madre! Eso es otro nivel de hambre.
+    </p>
+
+    <p class="section-text fade-in-section">
+      Scripts con veneno: Tú crees que vas a descargar algo útil y lo que te cae es un link con más anuncios que un canal de YouTube en diciembre. Si das un click en falso, te sale un popup, un virus, y hasta una suscripción a una página rara. ¿Cómo así?
+    </p>
+
+    <p class="section-text fade-in-section">
+      Publicidad por pila: Cada script viene con cinco acortadores, tres redirecciones y un captcha que parece examen de matemáticas. Tú no sabes si estás programando o jugando a escapar de un malware.
+    </p>
+
+    <p class="section-text fade-in-section">
+      Canal lleno de bulto: Tú entras buscando ayuda y lo que encuentras es un mercado. "¡Descarga mi script!", "¡Suscríbete a mi canal!", "¡Suscríbete a este otro canal!" — pero de contenido útil, ni la sombra. Es como si el tipo estuviera vendiendo sueños y pesadillas al mismo tiempo.
+    </p>
+
+    <p class="section-text fade-in-section">
+      Cero ética, cero respeto: Un youtuber de verdad te da herramientas, te enseña, te ayuda. Este lo que hace es tirar carnada pa' ver quién cae. ¡El hueso, compai! Y lo peor es que hay gente que todavía lo defiende. ¿Qué fue?
+    </p>
+
+    <p class="section-text fade-in-section">
+      Esto no es un youtuber, esto es hambre con estrategia. Campione Script no sube videos de calidad, él pesca incautos. Si tú quieres aprender, crecer, y montar algo serio, sal corriendo. Porque aquí lo que hay es bulto, paquete y un virus esperando en la esquina.
+    </p>
+
+    <footer class="fade-in-section">
+      © Anti-Hambreado Script Team 2025 - ¡No seas hambread@ como Campione!
+    </footer>
+  </div>
+
+<script>
+  // PARTICULAS CANVAS - Mismo código funcional del original
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+
+    reset() {
+      const edge = Math.floor(Math.random() * 4);
+      switch(edge) {
+        case 0:
+          this.x = Math.random() * width;
+          this.y = 0;
+          break;
+        case 1:
+          this.x = width;
+          this.y = Math.random() * height;
+          break;
+        case 2:
+          this.x = Math.random() * width;
+          this.y = height;
+          break;
+        case 3:
+          this.x = 0;
+          this.y = Math.random() * height;
+          break;
+      }
+      this.vx = (width/2 - this.x) * 0.002 * (Math.random() * 0.6 + 0.4);
+      this.vy = (height/2 - this.y) * 0.002 * (Math.random() * 0.6 + 0.4);
+      this.radius = Math.random() * 2 + 1;
+      this.life = 0;
+      this.maxLife = 300 + Math.random() * 250;
+      this.alpha = 0;
+      this.alphaSpeed = 0.008 + Math.random()*0.007;
+      const redness = 200 + Math.random() * 55; // Colores rojo/púrpura
+      const purpleness = 50 + Math.random() * 50;
+      this.color = `rgba(${redness}, ${purpleness}, ${purpleness}, `;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.life++;
+      if (this.life < this.maxLife / 3) {
+        this.alpha += this.alphaSpeed;
+        if (this.alpha > 0.25) this.alpha = 0.25; // Igual al original
+      } else if (this.life > this.maxLife * 0.75) {
+        this.alpha -= this.alphaSpeed;
+        if (this.alpha < 0) this.alpha = 0;
+      }
+      if (this.life > this.maxLife || this.alpha <= 0) this.reset();
+    }
+
+    draw() {
+      ctx.beginPath();
+      const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius*4);
+      gradient.addColorStop(0, this.color + `${this.alpha})`);
+      gradient.addColorStop(1, this.color + '0)');
+      ctx.fillStyle = gradient;
+      ctx.arc(this.x, this.y, this.radius*4, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.fillStyle = this.color + `${this.alpha})`;
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  const particlesCount = 50; // Ajustado
+  const particles = [];
+  for (let i = 0; i < particlesCount; i++) {
+    particles.push(new Particle());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // APARICIÓN SUAVE: Intersection Observer - Mismo código funcional del original
+  const fadeEls = document.querySelectorAll('.fade-in-section');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target); // Detiene la observación después de la primera intersección
+      }
+    });
+  }, {
+    threshold: 0.15 // Ajustado ligeramente
+  });
+
+  fadeEls.forEach(el => observer.observe(el));
+
+  // Pantalla de Presentación
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('splash-screen').classList.add('hidden');
+    }, 2500); // Mostrar splash durante 2.5 segundos
+  });
+
+</script>
+</body>
+</html>
