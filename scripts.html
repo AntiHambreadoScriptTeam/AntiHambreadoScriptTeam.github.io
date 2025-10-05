@@ -757,6 +757,10 @@
     <span class="folder-icon">📁</span>
     VOX SEAS
 </div>
+<div class="sidebar-item" onclick="showContent('muscle-legends')">
+    <span class="folder-icon">📁</span>
+    MUSCLE LEGENDS
+</div>
     <div class="sidebar-item" onclick="showContent('saludo')">
         <span class="folder-icon">📁</span>
         Si lees esto, ignorame
@@ -1705,6 +1709,20 @@ function redirectToURL(button) {
     </div>
 </div>
 
+<div id="muscle-legends" class="content">
+    <h2 class="section-title">💪 MUSCLE LEGENDS</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">ECLIPSE HUB</div>
+            <button class="copy-button" onclick="copyScript(this, 'ml1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="ml1">loadstring(game:HttpGet("https://protected-roblox-scripts.onrender.com/ef14c49aab8ad4e9ab69171b40989cd2"))()</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -1823,7 +1841,8 @@ window.showContent = function(sectionId) {
     (itemText.includes('PLANTAS VS BRAINROTS') && sectionId === 'plantas-vs-brainrots') ||
     (itemText.includes('SCRIPT HUB UNIVERSALES') && sectionId === 'script-hub-universales') ||
     (itemText.includes('SERVIDORES PRIVADOS GRATIS') && sectionId === 'servidores-privados') ||
-    (itemText.includes('BLOODMONEY') && sectionId === 'bloodmoney') ||  // 
+    (itemText.includes('BLOODMONEY') && sectionId === 'bloodmoney') ||
+    (itemText.includes('MUSCLE LEGENDS') && sectionId === 'muscle-legends') ||  // <-- Nueva línea
     (itemText.includes('Si lees esto, ignorame') && sectionId === 'saludo')) {
     item.classList.add('active');
 }
