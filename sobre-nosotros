@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anti-Hambreado Script Team</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --rojo-neon: #ff003c;
+      --rojo-oscuro: #b3002a;
+      --negro: #0a0a0a;
+      --gris-oscuro: #1a1a1a;
+      --gris-medio: #2a2a2a;
+      --blanco: #f0f0f0;
+      --neon-glow: 0 0 10px var(--rojo-neon), 0 0 20px var(--rojo-neon);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--negro);
+      color: var(--blanco);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .emoji {
+      display: inline-block;
+      animation: smoothPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes smoothPulse {
+      0% {
+        text-shadow: none;
+      }
+      10% {
+        text-shadow: 0 0 4px var(--rojo-neon), 0 0 8px var(--rojo-neon);
+      }
+      25%, 55% {
+        text-shadow: 0 0 8px var(--rojo-neon), 0 0 16px var(--rojo-neon);
+      }
+      70% {
+        text-shadow: 0 0 4px var(--rojo-neon), 0 0 8px var(--rojo-neon);
+      }
+      85%, 100% {
+        text-shadow: none;
+      }
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--gris-oscuro);
+      border-bottom: 2px solid var(--rojo-neon);
+    }
+
+    .logo {
+      width: 120px;
+      height: auto;
+      filter: drop-shadow(0 0 8px var(--rojo-neon));
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-top: 0.5rem;
+      text-shadow: var(--neon-glow);
+      letter-spacing: 1px;
+    }
+
+    .slogan {
+      font-size: 1.1rem;
+      color: #ff6b81;
+      margin-top: 0.5rem;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    section {
+      margin-bottom: 3rem;
+      padding: 1.5rem;
+      background: var(--gris-medio);
+      border-radius: 12px;
+      border-left: 4px solid var(--rojo-neon);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(255, 0, 60, 0.2);
+    }
+
+    h2 {
+      color: var(--rojo-neon);
+      margin-bottom: 1.2rem;
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    h2 i {
+      text-shadow: var(--neon-glow);
+    }
+
+    ul {
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    li {
+      margin-bottom: 0.8rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .team-member {
+      background: rgba(30, 30, 30, 0.7);
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+      border-radius: 10px;
+      border: 1px solid #444;
+      transition: all 0.3s ease;
+    }
+
+    .team-member:hover {
+      border-color: var(--rojo-neon);
+      box-shadow: 0 0 12px rgba(255, 0, 60, 0.4);
+    }
+
+    .member-name {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: var(--rojo-neon);
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .member-role {
+      color: #ddd;
+      font-style: italic;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1.4rem;
+      background: var(--rojo-oscuro);
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    }
+
+    .contact-btn:hover {
+      background: var(--rojo-neon);
+      box-shadow: var(--neon-glow);
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: var(--gris-oscuro);
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1.4rem; }
+      .contact-btn { padding: 0.7rem 1.2rem; font-size: 0.95rem; }
+      .team-member { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Logo Anti-Hambreado" class="logo">
+    <h1><span class="emoji">🌐</span> Anti-Hambreado Script Team</h1>
+    <div class="slogan">“Links directos, cero hambre, comunidad primero”</div>
+  </header>
+
+  <main>
+
+    <section>
+      <h2><i class="fas fa-bullseye"></i> <span class="emoji">📌</span> Nuestro propósito</h2>
+      <p>El Anti-Hambreado Script Team nació con una idea clara: liberar a la comunidad del yugo de los anuncios abusivos y los acortadores hambrientos. No creemos que un usuario deba pasar por diez ventanas emergentes, publicidad engañosa o contenido +18 solo para acceder a un script. Nuestro propósito es sencillo pero poderoso:</p>
+      <ul>
+        <li>Compartir sin hambre.</li>
+        <li>Dar links directos, limpios y seguros.</li>
+        <li>Construir una comunidad que valore la transparencia y la confianza.</li>
+      </ul>
+      <p>En un mundo donde algunos prefieren llenar sus bolsillos a costa de la paciencia de los demás, nosotros preferimos llenar de orgullo y respeto a nuestra comunidad.</p>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-crown"></i> <span class="emoji">👑</span> El fundador: TheBanHammer</h2>
+      <p>El 16 de marzo de 2025, TheBanHammer decidió que ya era suficiente.<br>
+      Ese día, cansado de navegar por la jungla de anuncios de Campione Script, tomó el martillo y fundó este proyecto. No fue un capricho: fue una respuesta a la frustración de miles de usuarios que, con un clic en falso, terminaban en páginas dudosas, con publicidad invasiva y, peor aún, con contenido explícito no apto para menores.</p>
+      <p>TheBanHammer entendió algo que otros olvidaron: la comunidad merece respeto, no trampas disfrazadas de “monetización”.</p>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-shield-alt"></i> <span class="emoji">🛡️</span> Los integrantes del equipo</h2>
+      <p>El Anti-Hambreado Script Team no es un héroe solitario, sino una escuadra de cinco guerreros digitales que defienden la causa:</p>
+
+      <div class="team-member">
+        <div class="member-name"><span class="emoji">👩‍💻</span> FeliciaXxxTop</div>
+        <div class="member-role">Estratega y voz firme contra el hambre digital.</div>
+      </div>
+
+      <div class="team-member">
+        <div class="member-name"><span class="emoji">⏱️</span> iWoozy</div>
+        <div class="member-role">Maestro del timing, siempre un paso adelante en la batalla contra los acortadores.</div>
+      </div>
+
+      <div class="team-member">
+        <div class="member-name"><span class="emoji">⚡</span> No-Slowww</div>
+        <div class="member-role">Como su nombre indica, velocidad pura: scripts directos, sin retrasos.</div>
+      </div>
+
+      <div class="team-member">
+        <div class="member-name"><span class="emoji">🎨</span> AngelltfmXD</div>
+        <div class="member-role">El toque creativo y humorístico, porque la lucha también se gana con risas.</div>
+      </div>
+
+      <div class="team-member">
+        <div class="member-name"><span class="emoji">🔨</span> TheBanHammer</div>
+        <div class="member-role">Fundador y guardián del propósito original: cero anuncios, cero hambre.</div>
+      </div>
+
+      <p style="margin-top: 1.5rem;">Cada integrante aporta su estilo, pero todos comparten la misma convicción: la comunidad primero, el dinero después (o nunca).</p>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-rocket"></i> <span class="emoji">🚀</span> Nuestra misión</h2>
+      <ul>
+        <li>Dar links directos y sin anuncios.</li>
+        <li>Nunca usar acortadores como Linkvertise o Lootlink.</li>
+        <li>Acabar con el hambre digital que representa Campione Script.</li>
+      </ul>
+      <p>No buscamos fama vacía ni monetización a costa de la paciencia de los demás. Buscamos que cada usuario pueda acceder a lo que necesita sin sentirse estafado.</p>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-handshake"></i> <span class="emoji">🤝</span> Nuestra opinión sobre Campione Script</h2>
+      <p>Aquí no hay odio ciego. De hecho, podríamos decir que somos “amigos” de Campione Script… pero amigos como los que te encuentras en un manicomio: convives, pero sabes que algo no anda bien.</p>
+      <p>No lo odiamos, pero tampoco lo admiramos. Lo que sí hacemos es exponer su hambre:</p>
+      <ul>
+        <li>Hambre de clics.</li>
+        <li>Hambre de anuncios.</li>
+        <li>Hambre de dinero fácil.</li>
+      </ul>
+      <p>Mientras él piensa en su bolsillo, nosotros pensamos en la comunidad. Mientras él llena su página de trampas, nosotros llenamos la nuestra de confianza.</p>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-theater-masks"></i> <span class="emoji">🎭</span> Sección de burlas: El hambre de Campione</h2>
+      <p>Porque no todo es solemnidad, también hay espacio para la sátira.</p>
+      <ul>
+        <li><strong>Campione Script dice:</strong> “Haz clic aquí para tu script”.<br>
+            <em>La realidad:</em> clic aquí, allá, en todas partes… menos en el script.</li>
+        <li><strong>Campione Script presume de comunidad.</strong><br>
+            <em>La verdad:</em> si de verdad la valorara, no la mandaría a páginas con contenido +18 cada vez que alguien se equivoca de clic.</li>
+        <li><strong>Campione Script habla de “apoyo”.</strong><br>
+            <em>Nosotros decimos:</em> apoyo no es exprimir a tu gente con anuncios, apoyo es darles lo que buscan sin hambre.</li>
+      </ul>
+      <p>En resumen: Campione no es un villano, es un ejemplo de lo que nunca queremos ser.</p>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-star"></i> <span class="emoji">🌟</span> Conclusión</h2>
+      <p>El Anti-Hambreado Script Team no nació para competir por fama, sino para defender la dignidad de la comunidad. Somos la alternativa limpia, directa y orgullosa frente al hambre digital.</p>
+      <p>Y mientras otros piensan en monetizar cada clic, nosotros pensamos en algo más grande: crear un espacio donde la confianza valga más que cualquier anuncio.</p>
+    </section>
+
+    <section style="text-align: center;">
+      <h2><i class="fas fa-envelope"></i> <span class="emoji">📩</span> Contáctanos</h2>
+      <div class="contact-links">
+        <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="contact-btn">
+          <i class="fab fa-discord"></i> Únete al Discord
+        </a>
+        <a href="mailto:antianunciostest@gmail.com" class="contact-btn">
+          <i class="fas fa-envelope"></i> Envíanos un correo
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; 2025 Anti-Hambreado Script Team — Comunidad primero, hambre nunca.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sections = document.querySelectorAll('section');
+      sections.forEach((sec, i) => {
+        sec.style.opacity = '0';
+        sec.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          sec.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          sec.style.opacity = '1';
+          sec.style.transform = 'translateY(0)';
+        }, 200 * i);
+      });
+    });
+  </script>
+
+</body>
+</html>
