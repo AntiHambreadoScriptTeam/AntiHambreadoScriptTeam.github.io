@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Anti-Hambreado Script Team</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css ">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 
@@ -38,24 +38,14 @@
     100% { background-position: 100% 100%, 0% 0%; }
   }
 
-  /* CANVAS PARA PARTICULAS - FIJADO DETRÁS DE TODO */
+  /* CANVAS PARA PARTICULAS */
   canvas#particles {
     position: fixed;
     top: 0; left: 0;
     width: 100vw;
     height: 100vh;
     pointer-events: none; /* CRUCIAL: permite clics a través del canvas */
-    z-index: -1; /* Detrás de TODO el contenido */
-  }
-
-  /* CONTENEDOR PRINCIPAL - ASEGURA QUE ESTÉ POR ENCIMA DEL CANVAS */
-  .main-content {
-    position: relative;
-    z-index: 10; /* Por encima del canvas */
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    z-index: 1; /* Detrás del contenido principal */
   }
 
   /* EFECTO DE NEÓN GENERAL */
@@ -82,6 +72,7 @@
     animation: neon-border 8s linear infinite;
     opacity: 0;
     transition: opacity 0.3s ease;
+    pointer-events: none; /* Añadido: Permite clics a través del borde */
   }
   .neon-glow:hover::before {
     opacity: 0.4; /* Menos intenso que el original */
@@ -188,7 +179,8 @@
     border-radius: inherit;
     opacity: 0;
     transition: opacity 0.4s ease;
-    pointer-events: none; /* Asegura que no interfiera con clics */
+    pointer-events: none; /* Asegura que no interfiera con clics - ya estaba */
+    z-index: -1; /* Asegura que esté detrás del contenido del botón */
   }
 
   .btn:hover::after {
@@ -378,7 +370,7 @@
   /* ELEMENTOS DECORATIVOS */
   .decoration {
     position: absolute;
-    z-index: 5; /* Detrás del contenido principal, pero encima del canvas */
+    z-index: 0; /* Detrás del contenido principal, pero encima del canvas */
     opacity: 0.08; /* Menos opaco para AMOLED */
     font-size: 2.5rem; /* Ajustado */
     animation: float 18s infinite linear; /* Ajustado */
@@ -568,9 +560,6 @@
 </style>
 </head>
 <body>
-  <!-- Canvas de Partículas - AHORA DETRÁS DE TODO -->
-  <canvas id="particles"></canvas>
-
   <!-- Elementos decorativos -->
   <div class="decoration" style="top: 10%; left: 5%; --delay: 0;">🔥</div>
   <div class="decoration" style="top: 20%; right: 8%; --delay: 3;">⚡</div>
@@ -580,85 +569,86 @@
 
   <!-- Pantalla de Presentación -->
   <div id="splash-screen">
-    <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Logo Anti-Hambreado Script Team">
+    <img src=" https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg " alt="Logo Anti-Hambreado Script Team">
     <p>Anti-Hambreado Script Team, juntos por un mundo sin anuncios ni acortadores</p>
     <small>Todos los derechos reservados | Hecho con ❤️ para nuestra comunidad</small>
   </div>
 
-  <!-- Contenido Principal - ENVUELTO EN UN CONTENEDOR CON Z-INDEX ALTO -->
-  <div class="main-content">
-    <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Logo Anti-Hambreado Script Team" class="logo" draggable="false"/>
+  <!-- Canvas de Partículas -->
+  <canvas id="particles"></canvas>
 
-    <h1 class="flicker">Anti-Hambreado Script Team</h1>
+  <!-- Contenido Principal -->
+  <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg " alt="Logo Anti-Hambreado Script Team" class="logo" draggable="false"/>
 
-    <div class="buttons fade-in-section">
-      <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn discord neon-glow" aria-label="Nuestro Discord">
-        <i class="fab fa-discord"></i> <!-- Icono Font Awesome -->
-        Nuestro Discord
-      </a>
-      <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="btn neon-glow" aria-label="Nuestra página de scripts">
-        <span class="emoji">📜</span> Nuestra página de scripts
-      </a>
-      <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn neon-glow" aria-label="Nuestra página de executores">
-        <span class="emoji">📱</span> Nuestra página de executores
-      </a>
-      <a href="https://youtube.com/@anti-hambreadoscript-team" target="_blank" class="btn neon-glow" aria-label="Nuestro canal de YouTube">
-        <span class="emoji">🎥</span> Nuestro canal de YouTube
-      </a>
-    </div>
+  <h1 class="flicker">Anti-Hambreado Script Team</h1>
 
-    <p class="motto fade-in-section">
-      Anti-Hambreado Script Team es el canal donde los verdaderos jugadores consiguen scripts y executores sin rodeos: links directos, sin virus, sin anuncios, sin loot-link ni tonterías. Aquí no te llenamos la pantalla de publicidad ni te hacemos saltar obstáculos para conseguir lo que buscas.<br><br>
-      A diferencia de Campione Script, que parece más interesado en llenar su cartera que en ayudar a la comunidad —con sus acortadores eternos y páginas llenas de anuncios— nosotros sí respetamos tu tiempo.<br><br>
-      Menos hambre, más calidad. Eso es Anti-Hambreado Script Team.
-    </p>
-
-    <p class="intro fade-in-section">
-      Hola, somos Anti-Hambreado Script Team, muchos ya nos conocerán. Somos un equipo que busca dar scripts y executores con link directo, sin anuncios y sin hambre, porque nosotros no somos hambreados como Campione Script.
-    </p>
-
-    <ul class="team-list fade-in-section">
-      <li>FELICIAXXXTOP</li>
-      <li>IWOOZY</li>
-      <li>ANGELLLTFMXD</li>
-      <li>BANHAMMER</li>
-      <li>NO-SLOWWW</li>
-    </ul>
-
-    <p class="intro fade-in-section">
-      Y nosotros somos socios y amigos de FloppHub Team, el mejor servidor para hacer bypass a Linkvertise, Lootlink, Keys, etc. ¡Sin hambre y sin anuncios, a diferencia de Campione Script!
-    </p>
-
-    <h2 class="fade-in-section"><span class="emoji-animated">😹</span>Campione Script: El hambre con WiFi disfrazado de youtuber</h2>
-
-    <p class="section-text fade-in-section">
-      Oye, ¿y qué es lo que Campione Script se cree? ¿Un youtuber serio? ¡El diablo, oe! Ese tipo no escribe código, él escribe trampas. Tú entras a su página y lo que hay es un virusaso, pero cuando vas a su canal… ¡ay mi madre! Eso es otro nivel de hambre.
-    </p>
-
-    <p class="section-text fade-in-section">
-      Scripts con veneno: Tú crees que vas a descargar algo útil y lo que te cae es un link con más anuncios que un canal de YouTube en diciembre. Si das un click en falso, te sale un popup, un virus, y hasta una suscripción a una página rara. ¿Cómo así?
-    </p>
-
-    <p class="section-text fade-in-section">
-      Publicidad por pila: Cada script viene con cinco acortadores, tres redirecciones y un captcha que parece examen de matemáticas. Tú no sabes si estás programando o jugando a escapar de un malware.
-    </p>
-
-    <p class="section-text fade-in-section">
-      Canal lleno de bulto: Tú entras buscando ayuda y lo que encuentras es un mercado. "¡Descarga mi script!", "¡Suscríbete a mi canal!", "¡Suscríbete a este otro canal!" — pero de contenido útil, ni la sombra. Es como si el tipo estuviera vendiendo sueños y pesadillas al mismo tiempo.
-    </p>
-
-    <p class="section-text fade-in-section">
-      Cero ética, cero respeto: Un youtuber de verdad te da herramientas, te enseña, te ayuda. Este lo que hace es tirar carnada pa' ver quién cae. ¡El hueso, compai! Y lo peor es que hay gente que todavía lo defiende. ¿Qué fue?
-    </p>
-
-    <p class="section-text fade-in-section">
-      Esto no es un youtuber, esto es hambre con estrategia. Campione Script no sube videos de calidad, él pesca incautos. Si tú quieres aprender, crecer, y montar algo serio, sal corriendo. Porque aquí lo que hay es bulto, paquete y un virus esperando en la esquina.
-    </p>
-
-    <footer class="fade-in-section">
-      © Anti-Hambreado Script Team 2025 - ¡No seas hambread@ como Campione!
-    </footer>
+  <div class="buttons fade-in-section">
+    <a href="https://discord.gg/rTGF5xhe3h " target="_blank" class="btn discord neon-glow" aria-label="Nuestro Discord">
+      <i class="fab fa-discord"></i> <!-- Icono Font Awesome -->
+      Nuestro Discord
+    </a>
+    <a href="https://antihambreadoscriptteam.github.io/scripts " target="_blank" class="btn neon-glow" aria-label="Nuestra página de scripts">
+      <span class="emoji">📜</span> Nuestra página de scripts
+    </a>
+    <a href="https://antihambreadoscriptteam.github.io/executores " target="_blank" class="btn neon-glow" aria-label="Nuestra página de executores">
+      <span class="emoji">⚙️</span> Nuestra página de executores
+    </a>
+    <a href="https://youtube.com/@anti-hambreadoscript-team " target="_blank" class="btn neon-glow" aria-label="Nuestro canal de YouTube">
+      <span class="emoji">🎥</span> Nuestro canal de YouTube
+    </a>
   </div>
+
+  <p class="motto fade-in-section">
+    Anti-Hambreado Script Team es el canal donde los verdaderos jugadores consiguen scripts y executores sin rodeos: links directos, sin virus, sin anuncios, sin loot-link ni tonterías. Aquí no te llenamos la pantalla de publicidad ni te hacemos saltar obstáculos para conseguir lo que buscas.<br><br>
+    A diferencia de Campione Script, que parece más interesado en llenar su cartera que en ayudar a la comunidad —con sus acortadores eternos y páginas llenas de anuncios— nosotros sí respetamos tu tiempo.<br><br>
+    Menos hambre, más calidad. Eso es Anti-Hambreado Script Team.
+  </p>
+
+  <p class="intro fade-in-section">
+    Hola, somos Anti-Hambreado Script Team, muchos ya nos conocerán. Somos un equipo que busca dar scripts y executores con link directo, sin anuncios y sin hambre, porque nosotros no somos hambreados como Campione Script.
+  </p>
+
+  <ul class="team-list fade-in-section">
+    <li>FELICIAXXXTOP</li>
+    <li>IWOOZY</li>
+    <li>ANGELLLTFMXD</li>
+    <li>BANHAMMER</li>
+    <li>NO-SLOWWW</li>
+  </ul>
+
+  <p class="intro fade-in-section">
+    Y nosotros somos socios y amigos de FloppHub Team, el mejor servidor para hacer bypass a Linkvertise, Lootlink, Keys, etc. ¡Sin hambre y sin anuncios, a diferencia de Campione Script!
+  </p>
+
+  <h2 class="fade-in-section"><span class="emoji-animated">😹</span>Campione Script: El hambre con WiFi disfrazado de youtuber</h2>
+
+  <p class="section-text fade-in-section">
+    Oye, ¿y qué es lo que Campione Script se cree? ¿Un youtuber serio? ¡El diablo, oe! Ese tipo no escribe código, él escribe trampas. Tú entras a su página y lo que hay es un virusaso, pero cuando vas a su canal… ¡ay mi madre! Eso es otro nivel de hambre.
+  </p>
+
+  <p class="section-text fade-in-section">
+    Scripts con veneno: Tú crees que vas a descargar algo útil y lo que te cae es un link con más anuncios que un canal de YouTube en diciembre. Si das un click en falso, te sale un popup, un virus, y hasta una suscripción a una página rara. ¿Cómo así?
+  </p>
+
+  <p class="section-text fade-in-section">
+    Publicidad por pila: Cada script viene con cinco acortadores, tres redirecciones y un captcha que parece examen de matemáticas. Tú no sabes si estás programando o jugando a escapar de un malware.
+  </p>
+
+  <p class="section-text fade-in-section">
+    Canal lleno de bulto: Tú entras buscando ayuda y lo que encuentras es un mercado. "¡Descarga mi script!", "¡Suscríbete a mi canal!", "¡Suscríbete a este otro canal!" — pero de contenido útil, ni la sombra. Es como si el tipo estuviera vendiendo sueños y pesadillas al mismo tiempo.
+  </p>
+
+  <p class="section-text fade-in-section">
+    Cero ética, cero respeto: Un youtuber de verdad te da herramientas, te enseña, te ayuda. Este lo que hace es tirar carnada pa' ver quién cae. ¡El hueso, compai! Y lo peor es que hay gente que todavía lo defiende. ¿Qué fue?
+  </p>
+
+  <p class="section-text fade-in-section">
+    Esto no es un youtuber, esto es hambre con estrategia. Campione Script no sube videos de calidad, él pesca incautos. Si tú quieres aprender, crecer, y montar algo serio, sal corriendo. Porque aquí lo que hay es bulto, paquete y un virus esperando en la esquina.
+  </p>
+
+  <footer class="fade-in-section">
+    © Anti-Hambreado Script Team 2025 - ¡No seas hambread@ como Campione!
+  </footer>
 
 <script>
   // PARTICULAS CANVAS - Mismo código funcional del original
