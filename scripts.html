@@ -753,6 +753,10 @@
     <span class="folder-icon">📁</span>
     MUSCLE LEGENDS
 </div>
+<div class="sidebar-item" onclick="showContent('smash-project')">
+    <span class="folder-icon">📁</span>
+    SMASH PROJECT
+</div>
 <div class="sidebar-item" onclick="showContent('plantas-vs-brainrot')">
     <span class="folder-icon">📁</span>
     PLANTAS VS BRAINROT
@@ -1765,6 +1769,20 @@ function redirectToURL(button) {
     </div>
 </div>
 
+<div id="smash-project" class="content">
+    <h2 class="section-title">💥 SMASH PROJECT</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">NEXOR HUB</div>
+            <button class="copy-button" onclick="copyScript(this, 'sp1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="sp1">loadstring(game:HttpGet('https://raw.githubusercontent.com/NexorHub/Games/refs/heads/main/Universal/Scripts.lua'))();</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -1869,7 +1887,7 @@ window.showContent = function(sectionId) {
     (itemText.includes('BLOX FRUITS') && sectionId === 'blox-fruits') ||
     (itemText.includes('BLUE LOCK') && sectionId === 'blue-lock') ||
     (itemText.includes('DEAD RAILS') && sectionId === 'dead-rails') ||
-    (itemText.includes('DEAD DEFENSE') && sectionId === 'dead-defense') ||  // <-- Nueva línea
+    (itemText.includes('DEAD DEFENSE') && sectionId === 'dead-defense') ||
     (itemText.includes('DIG') && sectionId === 'dig') ||
     (itemText.includes('DRAGON BALL RAGE') && sectionId === 'dragon-ball-rage') ||
     (itemText.includes('EVADE') && sectionId === 'evade') ||
@@ -1882,6 +1900,8 @@ window.showContent = function(sectionId) {
     (itemText.includes('MUSCLE LEGENDS') && sectionId === 'muscle-legends') ||
     (itemText.includes('PLANTAS VS BRAINROT') && sectionId === 'plantas-vs-brainrot') ||
     (itemText.includes('PROSPECTING') && sectionId === 'prospecting') ||
+    (itemText.includes('SCRIPT HUB UNIVERSALES') && sectionId === 'script-hub-universales') ||
+    (itemText.includes('SMASH PROJECT') && sectionId === 'smash-project') || 
     (itemText.includes('STEAL A BRAINROT') && sectionId === 'steal-brainrot') ||
     (itemText.includes('VOX SEAS') && sectionId === 'vox-seas') ||
     (itemText.includes('Si lees esto, ignorame') && sectionId === 'saludo')) {
