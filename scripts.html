@@ -721,6 +721,10 @@
     <span class="folder-icon">📁</span>
     DEAD DEFENSE
 </div>
+<div class="sidebar-item" onclick="showContent('demon-fall')">
+    <span class="folder-icon">📁</span>
+    DEMON FALL
+</div>
 <div class="sidebar-item" onclick="showContent('evade')">
     <span class="folder-icon">📁</span>
     EVADE
@@ -1783,6 +1787,20 @@ function redirectToURL(button) {
     </div>
 </div>
 
+<div id="demon-fall" class="content">
+    <h2 class="section-title">👹 DEMON FALL</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">NOOB HUB</div>
+            <button class="copy-button" onclick="copyScript(this, 'df1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="df1">https://www.mediafire.com/file/gkn6mmk0jgv2gui/Script_Demon_FALL.txt/file</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -1888,6 +1906,7 @@ window.showContent = function(sectionId) {
     (itemText.includes('BLUE LOCK') && sectionId === 'blue-lock') ||
     (itemText.includes('DEAD RAILS') && sectionId === 'dead-rails') ||
     (itemText.includes('DEAD DEFENSE') && sectionId === 'dead-defense') ||
+    (itemText.includes('DEMON FALL') && sectionId === 'demon-fall') ||  // 
     (itemText.includes('DIG') && sectionId === 'dig') ||
     (itemText.includes('DRAGON BALL RAGE') && sectionId === 'dragon-ball-rage') ||
     (itemText.includes('EVADE') && sectionId === 'evade') ||
@@ -1900,8 +1919,6 @@ window.showContent = function(sectionId) {
     (itemText.includes('MUSCLE LEGENDS') && sectionId === 'muscle-legends') ||
     (itemText.includes('PLANTAS VS BRAINROT') && sectionId === 'plantas-vs-brainrot') ||
     (itemText.includes('PROSPECTING') && sectionId === 'prospecting') ||
-    (itemText.includes('SCRIPT HUB UNIVERSALES') && sectionId === 'script-hub-universales') ||
-    (itemText.includes('SMASH PROJECT') && sectionId === 'smash-project') || 
     (itemText.includes('STEAL A BRAINROT') && sectionId === 'steal-brainrot') ||
     (itemText.includes('VOX SEAS') && sectionId === 'vox-seas') ||
     (itemText.includes('Si lees esto, ignorame') && sectionId === 'saludo')) {
