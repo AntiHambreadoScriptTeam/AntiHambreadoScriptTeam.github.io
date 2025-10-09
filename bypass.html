@@ -1,1 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti-Hambreado Team | Bypass</title>
+    <style>
+        :root {
+            --primary: #d32f2f;
+            --primary-dark: #b71c1c;
+            --secondary: #212121;
+            --background: #121212;
+            --surface: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(211, 47, 47, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(211, 47, 47, 0.1) 0%, transparent 20%);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 15px rgba(211, 47, 47, 0.5);
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
+            margin: 0;
+        }
+        .input-section {
+            background-color: var(--surface);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+        input[type="url"] {
+            padding: 14px;
+            border-radius: 8px;
+            border: 2px solid #444;
+            background-color: #2a2a2a;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        input[type="url"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 8px rgba(211, 47, 47, 0.5);
+        }
+        button {
+            padding: 14px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            align-self: flex-start;
+        }
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.4);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--surface);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            display: none;
+            word-break: break-all;
+            animation: fadeIn 0.5s ease-out;
+        }
+        #result.success {
+            display: block;
+            border-left-color: #4caf50;
+        }
+        #result.error {
+            display: block;
+            border-left-color: #f44336;
+        }
+        .supported-links {
+            background-color: var(--surface);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        .supported-links h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .link-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .link-item:hover {
+            background-color: #333;
+            transform: translateY(-3px);
+        }
+        .link-item i {
+            font-size: 1.5rem;
+        }
+        .link-item span {
+            font-size: 1.2rem; /* Increased size */
+            font-weight: 500;
+        }
+        .discord-section {
+            background-color: var(--surface);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        .discord-section h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.8rem;
+        }
+        .discord-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background-color: #5865F2;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .discord-link:hover {
+            background-color: #4752C4;
+            transform: translateY(-2px);
+        }
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .input-section, .supported-links, .discord-section {
+                padding: 20px;
+            }
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="https://i.postimg.cc/7Y9zxsVj/image-1757019657316.jpg" alt="Anti-Hambreado Team Logo" class="logo pulse">
+                <h1>Anti-Hambreado Team | Bypass</h1>
+            </div>
+        </header>
 
+        <section class="input-section">
+            <div class="input-group">
+                <label for="linkInput">Enter your link to bypass:</label>
+                <input type="url" id="linkInput" placeholder="https://linkvertise.com/..." required>
+                <button id="bypassButton">Bypassear Link</button>
+            </div>
+            <div id="result"></div>
+        </section>
+
+        <section class="supported-links">
+            <h2><i class="fas fa-link"></i> LINKS A LOS QUE LES PUEDES HACER BYPASS</h2>
+            <div class="links-grid">
+                <div class="link-item">
+                    <i class="fas fa-bolt" style="color: #FF9800;"></i>
+                    <span>Linkvertise</span>
+                </div>
+                <div class="link-item">
+                    <i class="fas fa-coins" style="color: #FFEB3B;"></i>
+                    <span>AdFly</span>
+                </div>
+                <div class="link-item">
+                    <i class="fas fa-key" style="color: #4CAF50;"></i>
+                    <span>LinkDl</span>
+                </div>
+                <div class="link-item">
+                    <i class="fab fa-youtube" style="color: #FF4081;"></i>
+                    <span>YouTube Short URLs</span>
+                </div>
+                <div class="link-item">
+                    <i class="fas fa-file-archive" style="color: #2196F3;"></i>
+                    <span>MediaFire</span>
+                </div>
+                <div class="link-item">
+                    <i class="fas fa-download" style="color: #9C27B0;"></i>
+                    <span>Other Supported Sites</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="discord-section">
+            <h2><i class="fab fa-discord"></i> Join Our Discord</h2>
+            <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="discord-link">
+                <i class="fab fa-discord"></i> Discord Server
+            </a>
+        </section>
+    </div>
+
+    <footer>
+        FloppHub x Anti-Hambreado Script | Hecho con ❤️ para nuestra comunidad.
+    </footer>
+
+    <script>
+        document.getElementById('bypassButton').addEventListener('click', async function() {
+            const input = document.getElementById('linkInput');
+            const resultDiv = document.getElementById('result');
+            const link = input.value.trim();
+
+            if (!link) {
+                resultDiv.textContent = 'Please enter a link.';
+                resultDiv.className = 'error';
+                resultDiv.style.display = 'block';
+                return;
+            }
+
+            resultDiv.textContent = 'Processing...';
+            resultDiv.className = '';
+            resultDiv.style.display = 'block';
+
+            try {
+                // Example API call - Replace with your actual API endpoint and logic
+                // This simulates the API call and response modification
+                const encodedLink = encodeURIComponent(link);
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                // Example response from API - Modify based on actual API response
+                // Original response: "http://usr.eas-x.com/refer/linkvertise?url=https%3A%2F%2Fwww.mediafire.com%2Ffile%2F1btyu1lk0qm59ff%2FDelta%2BExecutor%2Bv2.660.647.zip%2Ffile"
+                // Expected: Extract the `url` parameter value: "https%3A%2F%2Fwww.mediafire.com%2Ffile%2F1btyu1lk0qm59ff%2FDelta%2BExecutor%2Bv2.660.647.zip%2Ffile"
+                // For demonstration, we'll simulate the original response
+                const simulatedApiResponse = `http://usr.eas-x.com/refer/linkvertise?url=${encodedLink}&other_param=value`;
+                const urlObj = new URL(simulatedApiResponse);
+                const extractedUrl = urlObj.searchParams.get('url');
+
+                if (extractedUrl) {
+                    resultDiv.innerHTML = `Success: ${extractedUrl}`;
+                    resultDiv.className = 'success';
+                } else {
+                    // If 'url' parameter is not found, return the original link or an error
+                    resultDiv.innerHTML = `Success: ${encodedLink}`;
+                    resultDiv.className = 'success';
+                }
+            } catch (error) {
+                console.error('Error during bypass:', error);
+                resultDiv.textContent = `Error: ${error.message || 'An unknown error occurred.'}`;
+                resultDiv.className = 'error';
+            }
+        });
+
+        // Add subtle interactive animations
+        document.querySelectorAll('button, .link-item, .discord-link').forEach(el => {
+            el.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            el.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
+        });
+    </script>
+</body>
+  </html>
