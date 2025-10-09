@@ -308,7 +308,7 @@
       animation: floatIn 0.6s ease-out forwards;
       opacity: 0;
       font-family: 'Geist', 'Inter', sans-serif;
-      font-size: 1.2rem !important;
+      font-size: 3.2rem !important;
       font-weight: 700 !important;
       transition: transform 0.3s ease;
     }
@@ -677,6 +677,13 @@
           .replace(/`/g, '\\`')
           .replace(/'/g, "\\'")
           .replace(/"/g, '\\"');
+        
+        const escapedForTextarea = finalContent
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
 
         let resultHTML;
         
@@ -684,22 +691,42 @@
           // Para contenido directo, mostrar en textarea para mejor visualización
           resultHTML = `
             <div class="result-container">
-              <textarea style="width:100%; min-height:150px; padding:12px; background:rgba(40,0,0,0.6); border:1px solid rgba(255,100,100,0.3); color:white; border-radius:8px; font-size:0.9rem; font-family:monospace; resize:vertical;" readonly>${finalContent}</textarea>
-              <button onclick="navigator.clipboard.writeText(\`${escaped}\`).then(() => { this.textContent = '¡Copiado!'; setTimeout(() => this.textContent = 'Copiar Contenido', 2000); })">Copiar Contenido</button>
+              <textarea id="content-textarea" style="width:100%; min-height:150px; padding:12px; background:rgba(40,0,0,0.6); border:1px solid rgba(255,100,100,0.3); color:white; border-radius:8px; font-size:0.9rem; font-family:monospace; resize:vertical;" readonly>${escapedForTextarea}</textarea>
+              <button id="copy-content-btn">Copiar Contenido</button>
             </div>
           `;
         } else {
           // Para URLs, mostrar input y botones de copiar/redirigir
           resultHTML = `
             <div class="result-container">
-              <input type="text" value="${escaped}" readonly />
-              <button onclick="navigator.clipboard.writeText('${escaped}').then(() => { this.textContent = '¡Copiado!'; setTimeout(() => this.textContent = 'Copiar', 2000); })">Copiar</button>
-              <button onclick="window.location.href = '${escaped}'">Redirigir</button>
+              <input type="text" id="url-input" value="${escapedForTextarea}" readonly />
+              <button id="copy-url-btn">Copiar</button>
+              <button id="redirect-btn">Redirigir</button>
             </div>
           `;
         }
         
         document.querySelector('.container').insertAdjacentHTML('beforeend', resultHTML);
+        
+        // Agregar event listeners después de insertar el HTML
+        if (isDirectContent) {
+          document.getElementById('copy-content-btn').addEventListener('click', function() {
+            navigator.clipboard.writeText(finalContent).then(() => {
+              this.textContent = '¡Copiado!';
+              setTimeout(() => this.textContent = 'Copiar Contenido', 2000);
+            });
+          });
+        } else {
+          document.getElementById('copy-url-btn').addEventListener('click', function() {
+            navigator.clipboard.writeText(finalContent).then(() => {
+              this.textContent = '¡Copiado!';
+              setTimeout(() => this.textContent = 'Copiar', 2000);
+            });
+          });
+          document.getElementById('redirect-btn').addEventListener('click', function() {
+            window.location.href = finalContent;
+          });
+        }
 
       } catch (err) {
         statusEl.textContent = `❌ Error: ${err.message}`;
