@@ -633,6 +633,10 @@
         return;
       }
 
+      // Limpiar resultados anteriores
+      const previousResults = document.querySelectorAll('.result-container');
+      previousResults.forEach(el => el.remove());
+
       statusEl.innerHTML = '<span class="spinner"></span> Por favor completa el captcha...';
 
       let token;
