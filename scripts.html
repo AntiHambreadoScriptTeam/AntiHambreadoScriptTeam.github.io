@@ -722,6 +722,10 @@
     <span class="folder-icon">📁</span>
     DRAGON BALL RAGE
 </div>
+<div class="sidebar-item" onclick="showContent('doors')">
+    <span class="folder-icon">📁</span>
+    DOORS
+</div>
 <div class="sidebar-item" onclick="showContent('evade')">
     <span class="folder-icon">📁</span>
     EVADE
@@ -1808,6 +1812,20 @@ function redirectToURL(button) {
     </div>
 </div>
 
+<div id="doors" class="content">
+    <h2 class="section-title">🚪 DOORS</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">DOORS SCRIPT</div>
+            <button class="copy-button" onclick="copyScript(this, 'doors1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="doors1">loadstring(game:HttpGet("https://raw.githubusercontent.com/TheHunterSolo1/Scripts/refs/heads/main/Protected_2809220311826785.lua.txt"))()</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -1913,8 +1931,9 @@ window.showContent = function(sectionId) {
     (itemText.includes('BLUE LOCK') && sectionId === 'blue-lock') ||
     (itemText.includes('DEAD RAILS') && sectionId === 'dead-rails') ||
     (itemText.includes('DEAD DEFENSE') && sectionId === 'dead-defense') ||
-    (itemText.includes('DEMON FALL') && sectionId === 'demon-fall') ||  // 
+    (itemText.includes('DEMON FALL') && sectionId === 'demon-fall') ||
     (itemText.includes('DIG') && sectionId === 'dig') ||
+    (itemText.includes('DOORS') && sectionId === 'doors') ||  
     (itemText.includes('DRAGON BALL RAGE') && sectionId === 'dragon-ball-rage') ||
     (itemText.includes('EVADE') && sectionId === 'evade') ||
     (itemText.includes('FISCH') && sectionId === 'fisch') ||
