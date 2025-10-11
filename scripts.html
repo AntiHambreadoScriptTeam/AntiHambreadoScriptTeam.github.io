@@ -750,6 +750,10 @@
     <span class="folder-icon">📁</span>
     INK GAME
 </div>
+<div class="sidebar-item" onclick="showContent('jailbreak')">
+    <span class="folder-icon">📁</span>
+    JAILBREAK
+</div>
 <div class="sidebar-item" onclick="showContent('king-legacy')">
     <span class="folder-icon">📁</span>
     KING LEGACY
@@ -1836,6 +1840,20 @@ function redirectToURL(button) {
     </div>
 </div>
 
+<div id="jailbreak" class="content">
+    <h2 class="section-title">🚔 JAILBREAK</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">SOLIX</div>
+            <button class="copy-button" onclick="copyScript(this, 'jb1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="jb1">loadstring(game:HttpGet("https://raw.githubusercontent.com/debunked69/solixloader/refs/heads/main/solix%20v2%20new%20loader.lua"))()</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -1950,7 +1968,8 @@ window.showContent = function(sectionId) {
     (itemText.includes('FORSAKEN') && sectionId === 'forsaken') ||
     (itemText.includes('GROW A GARDEN') && sectionId === 'grow-garden') ||
     (itemText.includes('HUNTY ZOMBIE') && sectionId === 'hunty-zombie') ||
-    (itemText.includes('INK GAME') && sectionId === 'ink-game') ||
+    (itemText.includes('INK GAME') && sectionId === 'ink-game') || 
+(itemText.includes('JAILBREAK') && sectionId === 'jailbreak') ||
     (itemText.includes('KING LEGACY') && sectionId === 'king-legacy') ||
     (itemText.includes('MUSCLE LEGENDS') && sectionId === 'muscle-legends') ||
     (itemText.includes('PLANTAS VS BRAINROT') && sectionId === 'plantas-vs-brainrot') ||
