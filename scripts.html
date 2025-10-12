@@ -766,6 +766,10 @@
     <span class="folder-icon">📁</span>
     MUSCLE LEGENDS
 </div>
+<div class="sidebar-item" onclick="showContent('ninja-times')">
+    <span class="folder-icon">📁</span>
+    NINJA TIMES
+</div>
 <div class="sidebar-item" onclick="showContent('plantas-vs-brainrot')">
     <span class="folder-icon">📁</span>
     PLANTAS VS BRAINROT
@@ -785,6 +789,10 @@
 <div class="sidebar-item" onclick="showContent('vox-seas')">
     <span class="folder-icon">📁</span>
     VOX SEAS
+</div>
+<div class="sidebar-item" onclick="showContent('weak-legacy')">
+    <span class="folder-icon">📁</span>
+    WEAK LEGACY
 </div>
     <div class="sidebar-item" onclick="showContent('saludo')">
         <span class="folder-icon">📁</span>
@@ -1872,6 +1880,34 @@ function redirectToURL(button) {
     </div>
 </div>
 
+<div id="weak-legacy" class="content">
+    <h2 class="section-title">⚔️ WEAK LEGACY</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">WEAK LEGACY SCRIPT</div>
+            <button class="copy-button" onclick="copyScript(this, 'wl1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="wl1">loadstring(game:HttpGet("https://raw.githubusercontent.com/OhhMyGehlee/sh/refs/heads/main/a"))()</pre>
+        </div>
+    </div>
+</div>
+
+<div id="ninja-times" class="content">
+    <h2 class="section-title">🥷 NINJA TIMES</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">SCYLLA</div>
+            <button class="copy-button" onclick="copyScript(this, 'nt1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="nt1">loadstring(game:HttpGet("https://raw.githubusercontent.com/acezqqq/Scylla/refs/heads/main/Loader.lua"))()</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -1990,11 +2026,13 @@ window.showContent = function(sectionId) {
     (itemText.includes('INK GAME') && sectionId === 'ink-game') || 
 (itemText.includes('JAILBREAK') && sectionId === 'jailbreak') ||
     (itemText.includes('KING LEGACY') && sectionId === 'king-legacy') ||
-    (itemText.includes('MUSCLE LEGENDS') && sectionId === 'muscle-legends') ||
+    (itemText.includes('MUSCLE LEGENDS') && sectionId === 'muscle-legends') || 
+(itemText.includes('NINJA TIMES') && sectionId === 'ninja-times') ||
     (itemText.includes('PLANTAS VS BRAINROT') && sectionId === 'plantas-vs-brainrot') ||
     (itemText.includes('PROSPECTING') && sectionId === 'prospecting') ||
     (itemText.includes('STEAL A BRAINROT') && sectionId === 'steal-brainrot') ||
-    (itemText.includes('VOX SEAS') && sectionId === 'vox-seas') ||
+    (itemText.includes('VOX SEAS') && sectionId === 'vox-seas') || 
+(itemText.includes('WEAK LEGACY') && sectionId === 'weak-legacy') ||
     (itemText.includes('Si lees esto, ignorame') && sectionId === 'saludo')) {
     item.classList.add('active');
 }
