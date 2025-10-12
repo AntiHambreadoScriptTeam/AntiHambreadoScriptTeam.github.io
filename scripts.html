@@ -778,6 +778,10 @@
     <span class="folder-icon">📁</span>
     PROSPECTING
 </div>
+<div class="sidebar-item" onclick="showContent('piggy')">
+    <span class="folder-icon">📁</span>
+    PIGGY
+</div>
 <div class="sidebar-item" onclick="showContent('smash-project')">
     <span class="folder-icon">📁</span>
     SMASH PROJECT
@@ -1908,6 +1912,20 @@ function redirectToURL(button) {
     </div>
 </div>
 
+<div id="piggy" class="content">
+    <h2 class="section-title">🐷 PIGGY</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">STARHACK HUB</div>
+            <button class="copy-button" onclick="copyScript(this, 'piggy1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="piggy1">loadstring(game:HttpGet("https://raw.githubusercontent.com/StarHackScripts/StarHack-Hub-Deepstar-Hub/refs/heads/main/StarHack%20Hub%20-%20Piggy%20Pro%20Hub.txt"))()</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -2029,7 +2047,8 @@ window.showContent = function(sectionId) {
     (itemText.includes('MUSCLE LEGENDS') && sectionId === 'muscle-legends') || 
 (itemText.includes('NINJA TIMES') && sectionId === 'ninja-times') ||
     (itemText.includes('PLANTAS VS BRAINROT') && sectionId === 'plantas-vs-brainrot') ||
-    (itemText.includes('PROSPECTING') && sectionId === 'prospecting') ||
+    (itemText.includes('PROSPECTING') && sectionId === 'prospecting') || 
+(itemText.includes('PIGGY') && sectionId === 'piggy') ||
     (itemText.includes('STEAL A BRAINROT') && sectionId === 'steal-brainrot') ||
     (itemText.includes('VOX SEAS') && sectionId === 'vox-seas') || 
 (itemText.includes('WEAK LEGACY') && sectionId === 'weak-legacy') ||
