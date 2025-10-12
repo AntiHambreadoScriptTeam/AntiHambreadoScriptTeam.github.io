@@ -726,6 +726,10 @@
     <span class="folder-icon">📁</span>
     DOORS
 </div>
+<div class="sidebar-item" onclick="showContent('dandy-world')">
+    <span class="folder-icon">📁</span>
+    DANDY'S WORLD
+</div>
 <div class="sidebar-item" onclick="showContent('evade')">
     <span class="folder-icon">📁</span>
     EVADE
@@ -1854,6 +1858,20 @@ function redirectToURL(button) {
     </div>
 </div>
 
+<div id="dandy-world" class="content">
+    <h2 class="section-title">🌼 DANDY'S WORLD</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">DANDY'S WORLD HUB</div>
+            <button class="copy-button" onclick="copyScript(this, 'dw1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="dw1">loadstring(game:HttpGet("https://pastebin.com/raw/H3u62n7D"))()</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -1962,7 +1980,8 @@ window.showContent = function(sectionId) {
     (itemText.includes('DEMON FALL') && sectionId === 'demon-fall') ||
     (itemText.includes('DIG') && sectionId === 'dig') ||
     (itemText.includes('DOORS') && sectionId === 'doors') ||  
-    (itemText.includes('DRAGON BALL RAGE') && sectionId === 'dragon-ball-rage') ||
+    (itemText.includes('DRAGON BALL RAGE') && sectionId === 'dragon-ball-rage') || 
+(itemText.includes('DANDY') && sectionId === 'dandy-world') ||
     (itemText.includes('EVADE') && sectionId === 'evade') ||
     (itemText.includes('FISCH') && sectionId === 'fisch') ||
     (itemText.includes('FORSAKEN') && sectionId === 'forsaken') ||
