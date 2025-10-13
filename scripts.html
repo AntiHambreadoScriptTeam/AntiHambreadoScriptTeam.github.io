@@ -790,6 +790,10 @@
     <span class="folder-icon">📁</span>
     STEAL A BRAINROT
 </div>
+<div class="sidebar-item" onclick="showContent('strongest-battlegrounds')">
+    <span class="folder-icon">📁</span>
+    THE STRONGEST BATTLEGROUNDS
+</div>
 <div class="sidebar-item" onclick="showContent('vox-seas')">
     <span class="folder-icon">📁</span>
     VOX SEAS
@@ -1926,6 +1930,20 @@ function redirectToURL(button) {
     </div>
 </div>
 
+<div id="strongest-battlegrounds" class="content">
+    <h2 class="section-title">🥊 THE STRONGEST BATTLEGROUNDS</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">MINHNHAT HUB</div>
+            <button class="copy-button" onclick="copyScript(this, 'tsb1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="tsb1">loadstring(game:HttpGet("https://raw.githubusercontent.com/minhnhatdepzai8-cloud/MinhNhat-HUB-V5/refs/heads/main/MinhNhatDZ.lua.txt"))()</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -2049,7 +2067,8 @@ window.showContent = function(sectionId) {
     (itemText.includes('PLANTAS VS BRAINROT') && sectionId === 'plantas-vs-brainrot') ||
     (itemText.includes('PROSPECTING') && sectionId === 'prospecting') || 
 (itemText.includes('PIGGY') && sectionId === 'piggy') ||
-    (itemText.includes('STEAL A BRAINROT') && sectionId === 'steal-brainrot') ||
+    (itemText.includes('STEAL A BRAINROT') && sectionId === 'steal-brainrot') || 
+(itemText.includes('THE STRONGEST BATTLEGROUNDS') && sectionId === 'strongest-battlegrounds') ||
     (itemText.includes('VOX SEAS') && sectionId === 'vox-seas') || 
 (itemText.includes('WEAK LEGACY') && sectionId === 'weak-legacy') ||
     (itemText.includes('Si lees esto, ignorame') && sectionId === 'saludo')) {
