@@ -734,6 +734,10 @@
     <span class="folder-icon">📁</span>
     DRAGON BLOX
 </div>
+<div class="sidebar-item" onclick="showContent('demon-blade')">
+    <span class="folder-icon">📁</span>
+    DEMON BLADE
+</div>
 <div class="sidebar-item" onclick="showContent('evade')">
     <span class="folder-icon">📁</span>
     EVADE
@@ -1994,6 +1998,20 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/d92ae761864b63
     </div>
 </div>
 
+<div id="demon-blade" class="content">
+    <h2 class="section-title">🗡️ DEMON BLADE</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">DEMON BLADE SCRIPT</div>
+            <button class="copy-button" onclick="copyScript(this, 'db1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="db1">loadstring(game:HttpGet('https://raw.githubusercontent.com/shakaUnlocked/IiI/refs/heads/main/dbrw.lua'))()</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -2104,7 +2122,8 @@ window.showContent = function(sectionId) {
     (itemText.includes('DOORS') && sectionId === 'doors') ||  
     (itemText.includes('DRAGON BALL RAGE') && sectionId === 'dragon-ball-rage') || 
 (itemText.includes('DANDY') && sectionId === 'dandy-world') || 
-(itemText.includes('DRAGON BLOX') && sectionId === 'dragon-blox') ||
+(itemText.includes('DRAGON BLOX') && sectionId === 'dragon-blox') || 
+(itemText.includes('DEMON BLADE') && sectionId === 'demon-blade') ||
     (itemText.includes('EVADE') && sectionId === 'evade') ||
     (itemText.includes('FISCH') && sectionId === 'fisch') ||
     (itemText.includes('FORSAKEN') && sectionId === 'forsaken') || 
