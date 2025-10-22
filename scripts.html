@@ -758,6 +758,10 @@
     <span class="folder-icon">📁</span>
     GROW a GARDEN
 </div>
+<div class="sidebar-item" onclick="showContent('grand-piece-online')">
+    <span class="folder-icon">📁</span>
+    GRAND PIECE ONLINE
+</div>
 <div class="sidebar-item" onclick="showContent('hunty-zombie')">
     <span class="folder-icon">📁</span>
     HUNTY ZOMBIE
@@ -2030,6 +2034,20 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/d92ae761864b63
     </div>
 </div>
 
+<div id="grand-piece-online" class="content">
+    <h2 class="section-title">🏴‍☠️ GRAND PIECE ONLINE</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">SWITCH HUB</div>
+            <button class="copy-button" onclick="copyScript(this, 'gpo1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="gpo1">https://www.mediafire.com/file/ze8c788cair9stx/SCRIPT+SWITCH+HUB.txt/file</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -2146,7 +2164,8 @@ window.showContent = function(sectionId) {
     (itemText.includes('FISCH') && sectionId === 'fisch') ||
     (itemText.includes('FORSAKEN') && sectionId === 'forsaken') || 
 (itemText.includes('FRUIT BATTLEGROUNDS') && sectionId === 'fruit-battlegrounds') ||
-    (itemText.includes('GROW A GARDEN') && sectionId === 'grow-garden') ||
+    (itemText.includes('GROW A GARDEN') && sectionId === 'grow-garden') || 
+(itemText.includes('GRAND PIECE ONLINE') && sectionId === 'grand-piece-online') ||
     (itemText.includes('HUNTY ZOMBIE') && sectionId === 'hunty-zombie') ||
     (itemText.includes('INK GAME') && sectionId === 'ink-game') || 
 (itemText.includes('JAILBREAK') && sectionId === 'jailbreak') ||
