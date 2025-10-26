@@ -274,12 +274,12 @@ footer{
 
 <p class="motto">
   Anti-Hambreado Script Team es el lugar donde los verdaderos jugadores consiguen scripts y executores sin rodeos: links directos, sin virus, sin anuncios, sin loot-link ni tonterías. Aquí no te llenamos la pantalla de publicidad ni te hacemos saltar obstáculos para conseguir lo que buscas.<br><br>
-  A diferencia de Campione Script, que parece más interesado en llenar su cartera que en ayudar a la comunidad (con sus acortadores eternos y páginas llenas de anuncios) nosotros sí respetamos tu tiempo.<br><br>
+  A diferencia de Campione Script, que parece más interesado en llenar su cartera que en ayudar a la comunidad —con sus acortadores eternos y páginas llenas de anuncios— nosotros sí respetamos tu tiempo.<br><br>
   Menos hambre, más calidad. Eso es Anti-Hambreado Script Team.
 </p>
 
 <div id="campioneToggle">
-  <button class="btn" onclick="toggleCampione()"><span class="emoji-animated">❓</span> Nuestra opinión sobre Campione Script</button>
+  <button class="btn" onclick="toggleCampione()"><span class="emoji-animated">👁️</span> Nuestra opinión sobre Campione Script</button>
 </div>
 
 <div id="campioneSection">
@@ -320,7 +320,20 @@ class Particle{
     this.x+=this.vx;this.y+=this.vy;this.life++;
     if(this.life<this.max/3)this.a+=this.as;
     else if(this.life>this.max*.75)this.a-=this.as;
-    if(this.life>this.max||this.a<=0)this.constructor();
+    if(this.life>this.max||this.a<=0)this.reset();
+  }
+  reset(){
+    const edge=Math.floor(Math.random()*4);
+    switch(edge){
+      case 0:this.x=Math.random()*w;this.y=0;break;
+      case 1:this.x=w;this.y=Math.random()*h;break;
+      case 2:this.x=Math.random()*w;this.y=h;break;
+      case 3:this.x=0;this.y=Math.random()*h;break;
+    }
+    this.vx=(w/2-this.x)*.002*(Math.random()*.6+.4);
+    this.vy=(h/2-this.y)*.002*(Math.random()*.6+.4);
+    this.life=0;this.max=300+Math.random()*250;
+    this.a=0;
   }
   draw(){
     ctx.beginPath();
