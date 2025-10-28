@@ -802,6 +802,10 @@
     <span class="folder-icon">📁</span>
     RAISE A FLOPPA
 </div>
+<div class="sidebar-item" onclick="showContent('raise-animals')">
+    <span class="folder-icon">📁</span>
+    RAISE ANIMALS
+</div>
 <div class="sidebar-item" onclick="showContent('smash-project')">
     <span class="folder-icon">📁</span>
     SMASH PROJECT
@@ -2110,6 +2114,20 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/d92ae761864b63
     </div>
 </div>
 
+<div id="raise-animals" class="content">
+    <h2 class="section-title">🐾 RAISE ANIMALS</h2>
+    
+    <div class="script-card">
+        <div class="script-header">
+            <div class="script-title">TBAO HUB</div>
+            <button class="copy-button" onclick="copyScript(this, 'ra1')">📋 Copiar</button>
+        </div>
+        <div class="script-content">
+            <pre class="script-code" id="ra1">https://www.mediafire.com/file/loiduq3q1ujcgjm/SCRIPT+TBAO+HUB+RAISE+ANIMALS.txt/file</pre>
+        </div>
+    </div>
+</div>
+
 <div id="saludo" class="content">
     <h2 class="section-title">👋 Testing Windows~</h2>
     
@@ -2236,7 +2254,8 @@ window.showContent = function(sectionId) {
 (itemText.includes('NINJA TIMES') && sectionId === 'ninja-times') ||
     (itemText.includes('PLANTAS VS BRAINROT') && sectionId === 'plantas-vs-brainrot') ||
     (itemText.includes('PROSPECTING') && sectionId === 'prospecting') || 
-(itemText.includes('RAISE A FLOPPA') && sectionId === 'raise-a-floppa') ||
+(itemText.includes('RAISE A FLOPPA') && sectionId === 'raise-a-floppa') || 
+(itemText.includes('RAISE ANIMALS') && sectionId === 'raise-animals') ||
 (itemText.includes('PIGGY') && sectionId === 'piggy') ||
     (itemText.includes('STEAL A BRAINROT') && sectionId === 'steal-brainrot') || 
 (itemText.includes('THE STRONGEST BATTLEGROUNDS') && sectionId === 'strongest-battlegrounds') ||
