@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dinosaurio Sin Internet - Réplica</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: #fafafa;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Courier New', monospace;
+    }
+
+    #game-container {
+      position: relative;
+      width: 600px;
+      height: 200px;
+      border-bottom: 2px solid #535353;
+      overflow: hidden;
+      background: #fafafa;
+    }
+
+    #dino {
+      position: absolute;
+      width: 40px;
+      height: 44px;
+      bottom: 0;
+      left: 50px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="44" viewBox="0 0 40 44"><path fill="%23535353" d="M10 30h4v-4h-4v4zm0-8h4v-4h-4v4zm8 12h4v-8h-4v8zm-8 0h4v-4h-4v4zm16-20h4v-8h-4v8zm-8 4h4v-4h-4v4zm8 8h4v-4h-4v4zm-16-4h4v-4h-4v4zm20-12v4h4v-4h-4zm-4 8h4v-4h-4v4zm-8-4h4v-4h-4v4zm-4-8h4v-4h-4v4zm16 24h4v-4h-4v4zm-8-16h4v-4h-4v4z"/></svg>') no-repeat;
+      background-size: contain;
+    }
+
+    #dino.jumping {
+      animation: jump 0.6s ease-out;
+    }
+
+    @keyframes jump {
+      0% { bottom: 0; }
+      40% { bottom: 80px; }
+      60% { bottom: 80px; }
+      100% { bottom: 0; }
+    }
+
+    .cactus {
+      position: absolute;
+      width: 20px;
+      height: 40px;
+      bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="40" viewBox="0 0 20 40"><path fill="%23535353" d="M8 0h4v12h4v4h-4v4h4v4h-4v4h4v4h-4v4h-4v-4H4v-4h4v-4H4v-4h4v-4H4v-4h4V0z"/></svg>') no-repeat center bottom;
+      background-size: contain;
+    }
+
+    .cloud {
+      position: absolute;
+      width: 46px;
+      height: 22px;
+      background: #535353;
+      border-radius: 50px;
+      opacity: 0.5;
+      animation: cloud-move 20s linear infinite;
+    }
+
+    .cloud::before {
+      content: '';
+      position: absolute;
+      width: 26px;
+      height: 18px;
+      background: #535353;
+      border-radius: 50%;
+      top: -10px;
+      left: 10px;
+    }
+
+    .cloud::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 16px;
+      background: #535353;
+      border-radius: 50%;
+      top: -8px;
+      left: -10px;
+    }
+
+    @keyframes cloud-move {
+      0% { transform: translateX(-100px); }
+      100% { transform: translateX(700px); }
+    }
+
+    #ground {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 2px;
+      background: repeating-linear-gradient(90deg, #535353 0, #535353 10px, transparent 10px, transparent 20px);
+      animation: ground-move 1.5s linear infinite;
+    }
+
+    @keyframes ground-move {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-600px); }
+    }
+
+    #score {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 18px;
+      color: #535353;
+    }
+
+    #game-over {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fafafa;
+      padding: 20px 40px;
+      border: 2px solid #535353;
+      text-align: center;
+      display: none;
+      z-index: 10;
+    }
+
+    #game-over h2 {
+      margin-bottom: 10px;
+      color: #535353;
+    }
+
+    #game-over button {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background: #fafafa;
+      border: 2px solid #535353;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    #game-over button:hover {
+      background: #535353;
+      color: #fafafa;
+    }
+
+    .night-mode {
+      background: #1a1a1a !important;
+    }
+
+    .night-mode #game-container,
+    .night-mode #game-over {
+      background: #1a1a1a;
+    }
+
+    .night-mode #ground,
+    .night-mode .cactus,
+    .night-mode #dino,
+    .night-mode #score,
+    .night-mode #game-over h2,
+    .night-mode #game-over button {
+      filter: brightness(0) invert(1);
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <div id="dino"></div>
+    <div id="ground"></div>
+    <div id="score">HI 00000</div>
+    <div id="game-over">
+      <h2>¡Juego Terminado!</h2>
+      <p>Puntuación: <span id="final-score">0</span></p>
+      <button id="restart-btn">Reiniciar</button>
+    </div>
+  </div>
+
+  <script>
+    const dino = document.getElementById('dino');
+    const gameContainer = document.getElementById('game-container');
+    const scoreDisplay = document.getElementById('score');
+    const gameOverScreen = document.getElementById('game-over');
+    const finalScoreDisplay = document.getElementById('final-score');
+    const restartBtn = document.getElementById('restart-btn');
+
+    let isJumping = false;
+    let gravity = 0.9;
+    let isGameOver = false;
+    let score = 0;
+    let gameSpeed = 5;
+    let nightMode = false;
+    let dinoBottom = 0;
+    let cactusInterval;
+    let cloudInterval;
+
+    // Saltar
+    function jump() {
+      if (isJumping || isGameOver) return;
+      isJumping = true;
+      dino.classList.add('jumping');
+      let upTime = setInterval(() => {
+        if (dinoBottom > 80) {
+          clearInterval(upTime);
+          let downTime = setInterval(() => {
+            if (dinoBottom < 5) {
+              clearInterval(downTime);
+              isJumping = false;
+              dino.classList.remove('jumping');
+            }
+            dinoBottom -= 5;
+            dino.style.bottom = dinoBottom + 'px';
+          }, 20);
+        }
+        dinoBottom += 15;
+        dino.style.bottom = dinoBottom + 'px';
+      }, 20);
+    }
+
+    // Generar cactus
+    function generateCactus() {
+      if (isGameOver) return;
+      const cactus = document.createElement('div');
+      cactus.classList.add('cactus');
+      cactus.style.right = '-20px';
+      gameContainer.appendChild(cactus);
+
+      let cactusPosition = -20;
+      const cactusMove = setInterval(() => {
+        if (isGameOver) {
+          clearInterval(cactusMove);
+          return;
+        }
+
+        if (cactusPosition > 600) {
+          clearInterval(cactusMove);
+          gameContainer.removeChild(cactus);
+          score++;
+          updateScore();
+          increaseSpeed();
+        }
+
+        // Colisión
+        const dinoRect = dino.getBoundingClientRect();
+        const cactusRect = cactus.getBoundingClientRect();
+        if (
+          cactusRect.left < dinoRect.right &&
+          cactusRect.right > dinoRect.left &&
+          cactusRect.top < dinoRect.bottom &&
+          cactusRect.bottom > dinoRect.top
+        ) {
+          gameOver();
+        }
+
+        cactusPosition += gameSpeed;
+        cactus.style.right = cactusPosition + 'px';
+      }, 20);
+    }
+
+    // Generar nubes
+    function generateCloud() {
+      const cloud = document.createElement('div');
+      cloud.classList.add('cloud');
+      cloud.style.top = Math.random() * 60 + 20 + 'px';
+      cloud.style.right = '-100px';
+      cloud.style.animationDuration = (Math.random() * 10 + 15) + 's';
+      gameContainer.appendChild(cloud);
+
+      setTimeout(() => {
+        if (cloud.parentElement) {
+          gameContainer.removeChild(cloud);
+        }
+      }, 25000);
+    }
+
+    // Actualizar puntuación
+    function updateScore() {
+      const hiScore = localStorage.getItem('dinoHiScore') || 0;
+      const paddedScore = String(score).padStart(5, '0');
+      const paddedHi = String(hiScore).padStart(5, '0');
+      scoreDisplay.textContent = `HI ${paddedHi} ${paddedScore}`;
+
+      if (score > hiScore) {
+        localStorage.setItem('dinoHiScore', score);
+      }
+
+      // Modo noche cada 500 puntos
+      if (score > 0 && score % 500 === 0 && !nightMode) {
+        toggleNightMode();
+      }
+    }
+
+    // Aumentar velocidad
+    function increaseSpeed() {
+      if (score % 100 === 0) {
+        gameSpeed += 0.5;
+      }
+    }
+
+    // Modo noche
+    function toggleNightMode() {
+      nightMode = !nightMode;
+      document.body.classList.toggle('night-mode');
+      gameContainer.classList.toggle('night-mode');
+      gameOverScreen.classList.toggle('night-mode');
+    }
+
+    // Game Over
+    function gameOver() {
+      isGameOver = true;
+      clearInterval(cactusInterval);
+      clearInterval(cloudInterval);
+      finalScoreDisplay.textContent = score;
+      gameOverScreen.style.display = 'block';
+    }
+
+    // Reiniciar juego
+    function restartGame() {
+      // Limpiar obstáculos
+      document.querySelectorAll('.cactus').forEach(c => c.remove());
+      document.querySelectorAll('.cloud').forEach(c => c.remove());
+
+      // Reset variables
+      isGameOver = false;
+      score = 0;
+      gameSpeed = 5;
+      dinoBottom = 0;
+      dino.style.bottom = '0px';
+      gameOverScreen.style.display = 'none';
+      updateScore();
+
+      // Reiniciar intervalos
+      cactusInterval = setInterval(generateCactus, 2000);
+      cloudInterval = setInterval(generateCloud, 5000);
+    }
+
+    // Controles
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' || e.code === 'ArrowUp') {
+        e.preventDefault();
+        if (isGameOver) {
+          restartGame();
+        } else {
+          jump();
+        }
+      }
+    });
+
+    // Soporte táctil
+    gameContainer.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      if (isGameOver) {
+        restartGame();
+      } else {
+        jump();
+      }
+    });
+
+    // Click en pantalla
+    gameContainer.addEventListener('click', () => {
+      if (isGameOver) {
+        restartGame();
+      } else {
+        jump();
+      }
+    });
+
+    restartBtn.addEventListener('click', restartGame);
+
+    // Iniciar juego
+    window.onload = () => {
+      updateScore();
+      cactusInterval = setInterval(generateCactus, 2000);
+      cloudInterval = setInterval(generateCloud, 5000);
+    };
+  </script>
+</body>
+</html>
