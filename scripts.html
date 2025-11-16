@@ -644,6 +644,10 @@
     <span class="folder-icon">📁</span>
     BOB ESPONJA TOWER DEFENSE
 </div>
+<div class="sidebar-item" onclick="showContent('build-a-boat')">
+    <span class="folder-icon">📁</span>
+    BUILD A BOAT
+</div>
         <div class="sidebar-item" onclick="showContent('dandy-world')">
             <span class="folder-icon">📁</span>
             DANDY'S WORLD
@@ -875,6 +879,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/h
 <div id="bob-esponja-tower-defense" class="content">
     <h2 class="section-title">🧽 BOB ESPONJA TOWER DEFENSE</h2>
     <div class="script-card"><div class="script-header"><div class="script-title">IMP HUB</div><button class="copy-button" onclick="copyScript(this, 'bob-imp')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="bob-imp">https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file</pre></div></div>
+</div>
+<div id="build-a-boat" class="content">
+    <h2 class="section-title">⛵ BUILD A BOAT</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">BABFT</div><button class="copy-button" onclick="copyScript(this, 'babft-script')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="babft-script">loadstring(game:HttpGet("https://raw.githubusercontent.com/example-prog/Build-A-Boat-For-Treasure/refs/heads/main/BABFT"))()</pre></div></div>
 </div>
     <div id="dandy-world" class="content">
         <h2 class="section-title">🌼 DANDY'S WORLD</h2>
@@ -1187,6 +1195,7 @@ del siguiente tutorial = https://youtu.be/-UEdoNwIvOE</pre>
                 { game: 'BLOX FRUITS', title: 'W-AZURE', id: 'blox9' },
                 { game: 'BLUE LOCK RIVALS', title: 'OMG HUB', id: 'bl1' },
 { game: 'BOB ESPONJA TOWER DEFENSE', title: 'IMP HUB', id: 'bob-imp' }, 
+{ game: 'BUILD A BOAT', title: 'BABFT', id: 'babft-script' }
                 { game: 'DANDY\'S WORLD', title: 'DANDY\'S WORLD HUB', id: 'dw1' },
                 { game: 'DEAD DEFENSE', title: 'GUMANBA', id: 'dd1' },
                 { game: 'DEAD RAILS', title: 'NAT HUB', id: 'dr1' },
@@ -1328,7 +1337,8 @@ del siguiente tutorial = https://youtu.be/-UEdoNwIvOE</pre>
                         (itemText.includes('BLOODMONEY') && sectionId === 'bloodmoney') ||
                         (itemText.includes('BLOX FRUITS') && sectionId === 'blox-fruits') ||
                         (itemText.includes('BLUE LOCK') && sectionId === 'blue-lock-rivals') ||
-(itemText.includes('BOB ESPONJA') && sectionId === 'bob-esponja-tower-defense') ||
+(itemText.includes('BOB ESPONJA') && sectionId === 'bob-esponja-tower-defense') || 
+(itemText.includes('BUILD A BOAT') && sectionId === 'build-a-boat') ||
                         (itemText.includes('DANDY') && sectionId === 'dandy-world') ||
                         (itemText.includes('DEAD DEFENSE') && sectionId === 'dead-defense') ||
                         (itemText.includes('DEAD RAILS') && sectionId === 'dead-rails') ||
