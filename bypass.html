@@ -820,19 +820,17 @@
             "*://v.gd/*"
         ];
 
-        function patternToRegex(pattern) {
-            const escaped = pattern.replace(/[.+^${}()|[\]\\]/g, '\\$&');
-            const regexPattern = escaped.replace(/\*/g, '.*').replace(/\?/g, '.');
-            return new RegExp('^' + regexPattern + '$', 'i');
-        }
-
         function isUrlSupported(url) {
             try {
                 const urlObj = new URL(url);
-                const urlToTest = `${urlObj.protocol}//${urlObj.hostname}${urlObj.pathname}`;
+                const testUrl = `${urlObj.protocol}//${urlObj.hostname}${urlObj.pathname}`;
+                
                 return links.some(pattern => {
-                    const regex = patternToRegex(pattern);
-                    return regex.test(urlToTest) || regex.test(`${urlObj.protocol}//*.${urlObj.hostname}${urlObj.pathname}`);
+                    const patternRegex = new RegExp(
+                        '^' + pattern.replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*') + '$',
+                        'i'
+                    );
+                    return patternRegex.test(testUrl);
                 });
             } catch {
                 return false;
@@ -909,12 +907,9 @@
 
             try {
                 const apiUrl = `http://trw.lat/api/free/bypass?url=${encodeURIComponent(url)}`;
-                console.log('Llamando a API:', apiUrl);
                 
                 const response = await fetch(apiUrl);
                 const data = await response.json();
-                
-                console.log('Respuesta API:', data);
                 
                 if (data.success && data.result) {
                     clearInterval(timerInterval);
@@ -934,7 +929,6 @@
                 }
                 
             } catch (error) {
-                console.error('Error:', error);
                 clearInterval(timerInterval);
                 loadingBars.classList.remove('active');
                 timer.classList.remove('active');
@@ -958,4 +952,3 @@
     </script>
 </body>
 </html>
- 
