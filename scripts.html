@@ -92,14 +92,16 @@ body {
     color: #fff;
     overflow-x: hidden;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
-.header, .sidebar, .welcome-screen, .content, footer {
+.welcome-screen, .content {
     width: 100%;
-}
-
-.welcome-content, .script-card {
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
 }
 
         .particles {
