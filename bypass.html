@@ -978,18 +978,8 @@
                     throw new Error('Bypass fallido');
                 }
                 
-            } catch (error) {
-                clearInterval(timerInterval);
-                loadingBars.classList.remove('active');
-                timer.classList.remove('active');
-                
-                alert('❌ Error al procesar el bypass. Verifica que el link sea válido y esté soportado.');
-                
-                bypassBtn.disabled = false;
-                bypassBtn.innerHTML = '<i class="fas fa-bolt"></i> Empezar Bypass';
-            }
-        }
-
+            
+            
         document.getElementById('urlInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 startBypass();
