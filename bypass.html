@@ -461,23 +461,22 @@
         }
 
         .back-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: rgba(255, 0, 68, 0.1);
-    border: 2px solid var(--neon-red);
-    border-radius: 50%;
-    width: 40px;  
-    height: 40px; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s;
-    color: var(--neon-red);
-    font-size: 1rem;
-}
-
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 0, 68, 0.1);
+            border: 2px solid var(--neon-red);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--neon-red);
+            font-size: 1rem;
+        }
 
         .back-button:hover {
             transform: scale(1.1);
@@ -821,23 +820,6 @@
             "*://v.gd/*"
         ];
 
-        function isUrlSupported(url) {
-            try {
-                const urlObj = new URL(url);
-                const testUrl = `${urlObj.protocol}//${urlObj.hostname}${urlObj.pathname}`;
-                
-                return links.some(pattern => {
-                    const patternRegex = new RegExp(
-                        '^' + pattern.replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*') + '$',
-                        'i'
-                    );
-                    return patternRegex.test(testUrl);
-                });
-            } catch {
-                return false;
-            }
-        }
-
         const allLinks = document.getElementById('allLinks');
         links.forEach(link => {
             const li = document.createElement('li');
@@ -873,11 +855,6 @@
             
             if (!url) {
                 alert('❌ Por favor, pega un link válido.');
-                return;
-            }
-
-            if (!isUrlSupported(url)) {
-                alert('❌ Link no soportado. Verifica la lista de links soportados en el menú.');
                 return;
             }
 
