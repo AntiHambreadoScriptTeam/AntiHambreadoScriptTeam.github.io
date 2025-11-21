@@ -427,6 +427,27 @@
             text-shadow: 0 0 10px var(--neon-red-glow);
             text-decoration: underline;
         }
+        .open-url-button {
+            display: block;
+            margin-top: 15px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--dark-red) 0%, var(--neon-red) 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .open-url-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(255, 0, 68, 0.5);
+        }
         .links-section h2 {
             font-family: 'Orbitron', monospace;
             font-size: 2.5rem;
@@ -659,6 +680,7 @@
                 <div class="result-container" id="resultContainer">
                     <p><strong>✅ Bypass completado:</strong></p>
                     <a id="resultLink" href="#" target="_blank"></a>
+                    <button class="open-url-button" id="openUrlButton" style="display: none;" onclick="openUrlResult()">Abrir URL</button>
                 </div>
             </section>
         </div>
@@ -731,6 +753,7 @@
             }
         });
 
+        // Definición de los dominios soportados para mostrar en la lista
         const supportedDomains = [
             "adshnk.com",
             "adshrink.it",
@@ -741,14 +764,13 @@
             "bst.wtf",
             "booo.st",
             "boost.fusedgt.com",
-            "thedragonslayer2.github.io",
             "empebau.eu",
             "is.gd",
             "justpaste.it",
             "leasurepartment.xyz",
             "letsboost.net",
             "linkvertise.com",
-            "linkvertise.com",
+            "*.linkvertise.com",
             "loot-link.com",
             "loot-link.co",
             "loot-link.org",
@@ -802,6 +824,7 @@
         ];
 
         const allLinks = document.getElementById('allLinks');
+        // Mostrar solo los dominios limpios en la lista
         supportedDomains.forEach(domain => {
             const li = document.createElement('li');
             li.textContent = domain;
@@ -828,7 +851,9 @@
             const loadingBars = document.getElementById('loadingBars');
             const resultContainer = document.getElementById('resultContainer');
             const resultLink = document.getElementById('resultLink');
-            const url = urlInput.value.trim(); 
+            const openUrlButton = document.getElementById('openUrlButton'); // Referencia al nuevo botón
+            const url = urlInput.value.trim();
+
             if (!url) {
                 alert('❌ Por favor, pega un link válido.');
                 return;
@@ -838,6 +863,7 @@
             timer.classList.remove('active');
             loadingBars.classList.remove('active');
             resultContainer.classList.remove('show');
+            openUrlButton.style.display = 'none'; // Ocultar botón al iniciar
             bypassBtn.disabled = true;
             bypassBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
             loadingBars.classList.add('active');
@@ -856,7 +882,7 @@
             }, 1000);
 
             try {
-                
+                // Enviar directamente la URL ingresada a la API usando HTTPS
                 const apiUrl = `https://trw.lat/api/free/bypass?url=${encodeURIComponent(url)}`;
                 const response = await fetch(apiUrl);
                 const data = await response.json();
@@ -868,6 +894,7 @@
                     resultLink.href = data.result;
                     resultLink.textContent = data.result;
                     resultContainer.classList.add('show');
+                    openUrlButton.style.display = 'block'; // Mostrar botón al éxito
                     bypassBtn.disabled = false;
                     bypassBtn.innerHTML = '<i class="fas fa-bolt"></i> Empezar Bypass';
                     urlInput.value = ''; // Limpiar el campo después de éxito
@@ -878,9 +905,19 @@
                 clearInterval(timerInterval);
                 loadingBars.classList.remove('active');
                 timer.classList.remove('active');
+                openUrlButton.style.display = 'none'; // Asegurarse de ocultarlo en caso de error
                 alert(`❌ Error: ${error.message || 'No se pudo completar el bypass.'}`);
                 bypassBtn.disabled = false;
                 bypassBtn.innerHTML = '<i class="fas fa-bolt"></i> Empezar Bypass';
+            }
+        }
+
+        // Función para abrir la URL del resultado en una nueva pestaña
+        function openUrlResult() {
+            const resultLink = document.getElementById('resultLink');
+            const url = resultLink.href;
+            if (url && url !== '#') {
+                window.open(url, '_blank');
             }
         }
 
@@ -895,4 +932,4 @@
         });
     </script>
 </body>
-  </html> 
+                                                                                          </html>
