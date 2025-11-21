@@ -85,20 +85,13 @@
 
 body {
     font-family: 'Orbitron', monospace;
-    background: linear-gradient(135deg, #0f0f0f 0%, #2d1b1b 50%, #1a0000 100%) no-repeat center center fixed;
-    background-size: cover;
+    background: linear-gradient(135deg, #0f0f0f 0%, #2d1b1b 50%, #1a0000 100%);
+    background-attachment: fixed;
+    background-size: 100% 100vh;
     min-height: 100vh;
-    min-height: 100svh;
     color: #fff;
     overflow-x: hidden;
     position: relative;
-}
-
-@media screen and (max-width: 768px) {
-    body {
-        min-height: 100svh;
-        background-size: 100% 100svh;
-    }
 }
 
         .particles {
