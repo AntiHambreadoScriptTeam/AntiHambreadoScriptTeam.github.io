@@ -1588,16 +1588,6 @@ del siguiente tutorial = https://youtu.be/-UEdoNwIvOE</pre>
       window.addEventListener('resize', () => {
             document.body.style.minHeight = '100dvh';
         });
-
-        document.addEventListener('mouseover', e => {
-            const card = e.target.closest('.script-card');
-            if (card) card.style.transform = 'translateY(-8px) scale(1.02)';
-        });
-
-        document.addEventListener('mouseout', e => {
-            const card = e.target.closest('.script-card');
-            if (card) card.style.transform = 'translateY(0) scale(1)';
-        });
     </script>
 </body>
   </html>
