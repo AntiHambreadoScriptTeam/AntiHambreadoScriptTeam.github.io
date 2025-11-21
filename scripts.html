@@ -38,6 +38,35 @@
   #############################################################################################
 -->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1429,6 +1458,10 @@ del siguiente tutorial = https://youtu.be/-UEdoNwIvOE</pre>
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
             window.showContent('welcome');
+        });
+
+      window.addEventListener('resize', () => {
+            document.body.style.minHeight = '100dvh';
         });
 
         document.addEventListener('mouseover', e => {
