@@ -78,18 +78,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Anti-Hambreado Script Team</title>
-    <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
+  <title>Anti-Hambreado Script Team | Profesionalismo Sin Hambre</title>
+  <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --rojo-neon: #ff003c;
-      --rojo-oscuro: #b3002a;
-      --negro: #0a0a0a;
-      --gris-oscuro: #1a1a1a;
-      --gris-medio: #2a2a2a;
-      --blanco: #f0f0f0;
-      --neon-glow: 0 0 10px var(--rojo-neon), 0 0 20px var(--rojo-neon);
+      --primary-black: #0a0a0a;
+      --secondary-black: #121212;
+      --card-black: #1a1a1a;
+      --border-black: #252525;
+      --primary-red: #ff0044;
+      --secondary-red: #cc0036;
+      --neon-red: rgba(255, 0, 68, 0.4);
+      --neon-red-weak: rgba(255, 0, 68, 0.15);
+      --text-white: #f0f0f0;
+      --text-gray: #b0b0b0;
+      --glass-bg: rgba(30, 30, 30, 0.6);
+      --glass-border: rgba(255, 255, 255, 0.08);
     }
 
     * {
@@ -98,243 +104,404 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      background-color: var(--negro);
-      color: var(--blanco);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
+      background: var(--primary-black);
+      color: var(--text-white);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
       overflow-x: hidden;
+      position: relative;
     }
 
-    .emoji {
-      display: inline-block;
-      animation: smoothPulse 2s ease-in-out infinite;
+    /* Canvas Partículas - Detrás de todo */
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.4;
     }
 
-    @keyframes smoothPulse {
-      0% {
-        text-shadow: none;
-      }
-      10% {
-        text-shadow: 0 0 4px var(--rojo-neon), 0 0 8px var(--rojo-neon);
-      }
-      25%, 55% {
-        text-shadow: 0 0 8px var(--rojo-neon), 0 0 16px var(--rojo-neon);
-      }
-      70% {
-        text-shadow: 0 0 4px var(--rojo-neon), 0 0 8px var(--rojo-neon);
-      }
-      85%, 100% {
-        text-shadow: none;
-      }
+    /* Preloader */
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--primary-black);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
     }
 
+    .preloader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .preloader-icon {
+      width: 60px;
+      height: 60px;
+      border: 3px solid var(--border-black);
+      border-top: 3px solid var(--primary-red);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Header Glassmorphism */
     header {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 3rem 1rem;
       text-align: center;
-      padding: 2rem 1rem;
-      background: var(--gris-oscuro);
-      border-bottom: 2px solid var(--rojo-neon);
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo-container {
+      display: inline-block;
+      position: relative;
+      margin-bottom: 1.5rem;
     }
 
     .logo {
-      width: 120px;
+      width: 100px;
       height: auto;
-      filter: drop-shadow(0 0 8px var(--rojo-neon));
-      margin-bottom: 1rem;
-      transition: transform 0.3s ease;
+      filter: drop-shadow(0 0 8px var(--neon-red));
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .logo:hover {
-      transform: scale(1.05);
+      transform: scale(1.08) rotate(5deg);
+      filter: drop-shadow(0 0 12px var(--primary-red));
     }
 
     h1 {
-      font-size: 2.2rem;
-      margin-top: 0.5rem;
-      text-shadow: var(--neon-glow);
-      letter-spacing: 1px;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, var(--text-white), var(--primary-red));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
     }
 
     .slogan {
       font-size: 1.1rem;
-      color: #ff6b81;
-      margin-top: 0.5rem;
-    }
-
-    main {
-      max-width: 900px;
+      color: var(--text-gray);
+      font-weight: 400;
+      max-width: 600px;
       margin: 0 auto;
-      padding: 2rem 1.5rem;
     }
 
+    /* Main Container */
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Secciones */
     section {
-      margin-bottom: 3rem;
-      padding: 1.5rem;
-      background: var(--gris-medio);
-      border-radius: 12px;
-      border-left: 4px solid var(--rojo-neon);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 4rem;
+      padding: 2.5rem;
+      background: var(--card-black);
+      border-radius: 16px;
+      border: 1px solid var(--border-black);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     section:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(255, 0, 60, 0.2);
+      border-color: var(--neon-red);
+      box-shadow: 0 0 20px var(--neon-red-weak);
     }
 
     h2 {
-      color: var(--rojo-neon);
-      margin-bottom: 1.2rem;
-      font-size: 1.6rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-red);
+      margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.8rem;
     }
 
     h2 i {
-      text-shadow: var(--neon-glow);
+      font-size: 1.4em;
+      filter: drop-shadow(0 0 4px var(--neon-red));
+    }
+
+    .emoji {
+      font-size: 1.2em;
+      filter: drop-shadow(0 0 4px var(--neon-red));
+      animation: pulseEmoji 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseEmoji {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; }
+    }
+
+    p {
+      margin-bottom: 1.2rem;
+      color: var(--text-gray);
+      font-weight: 400;
     }
 
     ul {
       padding-left: 1.5rem;
-      margin: 1rem 0;
+      margin: 1.5rem 0;
     }
 
     li {
       margin-bottom: 0.8rem;
+      color: var(--text-gray);
+      position: relative;
     }
 
-    p {
-      margin-bottom: 1rem;
+    li::before {
+      content: "▸";
+      color: var(--primary-red);
+      position: absolute;
+      left: -1.2rem;
+    }
+
+    /* Team Members Grid */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
     }
 
     .team-member {
-      background: rgba(30, 30, 30, 0.7);
-      padding: 1.2rem;
-      margin-bottom: 1.8rem;
+      background: var(--secondary-black);
+      padding: 1.8rem;
       border-radius: 12px;
-      border: 1px solid #444;
+      border: 1px solid var(--border-black);
       display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      gap: 1rem;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-member::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, var(--neon-red) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 0;
+    }
+
+    .team-member:hover::before {
+      opacity: 0.1;
     }
 
     .team-member:hover {
-      border-color: var(--rojo-neon);
-      box-shadow: 0 0 12px rgba(255, 0, 60, 0.4);
+      transform: translateY(-8px);
+      border-color: var(--primary-red);
+      box-shadow: 0 8px 25px rgba(255, 0, 68, 0.15);
     }
 
     .member-avatar {
-      width: 120px;
-      height: 120px;
+      width: 110px;
+      height: 110px;
       object-fit: cover;
-      border-radius: 8px;
-      border: 2px solid #444;
-      flex-shrink: 0;
+      border-radius: 50%;
+      border: 3px solid var(--border-black);
       transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
     }
 
     .team-member:hover .member-avatar {
-      border-color: var(--rojo-neon);
-      box-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
-    }
-
-    .member-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      flex: 1;
-      min-width: 0;
+      border-color: var(--primary-red);
+      transform: scale(1.05);
+      box-shadow: 0 0 15px var(--neon-red);
     }
 
     .member-name {
-      font-weight: bold;
       font-size: 1.3rem;
-      color: var(--rojo-neon);
-      margin: 0;
-      align-self: flex-start;
-      padding-top: 4px;
+      font-weight: 700;
+      color: var(--text-white);
+      margin: 1.2rem 0 0.5rem;
+      position: relative;
+      z-index: 1;
     }
 
     .member-role {
-      color: #ddd;
-      font-style: italic;
-      line-height: 1.5;
-      width: 100%;
-      margin-top: 0.8rem;
+      color: var(--text-gray);
+      font-size: 0.95rem;
+      position: relative;
+      z-index: 1;
     }
 
+    .developer-badge {
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+      margin-left: 6px;
+      filter: drop-shadow(0 0 3px var(--primary-red));
+    }
+
+    /* Contact Buttons */
     .contact-links {
       display: flex;
-      gap: 1.2rem;
+      gap: 1rem;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: 1.5rem;
+      margin-top: 2rem;
     }
 
     .contact-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      padding: 0.8rem 1.4rem;
-      background: var(--rojo-oscuro);
+      padding: 0.9rem 1.8rem;
+      background: linear-gradient(135deg, var(--secondary-red), var(--primary-red));
       color: white;
       text-decoration: none;
-      border-radius: 30px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 8px rgba(0,0,0,0.5);
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .contact-btn:hover::before {
+      left: 100%;
     }
 
     .contact-btn:hover {
-      background: var(--rojo-neon);
-      box-shadow: var(--neon-glow);
-      transform: scale(1.05);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 20px var(--neon-red);
+      border-color: var(--primary-red);
     }
 
+    .contact-btn i {
+      font-size: 1.1em;
+    }
+
+    /* Footer */
     footer {
+      background: var(--secondary-black);
+      border-top: 1px solid var(--border-black);
+      padding: 2.5rem;
       text-align: center;
-      padding: 2rem;
-      background: var(--gris-oscuro);
-      color: #aaa;
+      color: var(--text-gray);
       font-size: 0.9rem;
     }
 
-    @media (max-width: 600px) {
-      .team-member {
+    /* Responsive */
+    @media (max-width: 768px) {
+      main {
+        padding: 2rem 1rem;
+      }
+      
+      section {
+        padding: 1.8rem;
+      }
+      
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .contact-links {
         flex-direction: column;
         align-items: center;
-        text-align: center;
       }
-      .member-avatar {
-        width: 100px;
-        height: 100px;
-      }
-      .member-header {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      .member-name {
-        padding-top: 0;
-      }
+      
       .contact-btn {
-        padding: 0.7rem 1.2rem;
-        font-size: 0.95rem;
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
       }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--primary-black);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary-red);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary-red);
     }
   </style>
 </head>
 <body>
 
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-icon"></div>
+  </div>
+
+  <!-- Canvas de Partículas -->
+  <canvas id="particles-canvas"></canvas>
+
   <header>
-    <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo Anti-Hambreado" class="logo">
-    <h1><span class="emoji">🌐</span> Anti-Hambreado Script Team</h1>
-    <div class="slogan">“Links directos, cero hambre, comunidad primero”</div>
+    <div class="logo-container">
+      <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo Anti-Hambreado" class="logo">
+    </div>
+    <h1>Anti-Hambreado Script Team</h1>
+    <p class="slogan">"Links directos, cero hambre, comunidad primero"</p>
   </header>
 
   <main>
-
     <section>
       <h2><i class="fas fa-bullseye"></i> <span class="emoji">📌</span> Nuestro propósito</h2>
       <p>El Anti-Hambreado Script Team nació con una idea clara: liberar a la comunidad del yugo de los anuncios abusivos y los acortadores hambrientos. No creemos que un usuario deba pasar por diez ventanas emergentes, publicidad engañosa o contenido +18 solo para acceder a un script. Nuestro propósito es sencillo pero poderoso:</p>
@@ -350,77 +517,57 @@
       <h2><i class="fas fa-crown"></i> <span class="emoji">👑</span> El fundador: TheBanHammer</h2>
       <p>El 16 de marzo de 2025, TheBanHammer decidió que ya era suficiente.<br>
       Ese día, cansado de navegar por la jungla de anuncios de Campione Script, tomó el martillo y fundó este proyecto. No fue un capricho: fue una respuesta a la frustración de miles de usuarios que, con un clic en falso, terminaban en páginas dudosas, con publicidad invasiva y, peor aún, con contenido explícito no apto para menores.</p>
-      <p>TheBanHammer entendió algo que otros olvidaron: la comunidad merece respeto, no trampas disfrazadas de “monetización”.</p>
+      <p>TheBanHammer entendió algo que otros olvidaron: la comunidad merece respeto, no trampas disfrazadas de "monetización".</p>
     </section>
 
     <section>
-  <h2><i class="fas fa-shield-alt"></i> <span class="emoji">🛡️</span> Los integrantes del equipo</h2>
-  <p>El Anti-Hambreado Script Team no es un héroe solitario, sino una escuadra de cinco guerreros digitales que defienden la causa:</p>
-
-  <h3 style="color: var(--rojo-neon); margin-bottom: 1rem;">Dueños del Canal:</h3>
-
-  <div class="team-member">
-    <img src="https://i.postimg.cc/W3L0cZnd/TheBanHammer.png" alt="TheBanHammer" class="member-avatar">
-    <div class="member-header">
-      <h3 class="member-name">TheBanHammer</h3>
-    </div>
-    <p class="member-role">Fundador y guardián del propósito original: cero anuncios, cero hambre.</p>
-  </div>
-
-  <div class="team-member">
-    <img src="https://i.postimg.cc/bJc1fnTs/Felicia-Xxx-Top.png" alt="FeliciaXxxTop" class="member-avatar">
-    <div class="member-header">
-      <h3 class="member-name">FeliciaXxxTop</h3>
-    </div>
-    <p class="member-role">Estratega y voz firme contra el hambre digital.</p>
-  </div>
-
-  <div class="team-member">
-    <img src="https://i.postimg.cc/B692fFgt/IWoozy.png" alt="iWoozy" class="member-avatar">
-    <div class="member-header">
-      <h3 class="member-name">iWoozy</h3>
-    </div>
-    <p class="member-role">Maestro del timing, siempre un paso adelante en la batalla contra los acortadores.</p>
-  </div>
-
-  <div class="team-member">
-    <img src="https://i.postimg.cc/j50yYfX5/No-Slowww.png" alt="No-Slowww" class="member-avatar">
-    <div class="member-header">
-      <h3 class="member-name">No-Slowww</h3>
-    </div>
-    <p class="member-role">Como su nombre indica, velocidad pura: scripts directos, sin retrasos.</p>
-  </div>
-
-  <div class="team-member">
-    <img src="https://i.postimg.cc/fLcmzb2k/Angelltfm-XD.png" alt="AngelltfmXD" class="member-avatar">
-    <div class="member-header">
-      <h3 class="member-name">AngelltfmXD</h3>
-    </div>
-    <p class="member-role">El toque creativo y humorístico, porque la lucha también se gana con risas.</p>
-  </div>
-
-  <h3 style="color: var(--rojo-neon); margin-top: 2rem; margin-bottom: 1rem;">Desarrolladores Principales:</h3>
-
-      <div class="team-member">
-    <img src="https://i.postimg.cc/6qKc7rp6/Mw-Anonymous-The-Goat.gif" alt="Mw_Anonymous" class="member-avatar">
-    <div class="member-header">
-      <h3 class="member-name">Mw_Anonymous <img src="https://i.postimg.cc/GpKWKm69/Developer.png" alt="Insignia" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 6px;"></h3>
-    </div>
-    <p class="member-role">Desarrollador principal de nuestras páginas webs.</p>
-      </div> 
+      <h2><i class="fas fa-shield-alt"></i> <span class="emoji">🛡️</span> Los integrantes del equipo</h2>
+      <p>El Anti-Hambreado Script Team no es un héroe solitario, sino una escuadra de cinco guerreros digitales que defienden la causa:</p>
       
-  <div class="team-member">
-    <img src="https://i.postimg.cc/bJc1fnTs/Felicia-Xxx-Top.png" alt="FeliciaXxxTop" class="member-avatar">
-    <div class="member-header">
-      <h3 class="member-name">FeliciaXxxTop <img src="https://i.postimg.cc/GpKWKm69/Developer.png" alt="Insignia" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 6px;"></h3>
-    </div>
-    <p class="member-role">Desarrolladora de nuestro script hub y desarrolladora secundaria.</p>
-  </div>
+      <h3 style="color: var(--primary-red); margin: 2rem 0 1rem; font-size: 1.3rem;">Dueños del Canal:</h3>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="https://i.postimg.cc/W3L0cZnd/TheBanHammer.png" alt="TheBanHammer" class="member-avatar">
+          <h3 class="member-name">TheBanHammer</h3>
+          <p class="member-role">Fundador y guardián del propósito original: cero anuncios, cero hambre.</p>
+        </div>
+        <div class="team-member">
+          <img src="https://i.postimg.cc/bJc1fnTs/Felicia-Xxx-Top.png" alt="FeliciaXxxTop" class="member-avatar">
+          <h3 class="member-name">FeliciaXxxTop</h3>
+          <p class="member-role">Estratega y voz firme contra el hambre digital.</p>
+        </div>
+        <div class="team-member">
+          <img src="https://i.postimg.cc/B692fFgt/IWoozy.png" alt="iWoozy" class="member-avatar">
+          <h3 class="member-name">iWoozy</h3>
+          <p class="member-role">Maestro del timing, siempre un paso adelante en la batalla contra los acortadores.</p>
+        </div>
+        <div class="team-member">
+          <img src="https://i.postimg.cc/j50yYfX5/No-Slowww.png" alt="No-Slowww" class="member-avatar">
+          <h3 class="member-name">No-Slowww</h3>
+          <p class="member-role">Como su nombre indica, velocidad pura: scripts directos, sin retrasos.</p>
+        </div>
+        <div class="team-member">
+          <img src="https://i.postimg.cc/fLcmzb2k/Angelltfm-XD.png" alt="AngelltfmXD" class="member-avatar">
+          <h3 class="member-name">AngelltfmXD</h3>
+          <p class="member-role">El toque creativo y humorístico, porque la lucha también se gana con risas.</p>
+        </div>
+      </div>
 
-  <p style="margin-top: 1.5rem;">Cada integrante aporta su estilo, pero todos comparten la misma convicción: la comunidad primero, el dinero después (o nunca).</p>
-</section>
-
-
+      <h3 style="color: var(--primary-red); margin: 2rem 0 1rem; font-size: 1.3rem;">Desarrolladores Principales:</h3>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="https://i.postimg.cc/6qKc7rp6/Mw-Anonymous-The-Goat.gif" alt="Mw_Anonymous" class="member-avatar">
+          <h3 class="member-name">Mw_Anonymous <img src="https://i.postimg.cc/GpKWKm69/Developer.png" alt="Insignia" class="developer-badge"></h3>
+          <p class="member-role">Desarrollador principal de nuestras páginas webs.</p>
+        </div>
+        <div class="team-member">
+          <img src="https://i.postimg.cc/bJc1fnTs/Felicia-Xxx-Top.png" alt="FeliciaXxxTop" class="member-avatar">
+          <h3 class="member-name">FeliciaXxxTop <img src="https://i.postimg.cc/GpKWKm69/Developer.png" alt="Insignia" class="developer-badge"></h3>
+          <p class="member-role">Desarrolladora de nuestro script hub y desarrolladora secundaria.</p>
+        </div>
+      </div>
+      <p style="margin-top: 1.5rem;">Cada integrante aporta su estilo, pero todos comparten la misma convicción: la comunidad primero, el dinero después (o nunca).</p>
+    </section>
 
     <section>
       <h2><i class="fas fa-rocket"></i> <span class="emoji">🚀</span> Nuestra misión</h2>
@@ -434,7 +581,7 @@
 
     <section>
       <h2><i class="fas fa-handshake"></i> <span class="emoji">🤝</span> Nuestra opinión sobre Campione Script</h2>
-      <p>Aquí no hay odio ciego. De hecho, podríamos decir que somos “amigos” de Campione Script… pero amigos como los que te encuentras en un manicomio: convives, pero sabes que algo no anda bien.</p>
+      <p>Aquí no hay odio ciego. De hecho, podríamos decir que somos "amigos" de Campione Script… pero amigos como los que te encuentras en un manicomio: convives, pero sabes que algo no anda bien.</p>
       <p>No lo odiamos, pero tampoco lo admiramos. Lo que sí hacemos es exponer su hambre:</p>
       <ul>
         <li>Hambre de clics.</li>
@@ -448,11 +595,11 @@
       <h2><i class="fas fa-theater-masks"></i> <span class="emoji">🎭</span> Sección de burlas: El hambre de Campione</h2>
       <p>Porque no todo es solemnidad, también hay espacio para la sátira.</p>
       <ul>
-        <li><strong>Campione Script dice:</strong> “Haz clic aquí para tu script”.<br>
+        <li><strong>Campione Script dice:</strong> "Haz clic aquí para tu script".<br>
             <em>La realidad:</em> clic aquí, allá, en todas partes… menos en el script.</li>
         <li><strong>Campione Script presume de comunidad.</strong><br>
             <em>La verdad:</em> si de verdad la valorara, no la mandaría a páginas con contenido +18 cada vez que alguien se equivoca de clic.</li>
-        <li><strong>Campione Script habla de “apoyo”.</strong><br>
+        <li><strong>Campione Script habla de "apoyo".</strong><br>
             <em>Nosotros decimos:</em> apoyo no es exprimir a tu gente con anuncios, apoyo es darles lo que buscan sin hambre.</li>
       </ul>
       <p>En resumen: Campione no es un villano, es un ejemplo de lo que nunca queremos ser.</p>
@@ -482,21 +629,98 @@
   </main>
 
   <footer>
-    &copy; 2025 Anti-Hambreado Script Team — Comunidad primero, hambre nunca.
+    <p>&copy; 2025 Anti-Hambreado Script Team — Comunidad primero, hambre nunca.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-gray);">
+      Desarrollado con <i class="fas fa-heart" style="color: var(--primary-red);"></i> por el equipo
+    </p>
   </footer>
 
+  <!-- Scripts -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const sections = document.querySelectorAll('section');
-      sections.forEach((sec, i) => {
-        sec.style.opacity = '0';
-        sec.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-          sec.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-          sec.style.opacity = '1';
-          sec.style.transform = 'translateY(0)';
-        }, 200 * i);
+    // Preloader
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('preloader').classList.add('hidden');
+      }, 500);
+    });
+
+    // Animación de secciones al hacer scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
       });
+    }, observerOptions);
+
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+
+    // Sistema de Partículas
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const particleCount = 100;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.opacity = Math.random() * 0.3 + 0.1;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+
+      draw() {
+        ctx.fillStyle = `rgba(255, 0, 68, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     });
   </script>
 
