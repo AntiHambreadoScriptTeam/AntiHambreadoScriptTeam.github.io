@@ -731,7 +731,6 @@
             }
         });
 
-        // Definición de los dominios soportados para mostrar en la lista
         const supportedDomains = [
             "*.adshnk.com",
             "*.adshrink.it",
@@ -804,7 +803,6 @@
         ];
 
         const allLinks = document.getElementById('allLinks');
-        // Mostrar solo los dominios limpios en la lista
         supportedDomains.forEach(domain => {
             const li = document.createElement('li');
             li.textContent = domain;
@@ -831,8 +829,7 @@
             const loadingBars = document.getElementById('loadingBars');
             const resultContainer = document.getElementById('resultContainer');
             const resultLink = document.getElementById('resultLink');
-            const url = urlInput.value.trim(); // Obtener la URL ingresada por el usuario
-
+            const url = urlInput.value.trim(); 
             if (!url) {
                 alert('❌ Por favor, pega un link válido.');
                 return;
@@ -860,8 +857,8 @@
             }, 1000);
 
             try {
-                // Enviar directamente la URL ingresada a la API
-                const apiUrl = `http://trw.lat/api/free/bypass?url=${encodeURIComponent(url)}`;
+                
+                const apiUrl = `https://trw.lat/api/free/bypass?url=${encodeURIComponent(url)}`;
                 const response = await fetch(apiUrl);
                 const data = await response.json();
 
