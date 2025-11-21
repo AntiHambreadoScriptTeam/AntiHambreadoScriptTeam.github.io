@@ -67,16 +67,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -85,296 +75,499 @@
 <title>Anti-Hambreado Script Team</title>
 <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-*{
-  box-sizing:border-box;
+:root {
+  --primary-red: #ff3333;
+  --dark-red: #cc2222;
+  --light-red: #ff9999;
+  --bg-dark: #0a0a0a;
+  --bg-card: rgba(20, 0, 0, 0.6);
+  --neon-shadow: 0 0 15px rgba(255, 50, 50, 0.3);
+  --neon-glow: 0 0 30px rgba(255, 30, 30, 0.2);
 }
-body{
-  margin:0;
-  font-family:'Orbitron',sans-serif;
-  background:#000;
-  color:#ff4d4d;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  min-height:100vh;
-  padding:2rem 1rem 3rem;
-  background-image:
-    radial-gradient(circle at 20% 30%,rgba(255,0,0,.06) 0%,transparent 25%),
-    radial-gradient(circle at 80% 70%,rgba(255,0,255,.06) 0%,transparent 25%);
-  background-size:400% 400%;
-  animation:bgShift 18s infinite alternate;
-  overflow-x:hidden;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-@keyframes bgShift{
-  0%{background-position:0 0,100% 100%;}
-  100%{background-position:100% 100%,0 0;}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--bg-dark);
+  color: var(--light-red);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
 }
-canvas#particles{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
+
+canvas#particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
 }
-header{
-  position:relative;
-  z-index:10;
-  text-align:center;
-  margin-bottom:2rem;
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 50, 50, 0.2);
+  padding: 0.8rem 2rem;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  color: var(--primary-red);
+  text-shadow: var(--neon-shadow);
+  text-align: center;
 }
-.logo{
-  width:200px;
-  border-radius:50%;
-  padding:8px;
-  background:rgba(30,0,0,.7);
-  filter:drop-shadow(0 0 12px #ff0000);
-  animation:float 6s ease-in-out infinite;
+
+.main-container {
+  position: relative;
+  z-index: 10;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 6rem 2rem 3rem;
 }
-@keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-10px);}
+
+header {
+  text-align: center;
+  margin-bottom: 3rem;
 }
-h1{
-  font-size:2.8rem;
-  letter-spacing:3px;
-  color:#ff4d4d;
-  text-shadow:0 0 12px #ff0000;
-  margin:.5rem 0 1.5rem;
-  font-weight:900;
-  animation:flicker 3s infinite alternate;
+
+.logo-container {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 1.5rem;
 }
-@keyframes flicker{
-  0%,100%{opacity:1;}
-  50%{opacity:.85;}
+
+.logo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 51, 51, 0.3);
+  background: var(--bg-card);
+  padding: 12px;
+  transition: all 0.4s ease;
 }
-.buttons{
-  display:flex;
-  gap:1.2rem;
-  flex-wrap:wrap;
-  justify-content:center;
-  margin-bottom:2rem;
+
+.logo:hover {
+  transform: scale(1.05);
+  box-shadow: var(--neon-glow);
+  border-color: var(--primary-red);
 }
-.btn{
-  display:inline-flex;
-  align-items:center;
-  gap:.6rem;
-  padding:.9rem 2rem;
-  border-radius:30px;
-  font-weight:700;
-  font-size:1rem;
-  border:2px solid #ff4d4d;
-  background:rgba(30,0,0,.8);
-  color:#ff4d4d;
-  text-decoration:none;
-  transition:all .3s ease;
-  cursor:pointer;
+
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--primary-red);
+  text-shadow: var(--neon-shadow);
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+  opacity: 0.9;
 }
-.btn:hover{
-  background:#ff4d4d;
-  color:#000;
-  box-shadow:0 0 20px #ff4d4d;
+
+.tagline {
+  font-size: 0.95rem;
+  color: var(--light-red);
+  opacity: 0.8;
+  letter-spacing: 1px;
 }
-#campioneToggle .btn{
-  font-size:1.4rem;
-  padding:1.2rem 2.5rem;
-  animation:pulse 2s infinite;
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
 }
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(255,77,77,.7);}
-  70%{box-shadow:0 0 0 20px rgba(255,77,77,0);}
-  100%{box-shadow:0 0 0 0 rgba(255,77,77,0);}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid rgba(255, 51, 51, 0.4);
+  background: var(--bg-card);
+  color: var(--light-red);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
-.motto{
-  max-width:800px;
-  font-size:1.15rem;
-  line-height:1.7;
-  margin-bottom:2rem;
-  color:#ffb3b3;
-  text-align:center;
-  padding:1.5rem;
-  border-left:3px solid #ff4d4d;
-  background:rgba(30,0,0,.5);
-  border-radius:10px;
-  animation:fadeIn 1s ease-out;
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 51, 51, 0.1), transparent);
+  transition: left 0.5s;
 }
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px);}
-  to{opacity:1;transform:translateY(0);}
+
+.btn:hover::before {
+  left: 100%;
 }
-#campioneSection{
-  max-width:800px;
-  overflow:hidden;
-  transition:max-height .6s ease,opacity .6s ease;
-  max-height:0;
-  opacity:0;
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--neon-glow);
+  border-color: var(--primary-red);
+  color: #fff;
+  background: rgba(255, 51, 51, 0.1);
 }
-#campioneSection.open{
-  max-height:2000px;
-  opacity:1;
+
+.btn i {
+  font-size: 1.2rem;
+  transition: transform 0.3s;
 }
-h2{
-  font-size:2rem;
-  margin-top:1.5rem;
-  color:#ff6666;
-  text-shadow:0 0 8px #ff0000;
-  animation:slideIn .8s ease-out;
+
+.btn:hover i {
+  transform: scale(1.2);
 }
-@keyframes slideIn{
-  from{transform:translateX(-30px);opacity:0;}
-  to{transform:translateX(0);opacity:1;}
+
+.motto {
+  background: var(--bg-card);
+  border-left: 3px solid var(--primary-red);
+  padding: 2rem;
+  margin: 2rem 0;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--light-red);
+  backdrop-filter: blur(5px);
 }
-.section-text{
-  font-size:1.1rem;
-  line-height:1.65;
-  margin-bottom:1rem;
-  color:#ffcccc;
-  padding:1rem 1.2rem;
-  border-left:3px solid #ff4d4d;
-  background:rgba(30,0,0,.4);
-  border-radius:8px;
-  animation:fadeIn 1s ease-out;
+
+.toggle-section {
+  margin: 3rem 0;
+  text-align: center;
 }
-footer{
-  margin-top:3rem;
-  font-size:1rem;
-  color:#b34747;
-  text-align:center;
-  animation:fadeIn 1s ease-out;
+
+.toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.2rem 2.5rem;
+  background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+  color: #000;
+  border: none;
+  border-radius: 30px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--neon-shadow);
 }
-.emoji-animated{
-  display:inline-block;
-  animation:emojiBounce 2s infinite;
+
+.toggle-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 30, 30, 0.4);
 }
-@keyframes emojiBounce{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-8px);}
+
+.toggle-btn .arrow {
+  transition: transform 0.3s;
 }
-@media(max-width:600px){
-  h1{font-size:2rem;}
-  .logo{width:150px;}
-  .btn{font-size:.9rem;padding:.7rem 1.4rem;}
-  #campioneToggle .btn{font-size:1.1rem;padding:1rem 1.8rem;}
+
+.toggle-btn.active .arrow {
+  transform: rotate(180deg);
+}
+
+#campioneSection {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.4s ease,
+              margin 0.6s ease;
+  margin-top: 0;
+}
+
+#campioneSection.open {
+  max-height: 1500px;
+  opacity: 1;
+  margin-top: 2rem;
+}
+
+.campione-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 51, 51, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(5px);
+}
+
+.campione-card h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  color: var(--primary-red);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.section-text {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.highlight {
+  color: var(--primary-red);
+  font-weight: 700;
+  text-shadow: var(--neon-shadow);
+}
+
+.campione-list {
+  list-style: none;
+  margin: 1rem 0;
+}
+
+.campione-list li {
+  padding: 0.8rem 0;
+  padding-left: 2rem;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 51, 51, 0.1);
+}
+
+.campione-list li:last-child {
+  border-bottom: none;
+}
+
+.campione-list li::before {
+  content: '⚡';
+  position: absolute;
+  left: 0;
+  color: var(--primary-red);
+  font-size: 1.2rem;
+}
+
+footer {
+  text-align: center;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 51, 51, 0.2);
+  color: var(--dark-red);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .top-bar {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  .logo {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .button-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .main-container {
+    padding: 5rem 1rem 2rem;
+  }
 }
 </style>
 </head>
 <body>
+
 <canvas id="particles"></canvas>
 
+<div class="top-bar">
+  <i class="fas fa-skull"></i> ANTI-HAMBREADO SCRIPT TEAM <i class="fas fa-skull"></i>
+</div>
+
+<div class="main-container">
+
 <header>
-  <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo" class="logo">
-  <h1>Anti-Hambreado Script Team</h1>
-  <div class="buttons">
-    <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn discord"><i class="fab fa-discord"></i>Discord</a>
-    <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="btn">📜 Scripts</a>
-    <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn">📱 Executores</a>
-    <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="btn">🎥 YouTube</a>
+  <div class="logo-container">
+    <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo Anti-Hambreado" class="logo">
+  </div>
+  <h1>ANTI-HAMBREADO SCRIPT TEAM</h1>
+  <p class="tagline">Calidad sin complicaciones. Respeto sin acortadores.</p>
+  
+  <div class="button-grid">
+    <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn discord">
+      <i class="fab fa-discord"></i> Discord
+    </a>
+    <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="btn">
+      <i class="fas fa-scroll"></i> Scripts
+    </a>
+    <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn">
+      <i class="fas fa-mobile-alt"></i> Executores
+    </a>
+    <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="btn">
+      <i class="fab fa-youtube"></i> YouTube
+    </a>
   </div>
 </header>
 
-<p class="motto">
-  Anti-Hambreado Script Team es el lugar donde los verdaderos jugadores consiguen scripts y executores sin rodeos: links directos, sin virus, sin anuncios, sin loot-link ni tonterías. Aquí no te llenamos la pantalla de publicidad ni te hacemos saltar obstáculos para conseguir lo que buscas.<br><br>
-  A diferencia de Campione Script, que parece más interesado en llenar su cartera que en ayudar a la comunidad [con sus acortadores eternos y páginas llenas de anuncios] nosotros sí respetamos tu tiempo.<br><br>
-  Menos hambre, más calidad. Eso es Anti-Hambreado Script Team.
-</p>
+<div class="motto">
+  <p><strong>Anti-Hambreado Script Team</strong> es el lugar donde los verdaderos jugadores consiguen scripts y executores sin rodeos: links directos, sin virus, sin anuncios, sin loot-link ni tonterías.</p>
+  
+  <p>A diferencia de <strong>Campione Script</strong>, que parece más interesado en llenar su cartera que en ayudar a la comunidad <em>[con sus acortadores eternos y páginas llenas de anuncios]</em>, nosotros sí respetamos tu tiempo.</p>
+  
+  <p><strong>Menos hambre, más calidad.</strong> Eso es Anti-Hambreado Script Team.</p>
+</div>
 
-<div id="campioneToggle">
-  <button class="btn" onclick="toggleCampione()"><span class="emoji-animated">👁️</span> Nuestra opinión sobre Campione Script</button>
+<div class="toggle-section">
+  <button class="toggle-btn" onclick="toggleCampione()">
+    <span class="emoji-animated">👁️</span>
+    Nuestra opinión sobre Campione Script
+    <i class="fas fa-chevron-down arrow"></i>
+  </button>
 </div>
 
 <div id="campioneSection">
-  <h2><span class="emoji-animated">😹</span>Campione Script: <span style="color:#ff1a1a;">hambreado digital</span></h2>
-
-  <p class="section-text">
-    Campione Script… ¿qué podemos decir? Ese canal es la definición misma de <span style="color:#ff3333;font-weight:900;">hambreado digital.</span>
-    Mientras nosotros trabajamos con orgullo, claridad y respeto por la comunidad, él se dedica a llenar sus scripts de
-    <span style="color:#ff4d4d;font-weight:900;">un millón de acortadores</span> como si fueran estampitas de colección.
-  </p>
-
-  <ul class="section-text" style="margin-left:1.2rem;">
-    <li>¿Quieres acceder a su script? Prepárate para una <span style="color:#ff6666;font-weight:900;">odisea de links basura</span> que te llevan a páginas llenas de anuncios y trampas.</li>
-    <li>Al final, después de perder tiempo y paciencia, lo único que encuentras es un archivo en MediaFire que ni siquiera vale la pena.</li>
-    <li>Esa práctica no es profesional, no es creativa, y mucho menos digna de un canal que se respete.</li>
-  </ul>
-
-  <p class="section-text">
-    En el Anti-Hambreado Script Team lo decimos claro:
-    <span style="color:#ff1a1a;font-weight:900;">Campione Script es tremendo hambreado.</span>
-    No hay otra palabra. Hambreado por clics, hambreado por visitas, hambreado por atención.
-  </p>
-
-  <p class="section-text">
-    Mientras él <span style="color:#ff3333;font-weight:900;">mendiga con acortadores,</span>
-    nosotros construimos identidad, orgullo y calidad real. Somos el equipo que no necesita trampas para brillar.
-  </p>
-
-  <p class="section-text" style="font-size:1.3rem;">
-    🔥 En resumen: Campione Script es el ejemplo perfecto de lo que nunca seremos:
-    <span style="color:#ff0000;font-weight:900;">Hambreados hasta los huesos</span>
-  </p>
+  <div class="campione-card">
+    <h2><span class="emoji-animated">😹</span> Campione Script:<span class="highlight">hambreado digital</span></h2>
+    
+    <p class="section-text">
+      Campione Script… ¿qué podemos decir? Ese canal es la definición misma de <span class="highlight">hambreado digital</span>. Mientras nosotros trabajamos con orgullo, claridad y respeto por la comunidad, él se dedica a llenar sus scripts de <span class="highlight">un millón de acortadores</span> como si fueran estampitas de colección.
+    </p>
+    
+    <ul class="campione-list">
+      <li>¿Quieres acceder a su script? Prepárate para una <span class="highlight">odisea de links basura</span> que te llevan a páginas llenas de anuncios y trampas.</li>
+      <li>Al final, después de perder tiempo y paciencia, lo único que encuentras es un archivo en MediaFire que ni siquiera vale la pena.</li>
+      <li>Esa práctica no es profesional, no es creativa, y mucho menos digna de un canal que se respete.</li>
+    </ul>
+    
+    <p class="section-text">
+      En el Anti-Hambreado Script Team lo decimos claro: <span class="highlight">Campione Script es tremendo hambreado.</span> No hay otra palabra. Hambreado por clics, hambreado por visitas, hambreado por atención.
+    </p>
+    
+    <p class="section-text">
+      Mientras él <span class="highlight">mendiga con acortadores,</span> nosotros construimos identidad, orgullo y calidad real. Somos el equipo que no necesita trampas para brillar.
+    </p>
+    
+    <p class="section-text highlight" style="font-size: 1.1rem; text-align: center; padding: 1rem; border-radius: 8px; background: rgba(255, 51, 51, 0.1);">
+      🔥 En resumen: Campione Script es el ejemplo perfecto de lo que nunca seremos: <strong>Hambreados hasta los huesos</strong>
+    </p>
+  </div>
 </div>
 
-<footer>© Anti-Hambreado Script Team 2025 - ¡No seas hambread@ como Campione!</footer>
+<footer>
+  <p>© 2025 Anti-Hambreado Script Team</p>
+  <p><i class="fas fa-skull"></i> No seas hambread@ como Campione <i class="fas fa-skull"></i></p>
+</footer>
+
+</div>
 
 <script>
-const canvas=document.getElementById('particles');
-const ctx=canvas.getContext('2d');
-let w,h;
-function resize(){w=innerWidth;h=innerHeight;canvas.width=w;canvas.height=h;}
-resize();addEventListener('resize',resize);
-class Particle{
-  constructor(){
-    const edge=Math.floor(Math.random()*4);
-    switch(edge){
-      case 0:this.x=Math.random()*w;this.y=0;break;
-      case 1:this.x=w;this.y=Math.random()*h;break;
-      case 2:this.x=Math.random()*w;this.y=h;break;
-      case 3:this.x=0;this.y=Math.random()*h;break;
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let w, h;
+
+function resize() {
+  w = innerWidth;
+  h = innerHeight;
+  canvas.width = w;
+  canvas.height = h;
+}
+resize();
+addEventListener('resize', resize);
+
+class Particle {
+  constructor() {
+    const edge = Math.floor(Math.random() * 4);
+    switch(edge) {
+      case 0: this.x = Math.random() * w; this.y = 0; break;
+      case 1: this.x = w; this.y = Math.random() * h; break;
+      case 2: this.x = Math.random() * w; this.y = h; break;
+      case 3: this.x = 0; this.y = Math.random() * h; break;
     }
-    this.vx=(w/2-this.x)*.002*(Math.random()*.6+.4);
-    this.vy=(h/2-this.y)*.002*(Math.random()*.6+.4);
-    this.r=Math.random()*2+1;
-    this.life=0;this.max=300+Math.random()*250;
-    this.a=0;this.as=.008+Math.random()*.007;
-    this.color=`rgba(${200+Math.random()*55},${50+Math.random()*50},${50+Math.random()*50},`;
+    this.vx = (w/2 - this.x) * 0.0015 * (Math.random() * 0.6 + 0.4);
+    this.vy = (h/2 - this.y) * 0.0015 * (Math.random() * 0.6 + 0.4);
+    this.r = Math.random() * 1.5 + 0.5;
+    this.life = 0;
+    this.max = 400 + Math.random() * 300;
+    this.a = 0;
+    this.as = 0.006 + Math.random() * 0.005;
+    this.color = `rgba(${180 + Math.random() * 40}, ${40 + Math.random() * 30}, ${40 + Math.random() * 30},`;
   }
-  update(){
-    this.x+=this.vx;this.y+=this.vy;this.life++;
-    if(this.life<this.max/3)this.a+=this.as;
-    else if(this.life>this.max*.75)this.a-=this.as;
-    if(this.life>this.max||this.a<=0)this.reset();
+  
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.life++;
+    
+    if(this.life < this.max/3) this.a += this.as;
+    else if(this.life > this.max * 0.75) this.a -= this.as;
+    
+    if(this.life > this.max || this.a <= 0) this.reset();
   }
-  reset(){
-    const edge=Math.floor(Math.random()*4);
-    switch(edge){
-      case 0:this.x=Math.random()*w;this.y=0;break;
-      case 1:this.x=w;this.y=Math.random()*h;break;
-      case 2:this.x=Math.random()*w;this.y=h;break;
-      case 3:this.x=0;this.y=Math.random()*h;break;
+  
+  reset() {
+    const edge = Math.floor(Math.random() * 4);
+    switch(edge) {
+      case 0: this.x = Math.random() * w; this.y = 0; break;
+      case 1: this.x = w; this.y = Math.random() * h; break;
+      case 2: this.x = Math.random() * w; this.y = h; break;
+      case 3: this.x = 0; this.y = Math.random() * h; break;
     }
-    this.vx=(w/2-this.x)*.002*(Math.random()*.6+.4);
-    this.vy=(h/2-this.y)*.002*(Math.random()*.6+.4);
-    this.life=0;this.max=300+Math.random()*250;
-    this.a=0;
+    this.vx = (w/2 - this.x) * 0.0015 * (Math.random() * 0.6 + 0.4);
+    this.vy = (h/2 - this.y) * 0.0015 * (Math.random() * 0.6 + 0.4);
+    this.life = 0;
+    this.max = 400 + Math.random() * 300;
+    this.a = 0;
   }
-  draw(){
+  
+  draw() {
     ctx.beginPath();
-    const g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r*4);
-    g.addColorStop(0,this.color+this.a+')');
-    g.addColorStop(1,this.color+'0)');
-    ctx.fillStyle=g;
-    ctx.arc(this.x,this.y,this.r*4,0,Math.PI*2);ctx.fill();
-    ctx.beginPath();ctx.fillStyle=this.color+this.a+')';
-    ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fill();
+    const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r * 3);
+    g.addColorStop(0, this.color + this.a + ')');
+    g.addColorStop(1, this.color + '0)');
+    ctx.fillStyle = g;
+    ctx.arc(this.x, this.y, this.r * 3, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.beginPath();
+    ctx.fillStyle = this.color + this.a + ')';
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fill();
   }
 }
-const particles=Array.from({length:50},()=>new Particle());
-function animate(){ctx.clearRect(0,0,w,h);particles.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animate);}
+
+const particles = Array.from({length: 35}, () => new Particle());
+
+function animate() {
+  ctx.clearRect(0, 0, w, h);
+  particles.forEach(p => {
+    p.update();
+    p.draw();
+  });
+  requestAnimationFrame(animate);
+}
 animate();
 
-function toggleCampione(){
-  const sec=document.getElementById('campioneSection');
-  sec.classList.toggle('open');
+function toggleCampione() {
+  const section = document.getElementById('campioneSection');
+  const button = document.querySelector('.toggle-btn');
+  
+  section.classList.toggle('open');
+  button.classList.toggle('active');
 }
 </script>
 </body>
