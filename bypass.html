@@ -43,7 +43,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anti-Hambreado Script Team - Bypass System</title>
-  <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono:wght@300;400;700&display=swap');
@@ -60,23 +59,14 @@
             --dark-gray: #1a1a1a;
             --light-gray: #e0e0e0;
         }
-        html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background: #1a0005;
-}
-
-body {
-    font-family: 'Roboto Mono', monospace;
-    background: linear-gradient(135deg, var(--black) 0%, #1a0005 100%);
-    background-attachment: fixed;
-    background-size: 100% 100vh;
-    color: var(--light-gray);
-    overflow-x: hidden;
-    min-height: 100vh;
-    position: relative;
-}
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background: linear-gradient(135deg, var(--black) 0%, #1a0005 100%);
+            color: var(--light-gray);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
         .particles {
             position: fixed;
             top: 0;
@@ -437,11 +427,14 @@ body {
             text-shadow: 0 0 10px var(--neon-red-glow);
             text-decoration: underline;
         }
-        .open-url-button {
-            display: block;
+        .action-buttons {
             margin-top: 15px;
+            display: flex;
+            gap: 10px; /* Espacio entre botones */
+        }
+        .action-buttons button {
+            flex: 1; /* Hace que los botones ocupen el mismo ancho */
             padding: 12px 20px;
-            background: linear-gradient(135deg, var(--dark-red) 0%, var(--neon-red) 100%);
             border: none;
             border-radius: 8px;
             color: white;
@@ -454,9 +447,22 @@ body {
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+        .open-url-button {
+            background: linear-gradient(135deg, var(--dark-red) 0%, var(--neon-red) 100%);
+        }
         .open-url-button:hover {
             transform: scale(1.02);
             box-shadow: 0 0 15px rgba(255, 0, 68, 0.5);
+        }
+        .copy-text-button {
+            background: linear-gradient(135deg, var(--neon-red) 0%, var(--dark-red) 100%);
+        }
+        .copy-text-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(255, 0, 68, 0.5);
+        }
+        .copy-text-button.copied {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
         }
         .links-section h2 {
             font-family: 'Orbitron', monospace;
@@ -690,7 +696,10 @@ body {
                 <div class="result-container" id="resultContainer">
                     <p><strong>✅ Bypass completado:</strong></p>
                     <a id="resultLink" href="#" target="_blank"></a>
-                    <button class="open-url-button" id="openUrlButton" style="display: none;" onclick="openUrlResult()">Abrir URL</button>
+                    <div class="action-buttons">
+                        <button class="open-url-button" id="openUrlButton" style="display: none;" onclick="openUrlResult()">Abrir URL</button>
+                        <button class="copy-text-button" id="copyTextButton" style="display: none;" onclick="copyTextResult()">Copiar Texto</button>
+                    </div>
                 </div>
             </section>
         </div>
@@ -774,6 +783,7 @@ body {
             "bst.wtf",
             "booo.st",
             "boost.fusedgt.com",
+            "thedragonslayer2.github.io",
             "empebau.eu",
             "is.gd",
             "justpaste.it",
@@ -861,7 +871,8 @@ body {
             const loadingBars = document.getElementById('loadingBars');
             const resultContainer = document.getElementById('resultContainer');
             const resultLink = document.getElementById('resultLink');
-            const openUrlButton = document.getElementById('openUrlButton'); // Referencia al nuevo botón
+            const openUrlButton = document.getElementById('openUrlButton');
+            const copyTextButton = document.getElementById('copyTextButton');
             const url = urlInput.value.trim();
 
             if (!url) {
@@ -873,7 +884,8 @@ body {
             timer.classList.remove('active');
             loadingBars.classList.remove('active');
             resultContainer.classList.remove('show');
-            openUrlButton.style.display = 'none'; // Ocultar botón al iniciar
+            openUrlButton.style.display = 'none';
+            copyTextButton.style.display = 'none';
             bypassBtn.disabled = true;
             bypassBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
             loadingBars.classList.add('active');
@@ -904,7 +916,20 @@ body {
                     resultLink.href = data.result;
                     resultLink.textContent = data.result;
                     resultContainer.classList.add('show');
-                    openUrlButton.style.display = 'block'; // Mostrar botón al éxito
+
+                    // --- Lógica para mostrar botón correcto ---
+                    const resultText = data.result.trim();
+                    // Verifica si el resultado comienza con http:// o https://
+                    if (resultText.toLowerCase().startsWith('http://') || resultText.toLowerCase().startsWith('https://')) {
+                        openUrlButton.style.display = 'block';
+                        copyTextButton.style.display = 'none';
+                    } else {
+                        // Si no es una URL, mostrar el botón de copiar texto
+                        openUrlButton.style.display = 'none';
+                        copyTextButton.style.display = 'block';
+                    }
+                    // --- Fin de la lógica ---
+
                     bypassBtn.disabled = false;
                     bypassBtn.innerHTML = '<i class="fas fa-bolt"></i> Empezar Bypass';
                     urlInput.value = ''; // Limpiar el campo después de éxito
@@ -915,7 +940,8 @@ body {
                 clearInterval(timerInterval);
                 loadingBars.classList.remove('active');
                 timer.classList.remove('active');
-                openUrlButton.style.display = 'none'; // Asegurarse de ocultarlo en caso de error
+                openUrlButton.style.display = 'none';
+                copyTextButton.style.display = 'none';
                 alert(`❌ Error: ${error.message || 'No se pudo completar el bypass.'}`);
                 bypassBtn.disabled = false;
                 bypassBtn.innerHTML = '<i class="fas fa-bolt"></i> Empezar Bypass';
@@ -931,6 +957,30 @@ body {
             }
         }
 
+        // Función para copiar el texto del resultado al portapapeles
+        async function copyTextResult() {
+            const resultLink = document.getElementById('resultLink');
+            const textToCopy = resultLink.textContent; // Copia el texto mostrado, no el href
+            const copyBtn = document.getElementById('copyTextButton');
+
+            if (textToCopy) {
+                try {
+                    await navigator.clipboard.writeText(textToCopy);
+                    // Mostrar feedback de copiado
+                    copyBtn.textContent = '¡Copiado!';
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.textContent = 'Copiar Texto';
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Error al copiar el texto: ', err);
+                    alert('No se pudo copiar el texto. Por favor, selecciónalo manualmente.');
+                }
+            }
+        }
+
+
         document.getElementById('urlInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 startBypass();
@@ -942,4 +992,4 @@ body {
         });
     </script>
 </body>
-                                                                                          </html>
+</html> 
