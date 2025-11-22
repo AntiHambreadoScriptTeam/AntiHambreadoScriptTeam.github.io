@@ -60,14 +60,23 @@
             --dark-gray: #1a1a1a;
             --light-gray: #e0e0e0;
         }
-        body {
-            font-family: 'Roboto Mono', monospace;
-            background: linear-gradient(135deg, var(--black) 0%, #1a0005 100%);
-            color: var(--light-gray);
-            overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
-        }
+        html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #1a0005;
+}
+
+body {
+    font-family: 'Roboto Mono', monospace;
+    background: linear-gradient(135deg, var(--black) 0%, #1a0005 100%);
+    background-attachment: fixed;
+    background-size: 100% 100vh;
+    color: var(--light-gray);
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
         .particles {
             position: fixed;
             top: 0;
