@@ -71,7 +71,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>Anti-Hambreado Script Team</title>
     <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
     <style>
@@ -79,22 +79,24 @@
         
         html {
     height: 100%;
+    min-height: 100dvh;        
     margin: 0;
     padding: 0;
     background: #1a0000;
 }
 
 body {
+    min-height: 100dvh;
+    margin: 0;
     font-family: 'Orbitron', monospace;
     background: #1a0000;
     background-attachment: fixed;
-    min-height: 70vh;
     color: #fff;
     overflow-x: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: stretch; 
 }
 
 .welcome-screen, .content {
