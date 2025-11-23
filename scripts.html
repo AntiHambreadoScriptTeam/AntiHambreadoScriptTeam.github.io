@@ -300,13 +300,17 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100dvh;       
+    min-height: 100dvh;
     width: 100%;
     text-align: center;
-    padding: 120px 2rem 2rem 2rem;
+    padding-top: max(140px, env(safe-area-inset-top, 20px));
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
     position: relative;
     z-index: 2;
     background: transparent;
+    box-sizing: border-box;
         }
       
         .team-logo {
