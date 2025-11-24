@@ -1,1 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunicado Oficial - Anti-Hambreado Script Team</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root{--red:#ff0033;--dark:#0f0f0f;--gray:#1a1a1a}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--dark);color:#fff;font-family:'Rajdhani',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow-x:hidden}
+        #intro{position:fixed;inset:0;background:var(--dark);display:flex;align-items:center;justify-content:center;z-index:9999;animation:fadeOut 4.5s forwards}
+        #intro img{width:320px;filter:drop-shadow(0 0 40px var(--red));animation:pulse 2s infinite}
+        @keyframes fadeOut{0%{opacity:1}80%{opacity:1}100%{opacity:0;pointer-events:none}}
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+        .container{max-width:900px;padding:40px;text-align:center;opacity:0;animation:appear 1.5s 4.5s forwards}
+        @keyframes appear{to{opacity:1}}
+        h1{font-family:'Orbitron',sans-serif;font-size:3.5rem;background:linear-gradient(90deg,#ff0033,#ff6666);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 30px rgba(255,0,51,.6);margin-bottom:30px}
+        .content{font-size:1.35rem;line-height:1.8;color:#e0e0e0;margin:40px auto;text-align:left;background:rgba(30,30,30,.6);padding:35px;border-radius:15px;border:1px solid var(--red);box-shadow:0 0 25px rgba(255,0,51,.3)}
+        .highlight{color:var(--red);font-weight:700}
+        .bypass-link{display:inline-block;margin:20px 0;padding:14px 35px;background:var(--red);color:#000;font-weight:700;font-size:1.4rem;border-radius:50px;text-decoration:none;box-shadow:0 0 30px var(--red);transition:all .3s}
+        .bypass-link:hover{transform:translateY(-5px);box-shadow:0 0 50px var(--red)}
+        .final-gif{margin:50px auto;width:400px;border:3px solid var(--red);border-radius:20px;box-shadow:0 0 40px var(--red)}
+        .signature{margin-top:60px;font-family:'Orbitron',sans-serif;font-size:1.8rem;color:var(--red);text-shadow:0 0 15px var(--red)}
+        .main-btn{margin-top:50px;padding:18px 50px;font-size:1.5rem;background:transparent;border:3px solid var(--red);color:var(--red);border-radius:50px;cursor:pointer;font-weight:700;transition:all .4s;text-transform:uppercase;letter-spacing:2px}
+        .main-btn:hover{background:var(--red);color:#000;box-shadow:0 0 40px var(--red);transform:scale(1.05)}
+        .particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none}
+        @keyframes float{0%{transform:translateY(100vh) scale(.5);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-10vh) scale(1);opacity:0}}
+    </style>
+</head>
+<body>
+    <div id="intro">
+        <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo">
+        <audio autoplay>
+            <source src="https://files.catbox.moe/x21pe8.mp3" type="audio/mpeg">
+        </audio>
+    </div>
 
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <h1>COMUNICADO OFICIAL</h1>
+        <div class="content">
+            <p>En los últimos días hemos visto cómo los <span class="highlight">“novios” de WOOZ</span> han inundado nuestro servidor de Discord con insultos, lágrimas y drama de telenovela. ¿El motivo? Que nuestra página de bypass usaba la API TRW… una API que es <span class="highlight">100 % GRATIS y PÚBLICA</span> y cuyo dueño es precisamente WOOZ.</p>
+            <p>Es decir, el niño llorón de 15 años se pasa el día ladrando porque alguien usa algo que <span class="highlight">él mismo dejó abierto para todo el mundo</span>. Si tanto le molesta… ¡pues que la haga privada y listo! Pero no, prefiere llorar en Twitter, hacer hilos de víctima y mandar a sus fanboys (perdón, <span class="highlight">novios</span>) a defenderlo porque solo no puede.</p>
+            <p>Importante aclaración para los que se confunden: <span class="highlight">WOOZ ≠ IWOOZY</span>. IWOOZY es uno de los dueños del canal y una leyenda. WOOZ es simplemente el pibe que llora porque le usan su API pública.</p>
+            <p>Y hablando de bypass de calidad… la verdadera página que vale la pena es esta:</p>
+            <a href="https://bypass.vip/" target="_blank" class="bypass-link">https://bypass.vip/</a>
+            <p>Así que ya saben, dejen de alimentar el drama de un adolescente que necesita a sus novios para sentirse válido.</p>
+            <div style="text-align:center;margin:40px 0">
+                <p style="font-size:2.5rem;font-weight:900;color:var(--red);text-shadow:0 0 20px var(--red)">
+                    WOOZ ES EL VERDADERO "SIN TUS NOVIOS NO PUEDES"
+                </p>
+                <img src="https://i.postimg.cc/7hr473Nf/Don_t-cry-iwoozy.gif" alt="Don't cry" class="final-gif">
+            </div>
+        </div>
+        <div class="signature">
+            — FeliciaXxxTop & TheRealBanHammer<br>
+            Anti-Hambreado Script Team © 2025
+        </div>
+        <button class="main-btn" onclick="window.location.href='https://antihambreadoscriptteam.github.io/'">IR A LA PÁGINA PRINCIPAL</button>
+    </div>
+
+    <script>
+        const p=document.getElementById('particles');
+        for(let i=0;i<80;i++){
+            const e=document.createElement('div');
+            e.style.position='absolute;
+            e.style.width='3px';e.style.height='3px';
+            e.style.background='#ff0033';
+            e.style.borderRadius='50%';
+            e.style.boxShadow='0 0 10px #ff0033';
+            e.style.left=Math.random()*100+'vw';
+            e.style.top=Math.random()*100+'vh';
+            e.style.animation=`float ${8+Math.random()*12}s linear infinite`;
+            e.style.animationDelay=Math.random()*10+'s';
+            p.appendChild(e);
+        }
+    </script>
+</body>
+</html>
