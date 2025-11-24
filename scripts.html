@@ -801,6 +801,10 @@ html { -webkit-text-size-adjust: 100%; }
             <span class="folder-icon">📁</span>
             ATTACK ON TITAN REVOLUTION
         </div>
+<div class="sidebar-item" onclick="showContent('anime-weapons')">
+    <span class="folder-icon">📁</span>
+    ANIME WEAPONS
+</div>
         <div class="sidebar-item" onclick="showContent('basically-fnf-remix')">
             <span class="folder-icon">📁</span>
             BASICALLY FNF: REMIX
@@ -1014,6 +1018,10 @@ html { -webkit-text-size-adjust: 100%; }
         <div class="script-card"><div class="script-header"><div class="script-title">LUNARZ</div><button class="copy-button" onclick="copyScript(this, 'aot1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="aot1">https://www.mediafire.com/file/5g5cet0ha9da467/SCRIPT+LUNARZ.txt/file</pre></div></div>
 <div class="script-card"><div class="script-header"><div class="script-title">TEKKIT HUB</div><button class="copy-button" onclick="copyScript(this, 'aot-tekkit')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="aot-tekkit">https://www.mediafire.com/file/qb71f2am4v5b7u9/SCRIPT+TEKKIT+HUB+AOTR.txt/file</pre></div></div>
     </div>
+<div id="anime-weapons" class="content">
+    <h2 class="section-title">🗡️ ANIME WEAPONS</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">NEW OMG HUB</div><button class="copy-button" onclick="copyScript(this, 'anime-omg')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="anime-omg">https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file</pre></div></div>
+</div>
     <div id="basically-fnf-remix" class="content">
         <h2 class="section-title">🎵 BASICALLY FNF: REMIX</h2>
         <div class="script-card"><div class="script-header"><div class="script-title">AUTO PLAYER</div><button class="copy-button" onclick="copyScript(this, 'fnf1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="fnf1">loadstring(game:HttpGet("https://rawscripts.net/raw/Basically-FNF:-Remix-AutoPlayer-Lite-9989"))()</pre></div></div>
@@ -1360,6 +1368,7 @@ del siguiente tutorial = https://youtu.be/-UEdoNwIvOE</pre>
                 { game: 'ARISE CROSSOVER', title: 'GOOMBA HUB', id: 'arise1' },
                 { game: 'ATTACK ON TITAN REVOLUTION', title: 'LUNARZ', id: 'aot1' },
                 { game: 'ATTACK ON TITAN REVOLUTION', title: 'TEKKIT HUB', id: 'aot-tekkit' }, 
+{ game: 'ANIME WEAPONS', title: 'NEW OMG HUB', id: 'anime-omg' }, 
                 { game: 'BASICALLY FNF: REMIX', title: 'AUTO PLAYER', id: 'fnf1' },
                 { game: 'BLOCK SPIN', title: 'HERMANOS-DEV', id: 'bs1' },
                 { game: 'BLOCK SPIN', title: 'QUARTY', id: 'bs2' },
@@ -1517,6 +1526,7 @@ del siguiente tutorial = https://youtu.be/-UEdoNwIvOE</pre>
                     if ((itemText.includes('99 NOCHES') && sectionId === '99-noches-en-el-bosque') ||
                         (itemText.includes('ARISE') && sectionId === 'arise-crossover') ||
                         (itemText.includes('ATTACK') && sectionId === 'attack-on-titan-revolution') ||
+(itemText.includes('ANIME WEAPONS') && sectionId === 'anime-weapons') ||
                         (itemText.includes('BASICALLY FNF') && sectionId === 'basically-fnf-remix') ||
                         (itemText.includes('BLOCK SPIN') && sectionId === 'block-spin') ||
                         (itemText.includes('BLOODMONEY') && sectionId === 'bloodmoney') ||
