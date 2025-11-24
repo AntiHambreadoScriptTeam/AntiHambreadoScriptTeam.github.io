@@ -74,10 +74,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redireccionando...</title>
     
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -99,7 +96,6 @@
             position: relative;
         }
 
-        /* Background animated particles */
         .particles {
             position: absolute;
             width: 100%;
@@ -131,7 +127,6 @@
             width: 90%;
         }
 
-        /* Logo */
         .logo {
             font-size: 4rem;
             color: #ff0000;
@@ -145,7 +140,6 @@
             50% { transform: scale(1.05); }
         }
 
-        /* Main title */
         h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: 2.5rem;
@@ -159,7 +153,6 @@
             text-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
         }
 
-        /* Message */
         .message {
             font-size: 1.2rem;
             margin-bottom: 40px;
@@ -167,7 +160,6 @@
             line-height: 1.6;
         }
 
-        /* Countdown */
         .countdown {
             font-family: 'Orbitron', sans-serif;
             font-size: 3rem;
@@ -183,7 +175,6 @@
             50% { opacity: 0.8; }
         }
 
-        /* Progress bar */
         .progress-container {
             width: 100%;
             max-width: 400px;
@@ -207,7 +198,6 @@
             to { width: 100%; }
         }
 
-        /* Loading text */
         .loading-text {
             font-size: 0.9rem;
             color: #888;
@@ -221,7 +211,6 @@
             color: #ff0000;
         }
 
-        /* Cancel button */
         .cancel-btn {
             margin-top: 30px;
             padding: 12px 30px;
@@ -245,7 +234,6 @@
             transform: translateY(-2px);
         }
 
-        /* Footer icons */
         .footer-icons {
             margin-top: 40px;
             display: flex;
@@ -265,7 +253,6 @@
             text-shadow: 0 0 15px #ff0000;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
             .countdown { font-size: 2.5rem; }
@@ -274,40 +261,31 @@
     </style>
 </head>
 <body>
-    <!-- Animated background particles -->
     <div class="particles" id="particles"></div>
 
     <div class="container">
-        <!-- Main Logo/Icon -->
         <div class="logo">
             <i class="fas fa-rocket"></i>
         </div>
 
-        <!-- Title -->
         <h1>Preparando Navegación</h1>
 
-        <!-- Message -->
         <p class="message">
             Serás redirigido automáticamente al destino en unos momentos...
         </p>
 
-        <!-- Countdown -->
         <div class="countdown" id="countdown">3</div>
 
-        <!-- Progress Bar -->
         <div class="progress-container">
             <div class="progress-bar"></div>
         </div>
 
-        <!-- Loading text -->
         <p class="loading-text">
             <i class="fas fa-spinner fa-spin"></i> Estableciendo conexión segura
         </p>
 
-        <!-- Cancel button -->
         <button class="cancel-btn" onclick="cancelRedirect()">Cancelar Redirección</button>
 
-        <!-- Footer icons -->
         <div class="footer-icons">
             <i class="fas fa-shield-alt" title="Protegido"></i>
             <i class="fas fa-lock" title="Conexión Segura"></i>
@@ -316,7 +294,6 @@
     </div>
 
     <script>
-        // Create background particles
         function createParticles() {
             const container = document.getElementById('particles');
             const particleCount = 50;
@@ -331,7 +308,6 @@
             }
         }
 
-        // Countdown timer
         let countdownValue = 3;
         const countdownElement = document.getElementById('countdown');
         
@@ -342,26 +318,21 @@
             }
         }, 1000);
 
-        // Redirect after 3 seconds
         const redirectTimeout = setTimeout(() => {
             window.location.href = 'https://nomorecampionescript.github.io/';
         }, 3000);
 
-        // Cancel redirect function
         function cancelRedirect() {
             clearTimeout(redirectTimeout);
             clearInterval(countdownInterval);
             
-            // Show cancelled message
             countdownElement.innerHTML = '<i class="fas fa-times"></i>';
             countdownElement.style.color = '#888';
             document.querySelector('.loading-text').innerHTML = '<i class="fas fa-ban"></i> Redirección cancelada';
             document.querySelector('.message').textContent = 'Has cancelado la redirección automática.';
             
-            // Hide progress bar
             document.querySelector('.progress-container').style.display = 'none';
             
-            // Change cancel button to manual redirect
             const btn = document.querySelector('.cancel-btn');
             btn.textContent = 'Ir Ahora Manualmente';
             btn.onclick = () => {
@@ -369,7 +340,6 @@
             };
         }
 
-        // Initialize particles on load
         window.addEventListener('load', createParticles);
     </script>
 </body>
