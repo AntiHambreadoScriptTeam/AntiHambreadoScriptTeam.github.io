@@ -10,11 +10,35 @@
         :root{--red:#ff0033;--dark:#0f0f0f}
         *{margin:0;padding:0;box-sizing:border-box}
         body{background:var(--dark);color:#fff;font-family:'Rajdhani',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow-x:hidden}
-        #intro{position:fixed;inset:0;background:var(--dark);display:flex;align-items:center;justify-content:center;z-index:9999;animation:fadeOut 2s forwards}
-        #intro img{width:340px;filter:drop-shadow(0 0 50px var(--red));animation:pulse 1.4s infinite}
-        @keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0;pointer-events:none}}
-        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-        .container{max-width:940px;padding:40px;text-align:center;opacity:0;animation:appear 1.2s 1.8s forwards}
+        #intro{position:fixed;inset:0;background:var(--dark);display:flex;align-items:center;justify-content:center;z-index:9999;animation:fadeOutTotal 3s forwards}
+        .logo-wrapper{width:360px;height:360px;position:relative;animation:discordSpin 3s forwards}
+        .logo-wrapper img{width:100%;position:absolute;inset:0;margin:auto;filter:drop-shadow(0 0 50px var(--red));animation:inherit}
+        .logo-wrapper::before,.logo-wrapper::after{content:"";position:absolute;inset:0;border:4px solid var(--red);border-radius:50%;opacity:0}
+        .logo-wrapper::before{animation:trail1 3s forwards}
+        .logo-wrapper::after{animation:trail2 3s forwards;animation-delay:.1s}
+        @keyframes discordSpin{
+            0%{transform:rotate(0)}
+            40%{transform:rotate(1080deg)}
+            60%{transform:rotate(1080deg)}
+            75%{transform:rotate(1440deg)}
+            100%{transform:rotate(1440deg)}
+        }
+        @keyframes trail1{
+            0%,40%{opacity:.9;transform:rotate(0) scale(1)}
+            50%{opacity:0;transform:rotate(180deg) scale(1.7)}
+            100%{opacity:0}
+        }
+        @keyframes trail2{
+            0%,40%{opacity:.7;transform:rotate(-60deg) scale(.9)}
+            50%{opacity:0;transform:rotate(120deg) scale(1.8)}
+            100%{opacity:0}
+        }
+        @keyframes fadeOutTotal{
+            0%{opacity:1}
+            85%{opacity:1}
+            100%{opacity:0;pointer-events:none}
+        }
+        .container{max-width:940px;padding:40px;text-align:center;opacity:0;animation:appear 1.2s 2.8s forwards}
         @keyframes appear{to{opacity:1}}
         h1{font-family:'Orbitron',sans-serif;font-size:3.6rem;background:linear-gradient(90deg,#ff0033,#ff4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 35px rgba(255,0,51,.7);margin-bottom:35px}
         .content{font-size:1.38rem;line-height:1.85;color:#e2e2e2;margin:40px auto;text-align:left;background:rgba(30,30,30,.65);padding:40px;border-radius:18px;border:1px solid var(--red);box-shadow:0 0 30px rgba(255,0,51,.4)}
@@ -31,7 +55,9 @@
 </head>
 <body>
     <div id="intro">
-        <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo">
+        <div class="logo-wrapper">
+            <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo">
+        </div>
         <audio autoplay><source src="https://files.catbox.moe/x21pe8.mp3" type="audio/mpeg"></audio>
     </div>
 
@@ -57,7 +83,7 @@
         </div>
         <div class="signature">
             — FeliciaXxxTop & TheRealBanHammer<br>
-            Anti-Hambreado Script Team © 2025
+            Anti-Hambreado Script Team 2025
         </div>
         <button class="main-btn" onclick="window.location.href='https://antihambreadoscriptteam.github.io/'">IR A LA PÁGINA PRINCIPAL</button>
     </div>
@@ -79,4 +105,4 @@
         }
     </script>
 </body>
-</html> 
+</html>
