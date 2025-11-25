@@ -69,7 +69,7 @@
 
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes"> 
     <title>Anti-Hambreado Script Team</title>
@@ -303,10 +303,10 @@ body {
     min-height: 100dvh;
     width: 100%;
     text-align: center;
-    padding-top: max(280px, env(safe-area-inset-top, 20px));
+    padding-top: 80px;
     padding-left: 2rem;
     padding-right: 2rem;
-    padding-bottom: 8rem;
+    padding-bottom: 12rem;
     gap: 2.5rem;
     position: relative;
     z-index: 2;
@@ -316,7 +316,8 @@ body {
       
         .team-logo {
             width: 120px;
-            height: 500px;
+            height: auto;
+            max-height: 50vh;
             border-radius: 50%;
             margin-bottom: 2rem;
             border: 4px solid #ff0000;
@@ -684,9 +685,10 @@ body {
             background: rgba(0, 0, 0, 0.6);
             color: rgba(255, 255, 255, 0.8);
             font-size: 1rem;
-            margin-top: 3rem;
+            margin-top: auto;
             border-top: 1px solid rgba(255, 0, 0, 0.2);
             width: 100%;
+            flex-shrink: 0;
         }
 
         @media (max-width: 768px) {
@@ -704,8 +706,8 @@ body {
 
             @media (max-width: 768px) {
     .welcome-screen {
-        padding-top: max(90px, env(safe-area-inset-top, 20px)) !important;
-        padding-bottom: 10rem !important;
+        padding-top: 60px !important;
+        padding-bottom: 14rem !important;
         gap: 2rem;
     }
     
@@ -757,6 +759,36 @@ body {
                 font-size: 0.9rem;
                 margin-bottom: 0;
             }
+
+            .team-logo {
+                max-height: 30vh;
+                width: auto;
+                max-width: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-screen {
+                padding-top: 50px !important;
+                padding-bottom: 16rem !important;
+            }
+
+            .team-logo {
+                max-height: 25vh;
+                max-width: 80px;
+            }
+
+            .welcome-content h1 {
+                font-size: 1.5rem;
+            }
+
+            .team-name {
+                font-size: 1.2rem;
+            }
+
+            .welcome-content p {
+                font-size: 1rem;
+            }
         }
 
         @supports (-webkit-touch-callout: none) {
@@ -775,7 +807,7 @@ body {
 html { -webkit-text-size-adjust: 100%; }
       
     </style>
-</head>
+  </head>
 <body>
     <div class="particles"></div>
     <div class="header">
