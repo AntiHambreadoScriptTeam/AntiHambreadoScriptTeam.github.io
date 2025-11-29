@@ -937,6 +937,10 @@ html {
             <span class="folder-icon">📁</span>
             FISCH
         </div>
+<div class="sidebar-item" onclick="showContent('fish-it')">
+    <span class="folder-icon">📁</span>
+    FISH IT
+</div>
         <div class="sidebar-item" onclick="showContent('forsaken')">
             <span class="folder-icon">📁</span>
             FORSAKEN
@@ -1191,6 +1195,11 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/h
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Catto-YFCN/Lunor_Dependencies/refs/heads/main/Loader'))()
 -- Para obtener la key: https://ads.luarmor.net/get_key?for=LinkvertiseAD12_Hours-HhMMjfiZOeFt</pre></div></div>
     </div>
+<div id="fish-it" class="content">
+    <h2 class="section-title">🎣 FISH IT</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">BLESSED HUB</div><button class="copy-button" onclick="copyScript(this, 'fish-blessed')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="fish-blessed">https://www.mediafire.com/file/hggzozdcfltiade/SCRIPT+BLESSED+HUB+FISH+IT.txt/file</pre></div></div>
+    <div class="script-card"><div class="script-header"><div class="script-title">NAT HUB</div><button class="copy-button" onclick="copyScript(this, 'fish-nat')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="fish-nat">https://www.mediafire.com/file/d89mbxqwkzjwt3o/SCRIPT_NAT_HUB.txt/file</pre></div></div>
+</div>
     <div id="forsaken" class="content">
         <h2 class="section-title">🔪 FORSAKEN</h2>
         <div class="script-card"><div class="script-header"><div class="script-title">LOLNOTAKID</div><button class="copy-button" onclick="copyScript(this, 'forsaken1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="forsaken1">loadstring(game:HttpGet("https://raw.githubusercontent.com/LolnotaKid/project/refs/heads/main/obfuscated_script-1758536932336.lua.txt"))()
@@ -1475,6 +1484,8 @@ del siguiente tutorial = https://youtu.be/-UEdoNwIvOE</pre>
                 { game: 'FISCH', title: 'RIFT HUB', id: 'fisch5' },
                 { game: 'FISCH', title: 'ZENITH HUB', id: 'fisch3' },
                 { game: 'FISCH', title: 'LUNOR HUB', id: 'fisch-lunor' }, 
+{ game: 'FISH IT', title: 'BLESSED HUB', id: 'fish-blessed' },
+{ game: 'FISH IT', title: 'NAT HUB', id: 'fish-nat' }, 
                 { game: 'FORSAKEN', title: 'LOLNOTAKID', id: 'forsaken1' },
                 { game: 'FORSAKEN', title: 'TSUO HUB', id: 'forsaken2' },
                 { game: 'FRUIT BATTLEGROUNDS', title: 'DEVSEHUB', id: 'fb1' },
@@ -1613,7 +1624,8 @@ del siguiente tutorial = https://youtu.be/-UEdoNwIvOE</pre>
                         (itemText.includes('DRAGON BALL RAGE') && sectionId === 'dragon-ball-rage') ||
                         (itemText.includes('DRAGON BLOX') && sectionId === 'dragon-blox') ||
                         (itemText.includes('EVADE') && sectionId === 'evade') ||
-                        (itemText.includes('FISCH') && sectionId === 'fisch') ||
+                        (itemText.includes('FISCH') && sectionId === 'fisch') || 
+(itemText.includes('FISH IT') && sectionId === 'fish-it') ||
                         (itemText.includes('FORSAKEN') && sectionId === 'forsaken') ||
                         (itemText.includes('FRUIT BATTLEGROUNDS') && sectionId === 'fruit-battlegrounds') ||
                         (itemText.includes('GRAND PIECE ONLINE') && sectionId === 'grand-piece-online') ||
