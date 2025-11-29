@@ -1017,6 +1017,10 @@ html {
             <span class="folder-icon">📁</span>
             THE STRONGEST BATTLEGROUNDS
         </div>
+<div class="sidebar-item" onclick="showContent('the-forge')">
+    <span class="folder-icon">📁</span>
+    THE FORGE
+</div>
         <div class="sidebar-item" onclick="showContent('vox-seas')">
             <span class="folder-icon">📁</span>
             VOX SEAS
@@ -1334,6 +1338,10 @@ del siguiente tutorial = https://youtu.be/-UEdoNwIvOE</pre>
         <div class="script-card"><div class="script-header"><div class="script-title">MINHNHAT HUB</div><button class="copy-button" onclick="copyScript(this, 'tsb1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="tsb1">loadstring(game:HttpGet("https://raw.githubusercontent.com/minhnhatdepzai8-cloud/MinhNhat-HUB-V5/refs/heads/main/MinhNhatDZ.lua.txt"))()</pre></div></div>
         <div class="script-card"><div class="script-header"><div class="script-title">SANS MOVESET</div><button class="copy-button" onclick="copyScript(this, 'tsb2')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="tsb2">loadstring(game:HttpGet("https://paste.ee/r/rF9d3"))()</pre></div></div>
     </div>
+<div id="the-forge" class="content">
+    <h2 class="section-title">🔥 THE FORGE</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">CHIYO HUB</div><button class="copy-button" onclick="copyScript(this, 'forge-chiyo')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="forge-chiyo">https://www.mediafire.com/file/q4mhx7sy1owtwdx/SCRIPT+CHIYO+THE+FORGE.txt/file</pre></div></div>
+</div>
     <div id="vox-seas" class="content">
         <h2 class="section-title">🌊 VOX SEAS</h2>
         <div class="script-card"><div class="script-header"><div class="script-title">FARM DINERO</div><button class="copy-button" onclick="copyScript(this, 'vs1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="vs1">loadstring(game:HttpGet('https://raw.githubusercontent.com/shakaUnlocked/IiI/refs/heads/main/AutoVoxSeas.lua'))()</pre></div></div>
@@ -1525,7 +1533,8 @@ del siguiente tutorial = https://youtu.be/-UEdoNwIvOE</pre>
                 { game: 'STEAL A BRAINROT', title: 'AUTO BUY DEALER', id: 'sb-autobuy' }, 
                 { game: 'STEAL A BRAINROT', title: 'UGLYS FISHING', id: 'sb-ugly' }, 
                 { game: 'THE STRONGEST BATTLEGROUNDS', title: 'MINHNHAT HUB', id: 'tsb1' },
-                { game: 'THE STRONGEST BATTLEGROUNDS', title: 'SANS MOVESET', id: 'tsb2' },
+                { game: 'THE STRONGEST BATTLEGROUNDS', title: 'SANS MOVESET', id: 'tsb2' }, 
+{ game: 'THE FORGE', title: 'CHIYO HUB', id: 'forge-chiyo' }
                 { game: 'VOX SEAS', title: 'FARM DINERO', id: 'vs1' },
                 { game: 'VOX SEAS', title: 'LEGEND HUB', id: 'vs2' },
                 { game: 'VOX SEAS', title: 'NEXUS HUB', id: 'vs3' },
@@ -1626,7 +1635,8 @@ del siguiente tutorial = https://youtu.be/-UEdoNwIvOE</pre>
                         (itemText.includes('SERVIDORES PRIVADOS') && sectionId === 'servidores-privados') ||
                         (itemText.includes('SMASH PROJECT') && sectionId === 'smash-project') ||
                         (itemText.includes('STEAL A BRAINROT') && sectionId === 'steal-a-brainrot') ||
-                        (itemText.includes('THE STRONGEST BATTLEGROUNDS') && sectionId === 'strongest-battlegrounds') ||
+                        (itemText.includes('THE STRONGEST BATTLEGROUNDS') && sectionId === 'strongest-battlegrounds') || 
+(itemText.includes('THE FORGE') && sectionId === 'the-forge') ||
                         (itemText.includes('VOX SEAS') && sectionId === 'vox-seas') ||
                         (itemText.includes('WEAK LEGACY') && sectionId === 'weak-legacy') ||
                         (itemText.includes('Si lees esto, ignorame') && sectionId === 'saludo')) {
