@@ -67,6 +67,11 @@
 
 
 
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -111,6 +116,121 @@ canvas#particles-js {
   pointer-events: none;
   z-index: 1;
   opacity: 0.35;
+}
+
+.general-warning-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 300;
+  padding: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.general-warning-content {
+  background: linear-gradient(135deg, #1a0000 0%, #2a0000 50%, #1a0000 100%);
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+  border: 2px solid var(--accent-red);
+  position: relative;
+  overflow-y: auto;
+  transform: scale(0.95);
+  animation: scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes scaleIn {
+  to { transform: scale(1); }
+}
+
+.general-warning-header {
+  text-align: center;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 50, 50, 0.3);
+}
+
+.general-warning-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  color: var(--accent-red);
+  text-shadow: var(--neon-glow);
+  margin-bottom: 10px;
+  animation: pulseSubtle 1.5s infinite;
+}
+
+.general-warning-body {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  text-align: justify;
+}
+
+.general-warning-body p {
+  margin-bottom: 15px;
+}
+
+.general-warning-body strong {
+  color: var(--accent-red-light);
+  font-weight: 700;
+}
+
+.general-warning-body ul {
+  margin-left: 25px;
+  margin-bottom: 15px;
+}
+
+.general-warning-body li {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 15px;
+}
+
+.general-warning-body li::before {
+  content: "⚠️";
+  position: absolute;
+  left: -20px;
+}
+
+.warning-closing {
+  background: rgba(255, 0, 0, 0.1);
+  border-left: 4px solid var(--accent-red);
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.general-warning-btn {
+  background: linear-gradient(45deg, var(--accent-red-dark), var(--accent-red));
+  color: #000;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
+  margin-top: 20px;
+  display: block;
+  width: 100%;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.general-warning-btn:hover {
+  background: linear-gradient(45deg, var(--accent-red), #ff5555);
+  box-shadow: 0 7px 25px rgba(211, 47, 47, 0.6);
+  transform: translateY(-2px);
 }
 
 .sidebar {
@@ -609,30 +729,6 @@ footer p {
   box-shadow: var(--neon-glow);
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    width: 85%;
-    max-width: 280px;
-  }
-  
-  header h1 {
-    font-size: 1.8rem;
-  }
-  
-  .container {
-    grid-template-columns: 1fr;
-    padding: 15px;
-  }
-  
-  .card {
-    padding: 20px 15px;
-  }
-  
-  .warning-content {
-    max-width: 95%;
-  }
-}
-
 @keyframes fadeInDown {
   from {
     opacity: 0;
@@ -674,9 +770,76 @@ footer p {
     opacity: 1;
   }
 }
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 85%;
+    max-width: 280px;
+  }
+  
+  header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .container {
+    grid-template-columns: 1fr;
+    padding: 15px;
+  }
+  
+  .card {
+    padding: 20px 15px;
+  }
+  
+  .warning-content {
+    max-width: 95%;
+  }
+  
+  .general-warning-content {
+    padding: 25px 20px;
+  }
+  
+  .general-warning-title {
+    font-size: 1.8rem;
+  }
+  
+  .general-warning-body {
+    font-size: 0.9rem;
+  }
+}
 </style>
 </head>
 <body>
+
+<div class="general-warning-modal" id="generalWarningModal">
+  <div class="general-warning-content">
+    <div class="general-warning-header">
+      <h2 class="general-warning-title">📢 ADVERTENCIA IMPORTANTE A TODOS LOS USUARIOS</h2>
+    </div>
+    <div class="general-warning-body">
+      <p><strong>Estimados usuarios:</strong></p>
+      <p>Queremos informarles de manera oficial que, a la fecha, <strong>todos los executores de scripts conocidos para dispositivos móviles (Android e iOS) son detectados</strong> por el nuevo sistema anti-trampas implementado por Roblox (Hyperion Byfron actualizado).</p>
+      <p>Esto incluye, sin excepción, cualquier aplicación o método que permita la inyección o ejecución de scripts externos en la versión móvil del juego, independientemente de si se trata de versiones "undetected", modificadas, de pago o gratuitas.</p>
+      <p>El uso de cualquiera de estas herramientas en dispositivos móviles conlleva un <strong>alto riesgo de sanción permanente en la cuenta</strong>, incluyendo baneos definitivos sin posibilidad de apelación en la mayoría de los casos.</p>
+      
+      <p><strong>Recomendamos encarecidamente:</strong></p>
+      <ul>
+        <li>Desinstalar de inmediato cualquier ejecutor o aplicación relacionada.</li>
+        <li>No adquirir ni instalar herramientas que prometan ser "indetectables" en móviles, ya que actualmente no existen métodos seguros.</li>
+        <li>Jugar exclusivamente con la versión oficial de Roblox sin modificaciones.</li>
+      </ul>
+      
+      <p>Nuestra prioridad es proteger sus cuentas y evitar pérdidas innecesarias. Esta medida no es temporal: <strong>el sistema de detección en móviles se ha fortalecido de forma permanente.</strong></p>
+      
+      <div class="warning-closing">
+        <p>Gracias por su comprensión y por jugar de forma responsable.</p>
+        <p><strong>Atentamente,<br>Anti-Hambreado Script Team y asociados</strong></p>
+      </div>
+    </div>
+    <button class="general-warning-btn" id="generalWarningBtn">
+      <i class="fas fa-exclamation-triangle"></i> ENTENDIDO, CONTINUO BAJO MI RESPONSABILIDAD
+    </button>
+  </div>
+</div>
 
 <canvas id="particles-js"></canvas>
 
@@ -730,7 +893,7 @@ footer p {
     <img src="https://i.postimg.cc/7PpV45tj/R.I.P-FLUXUS.jpg" alt="Fluxus Z">
     <h2>Fluxus Z</h2>
     <div class="status-label detectable">🟠 Detectable</div>
-    <a class="download-btn" href="#" data-executor="fluxusz">
+    <a class="download-btn" href="https://www.mediafire.com/file/lbfvnnucuqq1gil/FluxusZ_V3.0.0.apk/file" target="_blank" rel="noopener noreferrer">
       <i class="fas fa-download"></i> Descargar
     </a>
   </div>
@@ -761,15 +924,16 @@ footer p {
       <i class="fas fa-download"></i> Descargar
     </a>
   </div>
-<div class="card">
+
+  <div class="card">
     <img src="https://i.postimg.cc/xTcp6LFz/new-logo.png" alt="KRNL">
     <h2>KRNL</h2>
     <div class="status-label desactualizado">⚫ Descontinuado</div>
-    <a class="download-btn" href="https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png" target="_blank" rel="noopener noreferrer">
+    <a class="download-btn" href="https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png" target="_blank" rel="noopener noreferrer" data-executor="krnl">
       <i class="fas fa-download"></i> Descargar
     </a>
     <div class="warning">⚠️ No instales el archivo con "VNG"</div>
-</div>
+  </div>
   
   <div class="card">
     <img src="https://i.postimg.cc/XY9Rgwpg/descarga-2.png" alt="Fluxus">
@@ -917,16 +1081,16 @@ const warnings = {
     body: `<p>🔴 <strong>DELTA representa un riesgo significativo para tu seguridad en línea.</strong></p><p>📛 <strong>¿Por qué es peligroso?</strong> Este executor compromete activamente la seguridad de tus credenciales y datos personales.</p><p>🕵️‍♂️ <strong>Actividades maliciosas confirmadas:</strong></p><ul><li>👤 Robo de nombres de usuario y perfiles</li><li>🔐 Sustracción de contraseñas y credenciales</li><li>📧 Interceptación de cuentas de Gmail</li><li>🛡️ API desactualizada que incrementa detectabilidad</li><li>📊 Vulnerabilidades de seguridad no parcheadas</li></ul><p>⚠️ <strong>Problema técnico crítico:</strong> La API de DELTA utiliza tecnologías obsoletas.</p><div class="warning-recommendation"><h3>💡 RECOMENDACIÓN DE SEGURIDAD</h3><p>Para mantener tu información segura, te sugerimos <strong>KRNL</strong> o <strong>Codex</strong>.</p></div>`,
     continueUrl: "https://delta.filenetwork.vip/android.html"
   },
-  fluxusz: {
-    title: "⚠️ Advertencia Importante",
-    subtitle: "El Executor que estás a punto de descargar NO es oficial.",
-    body: `<p>El Executor que estás a punto de descargar <strong>NO es oficial y no tiene los mismos desarrolladores que fluxus original</strong>. Su uso conlleva riesgos reales:</p><ul><li>Puede ser detectado por sistemas de seguridad.</li><li>Existe la posibilidad de que contenga Malware.</li><li>Podría robar información sensible, como:<ul><li>Tu cuenta de Roblox</li><li>Tu dirección IP</li><li>Tu cuenta de Gmail u otros datos personales</li></ul></li></ul><p>Casos como <strong>Delta</strong> y <strong>Ronix</strong> ya han demostrado que estos riesgos no son hipotéticos.</p><div class="warning-recommendation"><h3>🛑 Úsalo Bajo Tu Propio Riesgo</h3><p>Anti-Hambreado Script Team no se hace responsable por pérdidas, baneos o filtraciones de datos.</p></div>`,
-    continueUrl: "https://www.mediafire.com/file/lbfvnnucuqq1gil/FluxusZ_V3.0.0.apk/file"
+  krnl: {
+    title: "KRNL OFICIALMENTE HA SIDO DESCONTINUADO",
+    subtitle: "El Executor KRNL ya no está en desarrollo activo",
+    body: `<p>⚫ <strong>KRNL ha sido oficialmente descontinuado por sus desarrolladores.</strong></p><p>📛 <strong>¿Qué significa esto?</strong> El equipo detrás de KRNL ha detenido el soporte y desarrollo de esta herramienta, lo que la convierte en una opción insegura y obsoleta.</p><p>🔒 <strong>Riesgos de usar KRNL ahora:</strong></p><ul><li>🚫 No recibe actualizaciones de seguridad</li><li>⚠️ Alta probabilidad de ser detectado por sistemas anti-cheat</li><li>🛡️ Puede contener vulnerabilidades no parcheadas</li><li>📉 Los desarrolladores no recomiendan su uso</li><li>🔄 No es compatible con las últimas versiones de Roblox</li></ul><p>⚠️ <strong>Información importante:</strong> Cualquier versión de KRNL que circule actualmente no es oficial y podría representar un riesgo adicional.</p><div class="warning-recommendation"><h3>✅ ALTERNATIVAS RECOMENDADAS</h3><p>Te sugerimos utilizar <strong>Codex</strong> o <strong>Arceus</strong> como ejecutores activos y más seguros en la actualidad.</p></div>`,
+    continueUrl: "https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png"
   },
   fluxus: {
     title: "⚠️ Fluxus está descontinuado",
     subtitle: "El Executor Fluxus fue durante mucho tiempo una herramienta confiable.",
-    body: `<p>El Executor <strong>Fluxus</strong> fue durante mucho tiempo una herramienta confiable. Sin embargo, actualmente se encuentra <strong>descontinuado</strong>.</p><ul><li>Sus desarrolladores no han confirmado si volverá.</li><li>Recomiendan utilizar <strong>KRNL</strong> como alternativa.</li><li>Descargar versiones no oficiales podría exponerte a riesgos.</li></ul><div class="warning-recommendation"><h3>✅ ¿Qué puedes hacer?</h3><p>Te recomendamos probar <strong>KRNL</strong> (recomendado por los creadores) o <strong>Codex</strong>.</p></div>`,
+    body: `<p>El Executor <strong>Fluxus</strong> fue durante mucho tiempo una herramienta confiable. Sin embargo, actualmente se encuentra <strong>descontinuado</strong>.</p><ul><li>Sus desarrolladores no han confirmado si volverá.</li><li>Recomiendan utilizar <strong>CODEX</strong> como alternativa.</li><li>Descargar versiones no oficiales podría exponerte a riesgos.</li></ul><div class="warning-recommendation"><h3>✅ ¿Qué puedes hacer?</h3><p>Te recomendamos probar <strong>CODEX</strong> (recomendado por los creadores) o <strong>Codex</strong>.</p></div>`,
     continueUrl: "https://i.postimg.cc/WpyRFyJp/Screenshot_20250922-103258-857.png"
   }
 };
@@ -963,6 +1127,25 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && warningModal.classList.contains('active')) {
     warningModal.classList.remove('active');
   }
+});
+
+const generalWarningModal = document.getElementById('generalWarningModal');
+const generalWarningBtn = document.getElementById('generalWarningBtn');
+
+window.addEventListener('DOMContentLoaded', () => {
+  generalWarningModal.style.display = 'flex';
+  setTimeout(() => {
+    generalWarningModal.style.opacity = '1';
+    generalWarningModal.style.visibility = 'visible';
+  }, 100);
+});
+
+generalWarningBtn.addEventListener('click', () => {
+  generalWarningModal.style.opacity = '0';
+  generalWarningModal.style.visibility = 'hidden';
+  setTimeout(() => {
+    generalWarningModal.style.display = 'none';
+  }, 400);
 });
 </script>
 
