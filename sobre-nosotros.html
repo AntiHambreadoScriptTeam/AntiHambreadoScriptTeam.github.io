@@ -67,12 +67,6 @@
 
 
 
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -117,7 +111,6 @@
       position: relative;
     }
 
-    /* Canvas Partículas - Detrás de todo */
     #particles-canvas {
       position: fixed;
       top: 0;
@@ -128,7 +121,6 @@
       opacity: 0.4;
     }
 
-    /* Preloader */
     .preloader {
       position: fixed;
       top: 0;
@@ -161,13 +153,12 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Header Glassmorphism */
     header {
       background: var(--glass-bg);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--glass-border);
-      padding: 3rem 1rem;
+      padding: 3rem 1rem 3rem 80px;
       text-align: center;
       position: relative;
       z-index: 10;
@@ -210,7 +201,151 @@
       margin: 0 auto;
     }
 
-    /* Main Container */
+    .hamburger-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      cursor: pointer;
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .hamburger-btn:hover {
+      transform: scale(1.1);
+      border-color: var(--primary-red);
+      box-shadow: 0 0 15px var(--neon-red);
+    }
+
+    .hamburger-btn.active {
+      border-color: var(--primary-red);
+      background: var(--card-black);
+    }
+
+    .hamburger-line {
+      width: 24px;
+      height: 2px;
+      background: var(--text-white);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    .hamburger-btn.active .hamburger-line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+      background: var(--primary-red);
+    }
+
+    .hamburger-btn.active .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger-btn.active .hamburger-line:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+      background: var(--primary-red);
+    }
+
+    .hamburger-menu {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 320px;
+      height: 100vh;
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-right: 1px solid var(--glass-border);
+      z-index: 1000;
+      transition: left 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      overflow-y: auto;
+      padding: 100px 2rem 2rem;
+    }
+
+    .hamburger-menu.active {
+      left: 0;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.2rem;
+      margin-bottom: 0.5rem;
+      background: var(--secondary-black);
+      border: 1px solid var(--border-black);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text-gray);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--neon-red-weak), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .menu-item:hover::before {
+      left: 100%;
+    }
+
+    .menu-item:hover {
+      transform: translateX(10px);
+      border-color: var(--primary-red);
+      color: var(--text-white);
+      box-shadow: 0 0 15px var(--neon-red-weak);
+    }
+
+    .menu-item-icon {
+      font-size: 1.5rem;
+      color: var(--primary-red);
+      min-width: 30px;
+      text-align: center;
+      filter: drop-shadow(0 0 4px var(--neon-red));
+    }
+
+    .menu-item-text {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
     main {
       max-width: 1000px;
       margin: 0 auto;
@@ -219,7 +354,6 @@
       z-index: 5;
     }
 
-    /* Secciones */
     section {
       margin-bottom: 4rem;
       padding: 2.5rem;
@@ -291,7 +425,6 @@
       left: -1.2rem;
     }
 
-    /* Team Members Grid */
     .team-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -377,7 +510,6 @@
       filter: drop-shadow(0 0 3px var(--primary-red));
     }
 
-    /* Contact Buttons */
     .contact-links {
       display: flex;
       gap: 1rem;
@@ -428,7 +560,6 @@
       font-size: 1.1em;
     }
 
-    /* Footer */
     footer {
       background: var(--secondary-black);
       border-top: 1px solid var(--border-black);
@@ -438,14 +569,22 @@
       font-size: 0.9rem;
     }
 
-    /* Responsive */
     @media (max-width: 768px) {
+      header {
+        padding-left: 80px;
+      }
+      
       main {
         padding: 2rem 1rem;
       }
       
       section {
         padding: 1.8rem;
+      }
+      
+      .hamburger-menu {
+        width: 280px;
+        padding: 90px 1.5rem 1.5rem;
       }
       
       .team-grid {
@@ -464,7 +603,6 @@
       }
     }
 
-    /* Scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
     }
@@ -485,8 +623,50 @@
 </head>
 <body>
 
-  <!-- Canvas de Partículas -->
   <canvas id="particles-canvas"></canvas>
+
+  <div class="preloader" id="preloader">
+    <div class="preloader-icon"></div>
+  </div>
+
+  <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menú">
+    <div class="hamburger-line"></div>
+    <div class="hamburger-line"></div>
+    <div class="hamburger-line"></div>
+  </button>
+
+  <nav class="hamburger-menu" id="hamburgerMenu">
+    <a href="#proposito" class="menu-item">
+      <i class="fas fa-bullseye menu-item-icon"></i>
+      <span class="menu-item-text">Nuestro propósito</span>
+    </a>
+    <a href="#fundador" class="menu-item">
+      <i class="fas fa-crown menu-item-icon"></i>
+      <span class="menu-item-text">El fundador</span>
+    </a>
+    <a href="#integrantes" class="menu-item">
+      <i class="fas fa-shield-alt menu-item-icon"></i>
+      <span class="menu-item-text">Los integrantes</span>
+    </a>
+    <a href="#mision" class="menu-item">
+      <i class="fas fa-rocket menu-item-icon"></i>
+      <span class="menu-item-text">Nuestra misión</span>
+    </a>
+    <a href="#opinion" class="menu-item">
+      <i class="fas fa-handshake menu-item-icon"></i>
+      <span class="menu-item-text">Opinión sobre hambreado script</span>
+    </a>
+    <a href="#conclusion" class="menu-item">
+      <i class="fas fa-star menu-item-icon"></i>
+      <span class="menu-item-text">Conclusión</span>
+    </a>
+    <a href="#contacto" class="menu-item">
+      <i class="fas fa-envelope menu-item-icon"></i>
+      <span class="menu-item-text">Contáctanos</span>
+    </a>
+  </nav>
+
+  <div class="menu-overlay" id="menuOverlay"></div>
 
   <header>
     <div class="logo-container">
@@ -497,8 +677,8 @@
   </header>
 
   <main>
-    <section>
-      <h2><i class="fas fa-bullseye"></i> <span class="emoji">📌</span> Nuestro propósito</h2>
+    <section id="proposito">
+      <h2><i class="fas fa-bullseye"></i> <span class="emoji">Pin</span> Nuestro propósito</h2>
       <p>El Anti-Hambreado Script Team nació con una idea clara: liberar a la comunidad del yugo de los anuncios abusivos y los acortadores hambrientos. No creemos que un usuario deba pasar por diez ventanas emergentes, publicidad engañosa o contenido +18 solo para acceder a un script. Nuestro propósito es sencillo pero poderoso:</p>
       <ul>
         <li>Compartir sin hambre.</li>
@@ -508,15 +688,15 @@
       <p>En un mundo donde algunos prefieren llenar sus bolsillos a costa de la paciencia de los demás, nosotros preferimos llenar de orgullo y respeto a nuestra comunidad.</p>
     </section>
 
-    <section>
-      <h2><i class="fas fa-crown"></i> <span class="emoji">👑</span> El fundador: TheBanHammer</h2>
+    <section id="fundador">
+      <h2><i class="fas fa-crown"></i> <span class="emoji">Crown</span> El fundador: TheBanHammer</h2>
       <p>El 16 de marzo de 2025, TheBanHammer decidió que ya era suficiente.<br>
       Ese día, cansado de navegar por la jungla de anuncios de Campione Script, tomó el martillo y fundó este proyecto. No fue un capricho: fue una respuesta a la frustración de miles de usuarios que, con un clic en falso, terminaban en páginas dudosas, con publicidad invasiva y, peor aún, con contenido explícito no apto para menores.</p>
       <p>TheBanHammer entendió algo que otros olvidaron: la comunidad merece respeto, no trampas disfrazadas de "monetización".</p>
     </section>
 
-    <section>
-      <h2><i class="fas fa-shield-alt"></i> <span class="emoji">🛡️</span> Los integrantes del equipo</h2>
+    <section id="integrantes">
+      <h2><i class="fas fa-shield-alt"></i> <span class="emoji">Shield</span> Los integrantes del equipo</h2>
       <p>El Anti-Hambreado Script Team no es un héroe solitario, sino una escuadra de cinco guerreros digitales que defienden la causa:</p>
       
       <h3 style="color: var(--primary-red); margin: 2rem 0 1rem; font-size: 1.3rem;">Dueños del Canal:</h3>
@@ -564,8 +744,8 @@
       <p style="margin-top: 1.5rem;">Cada integrante aporta su estilo, pero todos comparten la misma convicción: la comunidad primero, el dinero después (o nunca).</p>
     </section>
 
-    <section>
-      <h2><i class="fas fa-rocket"></i> <span class="emoji">🚀</span> Nuestra misión</h2>
+    <section id="mision">
+      <h2><i class="fas fa-rocket"></i> <span class="emoji">Rocket</span> Nuestra misión</h2>
       <ul>
         <li>Dar links directos y sin anuncios.</li>
         <li>Nunca usar acortadores como Linkvertise o Lootlink.</li>
@@ -574,8 +754,8 @@
       <p>No buscamos fama vacía ni monetización a costa de la paciencia de los demás. Buscamos que cada usuario pueda acceder a lo que necesita sin sentirse estafado.</p>
     </section>
 
-    <section>
-      <h2><i class="fas fa-handshake"></i> <span class="emoji">🤝</span> Nuestra opinión sobre Campione Script</h2>
+    <section id="opinion">
+      <h2><i class="fas fa-handshake"></i> <span class="emoji">Handshake</span> Nuestra opinión sobre hambreado script</h2>
       <p>Aquí no hay odio ciego. De hecho, podríamos decir que somos "amigos" de Campione Script… pero amigos como los que te encuentras en un manicomio: convives, pero sabes que algo no anda bien.</p>
       <p>No lo odiamos, pero tampoco lo admiramos. Lo que sí hacemos es exponer su hambre:</p>
       <ul>
@@ -586,8 +766,8 @@
       <p>Mientras él piensa en su bolsillo, nosotros pensamos en la comunidad. Mientras él llena su página de trampas, nosotros llenamos la nuestra de confianza.</p>
     </section>
 
-    <section>
-      <h2><i class="fas fa-theater-masks"></i> <span class="emoji">🎭</span> Sección de burlas: El hambre de Campione</h2>
+    <section id="burlas">
+      <h2><i class="fas fa-theater-masks"></i> <span class="emoji">Masks</span> Sección de burlas: El hambre de Campione</h2>
       <p>Porque no todo es solemnidad, también hay espacio para la sátira.</p>
       <ul>
         <li><strong>Campione Script dice:</strong> "Haz clic aquí para tu script".<br>
@@ -600,14 +780,14 @@
       <p>En resumen: Campione no es un villano, es un ejemplo de lo que nunca queremos ser.</p>
     </section>
 
-    <section>
-      <h2><i class="fas fa-star"></i> <span class="emoji">🌟</span> Conclusión</h2>
+    <section id="conclusion">
+      <h2><i class="fas fa-star"></i> <span class="emoji">Star</span> Conclusión</h2>
       <p>El Anti-Hambreado Script Team no nació para competir por fama, sino para defender la dignidad de la comunidad. Somos la alternativa limpia, directa y orgullosa frente al hambre digital.</p>
       <p>Y mientras otros piensan en monetizar cada clic, nosotros pensamos en algo más grande: crear un espacio donde la confianza valga más que cualquier anuncio.</p>
     </section>
 
-    <section style="text-align: center;">
-      <h2><i class="fas fa-envelope"></i> <span class="emoji">📩</span> Contáctanos</h2>
+    <section id="contacto" style="text-align: center;">
+      <h2><i class="fas fa-envelope"></i> <span class="emoji">Envelope</span> Contáctanos</h2>
       <div class="contact-links">
         <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="contact-btn">
           <i class="fab fa-discord"></i> Únete al Discord
@@ -624,22 +804,19 @@
   </main>
 
   <footer>
-    <p>&copy; 2025 Anti-Hambreado Script Team — Comunidad primero, hambre nunca.</p>
+    <p>© 2025 Anti-Hambreado Script Team — Comunidad primero, hambre nunca.</p>
     <p style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-gray);">
       Desarrollado con <i class="fas fa-heart" style="color: var(--primary-red);"></i> por el equipo
     </p>
   </footer>
 
-  <!-- Scripts -->
   <script>
-    // Preloader
     window.addEventListener('load', () => {
       setTimeout(() => {
         document.getElementById('preloader').classList.add('hidden');
       }, 500);
     });
 
-    // Animación de secciones al hacer scroll
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
@@ -657,7 +834,6 @@
       observer.observe(section);
     });
 
-    // Sistema de Partículas
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
     
@@ -717,7 +893,51 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
+
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const menuItems = document.querySelectorAll('.menu-item');
+
+    function toggleMenu() {
+      hamburgerBtn.classList.toggle('active');
+      hamburgerMenu.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+      document.body.style.overflow = hamburgerMenu.classList.contains('active') ? 'hidden' : '';
+    }
+
+    hamburgerBtn.addEventListener('click', toggleMenu);
+    menuOverlay.addEventListener('click', toggleMenu);
+
+    menuItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = item.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+          const headerOffset = 100;
+          const elementPosition = targetSection.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+        
+        setTimeout(() => {
+          toggleMenu();
+        }, 300);
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && hamburgerMenu.classList.contains('active')) {
+        toggleMenu();
+      }
+    });
   </script>
 
 </body>
-</html>
+  </html>
