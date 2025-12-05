@@ -154,19 +154,19 @@
     }
 
     header {
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--glass-border);
-      padding: 3rem 1rem 3rem 80px;
-      text-align: center;
-      position: relative;
-      z-index: 10;
-    }
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 3rem 1rem;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
 
     .logo-container {
       display: inline-block;
-      position: center;
+      position: relative;
       margin-bottom: 1.5rem;
     }
 
@@ -568,11 +568,6 @@
       color: var(--text-gray);
       font-size: 0.9rem;
     }
-
-    @media (max-width: 768px) {
-      header {
-        padding-left: 80px;
-      }
       
       main {
         padding: 2rem 1rem;
