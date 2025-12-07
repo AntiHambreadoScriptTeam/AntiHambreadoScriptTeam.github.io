@@ -409,17 +409,18 @@ body {
     animation: buttonPulse 2s ease-in-out infinite;
     max-width: 220px;
     white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
+    margin: 0 auto;
+  }
+      
 .discord-button {
     background: linear-gradient(45deg, #7289da, #5865f2);
     border-color: #7289da;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
-} 
-
+}
+      
 @keyframes buttonPulse {
     0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
     50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.6); }
