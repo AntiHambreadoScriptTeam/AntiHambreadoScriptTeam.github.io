@@ -71,3 +71,1340 @@
 
 
 
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anti-Hambreado Script Team - Executores</title>
+<link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: rgba(20, 5, 5, 0.85);
+  --bg-card: rgba(25, 0, 0, 0.6);
+  --bg-log: rgba(15, 5, 5, 0.95);
+  --accent-red: #ff3333;
+  --accent-red-dark: #cc2222;
+  --accent-red-light: #ff9999;
+  --accent-green: #6bff6b;
+  --accent-orange: #ffaa6b;
+  --accent-gray: #aaa;
+  --text-primary: #ffcccc;
+  --text-secondary: #b34747;
+  --neon-shadow: 0 0 12px rgba(255, 50, 50, 0.25);
+  --neon-glow: 0 0 20px rgba(255, 30, 30, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+canvas#particles-js {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+}
+
+.general-warning-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 300;
+  padding: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.general-warning-content {
+  background: linear-gradient(135deg, #1a0000 0%, #2a0000 50%, #1a0000 100%);
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+  border: 2px solid var(--accent-red);
+  position: relative;
+  overflow-y: auto;
+  transform: scale(0.95);
+  animation: scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes scaleIn {
+  to { transform: scale(1); }
+}
+
+.general-warning-header {
+  text-align: center;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 50, 50, 0.3);
+}
+
+.general-warning-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  color: var(--accent-red);
+  text-shadow: var(--neon-glow);
+  margin-bottom: 10px;
+  animation: pulseSubtle 1.5s infinite;
+}
+
+.general-warning-body {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  text-align: justify;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100vh;
+  background: var(--bg-secondary);
+  backdrop-filter: blur(12px);
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+  padding: 80px 0 20px 0;
+  box-shadow: -8px 0 25px rgba(255, 0, 0, 0.15);
+  border-left: 1px solid rgba(255, 50, 50, 0.2);
+  overflow-y: auto;
+}
+
+.sidebar.active {
+  right: 0;
+}
+
+.sidebar-item {
+  padding: 16px 25px;
+  border-bottom: 1px solid rgba(255, 50, 50, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--accent-red-light);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.sidebar-item:hover {
+  background: rgba(255, 50, 50, 0.08);
+  transform: translateX(-5px);
+  border-left: 3px solid var(--accent-red);
+  color: #fff;
+  box-shadow: var(--neon-glow);
+}
+
+.sidebar-item.has-update::after {
+  content: '•';
+  color: var(--accent-green);
+  font-size: 2rem;
+  margin-left: auto;
+  animation: pulseDot 1.5s infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  backdrop-filter: blur(3px);
+}
+
+.menu-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+.menu-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  padding: 10px;
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 50, 50, 0.2);
+}
+
+.menu-toggle:hover {
+  background: rgba(255, 50, 50, 0.1);
+  box-shadow: var(--neon-glow);
+}
+
+.menu-toggle span {
+  width: 26px;
+  height: 2px;
+  background: var(--accent-red-light);
+  border-radius: 2px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+header {
+  text-align: center;
+  margin-top: 80px;
+  padding: 2rem 1rem;
+  animation: fadeInDown 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+header h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.4rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(270deg, var(--accent-red), var(--accent-red-light));
+  background-size: 400% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: neonGlowSubtle 4s ease-in-out infinite alternate;
+  letter-spacing: 1px;
+  text-shadow: var(--neon-shadow);
+}
+
+header p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  opacity: 0.85;
+}
+
+.last-check {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: var(--bg-secondary);
+  padding: 8px 15px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: var(--accent-red-light);
+  border: 1px solid rgba(255, 50, 50, 0.2);
+  z-index: 50;
+  font-weight: 600;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  padding: 25px;
+  max-width: 1200px;
+  margin: 0 auto 50px;
+}
+
+.card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+  border: 1px solid rgba(255, 50, 50, 0.15);
+  backdrop-filter: blur(5px);
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--neon-glow);
+  border-color: rgba(255, 50, 50, 0.3);
+}
+
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(6) { animation-delay: 0.6s; }
+.card:nth-child(7) { animation-delay: 0.7s; }
+
+.card img {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  margin-bottom: 18px;
+  transition: transform 0.4s ease;
+  filter: drop-shadow(0 0 8px rgba(255, 30, 30, 0.4));
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px;
+}
+
+.card:hover img {
+  transform: scale(1.08) rotate(2deg);
+}
+
+.card h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: var(--accent-red);
+  text-shadow: var(--neon-shadow);
+  letter-spacing: 1px;
+}
+
+.executor-info {
+  width: 100%;
+  margin: 10px 0;
+  padding: 0 15px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+
+.info-label {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.info-value {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.info-row.version .info-value {
+  color: var(--accent-green);
+  font-family: 'Orbitron', monospace;
+}
+
+.info-row.date .info-value {
+  color: var(--accent-red-light);
+}
+
+.status-label {
+  margin: 12px 0;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  user-select: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.status-label.peligro {
+  color: #ff6b6b;
+  background-color: rgba(255, 0, 0, 0.12);
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+}
+
+.status-label.detectable {
+  color: var(--accent-orange);
+  background-color: rgba(255, 165, 0, 0.12);
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.2);
+}
+
+.status-label.indetectable {
+  color: var(--accent-green);
+  background-color: rgba(0, 180, 0, 0.12);
+  box-shadow: 0 0 10px rgba(0, 180, 0, 0.2);
+}
+
+.status-label.desactualizado {
+  color: var(--accent-gray);
+  background-color: rgba(100, 100, 100, 0.12);
+  box-shadow: 0 0 10px rgba(100, 100, 100, 0.2);
+}
+
+.status-label.has-update {
+  animation: pulseStatus 1.5s infinite;
+}
+
+@keyframes pulseStatus {
+  0%, 100% { box-shadow: 0 0 10px rgba(0, 180, 0, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(0, 180, 0, 0.4); }
+}
+
+.download-btn {
+  background: linear-gradient(45deg, var(--accent-red-dark), var(--accent-red));
+  color: #000;
+  padding: 12px 28px;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3);
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.download-btn:hover {
+  background: linear-gradient(45deg, var(--accent-red), #ff5555);
+  box-shadow: 0 7px 20px rgba(211, 47, 47, 0.5);
+  transform: translateY(-2px);
+}
+
+.download-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.download-btn:hover::before {
+  left: 100%;
+}
+
+.warning {
+  font-size: 0.8rem;
+  color: #ffdd59;
+  margin-top: 12px;
+  text-align: center;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 221, 89, 0.15);
+}
+
+.discord-section {
+  text-align: center;
+  margin: 50px auto 60px;
+  padding: 40px 30px;
+  background: rgba(40, 40, 60, 0.7);
+  border-radius: 20px;
+  max-width: 600px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(114, 137, 218, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.discord-section img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+  transition: transform 0.4s ease;
+  filter: drop-shadow(0 0 10px rgba(114, 137, 218, 0.4));
+}
+
+.discord-section:hover img {
+  transform: scale(1.1) rotate(4deg);
+}
+
+.discord-section h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #7289DA;
+  text-shadow: 0 0 8px rgba(114, 137, 218, 0.4);
+}
+
+.discord-btn {
+  background: linear-gradient(45deg, #7289DA, #5b6eae);
+  color: #fff;
+  padding: 14px 32px;
+  text-decoration: none;
+  border-radius: 14px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(114, 137, 218, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.discord-btn:hover {
+  background: linear-gradient(45deg, #8ea1e1, #7289DA);
+  box-shadow: 0 7px 20px rgba(114, 137, 218, 0.5);
+  transform: translateY(-2px);
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  background: rgba(15, 5, 5, 0.85);
+  margin-top: 40px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-top: 1px solid rgba(255, 50, 50, 0.15);
+}
+
+footer p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+.warning-modal, .log-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+  padding: 15px;
+}
+
+.warning-modal.active, .log-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.warning-content, .log-content {
+  background: linear-gradient(135deg, #2a0000 0%, #4a0000 100%);
+  width: 100%;
+  max-width: 500px;
+  max-height: 85vh;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
+  border: 1px solid rgba(255, 51, 51, 0.3);
+  position: relative;
+  overflow: hidden;
+  transform: scale(0.95);
+  transition: transform 0.4s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.warning-modal.active .warning-content, 
+.log-modal.active .log-content {
+  transform: scale(1);
+}
+
+.warning-header, .log-header {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.warning-title, .log-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  color: var(--accent-red);
+  text-shadow: var(--neon-shadow);
+  margin-bottom: 8px;
+  animation: pulseSubtle 2s infinite;
+}
+
+.log-subtitle {
+  font-size: 0.9rem;
+  color: var(--accent-red-light);
+  margin-bottom: 12px;
+}
+
+.warning-body, .log-body {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  border-left: 3px solid var(--accent-red);
+  flex: 1;
+  overflow-y: auto;
+  max-height: 50vh;
+}
+
+.log-entry {
+  padding: 12px;
+  margin-bottom: 10px;
+  background: rgba(255, 50, 50, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid var(--accent-red);
+  font-size: 0.85rem;
+}
+
+.log-entry-date {
+  color: var(--accent-red-light);
+  font-weight: 700;
+  font-size: 0.75rem;
+  margin-bottom: 5px;
+}
+
+.log-entry-text {
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.log-entry.executor-update {
+  border-left-color: var(--accent-green);
+}
+
+.log-entry.executor-update .log-entry-date {
+  color: var(--accent-green);
+}
+
+.no-logs {
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+  padding: 20px;
+}
+
+.warning-recommendation {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 10px;
+  border: 1px solid rgba(255, 170, 85, 0.3);
+}
+
+.warning-recommendation h3 {
+  color: #ffaa55;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.warning-recommendation p {
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}
+
+.warning-buttons, .log-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.warning-btn, .log-btn {
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.warning-btn.cancel, .log-btn.close {
+  background: linear-gradient(45deg, #444, #666);
+  color: #fff;
+}
+
+.warning-btn.cancel:hover, .log-btn.close:hover {
+  background: linear-gradient(45deg, #555, #777);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+.warning-btn.continue {
+  background: linear-gradient(45deg, var(--accent-red-dark), var(--accent-red));
+  color: #000;
+}
+
+.warning-btn.continue:hover {
+  background: linear-gradient(45deg, var(--accent-red), #ff5555);
+  box-shadow: var(--neon-glow);
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes neonGlowSubtle {
+  0% {
+    background-position: 0% 50%;
+    text-shadow: var(--neon-shadow);
+  }
+  100% {
+    background-position: 100% 50%;
+    text-shadow: var(--neon-glow);
+  }
+}
+
+@keyframes pulseSubtle {
+  0%, 100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 85%;
+    max-width: 280px;
+  }
+  
+  .last-check {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+  
+  header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .container {
+    grid-template-columns: 1fr;
+    padding: 15px;
+  }
+  
+  .card {
+    padding: 20px 15px;
+  }
+  
+  .info-row {
+    font-size: 0.8rem;
+  }
+  
+  .warning-content, .log-content {
+    max-width: 95%;
+  }
+  
+  .general-warning-content {
+    padding: 25px 20px;
+  }
+  
+  .general-warning-title {
+    font-size: 1.8rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="general-warning-modal" id="generalWarningModal">
+  <div class="general-warning-content">
+    <div class="general-warning-header">
+      <h2 class="general-warning-title">📢 ADVERTENCIA IMPORTANTE A TODOS LOS USUARIOS</h2>
+    </div>
+    <div class="general-warning-body">
+      <p><strong>Estimados usuarios:</strong></p>
+      <p>Queremos informarles que <strong>todos los executores móviles son detectados</strong> por el sistema anti-trampas de Roblox.</p>
+      <p><strong>Recomendamos encarecidamente desinstalar cualquier ejecutor.</strong></p>
+      <div class="warning-closing">
+        <p>Gracias por su comprensión.</p>
+        <p><strong>Atentamente,<br>Anti-Hambreado Script Team</strong></p>
+      </div>
+    </div>
+    <button class="general-warning-btn" id="generalWarningBtn">
+      <i class="fas fa-exclamation-triangle"></i> ENTENDIDO, CONTINUO BAJO MI RESPONSABILIDAD
+    </button>
+  </div>
+</div>
+
+<canvas id="particles-js"></canvas>
+
+<div class="last-check" id="lastCheckStatus">
+  <i class="fas fa-sync-alt"></i> Última verificación: Nunca
+</div>
+
+<div class="warning-modal" id="warningModal">
+  <div class="warning-content">
+    <div class="warning-header">
+      <h2 class="warning-title" id="warningTitle">PELIGRO ⚠️</h2>
+      <p class="warning-subtitle" id="warningSubtitle">Este executor actualmente es peligroso de usar</p>
+    </div>
+    <div class="warning-body" id="warningBody"></div>
+    <div class="warning-buttons">
+      <button class="warning-btn cancel" id="cancelBtn"><i class="fas fa-times"></i> Cancelar Descarga</button>
+      <button class="warning-btn continue" id="continueBtn"><i class="fas fa-exclamation-triangle"></i> Continuar bajo mi responsabilidad</button>
+    </div>
+  </div>
+</div>
+
+<div class="log-modal" id="logModal">
+  <div class="log-content">
+    <div class="log-header">
+      <h2 class="log-title">📊 LOG DE ACTUALIZACIONES</h2>
+      <p class="log-subtitle">Cambios detectados automáticamente</p>
+    </div>
+    <div class="log-body" id="logBody">
+      <div class="no-logs">No hay cambios registrados aún.</div>
+    </div>
+    <div class="log-buttons">
+      <button class="log-btn close" id="closeLogBtn"><i class="fas fa-check"></i> Entendido</button>
+    </div>
+  </div>
+</div>
+
+<div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" role="button" tabindex="0">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<div class="sidebar" id="menuPanel" aria-hidden="true">
+  <a class="sidebar-item" href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" rel="noopener noreferrer">
+    <i class="fas fa-scroll"></i> Scripts aquí
+  </a>
+  <a class="sidebar-item" href="https://youtube.com/@anti-hambreado-script-team" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-youtube"></i> Nuestro canal de YouTube
+  </a>
+  <div class="sidebar-item" id="logToggle">
+    <i class="fas fa-history"></i> Ver Log de Actualizaciones
+    <span id="logIndicator" style="display: none;">•</span>
+  </div>
+</div>
+
+<div class="menu-overlay" id="menuOverlay" tabindex="-1"></div>
+
+<header>
+  <h1>Roblox Executores Hub</h1>
+  <p>Última actualización: <span id="pageLastUpdate">Cargando...</span></p>
+</header>
+
+<div class="container" id="executorsContainer">
+</div>
+
+<div class="discord-section">
+  <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Discord Logo">
+  <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL</h2>
+  <a href="https://discord.gg/rTGF5xhe3h" target="_blank" rel="noopener noreferrer" class="discord-btn">
+    <i class="fab fa-discord"></i> Unirse a Discord
+  </a>
+</div>
+
+<footer>
+  <p>© 2025 Anti-Hambreado Script Team. Todos los derechos reservados.</p>
+  <p>Diseñado con ❤️ para nuestra comunidad</p>
+</footer>
+
+<script>
+const CONFIG = {
+  REPO_API_URL: 'https://api.github.com/repos/AntiHambreadoScriptTeam/AntiHambreadoScriptTeam.github.io/contents/Executores/Logs',
+  CHECK_INTERVAL: 3600000,
+  STORAGE_KEY: 'executores_data',
+  LOGS_KEY: 'executores_logs',
+  LAST_CHECK_KEY: 'executores_lastcheck'
+};
+
+class AutoUpdateSystem {
+  constructor() {
+    this.data = null;
+    this.logs = this.loadLogs();
+    this.init();
+  }
+
+  async init() {
+    await this.checkForUpdates();
+    this.startAutoCheck();
+    this.updateLastCheckUI();
+  }
+
+  startAutoCheck() {
+    setInterval(() => {
+      this.checkForUpdates();
+    }, CONFIG.CHECK_INTERVAL);
+    
+    setInterval(() => {
+      const lastCheck = localStorage.getItem(CONFIG.LAST_CHECK_KEY);
+      if (!lastCheck || Date.now() - parseInt(lastCheck) > CONFIG.CHECK_INTERVAL) {
+        this.checkForUpdates();
+      }
+    }, 300000);
+  }
+
+  async checkForUpdates() {
+    try {
+      const response = await fetch(CONFIG.REPO_API_URL);
+      if (!response.ok) throw new Error('No se pudo acceder al repositorio');
+      
+      const content = await response.json();
+      const decodedContent = JSON.parse(atob(content.content));
+      
+      const previousData = this.loadStoredData();
+      
+      if (previousData) {
+        this.compareAndLogChanges(previousData, decodedContent);
+      }
+      
+      this.data = decodedContent;
+      this.saveData(decodedContent);
+      this.updateExecutorsUI();
+      this.updateLastCheckTime();
+      
+    } catch (error) {
+      console.error('Error al verificar actualizaciones:', error);
+      this.loadLocalData();
+    }
+  }
+
+  compareAndLogChanges(oldData, newData) {
+    const changes = [];
+    const timestamp = new Date().toLocaleString('es-ES');
+    
+    for (const [key, executor] of Object.entries(newData.executores)) {
+      const oldExecutor = oldData.executores[key];
+      
+      if (!oldExecutor) {
+        changes.push({
+          date: timestamp,
+          message: `🆕 Nuevo executor agregado: **${executor.nombre}** v${executor.version}`,
+          type: 'new'
+        });
+        continue;
+      }
+      
+      if (oldExecutor.version !== executor.version) {
+        changes.push({
+          date: timestamp,
+          message: `🔄 **${executor.nombre}** actualizado de v${oldExecutor.version} a v${executor.version}`,
+          type: 'update'
+        });
+      }
+      
+      if (oldExecutor.status !== executor.status) {
+        changes.push({
+          date: timestamp,
+          message: `⚠️ **${executor.nombre}** cambió de estado: ${this.getStatusText(oldExecutor.status)} → ${this.getStatusText(executor.status)}`,
+          type: 'status'
+        });
+      }
+      
+      if (oldExecutor.link_descarga !== executor.link_descarga) {
+        changes.push({
+          date: timestamp,
+          message: `📥 **${executor.nombre}**: Enlace de descarga actualizado`,
+          type: 'link'
+        });
+      }
+    }
+    
+    if (changes.length > 0) {
+      this.logs.unshift(...changes);
+      this.logs = this.logs.slice(0, 50);
+      this.saveLogs();
+      this.updateLogIndicator();
+    }
+  }
+
+  getStatusText(status) {
+    const statusMap = {
+      'peligro': 'Peligroso',
+      'detectable': 'Detectable',
+      'indetectable': 'Indetectable',
+      'desactualizado': 'Descontinuado'
+    };
+    return statusMap[status] || status;
+  }
+
+  loadLogs() {
+    const stored = localStorage.getItem(CONFIG.LOGS_KEY);
+    return stored ? JSON.parse(stored) : [];
+  }
+
+  saveLogs() {
+    localStorage.setItem(CONFIG.LOGS_KEY, JSON.stringify(this.logs));
+  }
+
+  loadStoredData() {
+    const stored = localStorage.getItem(CONFIG.STORAGE_KEY);
+    return stored ? JSON.parse(stored) : null;
+  }
+
+  saveData(data) {
+    localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(data));
+  }
+
+  loadLocalData() {
+    const stored = this.loadStoredData();
+    if (stored) {
+      this.data = stored;
+      this.updateExecutorsUI();
+    }
+  }
+
+  updateExecutorsUI() {
+    if (!this.data || !this.data.executores) return;
+    
+    const container = document.getElementById('executoresContainer');
+    container.innerHTML = '';
+    
+    Object.entries(this.data.executores).forEach(([key, executor]) => {
+      const card = this.createExecutorCard(key, executor);
+      container.appendChild(card);
+    });
+    
+    const pageUpdateEl = document.getElementById('pageLastUpdate');
+    if (this.data.ultima_actualizacion) {
+      pageUpdateEl.textContent = new Date(this.data.ultima_actualizacion).toLocaleDateString('es-ES');
+    }
+  }
+
+  createExecutorCard(key, executor) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${executor.imagen}" alt="${executor.nombre}">
+      <h2>${executor.nombre}</h2>
+      <div class="executor-info">
+        <div class="info-row version">
+          <span class="info-label">Versión:</span>
+          <span class="info-value">v${executor.version}</span>
+        </div>
+        <div class="info-row date">
+          <span class="info-label">Actualizado:</span>
+          <span class="info-value">${executor.fecha_actualizacion}</span>
+        </div>
+      </div>
+      <div class="status-label ${executor.status}">
+        ${this.getStatusIcon(executor.status)} ${this.getStatusText(executor.status)}
+      </div>
+      <a class="download-btn" href="#" data-executor="${key}">
+        <i class="fas fa-download"></i> Descargar
+      </a>
+    `;
+    return card;
+  }
+
+  getStatusIcon(status) {
+    const icons = {
+      'peligro': '⚠️',
+      'detectable': '🟠',
+      'indetectable': '🟢',
+      'desactualizado': '⚫'
+    };
+    return icons[status] || '❓';
+  }
+
+  updateLastCheckTime() {
+    localStorage.setItem(CONFIG.LAST_CHECK_KEY, Date.now().toString());
+    this.updateLastCheckUI();
+  }
+
+  updateLastCheckUI() {
+    const lastCheckEl = document.getElementById('lastCheckStatus');
+    const lastCheck = localStorage.getItem(CONFIG.LAST_CHECK_KEY);
+    
+    if (lastCheck) {
+      const lastDate = new Date(parseInt(lastCheck));
+      const timeDiff = Math.floor((Date.now() - lastDate) / 60000);
+      let text = 'Última verificación: ';
+      
+      if (timeDiff < 1) text += 'ahora mismo';
+      else if (timeDiff < 60) text += `hace ${timeDiff} min`;
+      else text += `hace ${Math.floor(timeDiff / 60)} h`;
+      
+      lastCheckEl.innerHTML = `<i class="fas fa-sync-alt"></i> ${text}`;
+    }
+  }
+
+  updateLogIndicator() {
+    const indicator = document.getElementById('logIndicator');
+    const logToggle = document.getElementById('logToggle');
+    
+    if (this.logs.length > 0) {
+      indicator.style.display = 'inline-block';
+      logToggle.classList.add('has-update');
+    } else {
+      indicator.style.display = 'none';
+      logToggle.classList.remove('has-update');
+    }
+  }
+
+  getLogs() {
+    return this.logs;
+  }
+}
+
+const autoUpdate = new AutoUpdateSystem();
+
+const menuToggle = document.getElementById('menuToggle');
+const menuPanel = document.getElementById('menuPanel');
+const menuOverlay = document.getElementById('menuOverlay');
+
+menuToggle.addEventListener('click', () => {
+  menuToggle.classList.toggle('active');
+  menuPanel.classList.toggle('active');
+  menuOverlay.classList.toggle('active');
+});
+
+menuOverlay.addEventListener('click', () => {
+  menuToggle.classList.remove('active');
+  menuPanel.classList.remove('active');
+  menuOverlay.classList.remove('active');
+});
+
+const warningModal = document.getElementById('warningModal');
+const warningTitle = document.getElementById('warningTitle');
+const warningSubtitle = document.getElementById('warningSubtitle');
+const warningBody = document.getElementById('warningBody');
+const cancelBtn = document.getElementById('cancelBtn');
+const continueBtn = document.getElementById('continueBtn');
+
+const warnings = {
+  ronix: {
+    title: "PELIGRO ⚠️",
+    subtitle: "Este executor actualmente es peligroso de usar",
+    body: `<p>🔴 <strong>RONIX representa una grave amenaza para tu seguridad digital.</strong></p><p>📛 <strong>¿Por qué es peligroso?</strong> Robo sistemático de información.</p><ul><li>🔓 Robo de IP y datos de localización</li><li>📧 Sustracción de cuentas de Gmail</li><li>💳 Información personal sensible</li><li>📝 Falsificación de certificados</li></ul><div class="warning-recommendation"><h3>💡 RECOMENDACIÓN</h3><p>Usa <strong>KRNL</strong> o <strong>Codex</strong> como alternativas confiables.</p></div>`,
+    continueUrl: "https://wrdcdn.net/r/154522/1763702832864/Ronix_64Bits%20(1).apk"
+  },
+  delta: {
+    title: "PELIGRO ⚠️",
+    subtitle: "Este executor actualmente es peligroso de usar",
+    body: `<p>🔴 <strong>DELTA representa un riesgo significativo.</strong></p><p>📛 <strong>Actividades maliciosas:</strong></p><ul><li>👤 Robo de nombres de usuario</li><li>🔐 Sustracción de contraseñas</li><li>📧 Interceptación de Gmail</li><li>🛡️ API desactualizada</li></ul><div class="warning-recommendation"><h3>💡 RECOMENDACIÓN</h3><p>Usa <strong>KRNL</strong> o <strong>Codex</strong> como alternativas.</p></div>`,
+    continueUrl: "https://delta.filenetwork.vip/android.html"
+  },
+  krnl: {
+    title: "⚠️ KRNL ESTÁ DESCONTINUADO",
+    subtitle: "El Executor KRNL ya no está en desarrollo activo",
+    body: `<p>⚫ <strong>KRNL ha sido oficialmente descontinuado.</strong></p><p>🔒 <strong>Riesgos:</strong></p><ul><li>🚫 Sin actualizaciones de seguridad</li><li>⚠️ Alta detectabilidad</li><li>🛡️ Vulnerabilidades sin parchear</li></ul><div class="warning-recommendation"><h3>✅ ALTERNATIVAS</h3><p>Usa <strong>Codex</strong> o <strong>Arceus</strong> como ejecutores activos.</p></div>`,
+    continueUrl: "https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png"
+  }
+};
+
+document.addEventListener('click', (e) => {
+  const button = e.target.closest('.download-btn[data-executor]');
+  if (button) {
+    e.preventDefault();
+    const executor = button.getAttribute('data-executor');
+    if (warnings[executor]) {
+      showWarning(warnings[executor]);
+    } else {
+      const executorData = autoUpdate.data.executores[executor];
+      if (executorData) {
+        window.open(executorData.link_descarga, '_blank');
+      }
+    }
+  }
+});
+
+function showWarning(warning) {
+  warningTitle.innerHTML = warning.title;
+  warningSubtitle.textContent = warning.subtitle;
+  warningBody.innerHTML = warning.body;
+  warningModal.classList.add('active');
+  
+  continueBtn.onclick = function() {
+    if (warning.continueUrl) {
+      window.open(warning.continueUrl, '_blank');
+    }
+    warningModal.classList.remove('active');
+  };
+}
+
+cancelBtn.addEventListener('click', () => warningModal.classList.remove('active'));
+warningModal.addEventListener('click', (e) => {
+  if (e.target === warningModal) warningModal.classList.remove('active');
+});
+
+const logModal = document.getElementById('logModal');
+const logBody = document.getElementById('logBody');
+const logToggle = document.getElementById('logToggle');
+const closeLogBtn = document.getElementById('closeLogBtn');
+
+logToggle.addEventListener('click', () => {
+  showLog();
+  menuToggle.classList.remove('active');
+  menuPanel.classList.remove('active');
+  menuOverlay.classList.remove('active');
+});
+
+closeLogBtn.addEventListener('click', () => logModal.classList.remove('active'));
+logModal.addEventListener('click', (e) => {
+  if (e.target === logModal) logModal.classList.remove('active');
+});
+
+function showLog() {
+  const logs = autoUpdate.getLogs();
+  logBody.innerHTML = '';
+  
+  if (logs.length === 0) {
+    logBody.innerHTML = '<div class="no-logs">No hay cambios registrados aún.</div>';
+  } else {
+    logs.forEach(log => {
+      const entry = document.createElement('div');
+      entry.className = 'log-entry executor-update';
+      entry.innerHTML = `
+        <div class="log-entry-date">${log.date}</div>
+        <div class="log-entry-text">${log.message}</div>
+      `;
+      logBody.appendChild(entry);
+    });
+  }
+  
+  logModal.classList.add('active');
+  autoUpdate.updateLogIndicator();
+}
+
+const generalWarningModal = document.getElementById('generalWarningModal');
+const generalWarningBtn = document.getElementById('generalWarningBtn');
+
+window.addEventListener('DOMContentLoaded', () => {
+  generalWarningModal.style.display = 'flex';
+  setTimeout(() => {
+    generalWarningModal.style.opacity = '1';
+    generalWarningModal.style.visibility = 'visible';
+  }, 100);
+});
+
+generalWarningBtn.addEventListener('click', () => {
+  generalWarningModal.style.opacity = '0';
+  generalWarningModal.style.visibility = 'hidden';
+  setTimeout(() => generalWarningModal.style.display = 'none', 400);
+});
+
+const canvas = document.getElementById('particles-js');
+const ctx = canvas.getContext('2d');
+let w, h;
+
+function resize() {
+  w = innerWidth;
+  h = innerHeight;
+  canvas.width = w;
+  canvas.height = h;
+}
+resize();
+addEventListener('resize', resize);
+
+class Particle {
+  constructor() {
+    const edge = Math.floor(Math.random() * 4);
+    switch(edge) {
+      case 0: this.x = Math.random() * w; this.y = 0; break;
+      case 1: this.x = w; this.y = Math.random() * h; break;
+      case 2: this.x = Math.random() * w; this.y = h; break;
+      case 3: this.x = 0; this.y = Math.random() * h; break;
+    }
+    this.vx = (w/2 - this.x) * 0.0012 * (Math.random() * 0.6 + 0.4);
+    this.vy = (h/2 - this.y) * 0.0012 * (Math.random() * 0.6 + 0.4);
+    this.r = Math.random() * 1.5 + 0.5;
+    this.life = 0;
+    this.max = 400 + Math.random() * 300;
+    this.a = 0;
+    this.as = 0.006 + Math.random() * 0.005;
+    this.color = `rgba(${180 + Math.random() * 40}, ${40 + Math.random() * 30}, ${40 + Math.random() * 30},`;
+  }
+  
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.life++;
+    
+    if(this.life < this.max/3) this.a += this.as;
+    else if(this.life > this.max * 0.75) this.a -= this.as;
+    
+    if(this.life > this.max || this.a <= 0) this.reset();
+  }
+  
+  reset() {
+    const edge = Math.floor(Math.random() * 4);
+    switch(edge) {
+      case 0: this.x = Math.random() * w; this.y = 0; break;
+      case 1: this.x = w; this.y = Math.random() * h; break;
+      case 2: this.x = Math.random() * w; this.y = h; break;
+      case 3: this.x = 0; this.y = Math.random() * h; break;
+    }
+    this.vx = (w/2 - this.x) * 0.0012 * (Math.random() * 0.6 + 0.4);
+    this.vy = (h/2 - this.y) * 0.0012 * (Math.random() * 0.6 + 0.4);
+    this.life = 0;
+    this.max = 400 + Math.random() * 300;
+    this.a = 0;
+  }
+  
+  draw() {
+    ctx.beginPath();
+    const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r * 3);
+    g.addColorStop(0, this.color + this.a + ')');
+    g.addColorStop(1, this.color + '0)');
+    ctx.fillStyle = g;
+    ctx.arc(this.x, this.y, this.r * 3, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.beginPath();
+    ctx.fillStyle = this.color + this.a + ')';
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+const particles = Array.from({length: 40}, () => new Particle());
+
+function animate() {
+  ctx.clearRect(0, 0, w, h);
+  particles.forEach(p => {
+    p.update();
+    p.draw();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    warningModal.classList.remove('active');
+    logModal.classList.remove('active');
+  }
+});
+</script>
+
+</body>
+</html>
