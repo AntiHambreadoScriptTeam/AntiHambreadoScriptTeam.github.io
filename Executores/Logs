@@ -1,9 +1,9 @@
 {
   "executores": {
     "codex": {
-      "nombre": "Codex",
-      "version": "2.5.1",
-      "fecha_actualizacion": "2025-12-07",
+      "nombre": "CodeX",
+      "version": "2.700",
+      "fecha_actualizacion": "2025-11-26",
       "status": "detectable",
       "link_descarga": "https://gofile.io/d/UzbLud",
       "imagen": "https://i.postimg.cc/hGrNkc8z/descarga-3.jpg"
@@ -17,8 +17,8 @@
       "imagen": "https://i.postimg.cc/7PpV45tj/R.I.P-FLUXUS.jpg"
     },
     "arceus": {
-      "nombre": "Arceus",
-      "version": "1.8.2",
+      "nombre": "ArceusX",
+      "version": "1.9.5",
       "fecha_actualizacion": "2025-12-05",
       "status": "detectable",
       "link_descarga": "https://android.spdmteam.com/",
@@ -26,16 +26,16 @@
     },
     "delta": {
       "nombre": "Delta",
-      "version": "2.701",
-      "fecha_actualizacion": "2025-12-08",
+      "version": "2.700",
+      "fecha_actualizacion": "2025-12-03",
       "status": "peligro",
       "link_descarga": "https://delta.filenetwork.vip/android.html",
       "imagen": "https://i.postimg.cc/VkyyM7L6/images.jpg"
     },
     "ronix": {
       "nombre": "Ronix",
-      "version": "1.4.0",
-      "fecha_actualizacion": "2025-11-20",
+      "version": "2.700",
+      "fecha_actualizacion": "2025-12-06",
       "status": "peligro",
       "link_descarga": "https://wrdcdn.net/r/154522/1763702832864/Ronix_64Bits%20(1).apk",
       "imagen": "https://i.postimg.cc/P5vc51Wj/ronix-081525.webp"
@@ -43,7 +43,7 @@
     "krnl": {
       "nombre": "KRNL",
       "version": "0.0.0",
-      "fecha_actualizacion": "2025-11-27",
+      "fecha_actualizacion": "2025-11-01",
       "status": "desactualizado",
       "link_descarga": "https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png",
       "imagen": "https://i.postimg.cc/xTcp6LFz/new-logo.png"
@@ -51,7 +51,7 @@
     "fluxus": {
       "nombre": "Fluxus",
       "version": "0.0.0",
-      "fecha_actualizacion": "2025-09-22",
+      "fecha_actualizacion": "2025-09-25",
       "status": "desactualizado",
       "link_descarga": "https://i.postimg.cc/WpyRFyJp/Screenshot_20250922-103258-857.png",
       "imagen": "https://i.postimg.cc/XY9Rgwpg/descarga-2.png"
