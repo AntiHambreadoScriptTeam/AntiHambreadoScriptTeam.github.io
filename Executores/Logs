@@ -1,43 +1,61 @@
-
-
-Executor: CodeX
-Link: https://gofile.io/d/UzbLud
-Versión: 2.700
-Ultima Actualización : 26/11/2025
-Status : Detectable
-
-Executor : Fluxus Z
-Link: https://wrdcdn.net/r/68963/1765043213492/FluxusZ%20V3.0.3%20ARM64.apk
-Versión : 3.0.3
-Última actualización : 3/12/2025
-Status : Detectable
-
-Executor : ArceusX
-Link: https://android.spdmteam.com/
-Versión : 1.9.5
-Última actualización : 27/11/2025
-Status : Detectable
-
-Executor : Delta
-Link: https://deltaexploits.gg/delta-executor-android
-Versión : 2.700
-Última actualización : 3/12/2025
-Status : Detectable + Peligroso
-
-Executor : Ronix
-Link: https://wrdcdn.net/r/154522/1765018355640/Ronix_64Bits.apk
-Versión : 2.700 
-Última actualización : 6/12/2025
-status : Detectable + Peligroso 
-
-Executor : KRNL
-Link: https://i.postimg.cc/3wGBBKGd/Screenshot_20251127_063341_787.png
-Versión : N/D
-Última actualización : 27/11/2025
-Status : DESCONTINUADO
-
-Executor : FLUXUS
-Link: https://i.postimg.cc/WpyRFyJp/Screenshot_20250922-103258-857.png
-Versión : N/D
-Última actualización : 25/09/2025
-Status : DESCONTINUADO
+{
+  "executores": {
+    "codex": {
+      "nombre": "Codex",
+      "version": "2.5.1",
+      "fecha_actualizacion": "2025-12-07",
+      "status": "detectable",
+      "link_descarga": "https://gofile.io/d/UzbLud",
+      "imagen": "https://i.postimg.cc/hGrNkc8z/descarga-3.jpg"
+    },
+    "fluxusz": {
+      "nombre": "Fluxus Z",
+      "version": "3.0.3",
+      "fecha_actualizacion": "2025-12-06",
+      "status": "detectable",
+      "link_descarga": "https://www.mediafire.com/file/3tp4j75bwfaqu9c/FluxusZ+V3.0.3+ARM64.apk/file",
+      "imagen": "https://i.postimg.cc/7PpV45tj/R.I.P-FLUXUS.jpg"
+    },
+    "arceus": {
+      "nombre": "Arceus",
+      "version": "1.8.2",
+      "fecha_actualizacion": "2025-12-05",
+      "status": "detectable",
+      "link_descarga": "https://android.spdmteam.com/",
+      "imagen": "https://i.postimg.cc/R0cDc9pp/descarga-4.jpg"
+    },
+    "delta": {
+      "nombre": "Delta",
+      "version": "2.701",
+      "fecha_actualizacion": "2025-12-08",
+      "status": "peligro",
+      "link_descarga": "https://delta.filenetwork.vip/android.html",
+      "imagen": "https://i.postimg.cc/VkyyM7L6/images.jpg"
+    },
+    "ronix": {
+      "nombre": "Ronix",
+      "version": "1.4.0",
+      "fecha_actualizacion": "2025-11-20",
+      "status": "peligro",
+      "link_descarga": "https://wrdcdn.net/r/154522/1763702832864/Ronix_64Bits%20(1).apk",
+      "imagen": "https://i.postimg.cc/P5vc51Wj/ronix-081525.webp"
+    },
+    "krnl": {
+      "nombre": "KRNL",
+      "version": "0.0.0",
+      "fecha_actualizacion": "2025-11-27",
+      "status": "desactualizado",
+      "link_descarga": "https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png",
+      "imagen": "https://i.postimg.cc/xTcp6LFz/new-logo.png"
+    },
+    "fluxus": {
+      "nombre": "Fluxus",
+      "version": "0.0.0",
+      "fecha_actualizacion": "2025-09-22",
+      "status": "desactualizado",
+      "link_descarga": "https://i.postimg.cc/WpyRFyJp/Screenshot_20250922-103258-857.png",
+      "imagen": "https://i.postimg.cc/XY9Rgwpg/descarga-2.png"
+    }
+  },
+  "ultima_actualizacion": "2025-12-08T15:30:00Z"
+}
