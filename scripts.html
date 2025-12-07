@@ -415,15 +415,6 @@ body {
     justify-content: center;
   }
       
-.discord-button {
-    background: linear-gradient(45deg, #7289da, #5865f2);
-    border-color: #7289da;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-basis: 100%;
-      }
       
 @keyframes buttonPulse {
     0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
@@ -451,6 +442,16 @@ body {
     box-shadow: 0 15px 35px rgba(255, 0, 0, 0.4);
 }
 
+      .discord-button {
+    background: linear-gradient(45deg, #7289da, #5865f2);
+    border-color: #7289da;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    order: 3;
+      } 
       
 .discord-button:hover {
     background: linear-gradient(45deg, #5865f2, #7289da);
