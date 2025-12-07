@@ -398,7 +398,7 @@ body {
     background: linear-gradient(45deg, rgba(255, 0, 0, 0.2), rgba(255, 51, 51, 0.2));
     color: #fff;
     border: 2px solid #ff0000;
-    padding: 15px 30px;
+    padding: 15px 25px;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.4s ease;
@@ -407,10 +407,18 @@ body {
     position: relative;
     overflow: hidden;
     animation: buttonPulse 2s ease-in-out infinite;
-    max-width: 350px;
+    max-width: 220px;
     white-space: nowrap;
-    margin: 0 auto
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.discord-button {
+    background: linear-gradient(45deg, #7289da, #5865f2);
+    border-color: #7289da;
+    gap: 10px;
+} 
 
 @keyframes buttonPulse {
     0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
@@ -438,14 +446,6 @@ body {
     box-shadow: 0 15px 35px rgba(255, 0, 0, 0.4);
 }
 
-      .discord-button {
-    background: linear-gradient(45deg, #7289da, #5865f2);
-    border-color: #7289da;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
       
 .discord-button:hover {
     background: linear-gradient(45deg, #5865f2, #7289da);
