@@ -72,7 +72,6 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -87,13 +86,9 @@
   --bg-primary: #0a0a0a;
   --bg-secondary: rgba(20, 5, 5, 0.85);
   --bg-card: rgba(25, 0, 0, 0.6);
-  --bg-log: rgba(15, 5, 5, 0.95);
   --accent-red: #ff3333;
   --accent-red-dark: #cc2222;
   --accent-red-light: #ff9999;
-  --accent-green: #6bff6b;
-  --accent-orange: #ffaa6b;
-  --accent-gray: #aaa;
   --text-primary: #ffcccc;
   --text-secondary: #b34747;
   --neon-shadow: 0 0 12px rgba(255, 50, 50, 0.25);
@@ -180,6 +175,64 @@ canvas#particles-js {
   text-align: justify;
 }
 
+.general-warning-body p {
+  margin-bottom: 15px;
+}
+
+.general-warning-body strong {
+  color: var(--accent-red-light);
+  font-weight: 700;
+}
+
+.general-warning-body ul {
+  margin-left: 25px;
+  margin-bottom: 15px;
+}
+
+.general-warning-body li {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 15px;
+}
+
+.general-warning-body li::before {
+  content: "⚠️";
+  position: absolute;
+  left: -20px;
+}
+
+.warning-closing {
+  background: rgba(255, 0, 0, 0.1);
+  border-left: 4px solid var(--accent-red);
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.general-warning-btn {
+  background: linear-gradient(45deg, var(--accent-red-dark), var(--accent-red));
+  color: #000;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
+  margin-top: 20px;
+  display: block;
+  width: 100%;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.general-warning-btn:hover {
+  background: linear-gradient(45deg, var(--accent-red), #ff5555);
+  box-shadow: 0 7px 25px rgba(211, 47, 47, 0.6);
+  transform: translateY(-2px);
+}
+
 .sidebar {
   position: fixed;
   top: 0;
@@ -220,19 +273,6 @@ canvas#particles-js {
   border-left: 3px solid var(--accent-red);
   color: #fff;
   box-shadow: var(--neon-glow);
-}
-
-.sidebar-item.has-update::after {
-  content: '•';
-  color: var(--accent-green);
-  font-size: 2rem;
-  margin-left: auto;
-  animation: pulseDot 1.5s infinite;
-}
-
-@keyframes pulseDot {
-  0%, 100% { opacity: 0.8; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
 }
 
 .menu-overlay {
@@ -283,6 +323,18 @@ canvas#particles-js {
   transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
 header {
   text-align: center;
   margin-top: 80px;
@@ -307,20 +359,6 @@ header p {
   font-size: 1rem;
   color: var(--text-secondary);
   opacity: 0.85;
-}
-
-.last-check {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  background: var(--bg-secondary);
-  padding: 8px 15px;
-  border-radius: 12px;
-  font-size: 0.8rem;
-  color: var(--accent-red-light);
-  border: 1px solid rgba(255, 50, 50, 0.2);
-  z-index: 50;
-  font-weight: 600;
 }
 
 .container {
@@ -386,39 +424,6 @@ header p {
   letter-spacing: 1px;
 }
 
-.executor-info {
-  width: 100%;
-  margin: 10px 0;
-  padding: 0 15px;
-}
-
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-  font-size: 0.85rem;
-}
-
-.info-label {
-  color: var(--text-secondary);
-  font-weight: 600;
-}
-
-.info-value {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.info-row.version .info-value {
-  color: var(--accent-green);
-  font-family: 'Orbitron', monospace;
-}
-
-.info-row.date .info-value {
-  color: var(--accent-red-light);
-}
-
 .status-label {
   margin: 12px 0;
   padding: 6px 16px;
@@ -427,7 +432,6 @@ header p {
   font-size: 0.9rem;
   user-select: none;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
 }
 
 .status-label.peligro {
@@ -437,30 +441,21 @@ header p {
 }
 
 .status-label.detectable {
-  color: var(--accent-orange);
+  color: #ffaa6b;
   background-color: rgba(255, 165, 0, 0.12);
   box-shadow: 0 0 10px rgba(255, 165, 0, 0.2);
 }
 
 .status-label.indetectable {
-  color: var(--accent-green);
+  color: #6bff6b;
   background-color: rgba(0, 180, 0, 0.12);
   box-shadow: 0 0 10px rgba(0, 180, 0, 0.2);
 }
 
 .status-label.desactualizado {
-  color: var(--accent-gray);
+  color: #aaa;
   background-color: rgba(100, 100, 100, 0.12);
   box-shadow: 0 0 10px rgba(100, 100, 100, 0.2);
-}
-
-.status-label.has-update {
-  animation: pulseStatus 1.5s infinite;
-}
-
-@keyframes pulseStatus {
-  0%, 100% { box-shadow: 0 0 10px rgba(0, 180, 0, 0.2); }
-  50% { box-shadow: 0 0 20px rgba(0, 180, 0, 0.4); }
 }
 
 .download-btn {
@@ -582,7 +577,7 @@ footer p {
   font-size: 0.9rem;
 }
 
-.warning-modal, .log-modal {
+.warning-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -599,12 +594,12 @@ footer p {
   padding: 15px;
 }
 
-.warning-modal.active, .log-modal.active {
+.warning-modal.active {
   opacity: 1;
   visibility: visible;
 }
 
-.warning-content, .log-content {
+.warning-content {
   background: linear-gradient(135deg, #2a0000 0%, #4a0000 100%);
   width: 100%;
   max-width: 500px;
@@ -621,17 +616,16 @@ footer p {
   flex-direction: column;
 }
 
-.warning-modal.active .warning-content, 
-.log-modal.active .log-content {
+.warning-modal.active .warning-content {
   transform: scale(1);
 }
 
-.warning-header, .log-header {
+.warning-header {
   text-align: center;
   margin-bottom: 15px;
 }
 
-.warning-title, .log-title {
+.warning-title {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.8rem;
   color: var(--accent-red);
@@ -640,13 +634,13 @@ footer p {
   animation: pulseSubtle 2s infinite;
 }
 
-.log-subtitle {
-  font-size: 0.9rem;
+.warning-subtitle {
+  font-size: 1rem;
   color: var(--accent-red-light);
   margin-bottom: 12px;
 }
 
-.warning-body, .log-body {
+.warning-body {
   background: rgba(0, 0, 0, 0.4);
   padding: 15px;
   border-radius: 10px;
@@ -657,40 +651,21 @@ footer p {
   max-height: 50vh;
 }
 
-.log-entry {
-  padding: 12px;
-  margin-bottom: 10px;
-  background: rgba(255, 50, 50, 0.05);
-  border-radius: 8px;
-  border-left: 3px solid var(--accent-red);
-  font-size: 0.85rem;
+.warning-body p {
+  margin-bottom: 12px;
+  line-height: 1.6;
+  font-size: 0.9rem;
 }
 
-.log-entry-date {
-  color: var(--accent-red-light);
-  font-weight: 700;
-  font-size: 0.75rem;
-  margin-bottom: 5px;
+.warning-body ul {
+  margin-left: 20px;
+  margin-bottom: 12px;
 }
 
-.log-entry-text {
-  color: var(--text-primary);
+.warning-body li {
+  margin-bottom: 8px;
   line-height: 1.5;
-}
-
-.log-entry.executor-update {
-  border-left-color: var(--accent-green);
-}
-
-.log-entry.executor-update .log-entry-date {
-  color: var(--accent-green);
-}
-
-.no-logs {
-  text-align: center;
-  color: var(--text-secondary);
-  font-style: italic;
-  padding: 20px;
+  font-size: 0.85rem;
 }
 
 .warning-recommendation {
@@ -712,13 +687,13 @@ footer p {
   margin-bottom: 0;
 }
 
-.warning-buttons, .log-buttons {
+.warning-buttons {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.warning-btn, .log-btn {
+.warning-btn {
   padding: 14px 20px;
   border: none;
   border-radius: 10px;
@@ -734,12 +709,12 @@ footer p {
   gap: 8px;
 }
 
-.warning-btn.cancel, .log-btn.close {
+.warning-btn.cancel {
   background: linear-gradient(45deg, #444, #666);
   color: #fff;
 }
 
-.warning-btn.cancel:hover, .log-btn.close:hover {
+.warning-btn.cancel:hover {
   background: linear-gradient(45deg, #555, #777);
   box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
 }
@@ -802,11 +777,6 @@ footer p {
     max-width: 280px;
   }
   
-  .last-check {
-    font-size: 0.7rem;
-    padding: 5px 10px;
-  }
-  
   header h1 {
     font-size: 1.8rem;
   }
@@ -820,11 +790,7 @@ footer p {
     padding: 20px 15px;
   }
   
-  .info-row {
-    font-size: 0.8rem;
-  }
-  
-  .warning-content, .log-content {
+  .warning-content {
     max-width: 95%;
   }
   
@@ -834,6 +800,10 @@ footer p {
   
   .general-warning-title {
     font-size: 1.8rem;
+  }
+  
+  .general-warning-body {
+    font-size: 0.9rem;
   }
 }
 </style>
@@ -873,10 +843,6 @@ footer p {
 
 <canvas id="particles-js"></canvas>
 
-<div class="last-check" id="lastCheckStatus">
-  <i class="fas fa-sync-alt"></i> Última verificación: Nunca
-</div>
-
 <div class="warning-modal" id="warningModal">
   <div class="warning-content">
     <div class="warning-header">
@@ -887,21 +853,6 @@ footer p {
     <div class="warning-buttons">
       <button class="warning-btn cancel" id="cancelBtn"><i class="fas fa-times"></i> Cancelar Descarga</button>
       <button class="warning-btn continue" id="continueBtn"><i class="fas fa-exclamation-triangle"></i> Continuar bajo mi responsabilidad</button>
-    </div>
-  </div>
-</div>
-
-<div class="log-modal" id="logModal">
-  <div class="log-content">
-    <div class="log-header">
-      <h2 class="log-title">📊 LOG DE ACTUALIZACIONES</h2>
-      <p class="log-subtitle">Cambios detectados automáticamente</p>
-    </div>
-    <div class="log-body" id="logBody">
-      <div class="no-logs">No hay cambios registrados aún.</div>
-    </div>
-    <div class="log-buttons">
-      <button class="log-btn close" id="closeLogBtn"><i class="fas fa-check"></i> Entendido</button>
     </div>
   </div>
 </div>
@@ -919,20 +870,81 @@ footer p {
   <a class="sidebar-item" href="https://youtube.com/@anti-hambreado-script-team" target="_blank" rel="noopener noreferrer">
     <i class="fab fa-youtube"></i> Nuestro canal de YouTube
   </a>
-  <div class="sidebar-item" id="logToggle">
-    <i class="fas fa-history"></i> Ver Log de Actualizaciones
-    <span id="logIndicator" style="display: none;">•</span>
-  </div>
 </div>
 
 <div class="menu-overlay" id="menuOverlay" tabindex="-1"></div>
 
 <header>
   <h1>Roblox Executores Hub</h1>
-  <p>Última actualización: <span id="pageLastUpdate">Cargando...</span></p>
+  <p>Última actualización: Diciembre 6, 2025</p>
 </header>
 
-<div class="container" id="executorsContainer">
+<div class="container">
+  <div class="card">
+    <img src="https://i.postimg.cc/hGrNkc8z/descarga-3.jpg" alt="Codex">
+    <h2>Codex</h2>
+    <div class="status-label detectable">🟠 Detectable</div>
+    <a class="download-btn" href="https://gofile.io/d/UzbLud" target="_blank" rel="noopener noreferrer">
+      <i class="fas fa-download"></i> Descargar
+    </a>
+  </div>
+
+  <div class="card">
+    <img src="https://i.postimg.cc/7PpV45tj/R.I.P-FLUXUS.jpg" alt="Fluxus Z">
+    <h2>Fluxus Z</h2>
+    <div class="status-label detectable">🟡 Semi-Indetectable</div>
+    <a class="download-btn" href="https://www.mediafire.com/file/3tp4j75bwfaqu9c/FluxusZ+V3.0.3+ARM64.apk/file" target="_blank" rel="noopener noreferrer">
+      <i class="fas fa-download"></i> Descargar
+    </a>
+  </div>
+
+  <div class="card">
+    <img src="https://i.postimg.cc/R0cDc9pp/descarga-4.jpg" alt="Arceus">
+    <h2>Arceus</h2>
+    <div class="status-label detectable">🟡 Semi-Indetectable</div>
+    <a class="download-btn" href="https://android.spdmteam.com/" target="_blank" rel="noopener noreferrer">
+      <i class="fas fa-download"></i> Descargar
+    </a>
+  </div>
+
+  <div class="card">
+    <img src="https://i.postimg.cc/VkyyM7L6/images.jpg" alt="Delta">
+    <h2>Delta</h2>
+    <div class="status-label peligro">⚠️ Peligroso</div>
+    <div class="status-label detectable">🟠 Detectable</div>
+    <a class="download-btn" href="#" data-executor="delta">
+      <i class="fas fa-download"></i> Descargar
+    </a>
+  </div>
+
+  <div class="card">
+    <img src="https://i.postimg.cc/P5vc51Wj/ronix-081525.webp" alt="Ronix">
+    <h2>Ronix</h2>
+    <div class="status-label peligro">⚠️ Peligroso</div>
+    <div class="status-label detectable">🟠 Detectable</div>
+    <a class="download-btn" href="#" data-executor="ronix">
+      <i class="fas fa-download"></i> Descargar
+    </a>
+  </div>
+
+  <div class="card">
+    <img src="https://i.postimg.cc/xTcp6LFz/new-logo.png" alt="KRNL">
+    <h2>KRNL</h2>
+    <div class="status-label desactualizado">⚫ Descontinuado</div>
+    <a class="download-btn" href="https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png" target="_blank" rel="noopener noreferrer" data-executor="krnl">
+      <i class="fas fa-download"></i> Descargar
+    </a>
+    <div class="warning">⚠️ No instales el archivo con "VNG"</div>
+  </div>
+  
+  <div class="card">
+    <img src="https://i.postimg.cc/XY9Rgwpg/descarga-2.png" alt="Fluxus">
+    <h2>Fluxus</h2>
+    <div class="status-label desactualizado">⚫ Descontinuado</div>
+    <a class="download-btn" href="#" data-executor="fluxus">
+      <i class="fas fa-download"></i> Descargar
+    </a>
+  </div>
 </div>
 
 <div class="discord-section">
@@ -949,380 +961,6 @@ footer p {
 </footer>
 
 <script>
-const CONFIG = {
-  REPO_API_URL: 'https://api.github.com/repos/AntiHambreadoScriptTeam/AntiHambreadoScriptTeam.github.io/contents/Executores/Logs',
-  CHECK_INTERVAL: 100,
-  STORAGE_KEY: 'executores_data',
-  LOGS_KEY: 'executores_logs',
-  LAST_CHECK_KEY: 'executores_lastcheck'
-};
-
-class AutoUpdateSystem {
-  constructor() {
-    this.data = null;
-    this.logs = this.loadLogs();
-    this.init();
-  }
-
-  async init() {
-    await this.checkForUpdates();
-    this.startAutoCheck();
-    this.updateLastCheckUI();
-  }
-
-  startAutoCheck() {
-    setInterval(() => {
-      this.checkForUpdates();
-    }, CONFIG.CHECK_INTERVAL);
-    
-    setInterval(() => {
-      const lastCheck = localStorage.getItem(CONFIG.LAST_CHECK_KEY);
-      if (!lastCheck || Date.now() - parseInt(lastCheck) > CONFIG.CHECK_INTERVAL) {
-        this.checkForUpdates();
-      }
-    }, 300000);
-  }
-
-  async checkForUpdates() {
-    try {
-      const response = await fetch(CONFIG.REPO_API_URL);
-      if (!response.ok) throw new Error('No se pudo acceder al repositorio');
-      
-      const content = await response.json();
-      const decodedContent = JSON.parse(atob(content.content));
-      
-      const previousData = this.loadStoredData();
-      
-      if (previousData) {
-        this.compareAndLogChanges(previousData, decodedContent);
-      }
-      
-      this.data = decodedContent;
-      this.saveData(decodedContent);
-      this.updateExecutorsUI();
-      this.updateLastCheckTime();
-      
-    } catch (error) {
-      console.error('Error al verificar actualizaciones:', error);
-      this.loadLocalData();
-    }
-  }
-
-  compareAndLogChanges(oldData, newData) {
-    const changes = [];
-    const timestamp = new Date().toLocaleString('es-ES');
-    
-    for (const [key, executor] of Object.entries(newData.executores)) {
-      const oldExecutor = oldData.executores[key];
-      
-      if (!oldExecutor) {
-        changes.push({
-          date: timestamp,
-          message: `🆕 Nuevo executor agregado: **${executor.nombre}** v${executor.version}`,
-          type: 'new'
-        });
-        continue;
-      }
-      
-      if (oldExecutor.version !== executor.version) {
-        changes.push({
-          date: timestamp,
-          message: `🔄 **${executor.nombre}** actualizado de v${oldExecutor.version} a v${executor.version}`,
-          type: 'update'
-        });
-      }
-      
-      if (oldExecutor.status !== executor.status) {
-        changes.push({
-          date: timestamp,
-          message: `⚠️ **${executor.nombre}** cambió de estado: ${this.getStatusText(oldExecutor.status)} → ${this.getStatusText(executor.status)}`,
-          type: 'status'
-        });
-      }
-      
-      if (oldExecutor.link_descarga !== executor.link_descarga) {
-        changes.push({
-          date: timestamp,
-          message: `📥 **${executor.nombre}**: Enlace de descarga actualizado`,
-          type: 'link'
-        });
-      }
-    }
-    
-    if (changes.length > 0) {
-      this.logs.unshift(...changes);
-      this.logs = this.logs.slice(0, 50);
-      this.saveLogs();
-      this.updateLogIndicator();
-    }
-  }
-
-  getStatusText(status) {
-    const statusMap = {
-      'peligro': 'Peligroso',
-      'detectable': 'Detectable',
-      'indetectable': 'Indetectable',
-      'desactualizado': 'Descontinuado'
-    };
-    return statusMap[status] || status;
-  }
-
-  loadLogs() {
-    const stored = localStorage.getItem(CONFIG.LOGS_KEY);
-    return stored ? JSON.parse(stored) : [];
-  }
-
-  saveLogs() {
-    localStorage.setItem(CONFIG.LOGS_KEY, JSON.stringify(this.logs));
-  }
-
-  loadStoredData() {
-    const stored = localStorage.getItem(CONFIG.STORAGE_KEY);
-    return stored ? JSON.parse(stored) : null;
-  }
-
-  saveData(data) {
-    localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(data));
-  }
-
-  loadLocalData() {
-    const stored = this.loadStoredData();
-    if (stored) {
-      this.data = stored;
-      this.updateExecutorsUI();
-    }
-  }
-
-  updateExecutorsUI() {
-    if (!this.data || !this.data.executores) return;
-    
-    const container = document.getElementById('executoresContainer');
-    container.innerHTML = '';
-    
-    Object.entries(this.data.executores).forEach(([key, executor]) => {
-      const card = this.createExecutorCard(key, executor);
-      container.appendChild(card);
-    });
-    
-    const pageUpdateEl = document.getElementById('pageLastUpdate');
-    if (this.data.ultima_actualizacion) {
-      pageUpdateEl.textContent = new Date(this.data.ultima_actualizacion).toLocaleDateString('es-ES');
-    }
-  }
-
-  createExecutorCard(key, executor) {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <img src="${executor.imagen}" alt="${executor.nombre}">
-      <h2>${executor.nombre}</h2>
-      <div class="executor-info">
-        <div class="info-row version">
-          <span class="info-label">Versión:</span>
-          <span class="info-value">v${executor.version}</span>
-        </div>
-        <div class="info-row date">
-          <span class="info-label">Actualizado:</span>
-          <span class="info-value">${executor.fecha_actualizacion}</span>
-        </div>
-      </div>
-      <div class="status-label ${executor.status}">
-        ${this.getStatusIcon(executor.status)} ${this.getStatusText(executor.status)}
-      </div>
-      <a class="download-btn" href="#" data-executor="${key}">
-        <i class="fas fa-download"></i> Descargar
-      </a>
-    `;
-    return card;
-  }
-
-  getStatusIcon(status) {
-    const icons = {
-      'peligro': '⚠️',
-      'detectable': '🟠',
-      'indetectable': '🟢',
-      'desactualizado': '⚫'
-    };
-    return icons[status] || '❓';
-  }
-
-  updateLastCheckTime() {
-    localStorage.setItem(CONFIG.LAST_CHECK_KEY, Date.now().toString());
-    this.updateLastCheckUI();
-  }
-
-  updateLastCheckUI() {
-    const lastCheckEl = document.getElementById('lastCheckStatus');
-    const lastCheck = localStorage.getItem(CONFIG.LAST_CHECK_KEY);
-    
-    if (lastCheck) {
-      const lastDate = new Date(parseInt(lastCheck));
-      const timeDiff = Math.floor((Date.now() - lastDate) / 60000);
-      let text = 'Última verificación: ';
-      
-      if (timeDiff < 1) text += 'ahora mismo';
-      else if (timeDiff < 60) text += `hace ${timeDiff} min`;
-      else text += `hace ${Math.floor(timeDiff / 60)} h`;
-      
-      lastCheckEl.innerHTML = `<i class="fas fa-sync-alt"></i> ${text}`;
-    }
-  }
-
-  updateLogIndicator() {
-    const indicator = document.getElementById('logIndicator');
-    const logToggle = document.getElementById('logToggle');
-    
-    if (this.logs.length > 0) {
-      indicator.style.display = 'inline-block';
-      logToggle.classList.add('has-update');
-    } else {
-      indicator.style.display = 'none';
-      logToggle.classList.remove('has-update');
-    }
-  }
-
-  getLogs() {
-    return this.logs;
-  }
-}
-
-const autoUpdate = new AutoUpdateSystem();
-
-const menuToggle = document.getElementById('menuToggle');
-const menuPanel = document.getElementById('menuPanel');
-const menuOverlay = document.getElementById('menuOverlay');
-
-menuToggle.addEventListener('click', () => {
-  menuToggle.classList.toggle('active');
-  menuPanel.classList.toggle('active');
-  menuOverlay.classList.toggle('active');
-});
-
-menuOverlay.addEventListener('click', () => {
-  menuToggle.classList.remove('active');
-  menuPanel.classList.remove('active');
-  menuOverlay.classList.remove('active');
-});
-
-const warningModal = document.getElementById('warningModal');
-const warningTitle = document.getElementById('warningTitle');
-const warningSubtitle = document.getElementById('warningSubtitle');
-const warningBody = document.getElementById('warningBody');
-const cancelBtn = document.getElementById('cancelBtn');
-const continueBtn = document.getElementById('continueBtn');
-
-const warnings = {
-  ronix: {
-    title: "PELIGRO ⚠️",
-    subtitle: "Este executor actualmente es peligroso de usar",
-    body: `<p>🔴 <strong>RONIX representa una grave amenaza para tu seguridad digital.</strong></p><p>📛 <strong>¿Por qué es peligroso?</strong> Robo sistemático de información.</p><ul><li>🔓 Robo de IP y datos de localización</li><li>📧 Sustracción de cuentas de Gmail</li><li>💳 Información personal sensible</li><li>📝 Falsificación de certificados</li></ul><div class="warning-recommendation"><h3>💡 RECOMENDACIÓN</h3><p>Usa <strong>KRNL</strong> o <strong>Codex</strong> como alternativas confiables.</p></div>`,
-    continueUrl: "https://wrdcdn.net/r/154522/1763702832864/Ronix_64Bits%20(1).apk"
-  },
-  delta: {
-    title: "PELIGRO ⚠️",
-    subtitle: "Este executor actualmente es peligroso de usar",
-    body: `<p>🔴 <strong>DELTA representa un riesgo significativo.</strong></p><p>📛 <strong>Actividades maliciosas:</strong></p><ul><li>👤 Robo de nombres de usuario</li><li>🔐 Sustracción de contraseñas</li><li>📧 Interceptación de Gmail</li><li>🛡️ API desactualizada</li></ul><div class="warning-recommendation"><h3>💡 RECOMENDACIÓN</h3><p>Usa <strong>KRNL</strong> o <strong>Codex</strong> como alternativas.</p></div>`,
-    continueUrl: "https://delta.filenetwork.vip/android.html"
-  },
-  krnl: {
-    title: "⚠️ KRNL ESTÁ DESCONTINUADO",
-    subtitle: "El Executor KRNL ya no está en desarrollo activo",
-    body: `<p>⚫ <strong>KRNL ha sido oficialmente descontinuado.</strong></p><p>🔒 <strong>Riesgos:</strong></p><ul><li>🚫 Sin actualizaciones de seguridad</li><li>⚠️ Alta detectabilidad</li><li>🛡️ Vulnerabilidades sin parchear</li></ul><div class="warning-recommendation"><h3>✅ ALTERNATIVAS</h3><p>Usa <strong>Codex</strong> o <strong>Arceus</strong> como ejecutores activos.</p></div>`,
-    continueUrl: "https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png"
-  }
-};
-
-document.addEventListener('click', (e) => {
-  const button = e.target.closest('.download-btn[data-executor]');
-  if (button) {
-    e.preventDefault();
-    const executor = button.getAttribute('data-executor');
-    if (warnings[executor]) {
-      showWarning(warnings[executor]);
-    } else {
-      const executorData = autoUpdate.data.executores[executor];
-      if (executorData) {
-        window.open(executorData.link_descarga, '_blank');
-      }
-    }
-  }
-});
-
-function showWarning(warning) {
-  warningTitle.innerHTML = warning.title;
-  warningSubtitle.textContent = warning.subtitle;
-  warningBody.innerHTML = warning.body;
-  warningModal.classList.add('active');
-  
-  continueBtn.onclick = function() {
-    if (warning.continueUrl) {
-      window.open(warning.continueUrl, '_blank');
-    }
-    warningModal.classList.remove('active');
-  };
-}
-
-cancelBtn.addEventListener('click', () => warningModal.classList.remove('active'));
-warningModal.addEventListener('click', (e) => {
-  if (e.target === warningModal) warningModal.classList.remove('active');
-});
-
-const logModal = document.getElementById('logModal');
-const logBody = document.getElementById('logBody');
-const logToggle = document.getElementById('logToggle');
-const closeLogBtn = document.getElementById('closeLogBtn');
-
-logToggle.addEventListener('click', () => {
-  showLog();
-  menuToggle.classList.remove('active');
-  menuPanel.classList.remove('active');
-  menuOverlay.classList.remove('active');
-});
-
-closeLogBtn.addEventListener('click', () => logModal.classList.remove('active'));
-logModal.addEventListener('click', (e) => {
-  if (e.target === logModal) logModal.classList.remove('active');
-});
-
-function showLog() {
-  const logs = autoUpdate.getLogs();
-  logBody.innerHTML = '';
-  
-  if (logs.length === 0) {
-    logBody.innerHTML = '<div class="no-logs">No hay cambios registrados aún.</div>';
-  } else {
-    logs.forEach(log => {
-      const entry = document.createElement('div');
-      entry.className = 'log-entry executor-update';
-      entry.innerHTML = `
-        <div class="log-entry-date">${log.date}</div>
-        <div class="log-entry-text">${log.message}</div>
-      `;
-      logBody.appendChild(entry);
-    });
-  }
-  
-  logModal.classList.add('active');
-  autoUpdate.updateLogIndicator();
-}
-
-const generalWarningModal = document.getElementById('generalWarningModal');
-const generalWarningBtn = document.getElementById('generalWarningBtn');
-
-window.addEventListener('DOMContentLoaded', () => {
-  generalWarningModal.style.display = 'flex';
-  setTimeout(() => {
-    generalWarningModal.style.opacity = '1';
-    generalWarningModal.style.visibility = 'visible';
-  }, 100);
-});
-
-generalWarningBtn.addEventListener('click', () => {
-  generalWarningModal.style.opacity = '0';
-  generalWarningModal.style.visibility = 'hidden';
-  setTimeout(() => generalWarningModal.style.display = 'none', 400);
-});
-
 const canvas = document.getElementById('particles-js');
 const ctx = canvas.getContext('2d');
 let w, h;
@@ -1409,11 +1047,107 @@ function animate() {
 }
 animate();
 
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    warningModal.classList.remove('active');
-    logModal.classList.remove('active');
+const menuToggle = document.getElementById('menuToggle');
+const menuPanel = document.getElementById('menuPanel');
+const menuOverlay = document.getElementById('menuOverlay');
+
+menuToggle.addEventListener('click', () => {
+  menuToggle.classList.toggle('active');
+  menuPanel.classList.toggle('active');
+  menuOverlay.classList.toggle('active');
+});
+
+menuOverlay.addEventListener('click', () => {
+  menuToggle.classList.remove('active');
+  menuPanel.classList.remove('active');
+  menuOverlay.classList.remove('active');
+});
+
+const warningModal = document.getElementById('warningModal');
+const warningTitle = document.getElementById('warningTitle');
+const warningSubtitle = document.getElementById('warningSubtitle');
+const warningBody = document.getElementById('warningBody');
+const cancelBtn = document.getElementById('cancelBtn');
+const continueBtn = document.getElementById('continueBtn');
+
+const warnings = {
+  ronix: {
+    title: "PELIGRO ⚠️",
+    subtitle: "Este executor actualmente es peligroso de usar",
+    body: `<p>🔴 <strong>RONIX representa una grave amenaza para tu seguridad digital.</strong></p><p>📛 <strong>¿Por qué es peligroso?</strong> Este executor malicioso está diseñado para robar información personal de sus usuarios de forma sistemática.</p><p>🕵️‍♂️ <strong>Actividades maliciosas confirmadas:</strong></p><ul><li>🔓 Robo de direcciones IP y datos de localización</li><li>📧 Sustracción de cuentas de Gmail y credenciales de acceso</li><li>💳 Recopilación de información personal sensible</li><li>📝 Falsificación de su certificado UNC y sUNC</li><li>💻 Plagio de líneas de código de otros executores legítimos</li></ul><p>⚠️ <strong>Advertencia adicional:</strong> Los desarrolladores de RONIX han demostrado prácticas éticas cuestionables.</p><div class="warning-recommendation"><h3>💡 RECOMENDACIÓN DE SEGURIDAD</h3><p>Para proteger tu privacidad, te recomendamos utilizar alternativas confiables como <strong>KRNL</strong> o <strong>Codex</strong>.</p></div>`,
+    continueUrl: "https://wrdcdn.net/r/154522/1763702832864/Ronix_64Bits%20(1).apk"
+  },
+  delta: {
+    title: "PELIGRO ⚠️",
+    subtitle: "Este executor actualmente es peligroso de usar",
+    body: `<p>🔴 <strong>DELTA representa un riesgo significativo para tu seguridad en línea.</strong></p><p>📛 <strong>¿Por qué es peligroso?</strong> Este executor compromete activamente la seguridad de tus credenciales y datos personales.</p><p>🕵️‍♂️ <strong>Actividades maliciosas confirmadas:</strong></p><ul><li>👤 Robo de nombres de usuario y perfiles</li><li>🔐 Sustracción de contraseñas y credenciales</li><li>📧 Interceptación de cuentas de Gmail</li><li>🛡️ API desactualizada que incrementa detectabilidad</li><li>📊 Vulnerabilidades de seguridad no parcheadas</li></ul><p>⚠️ <strong>Problema técnico crítico:</strong> La API de DELTA utiliza tecnologías obsoletas.</p><div class="warning-recommendation"><h3>💡 RECOMENDACIÓN DE SEGURIDAD</h3><p>Para mantener tu información segura, te sugerimos <strong>KRNL</strong> o <strong>Codex</strong>.</p></div>`,
+    continueUrl: "https://delta.filenetwork.vip/android.html"
+  },
+  krnl: {
+    title: "⚠️ KRNL ESTÁ DESCONTINUADO",
+    subtitle: "El Executor KRNL ya no está en desarrollo activo",
+    body: `<p>⚫ <strong>KRNL ha sido oficialmente descontinuado por sus desarrolladores.</strong></p><p>📛 <strong>¿Qué significa esto?</strong> El equipo detrás de KRNL ha detenido el soporte y desarrollo de esta herramienta, lo que la convierte en una opción insegura y obsoleta.</p><p>🔒 <strong>Riesgos de usar KRNL ahora:</strong></p><ul><li>🚫 No recibe actualizaciones de seguridad</li><li>⚠️ Alta probabilidad de ser detectado por sistemas anti-cheat</li><li>🛡️ Puede contener vulnerabilidades no parcheadas</li><li>📉 Los desarrolladores no recomiendan su uso</li><li>🔄 No es compatible con las últimas versiones de Roblox</li></ul><p>⚠️ <strong>Información importante:</strong> Cualquier versión de KRNL que circule actualmente no es oficial y podría representar un riesgo adicional.</p><div class="warning-recommendation"><h3>✅ ALTERNATIVAS RECOMENDADAS</h3><p>Te sugerimos utilizar <strong>Codex</strong> o <strong>Arceus</strong> como ejecutores activos y más seguros en la actualidad.</p></div>`,
+    continueUrl: "https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png"
+  },
+  fluxus: {
+    title: "⚠️ FLUXUS ESTÁ DESCONTINUADO",
+    subtitle: "El Executor FLUXUS ya no está en desarrollo activo.",
+    body: `<p>El Executor <strong>Fluxus</strong> fue durante mucho tiempo una herramienta confiable. Sin embargo, actualmente se encuentra <strong>descontinuado</strong>.</p><ul><li>Sus desarrolladores no han confirmado si volverá.</li><li>Recomiendan utilizar <strong>Codex</strong> como alternativa.</li><li>Descargar versiones no oficiales podría exponerte a riesgos.</li></ul><div class="warning-recommendation"><h3>✅ ¿Qué puedes hacer?</h3><p>Te recomendamos probar <strong>Codex</strong> (recomendado por los creadores) o <strong>Fluxus Z</strong>.</p></div>`,
+    continueUrl: "https://i.postimg.cc/WpyRFyJp/Screenshot_20250922-103258-857.png"
   }
+};
+
+document.querySelectorAll('.download-btn[data-executor]').forEach(button => {
+  button.addEventListener('click', function(e) {
+    e.preventDefault();
+    const executor = this.getAttribute('data-executor');
+    if (warnings[executor]) {
+      showWarning(warnings[executor]);
+    }
+  });
+});
+
+function showWarning(warning) {
+  warningTitle.innerHTML = warning.title;
+  warningSubtitle.textContent = warning.subtitle;
+  warningBody.innerHTML = warning.body;
+  warningModal.classList.add('active');
+  
+  continueBtn.onclick = function() {
+    if (warning.continueUrl) {
+      window.open(warning.continueUrl, '_blank');
+    }
+    warningModal.classList.remove('active');
+  };
+}
+
+cancelBtn.addEventListener('click', () => warningModal.classList.remove('active'));
+warningModal.addEventListener('click', (e) => {
+  if (e.target === warningModal) warningModal.classList.remove('active');
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && warningModal.classList.contains('active')) {
+    warningModal.classList.remove('active');
+  }
+});
+
+const generalWarningModal = document.getElementById('generalWarningModal');
+const generalWarningBtn = document.getElementById('generalWarningBtn');
+
+window.addEventListener('DOMContentLoaded', () => {
+  generalWarningModal.style.display = 'flex';
+  setTimeout(() => {
+    generalWarningModal.style.opacity = '1';
+    generalWarningModal.style.visibility = 'visible';
+  }, 100);
+});
+
+generalWarningBtn.addEventListener('click', () => {
+  generalWarningModal.style.opacity = '0';
+  generalWarningModal.style.visibility = 'hidden';
+  setTimeout(() => {
+    generalWarningModal.style.display = 'none';
+  }, 400);
 });
 </script>
 
