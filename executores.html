@@ -67,11 +67,6 @@
 
 
 
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -418,14 +413,38 @@ header p {
 .card h2 {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.4rem;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   color: var(--accent-red);
   text-shadow: var(--neon-shadow);
   letter-spacing: 1px;
 }
 
+.executor-meta {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.executor-version {
+  color: var(--accent-red-light);
+  background: rgba(255, 50, 50, 0.1);
+  padding: 4px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 50, 50, 0.2);
+}
+
+.executor-date {
+  color: var(--text-secondary);
+  background: rgba(180, 70, 70, 0.08);
+  padding: 4px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(180, 70, 70, 0.2);
+}
+
 .status-label {
-  margin: 12px 0;
+  margin: 8px 0;
   padding: 6px 16px;
   border-radius: 20px;
   font-weight: 600;
@@ -729,6 +748,101 @@ footer p {
   box-shadow: var(--neon-glow);
 }
 
+.log-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 250;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+  padding: 15px;
+}
+
+.log-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.log-content {
+  background: linear-gradient(135deg, #1a0000 0%, #2a0000 100%);
+  width: 100%;
+  max-width: 700px;
+  max-height: 80vh;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
+  border: 1px solid rgba(255, 51, 51, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.log-header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 50, 50, 0.3);
+}
+
+.log-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.6rem;
+  color: var(--accent-red);
+  text-shadow: var(--neon-shadow);
+}
+
+.log-body {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 55vh;
+  padding: 10px;
+}
+
+.log-entry {
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 3px solid var(--accent-red);
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.log-entry .log-date {
+  color: var(--accent-red-light);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.log-entry .log-change {
+  color: var(--text-primary);
+}
+
+.log-close-btn {
+  background: linear-gradient(45deg, var(--accent-red-dark), var(--accent-red));
+  color: #000;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.log-close-btn:hover {
+  background: linear-gradient(45deg, var(--accent-red), #ff5555);
+  box-shadow: var(--neon-glow);
+}
+
 @keyframes fadeInDown {
   from {
     opacity: 0;
@@ -857,6 +971,18 @@ footer p {
   </div>
 </div>
 
+<div class="log-modal" id="logModal">
+  <div class="log-content">
+    <div class="log-header">
+      <h2 class="log-title">📋 Log de Cambios Detectados</h2>
+    </div>
+    <div class="log-body" id="logBody">
+      <p style="text-align: center; color: var(--text-secondary);">No se han detectado cambios aún.</p>
+    </div>
+    <button class="log-close-btn" id="logCloseBtn">Cerrar</button>
+  </div>
+</div>
+
 <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" role="button" tabindex="0">
   <span></span>
   <span></span>
@@ -870,6 +996,9 @@ footer p {
   <a class="sidebar-item" href="https://youtube.com/@anti-hambreado-script-team" target="_blank" rel="noopener noreferrer">
     <i class="fab fa-youtube"></i> Nuestro canal de YouTube
   </a>
+  <a class="sidebar-item" id="logToggle">
+    <i class="fas fa-history"></i> Log de Cambios
+  </a>
 </div>
 
 <div class="menu-overlay" id="menuOverlay" tabindex="-1"></div>
@@ -880,36 +1009,52 @@ footer p {
 </header>
 
 <div class="container">
-  <div class="card">
+  <div class="card" data-executor="codex">
     <img src="https://i.postimg.cc/hGrNkc8z/descarga-3.jpg" alt="Codex">
     <h2>Codex</h2>
+    <div class="executor-meta">
+      <span class="executor-version">v2.700</span>
+      <span class="executor-date">2025-11-26</span>
+    </div>
     <div class="status-label detectable">🟠 Detectable</div>
     <a class="download-btn" href="https://gofile.io/d/UzbLud" target="_blank" rel="noopener noreferrer">
       <i class="fas fa-download"></i> Descargar
     </a>
   </div>
 
-  <div class="card">
+  <div class="card" data-executor="fluxusz">
     <img src="https://i.postimg.cc/7PpV45tj/R.I.P-FLUXUS.jpg" alt="Fluxus Z">
     <h2>Fluxus Z</h2>
+    <div class="executor-meta">
+      <span class="executor-version">v3.0.3</span>
+      <span class="executor-date">2025-12-06</span>
+    </div>
     <div class="status-label detectable">🟡 Semi-Indetectable</div>
     <a class="download-btn" href="https://wrdcdn.net/r/68963/1765043213492/FluxusZ%20V3.0.3%20ARM64.apk" target="_blank" rel="noopener noreferrer">
       <i class="fas fa-download"></i> Descargar
     </a>
   </div>
 
-  <div class="card">
+  <div class="card" data-executor="arceus">
     <img src="https://i.postimg.cc/R0cDc9pp/descarga-4.jpg" alt="Arceus">
     <h2>Arceus</h2>
+    <div class="executor-meta">
+      <span class="executor-version">v1.9.5</span>
+      <span class="executor-date">2025-12-05</span>
+    </div>
     <div class="status-label detectable">🟡 Semi-Indetectable</div>
     <a class="download-btn" href="https://android.spdmteam.com/" target="_blank" rel="noopener noreferrer">
       <i class="fas fa-download"></i> Descargar
     </a>
   </div>
 
-  <div class="card">
+  <div class="card" data-executor="delta">
     <img src="https://i.postimg.cc/VkyyM7L6/images.jpg" alt="Delta">
     <h2>Delta</h2>
+    <div class="executor-meta">
+      <span class="executor-version">v2.700</span>
+      <span class="executor-date">2025-12-03</span>
+    </div>
     <div class="status-label peligro">⚠️ Peligroso</div>
     <div class="status-label detectable">🟠 Detectable</div>
     <a class="download-btn" href="#" data-executor="delta">
@@ -917,9 +1062,13 @@ footer p {
     </a>
   </div>
 
-  <div class="card">
+  <div class="card" data-executor="ronix">
     <img src="https://i.postimg.cc/P5vc51Wj/ronix-081525.webp" alt="Ronix">
     <h2>Ronix</h2>
+    <div class="executor-meta">
+      <span class="executor-version">v2.700</span>
+      <span class="executor-date">2025-12-06</span>
+    </div>
     <div class="status-label peligro">⚠️ Peligroso</div>
     <div class="status-label detectable">🟠 Detectable</div>
     <a class="download-btn" href="#" data-executor="ronix">
@@ -927,9 +1076,13 @@ footer p {
     </a>
   </div>
 
-  <div class="card">
+  <div class="card" data-executor="krnl">
     <img src="https://i.postimg.cc/xTcp6LFz/new-logo.png" alt="KRNL">
     <h2>KRNL</h2>
+    <div class="executor-meta">
+      <span class="executor-version">v0.0.0</span>
+      <span class="executor-date">2025-11-01</span>
+    </div>
     <div class="status-label desactualizado">⚫ Descontinuado</div>
     <a class="download-btn" href="https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png" target="_blank" rel="noopener noreferrer" data-executor="krnl">
       <i class="fas fa-download"></i> Descargar
@@ -937,9 +1090,13 @@ footer p {
     <div class="warning">⚠️ No instales el archivo con "VNG"</div>
   </div>
   
-  <div class="card">
+  <div class="card" data-executor="fluxus">
     <img src="https://i.postimg.cc/XY9Rgwpg/descarga-2.png" alt="Fluxus">
     <h2>Fluxus</h2>
+    <div class="executor-meta">
+      <span class="executor-version">v0.0.0</span>
+      <span class="executor-date">2025-09-25</span>
+    </div>
     <div class="status-label desactualizado">⚫ Descontinuado</div>
     <a class="download-btn" href="#" data-executor="fluxus">
       <i class="fas fa-download"></i> Descargar
@@ -1149,6 +1306,139 @@ generalWarningBtn.addEventListener('click', () => {
     generalWarningModal.style.display = 'none';
   }, 400);
 });
+
+const logModal = document.getElementById('logModal');
+const logBody = document.getElementById('logBody');
+const logToggle = document.getElementById('logToggle');
+const logCloseBtn = document.getElementById('logCloseBtn');
+
+let currentData = {};
+let changeLog = [];
+const API_URL = 'https://raw.githubusercontent.com/AntiHambreadoScriptTeam/AntiHambreadoScriptTeam.github.io/refs/heads/main/Test/Updates.json';
+
+async function fetchExecutorData() {
+  try {
+    const response = await fetch(API_URL, {cache: 'no-cache'});
+    const data = await response.json();
+    processExecutorData(data.executores);
+  } catch (error) {
+    console.error('Error al obtener datos:', error);
+  }
+}
+
+function processExecutorData(newData) {
+  const now = new Date();
+  const timestamp = now.toLocaleDateString('es-ES') + ' ' + now.toLocaleTimeString('es-ES');
+  
+  Object.keys(newData).forEach(key => {
+    const executorData = newData[key];
+    const card = document.querySelector(`[data-executor="${key}"]`);
+    
+    if (!card) return;
+    
+    const versionEl = card.querySelector('.executor-version');
+    const dateEl = card.querySelector('.executor-date');
+    const statusEl = card.querySelector('.status-label');
+    const downloadBtn = card.querySelector('.download-btn');
+    
+    if (currentData[key]) {
+      const oldData = currentData[key];
+      
+      if (executorData.version !== oldData.version) {
+        versionEl.textContent = `v${executorData.version}`;
+        changeLog.unshift({
+          date: timestamp,
+          message: `Se actualizó ${executorData.nombre}: versión ${oldData.version} → ${executorData.version}`
+        });
+      }
+      
+      if (executorData.fecha_actualizacion !== oldData.fecha_actualizacion) {
+        dateEl.textContent = executorData.fecha_actualizacion;
+        changeLog.unshift({
+          date: timestamp,
+          message: `Se actualizó ${executorData.nombre}: nueva fecha de actualización`
+        });
+      }
+      
+      if (executorData.status !== oldData.status) {
+        statusEl.className = `status-label ${executorData.status}`;
+        const statusText = {
+          'detectable': '🟠 Detectable',
+          'peligro': '⚠️ Peligroso',
+          'desactualizado': '⚫ Descontinuado',
+          'indetectable': '🟢 Indetectable'
+        };
+        statusEl.textContent = statusText[executorData.status] || '⚪ Desconocido';
+        changeLog.unshift({
+          date: timestamp,
+          message: `Se actualizó ${executorData.nombre}: nuevo status detectado`
+        });
+      }
+      
+      if (executorData.link_descarga !== oldData.link_descarga) {
+        downloadBtn.href = executorData.link_descarga;
+        changeLog.unshift({
+          date: timestamp,
+          message: `Se actualizó ${executorData.nombre}: nuevo enlace de descarga`
+        });
+      }
+      
+    } else {
+      versionEl.textContent = `v${executorData.version}`;
+      dateEl.textContent = executorData.fecha_actualizacion;
+      statusEl.className = `status-label ${executorData.status}`;
+      const statusText = {
+        'detectable': '🟠 Detectable',
+        'peligro': '⚠️ Peligroso',
+        'desactualizado': '⚫ Descontinuado',
+        'indetectable': '🟢 Indetectable'
+      };
+      statusEl.textContent = statusText[executorData.status] || '⚪ Desconocido';
+      downloadBtn.href = executorData.link_descarga;
+    }
+  });
+  
+  if (changeLog.length > 20) {
+    changeLog = changeLog.slice(0, 20);
+  }
+  
+  currentData = JSON.parse(JSON.stringify(newData));
+}
+
+function displayLog() {
+  if (changeLog.length === 0) {
+    logBody.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No se han detectado cambios aún.</p>';
+  } else {
+    logBody.innerHTML = changeLog.map(entry => `
+      <div class="log-entry">
+        <span class="log-date">${entry.date}</span>
+        <span class="log-change">${entry.message}</span>
+      </div>
+    `).join('');
+  }
+  logModal.classList.add('active');
+}
+
+logToggle.addEventListener('click', () => {
+  displayLog();
+  menuToggle.classList.remove('active');
+  menuPanel.classList.remove('active');
+  menuOverlay.classList.remove('active');
+});
+
+logCloseBtn.addEventListener('click', () => logModal.classList.remove('active'));
+logModal.addEventListener('click', (e) => {
+  if (e.target === logModal) logModal.classList.remove('active');
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && logModal.classList.contains('active')) {
+    logModal.classList.remove('active');
+  }
+});
+
+fetchExecutorData();
+setInterval(fetchExecutorData, 10000);
 </script>
 
 </body>
