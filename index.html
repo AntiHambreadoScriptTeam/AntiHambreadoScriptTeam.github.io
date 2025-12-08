@@ -298,7 +298,7 @@ h1 {
 }
 
 .section-content.open {
-  max-height: 2000px;
+  max-height: 5000px; /* Aumentado para asegurar que todo el contenido quepa */
   opacity: 1;
   margin-top: 2rem;
 }
@@ -337,7 +337,7 @@ h1 {
 .faq-question {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
   cursor: pointer;
   padding: 1rem;
   border-radius: 8px;
@@ -349,16 +349,35 @@ h1 {
   box-shadow: var(--neon-shadow);
 }
 
+.faq-question-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
 .faq-question h3 {
   color: var(--light-red);
   font-size: 1.1rem;
-  flex: 1;
+  margin: 0;
 }
 
 .faq-icon {
   color: var(--primary-red);
   font-size: 1.2rem;
   transition: transform 0.3s ease;
+}
+
+.faq-arrow {
+  color: var(--primary-red);
+  font-size: 1rem;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+  margin-left: 1rem;
+}
+
+.faq-item.active .faq-arrow {
+  transform: rotate(90deg);
 }
 
 .faq-item.active .faq-icon {
@@ -445,6 +464,19 @@ footer {
   .info-card {
     padding: 1.5rem;
   }
+  
+  .section-content.open {
+    max-height: 10000px; /* Aumentado drásticamente para móviles */
+  }
+  
+  .faq-question {
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .faq-arrow {
+    margin-left: 0.5rem;
+  }
 }
 </style>
 </head>
@@ -506,8 +538,11 @@ footer {
     
     <div class="faq-item" onclick="toggleFaqItem(this)">
       <div class="faq-question">
-        <i class="fas fa-question faq-icon"></i>
-        <h3>¿Qué es exactamente el Anti-Hambreado Script Team?</h3>
+        <div class="faq-question-content">
+          <i class="fas fa-question faq-icon"></i>
+          <h3>¿Qué es exactamente el Anti-Hambreado Script Team?</h3>
+        </div>
+        <i class="fas fa-chevron-right faq-arrow"></i>
       </div>
       <div class="faq-answer">
         <p class="section-text">Somos un grupo que sube scripts, hubs y herramientas de Roblox 100% limpios, sin acortadores, sin 50 anuncios, sin esperar 30 segundos y sin pedirte que te suscribas a 10 canales. Solo link directo y ya.</p>
@@ -516,8 +551,11 @@ footer {
 
     <div class="faq-item" onclick="toggleFaqItem(this)">
       <div class="faq-question">
-        <i class="fas fa-shield-alt faq-icon"></i>
-        <h3>¿Los scripts tienen virus o backdoor?</h3>
+        <div class="faq-question-content">
+          <i class="fas fa-shield-alt faq-icon"></i>
+          <h3>¿Los scripts tienen virus o backdoor?</h3>
+        </div>
+        <i class="fas fa-chevron-right faq-arrow"></i>
       </div>
       <div class="faq-answer">
         <p class="section-text">Nunca. Todos los scripts que subimos están revisados por el equipo. Si dudas, siempre ponemos el link directo.</p>
@@ -526,8 +564,11 @@ footer {
 
     <div class="faq-item" onclick="toggleFaqItem(this)">
       <div class="faq-question">
-        <i class="fas fa-exclamation-triangle faq-icon"></i>
-        <h3>¿Por qué odian a Campione Script?</h3>
+        <div class="faq-question-content">
+          <i class="fas fa-exclamation-triangle faq-icon"></i>
+          <h3>¿Por qué odian a Campione Script?</h3>
+        </div>
+        <i class="fas fa-chevron-right faq-arrow"></i>
       </div>
       <div class="faq-answer">
         <p class="section-text">No lo odiamos, pero es el ejemplo perfecto de "hambreado": 8 acortadores seguidos, ads que abren 20 pestañas y te piden WhatsApp. Nosotros somos lo contrario.</p>
@@ -536,8 +577,11 @@ footer {
 
     <div class="faq-item" onclick="toggleFaqItem(this)">
       <div class="faq-question">
-        <i class="fas fa-sync-alt faq-icon"></i>
-        <h3>¿Los executores están actualizados después de cada update de Roblox?</h3>
+        <div class="faq-question-content">
+          <i class="fas fa-sync-alt faq-icon"></i>
+          <h3>¿Los executores están actualizados después de cada update de Roblox?</h3>
+        </div>
+        <i class="fas fa-chevron-right faq-arrow"></i>
       </div>
       <div class="faq-answer">
         <p class="section-text">Sí. La mayoría se actualizan en menos de 24-48h después de un parche grande. Si uno se descontinua lo marcamos como [DESCONTINUADO] hasta que sale la versión nueva.</p>
@@ -546,8 +590,11 @@ footer {
 
     <div class="faq-item" onclick="toggleFaqItem(this)">
       <div class="faq-question">
-        <i class="fas fa-paper-plane faq-icon"></i>
-        <h3>¿Puedo pedirles scripts o me ignoran?</h3>
+        <div class="faq-question-content">
+          <i class="fas fa-paper-plane faq-icon"></i>
+          <h3>¿Puedo pedirles scripts o me ignoran?</h3>
+        </div>
+        <i class="fas fa-chevron-right faq-arrow"></i>
       </div>
       <div class="faq-answer">
         <p class="section-text">Claro que puedes pedir. Si existe y es bueno, lo buscamos y lo subimos limpio. Si no existe, te decimos la verdad en vez de marearte.</p>
@@ -556,8 +603,11 @@ footer {
 
     <div class="faq-item" onclick="toggleFaqItem(this)">
       <div class="faq-question">
-        <i class="fas fa-trash-alt faq-icon"></i>
-        <h3>¿Por qué algunos links dicen "este archivo fue eliminado"?</h3>
+        <div class="faq-question-content">
+          <i class="fas fa-trash-alt faq-icon"></i>
+          <h3>¿Por qué algunos links dicen "este archivo fue eliminado"?</h3>
+        </div>
+        <i class="fas fa-chevron-right faq-arrow"></i>
       </div>
       <div class="faq-answer">
         <p class="section-text">Mediafire y los hostings (Pastebin, rbxscripts, etc.) borran los scripts rápido. Cuando pase, avisas en nuestro discord y lo resubimos en menos de 5 minutos con mirrors nuevos.</p>
@@ -566,8 +616,11 @@ footer {
 
     <div class="faq-item" onclick="toggleFaqItem(this)">
       <div class="faq-question">
-        <i class="fas fa-crown faq-icon"></i>
-        <h3>¿Aceptan donaciones o hay algo VIP/pago?</h3>
+        <div class="faq-question-content">
+          <i class="fas fa-crown faq-icon"></i>
+          <h3>¿Aceptan donaciones o hay algo VIP/pago?</h3>
+        </div>
+        <i class="fas fa-chevron-right faq-arrow"></i>
       </div>
       <div class="faq-answer">
         <p class="section-text">Todo es y será gratis para siempre. Por lo que no, no aceptamos pagos y nunca habrá alguna "suscripción" que te dé acceso exclusivo a algo en nuestro canal.</p>
@@ -576,8 +629,11 @@ footer {
 
     <div class="faq-item" onclick="toggleFaqItem(this)">
       <div class="faq-question">
-        <i class="fas fa-users faq-icon"></i>
-        <h3>¿Puedo unirme al equipo o ser staff?</h3>
+        <div class="faq-question-content">
+          <i class="fas fa-users faq-icon"></i>
+          <h3>¿Puedo unirme al equipo o ser staff?</h3>
+        </div>
+        <i class="fas fa-chevron-right faq-arrow"></i>
       </div>
       <div class="faq-answer">
         <p class="section-text">Sí, pero solo si ya te conocemos y aportas (subiendo scripts buenos, avisando updates rápido, haciendo thumbnails chidos, etc.). No contratamos randoms.</p>
@@ -586,8 +642,11 @@ footer {
 
     <div class="faq-item" onclick="toggleFaqItem(this)">
       <div class="faq-question">
-        <i class="fas fa-cogs faq-icon"></i>
-        <h3>¿Los scripts funcionan con todos los executors (Delta, Solara, Codex, etc.)?</h3>
+        <div class="faq-question-content">
+          <i class="fas fa-cogs faq-icon"></i>
+          <h3>¿Los scripts funcionan con todos los executors (Delta, Solara, Codex, etc.)?</h3>
+        </div>
+        <i class="fas fa-chevron-right faq-arrow"></i>
       </div>
       <div class="faq-answer">
         <p class="section-text">Sí, la gran mayoría. Si alguno solo funciona en un executor concreto lo ponemos en el título del video: [SOLARA ONLY] o [DELTAX ONLY].</p>
@@ -596,8 +655,11 @@ footer {
 
     <div class="faq-item" onclick="toggleFaqItem(this)">
       <div class="faq-question">
-        <i class="fas fa-clock faq-icon"></i>
-        <h3>¿Por qué a veces tardáis en responder o en subir un script nuevo?</h3>
+        <div class="faq-question-content">
+          <i class="fas fa-clock faq-icon"></i>
+          <h3>¿Por qué a veces tardáis en responder o en subir un script nuevo?</h3>
+        </div>
+        <i class="fas fa-chevron-right faq-arrow"></i>
       </div>
       <div class="faq-answer">
         <p class="section-text">Todos tenemos vida fuera: colegio, universidad, trabajo… Pero siempre vuelve alguien del equipo. El grupo nunca muere, aunque a veces duerma unas horas.</p>
