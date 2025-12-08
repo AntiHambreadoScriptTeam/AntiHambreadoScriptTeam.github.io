@@ -1,3 +1,4 @@
+
 <!--
   #############################################################################################
   #                                                                                           #
@@ -286,7 +287,7 @@ h1 {
   transform: rotate(180deg);
 }
 
-#campioneSection {
+.section-content {
   max-height: 0;
   opacity: 0;
   overflow: hidden;
@@ -296,13 +297,13 @@ h1 {
   margin-top: 0;
 }
 
-#campioneSection.open {
-  max-height: 1500px;
+.section-content.open {
+  max-height: 2000px;
   opacity: 1;
   margin-top: 2rem;
 }
 
-.campione-card {
+.info-card {
   background: var(--bg-card);
   border: 1px solid rgba(255, 51, 51, 0.2);
   border-radius: 12px;
@@ -311,14 +312,71 @@ h1 {
   backdrop-filter: blur(5px);
 }
 
-.campione-card h2 {
+.info-card h2 {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.8rem;
   color: var(--primary-red);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
   gap: 0.8rem;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(255, 51, 51, 0.1);
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+  background: rgba(255, 51, 51, 0.05);
+  box-shadow: var(--neon-shadow);
+}
+
+.faq-question h3 {
+  color: var(--light-red);
+  font-size: 1.1rem;
+  flex: 1;
+}
+
+.faq-icon {
+  color: var(--primary-red);
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(90deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding-left: 2.5rem;
+  padding-right: 1rem;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 500px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .section-text {
@@ -333,23 +391,18 @@ h1 {
   text-shadow: var(--neon-shadow);
 }
 
-.campione-list {
+.info-card ul {
   list-style: none;
   margin: 1rem 0;
 }
 
-.campione-list li {
-  padding: 0.8rem 0;
+.info-card ul li {
+  padding: 0.5rem 0;
   padding-left: 2rem;
   position: relative;
-  border-bottom: 1px solid rgba(255, 51, 51, 0.1);
 }
 
-.campione-list li:last-child {
-  border-bottom: none;
-}
-
-.campione-list li::before {
+.info-card ul li::before {
   content: '⚡';
   position: absolute;
   left: 0;
@@ -388,6 +441,10 @@ footer {
   .main-container {
     padding: 5rem 1rem 2rem;
   }
+  
+  .info-card {
+    padding: 1.5rem;
+  }
 }
 </style>
 </head>
@@ -419,8 +476,8 @@ footer {
       <i class="fas fa-mobile-alt"></i> Executores
     </a>
     <a href="https://antihambreadoscriptteam.github.io/bypass" target="_blank" class="btn">
-  <i class="fas fa-unlock-alt"></i> Bypass
-</a>
+      <i class="fas fa-unlock-alt"></i> Bypass
+    </a>
     <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="btn">
       <i class="fab fa-youtube"></i> YouTube
     </a>
@@ -436,44 +493,196 @@ footer {
 </div>
 
 <div class="toggle-section">
-  <button class="toggle-btn" onclick="toggleCampione()">
-    <span class="emoji-animated">👁️</span>
-    Nuestra opinión sobre Campione Script
+  <button class="toggle-btn" onclick="toggleSection('faq')">
+    <i class="fas fa-question-circle"></i>
+    FAQ (Preguntas Frecuentes)
     <i class="fas fa-chevron-down arrow"></i>
   </button>
 </div>
 
-<div id="campioneSection">
-  <div class="campione-card">
-    <h2><span class="emoji-animated">😹</span> Campione Script: Hambreado Digital<span class="highlight"></span></h2>
+<div id="faqSection" class="section-content">
+  <div class="info-card">
+    <h2><i class="fas fa-info-circle"></i> FAQ (Preguntas Frecuentes)</h2>
+    
+    <div class="faq-item" onclick="toggleFaqItem(this)">
+      <div class="faq-question">
+        <i class="fas fa-question faq-icon"></i>
+        <h3>¿Qué es exactamente el Anti-Hambreado Script Team?</h3>
+      </div>
+      <div class="faq-answer">
+        <p class="section-text">Somos un grupo que sube scripts, hubs y herramientas de Roblox 100% limpios, sin acortadores, sin 50 anuncios, sin esperar 30 segundos y sin pedirte que te suscribas a 10 canales. Solo link directo y ya.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaqItem(this)">
+      <div class="faq-question">
+        <i class="fas fa-shield-alt faq-icon"></i>
+        <h3>¿Los scripts tienen virus o backdoor?</h3>
+      </div>
+      <div class="faq-answer">
+        <p class="section-text">Nunca. Todos los scripts que subimos están revisados por el equipo. Si dudas, siempre ponemos el link directo.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaqItem(this)">
+      <div class="faq-question">
+        <i class="fas fa-exclamation-triangle faq-icon"></i>
+        <h3>¿Por qué odian a Campione Script?</h3>
+      </div>
+      <div class="faq-answer">
+        <p class="section-text">No lo odiamos, pero es el ejemplo perfecto de "hambreado": 8 acortadores seguidos, ads que abren 20 pestañas y te piden WhatsApp. Nosotros somos lo contrario.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaqItem(this)">
+      <div class="faq-question">
+        <i class="fas fa-sync-alt faq-icon"></i>
+        <h3>¿Los executores están actualizados después de cada update de Roblox?</h3>
+      </div>
+      <div class="faq-answer">
+        <p class="section-text">Sí. La mayoría se actualizan en menos de 24-48h después de un parche grande. Si uno se descontinua lo marcamos como [DESCONTINUADO] hasta que sale la versión nueva.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaqItem(this)">
+      <div class="faq-question">
+        <i class="fas fa-paper-plane faq-icon"></i>
+        <h3>¿Puedo pedirles scripts o me ignoran?</h3>
+      </div>
+      <div class="faq-answer">
+        <p class="section-text">Claro que puedes pedir. Si existe y es bueno, lo buscamos y lo subimos limpio. Si no existe, te decimos la verdad en vez de marearte.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaqItem(this)">
+      <div class="faq-question">
+        <i class="fas fa-trash-alt faq-icon"></i>
+        <h3>¿Por qué algunos links dicen "este archivo fue eliminado"?</h3>
+      </div>
+      <div class="faq-answer">
+        <p class="section-text">Mediafire y los hostings (Pastebin, rbxscripts, etc.) borran los scripts rápido. Cuando pase, avisas en nuestro discord y lo resubimos en menos de 5 minutos con mirrors nuevos.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaqItem(this)">
+      <div class="faq-question">
+        <i class="fas fa-crown faq-icon"></i>
+        <h3>¿Aceptan donaciones o hay algo VIP/pago?</h3>
+      </div>
+      <div class="faq-answer">
+        <p class="section-text">Todo es y será gratis para siempre. Por lo que no, no aceptamos pagos y nunca habrá alguna "suscripción" que te dé acceso exclusivo a algo en nuestro canal.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaqItem(this)">
+      <div class="faq-question">
+        <i class="fas fa-users faq-icon"></i>
+        <h3>¿Puedo unirme al equipo o ser staff?</h3>
+      </div>
+      <div class="faq-answer">
+        <p class="section-text">Sí, pero solo si ya te conocemos y aportas (subiendo scripts buenos, avisando updates rápido, haciendo thumbnails chidos, etc.). No contratamos randoms.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaqItem(this)">
+      <div class="faq-question">
+        <i class="fas fa-cogs faq-icon"></i>
+        <h3>¿Los scripts funcionan con todos los executors (Delta, Solara, Codex, etc.)?</h3>
+      </div>
+      <div class="faq-answer">
+        <p class="section-text">Sí, la gran mayoría. Si alguno solo funciona en un executor concreto lo ponemos en el título del video: [SOLARA ONLY] o [DELTAX ONLY].</p>
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaqItem(this)">
+      <div class="faq-question">
+        <i class="fas fa-clock faq-icon"></i>
+        <h3>¿Por qué a veces tardáis en responder o en subir un script nuevo?</h3>
+      </div>
+      <div class="faq-answer">
+        <p class="section-text">Todos tenemos vida fuera: colegio, universidad, trabajo… Pero siempre vuelve alguien del equipo. El grupo nunca muere, aunque a veces duerma unas horas.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toggle-section">
+  <button class="toggle-btn" onclick="toggleSection('legal')">
+    <i class="fas fa-gavel"></i>
+    Legal + TOS
+    <i class="fas fa-chevron-down arrow"></i>
+  </button>
+</div>
+
+<div id="legalSection" class="section-content">
+  <div class="info-card">
+    <h2><i class="fas fa-balance-scale"></i> Términos de Servicio y Descargo de Responsabilidad</h2>
     
     <p class="section-text">
-      Campione Script… ¿qué podemos decir? Ese canal es la definición misma de <span class="highlight">hambreado digital</span>. Mientras nosotros trabajamos con orgullo, claridad y respeto por la comunidad, él se dedica a llenar sus scripts de <span class="highlight">un millón de acortadores</span> como si fueran estampitas de colección.
+      Al acceder o usar cualquier recurso (scripts, links, Discord, página web) del <strong>Anti-Hambreado Script Team</strong>, aceptas automáticamente los siguientes términos:
     </p>
-    
-    <ul class="campione-list">
-      <li>¿Quieres acceder a su script? Prepárate para una <span class="highlight">odisea de links basura</span> que te llevan a páginas llenas de anuncios y trampas.</li>
-      <li>Al final, después de perder tiempo y paciencia, lo único que encuentras es un archivo en MediaFire que ni siquiera vale la pena.</li>
-      <li>Esa práctica no es profesional, no es creativa, y mucho menos digna de un canal que se respete.</li>
+
+    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
+      <i class="fas fa-exclamation-circle"></i> Uso bajo tu propia responsabilidad
+    </h3>
+    <p class="section-text">Todos los scripts, herramientas y archivos compartidos son únicamente con fines educativos y de investigación. El equipo no se hace responsable del uso que hagas de ellos.</p>
+
+    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
+      <i class="fas fa-ban"></i> Violación de los Términos de Servicio de Roblox
+    </h3>
+    <p class="section-text">El uso de scripts o cualquier forma de modificación no autorizada del cliente de Roblox viola directamente los Términos de Servicio de Roblox Corporation.</p>
+    <p class="section-text">El uso de estos recursos puede resultar en la suspensión permanente o terminación de tu cuenta de Roblox. Tú asumes todo el riesgo.</p>
+
+    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
+      <i class="fas fa-shield-alt"></i> Sin garantía de funcionamiento ni seguridad
+    </h3>
+    <p class="section-text">No garantizamos que los scripts funcionen siempre, que estén libres de errores o que no sean detectados en el futuro por los sistemas anti-cheat de Roblox (Byfron, Hyperion, etc.).</p>
+    <p class="section-text">Los archivos se revisan por el equipo, pero no nos hacemos responsables si tu antivirus los marca o si contienen errores no detectados.</p>
+
+    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
+      <i class="fas fa-dollar-sign"></i> Prohibición de distribución con fines de lucro
+    </h3>
+    <p class="section-text">Está totalmente prohibido revender, monetizar o volver a subir nuestros links/scripts detrás de acortadores, anuncios o sistemas de pago. Eso es "hambreado" y va en contra de todo lo que representamos.</p>
+
+    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
+      <i class="fas fa-times-circle"></i> No somos responsables de daños
+    </h3>
+    <p class="section-text">El equipo <strong>Anti-Hambreado Script Team</strong> no será responsable de:</p>
+    <ul>
+      <li>Bans o pérdidas de cuentas, Robux o items</li>
+      <li>Daños a tu dispositivo o software</li>
+      <li>Pérdida de datos o cualquier otro perjuicio directo o indirecto</li>
     </ul>
-    
-    <p class="section-text">
-      En el Anti-Hambreado Script Team lo decimos claro: <span class="highlight">Campione Script es tremendo hambreado.</span> No hay otra palabra. Hambreado por clics, hambreado por visitas, hambreado por atención.
-    </p>
-    
-    <p class="section-text">
-      Mientras él <span class="highlight">mendiga con acortadores,</span> nosotros construimos identidad, orgullo y calidad real. Somos el equipo que no necesita trampas para brillar.
-    </p>
-    
-    <p class="section-text highlight" style="font-size: 1.1rem; text-align: center; padding: 1rem; border-radius: 8px; background: rgba(255, 51, 51, 0.1);">
-      🔥 En resumen: Campione Script es el ejemplo perfecto de lo que nunca seremos: <strong>Hambreados hasta los huesos</strong>
-    </p>
+
+    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
+      <i class="fas fa-copyright"></i> Propiedad intelectual
+    </h3>
+    <p class="section-text">Los scripts pueden contener código de terceros. El crédito corresponde a sus autores originales. Nosotros solo los compartimos de forma limpia y accesible.</p>
+
+    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
+      <i class="fas fa-edit"></i> Cambios en los términos
+    </h3>
+    <p class="section-text">Nos reservamos el derecho de modificar estos términos en cualquier momento. Seguir usando el servidor o la web después de los cambios implica que los aceptas.</p>
+
+    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
+      <i class="fas fa-globe"></i> Ley aplicable
+    </h3>
+    <p class="section-text">Estos términos se rigen por las leyes del país donde residen los administradores actuales del proyecto (en caso de conflicto).</p>
+
+    <div style="background: rgba(255, 51, 51, 0.1); padding: 1.5rem; border-radius: 8px; margin-top: 2rem; text-align: center;">
+      <p class="section-text highlight" style="font-size: 1.1rem; margin-bottom: 0;">
+        <i class="fas fa-skull"></i> Anti-Hambreado Script Team - "Scripts limpios o la muerte." <i class="fas fa-skull"></i>
+      </p>
+      <p style="font-size: 0.9rem; color: var(--dark-red); margin-top: 0.5rem;">
+        Última actualización: 07 de Diciembre de 2025
+      </p>
+    </div>
   </div>
 </div>
 
 <footer>
   <p>© 2025 Anti-Hambreado Script Team</p>
-  <p><i class="fas fa-skull"></i> No seas hambread@ como Campione <i class="fas fa-skull"></i></p>
+  <p><i class="fas fa-skull"></i> No seas hambread@ <i class="fas fa-skull"></i></p>
 </footer>
 
 </div>
@@ -565,13 +774,18 @@ function animate() {
 }
 animate();
 
-function toggleCampione() {
-  const section = document.getElementById('campioneSection');
-  const button = document.querySelector('.toggle-btn');
+function toggleSection(sectionName) {
+  const section = document.getElementById(sectionName + 'Section');
+  const button = event.currentTarget;
   
   section.classList.toggle('open');
   button.classList.toggle('active');
 }
+
+function toggleFaqItem(item) {
+  item.classList.toggle('active');
+}
 </script>
 </body>
 </html>
+ 
