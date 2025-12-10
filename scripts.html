@@ -902,6 +902,10 @@ html {
     <span class="folder-icon">📁</span>
     BUILD A BOAT
 </div>
+      <div class="sidebar-item" onclick="showContent('bee-swarm-simulator')">
+    <span class="folder-icon">📁</span>
+    BEE SWARM SIMULATOR
+      </div>
         <div class="sidebar-item" onclick="showContent('dandy-world')">
             <span class="folder-icon">📁</span>
             DANDY'S WORLD
@@ -1153,6 +1157,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/h
     <h2 class="section-title">⛵ BUILD A BOAT</h2>
     <div class="script-card"><div class="script-header"><div class="script-title">BABFT</div><button class="copy-button" onclick="copyScript(this, 'babft-script')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="babft-script">loadstring(game:HttpGet("https://raw.githubusercontent.com/example-prog/Build-A-Boat-For-Treasure/refs/heads/main/BABFT"))()</pre></div></div>
 </div>
+  <div id="bee-swarm-simulator" class="content">
+    <h2 class="section-title">🐝 BEE SWARM SIMULATOR</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">MACROWARE</div><button class="copy-button" onclick="copyScript(this, 'bee-macro')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="bee-macro">https://www.mediafire.com/file/c5nix0iekstbriq/SCRIPT+MACROWARE.txt/file</pre></div></div>
+  </div>
     <div id="dandy-world" class="content">
         <h2 class="section-title">🌼 DANDY'S WORLD</h2>
         <div class="script-card"><div class="script-header"><div class="script-title">DANDY'S WORLD HUB</div><button class="copy-button" onclick="copyScript(this, 'dw1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="dw1">loadstring(game:HttpGet("https://pastebin.com/raw/H3u62n7D"))()</pre></div></div>
@@ -1459,7 +1467,7 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Catto-YFCN/Lunor_Depe
                 { game: 'ARISE CROSSOVER', title: 'GOOMBA HUB', id: 'arise1' },
                 { game: 'ATTACK ON TITAN REVOLUTION', title: 'LUNARZ', id: 'aot1' },
                 { game: 'ATTACK ON TITAN REVOLUTION', title: 'TEKKIT HUB', id: 'aot-tekkit' }, 
-{ game: 'ANIME WEAPONS', title: 'NEW OMG HUB', id: 'anime-omg' }, 
+                { game: 'ANIME WEAPONS', title: 'NEW OMG HUB', id: 'anime-omg' }, 
                 { game: 'BASICALLY FNF: REMIX', title: 'AUTO PLAYER', id: 'fnf1' },
                 { game: 'BLOCK SPIN', title: 'HERMANOS-DEV', id: 'bs1' },
                 { game: 'BLOCK SPIN', title: 'QUARTY', id: 'bs2' },
@@ -1478,9 +1486,10 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Catto-YFCN/Lunor_Depe
                 { game: 'BLOX FRUITS', title: 'W-AZURE', id: 'blox9' },
                 { game: 'BLOX FRUITS', title: 'ARYA KAITUN', id: 'blox-arya' },
                 { game: 'BLOX FRUITS', title: 'REDZ HUB CLON', id: 'blox-redz-clon' }, 
-               { game: 'BLOX FRUITS', title: 'XETER HUB', id: 'blox-xeter' },
+                { game: 'BLOX FRUITS', title: 'XETER HUB', id: 'blox-xeter' },
                 { game: 'BLUE LOCK RIVALS', title: 'OMG HUB', id: 'bl1' },
                 { game: 'BOB ESPONJA TOWER DEFENSE', title: 'IMP HUB', id: 'bob-imp' }, 
+                { game: 'BEE SWARM SIMULATOR', title: 'MACROWARE', id: 'bee-macro' }, 
                 { game: 'BUILD A BOAT', title: 'BABFT', id: 'babft-script' }, 
                 { game: 'DANDY\'S WORLD', title: 'DANDY\'S WORLD HUB', id: 'dw1' },
                 { game: 'DEAD DEFENSE', title: 'GUMANBA', id: 'dd1' },
@@ -1500,8 +1509,8 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Catto-YFCN/Lunor_Depe
                 { game: 'FISCH', title: 'RIFT HUB', id: 'fisch5' },
                 { game: 'FISCH', title: 'ZENITH HUB', id: 'fisch3' },
                 { game: 'FISCH', title: 'LUNOR HUB', id: 'fisch-lunor' }, 
-{ game: 'FISH IT', title: 'BLESSED HUB', id: 'fish-blessed' },
-{ game: 'FISH IT', title: 'NAT HUB', id: 'fish-nat' }, 
+                { game: 'FISH IT', title: 'BLESSED HUB', id: 'fish-blessed' },
+                { game: 'FISH IT', title: 'NAT HUB', id: 'fish-nat' }, 
                 { game: 'FORSAKEN', title: 'LOLNOTAKID', id: 'forsaken1' },
                 { game: 'FORSAKEN', title: 'TSUO HUB', id: 'forsaken2' },
                 { game: 'FRUIT BATTLEGROUNDS', title: 'DEVSEHUB', id: 'fb1' },
@@ -1561,8 +1570,8 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Catto-YFCN/Lunor_Depe
                 { game: 'STEAL A BRAINROT', title: 'UGLYS FISHING', id: 'sb-ugly' }, 
                 { game: 'THE STRONGEST BATTLEGROUNDS', title: 'MINHNHAT HUB', id: 'tsb1' },
                 { game: 'THE STRONGEST BATTLEGROUNDS', title: 'SANS MOVESET', id: 'tsb2' }, 
-{ game: 'THE FORGE', title: 'CHIYO HUB', id: 'forge-chiyo' }, 
-{ game: 'THE FORGE', title: 'LUNOR HUB', id: 'forge-lunor' }, 
+                { game: 'THE FORGE', title: 'CHIYO HUB', id: 'forge-chiyo' }, 
+                { game: 'THE FORGE', title: 'LUNOR HUB', id: 'forge-lunor' }, 
                 { game: 'VOX SEAS', title: 'FARM DINERO', id: 'vs1' },
                 { game: 'VOX SEAS', title: 'LEGEND HUB', id: 'vs2' },
                 { game: 'VOX SEAS', title: 'NEXUS HUB', id: 'vs3' },
@@ -1623,14 +1632,15 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Catto-YFCN/Lunor_Depe
                     if ((itemText.includes('99 NOCHES') && sectionId === '99-noches-en-el-bosque') ||
                         (itemText.includes('ARISE') && sectionId === 'arise-crossover') ||
                         (itemText.includes('ATTACK') && sectionId === 'attack-on-titan-revolution') ||
-(itemText.includes('ANIME WEAPONS') && sectionId === 'anime-weapons') ||
+                        (itemText.includes('ANIME WEAPONS') && sectionId === 'anime-weapons') ||
                         (itemText.includes('BASICALLY FNF') && sectionId === 'basically-fnf-remix') ||
                         (itemText.includes('BLOCK SPIN') && sectionId === 'block-spin') ||
                         (itemText.includes('BLOODMONEY') && sectionId === 'bloodmoney') ||
                         (itemText.includes('BLOX FRUITS') && sectionId === 'blox-fruits') ||
                         (itemText.includes('BLUE LOCK') && sectionId === 'blue-lock-rivals') ||
-(itemText.includes('BOB ESPONJA') && sectionId === 'bob-esponja-tower-defense') || 
-(itemText.includes('BUILD A BOAT') && sectionId === 'build-a-boat') ||
+                        (itemText.includes('BOB ESPONJA') && sectionId === 'bob-esponja-tower-defense') || 
+                        (itemText.includes('BUILD A BOAT') && sectionId === 'build-a-boat') ||
+                        (itemText.includes('BEE SWARM') && sectionId === 'bee-swarm-simulator') ||
                         (itemText.includes('DANDY') && sectionId === 'dandy-world') ||
                         (itemText.includes('DEAD DEFENSE') && sectionId === 'dead-defense') ||
                         (itemText.includes('DEAD RAILS') && sectionId === 'dead-rails') ||
@@ -1642,16 +1652,16 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Catto-YFCN/Lunor_Depe
                         (itemText.includes('DRAGON BLOX') && sectionId === 'dragon-blox') ||
                         (itemText.includes('EVADE') && sectionId === 'evade') ||
                         (itemText.includes('FISCH') && sectionId === 'fisch') || 
-(itemText.includes('FISH IT') && sectionId === 'fish-it') ||
+                        (itemText.includes('FISH IT') && sectionId === 'fish-it') ||
                         (itemText.includes('FORSAKEN') && sectionId === 'forsaken') ||
                         (itemText.includes('FRUIT BATTLEGROUNDS') && sectionId === 'fruit-battlegrounds') ||
                         (itemText.includes('GRAND PIECE ONLINE') && sectionId === 'grand-piece-online') ||
                         (itemText.includes('GROW A GARDEN') && sectionId === 'grow-a-garden') ||
-(itemText.includes('GARDEN TOWER') && sectionId === 'garden-tower-defense') ||
+                        (itemText.includes('GARDEN TOWER') && sectionId === 'garden-tower-defense') ||
                         (itemText.includes('HUNTY ZOMBIE') && sectionId === 'hunty-zombie') ||
                         (itemText.includes('INK GAME') && sectionId === 'ink-game') ||
                         (itemText.includes('JAILBREAK') && sectionId === 'jailbreak') || 
-(itemText.includes('JUJUTSU') && sectionId === 'jujutsu-infinite') || 
+                        (itemText.includes('JUJUTSU') && sectionId === 'jujutsu-infinite') || 
                         (itemText.includes('KING LEGACY') && sectionId === 'king-legacy') ||
                         (itemText.includes('MUSCLE LEGENDS') && sectionId === 'muscle-legends') ||
                         (itemText.includes('NINJA TIMES') && sectionId === 'ninja-times') ||
@@ -1665,7 +1675,7 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Catto-YFCN/Lunor_Depe
                         (itemText.includes('SMASH PROJECT') && sectionId === 'smash-project') ||
                         (itemText.includes('STEAL A BRAINROT') && sectionId === 'steal-a-brainrot') ||
                         (itemText.includes('THE STRONGEST BATTLEGROUNDS') && sectionId === 'strongest-battlegrounds') || 
-(itemText.includes('THE FORGE') && sectionId === 'the-forge') ||
+                        (itemText.includes('THE FORGE') && sectionId === 'the-forge') ||
                         (itemText.includes('VOX SEAS') && sectionId === 'vox-seas') ||
                         (itemText.includes('WEAK LEGACY') && sectionId === 'weak-legacy') ||
                         (itemText.includes('Si lees esto, ignorame') && sectionId === 'saludo')) {
