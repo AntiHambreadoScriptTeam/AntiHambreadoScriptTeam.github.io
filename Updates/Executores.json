@@ -3,7 +3,7 @@
     "codex": {
       "nombre": "CodeX",
       "version": "2.700",
-      "fecha_actualizacion": "2025-11-26",
+      "fecha_actualizacion": "26-11-2025",
       "status": "detectable",
       "link_descarga": "https://gofile.io/d/UzbLud",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg"
@@ -11,7 +11,7 @@
     "fluxusz": {
       "nombre": "Fluxus Z",
       "version": "3.0.4",
-      "fecha_actualizacion": "2025-12-06",
+      "fecha_actualizacion": "06-12-2025",
       "status": "detectable",
       "link_descarga": "https://www.mediafire.com/file/3tp4j75bwfaqu9c/FluxusZ+V3.0.3+ARM64.apk/file",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/FLUXUS-Z.jpeg"
@@ -19,7 +19,7 @@
     "arceus": {
       "nombre": "ArceusX",
       "version": "1.9.5",
-      "fecha_actualizacion": "2025-12-05",
+      "fecha_actualizacion": "05-12-2025",
       "status": "detectable",
       "link_descarga": "https://android.spdmteam.com/",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/ARCEUS.jpeg"
@@ -27,7 +27,7 @@
     "delta": {
       "nombre": "Delta",
       "version": "2.701",
-      "fecha_actualizacion": "2025-12-12",
+      "fecha_actualizacion": "12-12-2025",
       "status": "peligro",
       "link_descarga": "https://delta.filenetwork.vip/android.html",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/DELTA-VIRUS.jpeg"
@@ -35,7 +35,7 @@
     "ronix": {
       "nombre": "Ronix",
       "version": "2.701",
-      "fecha_actualizacion": "2025-12-11",
+      "fecha_actualizacion": "11-12-2025",
       "status": "peligro",
       "link_descarga": "https://wrdcdn.net/r/154522/1765490520420/Ronix_64Bits%20(2).apk",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/RONIX.webp"
@@ -43,7 +43,7 @@
     "krnl": {
       "nombre": "KRNL",
       "version": "0.0.0",
-      "fecha_actualizacion": "2025-11-01",
+      "fecha_actualizacion": "01-11-2025",
       "status": "desactualizado",
       "link_descarga": "https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/KRNL.png"
@@ -51,11 +51,11 @@
     "fluxus": {
       "nombre": "Fluxus",
       "version": "0.0.0",
-      "fecha_actualizacion": "2025-09-25",
+      "fecha_actualizacion": "25-09-2025",
       "status": "desactualizado",
       "link_descarga": "https://i.postimg.cc/WpyRFyJp/Screenshot_20250922-103258-857.png",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/FLUXUS.png"
     }
   },
-  "ultima_actualizacion": "2025-12-08T15:30:00Z"
+  "ultima_actualizacion": "12-12-2025"
 }
