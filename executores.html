@@ -67,12 +67,13 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anti-Hambreado Script Team - Executores</title>
+<title>Roblox Executores Hub</title>
 <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
@@ -89,13 +90,7 @@
   --neon-shadow: 0 0 12px rgba(255, 50, 50, 0.25);
   --neon-glow: 0 0 20px rgba(255, 30, 30, 0.15);
 }
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: 'Montserrat', sans-serif;
   background: var(--bg-primary);
@@ -104,7 +99,6 @@ body {
   overflow-x: hidden;
   line-height: 1.6;
 }
-
 canvas#particles-js {
   position: fixed;
   inset: 0;
@@ -112,13 +106,10 @@ canvas#particles-js {
   z-index: 1;
   opacity: 0.35;
 }
-
 .general-warning-modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.95);
   display: flex;
   justify-content: center;
@@ -127,7 +118,6 @@ canvas#particles-js {
   padding: 20px;
   backdrop-filter: blur(5px);
 }
-
 .general-warning-content {
   background: linear-gradient(135deg, #1a0000 0%, #2a0000 50%, #1a0000 100%);
   width: 100%;
@@ -142,18 +132,13 @@ canvas#particles-js {
   transform: scale(0.95);
   animation: scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
-
-@keyframes scaleIn {
-  to { transform: scale(1); }
-}
-
+@keyframes scaleIn { to { transform: scale(1); } }
 .general-warning-header {
   text-align: center;
   margin-bottom: 25px;
   padding-bottom: 20px;
   border-bottom: 1px solid rgba(255, 50, 50, 0.3);
 }
-
 .general-warning-title {
   font-family: 'Orbitron', sans-serif;
   font-size: 2.5rem;
@@ -162,40 +147,25 @@ canvas#particles-js {
   margin-bottom: 10px;
   animation: pulseSubtle 1.5s infinite;
 }
-
 .general-warning-body {
   font-size: 1rem;
   line-height: 1.8;
   color: var(--text-primary);
   text-align: justify;
 }
-
-.general-warning-body p {
-  margin-bottom: 15px;
-}
-
-.general-warning-body strong {
-  color: var(--accent-red-light);
-  font-weight: 700;
-}
-
-.general-warning-body ul {
-  margin-left: 25px;
-  margin-bottom: 15px;
-}
-
+.general-warning-body p { margin-bottom: 15px; }
+.general-warning-body strong { color: var(--accent-red-light); font-weight: 700; }
+.general-warning-body ul { margin-left: 25px; margin-bottom: 15px; }
 .general-warning-body li {
   margin-bottom: 10px;
   position: relative;
   padding-left: 15px;
 }
-
 .general-warning-body li::before {
   content: "⚠️";
   position: absolute;
   left: -20px;
 }
-
 .warning-closing {
   background: rgba(255, 0, 0, 0.1);
   border-left: 4px solid var(--accent-red);
@@ -204,7 +174,6 @@ canvas#particles-js {
   border-radius: 10px;
   text-align: center;
 }
-
 .general-warning-btn {
   background: linear-gradient(45deg, var(--accent-red-dark), var(--accent-red));
   color: #000;
@@ -221,19 +190,15 @@ canvas#particles-js {
   width: 100%;
   font-family: 'Orbitron', sans-serif;
 }
-
 .general-warning-btn:hover {
   background: linear-gradient(45deg, var(--accent-red), #ff5555);
   box-shadow: 0 7px 25px rgba(211, 47, 47, 0.6);
   transform: translateY(-2px);
 }
-
 .sidebar {
   position: fixed;
-  top: 0;
-  right: -300px;
-  width: 300px;
-  height: 100vh;
+  top: 0; right: -300px;
+  width: 300px; height: 100vh;
   background: var(--bg-secondary);
   backdrop-filter: blur(12px);
   transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -243,11 +208,7 @@ canvas#particles-js {
   border-left: 1px solid rgba(255, 50, 50, 0.2);
   overflow-y: auto;
 }
-
-.sidebar.active {
-  right: 0;
-}
-
+.sidebar.active { right: 0; }
 .sidebar-item {
   padding: 16px 25px;
   border-bottom: 1px solid rgba(255, 50, 50, 0.1);
@@ -261,7 +222,6 @@ canvas#particles-js {
   font-weight: 600;
   font-size: 0.95rem;
 }
-
 .sidebar-item:hover {
   background: rgba(255, 50, 50, 0.08);
   transform: translateX(-5px);
@@ -269,13 +229,10 @@ canvas#particles-js {
   color: #fff;
   box-shadow: var(--neon-glow);
 }
-
 .menu-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.6);
   z-index: 99;
   display: none;
@@ -283,16 +240,10 @@ canvas#particles-js {
   transition: opacity 0.4s ease;
   backdrop-filter: blur(3px);
 }
-
-.menu-overlay.active {
-  display: block;
-  opacity: 1;
-}
-
+.menu-overlay.active { display: block; opacity: 1; }
 .menu-toggle {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 20px; right: 20px;
   z-index: 101;
   display: flex;
   flex-direction: column;
@@ -304,39 +255,25 @@ canvas#particles-js {
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 50, 50, 0.2);
 }
-
 .menu-toggle:hover {
   background: rgba(255, 50, 50, 0.1);
   box-shadow: var(--neon-glow);
 }
-
 .menu-toggle span {
-  width: 26px;
-  height: 2px;
+  width: 26px; height: 2px;
   background: var(--accent-red-light);
   border-radius: 2px;
   transition: transform 0.4s ease, opacity 0.4s ease;
 }
-
-.menu-toggle.active span:nth-child(1) {
-  transform: rotate(45deg) translate(6px, 6px);
-}
-
-.menu-toggle.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.menu-toggle.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -7px);
-}
-
+.menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+.menu-toggle.active span:nth-child(2) { opacity: 0; }
+.menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
 header {
   text-align: center;
   margin-top: 80px;
   padding: 2rem 1rem;
   animation: fadeInDown 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 header h1 {
   font-family: 'Orbitron', sans-serif;
   font-size: 2.4rem;
@@ -349,13 +286,11 @@ header h1 {
   letter-spacing: 1px;
   text-shadow: var(--neon-shadow);
 }
-
 header p {
   font-size: 1rem;
   color: var(--text-secondary);
   opacity: 0.85;
 }
-
 .container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -364,7 +299,6 @@ header p {
   max-width: 1200px;
   margin: 0 auto 50px;
 }
-
 .card {
   background: var(--bg-card);
   border-radius: 16px;
@@ -379,13 +313,11 @@ header p {
   border: 1px solid rgba(255, 50, 50, 0.15);
   backdrop-filter: blur(5px);
 }
-
 .card:hover {
   transform: translateY(-8px) scale(1.02);
   box-shadow: var(--neon-glow);
   border-color: rgba(255, 50, 50, 0.3);
 }
-
 .card:nth-child(1) { animation-delay: 0.1s; }
 .card:nth-child(2) { animation-delay: 0.2s; }
 .card:nth-child(3) { animation-delay: 0.3s; }
@@ -393,10 +325,9 @@ header p {
 .card:nth-child(5) { animation-delay: 0.5s; }
 .card:nth-child(6) { animation-delay: 0.6s; }
 .card:nth-child(7) { animation-delay: 0.7s; }
-
+.card:nth-child(8) { animation-delay: 0.8s; }
 .card img {
-  width: 130px;
-  height: 130px;
+  width: 130px; height: 130px;
   object-fit: contain;
   margin-bottom: 18px;
   transition: transform 0.4s ease;
@@ -405,11 +336,7 @@ header p {
   background: rgba(0, 0, 0, 0.2);
   padding: 8px;
 }
-
-.card:hover img {
-  transform: scale(1.08) rotate(2deg);
-}
-
+.card:hover img { transform: scale(1.08) rotate(2deg); }
 .card h2 {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.4rem;
@@ -418,7 +345,6 @@ header p {
   text-shadow: var(--neon-shadow);
   letter-spacing: 1px;
 }
-
 .executor-meta {
   display: flex;
   gap: 15px;
@@ -426,7 +352,6 @@ header p {
   font-size: 0.85rem;
   font-weight: 600;
 }
-
 .executor-version {
   color: var(--accent-red-light);
   background: rgba(255, 50, 50, 0.1);
@@ -434,7 +359,6 @@ header p {
   border-radius: 10px;
   border: 1px solid rgba(255, 50, 50, 0.2);
 }
-
 .executor-date {
   color: var(--text-secondary);
   background: rgba(180, 70, 70, 0.08);
@@ -442,7 +366,6 @@ header p {
   border-radius: 10px;
   border: 1px solid rgba(180, 70, 70, 0.2);
 }
-
 .status-label {
   margin: 8px 0;
   padding: 6px 16px;
@@ -452,31 +375,26 @@ header p {
   user-select: none;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
-
 .status-label.peligro {
   color: #ff6b6b;
   background-color: rgba(255, 0, 0, 0.12);
   box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
 }
-
 .status-label.detectable {
   color: #ffaa6b;
   background-color: rgba(255, 165, 0, 0.12);
   box-shadow: 0 0 10px rgba(255, 165, 0, 0.2);
 }
-
 .status-label.indetectable {
   color: #6bff6b;
   background-color: rgba(0, 180, 0, 0.12);
   box-shadow: 0 0 10px rgba(0, 180, 0, 0.2);
 }
-
 .status-label.desactualizado {
   color: #aaa;
   background-color: rgba(100, 100, 100, 0.12);
   box-shadow: 0 0 10px rgba(100, 100, 100, 0.2);
 }
-
 .download-btn {
   background: linear-gradient(45deg, var(--accent-red-dark), var(--accent-red));
   color: #000;
@@ -494,28 +412,20 @@ header p {
   gap: 8px;
   margin-top: 8px;
 }
-
 .download-btn:hover {
   background: linear-gradient(45deg, var(--accent-red), #ff5555);
   box-shadow: 0 7px 20px rgba(211, 47, 47, 0.5);
   transform: translateY(-2px);
 }
-
 .download-btn::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transition: left 0.5s ease;
 }
-
-.download-btn:hover::before {
-  left: 100%;
-}
-
+.download-btn:hover::before { left: 100%; }
 .warning {
   font-size: 0.8rem;
   color: #ffdd59;
@@ -527,7 +437,6 @@ header p {
   border-radius: 8px;
   border: 1px solid rgba(255, 221, 89, 0.15);
 }
-
 .discord-section {
   text-align: center;
   margin: 50px auto 60px;
@@ -539,20 +448,14 @@ header p {
   border: 1px solid rgba(114, 137, 218, 0.2);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
-
 .discord-section img {
-  width: 80px;
-  height: 80px;
+  width: 80px; height: 80px;
   margin-bottom: 15px;
   border-radius: 50%;
   transition: transform 0.4s ease;
   filter: drop-shadow(0 0 10px rgba(114, 137, 218, 0.4));
 }
-
-.discord-section:hover img {
-  transform: scale(1.1) rotate(4deg);
-}
-
+.discord-section:hover img { transform: scale(1.1) rotate(4deg); }
 .discord-section h2 {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.6rem;
@@ -560,7 +463,6 @@ header p {
   color: #7289DA;
   text-shadow: 0 0 8px rgba(114, 137, 218, 0.4);
 }
-
 .discord-btn {
   background: linear-gradient(45deg, #7289DA, #5b6eae);
   color: #fff;
@@ -574,13 +476,11 @@ header p {
   align-items: center;
   gap: 10px;
 }
-
 .discord-btn:hover {
   background: linear-gradient(45deg, #8ea1e1, #7289DA);
   box-shadow: 0 7px 20px rgba(114, 137, 218, 0.5);
   transform: translateY(-2px);
 }
-
 footer {
   text-align: center;
   padding: 25px;
@@ -590,18 +490,11 @@ footer {
   color: var(--text-secondary);
   border-top: 1px solid rgba(255, 50, 50, 0.15);
 }
-
-footer p {
-  margin: 5px 0;
-  font-size: 0.9rem;
-}
-
+footer p { margin: 5px 0; font-size: 0.9rem; }
 .warning-modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
@@ -612,12 +505,10 @@ footer p {
   transition: all 0.4s ease;
   padding: 15px;
 }
-
 .warning-modal.active {
   opacity: 1;
   visibility: visible;
 }
-
 .warning-content {
   background: linear-gradient(135deg, #2a0000 0%, #4a0000 100%);
   width: 100%;
@@ -634,16 +525,11 @@ footer p {
   display: flex;
   flex-direction: column;
 }
-
-.warning-modal.active .warning-content {
-  transform: scale(1);
-}
-
+.warning-modal.active .warning-content { transform: scale(1); }
 .warning-header {
   text-align: center;
   margin-bottom: 15px;
 }
-
 .warning-title {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.8rem;
@@ -652,13 +538,11 @@ footer p {
   margin-bottom: 8px;
   animation: pulseSubtle 2s infinite;
 }
-
 .warning-subtitle {
   font-size: 1rem;
   color: var(--accent-red-light);
   margin-bottom: 12px;
 }
-
 .warning-body {
   background: rgba(0, 0, 0, 0.4);
   padding: 15px;
@@ -669,24 +553,9 @@ footer p {
   overflow-y: auto;
   max-height: 50vh;
 }
-
-.warning-body p {
-  margin-bottom: 12px;
-  line-height: 1.6;
-  font-size: 0.9rem;
-}
-
-.warning-body ul {
-  margin-left: 20px;
-  margin-bottom: 12px;
-}
-
-.warning-body li {
-  margin-bottom: 8px;
-  line-height: 1.5;
-  font-size: 0.85rem;
-}
-
+.warning-body p { margin-bottom: 12px; line-height: 1.6; font-size: 0.9rem; }
+.warning-body ul { margin-left: 20px; margin-bottom: 12px; }
+.warning-body li { margin-bottom: 8px; line-height: 1.5; font-size: 0.85rem; }
 .warning-recommendation {
   background: rgba(0, 0, 0, 0.5);
   padding: 12px;
@@ -694,24 +563,17 @@ footer p {
   margin-top: 10px;
   border: 1px solid rgba(255, 170, 85, 0.3);
 }
-
 .warning-recommendation h3 {
   color: #ffaa55;
   margin-bottom: 8px;
   font-size: 0.95rem;
 }
-
-.warning-recommendation p {
-  font-size: 0.85rem;
-  margin-bottom: 0;
-}
-
+.warning-recommendation p { font-size: 0.85rem; margin-bottom: 0; }
 .warning-buttons {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
 .warning-btn {
   padding: 14px 20px;
   border: none;
@@ -727,33 +589,26 @@ footer p {
   justify-content: center;
   gap: 8px;
 }
-
 .warning-btn.cancel {
   background: linear-gradient(45deg, #444, #666);
   color: #fff;
 }
-
 .warning-btn.cancel:hover {
   background: linear-gradient(45deg, #555, #777);
   box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
 }
-
 .warning-btn.continue {
   background: linear-gradient(45deg, var(--accent-red-dark), var(--accent-red));
   color: #000;
 }
-
 .warning-btn.continue:hover {
   background: linear-gradient(45deg, var(--accent-red), #ff5555);
   box-shadow: var(--neon-glow);
 }
-
 .log-modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
@@ -764,12 +619,10 @@ footer p {
   transition: all 0.4s ease;
   padding: 15px;
 }
-
 .log-modal.active {
   opacity: 1;
   visibility: visible;
 }
-
 .log-content {
   background: linear-gradient(135deg, #1a0000 0%, #2a0000 100%);
   width: 100%;
@@ -782,28 +635,24 @@ footer p {
   display: flex;
   flex-direction: column;
 }
-
 .log-header {
   text-align: center;
   margin-bottom: 20px;
   padding-bottom: 15px;
   border-bottom: 1px solid rgba(255, 50, 50, 0.3);
 }
-
 .log-title {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.6rem;
   color: var(--accent-red);
   text-shadow: var(--neon-shadow);
 }
-
 .log-body {
   flex: 1;
   overflow-y: auto;
   max-height: 55vh;
   padding: 10px;
 }
-
 .log-entry {
   background: rgba(0, 0, 0, 0.3);
   border-left: 3px solid var(--accent-red);
@@ -813,18 +662,13 @@ footer p {
   font-size: 0.85rem;
   line-height: 1.5;
 }
-
 .log-entry .log-date {
   color: var(--accent-red-light);
   font-weight: 700;
   display: block;
   margin-bottom: 5px;
 }
-
-.log-entry .log-change {
-  color: var(--text-primary);
-}
-
+.log-entry .log-change { color: var(--text-primary); }
 .log-close-btn {
   background: linear-gradient(45deg, var(--accent-red-dark), var(--accent-red));
   color: #000;
@@ -837,34 +681,18 @@ footer p {
   margin-top: 15px;
   font-family: 'Orbitron', sans-serif;
 }
-
 .log-close-btn:hover {
   background: linear-gradient(45deg, var(--accent-red), #ff5555);
   box-shadow: var(--neon-glow);
 }
-
 @keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-25px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes neonGlowSubtle {
   0% {
     background-position: 0% 50%;
@@ -875,50 +703,25 @@ footer p {
     text-shadow: var(--neon-glow);
   }
 }
-
 @keyframes pulseSubtle {
-  0%, 100% {
-    opacity: 0.9;
-  }
-  50% {
-    opacity: 1;
-  }
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; }
 }
-
 @media (max-width: 768px) {
   .sidebar {
     width: 85%;
     max-width: 280px;
   }
-  
-  header h1 {
-    font-size: 1.8rem;
-  }
-  
+  header h1 { font-size: 1.8rem; }
   .container {
     grid-template-columns: 1fr;
     padding: 15px;
   }
-  
-  .card {
-    padding: 20px 15px;
-  }
-  
-  .warning-content {
-    max-width: 95%;
-  }
-  
-  .general-warning-content {
-    padding: 25px 20px;
-  }
-  
-  .general-warning-title {
-    font-size: 1.8rem;
-  }
-  
-  .general-warning-body {
-    font-size: 0.9rem;
-  }
+  .card { padding: 20px 15px; }
+  .warning-content { max-width: 95%; }
+  .general-warning-content { padding: 25px 20px; }
+  .general-warning-title { font-size: 1.8rem; }
+  .general-warning-body { font-size: 0.9rem; }
 }
 </style>
 </head>
@@ -934,16 +737,13 @@ footer p {
       <p>Queremos informarles de manera oficial que, a la fecha, <strong>todos los executores de scripts conocidos para dispositivos móviles (Android e iOS) son detectados</strong> por el nuevo sistema anti-trampas implementado por Roblox (Hyperion Byfron actualizado).</p>
       <p>Esto incluye, sin excepción, cualquier aplicación o método que permita la inyección o ejecución de scripts externos en la versión móvil del juego, independientemente de si se trata de versiones "undetected", modificadas, de pago o gratuitas.</p>
       <p>El uso de cualquiera de estas herramientas en dispositivos móviles conlleva un <strong>alto riesgo de sanción permanente en la cuenta</strong>, incluyendo baneos definitivos sin posibilidad de apelación en la mayoría de los casos.</p>
-      
       <p><strong>Recomendamos encarecidamente:</strong></p>
       <ul>
         <li>Desinstalar de inmediato cualquier ejecutor o aplicación relacionada.</li>
         <li>No adquirir ni instalar herramientas que prometan ser "indetectables" en móviles, ya que actualmente no existen métodos seguros.</li>
         <li>Jugar exclusivamente con la versión oficial de Roblox sin modificaciones.</li>
       </ul>
-      
       <p>Nuestra prioridad es proteger sus cuentas y evitar pérdidas innecesarias. Esta medida no es temporal: <strong>el sistema de detección en móviles se ha fortalecido de forma permanente.</strong></p>
-      
       <div class="warning-closing">
         <p>Gracias por su comprensión y por jugar de forma responsable.</p>
         <p><strong>Atentamente,<br>Anti-Hambreado Script Team y asociados</strong></p>
@@ -1005,7 +805,7 @@ footer p {
 
 <header>
   <h1>Roblox Executores Hub</h1>
-  <p>Última actualización: Diciembre 7, 2025</p>
+  <p>Última actualización: Diciembre 13, 2025</p>
 </header>
 
 <div class="container">
@@ -1029,7 +829,7 @@ footer p {
       <span class="executor-version">v3.0.3</span>
       <span class="executor-date">2025-12-06</span>
     </div>
-    <div class="status-label detectable">🟡 Semi-Indetectable</div>
+    <div class="status-label detectable">🟠 Detectable</div>
     <a class="download-btn" href="https://wrdcdn.net/r/68963/1765043213492/FluxusZ%20V3.0.3%20ARM64.apk" target="_blank" rel="noopener noreferrer">
       <i class="fas fa-download"></i> Descargar
     </a>
@@ -1042,8 +842,21 @@ footer p {
       <span class="executor-version">v1.9.5</span>
       <span class="executor-date">2025-12-05</span>
     </div>
-    <div class="status-label detectable">🟡 Semi-Indetectable</div>
+    <div class="status-label detectable">🟠 Detectable</div>
     <a class="download-btn" href="https://android.spdmteam.com/" target="_blank" rel="noopener noreferrer">
+      <i class="fas fa-download"></i> Descargar
+    </a>
+  </div>
+
+  <div class="card" data-executor="punkx">
+    <img src="https://antihambreadoscriptteam.github.io/Foto/PUNKX.png" alt="PunkX">
+    <h2>PunkX</h2>
+    <div class="executor-meta">
+      <span class="executor-version">v2.700</span>
+      <span class="executor-date">2025-12-13</span>
+    </div>
+    <div class="status-label detectable">🟠 Detectable</div>
+    <a class="download-btn" href="https://www.mediafire.com/file/f9j8ymuhl2v0p79/PunkX_64Bits.apk/file?hash=9BD1ExsaA42Car1pKJZSGQkz7IU7yRYg1Ln9wYh0QI6zCp164TcpEte9spjmk4tB" target="_blank" rel="noopener noreferrer">
       <i class="fas fa-download"></i> Descargar
     </a>
   </div>
@@ -1259,24 +1072,20 @@ document.querySelectorAll('.download-btn[data-executor]').forEach(button => {
     e.preventDefault();
     const executor = this.getAttribute('data-executor');
     if (warnings[executor]) {
-      showWarning(warnings[executor]);
+      warningTitle.innerHTML = warnings[executor].title;
+      warningSubtitle.textContent = warnings[executor].subtitle;
+      warningBody.innerHTML = warnings[executor].body;
+      warningModal.classList.add('active');
+      
+      continueBtn.onclick = function() {
+        if (warnings[executor].continueUrl) {
+          window.open(warnings[executor].continueUrl, '_blank');
+        }
+        warningModal.classList.remove('active');
+      };
     }
   });
 });
-
-function showWarning(warning) {
-  warningTitle.innerHTML = warning.title;
-  warningSubtitle.textContent = warning.subtitle;
-  warningBody.innerHTML = warning.body;
-  warningModal.classList.add('active');
-  
-  continueBtn.onclick = function() {
-    if (warning.continueUrl) {
-      window.open(warning.continueUrl, '_blank');
-    }
-    warningModal.classList.remove('active');
-  };
-}
 
 cancelBtn.addEventListener('click', () => warningModal.classList.remove('active'));
 warningModal.addEventListener('click', (e) => {
@@ -1330,16 +1139,20 @@ function processExecutorData(newData) {
   const now = new Date();
   const timestamp = now.toLocaleDateString('es-ES') + ' ' + now.toLocaleTimeString('es-ES');
   
-  Object.keys(newData).forEach(key => {
-    const executorData = newData[key];
-    const card = document.querySelector(`[data-executor="${key}"]`);
+  Object.entries(newData).forEach(([key, executorData]) => {
+    let card = document.querySelector(`[data-executor="${key}"]`);
     
-    if (!card) return;
+    if (!card) {
+      card = createExecutorCard(key);
+      document.querySelector('.container').appendChild(card);
+    }
     
     const versionEl = card.querySelector('.executor-version');
     const dateEl = card.querySelector('.executor-date');
-    const statusEl = card.querySelector('.status-label');
+    const statusEl = card.querySelector('.status-label:not(.peligro):not(.desactualizado)');
     const downloadBtn = card.querySelector('.download-btn');
+    const imgEl = card.querySelector('img');
+    const nameEl = card.querySelector('h2');
     
     if (currentData[key]) {
       const oldData = currentData[key];
@@ -1361,14 +1174,7 @@ function processExecutorData(newData) {
       }
       
       if (executorData.status !== oldData.status) {
-        statusEl.className = `status-label ${executorData.status}`;
-        const statusText = {
-          'detectable': '🟠 Detectable',
-          'peligro': '⚠️ Peligroso',
-          'desactualizado': '⚫ Descontinuado',
-          'indetectable': '🟢 Indetectable'
-        };
-        statusEl.textContent = statusText[executorData.status] || '⚪ Desconocido';
+        updateCardStatus(card, executorData.status);
         changeLog.unshift({
           date: timestamp,
           message: `Se actualizó ${executorData.nombre}: nuevo status detectado`
@@ -1386,15 +1192,16 @@ function processExecutorData(newData) {
     } else {
       versionEl.textContent = `v${executorData.version}`;
       dateEl.textContent = executorData.fecha_actualizacion;
-      statusEl.className = `status-label ${executorData.status}`;
-      const statusText = {
-        'detectable': '🟠 Detectable',
-        'peligro': '⚠️ Peligroso',
-        'desactualizado': '⚫ Descontinuado',
-        'indetectable': '🟢 Indetectable'
-      };
-      statusEl.textContent = statusText[executorData.status] || '⚪ Desconocido';
+      updateCardStatus(card, executorData.status);
       downloadBtn.href = executorData.link_descarga;
+      imgEl.src = executorData.imagen;
+      nameEl.textContent = executorData.nombre;
+      
+      if (!card.querySelector('.status-label')) {
+        const statusLabel = document.createElement('div');
+        statusLabel.className = 'status-label';
+        card.insertBefore(statusLabel, downloadBtn);
+      }
     }
   });
   
@@ -1403,6 +1210,44 @@ function processExecutorData(newData) {
   }
   
   currentData = JSON.parse(JSON.stringify(newData));
+}
+
+function createExecutorCard(key) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.executor = key;
+  card.style.animationDelay = `${(document.querySelectorAll('.card').length + 1) * 0.1}s`;
+  card.innerHTML = `
+    <img src="" alt="">
+    <h2></h2>
+    <div class="executor-meta">
+      <span class="executor-version"></span>
+      <span class="executor-date"></span>
+    </div>
+    <a class="download-btn" href="#" target="_blank" rel="noopener noreferrer">
+      <i class="fas fa-download"></i> Descargar
+    </a>
+  `;
+  return card;
+}
+
+function updateCardStatus(card, status) {
+  const statusTexts = {
+    'detectable': '🟠 Detectable',
+    'peligro': '⚠️ Peligroso',
+    'desactualizado': '⚫ Descontinuado',
+    'indetectable': '🟢 Indetectable'
+  };
+  
+  let statusEl = card.querySelector('.status-label:not(.peligro):not(.desactualizado)');
+  if (!statusEl) {
+    statusEl = document.createElement('div');
+    statusEl.className = 'status-label';
+    card.insertBefore(statusEl, card.querySelector('.download-btn'));
+  }
+  
+  statusEl.className = `status-label ${status}`;
+  statusEl.textContent = statusTexts[status] || '⚪ Desconocido';
 }
 
 function displayLog() {
@@ -1443,3 +1288,4 @@ setInterval(fetchExecutorData, 11000);
 
 </body>
 </html>
+ 
