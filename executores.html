@@ -682,7 +682,7 @@ footer p { margin: 5px 0; font-size: 0.9rem; }
       <h2 class="log-title">📋 Log de Cambios Detectados</h2>
     </div>
     <div class="log-body" id="logBody">
-      <p style="text-align: center; color: var(--text-secondary);">No se han detectado cambios aún.</p>
+      <p style="text-align: center; color: var(--text-secondary);">Cargando logs...</p>
     </div>
     <button class="log-close-btn" id="logCloseBtn">Cerrar</button>
   </div>
@@ -894,8 +894,8 @@ const logToggle = document.getElementById('logToggle');
 const logCloseBtn = document.getElementById('logCloseBtn');
 
 let currentData = {};
-let changeLog = [];
 const API_URL = 'https://antihambreadoscriptteam.github.io/Updates/Executores.json';
+const LOG_API_URL = 'https://antihambreadoscriptteam.github.io/Updates/Log.json';
 
 async function fetchExecutorData() {
   try {
@@ -908,9 +908,6 @@ async function fetchExecutorData() {
 }
 
 function processExecutorData(newData) {
-  const now = new Date();
-  const timestamp = now.toLocaleDateString('es-ES') + ' ' + now.toLocaleTimeString('es-ES');
-  
   Object.entries(newData).forEach(([key, executorData]) => {
     let card = document.querySelector(`[data-executor="${key}"]`);
     
@@ -923,58 +920,14 @@ function processExecutorData(newData) {
     const dateEl = card.querySelector('.executor-date');
     const imgEl = card.querySelector('img');
     const nameEl = card.querySelector('h2');
-    const buttonContainer = card.querySelector('.button-container');
     
     versionEl.textContent = `v${executorData.version}`;
     dateEl.textContent = executorData.fecha_actualizacion;
     imgEl.src = executorData.imagen;
     nameEl.textContent = executorData.nombre;
     
-    if (currentData[key]) {
-      const oldData = currentData[key];
-      
-      if (executorData.version !== oldData.version) {
-        changeLog.unshift({
-          date: timestamp,
-          message: `Se actualizó ${executorData.nombre}: versión ${oldData.version} → ${executorData.version}`
-        });
-      }
-      
-      if (executorData.fecha_actualizacion !== oldData.fecha_actualizacion) {
-        changeLog.unshift({
-          date: timestamp,
-          message: `Se actualizó ${executorData.nombre}: nueva fecha de actualización`
-        });
-      }
-      
-      if (executorData.status !== oldData.status) {
-        changeLog.unshift({
-          date: timestamp,
-          message: `Se actualizó ${executorData.nombre}: status cambió a ${executorData.status}`
-        });
-      }
-      
-      if (executorData.link_descarga_arm64 !== oldData.link_descarga_arm64) {
-        changeLog.unshift({
-          date: timestamp,
-          message: `Se actualizó ${executorData.nombre}: enlace ARM64 modificado`
-        });
-      }
-      
-      if (executorData.link_descarga_arm32 !== oldData.link_descarga_arm32) {
-        changeLog.unshift({
-          date: timestamp,
-          message: `Se actualizó ${executorData.nombre}: enlace ARM32 modificado`
-        });
-      }
-    }
-    
     updateCardStatus(card, executorData.status, executorData.link_descarga_arm64, executorData.link_descarga_arm32);
   });
-  
-  if (changeLog.length > 20) {
-    changeLog = changeLog.slice(0, 20);
-  }
   
   currentData = JSON.parse(JSON.stringify(newData));
 }
@@ -1045,16 +998,24 @@ function updateCardStatus(card, status, arm64Link, arm32Link) {
   }
 }
 
-function displayLog() {
-  if (changeLog.length === 0) {
-    logBody.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No se han detectado cambios aún.</p>';
-  } else {
-    logBody.innerHTML = changeLog.map(entry => `
-      <div class="log-entry">
-        <span class="log-date">${entry.date}</span>
-        <span class="log-change">${entry.message}</span>
-      </div>
-    `).join('');
+async function displayLog() {
+  try {
+    const response = await fetch(LOG_API_URL, {cache: 'no-cache'});
+    const data = await response.json();
+    
+    if (!data.logs || data.logs.length === 0) {
+      logBody.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No se han encontrado logs.</p>';
+    } else {
+      logBody.innerHTML = data.logs.map(entry => `
+        <div class="log-entry">
+          <span class="log-date">${entry.fecha}</span>
+          <span class="log-change">${entry.mensaje}</span>
+        </div>
+      `).join('');
+    }
+  } catch (error) {
+    logBody.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Error al cargar los logs.</p>';
+    console.error('Error al obtener logs:', error);
   }
   logModal.classList.add('active');
 }
