@@ -12,7 +12,7 @@
      "fluxusz": {
       "nombre": "Fluxus Z",
       "version": "3.0.6",
-      "fecha_actualizacion": "14-12-2025",
+      "fecha_actualizacion": "15-12-2025",
       "status": "indetectable",
       "link_descarga_arm64": "https://www.mediafire.com/file/7iizmrzio32qsve/FluxusZ+V3.0.6+ARM64.apk/file",
       "link_descarga_arm32": "https://www.mediafire.com/file/wk9wfhmxvi3se9q/FluxusZ+ARM32+V3.0.6.apk/file", 
@@ -21,15 +21,15 @@
     "codex": {
       "nombre": "CodeX",
       "version": "2.700",
-      "fecha_actualizacion": "26-11-2025",
-      "status": "desactualizado",
-      "link_descarga_arm64": "https://gofile.io/d/UzbLud",
+      "fecha_actualizacion": "15-12-2025",
+      "status": "detectable",
+      "link_descarga_arm64": "https://www.mediafire.com/file/8dxf37l1y6xtcct/Codex+v2.701.apk/file",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg"
     },
     "arceus": {
       "nombre": "ArceusX",
       "version": "1.9.6",
-      "fecha_actualizacion": "05-12-2025",
+      "fecha_actualizacion": "15-12-2025",
       "status": "detectable",
       "link_descarga_arm64": "https://android.spdmteam.com/",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/ARCEUS.jpeg"
@@ -45,7 +45,7 @@
     "ronix": {
       "nombre": "Ronix",
       "version": "2.702",
-      "fecha_actualizacion": "14-12-2025",
+      "fecha_actualizacion": "15-12-2025",
       "status": "peligro",
       "link_descarga_arm64": "https://wrdcdn.net/r/154522/1765771982385/Ronix_64Bits.apk",
       "link_descarga_arm32": "https://wrdcdn.net/r/154522/1765771981400/Ronix_32Bits.apk", 
