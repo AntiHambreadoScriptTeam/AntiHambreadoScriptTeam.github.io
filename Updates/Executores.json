@@ -5,7 +5,8 @@
       "version": "2.700",
       "fecha_actualizacion": "13-12-2025",
       "status": "desconocido",
-      "link_descarga": "https://www.mediafire.com/file/f9j8ymuhl2v0p79/PunkX_64Bits.apk/file?hash=9BD1ExsaA42Car1pKJZSGQkz7IU7yRYg1Ln9wYh0QI6zCp164TcpEte9spjmk4tB",
+      "link_descarga_arm64": "https://www.mediafire.com/file/f9j8ymuhl2v0p79/PunkX_64Bits.apk/file?hash=9BD1ExsaA42Car1pKJZSGQkz7IU7yRYg1Ln9wYh0QI6zCp164TcpEte9spjmk4tB",
+      "link_descarga_arm32": "https://www.mediafire.com/file/kyqh0errrlolcar/PunkX_32Bits.apk/file?hash=iBkDiof86wl7QOgmP04ScRbUbzFpMdsFufZaRRnMO1Bk5FS50KItlewjQVKtVzxH", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/PunkX.png"
     },
     "codex": {
@@ -21,7 +22,8 @@
       "version": "3.0.6",
       "fecha_actualizacion": "14-12-2025",
       "status": "detectable",
-      "link_descarga": "https://www.mediafire.com/file/7iizmrzio32qsve/FluxusZ+V3.0.6+ARM64.apk/file",
+      "link_descarga_arm64": "https://www.mediafire.com/file/7iizmrzio32qsve/FluxusZ+V3.0.6+ARM64.apk/file",
+      "link_descarga_arm32": "https://www.mediafire.com/file/ibu28tmlpfvw8z0/FluxusZ+V3.0.3+ARM32.apk/file", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/FLUXUS-Z.jpeg"
     },
     "arceus": {
@@ -45,7 +47,8 @@
       "version": "2.702",
       "fecha_actualizacion": "14-12-2025",
       "status": "peligro",
-      "link_descarga": "https://www.mediafire.com/file/iylc3zmrl0t8xi5/Ronix_64Bits.apk/file",
+      "link_descarga_arm64": "https://www.mediafire.com/file/iylc3zmrl0t8xi5/Ronix_64Bits.apk/file",
+      "link_descarga_arm32": "https://wrdcdn.net/r/154522/1765490457581/Ronix_32Bits%20(1).apk", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/RONIX.webp"
     },
     "krnl": {
