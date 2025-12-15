@@ -1,6 +1,14 @@
 {
   "logs": [
     {
+      "fecha": "15-12-2025 06:30",
+      "mensaje": "[+] Se actualizó Codex"
+    },
+    {
+      "fecha": "15-12-2025 06:21",
+      "mensaje": "[+] Se actualizó Arceus (arreglo de bugs)"
+    },
+    {
       "fecha": "15-12-2025 05:51",
       "mensaje": "[+] Se actualizó Arceus (arreglo de bugs)"
     },
