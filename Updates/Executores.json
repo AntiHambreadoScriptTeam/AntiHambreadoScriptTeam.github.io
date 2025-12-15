@@ -14,7 +14,7 @@
       "version": "2.700",
       "fecha_actualizacion": "26-11-2025",
       "status": "detectable",
-      "link_descarga": "https://gofile.io/d/UzbLud",
+      "link_descarga_arm64": "https://gofile.io/d/UzbLud",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg"
     },
     "fluxusz": {
@@ -31,7 +31,7 @@
       "version": "1.9.5",
       "fecha_actualizacion": "05-12-2025",
       "status": "detectable",
-      "link_descarga": "https://android.spdmteam.com/",
+      "link_descarga_arm64": "https://android.spdmteam.com/",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/ARCEUS.jpeg"
     },
     "delta": {
@@ -39,7 +39,7 @@
       "version": "2.701",
       "fecha_actualizacion": "12-12-2025",
       "status": "peligro",
-      "link_descarga": "https://delta.filenetwork.vip/android.html",
+      "link_descarga_arm64": "https://delta.filenetwork.vip/android.html",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/DELTA-VIRUS.jpeg"
     },
     "ronix": {
@@ -56,7 +56,7 @@
       "version": "0.0.0",
       "fecha_actualizacion": "01-11-2025",
       "status": "desactualizado",
-      "link_descarga": "https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png",
+      "link_descarga_arm64": "https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/KRNL.png"
     },
     "fluxus": {
@@ -64,7 +64,7 @@
       "version": "0.0.0",
       "fecha_actualizacion": "25-09-2025",
       "status": "desactualizado",
-      "link_descarga": "https://i.postimg.cc/WpyRFyJp/Screenshot_20250922-103258-857.png",
+      "link_descarga_arm64": "https://i.postimg.cc/WpyRFyJp/Screenshot_20250922-103258-857.png",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/FLUXUS.png"
     }
   },
