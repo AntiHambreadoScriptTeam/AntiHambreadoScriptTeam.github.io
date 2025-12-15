@@ -293,10 +293,10 @@ header p {
 }
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 25px;
   padding: 25px;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto 50px;
 }
 .card {
@@ -326,6 +326,7 @@ header p {
 .card:nth-child(6) { animation-delay: 0.6s; }
 .card:nth-child(7) { animation-delay: 0.7s; }
 .card:nth-child(8) { animation-delay: 0.8s; }
+.card:nth-child(9) { animation-delay: 0.9s; }
 .card img {
   width: 130px; height: 130px;
   object-fit: contain;
@@ -370,7 +371,8 @@ header p {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin: 8px 0;
+  margin: 8px 0 12px;
+  min-height: 28px;
 }
 .status-label {
   padding: 5px 14px;
@@ -416,6 +418,8 @@ header p {
   align-items: center;
   gap: 8px;
   margin-top: 8px;
+  min-width: 200px;
+  justify-content: center;
 }
 .download-btn:hover {
   background: linear-gradient(45deg, var(--accent-red), #ff5555);
@@ -431,6 +435,22 @@ header p {
   transition: left 0.5s ease;
 }
 .download-btn:hover::before { left: 100%; }
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  align-items: center;
+  margin-top: 8px;
+}
+.arch-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: -8px;
+  margin-top: 4px;
+  opacity: 0.8;
+}
 .warning {
   font-size: 0.8rem;
   color: #ffdd59;
@@ -810,113 +830,10 @@ footer p { margin: 5px 0; font-size: 0.9rem; }
 
 <header>
   <h1>Roblox Executores Hub</h1>
-  <p>Última actualización: Diciembre 13, 2025</p>
+  <p>Última actualización: Diciembre 14, 2025</p>
 </header>
 
-  <div class="card" data-executor="punkx">
-    <img src="https://antihambreadoscriptteam.github.io/Foto/PUNKX.png" alt="PunkX">
-    <h2>PunkX</h2>
-    <div class="executor-meta">
-      <span class="executor-version">v2.700</span>
-      <span class="executor-date">2025-12-13</span>
-    </div>
-    <div class="status-container"></div>
-    <a class="download-btn" href="https://www.mediafire.com/file/f9j8ymuhl2v0p79/PunkX_64Bits.apk/file?hash=9BD1ExsaA42Car1pKJZSGQkz7IU7yRYg1Ln9wYh0QI6zCp164TcpEte9spjmk4tB" target="_blank" rel="noopener noreferrer">
-      <i class="fas fa-download"></i> Descargar
-    </a>
-  </div> 
-  
-<div class="container">
-  <div class="card" data-executor="codex">
-    <img src="https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg" alt="Codex">
-    <h2>Codex</h2>
-    <div class="executor-meta">
-      <span class="executor-version">v2.700</span>
-      <span class="executor-date">2025-11-26</span>
-    </div>
-    <div class="status-container"></div>
-    <a class="download-btn" href="https://gofile.io/d/UzbLud" target="_blank" rel="noopener noreferrer">
-      <i class="fas fa-download"></i> Descargar
-    </a>
-  </div>
-
-  <div class="card" data-executor="fluxusz">
-    <img src="https://antihambreadoscriptteam.github.io/Foto/FLUXUS-Z.jpeg" alt="Fluxus Z">
-    <h2>Fluxus Z</h2>
-    <div class="executor-meta">
-      <span class="executor-version">v3.0.5</span>
-      <span class="executor-date">2025-12-13</span>
-    </div>
-    <div class="status-container"></div>
-    <a class="download-btn" href="https://www.mediafire.com/file/3tp4j75bwfaqu9c/FluxusZ+V3.0.3+ARM64.apk/file" target="_blank" rel="noopener noreferrer">
-      <i class="fas fa-download"></i> Descargar
-    </a>
-  </div>
-
-  <div class="card" data-executor="arceus">
-    <img src="https://antihambreadoscriptteam.github.io/Foto/ARCEUS.jpeg" alt="Arceus">
-    <h2>ArceusX</h2>
-    <div class="executor-meta">
-      <span class="executor-version">v1.9.5</span>
-      <span class="executor-date">2025-12-05</span>
-    </div>
-    <div class="status-container"></div>
-    <a class="download-btn" href="https://android.spdmteam.com/" target="_blank" rel="noopener noreferrer">
-      <i class="fas fa-download"></i> Descargar
-    </a>
-  </div>
-
-  <div class="card" data-executor="delta">
-    <img src="https://antihambreadoscriptteam.github.io/Foto/DELTA-VIRUS.jpeg" alt="Delta">
-    <h2>Delta</h2>
-    <div class="executor-meta">
-      <span class="executor-version">v2.701</span>
-      <span class="executor-date">2025-12-12</span>
-    </div>
-    <div class="status-container"></div>
-    <a class="download-btn" href="https://delta.filenetwork.vip/android.html" target="_blank" rel="noopener noreferrer" data-executor="delta">
-      <i class="fas fa-download"></i> Descargar
-    </a>
-  </div>
-
-  <div class="card" data-executor="ronix">
-    <img src="https://antihambreadoscriptteam.github.io/Foto/RONIX.webp" alt="Ronix">
-    <h2>Ronix</h2>
-    <div class="executor-meta">
-      <span class="executor-version">v2.701</span>
-      <span class="executor-date">2025-12-11</span>
-    </div>
-    <div class="status-container"></div>
-    <a class="download-btn" href="#" data-executor="ronix">
-      <i class="fas fa-download"></i> Descargar
-    </a>
-  </div>
-
-  <div class="card" data-executor="krnl">
-    <img src="https://antihambreadoscriptteam.github.io/Foto/KRNL.png" alt="KRNL">
-    <h2>KRNL</h2>
-    <div class="executor-meta">
-      <span class="executor-version">v0.0.0</span>
-      <span class="executor-date">2025-11-01</span>
-    </div>
-    <div class="status-container"></div>
-    <a class="download-btn" href="https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png" target="_blank" rel="noopener noreferrer" data-executor="krnl">
-      <i class="fas fa-download"></i> Descargar
-    </a>
-  </div>
-  
-  <div class="card" data-executor="fluxus">
-    <img src="https://antihambreadoscriptteam.github.io/Foto/FLUXUS.png" alt="Fluxus">
-    <h2>Fluxus</h2>
-    <div class="executor-meta">
-      <span class="executor-version">v0.0.0</span>
-      <span class="executor-date">2025-09-25</span>
-    </div>
-    <div class="status-container"></div>
-    <a class="download-btn" href="#" data-executor="fluxus">
-      <i class="fas fa-download"></i> Descargar
-    </a>
-  </div>
+<div class="container" id="executorsContainer">
 </div>
 
 <div class="discord-section">
@@ -1065,26 +982,21 @@ const warnings = {
   }
 };
 
-document.querySelectorAll('.download-btn[data-executor]').forEach(button => {
-  button.addEventListener('click', function(e) {
-    e.preventDefault();
-    const executor = this.getAttribute('data-executor');
-    if (warnings[executor]) {
-      warningTitle.innerHTML = warnings[executor].title;
-      warningSubtitle.textContent = warnings[executor].subtitle;
-      warningBody.innerHTML = warnings[executor].body;
-      warningModal.classList.add('active');
-      
-      continueBtn.onclick = () => {
-        const updatedUrl = this.href;
-        if (updatedUrl && updatedUrl !== '#') {
-          window.open(updatedUrl, '_blank');
-        }
-        warningModal.classList.remove('active');
-      };
-    }
-  });
-});
+function showWarning(executor, url) {
+  if (warnings[executor]) {
+    warningTitle.innerHTML = warnings[executor].title;
+    warningSubtitle.textContent = warnings[executor].subtitle;
+    warningBody.innerHTML = warnings[executor].body;
+    warningModal.classList.add('active');
+    
+    continueBtn.onclick = () => {
+      window.open(url, '_blank');
+      warningModal.classList.remove('active');
+    };
+  } else {
+    window.open(url, '_blank');
+  }
+}
 
 cancelBtn.addEventListener('click', () => warningModal.classList.remove('active'));
 warningModal.addEventListener('click', (e) => {
@@ -1143,20 +1055,24 @@ function processExecutorData(newData) {
     
     if (!card) {
       card = createExecutorCard(key);
-      document.querySelector('.container').appendChild(card);
+      document.getElementById('executorsContainer').appendChild(card);
     }
     
     const versionEl = card.querySelector('.executor-version');
     const dateEl = card.querySelector('.executor-date');
-    const downloadBtn = card.querySelector('.download-btn');
     const imgEl = card.querySelector('img');
     const nameEl = card.querySelector('h2');
+    const buttonContainer = card.querySelector('.button-container');
+    
+    versionEl.textContent = `v${executorData.version}`;
+    dateEl.textContent = executorData.fecha_actualizacion;
+    imgEl.src = executorData.imagen;
+    nameEl.textContent = executorData.nombre;
     
     if (currentData[key]) {
       const oldData = currentData[key];
       
       if (executorData.version !== oldData.version) {
-        versionEl.textContent = `v${executorData.version}`;
         changeLog.unshift({
           date: timestamp,
           message: `Se actualizó ${executorData.nombre}: versión ${oldData.version} → ${executorData.version}`
@@ -1164,28 +1080,35 @@ function processExecutorData(newData) {
       }
       
       if (executorData.fecha_actualizacion !== oldData.fecha_actualizacion) {
-        dateEl.textContent = executorData.fecha_actualizacion;
         changeLog.unshift({
           date: timestamp,
           message: `Se actualizó ${executorData.nombre}: nueva fecha de actualización`
         });
       }
       
-      if (executorData.status !== oldData.status || executorData.link_descarga !== oldData.link_descarga) {
-        updateCardStatus(card, executorData.status, executorData.link_descarga);
+      if (executorData.status !== oldData.status) {
         changeLog.unshift({
           date: timestamp,
-          message: `Se actualizó ${executorData.nombre}: status o enlace modificado`
+          message: `Se actualizó ${executorData.nombre}: status cambió a ${executorData.status}`
         });
       }
       
-    } else {
-      versionEl.textContent = `v${executorData.version}`;
-      dateEl.textContent = executorData.fecha_actualizacion;
-      updateCardStatus(card, executorData.status, executorData.link_descarga);
-      imgEl.src = executorData.imagen;
-      nameEl.textContent = executorData.nombre;
+      if (executorData.link_descarga_arm64 !== oldData.link_descarga_arm64) {
+        changeLog.unshift({
+          date: timestamp,
+          message: `Se actualizó ${executorData.nombre}: enlace ARM64 modificado`
+        });
+      }
+      
+      if (executorData.link_descarga_arm32 !== oldData.link_descarga_arm32) {
+        changeLog.unshift({
+          date: timestamp,
+          message: `Se actualizó ${executorData.nombre}: enlace ARM32 modificado`
+        });
+      }
     }
+    
+    updateCardStatus(card, executorData.status, executorData.link_descarga_arm64, executorData.link_descarga_arm32);
   });
   
   if (changeLog.length > 20) {
@@ -1199,7 +1122,6 @@ function createExecutorCard(key) {
   const card = document.createElement('div');
   card.className = 'card';
   card.dataset.executor = key;
-  card.style.animationDelay = `${(document.querySelectorAll('.card').length + 1) * 0.1}s`;
   card.innerHTML = `
     <img src="" alt="">
     <h2></h2>
@@ -1208,14 +1130,28 @@ function createExecutorCard(key) {
       <span class="executor-date"></span>
     </div>
     <div class="status-container"></div>
-    <a class="download-btn" href="#" target="_blank" rel="noopener noreferrer">
-      <i class="fas fa-download"></i> Descargar
-    </a>
+    <div class="button-container"></div>
   `;
   return card;
 }
 
-function updateCardStatus(card, status, link) {
+function createDownloadButton(url, arch, executor) {
+  const btn = document.createElement('a');
+  btn.className = 'download-btn';
+  btn.href = url || '#';
+  btn.target = '_blank';
+  btn.rel = 'noopener noreferrer';
+  btn.innerHTML = `<i class="fas fa-download"></i> Descargar ${arch}`;
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (this.href && this.href !== '#') {
+      showWarning(executor, this.href);
+    }
+  });
+  return btn;
+}
+
+function updateCardStatus(card, status, arm64Link, arm32Link) {
   const statusContainer = card.querySelector('.status-container');
   statusContainer.innerHTML = '';
   
@@ -1223,28 +1159,29 @@ function updateCardStatus(card, status, link) {
     'detectable': '🟠 Detectable',
     'peligro': '⚠️ Peligroso',
     'desactualizado': '⚫ Descontinuado',
-    'indetectable': '🟢 Indetectable'
+    'indetectable': '🟢 Indetectable',
+    'desconocido': '⚪ Desconocido'
   };
   
-  if (status === 'peligro') {
-    const peligroEl = document.createElement('div');
-    peligroEl.className = 'status-label peligro';
-    peligroEl.textContent = statusTexts.peligro;
-    statusContainer.appendChild(peligroEl);
-    
-    const detectableEl = document.createElement('div');
-    detectableEl.className = 'status-label detectable';
-    detectableEl.textContent = statusTexts.detectable;
-    statusContainer.appendChild(detectableEl);
-  } else {
-    const statusEl = document.createElement('div');
-    statusEl.className = `status-label ${status}`;
-    statusEl.textContent = statusTexts[status] || '⚪ Desconocido';
-    statusContainer.appendChild(statusEl);
+  const statusEl = document.createElement('div');
+  statusEl.className = `status-label ${status}`;
+  statusEl.textContent = statusTexts[status] || '⚪ Desconocido';
+  statusContainer.appendChild(statusEl);
+  
+  const buttonContainer = card.querySelector('.button-container');
+  buttonContainer.innerHTML = '';
+  
+  const executor = card.dataset.executor;
+  
+  if (arm64Link && arm64Link !== '#') {
+    const arm64Btn = createDownloadButton(arm64Link, 'ARM64', executor);
+    buttonContainer.appendChild(arm64Btn);
   }
   
-  const downloadBtn = card.querySelector('.download-btn');
-  downloadBtn.href = link;
+  if (arm32Link && arm32Link !== '#') {
+    const arm32Btn = createDownloadButton(arm32Link, 'ARM32', executor);
+    buttonContainer.appendChild(arm32Btn);
+  }
 }
 
 function displayLog() {
