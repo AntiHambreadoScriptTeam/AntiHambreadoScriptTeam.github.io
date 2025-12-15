@@ -4,7 +4,7 @@
       "nombre": "PunkX",
       "version": "2.700",
       "fecha_actualizacion": "13-12-2025",
-      "status": "indetectable",
+      "status": "desactualizado",
       "link_descarga_arm64": "https://www.mediafire.com/file/f9j8ymuhl2v0p79/PunkX_64Bits.apk/file?hash=9BD1ExsaA42Car1pKJZSGQkz7IU7yRYg1Ln9wYh0QI6zCp164TcpEte9spjmk4tB",
       "link_descarga_arm32": "https://www.mediafire.com/file/kyqh0errrlolcar/PunkX_32Bits.apk/file?hash=iBkDiof86wl7QOgmP04ScRbUbzFpMdsFufZaRRnMO1Bk5FS50KItlewjQVKtVzxH", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/PunkX.png"
@@ -22,7 +22,7 @@
       "nombre": "CodeX",
       "version": "2.700",
       "fecha_actualizacion": "26-11-2025",
-      "status": "detectable",
+      "status": "desactualizado",
       "link_descarga_arm64": "https://gofile.io/d/UzbLud",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg"
     },
@@ -38,7 +38,7 @@
       "nombre": "Delta",
       "version": "2.701",
       "fecha_actualizacion": "12-12-2025",
-      "status": "peligro",
+      "status": "desactualizado",
       "link_descarga_arm64": "https://delta.filenetwork.vip/android.html",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/DELTA-VIRUS.jpeg"
     },
@@ -46,7 +46,7 @@
       "nombre": "Ronix",
       "version": "2.702",
       "fecha_actualizacion": "14-12-2025",
-      "status": "peligro",
+      "status": "desactualizado",
       "link_descarga_arm64": "https://www.mediafire.com/file/iylc3zmrl0t8xi5/Ronix_64Bits.apk/file",
       "link_descarga_arm32": "https://wrdcdn.net/r/154522/1765490457581/Ronix_32Bits%20(1).apk", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/RONIX.webp"
@@ -55,7 +55,7 @@
       "nombre": "KRNL",
       "version": "0.0.0",
       "fecha_actualizacion": "01-11-2025",
-      "status": "desactualizado",
+      "status": "descontinuado",
       "link_descarga_arm64": "https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/KRNL.png"
     },
@@ -63,10 +63,9 @@
       "nombre": "Fluxus",
       "version": "0.0.0",
       "fecha_actualizacion": "25-09-2025",
-      "status": "desactualizado",
+      "status": "descontinuado",
       "link_descarga_arm64": "https://i.postimg.cc/WpyRFyJp/Screenshot_20250922-103258-857.png",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/FLUXUS.png"
     }
   },
-  "ultima_actualizacion": "12-12-2025"
 }
