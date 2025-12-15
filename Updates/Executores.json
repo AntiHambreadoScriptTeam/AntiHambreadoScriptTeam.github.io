@@ -9,6 +9,15 @@
       "link_descarga_arm32": "https://www.mediafire.com/file/kyqh0errrlolcar/PunkX_32Bits.apk/file?hash=iBkDiof86wl7QOgmP04ScRbUbzFpMdsFufZaRRnMO1Bk5FS50KItlewjQVKtVzxH", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/PunkX.png"
     },
+     "fluxusz": {
+      "nombre": "Fluxus Z",
+      "version": "3.0.6",
+      "fecha_actualizacion": "14-12-2025",
+      "status": "indetectable",
+      "link_descarga_arm64": "https://www.mediafire.com/file/7iizmrzio32qsve/FluxusZ+V3.0.6+ARM64.apk/file",
+      "link_descarga_arm32": "https://www.mediafire.com/file/ibu28tmlpfvw8z0/FluxusZ+V3.0.3+ARM32.apk/file", 
+      "imagen": "https://antihambreadoscriptteam.github.io/Foto/FLUXUS-Z.jpeg"
+    },
     "codex": {
       "nombre": "CodeX",
       "version": "2.700",
@@ -16,15 +25,6 @@
       "status": "detectable",
       "link_descarga_arm64": "https://gofile.io/d/UzbLud",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg"
-    },
-    "fluxusz": {
-      "nombre": "Fluxus Z",
-      "version": "3.0.6",
-      "fecha_actualizacion": "14-12-2025",
-      "status": "detectable",
-      "link_descarga_arm64": "https://www.mediafire.com/file/7iizmrzio32qsve/FluxusZ+V3.0.6+ARM64.apk/file",
-      "link_descarga_arm32": "https://www.mediafire.com/file/ibu28tmlpfvw8z0/FluxusZ+V3.0.3+ARM32.apk/file", 
-      "imagen": "https://antihambreadoscriptteam.github.io/Foto/FLUXUS-Z.jpeg"
     },
     "arceus": {
       "nombre": "ArceusX",
