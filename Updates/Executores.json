@@ -46,9 +46,9 @@
       "nombre": "Ronix",
       "version": "2.702",
       "fecha_actualizacion": "14-12-2025",
-      "status": "desactualizado",
-      "link_descarga_arm64": "https://www.mediafire.com/file/iylc3zmrl0t8xi5/Ronix_64Bits.apk/file",
-      "link_descarga_arm32": "https://wrdcdn.net/r/154522/1765490457581/Ronix_32Bits%20(1).apk", 
+      "status": "peligroso",
+      "link_descarga_arm64": "https://wrdcdn.net/r/154522/1765771982385/Ronix_64Bits.apk",
+      "link_descarga_arm32": "https://wrdcdn.net/r/154522/1765771981400/Ronix_32Bits.apk", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/RONIX.webp"
     },
     "krnl": {
