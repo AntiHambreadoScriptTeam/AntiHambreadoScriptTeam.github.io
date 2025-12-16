@@ -994,6 +994,10 @@ html {
             <span class="folder-icon">📁</span>
             MUSCLE LEGENDS
         </div>
+      <div class="sidebar-item" onclick="showContent('murder-mystery')">
+    <span class="folder-icon">📁</span>
+    MURDER MYSTERY
+      </div>
         <div class="sidebar-item" onclick="showContent('ninja-times')">
             <span class="folder-icon">📁</span>
             NINJA TIMES
@@ -1286,6 +1290,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ChopLoris/ArcHub/main
         <div class="script-card"><div class="script-header"><div class="script-title">ECLIPSE HUB</div><button class="copy-button" onclick="copyScript(this, 'ml1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="ml1">loadstring(game:HttpGet("https://protected-roblox-scripts.onrender.com/ef14c49aab8ad4e9ab69171b40989cd2"))()</pre></div></div>
         <div class="script-card"><div class="script-header"><div class="script-title">SPEED HUB</div><button class="copy-button" onclick="copyScript(this, 'ml2')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="ml2">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</pre></div></div>
     </div>
+  <div id="murder-mystery" class="content">
+    <h2 class="section-title">🔪 MURDER MYSTERY</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">MM2 NAVIDAD</div><button class="copy-button" onclick="copyScript(this, 'mm2-navidad')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="mm2-navidad">https://www.mediafire.com/file/kucp7b7cyn5r8a4/SCRIPT+MM2+NAVIDAD.txt/file</pre></div></div>
+  </div>
     <div id="ninja-times" class="content">
         <h2 class="section-title">🥷 NINJA TIMES</h2>
         <div class="script-card"><div class="script-header"><div class="script-title">SCYLLA</div><button class="copy-button" onclick="copyScript(this, 'nt1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="nt1">loadstring(game:HttpGet("https://raw.githubusercontent.com/acezqqq/Scylla/refs/heads/main/Loader.lua"))()</pre></div></div>
@@ -1345,6 +1353,7 @@ end)</pre></div></div>
         <div class="script-card"><div class="script-header"><div class="script-title">TP ARBIX</div><button class="copy-button" onclick="copyScript(this, 'sb13')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="sb13">https://www.mediafire.com/file/3hj8kgeynzmnx4g/NEW+TP+ARBIX+HUB.txt/file</pre></div></div>
 <div class="script-card"><div class="script-header"><div class="script-title">AUTO BUY DEALER</div><button class="copy-button" onclick="copyScript(this, 'sb-autobuy')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="sb-autobuy">loadstring(game:HttpGet("https://raw.githubusercontent.com/AutoBuyBrainrotDealer/Auto-Buy/refs/heads/main/AutoBuyDealer"))()</pre></div></div>
 <div class="script-card"><div class="script-header"><div class="script-title">UGLYS FISHING</div><button class="copy-button" onclick="copyScript(this, 'sb-ugly')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="sb-ugly">https://www.mediafire.com/file/crn8ugyhoiu2ywz/SCRIPT+UGLYS+FISHING.txt/file</pre></div></div>
+      <div class="script-card"><div class="script-header"><div class="script-title">NAMELESS HUB</div><button class="copy-button" onclick="copyScript(this, 'sb-nameless')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="sb-nameless">https://www.mediafire.com/file/g29i3mg0kc8bvp3/SCRIPT+NAMELESS+HUB.txt/file</pre></div></div>
     </div>
     <div id="strongest-battlegrounds" class="content">
         <h2 class="section-title">🥊 THE STRONGEST BATTLEGROUNDS</h2>
@@ -1524,6 +1533,7 @@ end)</pre></div></div>
                 { game: 'KING LEGACY', title: 'OMG HUB', id: 'kl2' },
                 { game: 'MUSCLE LEGENDS', title: 'ECLIPSE HUB', id: 'ml1' },
                 { game: 'MUSCLE LEGENDS', title: 'SPEED HUB', id: 'ml2' },
+                { game: 'MURDER MYSTERY', title: 'MM2 NAVIDAD', id: 'mm2-navidad' }, 
                 { game: 'NINJA TIMES', title: 'SCYLLA', id: 'nt1' },
                 { game: 'PIGGY', title: 'STARHACK HUB', id: 'piggy1' },
                 { game: 'PLANTAS VS BRAINROT', title: 'BLESSED HUB', id: 'pvb3' },
@@ -1554,6 +1564,7 @@ end)</pre></div></div>
                 { game: 'STEAL A BRAINROT', title: 'TP ARBIX', id: 'sb13' },
                 { game: 'STEAL A BRAINROT', title: 'AUTO BUY DEALER', id: 'sb-autobuy' }, 
                 { game: 'STEAL A BRAINROT', title: 'UGLYS FISHING', id: 'sb-ugly' }, 
+                { game: 'STEAL A BRAINROT', title: 'NAMELESS HUB', id: 'sb-nameless' }, 
                 { game: 'THE STRONGEST BATTLEGROUNDS', title: 'MINHNHAT HUB', id: 'tsb1' },
                 { game: 'THE STRONGEST BATTLEGROUNDS', title: 'SANS MOVESET', id: 'tsb2' }, 
                 { game: 'THE FORGE', title: 'CHIYO HUB', id: 'forge-chiyo' }, 
@@ -1650,6 +1661,7 @@ end)</pre></div></div>
                         (itemText.includes('JUJUTSU') && sectionId === 'jujutsu-infinite') || 
                         (itemText.includes('KING LEGACY') && sectionId === 'king-legacy') ||
                         (itemText.includes('MUSCLE LEGENDS') && sectionId === 'muscle-legends') ||
+                        (itemText.includes('MURDER MYSTERY') && sectionId === 'murder-mystery') ||
                         (itemText.includes('NINJA TIMES') && sectionId === 'ninja-times') ||
                         (itemText.includes('PIGGY') && sectionId === 'piggy') ||
                         (itemText.includes('PLANTAS VS BRAINROT') && sectionId === 'plantas-vs-brainrot') ||
