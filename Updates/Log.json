@@ -1,6 +1,10 @@
 {
   "logs": [
     {
+      "fecha": "17-12-2025 11:15",
+      "mensaje": "[+] Se actualizó Delta"
+    },
+    {
       "fecha": "15-12-2025 10:30",
       "mensaje": "[+] Se actualizó Codex (arreglo de crasheos)"
     },
