@@ -36,10 +36,11 @@
     },
     "delta": {
       "nombre": "Delta",
-      "version": "2.701",
+      "version": "2.702",
       "fecha_actualizacion": "12-12-2025",
       "status": "peligro",
       "link_descarga_arm64": "https://delta.filenetwork.vip/android.html",
+      "link_descarga_arm32": "https://delta.filenetwork.vip/android.html", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/DELTA-VIRUS.jpeg"
     },
     "ronix": {
