@@ -1038,6 +1038,10 @@ html {
     <span class="folder-icon">📁</span>
     THE FORGE
 </div>
+      <div class="sidebar-item" onclick="showContent('universal-tower-defense')">
+    <span class="folder-icon">📁</span>
+    UNIVERSAL TOWER DEFENSE
+      </div>
         <div class="sidebar-item" onclick="showContent('vox-seas')">
             <span class="folder-icon">📁</span>
             VOX SEAS
@@ -1366,6 +1370,10 @@ end)</pre></div></div>
     <div class="script-card"><div class="script-header"><div class="script-title">CHIYO HUB</div><button class="copy-button" onclick="copyScript(this, 'forge-chiyo')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="forge-chiyo">https://www.mediafire.com/file/q4mhx7sy1owtwdx/SCRIPT+CHIYO+THE+FORGE.txt/file</pre></div></div>
 <div class="script-card"><div class="script-header"><div class="script-title">LUNOR HUB</div><button class="copy-button" onclick="copyScript(this, 'forge-lunor')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="forge-lunor">https://www.mediafire.com/file/t3uuf2f10p0xww1/SCRIPT+LUNOR.txt/file</pre></div></div>
 </div>
+  <div id="universal-tower-defense" class="content">
+    <h2 class="section-title">🛡️ UNIVERSAL TOWER DEFENSE</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">NOUSIGI HUB</div><button class="copy-button" onclick="copyScript(this, 'utd-nousigi')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="utd-nousigi">https://www.mediafire.com/file/spz7rvhgagn3weh/SCRIPT+NOUSIGI+HUB.txt/file</pre></div></div>
+  </div>
     <div id="vox-seas" class="content">
         <h2 class="section-title">🌊 VOX SEAS</h2>
         <div class="script-card"><div class="script-header"><div class="script-title">FARM DINERO</div><button class="copy-button" onclick="copyScript(this, 'vs1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="vs1">loadstring(game:HttpGet('https://raw.githubusercontent.com/shakaUnlocked/IiI/refs/heads/main/AutoVoxSeas.lua'))()</pre></div></div>
@@ -1571,6 +1579,7 @@ end)</pre></div></div>
                 { game: 'THE STRONGEST BATTLEGROUNDS', title: 'SANS MOVESET', id: 'tsb2' }, 
                 { game: 'THE FORGE', title: 'CHIYO HUB', id: 'forge-chiyo' }, 
                 { game: 'THE FORGE', title: 'LUNOR HUB', id: 'forge-lunor' }, 
+                { game: 'UNIVERSAL TOWER DEFENSE', title: 'NOUSIGI HUB', id: 'utd-nousigi' }, 
                 { game: 'VOX SEAS', title: 'FARM DINERO', id: 'vs1' },
                 { game: 'VOX SEAS', title: 'LEGEND HUB', id: 'vs2' },
                 { game: 'VOX SEAS', title: 'NEXUS HUB', id: 'vs3' },
@@ -1675,6 +1684,7 @@ end)</pre></div></div>
                         (itemText.includes('STEAL A BRAINROT') && sectionId === 'steal-a-brainrot') ||
                         (itemText.includes('THE STRONGEST BATTLEGROUNDS') && sectionId === 'strongest-battlegrounds') || 
                         (itemText.includes('THE FORGE') && sectionId === 'the-forge') ||
+                        (itemText.includes('UNIVERSAL TOWER') && sectionId === 'universal-tower-defense') ||
                         (itemText.includes('VOX SEAS') && sectionId === 'vox-seas') ||
                         (itemText.includes('WEAK LEGACY') && sectionId === 'weak-legacy') ||
                         (itemText.includes('Si lees esto, ignorame') && sectionId === 'saludo')) {
