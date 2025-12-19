@@ -938,6 +938,10 @@ html {
             <span class="folder-icon">📁</span>
             DRAGON BLOX
         </div>
+      <div class="sidebar-item" onclick="showContent('death-ball')">
+    <span class="folder-icon">📁</span>
+    DEATH BALL
+      </div>
         <div class="sidebar-item" onclick="showContent('evade')">
             <span class="folder-icon">📁</span>
             EVADE
@@ -1204,6 +1208,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/h
         <h2 class="section-title">🐉 DRAGON BLOX</h2>
         <div class="script-card"><div class="script-header"><div class="script-title">DEMONIC HUB</div><button class="copy-button" onclick="copyScript(this, 'db1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="db1">loadstring(game:HttpGet("https://raw.githubusercontent.com/Prosexy/Demonic-HUB-V2/main/DemonicHub_V2.lua", true))()</pre></div></div>
     </div>
+  <div id="death-ball" class="content">
+    <h2 class="section-title">💀 DEATH BALL</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">NATIVE HUB</div><button class="copy-button" onclick="copyScript(this, 'death-native')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="death-native">https://www.mediafire.com/file/7b8apdysqo369ne/SCRIPT_NATIVE_NEW.txt/file</pre></div></div>
+  </div>
     <div id="evade" class="content">
         <h2 class="section-title">🏃 EVADE</h2>
         <div class="script-card"><div class="script-header"><div class="script-title">SPEEDHAX</div><button class="copy-button" onclick="copyScript(this, 'evade1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="evade1">loadstring(game:HttpGet("https://raw.githubusercontent.com/thesigmacorex/RobloxScripts/main/speedhax"))()</pre></div></div>
@@ -1504,6 +1512,7 @@ end)</pre></div></div>
                 { game: 'DOORS', title: 'DOORS SCRIPT', id: 'doors1' },
                 { game: 'DRAGON BALL RAGE', title: 'IMP HUB', id: 'dbr1' },
                 { game: 'DRAGON BLOX', title: 'DEMONIC HUB', id: 'db1' },
+                { game: 'DEATH BALL', title: 'NATIVE HUB', id: 'death-native' }, 
                 { game: 'EVADE', title: 'SPEEDHAX', id: 'evade1' },
                 { game: 'EVADE', title: 'TORAISME', id: 'evade2' },
                 { game: 'FISCH', title: 'ALCHEMY HUB ', id: 'fisch4' },
@@ -1658,6 +1667,7 @@ end)</pre></div></div>
                         (itemText.includes('DOORS') && sectionId === 'doors') ||
                         (itemText.includes('DRAGON BALL RAGE') && sectionId === 'dragon-ball-rage') ||
                         (itemText.includes('DRAGON BLOX') && sectionId === 'dragon-blox') ||
+                        (itemText.includes('DEATH BALL') && sectionId === 'death-ball') ||
                         (itemText.includes('EVADE') && sectionId === 'evade') ||
                         (itemText.includes('FISCH') && sectionId === 'fisch') || 
                         (itemText.includes('FISH IT') && sectionId === 'fish-it') ||
