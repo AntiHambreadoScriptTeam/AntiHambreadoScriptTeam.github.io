@@ -994,6 +994,10 @@ html {
     <span class="folder-icon">📁</span>
     JUJUTSU INFINITE
 </div>
+      <div class="sidebar-item" onclick="showContent('jujutsu-zero')">
+    <span class="folder-icon">📁</span>
+    JUJUTSU ZERO
+      </div>
         <div class="sidebar-item" onclick="showContent('king-legacy')">
             <span class="folder-icon">📁</span>
             KING LEGACY
@@ -1300,6 +1304,10 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Catto-YFCN/Lunor_Depe
     <h2 class="section-title">🌀 JUJUTSU INFINITE</h2>
     <div class="script-card"><div class="script-header"><div class="script-title">SOLIX HUB</div><button class="copy-button" onclick="copyScript(this, 'jujutsu1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="jujutsu1">https://www.mediafire.com/file/d66j12ef9ynbuv0/SCRIPT+SOLIX+HUB.txt/file</pre></div></div>
 </div>
+  <div id="jujutsu-zero" class="content">
+    <h2 class="section-title">🌀 JUJUTSU ZERO</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">SIMCA HUB</div><button class="copy-button" onclick="copyScript(this, 'jzero-simca')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="jzero-simca">https://www.mediafire.com/file/8bcd3vgeugg030i/SCRIPT+SIMCA+HUB.txt/file</pre></div></div>
+  </div>
     <div id="king-legacy" class="content">
         <h2 class="section-title">👑 KING LEGACY</h2>
         <div class="script-card"><div class="script-header"><div class="script-title">ARC HUB</div><button class="copy-button" onclick="copyScript(this, 'kl1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="kl1">getgenv().RaidUI = false -- For Hidden Raid Mode true = show and false = hidden
@@ -1562,6 +1570,7 @@ end)</pre></div></div>
                 { game: 'INK GAME', title: 'VOID WARE', id: 'ink1' },
                 { game: 'JAILBREAK', title: 'SOLIX', id: 'jb1' }, 
                 { game: 'JUJUTSU INFINITE', title: 'SOLIX HUB', id: 'jujutsu1' }, 
+                { game: 'JUJUTSU ZERO', title: 'SIMCA HUB', id: 'jzero-simca' }, 
                 { game: 'KING LEGACY', title: 'ARC HUB', id: 'kl1' },
                 { game: 'KING LEGACY', title: 'OMG HUB', id: 'kl2' },
                 { game: 'MUSCLE LEGENDS', title: 'ECLIPSE HUB', id: 'ml1' },
@@ -1696,6 +1705,7 @@ end)</pre></div></div>
                         (itemText.includes('INK GAME') && sectionId === 'ink-game') ||
                         (itemText.includes('JAILBREAK') && sectionId === 'jailbreak') || 
                         (itemText.includes('JUJUTSU') && sectionId === 'jujutsu-infinite') || 
+                        (itemText.includes('JUJUTSU ZERO') && sectionId === 'jujutsu-zero') ||
                         (itemText.includes('KING LEGACY') && sectionId === 'king-legacy') ||
                         (itemText.includes('MUSCLE LEGENDS') && sectionId === 'muscle-legends') ||
                         (itemText.includes('MURDER MYSTERY') && sectionId === 'murder-mystery') ||
