@@ -1,48 +1,12 @@
 {
   "logs": [
     {
-    "fecha": "25-12-2025 11:15",
-      "mensaje": "[+] Se actualizó CodeX"
+    "fecha": "03-01-20256 03:40",
+      "mensaje": "[+] Se actualizó Ronix ARM64"
     },
     {
-    "fecha": "24-12-2025 12:15",
-      "mensaje": "[+] Se actualizó CodeX"
-    },
-    {
-    "fecha": "22-12-2025 09:15",
-      "mensaje": "[+] Se actualizó Arceus X"
-    },
-    {
-      "fecha": "17-12-2025 11:15",
-      "mensaje": "[+] Se actualizó Delta"
-    },
-    {
-      "fecha": "15-12-2025 10:30",
-      "mensaje": "[+] Se actualizó Codex (arreglo de crasheos)"
-    },
-    {
-      "fecha": "15-12-2025 06:30",
-      "mensaje": "[+] Se actualizó Codex"
-    },
-    {
-      "fecha": "15-12-2025 06:21",
-      "mensaje": "[+] Se actualizó Arceus (arreglo de crasheos)"
-    },
-    {
-      "fecha": "15-12-2025 05:51",
-      "mensaje": "[+] Se actualizó Arceus (arreglo de bugs)"
-    },
-    {
-      "fecha": "15-12-2025 05:11",
-      "mensaje": "[+] Se actualizó Ronix ARM64 y ARM32"
-    }, 
-    {
-      "fecha": "15-12-2025 04:08",
-      "mensaje": "[+] Se actualizó FluxusZ ARM32"
-    }, 
-    {
-      "fecha": "15-12-2025 04:08",
-      "mensaje": "[+] Se actualizó Arceus"
+      "fecha": "03-01-2026 03:40",
+      "mensaje": "[+] Se actualizó Ronix ARM32"
     }
   ]
 }
