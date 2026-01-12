@@ -4,7 +4,7 @@
       "nombre": "PunkX",
       "version": "2.702",
       "fecha_actualizacion": "15-12-2025",
-      "status": "indetectable",
+      "status": "desactualizado",
       "link_descarga_arm64": "https://www.mediafire.com/file/3mfj3eywoqkvxm6/PunkX_64Bits_2.702.622.apk/file?hash=kpP2vPQLAdiiLMrW1q37O0dr5lGoqi8QzpkhXtcc5Z2qpEZyt4n6dwM5FtYIfxMq",
       "link_descarga_arm32": "https://www.mediafire.com/file/659v8y3op42otuo/PunkX_32Bits_2.702.622.apk/file?hash=0bWG7DvrQV5w9yDB8gNR8FjBWfQYpKlfCi6hSYmTo1nwRKsaSmOZXtPW70iyzkvq", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/PunkX.png"
@@ -13,7 +13,7 @@
       "nombre": "Fluxus Z",
       "version": "3.0.6",
       "fecha_actualizacion": "15-12-2025",
-      "status": "indetectable",
+      "status": "desactualizado",
       "link_descarga_arm64": "https://www.mediafire.com/file/7iizmrzio32qsve/FluxusZ+V3.0.6+ARM64.apk/file",
       "link_descarga_arm32": "https://www.mediafire.com/file/wk9wfhmxvi3se9q/FluxusZ+ARM32+V3.0.6.apk/file", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/FLUXUS-Z.jpeg"
@@ -22,7 +22,7 @@
       "nombre": "CodeX",
       "version": "2.702",
       "fecha_actualizacion": "25-12-2025",
-      "status": "detectable",
+      "status": "desactualizado",
       "link_descarga_arm64": "https://gofile.io/d/UzbLud",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg"
     },
@@ -30,7 +30,7 @@
       "nombre": "ArceusX",
       "version": "1.9.8",
       "fecha_actualizacion": "12-01-2026",
-      "status": "detectable",
+      "status": "peligro",
       "link_descarga_arm64": "https://android.spdmteam.com/",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/ARCEUS.jpeg"
     },
@@ -47,7 +47,7 @@
       "nombre": "Ronix",
       "version": "2.702",
       "fecha_actualizacion": "03-01-2026",
-      "status": "peligro",
+      "status": "desactualizado",
       "link_descarga_arm64": "https://www.mediafire.com/file/1rymebranot85zp/Ronix_64Bits+(1).apk/file",
       "link_descarga_arm32": "https://www.mediafire.com/file/py1im0o3dwhr0ll/Ronix_32Bits+(1).apk/file", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/RONIX.webp"
