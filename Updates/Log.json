@@ -2,7 +2,11 @@
   "logs": [
     {
     "fecha": "12-01-2026 05:40",
-      "mensaje": "[+] Se actualizó Delta"
+      "mensaje": "[+] Se actualizó Arceus X"
+    },
+    {
+    "fecha": "12-01-2026 05:40",
+      "mensaje": "[+] Se actualizó Delta ARM64"
     },
     {
     "fecha": "03-01-2026 03:40",
