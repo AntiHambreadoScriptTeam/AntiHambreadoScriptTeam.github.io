@@ -20,9 +20,9 @@
     },
     "codex": {
       "nombre": "CodeX",
-      "version": "2.702",
-      "fecha_actualizacion": "25-12-2025",
-      "status": "desactualizado",
+      "version": "2.703",
+      "fecha_actualizacion": "12-01-2025",
+      "status": "detectable",
       "link_descarga_arm64": "https://gofile.io/d/UzbLud",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg"
     },
