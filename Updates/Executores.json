@@ -47,8 +47,8 @@
       "version": "2.703",
       "fecha_actualizacion": "13-01-2026",
       "status": "peligro",
-      "link_descarga_arm64": "https://wrdcdn.net/r/154522/1768292268838/Ronix_64Bits_Direct.apk",
-      "link_descarga_arm32": "https://wrdcdn.net/r/154522/1768292218069/Ronix_32Bits_Direct.apk", 
+      "link_descarga_arm64": "https://wrdcdn.net/r/154522/1768865107864/Ronix_64Bits.apk",
+      "link_descarga_arm32": "https://wrdcdn.net/r/154522/1768865240717/Ronix_32Bits.apk", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/RONIX.webp"
     },
     "krnl": {
