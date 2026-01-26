@@ -1046,6 +1046,10 @@ html {
             <span class="folder-icon">📁</span>
             STEAL A BRAINROT
         </div>
+<div class="sidebar-item" onclick="showContent('solo-hunter')">
+    <span class="folder-icon">📁</span>
+    SOLO HUNTER
+</div>
         <div class="sidebar-item" onclick="showContent('strongest-battlegrounds')">
             <span class="folder-icon">📁</span>
             THE STRONGEST BATTLEGROUNDS
@@ -1400,6 +1404,10 @@ end)</pre></div></div>
 <div class="script-card"><div class="script-header"><div class="script-title">UGLYS FISHING</div><button class="copy-button" onclick="copyScript(this, 'sb-ugly')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="sb-ugly">https://www.mediafire.com/file/crn8ugyhoiu2ywz/SCRIPT+UGLYS+FISHING.txt/file</pre></div></div>
       <div class="script-card"><div class="script-header"><div class="script-title">NAMELESS HUB</div><button class="copy-button" onclick="copyScript(this, 'sb-nameless')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="sb-nameless">https://www.mediafire.com/file/g29i3mg0kc8bvp3/SCRIPT+NAMELESS+HUB.txt/file</pre></div></div>
     </div>
+<div id="solo-hunter" class="content">
+    <h2 class="section-title">🎯 SOLO HUNTER</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">IMP HUB</div><button class="copy-button" onclick="copyScript(this, 'solo-imp')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="solo-imp">https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file</pre></div></div>
+</div>
     <div id="strongest-battlegrounds" class="content">
         <h2 class="section-title">🥊 THE STRONGEST BATTLEGROUNDS</h2>
         <div class="script-card"><div class="script-header"><div class="script-title">MINHNHAT HUB</div><button class="copy-button" onclick="copyScript(this, 'tsb1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="tsb1">loadstring(game:HttpGet("https://raw.githubusercontent.com/minhnhatdepzai8-cloud/MinhNhat-HUB-V5/refs/heads/main/MinhNhatDZ.lua.txt"))()</pre></div></div>
@@ -1630,6 +1638,7 @@ end)</pre></div></div>
                 { game: 'STEAL A BRAINROT', title: 'AUTO BUY DEALER', id: 'sb-autobuy' }, 
                 { game: 'STEAL A BRAINROT', title: 'UGLYS FISHING', id: 'sb-ugly' }, 
                 { game: 'STEAL A BRAINROT', title: 'NAMELESS HUB', id: 'sb-nameless' }, 
+{ game: 'SOLO HUNTER', title: 'IMP HUB', id: 'solo-imp' }, 
                 { game: 'THE STRONGEST BATTLEGROUNDS', title: 'MINHNHAT HUB', id: 'tsb1' },
                 { game: 'THE STRONGEST BATTLEGROUNDS', title: 'SANS MOVESET', id: 'tsb2' }, 
                 { game: 'THE FORGE', title: 'CHIYO HUB', id: 'forge-chiyo' }, 
@@ -1745,6 +1754,7 @@ end)</pre></div></div>
                         (itemText.includes('SCRIPT HUB UNIVERSALES') && sectionId === 'script-hub-universales') ||
                         (itemText.includes('SMASH PROJECT') && sectionId === 'smash-project') ||
                         (itemText.includes('STEAL A BRAINROT') && sectionId === 'steal-a-brainrot') ||
+(itemText.includes('SOLO HUNTER') && sectionId === 'solo-hunter') ||
                         (itemText.includes('THE STRONGEST BATTLEGROUNDS') && sectionId === 'strongest-battlegrounds') || 
                         (itemText.includes('THE FORGE') && sectionId === 'the-forge') ||
                         (itemText.includes('TSUNAMI BRAINROT') && sectionId === 'tsunami-brainrot') ||
