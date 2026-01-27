@@ -28,8 +28,8 @@
     },
     "arceus": {
       "nombre": "ArceusX",
-      "version": "1.9.8",
-      "fecha_actualizacion": "12-01-2026",
+      "version": "1.9.9",
+      "fecha_actualizacion": "27-01-2026",
       "status": "detectable",
       "link_descarga_arm64": "https://android.spdmteam.com/",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/ARCEUS.jpeg"
@@ -37,7 +37,7 @@
     "delta": {
       "nombre": "Delta",
       "version": "2.704",
-      "fecha_actualizacion": "22-01-2026",
+      "fecha_actualizacion": "27-01-2026",
       "status": "peligro",
       "link_descarga_arm64": "https://delta.filenetwork.vip/android.html",
       "link_descarga_arm32": "https://delta.filenetwork.vip/android.html", 
