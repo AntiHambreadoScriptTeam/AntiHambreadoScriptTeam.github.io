@@ -2,7 +2,7 @@
   "logs": [
 {
     "fecha": "31-01-2026 11:00",
-      "mensaje": "[+] Se actualizó PunkX ARM64" 
+      "mensaje": "[+] Se actualizó PunkX ARM64 y ARM32" 
     },
 {
     "fecha": "30-01-2026 11:00",
