@@ -36,8 +36,8 @@
     },
     "delta": {
       "nombre": "Delta",
-      "version": "2.704",
-      "fecha_actualizacion": "27-01-2026",
+      "version": "2.705",
+      "fecha_actualizacion": "02-02-2026",
       "status": "peligro",
       "link_descarga_arm64": "https://delta.filenetwork.vip/android.html",
       "link_descarga_arm32": "https://delta.filenetwork.vip/android.html", 
@@ -45,7 +45,7 @@
     },
     "ronix": {
       "nombre": "Ronix",
-      "version": "2.704",
+      "version": "2.705",
       "fecha_actualizacion": "02-02-2026",
       "status": "peligro",
       "link_descarga_arm64": "https://wrdcdn.net/r/154522/1770071977958/Ronix_64Bits_NEW.apk",
