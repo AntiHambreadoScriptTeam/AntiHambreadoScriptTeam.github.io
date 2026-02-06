@@ -20,16 +20,16 @@
     },
     "codex": {
       "nombre": "CodeX",
-      "version": "2.705",
-      "fecha_actualizacion": "30-01-2025",
+      "version": "2.706",
+      "fecha_actualizacion": "06-02-2026",
       "status": "detectable",
-      "link_descarga_arm64": "https://www.mediafire.com/file/qnzbaba4c8rjncw/Codex+V2.705.924.apk/file",
+      "link_descarga_arm64": "https://www.mediafire.com/file/v2wqjrqpgttq4fs/Codex+v2.706.750.apk/file",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg"
     },
     "arceus": {
       "nombre": "ArceusX",
-      "version": "2.0.0",
-      "fecha_actualizacion": "30-01-2026",
+      "version": "2.0.1",
+      "fecha_actualizacion": "06-02-2026",
       "status": "detectable",
       "link_descarga_arm64": "https://android.spdmteam.com/",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/ARCEUS.jpeg"
