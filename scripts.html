@@ -878,6 +878,10 @@ html {
     <span class="folder-icon">📁</span>
     ARSENAL
 </div>
+<div class="sidebar-item" onclick="showContent('abyss')">
+    <span class="folder-icon">📁</span>
+    ABYSS
+</div>
         <div class="sidebar-item" onclick="showContent('basically-fnf-remix')">
             <span class="folder-icon">📁</span>
             BASICALLY FNF: REMIX
@@ -1147,6 +1151,10 @@ html {
 <div id="arsenal" class="content">
     <h2 class="section-title">🔫 ARSENAL</h2>
     <div class="script-card"><div class="script-header"><div class="script-title">FELICIA SCRIPT</div><button class="copy-button" onclick="copyScript(this, 'arsenal-felicia')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="arsenal-felicia">loadstring(game:HttpGet("https://antihambreadoscriptteam.github.io/Scripts/Arsenal.lua"))()</pre></div></div>
+</div>
+<div id="abyss" class="content">
+    <h2 class="section-title">⚫ ABYSS</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">IMP HUB</div><button class="copy-button" onclick="copyScript(this, 'abyss-imp')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="abyss-imp">https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file</pre></div></div>
 </div>
     <div id="basically-fnf-remix" class="content">
         <h2 class="section-title">🎵 BASICALLY FNF: REMIX</h2>
@@ -1550,6 +1558,7 @@ end)</pre></div></div>
                 { game: 'ANIME WEAPONS', title: 'NEW OMG HUB', id: 'anime-omg' }, 
                 { game: 'ANIME FIGHTING SIMULADOR', title: 'SHADOW HUB', id: 'anifight-shadow' }, 
 { game: 'ARSENAL', title: 'FELICIA SCRIPT', id: 'arsenal-felicia' }, 
+{ game: 'ABYSS', title: 'IMP HUB', id: 'abyss-imp' }, 
                 { game: 'BASICALLY FNF: REMIX', title: 'AUTO PLAYER', id: 'fnf1' },
                 { game: 'BLOCK SPIN', title: 'HERMANOS-DEV', id: 'bs1' },
                 { game: 'BLOCK SPIN', title: 'QUARTY', id: 'bs2' },
@@ -1743,6 +1752,7 @@ end)</pre></div></div>
                         (itemText.includes('ANIME WEAPONS') && sectionId === 'anime-weapons') ||
                         (itemText.includes('ANIME FIGHTING') && sectionId === 'anime-fighting-simulator') ||
 (itemText.includes('ARSENAL') && sectionId === 'arsenal') ||
+(itemText.includes('ABYSS') && sectionId === 'abyss') ||
                         (itemText.includes('BASICALLY FNF') && sectionId === 'basically-fnf-remix') ||
                         (itemText.includes('BLOCK SPIN') && sectionId === 'block-spin') ||
                         (itemText.includes('BLOODMONEY') && sectionId === 'bloodmoney') ||
