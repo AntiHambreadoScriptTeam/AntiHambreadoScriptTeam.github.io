@@ -45,11 +45,11 @@
     },
     "ronix": {
       "nombre": "Ronix",
-      "version": "2.705",
-      "fecha_actualizacion": "02-02-2026",
+      "version": "2.706",
+      "fecha_actualizacion": "09-02-2026",
       "status": "peligro",
-      "link_descarga_arm64": "https://wrdcdn.net/r/154522/1770071977958/Ronix_64Bits_NEW.apk",
-      "link_descarga_arm32": "https://wrdcdn.net/r/154522/1770071972081/Ronix_32Bits_NEW.apk", 
+      "link_descarga_arm64": "https://wrdcdn.net/r/154522/1770659967386/Ronix_64Bits-2.706.750.apk",
+      "link_descarga_arm32": "https://wrdcdn.net/r/154522/1770659971403/Ronix_32Bits-2.706.750.apk", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/RONIX.webp"
     },
     "krnl": {
