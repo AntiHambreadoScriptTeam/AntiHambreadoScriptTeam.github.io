@@ -1,3 +1,4 @@
+
 <!--
   #############################################################################################
   #                                                                                           #
@@ -40,307 +41,647 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redireccionando...</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Link Bypasser — AntiHambreado Script Team</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --red: #e01b24;
+    --red-dark: #a51d2d;
+    --red-deep: #6b1520;
+    --red-glow: rgba(224, 27, 36, 0.35);
+    --bg: #0a0707;
+    --bg2: #110d0d;
+    --surface: #1a1010;
+    --surface2: #221515;
+    --border: rgba(224,27,36,0.18);
+    --text: #f5e6e6;
+    --muted: #a08080;
+  }
 
-        body {
-            background: #0a0a0a;
-            color: #ffffff;
-            font-family: 'Exo 2', sans-serif;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
+  html, body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
 
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #ff0000;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: float 15s infinite linear;
-            box-shadow: 0 0 10px #ff0000;
-        }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(180,20,28,0.22) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(100,10,15,0.18) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
-        @keyframes float {
-            0% { transform: translateY(100vh) translateX(0); }
-            100% { transform: translateY(-10vh) translateX(100px); }
-        }
+  .noise {
+    position: fixed;
+    inset: 0;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
 
-        .container {
-            text-align: center;
-            z-index: 10;
-            padding: 40px;
-            max-width: 600px;
-            width: 90%;
-        }
+  .grid-lines {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(224,27,36,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(224,27,36,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-        .logo {
-            font-size: 4rem;
-            color: #ff0000;
-            margin-bottom: 30px;
-            animation: pulse 2s infinite;
-            filter: drop-shadow(0 0 20px #ff0000);
-        }
+  nav {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 40px;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+    background: rgba(10,7,7,0.6);
+  }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
 
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            background: linear-gradient(45deg, #ff0000, #ff6666);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
-        }
+  .logo-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1.5px solid rgba(224,27,36,0.4);
+    box-shadow: 0 0 16px var(--red-glow);
+  }
 
-        .message {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            color: #cccccc;
-            line-height: 1.6;
-        }
+  .logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1.5px;
+    color: var(--text);
+    line-height: 1;
+  }
 
-        .countdown {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            font-weight: 700;
-            color: #ff0000;
-            margin: 30px 0;
-            text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
-            animation: neonFlicker 1.5s infinite alternate;
-        }
+  .logo-sub {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
 
-        @keyframes neonFlicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
+  .nav-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
 
-        .progress-container {
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto 30px;
-            height: 6px;
-            background: rgba(255, 0, 0, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-        }
+  .btn-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+  }
 
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #ff0000, #ff3333);
-            width: 0%;
-            animation: fillProgress 3s linear forwards;
-            box-shadow: 0 0 15px #ff0000;
-        }
+  .btn-home {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
 
-        @keyframes fillProgress {
-            to { width: 100%; }
-        }
+  .btn-home:hover {
+    background: var(--surface);
+    border-color: rgba(224,27,36,0.4);
+    color: #fff;
+  }
 
-        .loading-text {
-            font-size: 0.9rem;
-            color: #888;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-top: 20px;
-        }
+  .btn-discord {
+    background: #5865F2;
+    color: #fff;
+  }
 
-        .loading-text i {
-            margin-right: 10px;
-            color: #ff0000;
-        }
+  .btn-discord:hover {
+    background: #4752c4;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(88,101,242,0.4);
+  }
 
-        .cancel-btn {
-            margin-top: 30px;
-            padding: 12px 30px;
-            background: transparent;
-            border: 2px solid #ff0000;
-            color: #ff0000;
-            font-family: 'Exo 2', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+  main {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px);
+    padding: 60px 20px;
+  }
 
-        .cancel-btn:hover {
-            background: #ff0000;
-            color: #0a0a0a;
-            box-shadow: 0 0 20px #ff0000;
-            transform: translateY(-2px);
-        }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    background: rgba(224,27,36,0.12);
+    border: 1px solid rgba(224,27,36,0.3);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 600;
+    margin-bottom: 28px;
+    animation: fadeDown 0.6s ease both;
+  }
 
-        .footer-icons {
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        }
+  .badge i { font-size: 10px; }
 
-        .footer-icons i {
-            font-size: 1.5rem;
-            color: #ff0000;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 9vw, 96px);
+    line-height: 0.95;
+    text-align: center;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
 
-        .footer-icons i:hover {
-            transform: translateY(-5px);
-            text-shadow: 0 0 15px #ff0000;
-        }
+  h1 span {
+    background: linear-gradient(90deg, var(--red), #ff6b6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .countdown { font-size: 2.5rem; }
-            .logo { font-size: 3rem; }
-        }
-    </style>
+  .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    text-align: center;
+    max-width: 480px;
+    line-height: 1.65;
+    margin-bottom: 52px;
+    animation: fadeDown 0.6s 0.2s ease both;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 640px;
+    box-shadow:
+      0 0 0 1px rgba(0,0,0,0.4),
+      0 24px 60px rgba(0,0,0,0.5),
+      inset 0 1px 0 rgba(255,255,255,0.04);
+    animation: fadeUp 0.7s 0.3s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+  }
+
+  .field-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .field-label i { color: var(--red); font-size: 10px; }
+
+  .input-wrap {
+    position: relative;
+  }
+
+  .input-wrap i {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 14px;
+    pointer-events: none;
+    transition: color 0.2s;
+  }
+
+  input[type="url"] {
+    width: 100%;
+    padding: 15px 16px 15px 44px;
+    background: var(--bg2);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  input[type="url"]:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(224,27,36,0.12);
+  }
+
+  .input-wrap:focus-within i { color: var(--red); }
+  input[type="url"]::placeholder { color: rgba(160,128,128,0.5); }
+
+  .links-section { margin-top: 18px; }
+
+  .links-toggle {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
+  }
+
+  .links-toggle:hover { color: var(--text); }
+  .links-toggle i.dot { color: var(--red); font-size: 10px; }
+  .links-toggle i.chevron { margin-left: auto; transition: transform 0.3s; font-size: 10px; }
+  .links-toggle.open i.chevron { transform: rotate(180deg); }
+
+  .links-grid {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .links-grid.open { display: grid; }
+
+  .link-group {
+    background: rgba(224,27,36,0.05);
+    border: 1px solid rgba(224,27,36,0.13);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+
+  .link-group-title {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .link-item {
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.8;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .link-item::before {
+    content: '';
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--red);
+    opacity: 0.55;
+    flex-shrink: 0;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 28px 0;
+  }
+
+  #bypass-btn {
+    display: none;
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 24px rgba(224,27,36,0.35);
+  }
+
+  #bypass-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  #bypass-btn:hover::before { opacity: 1; }
+  #bypass-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(224,27,36,0.5); }
+  #bypass-btn:active { transform: translateY(0); }
+
+  #bypass-btn.visible {
+    display: flex;
+    animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-top: 44px;
+    width: 100%;
+    max-width: 640px;
+    animation: fadeUp 0.7s 0.45s ease both;
+  }
+
+  .feat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .feat-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(224,27,36,0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 16px;
+    color: var(--red);
+  }
+
+  .feat h3 { font-size: 13px; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+  .feat p { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  footer span { color: var(--red); }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 12px 18px; }
+    .logo-text { font-size: 17px; }
+    .nav-actions { gap: 8px; }
+    .btn-nav { padding: 7px 12px; font-size: 12px; }
+    .card { padding: 24px 18px; }
+    .features { grid-template-columns: 1fr; }
+    .links-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
-    <div class="particles" id="particles"></div>
 
-    <div class="container">
-        <div class="logo">
-            <i class="fas fa-rocket"></i>
-        </div>
+<div class="noise"></div>
+<div class="grid-lines"></div>
 
-        <h1>Preparando Navegación</h1>
+<nav>
+  <a href="https://antihambreadoscriptteam.github.io/" class="logo">
+    <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="AHST Logo" class="logo-img">
+    <div>
+      <div class="logo-text">AHST Bypass</div>
+      <div class="logo-sub">Script Team</div>
+    </div>
+  </a>
+  <div class="nav-actions">
+    <a href="https://antihambreadoscriptteam.github.io/" class="btn-nav btn-home">
+      <i class="fa-solid fa-house"></i> Inicio
+    </a>
+    <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn-nav btn-discord">
+      <i class="fa-brands fa-discord"></i> Discord
+    </a>
+  </div>
+</nav>
 
-        <p class="message">
-            Serás redirigido automáticamente al destino en unos momentos...
-        </p>
+<main>
+  <div class="badge"><i class="fa-solid fa-circle-check"></i> Bypass Instantáneo · 100% Gratuito</div>
 
-        <div class="countdown" id="countdown">3</div>
+  <h1>BYPASSEA<br><span>CUALQUIER LINK</span></h1>
 
-        <div class="progress-container">
-            <div class="progress-bar"></div>
-        </div>
+  <p class="subtitle">Salta anuncios de Linkvertise, Lootlinks, Lootlabs y muchos más en segundos. Sin captchas, sin esperas.</p>
 
-        <p class="loading-text">
-            <i class="fas fa-spinner fa-spin"></i> Estableciendo conexión segura
-        </p>
-
-        <button class="cancel-btn" onclick="cancelRedirect()">Cancelar Redirección</button>
-
-        <div class="footer-icons">
-            <i class="fas fa-shield-alt" title="Protegido"></i>
-            <i class="fas fa-lock" title="Conexión Segura"></i>
-            <i class="fas fa-wifi" title="Online"></i>
-        </div>
+  <div class="card">
+    <div class="field-label"><i class="fa-solid fa-link"></i> Pega tu link aquí</div>
+    <div class="input-wrap">
+      <i class="fa-solid fa-link"></i>
+      <input type="url" id="link-input" placeholder="https://linkvertise.com/..." autocomplete="off" spellcheck="false">
     </div>
 
-    <script>
-        function createParticles() {
-            const container = document.getElementById('particles');
-            const particleCount = 50;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-                container.appendChild(particle);
-            }
-        }
+    <div class="links-section">
+      <div class="links-toggle" id="links-toggle" onclick="toggleLinks()">
+        <i class="fa-solid fa-circle-dot dot"></i>
+        <span>Ver links compatibles (38+)</span>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+      </div>
 
-        let countdownValue = 3;
-        const countdownElement = document.getElementById('countdown');
-        
-        const countdownInterval = setInterval(() => {
-            countdownValue--;
-            if (countdownValue > 0) {
-                countdownElement.textContent = countdownValue;
-            }
-        }, 1000);
+      <div class="links-grid" id="links-grid">
+        <div class="link-group">
+          <div class="link-group-title"><i class="fa-solid fa-rectangle-ad"></i> Monetización</div>
+          <div class="link-item">Linkvertise.com</div>
+          <div class="link-item">Lootlabs.gg</div>
+          <div class="link-item">Lootlinks.com</div>
+          <div class="link-item">Adfoc.us</div>
+          <div class="link-item">Cuty.io</div>
+          <div class="link-item">Cety.io</div>
+          <div class="link-item">Boost.ink</div>
+          <div class="link-item">Work.ink (todos)</div>
+          <div class="link-item">Mendationforc.info</div>
+          <div class="link-item">Mboost.me</div>
+          <div class="link-item">Bst.gg</div>
+          <div class="link-item">Booo.st</div>
+        </div>
+        <div class="link-group">
+          <div class="link-group-title"><i class="fa-solid fa-paste"></i> Pastes</div>
+          <div class="link-item">Paster.so</div>
+          <div class="link-item">Paster.gg</div>
+          <div class="link-item">Paste-drop.com</div>
+          <div class="link-item">Pastebin.com</div>
+          <div class="link-item">Pastecanyon.com</div>
+          <div class="link-item">Pastehill.com</div>
+          <div class="link-item">Pastemode.com</div>
+          <div class="link-item">Rentry.org</div>
+          <div class="link-item">Justpaste.it</div>
+        </div>
+        <div class="link-group">
+          <div class="link-group-title"><i class="fa-solid fa-lock-open"></i> Sub2Unlock</div>
+          <div class="link-item">Rekonise.com</div>
+          <div class="link-item">Social-unlock.com</div>
+          <div class="link-item">Socialwolvez.com</div>
+          <div class="link-item">Sub2get.com</div>
+          <div class="link-item">Sub2unlock.com</div>
+          <div class="link-item">Sub2unlock.net</div>
+          <div class="link-item">Sub4unlock.io</div>
+          <div class="link-item">Subfinal.com</div>
+          <div class="link-item">Unlocknow.net</div>
+          <div class="link-item">Ytsubme.com</div>
+        </div>
+        <div class="link-group">
+          <div class="link-group-title"><i class="fa-solid fa-compress"></i> Acortadores</div>
+          <div class="link-item">Bit.ly</div>
+          <div class="link-item">Cl.gy</div>
+          <div class="link-item">Goo.gl</div>
+          <div class="link-item">Is.gd</div>
+          <div class="link-item">Rebrand.ly</div>
+          <div class="link-item">Rkns.link</div>
+          <div class="link-item">Shorter.me</div>
+          <div class="link-item">T.co</div>
+          <div class="link-item">T.ly</div>
+          <div class="link-item">Tiny.cc</div>
+          <div class="link-item">Tinylink.onl</div>
+          <div class="link-item">Tinyurl.com</div>
+          <div class="link-item">V.gd</div>
+        </div>
+      </div>
+    </div>
 
-        const redirectTimeout = setTimeout(() => {
-            window.location.href = 'https://antihambreadoscriptteam.github.io/Anuncios/23-11-2025';
-        }, 3000);
+    <div class="divider"></div>
 
-        function cancelRedirect() {
-            clearTimeout(redirectTimeout);
-            clearInterval(countdownInterval);
-            
-            countdownElement.innerHTML = '<i class="fas fa-times"></i>';
-            countdownElement.style.color = '#888';
-            document.querySelector('.loading-text').innerHTML = '<i class="fas fa-ban"></i> Redirección cancelada';
-            document.querySelector('.message').textContent = 'Has cancelado la redirección automática.';
-            
-            document.querySelector('.progress-container').style.display = 'none';
-            
-            const btn = document.querySelector('.cancel-btn');
-            btn.textContent = 'Ir Ahora Manualmente';
-            btn.onclick = () => {
-                window.location.href = 'https://antihambreadoscriptteam.github.io/Anuncios/23-11-2025';
-            };
-        }
+    <button id="bypass-btn" onclick="doBypass()">
+      <i class="fa-solid fa-shield-halved"></i>
+      BYPASSEAR AHORA
+      <i class="fa-solid fa-arrow-right"></i>
+    </button>
 
-        window.addEventListener('load', createParticles);
-    </script>
+    <p id="placeholder-text" style="text-align:center;color:var(--muted);font-size:13px;">
+      Ingresa un link válido para continuar
+    </p>
+  </div>
+
+  <div class="features">
+    <div class="feat">
+      <div class="feat-icon"><i class="fa-solid fa-bolt"></i></div>
+      <h3>Instantáneo</h3>
+      <p>Redireccionamiento en menos de 1 segundo</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon"><i class="fa-solid fa-shield"></i></div>
+      <h3>Seguro</h3>
+      <p>Sin malware, sin rastreo de datos</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon"><i class="fa-solid fa-infinity"></i></div>
+      <h3>Ilimitado</h3>
+      <p>Úsalo tantas veces como quieras</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Hecho con <span>♥</span> por <span>AntiHambread Script Team</span> · Todos los derechos reservados
+</footer>
+
+<script>
+  const input = document.getElementById('link-input');
+  const btn = document.getElementById('bypass-btn');
+  const ph = document.getElementById('placeholder-text');
+
+  input.addEventListener('input', function() {
+    const val = this.value.trim();
+    if (val.length > 5) {
+      btn.classList.add('visible');
+      ph.style.display = 'none';
+    } else {
+      btn.classList.remove('visible');
+      ph.style.display = 'block';
+    }
+  });
+
+  function doBypass() {
+    const link = input.value.trim();
+    if (!link) return;
+    const encoded = encodeURIComponent(link);
+    window.location.href = 'https://linkvertise-bypass.com/bypass?link=' + encoded;
+  }
+
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') doBypass();
+  });
+
+  function toggleLinks() {
+    const grid = document.getElementById('links-grid');
+    const toggle = document.getElementById('links-toggle');
+    grid.classList.toggle('open');
+    toggle.classList.toggle('open');
+  }
+</script>
+
 </body>
 </html>
