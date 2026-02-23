@@ -99,6 +99,12 @@
       --card-radius: 20px;
     }
 
+    html,
+    body {
+      width: 100%;
+      max-width: 100%;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -195,7 +201,7 @@
       }
     }
 
-    #particles-js {
+    #particles {
       position: fixed;
       top: 0;
       left: 0;
@@ -203,6 +209,7 @@
       height: 100%;
       z-index: -1;
       pointer-events: none;
+      display: block;
     }
 
     .navbar {
@@ -1117,12 +1124,42 @@
     }
 
     @media (max-width: 991px) {
+      .navbar {
+        width: calc(100% - 20px);
+        height: 62px;
+        top: 10px;
+        padding: 0 14px;
+      }
+
+      .nav-logo span {
+        font-size: 1rem;
+      }
+
       .nav-links {
         display: none;
       }
 
       .hamburger {
         display: flex;
+      }
+
+      .mobile-menu {
+        width: min(84vw, 320px);
+        padding: 95px 20px 30px;
+      }
+
+      .hero {
+        min-height: 100dvh;
+        padding: 100px 16px 40px;
+      }
+
+      .hero-cta .btn {
+        width: 100%;
+        max-width: 360px;
+      }
+
+      .container {
+        padding: 80px 16px;
       }
 
       .grid-2 {
@@ -1145,6 +1182,14 @@
     }
 
     @media (max-width: 768px) {
+      .hero h1 {
+        font-size: clamp(2.2rem, 10vw, 3rem);
+      }
+
+      .hero p {
+        font-size: 0.98rem;
+      }
+
       .opinion-showcase {
         padding: 40px 20px;
       }
@@ -1163,12 +1208,35 @@
         justify-content: center;
       }
 
-      .hero h1 {
-        font-size: 3rem;
+      .section-title {
+        font-size: clamp(2rem, 8vw, 2.6rem);
       }
 
       .card {
         padding: 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        border-radius: 16px;
+      }
+
+      .nav-logo img {
+        width: 34px;
+        height: 34px;
+      }
+
+      .hero-badge {
+        margin-bottom: 20px;
+      }
+
+      .member-card {
+        padding: 24px 16px;
+      }
+
+      .cta-box {
+        padding: 40px 16px;
       }
     }
   </style>
