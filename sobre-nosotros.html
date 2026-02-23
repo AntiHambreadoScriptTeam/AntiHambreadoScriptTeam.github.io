@@ -68,867 +68,1493 @@
 
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Anti-Hambreado Script Team | Profesionalismo Sin Hambre</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anti-Hambreado Script Team | Premium 2.0</title>
   <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     :root {
-      --primary-black: #0a0a0a;
-      --secondary-black: #121212;
-      --card-black: #1a1a1a;
-      --border-black: #252525;
-      --primary-red: #ff0044;
-      --secondary-red: #cc0036;
-      --neon-red: rgba(255, 0, 68, 0.4);
-      --neon-red-weak: rgba(255, 0, 68, 0.15);
-      --text-white: #f0f0f0;
-      --text-gray: #b0b0b0;
-      --glass-bg: rgba(30, 30, 30, 0.6);
-      --glass-border: rgba(255, 255, 255, 0.08);
+      --black: #030303;
+      --surface: #0b0b0b;
+      --surface-hover: #141414;
+      --glass: rgba(15, 15, 15, 0.5);
+      --glass-border: rgba(255, 255, 255, 0.04);
+      --accent: #ff0044;
+      --accent-light: #ff3366;
+      --accent-glow: rgba(255, 0, 68, 0.3);
+      --text: #f8f8f8;
+      --muted: #888888;
+      --card-radius: 20px;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
+      user-select: none;
     }
 
     body {
-      background: var(--primary-black);
-      color: var(--text-white);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.7;
+      background-color: var(--black);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
       overflow-x: hidden;
-      position: relative;
+      -webkit-font-smoothing: antialiased;
     }
 
-    #particles-canvas {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .noise-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -2;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .grid-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -3;
+      background-image: linear-gradient(var(--glass-border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--glass-border) 1px, transparent 1px);
+      background-size: 50px 50px;
+      mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 70%);
+      -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 70%);
+    }
+
+    .ambient-light {
+      position: fixed;
+      width: 60vw;
+      height: 60vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+      top: -20vw;
+      left: -20vw;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.4;
+      filter: blur(80px);
+      animation: pulseAmbient 10s infinite alternate ease-in-out;
+    }
+
+    .ambient-light.right {
+      top: auto;
+      bottom: -20vw;
+      left: auto;
+      right: -20vw;
+      background: radial-gradient(circle, rgba(255, 51, 102, 0.15) 0%, transparent 60%);
+    }
+
+    @keyframes pulseAmbient {
+      0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: scale(1.1) translate(20px, 20px);
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: scale(0.9) translate(-20px, -20px);
+        opacity: 0.3;
+      }
+    }
+
+    #particles-js {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: -1;
-      opacity: 0.4;
-    }
-
-    .preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--primary-black);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease;
-    }
-
-    .preloader.hidden {
-      opacity: 0;
       pointer-events: none;
     }
 
-    .preloader-icon {
-      width: 60px;
-      height: 60px;
-      border: 3px solid var(--border-black);
-      border-top: 3px solid var(--primary-red);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    header {
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--glass-border);
-  padding: 3rem 1rem;
-  text-align: center;
-  position: relative;
-  z-index: 10;
-}
-
-    .logo-container {
-      display: inline-block;
-      position: relative;
-      margin-bottom: 1.5rem;
-    }
-
-    .logo {
-      width: 100px;
-      height: auto;
-      filter: drop-shadow(0 0 8px var(--neon-red));
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .logo:hover {
-      transform: scale(1.08) rotate(5deg);
-      filter: drop-shadow(0 0 12px var(--primary-red));
-    }
-
-    h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      background: linear-gradient(to right, var(--text-white), var(--primary-red));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 0.5rem;
-    }
-
-    .slogan {
-      font-size: 1.1rem;
-      color: var(--text-gray);
-      font-weight: 400;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .hamburger-btn {
+    .navbar {
       position: fixed;
       top: 20px;
-      left: 20px;
-      width: 50px;
-      height: 50px;
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1200px;
+      height: 70px;
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      cursor: pointer;
-      z-index: 1001;
+      border-radius: 100px;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      gap: 5px;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .hamburger-btn:hover {
-      transform: scale(1.1);
-      border-color: var(--primary-red);
-      box-shadow: 0 0 15px var(--neon-red);
-    }
-
-    .hamburger-btn.active {
-      border-color: var(--primary-red);
-      background: var(--card-black);
-    }
-
-    .hamburger-line {
-      width: 24px;
-      height: 2px;
-      background: var(--text-white);
-      border-radius: 2px;
-      transition: all 0.3s ease;
-      transform-origin: center;
-    }
-
-    .hamburger-btn.active .hamburger-line:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-      background: var(--primary-red);
-    }
-
-    .hamburger-btn.active .hamburger-line:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger-btn.active .hamburger-line:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
-      background: var(--primary-red);
-    }
-
-    .hamburger-menu {
-      position: fixed;
-      top: 0;
-      left: -100%;
-      width: 320px;
-      height: 100vh;
-      background: var(--glass-bg);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border-right: 1px solid var(--glass-border);
+      justify-content: space-between;
+      padding: 0 20px;
       z-index: 1000;
-      transition: left 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-      overflow-y: auto;
-      padding: 100px 2rem 2rem;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
-    .hamburger-menu.active {
-      left: 0;
-    }
-
-    .menu-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 999;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .menu-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .menu-item {
+    .nav-logo {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      padding: 1.2rem;
-      margin-bottom: 0.5rem;
-      background: var(--secondary-black);
-      border: 1px solid var(--border-black);
-      border-radius: 12px;
+      gap: 12px;
       text-decoration: none;
-      color: var(--text-gray);
+    }
+
+    .nav-logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid transparent;
+      transition: 0.4s;
+    }
+
+    .nav-logo:hover img {
+      border-color: var(--accent);
+      box-shadow: 0 0 15px var(--accent-glow);
+      transform: rotate(10deg);
+    }
+
+    .nav-logo span {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--text);
+      letter-spacing: 0.5px;
+      background: linear-gradient(90deg, #fff, #aaa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 5px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 10px 18px;
+      border-radius: 100px;
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
     }
 
-    .menu-item::before {
+    .nav-link::before {
       content: '';
       position: absolute;
       top: 0;
-      left: -100%;
+      left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, var(--neon-red-weak), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .menu-item:hover::before {
-      left: 100%;
-    }
-
-    .menu-item:hover {
-      transform: translateX(10px);
-      border-color: var(--primary-red);
-      color: var(--text-white);
-      box-shadow: 0 0 15px var(--neon-red-weak);
-    }
-
-    .menu-item-icon {
-      font-size: 1.5rem;
-      color: var(--primary-red);
-      min-width: 30px;
-      text-align: center;
-      filter: drop-shadow(0 0 4px var(--neon-red));
-    }
-
-    .menu-item-text {
-      font-weight: 600;
-      font-size: 1.1rem;
-    }
-
-    main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      position: relative;
-      z-index: 5;
-    }
-
-    section {
-      margin-bottom: 4rem;
-      padding: 2.5rem;
-      background: var(--card-black);
-      border-radius: 16px;
-      border: 1px solid var(--border-black);
+      background: var(--surface-hover);
+      z-index: -1;
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transform: scale(0.8);
+      transition: all 0.3s ease;
+      border-radius: 100px;
     }
 
-    section.visible {
+    .nav-link:hover {
+      color: var(--text);
+    }
+
+    .nav-link:hover::before {
       opacity: 1;
-      transform: translateY(0);
+      transform: scale(1);
     }
 
-    section:hover {
-      border-color: var(--neon-red);
-      box-shadow: 0 0 20px var(--neon-red-weak);
+    .nav-link.active {
+      color: #fff;
+      background: var(--accent);
+      box-shadow: 0 0 15px var(--accent-glow);
     }
 
-    h2 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--primary-red);
-      margin-bottom: 1.5rem;
+    .hamburger {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      transition: 0.3s;
+    }
+
+    .hamburger span {
+      width: 18px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 300px;
+      height: 100vh;
+      background: var(--black);
+      border-right: 1px solid var(--glass-border);
+      z-index: 998;
+      padding: 120px 30px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+      overflow-y: auto;
+    }
+
+    .mobile-menu.open {
+      left: 0;
+      box-shadow: 20px 0 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-link {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 1.1rem;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      transition: 0.3s;
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 15px;
     }
 
-    h2 i {
-      font-size: 1.4em;
-      filter: drop-shadow(0 0 4px var(--neon-red));
+    .mobile-link i {
+      font-size: 1.2rem;
+      color: var(--accent);
+      width: 24px;
+      text-align: center;
+      opacity: 0.7;
+      transition: 0.3s;
     }
 
-    .emoji {
-      font-size: 1.2em;
-      filter: drop-shadow(0 0 4px var(--neon-red));
-      animation: pulseEmoji 3s ease-in-out infinite;
+    .mobile-link:hover {
+      background: var(--surface);
+      border-color: var(--glass-border);
+      color: var(--text);
+      transform: translateX(10px);
     }
 
-    @keyframes pulseEmoji {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 1; }
+    .mobile-link:hover i {
+      opacity: 1;
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 8px var(--accent));
     }
 
-    p {
-      margin-bottom: 1.2rem;
-      color: var(--text-gray);
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 997;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.4s;
+    }
+
+    .mobile-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255, 0, 68, 0.1);
+      border: 1px solid rgba(255, 0, 68, 0.3);
+      border-radius: 100px;
+      margin-bottom: 30px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .hero-badge span {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero-badge i {
+      color: var(--accent);
+      animation: pulseText 2s infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #888888 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -2px;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+    }
+
+    .hero h1 span.highlight {
+      background: linear-gradient(135deg, var(--accent) 0%, #ff6688 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero h1 span.highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      width: 100%;
+      height: 15px;
+      background: var(--accent);
+      opacity: 0.3;
+      filter: blur(10px);
+      z-index: -1;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 600px;
+      margin-bottom: 40px;
       font-weight: 400;
     }
 
-    ul {
-      padding-left: 1.5rem;
-      margin: 1.5rem 0;
+    .hero-cta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    li {
-      margin-bottom: 0.8rem;
-      color: var(--text-gray);
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      cursor: pointer;
       position: relative;
+      overflow: hidden;
+      border: none;
     }
 
-    li::before {
-      content: "▸";
-      color: var(--primary-red);
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 40px var(--accent-glow);
+      background: #ff1a55;
+    }
+
+    .btn-secondary {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-hover);
+      border-color: var(--muted);
+      transform: translateY(-4px);
+    }
+
+    .btn i {
+      transition: 0.3s;
+    }
+
+    .btn:hover i {
+      transform: translateX(4px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 20px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      font-family: 'Outfit', sans-serif;
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--card-radius);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      z-index: 1;
+    }
+
+    .card::before {
+      content: '';
       position: absolute;
-      left: -1.2rem;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at top right, rgba(255, 0, 68, 0.1) 0%, transparent 60%);
+      z-index: -1;
+      opacity: 0;
+      transition: 0.5s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255, 0, 68, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      width: 70px;
+      height: 70px;
+      background: var(--black);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 30px;
+      box-shadow: inset 0 0 20px rgba(255, 0, 68, 0.05);
+      transition: 0.4s;
+    }
+
+    .card:hover .card-icon {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 10px 20px var(--accent-glow);
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .card-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text);
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .card-list {
+      margin-top: 25px;
+      list-style: none;
+    }
+
+    .card-list li {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 12px;
+      color: #ccc;
+      font-size: 1rem;
+    }
+
+    .card-list li i {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      color: var(--accent);
+      font-size: 1.1rem;
     }
 
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
     }
 
-    .team-member {
-      background: var(--secondary-black);
-      padding: 1.8rem;
-      border-radius: 12px;
-      border: 1px solid var(--border-black);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .member-card {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--card-radius);
+      padding: 30px 20px;
       text-align: center;
-      transition: all 0.3s ease;
+      transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
       position: relative;
       overflow: hidden;
     }
 
-    .team-member::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, var(--neon-red) 0%, transparent 70%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      z-index: 0;
-    }
-
-    .team-member:hover::before {
-      opacity: 0.1;
-    }
-
-    .team-member:hover {
-      transform: translateY(-8px);
-      border-color: var(--primary-red);
-      box-shadow: 0 8px 25px rgba(255, 0, 68, 0.15);
-    }
-
-    .member-avatar {
-      width: 110px;
-      height: 110px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid var(--border-black);
-      transition: all 0.3s ease;
-      position: relative;
-      z-index: 1;
-    }
-
-    .team-member:hover .member-avatar {
-      border-color: var(--primary-red);
-      transform: scale(1.05);
-      box-shadow: 0 0 15px var(--neon-red);
-    }
-
-    .member-name {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--text-white);
-      margin: 1.2rem 0 0.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .member-role {
-      color: var(--text-gray);
-      font-size: 0.95rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .developer-badge {
-      width: 20px;
-      height: 20px;
-      vertical-align: middle;
-      margin-left: 6px;
-      filter: drop-shadow(0 0 3px var(--primary-red));
-    }
-
-    .contact-links {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-
-    .contact-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.9rem 1.8rem;
-      background: linear-gradient(135deg, var(--secondary-red), var(--primary-red));
-      color: white;
-      text-decoration: none;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border: 1px solid transparent;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-btn::before {
+    .member-card::after {
       content: '';
       position: absolute;
       top: 0;
-      left: -100%;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: 0.4s;
+    }
+
+    .member-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 255, 255, 0.1);
+      background: var(--surface-hover);
+    }
+
+    .member-card:hover::after {
+      opacity: 1;
+    }
+
+    .member-avatar-wrap {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+    }
+
+    .member-avatar {
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.6s ease;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--black);
+      box-shadow: 0 0 0 2px var(--glass-border);
+      transition: 0.4s;
+      position: relative;
+      z-index: 2;
     }
 
-    .contact-btn:hover::before {
-      left: 100%;
+    .avatar-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      border-radius: 50%;
+      filter: blur(20px);
+      opacity: 0;
+      z-index: 1;
+      transition: 0.4s;
     }
 
-    .contact-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 20px var(--neon-red);
-      border-color: var(--primary-red);
+    .member-card:hover .member-avatar {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 2px var(--accent);
     }
 
-    .contact-btn i {
-      font-size: 1.1em;
+    .member-card:hover .avatar-glow {
+      opacity: 0.5;
+    }
+
+    .member-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .developer-badge {
+      width: 22px;
+      height: 22px;
+      filter: drop-shadow(0 0 5px var(--accent-glow));
+    }
+
+    .member-role {
+      font-size: 0.95rem;
+      color: var(--accent-light);
+      font-weight: 500;
+      margin-bottom: 15px;
+      font-family: 'Outfit', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.75rem;
+    }
+
+    .member-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .section-separator {
+      width: 1px;
+      height: 100px;
+      background: linear-gradient(to bottom, transparent, var(--glass-border), transparent);
+      margin: 0 auto;
+    }
+
+    .opinion-showcase {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--card-radius);
+      padding: 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .opinion-showcase i.bg-icon {
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      font-size: 30rem;
+      color: rgba(255, 255, 255, 0.02);
+      transform: rotate(-15deg);
+      z-index: 0;
+    }
+
+    .opinion-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .opinion-content h3 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .opinion-content p {
+      color: var(--muted);
+      font-size: 1.15rem;
+      margin-bottom: 30px;
+    }
+
+    .vs-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 20px;
+      align-items: center;
+      text-align: left;
+      margin-top: 40px;
+    }
+
+    .vs-box {
+      padding: 30px;
+      border-radius: 16px;
+      background: var(--black);
+      border: 1px solid var(--glass-border);
+    }
+
+    .vs-box.us {
+      border-color: rgba(255, 0, 68, 0.3);
+      box-shadow: 0 10px 30px rgba(255, 0, 68, 0.05);
+    }
+
+    .vs-box h4 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .vs-box.them h4 {
+      color: #888;
+    }
+
+    .vs-box.us h4 {
+      color: var(--accent);
+    }
+
+    .vs-box ul li {
+      color: #aaa;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .vs-box.them ul li i {
+      color: #555;
+      margin-top: 4px;
+    }
+
+    .vs-box.us ul li i {
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    .vs-badge {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit';
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      z-index: 2;
+    }
+
+    .cta-section {
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--surface) 0%, #1a050a 100%);
+      border: 1px solid rgba(255, 0, 68, 0.2);
+      border-radius: 30px;
+      padding: 80px 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(255, 0, 68, 0.1);
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff0044' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .cta-desc {
+      font-size: 1.15rem;
+      color: #bbb;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .social-row {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 30px;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #fff;
+      text-decoration: none;
+      transition: 0.4s;
+      background: var(--black);
+      border: 1px solid var(--glass-border);
+    }
+
+    .social-btn.discord {
+      background: #5865F2;
+      border-color: #5865F2;
+      box-shadow: 0 10px 20px rgba(88, 101, 242, 0.3);
+    }
+
+    .social-btn.discord:hover {
+      background: #4752C4;
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(88, 101, 242, 0.4);
+    }
+
+    .social-btn.email {
+      background: var(--surface);
+    }
+
+    .social-btn.email:hover {
+      background: #fff;
+      color: var(--black);
+      transform: translateY(-5px);
+    }
+
+    .social-btn.home {
+      background: var(--glass);
+    }
+
+    .social-btn.home:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-5px);
     }
 
     footer {
-      background: var(--secondary-black);
-      border-top: 1px solid var(--border-black);
-      padding: 2.5rem;
+      border-top: 1px solid var(--glass-border);
+      padding: 40px 20px;
       text-align: center;
-      color: var(--text-gray);
-      font-size: 0.9rem;
+      background: var(--black);
+      position: relative;
+      z-index: 10;
     }
-      
-      main {
-        padding: 2rem 1rem;
+
+    .footer-logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      opacity: 0.5;
+      transition: 0.3s;
+    }
+
+    .footer-logo:hover {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    footer p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    footer .heart {
+      color: var(--accent);
+      animation: pulseText 1.5s infinite;
+      display: inline-block;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .fade-up.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
       }
-      
-      section {
-        padding: 1.8rem;
+
+      50% {
+        transform: translateY(-10px);
       }
-      
-      .hamburger-menu {
-        width: 280px;
-        padding: 90px 1.5rem 1.5rem;
+    }
+
+    @keyframes pulseText {
+      0% {
+        transform: scale(1);
       }
-      
-      .team-grid {
+
+      50% {
+        transform: scale(1.1);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 991px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .grid-2 {
         grid-template-columns: 1fr;
       }
-      
-      .contact-links {
-        flex-direction: column;
-        align-items: center;
+
+      .vs-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
       }
-      
-      .contact-btn {
-        width: 100%;
-        max-width: 300px;
+
+      .vs-badge {
+        margin: 0 auto;
+        transform: rotate(90deg);
+      }
+
+      .vs-box ul li {
         justify-content: center;
       }
     }
 
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
+    @media (max-width: 768px) {
+      .opinion-showcase {
+        padding: 40px 20px;
+      }
 
-    ::-webkit-scrollbar-track {
-      background: var(--primary-black);
-    }
+      .cta-box {
+        padding: 50px 20px;
+        border-radius: 20px;
+      }
 
-    ::-webkit-scrollbar-thumb {
-      background: var(--primary-red);
-      border-radius: 4px;
-    }
+      .social-row {
+        flex-direction: column;
+      }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--secondary-red);
+      .social-btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .card {
+        padding: 30px;
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <canvas id="particles-canvas"></canvas>
+  <div class="noise-bg"></div>
+  <div class="grid-bg"></div>
+  <div class="ambient-light"></div>
+  <div class="ambient-light right"></div>
+  <canvas id="particles"></canvas>
 
-  <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menú">
-    <div class="hamburger-line"></div>
-    <div class="hamburger-line"></div>
-    <div class="hamburger-line"></div>
-  </button>
-
-  <nav class="hamburger-menu" id="hamburgerMenu">
-    <a href="#proposito" class="menu-item">
-      <i class="fas fa-bullseye menu-item-icon"></i>
-      <span class="menu-item-text">Nuestro propósito</span>
+  <nav class="navbar" id="navbar">
+    <a href="#" class="nav-logo">
+      <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo">
+      <span>Anti-Hambreado</span>
     </a>
-    <a href="#fundador" class="menu-item">
-      <i class="fas fa-crown menu-item-icon"></i>
-      <span class="menu-item-text">El fundador</span>
-    </a>
-    <a href="#integrantes" class="menu-item">
-      <i class="fas fa-shield-alt menu-item-icon"></i>
-      <span class="menu-item-text">Los integrantes</span>
-    </a>
-    <a href="#mision" class="menu-item">
-      <i class="fas fa-rocket menu-item-icon"></i>
-      <span class="menu-item-text">Nuestra misión</span>
-    </a>
-    <a href="#opinion" class="menu-item">
-      <i class="fas fa-handshake menu-item-icon"></i>
-      <span class="menu-item-text">Opinión sobre hambreado script</span>
-    </a>
-    <a href="#conclusion" class="menu-item">
-      <i class="fas fa-star menu-item-icon"></i>
-      <span class="menu-item-text">Conclusión</span>
-    </a>
-    <a href="#contacto" class="menu-item">
-      <i class="fas fa-envelope menu-item-icon"></i>
-      <span class="menu-item-text">Contáctanos</span>
-    </a>
+    <div class="nav-links">
+      <a href="#proposito" class="nav-link">Propósito</a>
+      <a href="#fundador" class="nav-link">Fundador</a>
+      <a href="#equipo" class="nav-link">Equipo</a>
+      <a href="#opinion" class="nav-link">Sátira</a>
+      <a href="#contacto" class="nav-link">Contacto</a>
+    </div>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </nav>
 
-  <div class="menu-overlay" id="menuOverlay"></div>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#proposito" class="mobile-link"><i class="fas fa-bullseye"></i> Propósito</a>
+    <a href="#fundador" class="mobile-link"><i class="fas fa-crown"></i> Fundador</a>
+    <a href="#equipo" class="mobile-link"><i class="fas fa-shield-alt"></i> Equipo</a>
+    <a href="#mision" class="mobile-link"><i class="fas fa-rocket"></i> Misión</a>
+    <a href="#opinion" class="mobile-link"><i class="fas fa-theater-masks"></i> Sátira</a>
+    <a href="#contacto" class="mobile-link"><i class="fas fa-envelope"></i> Contacto</a>
+  </div>
 
-  <header>
-    <div class="logo-container">
-      <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo Anti-Hambreado" class="logo">
+  <header class="hero" id="inicio">
+    <div class="hero-badge fade-up">
+      <i class="fas fa-bolt"></i>
+      <span>Comunidad Primero, Hambre Nunca</span>
     </div>
-    <h1>Anti-Hambreado Script Team</h1>
-    <p class="slogan">"Links directos, cero hambre, comunidad primero"</p>
+    <h1 class="fade-up" style="transition-delay: 0.1s;">
+      Somos el Anti-Hambreado <br>
+      <span class="highlight">Script Team.</span>
+    </h1>
+    <p class="fade-up" style="transition-delay: 0.2s;">
+      La alternativa directa, limpia y libre de anuncios absurdos. Olvídate de los acortadores abusivos, el contenido
+      engañoso y las páginas basura. Aquí valoramos tu tiempo y tu confianza.
+    </p>
+    <div class="hero-cta fade-up" style="transition-delay: 0.3s;">
+      <a href="#equipo" class="btn btn-primary">
+        Conoce al Equipo <i class="fas fa-arrow-right"></i>
+      </a>
+      <a href="#contacto" class="btn btn-secondary">
+        <i class="fab fa-discord"></i> Únete al Discord
+      </a>
+    </div>
   </header>
 
-  <main>
-    <section id="proposito">
-      <h2><i class="fas fa-bullseye"></i> <span class="emoji">📌</span> Nuestro propósito</h2>
-      <p>El Anti-Hambreado Script Team nació con una idea clara: liberar a la comunidad del yugo de los anuncios abusivos y los acortadores hambrientos. No creemos que un usuario deba pasar por diez ventanas emergentes, publicidad engañosa o contenido +18 solo para acceder a un script. Nuestro propósito es sencillo pero poderoso:</p>
-      <ul>
-        <li>Compartir sin hambre.</li>
-        <li>Dar links directos, limpios y seguros.</li>
-        <li>Construir una comunidad que valore la transparencia y la confianza.</li>
-      </ul>
-      <p>En un mundo donde algunos prefieren llenar sus bolsillos a costa de la paciencia de los demás, nosotros preferimos llenar de orgullo y respeto a nuestra comunidad.</p>
-    </section>
+  <div class="section-separator"></div>
 
-    <section id="fundador">
-      <h2><i class="fas fa-crown"></i> <span class="emoji">👑</span> El fundador: TheBanHammer</h2>
-      <p>El 16 de marzo de 2025, TheBanHammer decidió que ya era suficiente.<br>
-      Ese día, cansado de navegar por la jungla de anuncios de Campione Script, tomó el martillo y fundó este proyecto. No fue un capricho: fue una respuesta a la frustración de miles de usuarios que, con un clic en falso, terminaban en páginas dudosas, con publicidad invasiva y, peor aún, con contenido explícito no apto para menores.</p>
-      <p>TheBanHammer entendió algo que otros olvidaron: la comunidad merece respeto, no trampas disfrazadas de "monetización".</p>
-    </section>
-
-    <section id="integrantes">
-      <h2><i class="fas fa-shield-alt"></i> <span class="emoji">🛡️</span> Los integrantes del equipo</h2>
-      <p>El Anti-Hambreado Script Team no es un héroe solitario, sino una escuadra de cinco guerreros digitales que defienden la causa:</p>
-      
-      <h3 style="color: var(--primary-red); margin: 2rem 0 1rem; font-size: 1.3rem;">Dueños del Canal:</h3>
-      <div class="team-grid">
-        <div class="team-member">
-          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/TheRealBanHammer.png" alt="TheBanHammer" class="member-avatar">
-          <h3 class="member-name">TheBanHammer</h3>
-          <p class="member-role">Fundador y guardián del propósito original: cero anuncios, cero hambre.</p>
-        </div>
-        <div class="team-member">
-          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/KYS-FELICIA.png" alt="FeliciaXxxTop" class="member-avatar">
-          <h3 class="member-name">FeliciaXxxTop</h3>
-          <p class="member-role">Estratega y voz firme contra el hambre digital.</p>
-        </div>
-        <div class="team-member">
-          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/IWOOZY0SKID.png" alt="iWoozy" class="member-avatar">
-          <h3 class="member-name">iWoozy</h3>
-          <p class="member-role">Maestro del timing, siempre un paso adelante en la batalla contra los acortadores.</p>
-        </div>
-        <div class="team-member">
-          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/NO-SLOWWW.png" alt="No-Slowww" class="member-avatar">
-          <h3 class="member-name">No-Slowww</h3>
-          <p class="member-role">Como su nombre indica, velocidad pura: scripts directos, sin retrasos.</p>
-        </div>
-        <div class="team-member">
-          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/ANGELLTFMXD.png" alt="AngelltfmXD" class="member-avatar">
-          <h3 class="member-name">AngelltfmXD</h3>
-          <p class="member-role">El toque creativo y humorístico, porque la lucha también se gana con risas.</p>
+  <section class="container" id="proposito">
+    <div class="grid-2">
+      <div class="fade-up">
+        <span class="section-tag">Nuestra Razón de Ser</span>
+        <h2 class="section-title">El propósito que nos mueve</h2>
+        <p class="section-desc" style="text-align: left; margin: 0; margin-bottom: 20px;">
+          Nacimos con una idea clara: liberar a la comunidad del yugo de los anuncios abusivos y los acortadores
+          hambrientos. Ningún usuario debería pasar por publicidad engañosa o contenido inapropiado solo para acceder a
+          un script.
+        </p>
+        <p class="section-desc" style="text-align: left; margin: 0;">
+          En un mundo donde algunos prefieren llenar sus bolsillos a costa de tu paciencia, nosotros decidimos crear un
+          ecosistema basado en el respeto y la transparencia.
+        </p>
+      </div>
+      <div class="fade-up" style="transition-delay: 0.2s;">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-shield-check"></i></div>
+          <h3 class="card-title">Cero Hambre Digital</h3>
+          <p>Nuestro compromiso es inquebrantable:</p>
+          <ul class="card-list">
+            <li><i class="fas fa-check"></i> Compartir sin hambre y sin ataduras.</li>
+            <li><i class="fas fa-check"></i> Enlaces directos, limpios y 100% seguros.</li>
+            <li><i class="fas fa-check"></i> Respeto absoluto por el usuario.</li>
+          </ul>
         </div>
       </div>
+    </div>
+  </section>
 
-      <h3 style="color: var(--primary-red); margin: 2rem 0 1rem; font-size: 1.3rem;">Desarrolladores Principales:</h3>
-      <div class="team-grid">
-        <div class="team-member">
-          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/Mw_Anonymous.gif" alt="Mw_Anonymous" class="member-avatar">
-          <h3 class="member-name">Mw_Anonymous <img src="https://i.postimg.cc/GpKWKm69/Developer.png" alt="Insignia" class="developer-badge"></h3>
-          <p class="member-role">Desarrollador principal de nuestras páginas webs.</p>
+  <section class="container" id="fundador">
+    <div class="card fade-up">
+      <div class="grid-2">
+        <div>
+          <span class="section-tag">El Origen</span>
+          <h2 class="section-title" style="font-size: 2.5rem;">El fundador: <br><span
+              style="color: var(--accent);">TheBanHammer</span></h2>
+          <p style="color: var(--muted); font-size: 1.1rem; margin-bottom: 15px;">
+            El 16 de marzo de 2025, TheBanHammer decidió que ya era suficiente. Cansado de navegar por la jungla de
+            anuncios, tomó el martillo y fundó este proyecto.
+          </p>
+          <p style="color: var(--muted); font-size: 1.1rem;">
+            No fue un capricho: fue una respuesta a la frustración de miles de usuarios. Él entendió algo que otros
+            olvidaron: <strong>la comunidad merece respeto, no trampas disfrazadas de "monetización".</strong>
+          </p>
         </div>
-        <div class="team-member">
-          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/KYS-FELICIA.png" alt="FeliciaXxxTop" class="member-avatar">
-          <h3 class="member-name">FeliciaXxxTop <img src="https://i.postimg.cc/GpKWKm69/Developer.png" alt="Insignia" class="developer-badge"></h3>
-          <p class="member-role">Desarrolladora de nuestro script hub y desarrolladora secundaria.</p>
+        <div style="display: flex; justify-content: center;">
+          <div class="member-avatar-wrap" style="width: 200px; height: 200px; margin: 0;">
+            <div class="avatar-glow"></div>
+            <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/TheRealBanHammer.png" alt="TheBanHammer"
+              class="member-avatar">
+          </div>
         </div>
       </div>
-      <p style="margin-top: 1.5rem;">Cada integrante aporta su estilo, pero todos comparten la misma convicción: la comunidad primero, el dinero después (o nunca).</p>
-    </section>
+    </div>
+  </section>
 
-    <section id="mision">
-      <h2><i class="fas fa-rocket"></i> <span class="emoji">🚀</span> Nuestra misión</h2>
-      <ul>
-        <li>Dar links directos y sin anuncios.</li>
-        <li>Nunca usar acortadores como Linkvertise o Lootlink.</li>
-        <li>Acabar con el hambre digital que representa Campione Script.</li>
-      </ul>
-      <p>No buscamos fama vacía ni monetización a costa de la paciencia de los demás. Buscamos que cada usuario pueda acceder a lo que necesita sin sentirse estafado.</p>
-    </section>
+  <section class="container" id="equipo">
+    <div class="section-header fade-up">
+      <span class="section-tag">Nuestra Escuadra</span>
+      <h2 class="section-title">Los Integrantes</h2>
+      <p class="section-desc">Un equipo de guerreros digitales defendiendo la misma causa. Cero anuncios, máxima calidad
+        y links directos.</p>
+    </div>
 
-    <section id="opinion">
-      <h2><i class="fas fa-handshake"></i> <span class="emoji">🤝</span> Nuestra opinión sobre hambreado script</h2>
-      <p>Aquí no hay odio ciego. De hecho, podríamos decir que somos "amigos" de Campione Script… pero amigos como los que te encuentras en un manicomio: convives, pero sabes que algo no anda bien.</p>
-      <p>No lo odiamos, pero tampoco lo admiramos. Lo que sí hacemos es exponer su hambre:</p>
-      <ul>
-        <li>Hambre de clics.</li>
-        <li>Hambre de anuncios.</li>
-        <li>Hambre de dinero fácil.</li>
-      </ul>
-      <p>Mientras él piensa en su bolsillo, nosotros pensamos en la comunidad. Mientras él llena su página de trampas, nosotros llenamos la nuestra de confianza.</p>
-    </section>
-
-    <section id="burlas">
-      <h2><i class="fas fa-theater-masks"></i> <span class="emoji">🎭</span> Sección de burlas: El hambre de Campione</h2>
-      <p>Porque no todo es solemnidad, también hay espacio para la sátira.</p>
-      <ul>
-        <li><strong>Campione Script dice:</strong> "Haz clic aquí para tu script".<br>
-            <em>La realidad:</em> clic aquí, allá, en todas partes… menos en el script.</li>
-        <li><strong>Campione Script presume de comunidad.</strong><br>
-            <em>La verdad:</em> si de verdad la valorara, no la mandaría a páginas con contenido +18 cada vez que alguien se equivoca de clic.</li>
-        <li><strong>Campione Script habla de "apoyo".</strong><br>
-            <em>Nosotros decimos:</em> apoyo no es exprimir a tu gente con anuncios, apoyo es darles lo que buscan sin hambre.</li>
-      </ul>
-      <p>En resumen: Campione no es un villano, es un ejemplo de lo que nunca queremos ser.</p>
-    </section>
-
-    <section id="conclusion">
-      <h2><i class="fas fa-star"></i> <span class="emoji">🌟</span> Conclusión</h2>
-      <p>El Anti-Hambreado Script Team no nació para competir por fama, sino para defender la dignidad de la comunidad. Somos la alternativa limpia, directa y orgullosa frente al hambre digital.</p>
-      <p>Y mientras otros piensan en monetizar cada clic, nosotros pensamos en algo más grande: crear un espacio donde la confianza valga más que cualquier anuncio.</p>
-    </section>
-
-    <section id="contacto" style="text-align: center;">
-      <h2><i class="fas fa-envelope"></i> <span class="emoji">✉️</span> Contáctanos</h2>
-      <div class="contact-links">
-        <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="contact-btn">
-          <i class="fab fa-discord"></i> Únete al Discord
-        </a>
-        <a href="mailto:antianunciostest@gmail.com" class="contact-btn">
-          <i class="fas fa-envelope"></i> Envíanos un correo
-        </a>
-        <a href="https://antihambreadoscriptteam.github.io/" target="_blank" class="contact-btn">
-          <i class="fas fa-home"></i> Página Principal
-        </a>
+    <h3 class="fade-up" style="color: #fff; font-size: 1.5rem; text-align: center; margin-bottom: 10px;">Dueños de la
+      Comunidad</h3>
+    <div class="team-grid fade-up" style="margin-bottom: 60px;">
+      <div class="member-card">
+        <div class="member-avatar-wrap">
+          <div class="avatar-glow"></div>
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/KYS-FELICIA.png" alt="FeliciaXxxTop"
+            class="member-avatar">
+        </div>
+        <h4 class="member-name">FeliciaXxxTop</h4>
+        <div class="member-role">Estratega</div>
+        <p class="member-desc">Voz firme contra el hambre digital y protectora de nuestros principios.</p>
       </div>
-    </section>
 
-  </main>
+      <div class="member-card">
+        <div class="member-avatar-wrap">
+          <div class="avatar-glow"></div>
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/IWOOZY0SKID.png" alt="iWoozy"
+            class="member-avatar">
+        </div>
+        <h4 class="member-name">iWoozy</h4>
+        <div class="member-role">Maestro del Timing</div>
+        <p class="member-desc">Siempre un paso adelante en la encarnizada batalla contra los acortadores.</p>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar-wrap">
+          <div class="avatar-glow"></div>
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/NO-SLOWWW.png" alt="No-Slowww"
+            class="member-avatar">
+        </div>
+        <h4 class="member-name">No-Slowww</h4>
+        <div class="member-role">Velocista</div>
+        <p class="member-desc">Como su nombre indica, velocidad pura: scripts directos, sin retrasos.</p>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar-wrap">
+          <div class="avatar-glow"></div>
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/ANGELLTFMXD.png" alt="AngelltfmXD"
+            class="member-avatar">
+        </div>
+        <h4 class="member-name">AngelltfmXD</h4>
+        <div class="member-role">Creativo</div>
+        <p class="member-desc">El toque humorístico, porque la lucha contra el hambre también se gana con risas.</p>
+      </div>
+    </div>
+
+    <h3 class="fade-up" style="color: #fff; font-size: 1.5rem; text-align: center; margin-bottom: 10px;">Desarrolladores
+      Principales</h3>
+    <div class="team-grid fade-up" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+      <div class="member-card"
+        style="border-color: rgba(255,0,68,0.2); background: linear-gradient(180deg, var(--surface) 0%, #150508 100%);">
+        <div class="member-avatar-wrap" style="width: 140px; height: 140px;">
+          <div class="avatar-glow" style="opacity: 0.3;"></div>
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/Mw_Anonymous.gif" alt="Mw_Anonymous"
+            class="member-avatar" style="border-color: var(--accent);">
+        </div>
+        <h4 class="member-name">
+          Mw_Anonymous
+          <img src="https://i.postimg.cc/GpKWKm69/Developer.png" alt="Dev" class="developer-badge">
+        </h4>
+        <div class="member-role" style="color: #fff;">Lead Developer Web</div>
+        <p class="member-desc" style="color: #ccc;">Arquitecto principal del ecosistema web y diseñador de la
+          experiencia de usuario suprema. Creador de la versión 2.0.</p>
+      </div>
+
+      <div class="member-card"
+        style="border-color: rgba(255,0,68,0.2); background: linear-gradient(180deg, var(--surface) 0%, #150508 100%);">
+        <div class="member-avatar-wrap" style="width: 140px; height: 140px;">
+          <div class="avatar-glow" style="opacity: 0.3;"></div>
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/KYS-FELICIA.png" alt="FeliciaXxxTop"
+            class="member-avatar" style="border-color: var(--accent);">
+        </div>
+        <h4 class="member-name">
+          FeliciaXxxTop
+          <img src="https://i.postimg.cc/GpKWKm69/Developer.png" alt="Dev" class="developer-badge">
+        </h4>
+        <div class="member-role" style="color: #fff;">Hub & Core Dev</div>
+        <p class="member-desc" style="color: #ccc;">Desarrolladora principal de nuestro Script Hub y pilar fundamental
+          en la programación secundaria de proyectos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" id="opinion">
+    <div class="opinion-showcase fade-up">
+      <i class="fas fa-theater-masks bg-icon"></i>
+      <div class="opinion-content">
+        <span class="section-tag">La Cruda Realidad</span>
+        <h3>Nuestra opinión sobre el "hambre"</h3>
+        <p>
+          Aquí no hay odio ciego. Podríamos decir que somos "amigos" de Campione Script… pero amigos como los que te
+          encuentras en un manicomio: convives, pero sabes que algo no anda bien. No los odiamos, pero exponemos su
+          modelo de negocio: <strong>Hambre de clics. Hambre de anuncios. Hambre de dinero fácil.</strong>
+        </p>
+
+        <div class="vs-grid">
+          <div class="vs-box them">
+            <h4><i class="fas fa-times-circle"></i> Campione</h4>
+            <ul>
+              <li><i class="fas fa-long-arrow-alt-right"></i> Promete "Clic aquí para script" y te manda a 10 ventanas.
+              </li>
+              <li><i class="fas fa-long-arrow-alt-right"></i> Presume de comunidad mientras la monetiza sin piedad.</li>
+              <li><i class="fas fa-long-arrow-alt-right"></i> Confunde "apoyo" con exprimir al usuario.</li>
+            </ul>
+          </div>
+
+          <div class="vs-badge">VS</div>
+
+          <div class="vs-box us">
+            <h4><i class="fas fa-check-circle"></i> Nosotros</h4>
+            <ul>
+              <li><i class="fas fa-bolt"></i> Clic aquí = El maldito script directo en tus manos.</li>
+              <li><i class="fas fa-shield-alt"></i> Valoramos la comunidad construyendo confianza real.</li>
+              <li><i class="fas fa-heart"></i> Entendemos que el apoyo se gana, no se secuestra con acortadores.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" id="contacto">
+    <div class="cta-box fade-up">
+      <div class="cta-content">
+        <span class="section-tag" style="color: #fff;">Únete al Movimiento</span>
+        <h2 class="cta-title">¿Listo para dejar de pasar hambre?</h2>
+        <p class="cta-desc">
+          El Anti-Hambreado Script Team no nació para competir por fama, sino para defender la dignidad. Somos la
+          alternativa que estabas esperando.
+        </p>
+        <div class="social-row">
+          <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="social-btn discord">
+            <i class="fab fa-discord"></i> Discord Oficial
+          </a>
+          <a href="mailto:antianunciostest@gmail.com" class="social-btn email">
+            <i class="fas fa-paper-plane"></i> Contacto
+          </a>
+          <a href="https://antihambreadoscriptteam.github.io/" target="_blank" class="social-btn home">
+            <i class="fas fa-globe"></i> Hub Principal
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <footer>
-    <p>© 2026 Anti-Hambreado Script Team — Comunidad primero, hambre nunca.</p>
-    <p style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-gray);">
-      Desarrollado con <i class="fas fa-heart" style="color: var(--primary-red);"></i> por el equipo
+    <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo" class="footer-logo">
+    <p>© 2026 Anti-Hambreado Script Team.</p>
+    <p>Comunidad primero. Hambre nunca.</p>
+    <p style="margin-top: 15px; font-size: 0.8rem;">
+      Diseñado con <i class="fas fa-heart heart"></i> por Mw_Anonymous
     </p>
   </footer>
 
   <script>
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.getElementById('preloader').classList.add('hidden');
-      }, 500);
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles = [];
+
+    function initParticles() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      particles = [];
+
+      const numParticles = Math.min(window.innerWidth / 15, 80);
+
+      for (let i = 0; i < numParticles; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: Math.random() * 2,
+          speedX: (Math.random() - 0.5) * 0.5,
+          speedY: (Math.random() - 0.5) * 0.5,
+          opacity: Math.random() * 0.5 + 0.1
+        });
+      }
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = '#ff0044';
+
+      particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        ctx.globalAlpha = p.opacity;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    initParticles();
+    drawParticles();
+    window.addEventListener('resize', initParticles);
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('mobileOverlay');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    let menuOpen = false;
+
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        mobileMenu.classList.add('open');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      } else {
+        mobileMenu.classList.remove('open');
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (menuOpen) toggleMenu();
+      });
     });
 
     const observerOptions = {
       threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      rootMargin: "0px 0px -50px 0px"
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
-    document.querySelectorAll('section').forEach(section => {
-      observer.observe(section);
+    document.querySelectorAll('.fade-up').forEach(el => {
+      observer.observe(el);
     });
 
-    const canvas = document.getElementById('particles-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const particles = [];
-    const particleCount = 100;
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
-        this.opacity = Math.random() * 0.3 + 0.1;
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(10,10,10,0.85)';
+        navbar.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
+        navbar.style.border = '1px solid rgba(255,0,68,0.2)';
+      } else {
+        navbar.style.background = 'var(--glass)';
+        navbar.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+        navbar.style.border = '1px solid var(--glass-border)';
       }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x > canvas.width) this.x = 0;
-        if (this.x < 0) this.x = canvas.width;
-        if (this.y > canvas.height) this.y = 0;
-        if (this.y < 0) this.y = canvas.height;
-      }
-
-      draw() {
-        ctx.fillStyle = `rgba(255, 0, 68, ${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function init() {
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-      });
-      requestAnimationFrame(animate);
-    }
-
-    init();
-    animate();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
     });
 
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const hamburgerMenu = document.getElementById('hamburgerMenu');
-    const menuOverlay = document.getElementById('menuOverlay');
-    const menuItems = document.querySelectorAll('.menu-item');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section, header');
 
-    function toggleMenu() {
-      hamburgerBtn.classList.toggle('active');
-      hamburgerMenu.classList.toggle('active');
-      menuOverlay.classList.toggle('active');
-      document.body.style.overflow = hamburgerMenu.classList.contains('active') ? 'hidden' : '';
-    }
-
-    hamburgerBtn.addEventListener('click', toggleMenu);
-    menuOverlay.addEventListener('click', toggleMenu);
-
-    menuItems.forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = item.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        
-        if (targetSection) {
-          const headerOffset = 100;
-          const elementPosition = targetSection.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= (sectionTop - 200)) {
+          current = section.getAttribute('id');
         }
-        
-        setTimeout(() => {
-          toggleMenu();
-        }, 300);
       });
-    });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && hamburgerMenu.classList.contains('active')) {
-        toggleMenu();
-      }
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').substring(1) === current) {
+          link.classList.add('active');
+        }
+      });
     });
   </script>
-
 </body>
-  </html>
+
+</html>
