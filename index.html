@@ -185,6 +185,10 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      justify-content: center;
+      text-align: center;
+      flex-wrap: wrap;
+      max-width: 100%;
     }
 
     .container {
@@ -637,6 +641,10 @@
     }
 
     @media (max-width: 768px) {
+      .navbar {
+        padding: 0.9rem 1rem;
+      }
+
       .hero h1 {
         font-size: 2.2rem;
       }
@@ -644,6 +652,8 @@
       .container {
         padding-top: 6rem;
         padding-bottom: 2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
       }
 
       .logo {
@@ -674,6 +684,19 @@
 
       .nav-title {
         font-size: 1rem;
+        letter-spacing: 1px;
+        line-height: 1.25;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .nav-title {
+        font-size: 0.85rem;
+        gap: 6px;
       }
     }
   </style>
