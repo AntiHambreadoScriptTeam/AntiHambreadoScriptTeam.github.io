@@ -36,14 +36,14 @@
     },
     "ronix": {
       "nombre": "Ronix",
-      "version": "2.707",
-      "fecha_actualizacion": "16-02-2026",
+      "version": "2.708",
+      "fecha_actualizacion": "23-02-2026",
       "status": "peligro",
-      "link_descarga_arm64": "https://wrdcdn.net/r/154522/1771267720232/Ronix_64Bits-2.707.734.apk",
-      "link_descarga_arm32": "https://wrdcdn.net/r/154522/1771267622814/Ronix_32Bits-2.707.734.apk", 
+      "link_descarga_arm64": "https://wrdcdn.net/r/154522/1771863618680/Ronix_64Bits-2.708.880_NEW.apk",
+      "link_descarga_arm32": "https://wrdcdn.net/r/154522/1771863712239/Ronix_32Bits-2.708.880_NEW.apk", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/RONIX.webp"
     },
-"fluxusz": {
+     "fluxusz": {
       "nombre": "Fluxus Z",
       "version": "3.9.5",
       "fecha_actualizacion": "26-01-2026",
