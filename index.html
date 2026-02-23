@@ -70,794 +70,1028 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Anti-Hambreado Script Team</title>
-<link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --primary-red: #ff3333;
-  --dark-red: #cc2222;
-  --light-red: #ff9999;
-  --bg-dark: #0a0a0a;
-  --bg-card: rgba(20, 0, 0, 0.6);
-  --neon-shadow: 0 0 15px rgba(255, 50, 50, 0.3);
-  --neon-glow: 0 0 30px rgba(255, 30, 30, 0.2);
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anti-Hambreado Script Team | V2.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Outfit:wght@300;400;600;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+  <style>
+    :root {
+      --bg-base: #050000;
+      --bg-surface: rgba(20, 0, 0, 0.5);
+      --bg-glass: rgba(255, 10, 10, 0.05);
+      --accent: #ff003c;
+      --accent-hover: #ff3366;
+      --accent-glow: rgba(255, 0, 60, 0.6);
+      --text-main: #ffffff;
+      --text-muted: #ffb3b3;
+      --border-glass: rgba(255, 50, 50, 0.2);
+      --neon-shadow: 0 0 20px var(--accent-glow);
+      --font-display: 'Orbitron', sans-serif;
+      --font-body: 'Outfit', sans-serif;
+      --border-radius: 16px;
+    }
 
-body {
-  font-family: 'Montserrat', sans-serif;
-  background: var(--bg-dark);
-  color: var(--light-red);
-  min-height: 100vh;
-  overflow-x: hidden;
-  line-height: 1.6;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-canvas#particles {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.4;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-.top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  background: rgba(10, 0, 0, 0.85);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 50, 50, 0.2);
-  padding: 0.8rem 2rem;
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 900;
-  font-size: 1.1rem;
-  letter-spacing: 2px;
-  color: var(--primary-red);
-  text-shadow: var(--neon-shadow);
-  text-align: center;
-}
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
 
-.main-container {
-  position: relative;
-  z-index: 10;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 6rem 2rem 3rem;
-}
+    .bg-fx {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
 
-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
+    .bg-gradient {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, rgba(255, 0, 60, 0.1) 0%, transparent 60%);
+    }
 
-.logo-container {
-  display: inline-block;
-  position: relative;
-  margin-bottom: 1.5rem;
-}
+    .bg-grid {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(var(--border-glass) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-glass) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.15;
+      mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+    }
 
-.logo {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 51, 51, 0.3);
-  background: var(--bg-card);
-  padding: 12px;
-  transition: all 0.4s ease;
-}
+    canvas#particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.6;
+    }
 
-.logo:hover {
-  transform: scale(1.05);
-  box-shadow: var(--neon-glow);
-  border-color: var(--primary-red);
-}
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      background: rgba(5, 0, 0, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-glass);
+    }
 
-h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: var(--primary-red);
-  text-shadow: var(--neon-shadow);
-  letter-spacing: 3px;
-  margin-bottom: 1rem;
-  opacity: 0.9;
-}
+    .nav-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.2rem;
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent-glow);
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-.tagline {
-  font-size: 0.95rem;
-  color: var(--light-red);
-  opacity: 0.8;
-  letter-spacing: 1px;
-  text-align: center;
-}
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      z-index: 10;
+    }
 
-.tagline img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
+    .hero {
+      text-align: center;
+      margin-bottom: 5rem;
+      animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
 
-.button-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-  margin: 2rem 0;
-}
+    .logo-box {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
 
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.7rem;
-  padding: 1rem 1.5rem;
-  border: 1px solid rgba(255, 51, 51, 0.4);
-  background: var(--bg-card);
-  color: var(--light-red);
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
+    .logo-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120%;
+      height: 120%;
+      background: var(--accent);
+      filter: blur(60px);
+      opacity: 0.4;
+      border-radius: 50%;
+      z-index: -1;
+      animation: pulseGlow 4s infinite alternate;
+    }
 
-.btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 51, 51, 0.1), transparent);
-  transition: left 0.5s;
-}
+    .logo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 30px rgba(255, 0, 60, 0.3), inset 0 0 20px rgba(255, 0, 60, 0.3);
+      object-fit: cover;
+      position: relative;
+      z-index: 2;
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
 
-.btn:hover::before {
-  left: 100%;
-}
+    .logo:hover {
+      transform: scale(1.05) rotate(5deg);
+    }
 
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--neon-glow);
-  border-color: var(--primary-red);
-  color: #fff;
-  background: rgba(255, 51, 51, 0.1);
-}
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 8px rgba(255, 0, 60, 0.4));
+      letter-spacing: -1px;
+    }
 
-.btn i {
-  font-size: 1.2rem;
-  transition: transform 0.3s;
-}
+    .typing-svg {
+      margin: 1.5rem auto;
+      display: block;
+      max-width: 100%;
+      filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.5));
+    }
 
-.btn:hover i {
-  transform: scale(1.2);
-}
+    .motto-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--border-radius);
+      padding: 2rem 3rem;
+      margin: 3rem auto;
+      max-width: 800px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border-left: 4px solid var(--accent);
+      position: relative;
+      overflow: hidden;
+    }
 
-.motto {
-  background: var(--bg-card);
-  border-left: 3px solid var(--primary-red);
-  padding: 2rem;
-  margin: 2rem 0;
-  border-radius: 10px;
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: var(--light-red);
-  backdrop-filter: blur(5px);
-}
+    .motto-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 0, 60, 0.05), transparent);
+      z-index: 0;
+    }
 
-.toggle-section {
-  margin: 3rem 0;
-  text-align: center;
-}
+    .motto-card p {
+      position: relative;
+      z-index: 1;
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      text-align: justify;
+    }
 
-.toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 1.2rem 2.5rem;
-  background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
-  color: #000;
-  border: none;
-  border-radius: 30px;
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 700;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: var(--neon-shadow);
-}
+    .motto-card p:last-child {
+      margin-bottom: 0;
+    }
 
-.toggle-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(255, 30, 30, 0.4);
-}
+    .motto-card strong {
+      color: #fff;
+      font-weight: 600;
+    }
 
-.toggle-btn .arrow {
-  transition: transform 0.3s;
-}
+    .motto-card em {
+      color: var(--accent);
+      font-style: normal;
+    }
 
-.toggle-btn.active .arrow {
-  transform: rotate(180deg);
-}
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 4rem 0;
+    }
 
-.section-content {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-              opacity 0.4s ease,
-              margin 0.6s ease;
-  margin-top: 0;
-}
+    .btn-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 1.2rem;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(5px);
+    }
 
-.section-content.open {
-  max-height: 5000px;
-  opacity: 1;
-  margin-top: 2rem;
-}
+    .btn-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
 
-.info-card {
-  background: var(--bg-card);
-  border: 1px solid rgba(255, 51, 51, 0.2);
-  border-radius: 12px;
-  padding: 2rem;
-  margin-bottom: 1rem;
-  backdrop-filter: blur(5px);
-}
+    .btn-link:hover::before {
+      left: 100%;
+    }
 
-.info-card h2 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.8rem;
-  color: var(--primary-red);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
+    .btn-link:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 0, 60, 0.15);
+      border-color: var(--accent);
+      box-shadow: var(--neon-shadow);
+    }
 
-.faq-item {
-  border-bottom: 1px solid rgba(255, 51, 51, 0.1);
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-}
+    .btn-link.discord {
+      background: rgba(88, 101, 242, 0.1);
+      border-color: rgba(88, 101, 242, 0.3);
+    }
 
-.faq-item:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
+    .btn-link.discord:hover {
+      background: rgba(88, 101, 242, 0.2);
+      border-color: #5865F2;
+      box-shadow: 0 0 20px rgba(88, 101, 242, 0.5);
+    }
 
-.faq-question {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  padding: 1rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
+    .btn-link i {
+      font-size: 1.4rem;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
 
-.faq-question:hover {
-  background: rgba(255, 51, 51, 0.05);
-  box-shadow: var(--neon-shadow);
-}
+    .btn-link.discord i {
+      color: #5865F2;
+    }
 
-.faq-question-content {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex: 1;
-}
+    .btn-link:hover i {
+      transform: scale(1.2) rotate(5deg);
+    }
 
-.faq-question h3 {
-  color: var(--light-red);
-  font-size: 1.1rem;
-  margin: 0;
-}
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 6rem 0 3rem;
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--text-main);
+      text-transform: uppercase;
+    }
 
-.faq-icon {
-  color: var(--primary-red);
-  font-size: 1.2rem;
-  transition: transform 0.3s ease;
-}
+    .section-header i {
+      color: var(--accent);
+      text-shadow: var(--neon-shadow);
+    }
 
-.faq-arrow {
-  color: var(--primary-red);
-  font-size: 1rem;
-  font-weight: bold;
-  transition: transform 0.3s ease;
-  margin-left: 1rem;
-}
+    .tabs-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
 
-.faq-item.active .faq-arrow {
-  transform: rotate(90deg);
-}
+    .accordion-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
 
-.faq-item.active .faq-icon {
-  transform: rotate(90deg);
-}
+    .accordion-item:hover {
+      border-color: rgba(255, 50, 50, 0.4);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
 
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease, padding 0.4s ease;
-  padding-left: 2.5rem;
-  padding-right: 1rem;
-}
+    .accordion-item.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(255, 0, 60, 0.15);
+    }
 
-.faq-item.active .faq-answer {
-  max-height: 500px;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
+    .accordion-header {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
 
-.section-text {
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  line-height: 1.7;
-}
+    .accordion-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+    }
 
-.highlight {
-  color: var(--primary-red);
-  font-weight: 700;
-  text-shadow: var(--neon-shadow);
-}
+    .accordion-title i {
+      color: var(--accent);
+      font-size: 1.2rem;
+      width: 24px;
+      text-align: center;
+    }
 
-.info-card ul {
-  list-style: none;
-  margin: 1rem 0;
-}
+    .accordion-icon {
+      color: var(--accent);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
 
-.info-card ul li {
-  padding: 0.5rem 0;
-  padding-left: 2rem;
-  position: relative;
-}
+    .accordion-item.active .accordion-icon {
+      transform: rotate(180deg);
+    }
 
-.info-card ul li::before {
-  content: '⚡';
-  position: absolute;
-  left: 0;
-  color: var(--primary-red);
-  font-size: 1.2rem;
-}
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+      background: rgba(0, 0, 0, 0.2);
+    }
 
-footer {
-  text-align: center;
-  margin-top: 4rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 51, 51, 0.2);
-  color: var(--dark-red);
-  font-size: 0.9rem;
-}
+    .accordion-inner {
+      padding: 0 1.5rem 1.5rem 4.5rem;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
 
-@media (max-width: 768px) {
-  .top-bar {
-    font-size: 0.9rem;
-    padding: 0.6rem 1rem;
-  }
-  
-  h1 {
-    font-size: 1.8rem;
-  }
-  
-  .logo {
-    width: 140px;
-    height: 140px;
-  }
-  
-  .button-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .main-container {
-    padding: 5rem 1rem 2rem;
-  }
-  
-  .info-card {
-    padding: 1.5rem;
-  }
-  
-  .section-content.open {
-    max-height: 10000px;
-  }
-  
-  .faq-question {
-    flex-direction: row;
-    align-items: center;
-  }
-  
-  .faq-arrow {
-    margin-left: 0.5rem;
-  }
-}
-</style>
+    .accordion-inner p {
+      margin-bottom: 1rem;
+    }
+
+    .accordion-inner p:last-child {
+      margin-bottom: 0;
+    }
+
+    .legal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .legal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 2rem;
+      border-left: 3px solid var(--accent);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .legal-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at top right, rgba(255, 0, 60, 0.05), transparent);
+    }
+
+    .legal-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+
+    .legal-card h3 {
+      font-family: var(--font-display);
+      color: var(--text-main);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .legal-card h3 i {
+      color: var(--accent);
+    }
+
+    .legal-card p,
+    .legal-card ul {
+      color: var(--text-muted);
+      font-size: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .legal-card ul {
+      padding-left: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .legal-card ul li {
+      margin-bottom: 0.3rem;
+    }
+
+    .legal-footer {
+      margin: 3rem auto 0;
+      max-width: 1000px;
+      text-align: center;
+      padding: 2.5rem;
+      background: linear-gradient(180deg, transparent, rgba(255, 0, 60, 0.1));
+      border: 1px dashed var(--border-glass);
+      border-radius: 12px;
+    }
+
+    .legal-footer p.quote {
+      font-family: var(--font-display);
+      color: var(--text-main);
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .legal-footer p.date {
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-top: 0.8rem;
+      letter-spacing: 1px;
+      opacity: 0.8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(255, 50, 50, 0.1);
+      margin-top: 4rem;
+      position: relative;
+      z-index: 10;
+      background: rgba(5, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    footer i {
+      color: var(--accent);
+      margin: 0 5px;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulseGlow {
+      from {
+        opacity: 0.2;
+        transform: translate(-50%, -50%) scale(0.95);
+      }
+
+      to {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1.05);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .legal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .container {
+        padding-top: 6rem;
+        padding-bottom: 2rem;
+      }
+
+      .logo {
+        width: 140px;
+        height: 140px;
+      }
+
+      .motto-card {
+        padding: 1.5rem;
+      }
+
+      .motto-card p {
+        font-size: 1rem;
+      }
+
+      .section-header {
+        font-size: 1.6rem;
+        margin: 4rem 0 2rem;
+      }
+
+      .accordion-inner {
+        padding: 0 1rem 1.5rem 1rem;
+      }
+
+      .accordion-title {
+        font-size: 1rem;
+      }
+
+      .nav-title {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<canvas id="particles"></canvas>
-
-<div class="top-bar">
-  <i class="fas fa-skull"></i> ANTI-HAMBREADO SCRIPT TEAM <i class="fas fa-skull"></i>
-</div>
-
-<div class="main-container">
-
-<header>
-  <div class="logo-container">
-    <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo Anti-Hambreado" class="logo">
+  <div class="bg-fx">
+    <div class="bg-gradient"></div>
+    <div class="bg-grid"></div>
+    <canvas id="particles"></canvas>
   </div>
-  <h1>ANTI-HAMBREADO SCRIPT TEAM</h1>
-  <div class="tagline">
-    <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Oswald&size=25&duration=2500&pause=10&color=FF0707&center=true&vCenter=true&random=true&width=435&lines=Executores+siempre+actualizados;Anti-Hambreado+Script+Team+On+Top;Links+directos;Calidad+sin+complicaciones;Respeto+sin+acortadores;0%25+IA;0%25+Skid;Anti-Hambreados;No+m%C3%A1s+campione+script;7+canales+borrados%2C+7mil%2B+suscriptores+totales;Suscribete+a+nuestro+canal+y+dale+like" alt="Typing SVG" /></a>
-  </div>
-  
-  <div class="button-grid">
-    <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn discord">
-      <i class="fab fa-discord"></i> Discord
-    </a>
-    <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="btn">
-      <i class="fas fa-scroll"></i> Scripts
-    </a>
-    <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn">
-      <i class="fas fa-mobile-alt"></i> Executores
-    </a>
-    <a href="https://antihambreadoscriptteam.github.io/bypass" target="_blank" class="btn">
-      <i class="fas fa-unlock-alt"></i> Bypass
-    </a>
-    <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="btn">
-      <i class="fab fa-youtube"></i> YouTube
-    </a>
-  </div>
-</header>
 
-<div class="motto">
-  <p><strong>Anti-Hambreado Script Team</strong> es el lugar donde los verdaderos jugadores consiguen scripts y executores sin rodeos: links directos, sin virus, sin anuncios, sin loot-link ni tonterías.</p>
-  
-  <p>A diferencia de <strong>Campione Script</strong>, que parece más interesado en llenar su cartera que en ayudar a la comunidad <em>[con sus acortadores eternos y páginas llenas de anuncios]</em>, nosotros sí respetamos tu tiempo.</p>
-  
-  <p><strong>Menos hambre, más calidad.</strong> Eso es Anti-Hambreado Script Team.</p>
-</div>
+  <nav class="navbar">
+    <div class="nav-title">
+      <i class="fas fa-skull"></i>
+      ANTI-HAMBREADO SCRIPT TEAM
+      <i class="fas fa-skull"></i>
+    </div>
+  </nav>
 
-<div class="toggle-section">
-  <button class="toggle-btn" onclick="toggleSection('faq')">
-    <i class="fas fa-question-circle"></i>
-    FAQ (Preguntas Frecuentes)
-    <i class="fas fa-chevron-down arrow"></i>
-  </button>
-</div>
+  <main class="container">
 
-<div id="faqSection" class="section-content">
-  <div class="info-card">
-    <h2><i class="fas fa-info-circle"></i> FAQ (Preguntas Frecuentes)</h2>
-    
-    <div class="faq-item" onclick="toggleFaqItem(this)">
-      <div class="faq-question">
-        <div class="faq-question-content">
-          <i class="fas fa-question faq-icon"></i>
-          <h3>¿Qué es exactamente el Anti-Hambreado Script Team?</h3>
+    <section class="hero">
+      <div class="logo-box">
+        <div class="logo-glow"></div>
+        <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo Anti-Hambreado" class="logo">
+      </div>
+
+      <h1>Anti-Hambreado Script Team</h1>
+
+      <a href="https://git.io/typing-svg" class="typing-svg">
+        <img
+          src="https://readme-typing-svg.herokuapp.com?font=Outfit&size=22&duration=2500&pause=10&color=FF003C&center=true&vCenter=true&random=true&width=530&lines=Executores+siempre+actualizados;Anti-Hambreado+Script+Team+On+Top;Links+directos;Calidad+sin+complicaciones;Respeto+sin+acortadores;0%25+IA;0%25+Skid;Anti-Hambreados;No+m%C3%A1s+campione+script;7+canales+borrados%2C+7mil%2B+suscriptores;Suscribete+a+nuestro+canal+y+dale+like"
+          alt="Typing SVG" />
+      </a>
+
+      <div class="motto-card">
+        <p><strong>Anti-Hambreado Script Team</strong> es el lugar donde los verdaderos jugadores consiguen scripts y
+          executores sin rodeos: links directos, sin virus, sin anuncios, sin loot-link ni tonterías.</p>
+        <p>A diferencia de <strong>Campione Script</strong>, que parece más interesado en llenar su cartera que en
+          ayudar a la comunidad <em>[con sus acortadores eternos y páginas llenas de anuncios]</em>, nosotros sí
+          respetamos tu tiempo.</p>
+        <p><strong>Menos hambre, más calidad.</strong> Eso es lo que nos define.</p>
+      </div>
+
+      <div class="links-grid reveal">
+        <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn-link discord">
+          <i class="fab fa-discord"></i> Discord Server
+        </a>
+        <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="btn-link">
+          <i class="fas fa-code"></i> Scripts Hub
+        </a>
+        <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn-link">
+          <i class="fas fa-terminal"></i> Executores
+        </a>
+        <a href="https://antihambreadoscriptteam.github.io/bypass" target="_blank" class="btn-link">
+          <i class="fas fa-shield-virus"></i> Bypass Tool
+        </a>
+        <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="btn-link">
+          <i class="fab fa-youtube"></i> YouTube
+        </a>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <h2 class="section-header">
+        <i class="fas fa-question-circle"></i> Preguntas Frecuentes
+      </h2>
+
+      <div class="tabs-container">
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <div class="accordion-title">
+              <i class="fas fa-info-circle"></i>
+              <span>¿Qué es exactamente el Anti-Hambreado Team?</span>
+            </div>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-inner">
+              <p>Somos un grupo que sube scripts, hubs y herramientas de Roblox 100% limpios, sin acortadores, sin 50
+                anuncios, sin esperar 30 segundos y sin pedirte que te suscribas a 10 canales. Solo link directo y ya.
+              </p>
+            </div>
+          </div>
         </div>
-        <i class="fas fa-chevron-right faq-arrow"></i>
-      </div>
-      <div class="faq-answer">
-        <p class="section-text">Somos un grupo que sube scripts, hubs y herramientas de Roblox 100% limpios, sin acortadores, sin 50 anuncios, sin esperar 30 segundos y sin pedirte que te suscribas a 10 canales. Solo link directo y ya.</p>
-      </div>
-    </div>
 
-    <div class="faq-item" onclick="toggleFaqItem(this)">
-      <div class="faq-question">
-        <div class="faq-question-content">
-          <i class="fas fa-shield-alt faq-icon"></i>
-          <h3>¿Los scripts tienen virus o backdoor?</h3>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <div class="accordion-title">
+              <i class="fas fa-shield"></i>
+              <span>¿Los scripts tienen virus o backdoor?</span>
+            </div>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-inner">
+              <p>Nunca. Todos los scripts que subimos están revisados por el equipo. Si dudas, siempre ponemos el link
+                directo al código fuente para que cualquiera pueda auditarlo.</p>
+            </div>
+          </div>
         </div>
-        <i class="fas fa-chevron-right faq-arrow"></i>
-      </div>
-      <div class="faq-answer">
-        <p class="section-text">Nunca. Todos los scripts que subimos están revisados por el equipo. Si dudas, siempre ponemos el link directo.</p>
-      </div>
-    </div>
 
-    <div class="faq-item" onclick="toggleFaqItem(this)">
-      <div class="faq-question">
-        <div class="faq-question-content">
-          <i class="fas fa-exclamation-triangle faq-icon"></i>
-          <h3>¿Por qué odian a Campione Script?</h3>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <div class="accordion-title">
+              <i class="fas fa-bolt"></i>
+              <span>¿Por qué odian a Campione Script?</span>
+            </div>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-inner">
+              <p>No lo odiamos, pero es el ejemplo perfecto de "hambreado": 8 acortadores seguidos, anuncios que abren
+                20 pestañas y te exigen entrar a WhatsApp. Nosotros hacemos totalmente lo contrario.</p>
+            </div>
+          </div>
         </div>
-        <i class="fas fa-chevron-right faq-arrow"></i>
-      </div>
-      <div class="faq-answer">
-        <p class="section-text">No lo odiamos, pero es el ejemplo perfecto de "hambreado": 8 acortadores seguidos, ads que abren 20 pestañas y te piden WhatsApp. Nosotros somos lo contrario.</p>
-      </div>
-    </div>
 
-    <div class="faq-item" onclick="toggleFaqItem(this)">
-      <div class="faq-question">
-        <div class="faq-question-content">
-          <i class="fas fa-sync-alt faq-icon"></i>
-          <h3>¿Los executores están actualizados después de cada update de Roblox?</h3>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <div class="accordion-title">
+              <i class="fas fa-sync-alt"></i>
+              <span>¿Los executores están actualizados tras los parches de Roblox?</span>
+            </div>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-inner">
+              <p>Sí. La mayoría de executores se actualizan en 24-48h después de un parche grande de Roblox. Si uno se
+                descontinua, lo marcamos claramente con [DESCONTINUADO] en nuestros portales.</p>
+            </div>
+          </div>
         </div>
-        <i class="fas fa-chevron-right faq-arrow"></i>
-      </div>
-      <div class="faq-answer">
-        <p class="section-text">Sí. La mayoría se actualizan en menos de 24-48h después de un parche grande. Si uno se descontinua lo marcamos como [DESCONTINUADO] hasta que sale la versión nueva.</p>
-      </div>
-    </div>
 
-    <div class="faq-item" onclick="toggleFaqItem(this)">
-      <div class="faq-question">
-        <div class="faq-question-content">
-          <i class="fas fa-paper-plane faq-icon"></i>
-          <h3>¿Puedo pedirles scripts o me ignoran?</h3>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <div class="accordion-title">
+              <i class="fas fa-comment-dots"></i>
+              <span>¿Puedo pedirles scripts o me ignoran?</span>
+            </div>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-inner">
+              <p>Claro que puedes. Si el script existe y es verdaderamente seguro, lo buscamos y lo publicamos sin
+                trampas. Si no existe, te hablamos con la verdad y no te hacemos perder tiempo.</p>
+            </div>
+          </div>
         </div>
-        <i class="fas fa-chevron-right faq-arrow"></i>
-      </div>
-      <div class="faq-answer">
-        <p class="section-text">Claro que puedes pedir. Si existe y es bueno, lo buscamos y lo subimos limpio. Si no existe, te decimos la verdad en vez de marearte.</p>
-      </div>
-    </div>
 
-    <div class="faq-item" onclick="toggleFaqItem(this)">
-      <div class="faq-question">
-        <div class="faq-question-content">
-          <i class="fas fa-trash-alt faq-icon"></i>
-          <h3>¿Por qué algunos links dicen "este archivo fue eliminado"?</h3>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <div class="accordion-title">
+              <i class="fas fa-link-slash"></i>
+              <span>¿Por qué algunos links se caen o dice "archivo eliminado"?</span>
+            </div>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-inner">
+              <p>Lamentablemente sitios como Mediafire, Pastebin y otros hostings borran los scripts rápido. Si pasa,
+                repórtalo en Discord y lo resubiremos en menos de 5 minutos con nuevos mirrors funcionales.</p>
+            </div>
+          </div>
         </div>
-        <i class="fas fa-chevron-right faq-arrow"></i>
-      </div>
-      <div class="faq-answer">
-        <p class="section-text">Mediafire y los hostings (Pastebin, rbxscripts, etc.) borran los scripts rápido. Cuando pase, avisas en nuestro discord y lo resubimos en menos de 5 minutos con mirrors nuevos.</p>
-      </div>
-    </div>
 
-    <div class="faq-item" onclick="toggleFaqItem(this)">
-      <div class="faq-question">
-        <div class="faq-question-content">
-          <i class="fas fa-crown faq-icon"></i>
-          <h3>¿Aceptan donaciones o hay algo VIP/pago?</h3>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <div class="accordion-title">
+              <i class="fas fa-crown"></i>
+              <span>¿Aceptan donaciones o hay un sistema VIP/pago?</span>
+            </div>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-inner">
+              <p>Todo es y será gratis por siempre. No aceptamos pagos ni existen suscripciones para obtener ventajas
+                "exclusivas" en nuestro canal. Eso iría en contra de nuestra ideología.</p>
+            </div>
+          </div>
         </div>
-        <i class="fas fa-chevron-right faq-arrow"></i>
-      </div>
-      <div class="faq-answer">
-        <p class="section-text">Todo es y será gratis para siempre. Por lo que no, no aceptamos pagos y nunca habrá alguna "suscripción" que te dé acceso exclusivo a algo en nuestro canal.</p>
-      </div>
-    </div>
 
-    <div class="faq-item" onclick="toggleFaqItem(this)">
-      <div class="faq-question">
-        <div class="faq-question-content">
-          <i class="fas fa-users faq-icon"></i>
-          <h3>¿Puedo unirme al equipo o ser staff?</h3>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <div class="accordion-title">
+              <i class="fas fa-users"></i>
+              <span>¿Puedo unirme al equipo o ser staff?</span>
+            </div>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-inner">
+              <p>Sí, pero solo si ya te conocemos y aportas de manera real a la comunidad (subiendo scripts buenos,
+                avisando de updates rápidamente, o diseñando). No admitimos a personas desconocidas sin pruebas de su
+                valor.</p>
+            </div>
+          </div>
         </div>
-        <i class="fas fa-chevron-right faq-arrow"></i>
-      </div>
-      <div class="faq-answer">
-        <p class="section-text">Sí, pero solo si ya te conocemos y aportas (subiendo scripts buenos, avisando updates rápido, haciendo thumbnails chidos, etc.). No contratamos randoms.</p>
-      </div>
-    </div>
 
-    <div class="faq-item" onclick="toggleFaqItem(this)">
-      <div class="faq-question">
-        <div class="faq-question-content">
-          <i class="fas fa-cogs faq-icon"></i>
-          <h3>¿Los scripts funcionan con todos los executors (Delta, Solara, Codex, etc.)?</h3>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <div class="accordion-title">
+              <i class="fas fa-cogs"></i>
+              <span>¿Los scripts funcionan con todos los executores?</span>
+            </div>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-inner">
+              <p>Sí, la gran mayoría están diseñados para ser universales. Si alguno solo funciona en un executor en
+                concreto, lo ponemos en el título del video o de la página web (ej: [SOLARA ONLY] o [DELTAX ONLY]).</p>
+            </div>
+          </div>
         </div>
-        <i class="fas fa-chevron-right faq-arrow"></i>
-      </div>
-      <div class="faq-answer">
-        <p class="section-text">Sí, la gran mayoría. Si alguno solo funciona en un executor concreto lo ponemos en el título del video: [SOLARA ONLY] o [DELTAX ONLY].</p>
-      </div>
-    </div>
 
-    <div class="faq-item" onclick="toggleFaqItem(this)">
-      <div class="faq-question">
-        <div class="faq-question-content">
-          <i class="fas fa-clock faq-icon"></i>
-          <h3>¿Por qué a veces tardáis en responder o en subir un script nuevo?</h3>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <div class="accordion-title">
+              <i class="fas fa-clock"></i>
+              <span>¿Por qué a veces tardáis en responder?</span>
+            </div>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <div class="accordion-inner">
+              <p>Todos tenemos vida fuera del equipo: colegio, universidad, trabajo... Pero siempre vuelve alguien para
+                atender. El grupo nunca muere, aunque a veces duerma unas horas.</p>
+            </div>
+          </div>
         </div>
-        <i class="fas fa-chevron-right faq-arrow"></i>
       </div>
-      <div class="faq-answer">
-        <p class="section-text">Todos tenemos vida fuera: colegio, universidad, trabajo… Pero siempre vuelve alguien del equipo. El grupo nunca muere, aunque a veces duerma unas horas.</p>
+    </section>
+
+    <section class="reveal">
+      <h2 class="section-header">
+        <i class="fas fa-gavel"></i> Legal & Términos
+      </h2>
+
+      <div class="legal-grid">
+        <div class="legal-card">
+          <h3><i class="fas fa-exclamation-triangle"></i> Uso Bajo Tu Riesgo</h3>
+          <p>Todos los recursos, scripts y herramientas compartidas son con fines educativos y de investigación.
+            Eximimos toda responsabilidad por el uso dado a nuestras publicaciones por parte del usuario final.</p>
+        </div>
+
+        <div class="legal-card">
+          <h3><i class="fas fa-ban"></i> ToS de Roblox</h3>
+          <p>El uso de clientes modificados o inyecciones de código va en contra de los Términos de Servicio de Roblox.
+            Utilizar estos programas puede derivar en baneos permanentes o borrados de cuenta. Tú asumes todo el riesgo.
+          </p>
+        </div>
+
+        <div class="legal-card">
+          <h3><i class="fas fa-bug"></i> Ausencia de Garantías</h3>
+          <p>No garantizamos el funcionamiento ininterrumpido de los scripts ni la inmunidad ante sistemas anti-cheat
+            modernos como Byfron/Hyperion. Nos desvinculamos si tu antivirus lo marca o contiene fallos.</p>
+        </div>
+
+        <div class="legal-card">
+          <h3><i class="fas fa-hand-holding-usd"></i> Prohibición de Lucro</h3>
+          <p>Está terminalmente prohibido revender, monetizar o re-subir nuestros scripts detrás de acortadores y
+            anuncios. Somos un equipo que lucha contra esas prácticas "hambreadas".</p>
+        </div>
+
+        <div class="legal-card">
+          <h3><i class="fas fa-times-circle"></i> No Somos Responsables</h4>
+            <p>El equipo Anti-Hambreado Script Team no será responsable de:</p>
+            <ul>
+              <li>Bans o pérdidas de cuentas, Robux o ítems.</li>
+              <li>Daños a tu dispositivo o software.</li>
+              <li>Pérdida de datos o perjuicios indirectos.</li>
+            </ul>
+        </div>
+
+        <div class="legal-card">
+          <h3><i class="fas fa-copyright"></i> Propiedad Intelectual</h3>
+          <p>Los scripts pueden contener código de terceros. El crédito corresponde a sus autores originales. Nosotros
+            solo los compartimos de forma limpia, directa y accesible sin ad-links.</p>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
-<div class="toggle-section">
-  <button class="toggle-btn" onclick="toggleSection('legal')">
-    <i class="fas fa-gavel"></i>
-    Legal + TOS
-    <i class="fas fa-chevron-down arrow"></i>
-  </button>
-</div>
+      <div class="legal-footer reveal">
+        <p class="quote"><i class="fas fa-skull"></i> "Scripts limpios o la muerte." <i class="fas fa-skull"></i></p>
+        <p class="date">Última actualización: 07 de Diciembre de 2025</p>
+      </div>
 
-<div id="legalSection" class="section-content">
-  <div class="info-card">
-    <h2><i class="fas fa-balance-scale"></i> Términos de Servicio y Descargo de Responsabilidad</h2>
-    
-    <p class="section-text">
-      Al acceder o usar cualquier recurso (scripts, links, Discord, página web) del <strong>Anti-Hambreado Script Team</strong>, aceptas automáticamente los siguientes términos:
-    </p>
+    </section>
 
-    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
-      <i class="fas fa-exclamation-circle"></i> Uso bajo tu propia responsabilidad
-    </h3>
-    <p class="section-text">Todos los scripts, herramientas y archivos compartidos son únicamente con fines educativos y de investigación. El equipo no se hace responsable del uso que hagas de ellos.</p>
+  </main>
 
-    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
-      <i class="fas fa-ban"></i> Violación de los Términos de Servicio de Roblox
-    </h3>
-    <p class="section-text">El uso de scripts o cualquier forma de modificación no autorizada del cliente de Roblox viola directamente los Términos de Servicio de Roblox Corporation.</p>
-    <p class="section-text">El uso de estos recursos puede resultar en la suspensión permanente o terminación de tu cuenta de Roblox. Tú asumes todo el riesgo.</p>
+  <footer>
+    <p>© 2026 Anti-Hambreado Script Team | Todos los derechos reservados.</p>
+    <p><i class="fas fa-skull"></i> No seas hambread@ <i class="fas fa-skull"></i></p>
+  </footer>
 
-    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
-      <i class="fas fa-shield-alt"></i> Sin garantía de funcionamiento ni seguridad
-    </h3>
-    <p class="section-text">No garantizamos que los scripts funcionen siempre, que estén libres de errores o que no sean detectados en el futuro por los sistemas anti-cheat de Roblox (Byfron, Hyperion, etc.).</p>
-    <p class="section-text">Los archivos se revisan por el equipo, pero no nos hacemos responsables si tu antivirus los marca o si contienen errores no detectados.</p>
+  <script>
+    const revealElements = document.querySelectorAll('.reveal');
 
-    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
-      <i class="fas fa-dollar-sign"></i> Prohibición de distribución con fines de lucro
-    </h3>
-    <p class="section-text">Está totalmente prohibido revender, monetizar o volver a subir nuestros links/scripts detrás de acortadores, anuncios o sistemas de pago. Eso es "hambreado" y va en contra de todo lo que representamos.</p>
+    const revealCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    };
 
-    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
-      <i class="fas fa-times-circle"></i> No somos responsables de daños
-    </h3>
-    <p class="section-text">El equipo <strong>Anti-Hambreado Script Team</strong> no será responsable de:</p>
-    <ul>
-      <li>Bans o pérdidas de cuentas, Robux o items</li>
-      <li>Daños a tu dispositivo o software</li>
-      <li>Pérdida de datos o cualquier otro perjuicio directo o indirecto</li>
-    </ul>
+    const revealOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
 
-    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
-      <i class="fas fa-copyright"></i> Propiedad intelectual
-    </h3>
-    <p class="section-text">Los scripts pueden contener código de terceros. El crédito corresponde a sus autores originales. Nosotros solo los compartimos de forma limpia y accesible.</p>
+    const revealObserver = new IntersectionObserver(revealCallback, revealOptions);
 
-    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
-      <i class="fas fa-edit"></i> Cambios en los términos
-    </h3>
-    <p class="section-text">Nos reservamos el derecho de modificar estos términos en cualquier momento. Seguir usando el servidor o la web después de los cambios implica que los aceptas.</p>
+    revealElements.forEach(el => revealObserver.observe(el));
 
-    <h3 style="color: var(--primary-red); margin: 1.5rem 0 0.8rem 0; font-family: 'Orbitron', sans-serif;">
-      <i class="fas fa-globe"></i> Ley aplicable
-    </h3>
-    <p class="section-text">Estos términos se rigen por las leyes del país donde residen los administradores actuales del proyecto (en caso de conflicto).</p>
+    const accordions = document.querySelectorAll('.accordion-header');
 
-    <div style="background: rgba(255, 51, 51, 0.1); padding: 1.5rem; border-radius: 8px; margin-top: 2rem; text-align: center;">
-      <p class="section-text highlight" style="font-size: 1.1rem; margin-bottom: 0;">
-        <i class="fas fa-skull"></i> Anti-Hambreado Script Team - "Scripts limpios o la muerte." <i class="fas fa-skull"></i>
-      </p>
-      <p style="font-size: 0.9rem; color: var(--dark-red); margin-top: 0.5rem;">
-        Última actualización: 07 de Diciembre de 2025
-      </p>
-    </div>
-  </div>
-</div>
+    accordions.forEach(accordion => {
+      accordion.addEventListener('click', function () {
+        const item = this.parentElement;
+        const content = this.nextElementSibling;
 
-<footer>
-  <p>© 2026 Anti-Hambreado Script Team</p>
-  <p><i class="fas fa-skull"></i> No seas hambread@ <i class="fas fa-skull"></i></p>
-</footer>
+        document.querySelectorAll('.accordion-item').forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('active');
+            otherItem.querySelector('.accordion-content').style.maxHeight = null;
+          }
+        });
 
-</div>
+        item.classList.toggle('active');
 
-<script>
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
-let w, h;
+        if (item.classList.contains('active')) {
+          content.style.maxHeight = content.scrollHeight + "px";
+        } else {
+          content.style.maxHeight = null;
+        }
+      });
+    });
 
-function resize() {
-  w = innerWidth;
-  h = innerHeight;
-  canvas.width = w;
-  canvas.height = h;
-}
-resize();
-addEventListener('resize', resize);
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let w, h;
 
-class Particle {
-  constructor() {
-    const edge = Math.floor(Math.random() * 4);
-    switch(edge) {
-      case 0: this.x = Math.random() * w; this.y = 0; break;
-      case 1: this.x = w; this.y = Math.random() * h; break;
-      case 2: this.x = Math.random() * w; this.y = h; break;
-      case 3: this.x = 0; this.y = Math.random() * h; break;
+    function resize() {
+      w = innerWidth;
+      h = innerHeight;
+      canvas.width = w;
+      canvas.height = h;
     }
-    this.vx = (w/2 - this.x) * 0.0015 * (Math.random() * 0.6 + 0.4);
-    this.vy = (h/2 - this.y) * 0.0015 * (Math.random() * 0.6 + 0.4);
-    this.r = Math.random() * 1.5 + 0.5;
-    this.life = 0;
-    this.max = 400 + Math.random() * 300;
-    this.a = 0;
-    this.as = 0.006 + Math.random() * 0.005;
-    this.color = `rgba(${180 + Math.random() * 40}, ${40 + Math.random() * 30}, ${40 + Math.random() * 30},`;
-  }
-  
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-    this.life++;
-    
-    if(this.life < this.max/3) this.a += this.as;
-    else if(this.life > this.max * 0.75) this.a -= this.as;
-    
-    if(this.life > this.max || this.a <= 0) this.reset();
-  }
-  
-  reset() {
-    const edge = Math.floor(Math.random() * 4);
-    switch(edge) {
-      case 0: this.x = Math.random() * w; this.y = 0; break;
-      case 1: this.x = w; this.y = Math.random() * h; break;
-      case 2: this.x = Math.random() * w; this.y = h; break;
-      case 3: this.x = 0; this.y = Math.random() * h; break;
+    resize();
+    window.addEventListener('resize', resize);
+
+    class Particle {
+      constructor() {
+        this.reset();
+        this.life = Math.random() * this.max;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.life++;
+
+        if (this.life < this.max / 3) this.a += this.as;
+        else if (this.life > this.max * 0.75) this.a -= this.as;
+
+        if (this.life > this.max || this.a <= 0) this.reset();
+      }
+
+      reset() {
+        const edge = Math.floor(Math.random() * 4);
+        switch (edge) {
+          case 0: this.x = Math.random() * w; this.y = 0; break;
+          case 1: this.x = w; this.y = Math.random() * h; break;
+          case 2: this.x = Math.random() * w; this.y = h; break;
+          case 3: this.x = 0; this.y = Math.random() * h; break;
+        }
+        this.vx = (w / 2 - this.x) * 0.001 * (Math.random() * 0.8 + 0.4);
+        this.vy = (h / 2 - this.y) * 0.001 * (Math.random() * 0.8 + 0.4);
+        this.r = Math.random() * 2 + 1;
+        this.life = 0;
+        this.max = 300 + Math.random() * 300;
+        this.a = 0;
+        this.as = 0.008 + Math.random() * 0.005;
+        this.color = `rgba(255, ${Math.floor(Math.random() * 50)}, ${Math.floor(Math.random() * 50)},`;
+      }
+
+      draw() {
+        ctx.beginPath();
+        const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r * 2.5);
+        g.addColorStop(0, this.color + this.a + ')');
+        g.addColorStop(1, this.color + '0)');
+        ctx.fillStyle = g;
+        ctx.arc(this.x, this.y, this.r * 2.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = this.color + this.a + ')';
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
-    this.vx = (w/2 - this.x) * 0.0015 * (Math.random() * 0.6 + 0.4);
-    this.vy = (h/2 - this.y) * 0.0015 * (Math.random() * 0.6 + 0.4);
-    this.life = 0;
-    this.max = 400 + Math.random() * 300;
-    this.a = 0;
-  }
-  
-  draw() {
-    ctx.beginPath();
-    const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r * 3);
-    g.addColorStop(0, this.color + this.a + ')');
-    g.addColorStop(1, this.color + '0)');
-    ctx.fillStyle = g;
-    ctx.arc(this.x, this.y, this.r * 3, 0, Math.PI * 2);
-    ctx.fill();
-    
-    ctx.beginPath();
-    ctx.fillStyle = this.color + this.a + ')';
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
 
-const particles = Array.from({length: 35}, () => new Particle());
+    const particlesArray = Array.from({ length: 60 }, () => new Particle());
 
-function animate() {
-  ctx.clearRect(0, 0, w, h);
-  particles.forEach(p => {
-    p.update();
-    p.draw();
-  });
-  requestAnimationFrame(animate);
-}
-animate();
-
-function toggleSection(sectionName) {
-  const section = document.getElementById(sectionName + 'Section');
-  const button = event.currentTarget;
-  
-  section.classList.toggle('open');
-  button.classList.toggle('active');
-}
-
-function toggleFaqItem(item) {
-  item.classList.toggle('active');
-}
-</script>
+    function animateCanvas() {
+      ctx.clearRect(0, 0, w, h);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateCanvas);
+    }
+    animateCanvas();
+  </script>
 </body>
+
 </html>
- 
