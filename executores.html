@@ -78,1062 +78,1229 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roblox Executores Hub</title>
-<link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-<style>
-:root {
- --bg-primary: #0a0a0a;
- --bg-secondary: rgba(20, 5, 5, 0.85);
- --bg-card: rgba(25, 0, 0, 0.6);
- --accent-red: #ff3333;
- --accent-red-dark: #cc2222;
- --accent-red-light: #ff9999;
- --text-primary: #ffcccc;
- --text-secondary: #b34747;
- --neon-shadow: 0 0 12px rgba(255, 50, 50, 0.25);
- --neon-glow: 0 0 20px rgba(255, 30, 30, 0.15);
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
- font-family: 'Montserrat', sans-serif;
- background: var(--bg-primary);
- color: var(--text-primary);
- min-height: 100vh;
- overflow-x: hidden;
- line-height: 1.6;
-}
-canvas#particles-js {
- position: fixed;
- inset: 0;
- pointer-events: none;
- z-index: 1;
- opacity: 0.35;
-}
-.sidebar {
- position: fixed;
- top: 0; right: -300px;
- width: 300px; height: 100vh;
- background: var(--bg-secondary);
- backdrop-filter: blur(12px);
- transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
- z-index: 100;
- padding: 80px 0 20px 0;
- box-shadow: -8px 0 25px rgba(255, 0, 0, 0.15);
- border-left: 1px solid rgba(255, 50, 50, 0.2);
- overflow-y: auto;
-}
-.sidebar.active { right: 0; }
-.sidebar-item {
- padding: 16px 25px;
- border-bottom: 1px solid rgba(255, 50, 50, 0.1);
- cursor: pointer;
- transition: all 0.3s ease;
- display: flex;
- align-items: center;
- gap: 12px;
- color: var(--accent-red-light);
- text-decoration: none;
- font-weight: 600;
- font-size: 0.95rem;
-}
-.sidebar-item:hover {
- background: rgba(255, 50, 50, 0.08);
- transform: translateX(-5px);
- border-left: 3px solid var(--accent-red);
- color: #fff;
- box-shadow: var(--neon-glow);
-}
-.menu-overlay {
- position: fixed;
- top: 0; left: 0;
- width: 100%; height: 100%;
- background: rgba(0, 0, 0, 0.6);
- z-index: 99;
- display: none;
- opacity: 0;
- transition: opacity 0.4s ease;
- backdrop-filter: blur(3px);
-}
-.menu-overlay.active { display: block; opacity: 1; }
-.menu-toggle {
- position: fixed;
- top: 20px; right: 20px;
- z-index: 101;
- display: flex;
- flex-direction: column;
- cursor: pointer;
- gap: 5px;
- padding: 10px;
- border-radius: 6px;
- background: var(--bg-secondary);
- transition: all 0.3s ease;
- border: 1px solid rgba(255, 50, 50, 0.2);
-}
-.menu-toggle:hover {
- background: rgba(255, 50, 50, 0.1);
- box-shadow: var(--neon-glow);
-}
-.menu-toggle span {
- width: 26px; height: 2px;
- background: var(--accent-red-light);
- border-radius: 2px;
- transition: transform 0.4s ease, opacity 0.4s ease;
-}
-.menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
-.menu-toggle.active span:nth-child(2) { opacity: 0; }
-.menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
-header {
- text-align: center;
- margin-top: 80px;
- padding: 2rem 1rem;
- animation: fadeInDown 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-header h1 {
- font-family: 'Orbitron', sans-serif;
- font-size: 2.4rem;
- margin-bottom: 0.5rem;
- background: linear-gradient(270deg, var(--accent-red), var(--accent-red-light));
- background-size: 400% 100%;
- -webkit-background-clip: text;
- -webkit-text-fill-color: transparent;
- animation: neonGlowSubtle 4s ease-in-out infinite alternate;
- letter-spacing: 1px;
- text-shadow: var(--neon-shadow);
-}
-header p {
- font-size: 1rem;
- color: var(--text-secondary);
- opacity: 0.85;
-}
-.container {
- display: grid;
- grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
- gap: 25px;
- padding: 25px;
- max-width: 1400px;
- margin: 0 auto 50px;
-}
-.card {
- background: var(--bg-card);
- border-radius: 16px;
- padding: 25px 20px;
- display: flex;
- flex-direction: column;
- align-items: center;
- transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
- position: relative;
- overflow: hidden;
- animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
- border: 1px solid rgba(255, 50, 50, 0.15);
- backdrop-filter: blur(5px);
-}
-.card:hover {
- transform: translateY(-8px) scale(1.02);
- box-shadow: var(--neon-glow);
- border-color: rgba(255, 50, 50, 0.3);
-}
-.card:nth-child(1) { animation-delay: 0.1s; }
-.card:nth-child(2) { animation-delay: 0.2s; }
-.card:nth-child(3) { animation-delay: 0.3s; }
-.card:nth-child(4) { animation-delay: 0.4s; }
-.card:nth-child(5) { animation-delay: 0.5s; }
-.card:nth-child(6) { animation-delay: 0.6s; }
-.card:nth-child(7) { animation-delay: 0.7s; }
-.card:nth-child(8) { animation-delay: 0.8s; }
-.card:nth-child(9) { animation-delay: 0.9s; }
-.card img {
- width: 130px; height: 130px;
- object-fit: contain;
- margin-bottom: 18px;
- transition: transform 0.4s ease;
- filter: drop-shadow(0 0 8px rgba(255, 30, 30, 0.4));
- border-radius: 20px;
- background: rgba(0, 0, 0, 0.2);
- padding: 8px;
-}
-.card:hover img { transform: scale(1.08) rotate(2deg); }
-.card h2 {
- font-family: 'Orbitron', sans-serif;
- font-size: 1.4rem;
- margin-bottom: 12px;
- color: var(--accent-red);
- text-shadow: var(--neon-shadow);
- letter-spacing: 1px;
-}
-.executor-meta {
- display: flex;
- gap: 15px;
- margin-bottom: 12px;
- font-size: 0.85rem;
- font-weight: 600;
-}
-.executor-version {
- color: var(--accent-red-light);
- background: rgba(255, 50, 50, 0.1);
- padding: 4px 10px;
- border-radius: 10px;
- border: 1px solid rgba(255, 50, 50, 0.2);
-}
-.executor-date {
- color: var(--text-secondary);
- background: rgba(180, 70, 70, 0.08);
- padding: 4px 10px;
- border-radius: 10px;
- border: 1px solid rgba(180, 70, 70, 0.2);
-}
-.status-container {
- display: flex;
- flex-direction: column;
- gap: 6px;
- margin: 8px 0 12px;
- min-height: 28px;
-}
-.status-label {
- padding: 5px 14px 5px 28px;
- border-radius: 20px;
- font-weight: 600;
- font-size: 0.85rem;
- user-select: none;
- border: 1px solid rgba(255, 255, 255, 0.1);
- position: relative;
-}
-.status-label::before {
- content: '';
- position: absolute;
- left: 8px;
- top: 50%;
- transform: translateY(-50%);
- width: 8px;
- height: 8px;
- border-radius: 50%;
- background: currentColor;
- z-index: 2;
-}
-.status-label::after {
- content: '';
- position: absolute;
- left: 8px;
- top: 50%;
- transform: translateY(-50%);
- width: 8px;
- height: 8px;
- border-radius: 50%;
- background: currentColor;
- animation: statusWave 2s ease-out infinite;
- z-index: 1;
-}
-.status-label.indetectable { color: #6bff6b; }
-.status-label.detectable { color: #ffaa6b; }
-.status-label.desactualizado { color: #ff6b6b; }
-.status-label.descontinuado { color: #aaa; }
-.status-label.desconocido { color: #ccc; }
-.status-label.peligro {
- padding-left: 32px;
- color: #ffdd59;
- background: rgba(255, 221, 89, 0.12);
- box-shadow: 0 0 10px rgba(255, 221, 89, 0.2);
-}
-.status-label.peligro::before {
- content: '⚠️';
- background: transparent;
- width: auto;
- height: auto;
- font-size: 12px;
- line-height: 1;
- left: 8px;
- top: 50%;
- transform: translateY(-50%);
- animation: emojiPulse 2s ease-out infinite;
-}
-.status-label.peligro::after {
- display: none;
-}
-.download-btn {
- background: linear-gradient(45deg, var(--accent-red-dark), var(--accent-red));
- color: #000;
- padding: 12px 28px;
- text-decoration: none;
- border-radius: 12px;
- font-weight: 700;
- font-size: 0.95rem;
- transition: all 0.3s ease;
- box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3);
- position: relative;
- overflow: hidden;
- display: inline-flex;
- align-items: center;
- gap: 8px;
- margin-top: 8px;
- min-width: 200px;
- justify-content: center;
-}
-.download-btn:hover {
- background: linear-gradient(45deg, var(--accent-red), #ff5555);
- box-shadow: 0 7px 20px rgba(211, 47, 47, 0.5);
- transform: translateY(-2px);
-}
-.download-btn::before {
- content: '';
- position: absolute;
- top: 0; left: -100%;
- width: 100%; height: 100%;
- background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
- transition: left 0.5s ease;
-}
-.download-btn:hover::before { left: 100%; }
-.button-container {
- display: flex;
- flex-direction: column;
- gap: 10px;
- width: 100%;
- align-items: center;
- margin-top: 8px;
-}
-.arch-label {
- font-size: 0.7rem;
- color: var(--text-secondary);
- font-weight: 600;
- margin-bottom: -8px;
- margin-top: 4px;
- opacity: 0.8;
-}
-.warning {
- font-size: 0.8rem;
- color: #ffdd59;
- margin-top: 12px;
- text-align: center;
- font-weight: 600;
- background: rgba(0, 0, 0, 0.3);
- padding: 6px 10px;
- border-radius: 8px;
- border: 1px solid rgba(255, 221, 89, 0.15);
-}
-.discord-section {
- text-align: center;
- margin: 50px auto 60px;
- padding: 40px 30px;
- background: rgba(40, 40, 60, 0.7);
- border-radius: 20px;
- max-width: 600px;
- backdrop-filter: blur(5px);
- border: 1px solid rgba(114, 137, 218, 0.2);
- box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-.discord-section img {
- width: 80px; height: 80px;
- margin-bottom: 15px;
- border-radius: 50%;
- transition: transform 0.4s ease;
- filter: drop-shadow(0 0 10px rgba(114, 137, 218, 0.4));
-}
-.discord-section:hover img { transform: scale(1.1) rotate(4deg); }
-.discord-section h2 {
- font-family: 'Orbitron', sans-serif;
- font-size: 1.6rem;
- margin-bottom: 20px;
- color: #7289DA;
- text-shadow: 0 0 8px rgba(114, 137, 218, 0.4);
-}
-.discord-btn {
- background: linear-gradient(45deg, #7289DA, #5b6eae);
- color: #fff;
- padding: 14px 32px;
- text-decoration: none;
- border-radius: 14px;
- font-weight: 700;
- transition: all 0.3s ease;
- box-shadow: 0 5px 15px rgba(114, 137, 218, 0.3);
- display: inline-flex;
- align-items: center;
- gap: 10px;
-}
-.discord-btn:hover {
- background: linear-gradient(45deg, #8ea1e1, #7289DA);
- box-shadow: 0 7px 20px rgba(114, 137, 218, 0.5);
- transform: translateY(-2px);
-}
-footer {
- text-align: center;
- padding: 25px;
- background: rgba(15, 5, 5, 0.85);
- margin-top: 40px;
- font-weight: 600;
- color: var(--text-secondary);
- border-top: 1px solid rgba(255, 50, 50, 0.15);
-}
-footer p { margin: 5px 0; font-size: 0.9rem; }
-.warning-modal {
- position: fixed;
- top: 0; left: 0;
- width: 100%; height: 100%;
- background: rgba(0, 0, 0, 0.9);
- display: flex;
- justify-content: center;
- align-items: center;
- z-index: 200;
- opacity: 0;
- visibility: hidden;
- transition: all 0.4s ease;
- padding: 15px;
-}
-.warning-modal.active {
- opacity: 1;
- visibility: visible;
-}
-.warning-content {
- background: linear-gradient(135deg, #2a0000 0%, #4a0000 100%);
- width: 100%;
- max-width: 500px;
- max-height: 85vh;
- border-radius: 16px;
- padding: 20px;
- box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
- border: 1px solid rgba(255, 51, 51, 0.3);
- position: relative;
- overflow: hidden;
- transform: scale(0.95);
- transition: transform 0.4s ease;
- display: flex;
- flex-direction: column;
-}
-.warning-modal.active .warning-content { transform: scale(1); }
-.warning-header {
- text-align: center;
- margin-bottom: 15px;
- position: relative;
-}
-.warning-title {
- font-family: 'Orbitron', sans-serif;
- font-size: 1.8rem;
- color: var(--accent-red);
- text-shadow: var(--neon-shadow);
- margin-bottom: 8px;
- display: inline-block;
- padding-left: 40px;
-}
-.warning-subtitle {
- font-size: 1rem;
- color: var(--accent-red-light);
- margin-bottom: 12px;
-}
-.warning-body {
- background: rgba(0, 0, 0, 0.4);
- padding: 15px;
- border-radius: 10px;
- margin-bottom: 15px;
- border-left: 3px solid var(--accent-red);
- flex: 1;
- overflow-y: auto;
- max-height: 50vh;
-}
-.warning-body p { margin-bottom: 12px; line-height: 1.6; font-size: 0.9rem; }
-.warning-body ul { margin-left: 20px; margin-bottom: 12px; }
-.warning-body li { margin-bottom: 8px; line-height: 1.5; font-size: 0.85rem; }
-.warning-recommendation {
- background: rgba(0, 0, 0, 0.5);
- padding: 12px;
- border-radius: 8px;
- margin-top: 10px;
- border: 1px solid rgba(255, 170, 85, 0.3);
-}
-.warning-recommendation h3 {
- color: #ffaa55;
- margin-bottom: 8px;
- font-size: 0.95rem;
-}
-.warning-recommendation p { font-size: 0.85rem; margin-bottom: 0; }
-.warning-buttons {
- display: flex;
- flex-direction: column;
- gap: 10px;
-}
-.warning-btn {
- padding: 14px 20px;
- border: none;
- border-radius: 10px;
- font-weight: 700;
- cursor: pointer;
- transition: all 0.3s ease;
- font-family: 'Montserrat', sans-serif;
- font-size: 0.9rem;
- width: 100%;
- display: flex;
- align-items: center;
- justify-content: center;
- gap: 8px;
-}
-.warning-btn.cancel {
- background: linear-gradient(45deg, #444, #666);
- color: #fff;
-}
-.warning-btn.cancel:hover {
- background: linear-gradient(45deg, #555, #777);
- box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
-}
-.warning-btn.continue {
- background: linear-gradient(45deg, var(--accent-red-dark), var(--accent-red));
- color: #000;
-}
-.warning-btn.continue:hover {
- background: linear-gradient(45deg, var(--accent-red), #ff5555);
- box-shadow: var(--neon-glow);
-}
-.arm-modal {
- position: fixed;
- top: 0; left: 0;
- width: 100%; height: 100%;
- background: rgba(0, 0, 0, 0.9);
- display: flex;
- justify-content: center;
- align-items: center;
- z-index: 260;
- opacity: 0;
- visibility: hidden;
- transition: all 0.4s ease;
- padding: 15px;
-}
-.arm-modal.active {
- opacity: 1;
- visibility: visible;
-}
-.arm-content {
- background: linear-gradient(135deg, #1a0000 0%, #2a0000 100%);
- width: 100%;
- max-width: 600px;
- max-height: 80vh;
- border-radius: 16px;
- padding: 25px;
- box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
- border: 1px solid rgba(255, 51, 51, 0.3);
- display: flex;
- flex-direction: column;
-}
-.arm-header {
- text-align: center;
- margin-bottom: 20px;
- padding-bottom: 15px;
- border-bottom: 1px solid rgba(255, 50, 50, 0.3);
-}
-.arm-title {
- font-family: 'Orbitron', sans-serif;
- font-size: 1.8rem;
- color: var(--accent-red);
- text-shadow: var(--neon-shadow);
-}
-.arm-body {
- flex: 1;
- overflow-y: auto;
- max-height: 55vh;
- padding: 10px;
- line-height: 1.6;
-}
-.arm-body h3 {
- font-family: 'Orbitron', sans-serif;
- color: var(--accent-red);
- margin: 15px 0 8px;
- font-size: 1.1rem;
-}
-.arm-body p {
- margin-bottom: 12px;
- font-size: 0.9rem;
-}
-.arm-body ul {
- margin-left: 20px;
- margin-bottom: 15px;
-}
-.arm-body li {
- margin-bottom: 8px;
- font-size: 0.85rem;
- line-height: 1.5;
-}
-.arm-body .highlight {
- background: rgba(255, 50, 50, 0.1);
- padding: 8px;
- border-radius: 8px;
- border-left: 3px solid var(--accent-red);
- margin: 10px 0;
-}
-.arm-close-btn {
- background: linear-gradient(45deg, var(--accent-red-dark), var(--accent-red));
- color: #000;
- padding: 12px 30px;
- border: none;
- border-radius: 10px;
- font-weight: 700;
- cursor: pointer;
- transition: all 0.3s ease;
- margin-top: 15px;
- font-family: 'Orbitron', sans-serif;
-}
-.arm-close-btn:hover {
- background: linear-gradient(45deg, var(--accent-red), #ff5555);
- box-shadow: var(--neon-glow);
-}
-@keyframes fadeInDown {
- from { opacity: 0; transform: translateY(-25px); }
- to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeInUp {
- from { opacity: 0; transform: translateY(25px); }
- to { opacity: 1; transform: translateY(0); }
-}
-@keyframes neonGlowSubtle {
- 0% {
-   background-position: 0% 50%;
-   text-shadow: var(--neon-shadow);
- }
- 100% {
-   background-position: 100% 50%;
-   text-shadow: var(--neon-glow);
- }
-}
-@keyframes pulseSubtle {
- 0%, 100% { opacity: 0.9; }
- 50% { opacity: 1; }
-}
-@keyframes statusWave {
- 0% {
-   transform: translateY(-50%) scale(1);
-   opacity: 1;
- }
- 70% {
-   transform: translateY(-50%) scale(3);
-   opacity: 0;
- }
- 100% {
-   transform: translateY(-50%) scale(1);
-   opacity: 0;
- }
-}
-@keyframes emojiPulse {
- 0% {
-   transform: translateY(-50%) scale(1);
-   text-shadow: 0 0 0 rgba(255, 221, 89, 0.7);
- }
- 50% {
-   transform: translateY(-50%) scale(1.2);
-   text-shadow: 0 0 10px rgba(255, 221, 89, 0.4);
- }
- 100% {
-   transform: translateY(-50%) scale(1);
-   text-shadow: 0 0 0 rgba(255, 221, 89, 0.7);
- }
-}
-@media (max-width: 768px) {
- .sidebar {
-   width: 85%;
-   max-width: 280px;
- }
- header h1 { font-size: 1.8rem; }
- .container {
-   grid-template-columns: 1fr;
-   padding: 15px;
- }
- .card { padding: 20px 15px; }
- .warning-content { max-width: 95%; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roblox Executores Hub | Premium</title>
+  <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #050508;
+      --bg-surface: rgba(18, 18, 24, 0.45);
+      --bg-surface-hover: rgba(28, 28, 36, 0.7);
+      --border-light: rgba(255, 255, 255, 0.08);
+      --primary: #ff003c;
+      --primary-glow: rgba(255, 0, 60, 0.5);
+      --secondary: #8a2be2;
+      --text-main: #ffffff;
+      --text-muted: #9ba1a6;
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+
+    .bg-noise {
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-light {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      z-index: 0;
+      opacity: 0.4;
+      pointer-events: none;
+      animation: float 10s infinite ease-in-out alternate;
+    }
+
+    .light-1 {
+      top: -10%;
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+    }
+
+    .light-2 {
+      bottom: -10%;
+      right: -10%;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+      animation-delay: -5s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(50px, 50px) scale(1.1);
+      }
+    }
+
+    canvas#particles-js {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.5;
+    }
+
+    nav.navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: rgba(10, 10, 12, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-light);
+      transition: all 0.3s ease;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--primary);
+    }
+
+    .nav-btn-highlight {
+      background: linear-gradient(135deg, rgba(255, 0, 60, 0.1), rgba(255, 0, 60, 0.0));
+      border: 1px solid rgba(255, 0, 60, 0.3);
+      box-shadow: 0 0 12px rgba(255, 0, 60, 0.1);
+    }
+
+    .nav-btn-highlight:hover {
+      background: rgba(255, 0, 60, 0.2) !important;
+      box-shadow: 0 0 20px var(--primary-glow);
+      transform: translateY(-2px);
+    }
+
+    .nav-mobile-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-main);
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 300px;
+      height: 100vh;
+      background: rgba(10, 10, 15, 0.95);
+      backdrop-filter: blur(20px);
+      border-left: 1px solid var(--border-light);
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      padding: 100px 30px 40px;
+      gap: 20px;
+      transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      padding: 15px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu a:hover {
+      background: rgba(255, 0, 60, 0.05);
+      border-color: rgba(255, 0, 60, 0.3);
+      color: var(--primary);
+    }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 98;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .menu-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 160px 20px 80px;
+      max-width: 900px;
+      margin: 0 auto;
+      animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 30px;
+      background: rgba(255, 0, 60, 0.1);
+      border: 1px solid rgba(255, 0, 60, 0.3);
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: 4rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, var(--primary), #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      filter: drop-shadow(0 0 20px rgba(255, 0, 60, 0.4));
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+      padding: 20px 5%;
+      max-width: 1400px;
+      margin: 0 auto 100px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: 24px;
+      padding: 35px 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255, 0, 60, 0.25);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px var(--primary-glow);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .executor-img-wrap {
+      width: 130px;
+      height: 130px;
+      margin-bottom: 25px;
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.0));
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), 0 10px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .executor-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      box-shadow: 0 0 30px rgba(255, 0, 60, 0.0);
+      transition: all 0.5s ease;
+    }
+
+    .card:hover .executor-img-wrap {
+      transform: translateY(-10px) scale(1.05) rotate(2deg);
+    }
+
+    .card:hover .executor-img-wrap::after {
+      box-shadow: 0 0 30px rgba(255, 0, 60, 0.15);
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 15px rgba(255, 0, 60, 0.3));
+      transition: filter 0.5s ease;
+    }
+
+    .card h2 {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+
+    .executor-meta {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: var(--font-heading);
+    }
+
+    .executor-version {
+      background: rgba(255, 0, 60, 0.1);
+      color: #ff4d6d;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 0, 60, 0.2);
+    }
+
+    .executor-date {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border-light);
+    }
+
+    .status-container {
+      margin-bottom: 25px;
+      min-height: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .status-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      font-family: var(--font-heading);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-light);
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .status-dot::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: inherit;
+      opacity: 0.4;
+      animation: pulseDot 2s infinite ease-out;
+    }
+
+    .status-indetectable {
+      color: #00e676;
+      border-color: rgba(0, 230, 118, 0.2);
+      background: rgba(0, 230, 118, 0.05);
+    }
+
+    .status-indetectable .status-dot {
+      background: #00e676;
+      box-shadow: 0 0 10px #00e676;
+    }
+
+    .status-detectable {
+      color: #ff9100;
+      border-color: rgba(255, 145, 0, 0.2);
+      background: rgba(255, 145, 0, 0.05);
+    }
+
+    .status-detectable .status-dot {
+      background: #ff9100;
+      box-shadow: 0 0 10px #ff9100;
+    }
+
+    .status-desactualizado {
+      color: #ffea00;
+      border-color: rgba(255, 234, 0, 0.2);
+      background: rgba(255, 234, 0, 0.05);
+    }
+
+    .status-desactualizado .status-dot {
+      background: #ffea00;
+      box-shadow: 0 0 10px #ffea00;
+    }
+
+    .status-descontinuado {
+      color: #9e9e9e;
+      border-color: rgba(158, 158, 158, 0.2);
+      background: rgba(158, 158, 158, 0.05);
+    }
+
+    .status-descontinuado .status-dot {
+      background: #9e9e9e;
+    }
+
+    .status-peligro {
+      color: #ff1744;
+      border-color: rgba(255, 23, 68, 0.3);
+      background: rgba(255, 23, 68, 0.1);
+    }
+
+    .status-peligro .status-dot {
+      background: #ff1744;
+      box-shadow: 0 0 15px #ff1744;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .download-btn {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      z-index: 1;
+    }
+
+    .download-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary), #cc0030);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .download-btn:hover {
+      border-color: transparent;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px var(--primary-glow);
+    }
+
+    .download-btn:hover::before {
+      opacity: 1;
+    }
+
+    .discord-cta {
+      position: relative;
+      z-index: 10;
+      max-width: 800px;
+      margin: 0 auto 100px;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .discord-content {
+      background: var(--bg-surface);
+      border: 1px solid rgba(88, 101, 242, 0.3);
+      border-radius: 30px;
+      padding: 60px 40px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(88, 101, 242, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .discord-content::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(88, 101, 242, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .discord-floating-logo {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 30px rgba(88, 101, 242, 0.4);
+      animation: floatIcon 4s ease-in-out infinite alternate;
+    }
+
+    .discord-cta h2 {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+    }
+
+    .discord-cta p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 35px;
+    }
+
+    .btn-discord {
+      background: #5865F2;
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 16px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.05rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(88, 101, 242, 0.4);
+    }
+
+    .btn-discord:hover {
+      background: #4752C4;
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(88, 101, 242, 0.6);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border-light);
+      background: rgba(5, 5, 8, 0.8);
+      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 10;
+    }
+
+    footer p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .footer-sub {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 200;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: 24px;
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 550px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      transform: scale(0.9) translateY(20px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .modal-title {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .modal-subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 10px;
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+      color: #ddd;
+    }
+
+    .modal-body h3 {
+      font-family: var(--font-heading);
+      color: var(--text-main);
+      margin: 20px 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .modal-body p {
+      margin-bottom: 15px;
+    }
+
+    .modal-body ul {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+
+    .modal-body li {
+      margin-bottom: 8px;
+    }
+
+    .highlight-box {
+      background: rgba(255, 0, 60, 0.05);
+      border-left: 3px solid var(--primary);
+      padding: 15px;
+      border-radius: 8px 12px 12px 8px;
+      margin-top: 20px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 15px;
+      flex-direction: column;
+    }
+
+    .btn-modal {
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-cancel {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-cancel:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .btn-danger {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 5px 15px var(--primary-glow);
+    }
+
+    .btn-danger:hover {
+      background: #e60036;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px var(--primary-glow);
+    }
+
+    #warningContent {
+      border-color: rgba(255, 23, 68, 0.4);
+      box-shadow: 0 0 40px rgba(255, 23, 68, 0.15), inset 0 0 20px rgba(255, 23, 68, 0.05);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulseDot {
+      0% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: scale(2.5);
+        opacity: 0;
+      }
+    }
+
+    @keyframes floatIcon {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-15px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.8rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-mobile-toggle {
+        display: block;
+      }
+
+      .card {
+        padding: 25px 20px;
+      }
+
+      .modal-content {
+        padding: 30px 20px;
+      }
+
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<canvas id="particles-js"></canvas>
+  <div class="bg-noise"></div>
+  <div class="ambient-light light-1"></div>
+  <div class="ambient-light light-2"></div>
+  <canvas id="particles-js"></canvas>
 
-<div class="warning-modal" id="warningModal">
- <div class="warning-content">
-   <div class="warning-header">
-     <h2 class="warning-title" id="warningTitle">PELIGRO</h2>
-     <p class="warning-subtitle" id="warningSubtitle">Este executor actualmente es peligroso de usar</p>
-   </div>
-   <div class="warning-body" id="warningBody"></div>
-   <div class="warning-buttons">
-     <button class="warning-btn cancel" id="cancelBtn"><i class="fas fa-times"></i> Cancelar Descarga</button>
-     <button class="warning-btn continue" id="continueBtn"><i class="fas fa-exclamation-triangle"></i> Continuar bajo mi responsabilidad</button>
-   </div>
- </div>
-</div>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo" class="brand-logo">
+      <span>AH Script Team</span>
+    </div>
+    <div class="nav-links">
+      <a href="#" id="armInfoToggleNav"><i class="fas fa-microchip"></i> ARM 64/32</a>
+      <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank"><i class="fas fa-code"></i> Scripts
+        Hub</a>
+      <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="nav-btn-highlight"><i
+          class="fab fa-youtube"></i> YouTube</a>
+    </div>
+    <div class="nav-mobile-toggle" id="mobileToggle">
+      <i class="fas fa-bars"></i>
+    </div>
+  </nav>
 
-<div class="arm-modal" id="armModal">
- <div class="arm-content">
-   <div class="arm-header">
-     <h2 class="arm-title">¿Qué es ARM 64/32?</h2>
-   </div>
-   <div class="arm-body">
-     <p>ARM64 y ARM32 son dos versiones diferentes de cómo tu teléfono procesa información. Piensa en ellas como dos tamaños de tubería: una más angosta y otra más ancha.</p>
+  <div class="menu-overlay" id="menuOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#" id="armInfoToggleMobile"><i class="fas fa-microchip"></i> ¿Qué es ARM 64/32?</a>
+    <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank"><i class="fas fa-code"></i> Scripts
+      Hub</a>
+    <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank"><i class="fab fa-youtube"></i> Canal de
+      YouTube</a>
+    <a href="https://discord.gg/rTGF5xhe3h" target="_blank"
+      style="color: #5865F2; border-color: rgba(88,101,242,0.3); background: rgba(88,101,242,0.05);"><i
+        class="fab fa-discord"></i> Discord Oficial</a>
+  </div>
 
-     <h3>ARM32 (la versión antigua)</h3>
-     <p>Es la versión más vieja que usaban los celulares antiguos (principalmente antes del 2015). Procesa menos información al mismo tiempo, como un tubo pequeño por donde poca agua puede pasar.</p>
-     <ul>
-       <li>Usada en teléfonos viejos</li>
-       <li>Más lenta</li>
-       <li>Compatibilidad limitada con apps modernas</li>
-     </ul>
+  <header class="hero">
+    <div class="hero-badge">Versión 2.0</div>
+    <h1 class="hero-title">Roblox Executores <span class="text-gradient">Premium</span></h1>
+    <p class="hero-desc">Nuestro sistema de <strong>Auto-Update</strong> exclusivo garantiza que los executores siempre
+      estén en su última versión con la máxima seguridad y rendimiento.</p>
+  </header>
 
-     <h3>ARM64 (la versión nueva)</h3>
-     <p>Es la versión moderna que usan casi todos los teléfonos nuevos. Procesa mucha más información simultáneamente, como una tubería gigante donde fluye más agua más rápido.</p>
-     <ul>
-       <li>Usada en teléfonos actuales (desde 2015 aprox)</li>
-       <li>Mucho más rápida</li>
-       <li>Mejor para juegos y apps pesadas</li>
-       <li>Mayor seguridad</li>
-     </ul>
+  <main class="container" id="executorsContainer">
+  </main>
 
-     <div class="highlight">
-       <h3>¿Cuál necesito yo?</h3>
-       <p>Para saber qué versión tiene tu teléfono:</p>
-       <ol>
-         <li>Abre <strong>Configuración</strong></li>
-         <li>Busca <strong>Acerca del teléfono</strong></li>
-         <li>Revisa si dice <strong>"64-bit"</strong> o <strong>"32-bit"</strong></li>
-       </ol>
-       <p><strong>Consejo:</strong> Si tu teléfono es de los últimos años (2018+), casi seguro usa ARM64. Si no estás seguro, prueba ARM64 primero, es la más común.</p>
-     </div>
+  <section class="discord-cta">
+    <div class="discord-content">
+      <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Discord Logo" class="discord-floating-logo">
+      <h2>Únete a nuestra <span class="text-gradient">Comunidad Oficial</span></h2>
+      <p>Soporte 24/7, actualizaciones exclusivas, scripts indetectables y la mejor comunidad de Roblox en español.</p>
+      <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn-discord">
+        <i class="fab fa-discord"></i> Entrar al Servidor de Discord
+      </a>
+    </div>
+  </section>
 
-     <p>Algunos executores ofrecen ambas versiones para que puedas probar cuál funciona mejor en tu dispositivo.</p>
-   </div>
-   <button class="arm-close-btn" id="armCloseBtn">Cerrar</button>
- </div>
-</div>
+  <footer>
+    <p>© 2026 Anti-Hambreado Script Team. Todos los derechos reservados.</p>
+    <p class="footer-sub">Diseñado con <i class="fas fa-heart" style="color:var(--primary)"></i> para nuestra comunidad
+    </p>
+  </footer>
 
-<div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" role="button" tabindex="0">
- <span></span>
- <span></span>
- <span></span>
-</div>
+  <div class="modal-overlay" id="warningModal">
+    <div class="modal-content" id="warningContent">
+      <div class="modal-header">
+        <h2 class="modal-title"><i class="fas fa-exclamation-triangle"></i> <span id="warningTitle">PELIGRO</span></h2>
+        <p class="modal-subtitle" id="warningSubtitle">Este executor es detectado como malicioso</p>
+      </div>
+      <div class="modal-body" id="warningBody">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-modal btn-cancel" id="cancelBtn">Cancelar Descarga</button>
+        <button class="btn-modal btn-danger" id="continueBtn">Continuar bajo mi riesgo</button>
+      </div>
+    </div>
+  </div>
 
-<div class="sidebar" id="menuPanel" aria-hidden="true">
- <a class="sidebar-item" id="armInfoToggle">
-   <i class="fas fa-microchip"></i> ¿Qué es ARM 64/32?
- </a>
- <a class="sidebar-item" href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" rel="noopener noreferrer">
-   <i class="fas fa-scroll"></i> Scripts aquí
- </a>
- <a class="sidebar-item" href="https://youtube.com/@anti-hambreado-script-team" target="_blank" rel="noopener noreferrer">
-   <i class="fab fa-youtube"></i> Nuestro canal de YouTube
- </a>
-</div>
+  <div class="modal-overlay" id="armModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" style="color: var(--text-main);">¿Qué es ARM 64/32?</h2>
+        <p class="modal-subtitle">Guía rápida de arquitectura</p>
+      </div>
+      <div class="modal-body">
+        <p>ARM64 y ARM32 definen cómo tu dispositivo procesa la información. Piensa en ellas como autopistas: una de 2
+          carriles y otra de 8 carriles.</p>
 
-<div class="menu-overlay" id="menuOverlay" tabindex="-1"></div>
+        <h3><i class="fas fa-mobile-alt" style="color: var(--text-muted)"></i> ARM32 (Versión Antigua)</h3>
+        <p>Común en dispositivos antes de 2015. Procesa menos datos y tiene rendimiento limitado en apps pesadas.</p>
 
-<header>
- <h1>Roblox Executores Hub</h1>
- <p>Nuestro sistema de Auto-Update garantiza que los executores siempre estén actualizados a su última versión</p>
-</header>
+        <h3><i class="fas fa-rocket" style="color: var(--primary)"></i> ARM64 (Versión Moderna)</h3>
+        <p>El estándar de dispositivos actuales. Mucho más rápido, ideal para juegos como Roblox, mayor seguridad y
+          fluidez total.</p>
 
-<div class="container" id="executorsContainer">
-</div>
+        <div class="highlight-box">
+          <h3 style="margin-top:0; color:var(--primary);">💡 ¿Cuál descargo?</h3>
+          <p>Si compraste tu teléfono del 2018 en adelante, es casi 100% seguro que usa <strong>ARM64</strong>. Descarga
+            esa versión primero. Si la app no se instala, intenta con ARM32.</p>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-modal btn-cancel" id="armCloseBtn"
+          style="background: rgba(255,255,255,0.1);">Entendido</button>
+      </div>
+    </div>
+  </div>
 
-<div class="discord-section">
- <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Discord Logo">
- <h2>ÚNETE A NUESTRO SERVIDOR DE DISCORD OFICIAL</h2>
- <a href="https://discord.gg/rTGF5xhe3h" target="_blank" rel="noopener noreferrer" class="discord-btn">
-   <i class="fab fa-discord"></i> Unirse a Discord
- </a>
-</div>
+  <script>
+    const canvas = document.getElementById('particles-js');
+    const ctx = canvas.getContext('2d');
+    let w, h;
 
-<footer>
- <p>© 2026 Anti-Hambreado Script Team. Todos los derechos reservados.</p>
- <p>Diseñado con ❤️ para nuestra comunidad</p>
-</footer>
+    function resize() {
+      w = innerWidth; h = innerHeight;
+      canvas.width = w; canvas.height = h;
+    }
+    resize();
+    window.addEventListener('resize', resize);
 
-<script>
-const canvas = document.getElementById('particles-js');
-const ctx = canvas.getContext('2d');
-let w, h;
+    class Particle {
+      constructor() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.vx = (Math.random() * 0.5 - 0.25) * 1.5;
+        this.vy = (Math.random() * 0.5 - 0.25) * 1.5;
+        this.r = Math.random() * 2 + 0.5;
+      }
+      update() {
+        this.x += this.vx; this.y += this.vy;
+        if (this.x < 0 || this.x > w) this.vx *= -1;
+        if (this.y < 0 || this.y > h) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 0, 60, 0.4)';
+        ctx.fill();
+      }
+    }
 
-function resize() {
- w = innerWidth;
- h = innerHeight;
- canvas.width = w;
- canvas.height = h;
-}
-resize();
-addEventListener('resize', resize);
+    const particles = Array.from({ length: 80 }, () => new Particle());
 
-class Particle {
- constructor() {
-   const edge = Math.floor(Math.random() * 4);
-   switch(edge) {
-     case 0: this.x = Math.random() * w; this.y = 0; break;
-     case 1: this.x = w; this.y = Math.random() * h; break;
-     case 2: this.x = Math.random() * w; this.y = h; break;
-     case 3: this.x = 0; this.y = Math.random() * h; break;
-   }
-   this.vx = (w/2 - this.x) * 0.0012 * (Math.random() * 0.6 + 0.4);
-   this.vy = (h/2 - this.y) * 0.0012 * (Math.random() * 0.6 + 0.4);
-   this.r = Math.random() * 1.5 + 0.5;
-   this.life = 0;
-   this.max = 400 + Math.random() * 300;
-   this.a = 0;
-   this.as = 0.006 + Math.random() * 0.005;
-   this.color = `rgba(${180 + Math.random() * 40}, ${40 + Math.random() * 30}, ${40 + Math.random() * 30},`;
- }
+    function animateParticles() {
+      ctx.clearRect(0, 0, w, h);
 
- update() {
-   this.x += this.vx;
-   this.y += this.vy;
-   this.life++;
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
 
-   if(this.life < this.max/3) this.a += this.as;
-   else if(this.life > this.max * 0.75) this.a -= this.as;
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
 
-   if(this.life > this.max || this.a <= 0) this.reset();
- }
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(255, 0, 60, ${0.15 - dist / 800})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
 
- reset() {
-   const edge = Math.floor(Math.random() * 4);
-   switch(edge) {
-     case 0: this.x = Math.random() * w; this.y = 0; break;
-     case 1: this.x = w; this.y = Math.random() * h; break;
-     case 2: this.x = Math.random() * w; this.y = h; break;
-     case 3: this.x = 0; this.y = Math.random() * h; break;
-   }
-   this.vx = (w/2 - this.x) * 0.0012 * (Math.random() * 0.6 + 0.4);
-   this.vy = (h/2 - this.y) * 0.0012 * (Math.random() * 0.6 + 0.4);
-   this.life = 0;
-   this.max = 400 + Math.random() * 300;
-   this.a = 0;
- }
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
 
- draw() {
-   ctx.beginPath();
-   const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r * 3);
-   g.addColorStop(0, this.color + this.a + ')');
-   g.addColorStop(1, this.color + '0)');
-   ctx.fillStyle = g;
-   ctx.arc(this.x, this.y, this.r * 3, 0, Math.PI * 2);
-   ctx.fill();
+    function toggleMenu() {
+      mobileMenu.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+      const icon = mobileToggle.querySelector('i');
+      if (mobileMenu.classList.contains('active')) {
+        icon.classList.replace('fa-bars', 'fa-times');
+      } else {
+        icon.classList.replace('fa-times', 'fa-bars');
+      }
+    }
 
-   ctx.beginPath();
-   ctx.fillStyle = this.color + this.a + ')';
-   ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-   ctx.fill();
- }
-}
+    mobileToggle.addEventListener('click', toggleMenu);
+    menuOverlay.addEventListener('click', toggleMenu);
 
-const particles = Array.from({length: 40}, () => new Particle());
+    const warningModal = document.getElementById('warningModal');
+    const warningTitle = document.getElementById('warningTitle');
+    const warningSubtitle = document.getElementById('warningSubtitle');
+    const warningBody = document.getElementById('warningBody');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const continueBtn = document.getElementById('continueBtn');
 
-function animate() {
- ctx.clearRect(0, 0, w, h);
- particles.forEach(p => {
-   p.update();
-   p.draw();
- });
- requestAnimationFrame(animate);
-}
-animate();
+    const armModal = document.getElementById('armModal');
+    const armCloseBtn = document.getElementById('armCloseBtn');
+    const armInfoToggleNav = document.getElementById('armInfoToggleNav');
+    const armInfoToggleMobile = document.getElementById('armInfoToggleMobile');
 
-const menuToggle = document.getElementById('menuToggle');
-const menuPanel = document.getElementById('menuPanel');
-const menuOverlay = document.getElementById('menuOverlay');
+    const warnings = {
+      ronix: {
+        title: "ALERTA DE SEGURIDAD",
+        subtitle: "RONIX es altamente peligroso",
+        body: `<p>🔴 <strong>Ronix representa una grave amenaza para tu dispositivo.</strong></p><p>Está diseñado para robar información de usuarios sistemáticamente.</p><div class="highlight-box"><p style="margin:0; color:#fff;"><strong>Actividades Confirmadas:</strong><br>- Robo de IPs y localización<br>- Sustracción de cuentas de Gmail<br>- Falsificación de certificados y plagio de código limpio</p></div>`
+      },
+      delta: {
+        title: "ALERTA DE SEGURIDAD",
+        subtitle: "DELTA compromete tus datos",
+        body: `<p>🔴 <strong>Delta es actualmente inestable y malicioso.</strong></p><p>Sus prácticas vulneran la seguridad de sus usuarios mediante exploits de fondo.</p><div class="highlight-box"><p style="margin:0; color:#fff;"><strong>Riesgos Confirmados:</strong><br>- Robo de usuarios y credenciales guardadas<br>- API desactualizada y detectable<br>- Ejecución de procesos de rastreo en segundo plano</p></div>`
+      },
+      krnl: {
+        title: "DESCONTINUADO",
+        subtitle: "KRNL ya no tiene soporte",
+        body: `<p>⚫ <strong>El desarrollo de KRNL ha sido abandonado.</strong></p><p>Cualquier versión nueva circulando en la red es falsa y probablemente contenga malware.</p><div class="highlight-box"><p style="margin:0; color:#fff;"><strong>Motivo:</strong> Los desarrolladores oficiales descontinuaron el proyecto de forma permanente.</p></div>`
+      },
+      fluxus: {
+        title: "DESCONTINUADO",
+        subtitle: "Fluxus inactivo temporal o permanentemente",
+        body: `<p>⚫ <strong>Fluxus ya no recibe actualizaciones de seguridad.</strong></p><p>Usar versiones antiguas incrementa enormemente las tasas de baneo.</p><div class="highlight-box"><p style="margin:0; color:#fff;"><strong>Recomendación:</strong> Usa ejecutores modernos y activos como Codex o Arceus X.</p></div>`
+      }
+    };
 
-menuToggle.addEventListener('click', () => {
- menuToggle.classList.toggle('active');
- menuPanel.classList.toggle('active');
- menuOverlay.classList.toggle('active');
-});
+    function showWarning(executor, url) {
+      if (warnings[executor]) {
+        warningTitle.innerHTML = warnings[executor].title;
+        warningSubtitle.textContent = warnings[executor].subtitle;
+        warningBody.innerHTML = warnings[executor].body;
+        warningModal.classList.add('active');
 
-menuOverlay.addEventListener('click', () => {
- menuToggle.classList.remove('active');
- menuPanel.classList.remove('active');
- menuOverlay.classList.remove('active');
-});
+        continueBtn.onclick = () => {
+          window.open(url, '_blank');
+          warningModal.classList.remove('active');
+        };
+      } else {
+        window.open(url, '_blank');
+      }
+    }
 
-const warningModal = document.getElementById('warningModal');
-const warningTitle = document.getElementById('warningTitle');
-const warningSubtitle = document.getElementById('warningSubtitle');
-const warningBody = document.getElementById('warningBody');
-const cancelBtn = document.getElementById('cancelBtn');
-const continueBtn = document.getElementById('continueBtn');
+    function openArmModal(e) {
+      e.preventDefault();
+      armModal.classList.add('active');
+      if (mobileMenu.classList.contains('active')) toggleMenu();
+    }
 
-const warnings = {
- ronix: {
-   title: "PELIGRO",
-   subtitle: "Este executor actualmente es peligroso de usar",
-   body: `<p>🔴 <strong>RONIX representa una grave amenaza para tu seguridad digital.</strong></p><p>📛 <strong>¿Por qué es peligroso?</strong> Este executor malicioso está diseñado para robar información personal de sus usuarios de forma sistemática.</p><p>🕵️‍♂️ <strong>Actividades maliciosas confirmadas:</strong></p><ul><li>🔓 Robo de direcciones IP y datos de localización</li><li>📧 Sustracción de cuentas de Gmail y credenciales de acceso</li><li>💳 Recopilación de información personal sensible</li><li>📝 Falsificación de su certificado UNC y sUNC</li><li>💻 Plagio de líneas de código de otros executores legítimos</li></ul><p>⚠️ <strong>Advertencia adicional:</strong> Los desarrolladores de RONIX han demostrado prácticas éticas cuestionables.</p><div class="warning-recommendation"><h3>💡 RECOMENDACIÓN DE SEGURIDAD</h3><p>Para proteger tu privacidad, te recomendamos utilizar alternativas confiables como <strong>KRNL</strong> o <strong>Codex</strong>.</p></div>`
- },
- delta: {
-   title: "PELIGRO",
-   subtitle: "Este executor actualmente es peligroso de usar",
-   body: `<p>🔴 <strong>DELTA representa un riesgo significativo para tu seguridad en línea.</strong></p><p>📛 <strong>¿Por qué es peligroso?</strong> Este executor compromete activamente la seguridad de tus credenciales y datos personales.</p><p>🕵️‍♂️ <strong>Actividades maliciosas confirmadas:</strong></p><ul><li>👤 Robo de nombres de usuario y perfiles</li><li>🔐 Sustracción de contraseñas y credenciales</li><li>📧 Interceptación de cuentas de Gmail</li><li>🛡️ API desactualizada que incrementa detectabilidad</li><li>📊 Vulnerabilidades de seguridad no parcheadas</li></ul><p>⚠️ <strong>Problema técnico crítico:</strong> La API de DELTA utiliza tecnologías obsoletas.</p><div class="warning-recommendation"><h3>💡 RECOMENDACIÓN DE SEGURIDAD</h3><p>Para mantener tu información segura, te sugerimos <strong>KRNL</strong> o <strong>Codex</strong>.</p></div>`
- },
- krnl: {
-   title: "KRNL ESTÁ DESCONTINUADO",
-   subtitle: "El Executor KRNL ya no está en desarrollo activo",
-   body: `<p>⚫ <strong>KRNL ha sido oficialmente descontinuado por sus desarrolladores.</strong></p><p>📛 <strong>¿Qué significa esto?</strong> El equipo detrás de KRNL ha detenido el soporte y desarrollo de esta herramienta, lo que la convierte en una opción insegura y obsoleta.</p><p>🔒 <strong>Riesgos de usar KRNL ahora:</strong></p><ul><li>🚫 No recibe actualizaciones de seguridad</li><li>⚠️ Alta probabilidad de ser detectado por sistemas anti-cheat</li><li>🛡️ Puede contener vulnerabilidades no parcheadas</li><li>📉 Los desarrolladores no recomiendan su uso</li><li>🔄 No es compatible con las últimas versiones de Roblox</li></ul><p>⚠️ <strong>Información importante:</strong> Cualquier versión de KRNL que circule actualmente no es oficial y podría representar un riesgo adicional.</p><div class="warning-recommendation"><h3>✅ ALTERNATIVAS RECOMENDADAS</h3><p>Te sugerimos utilizar <strong>Codex</strong> o <strong>Arceus</strong> como ejecutadores activos y más seguros en la actualidad.</p></div>`
- },
- fluxus: {
-   title: "FLUXUS ESTÁ DESCONTINUADO",
-   subtitle: "El Executor FLUXUS ya no está en desarrollo activo.",
-   body: `<p>El Executor <strong>Fluxus</strong> fue durante mucho tiempo una herramienta confiable. Sin embargo, actualmente se encuentra <strong>descontinuado</strong>.</p><ul><li>Sus desarrolladores no han confirmado si volverá.</li><li>Recomiendan utilizar <strong>Codex</strong> como alternativa.</li><li>Descargar versiones no oficiales podría exponerte a riesgos.</li></ul><div class="warning-recommendation"><h3>✅ ¿Qué puedes hacer?</h3><p>Te recomendamos probar <strong>Codex</strong> (recomendado por los creadores) o <strong>Fluxus Z</strong>.</p></div>`
- }
-};
+    armInfoToggleNav.addEventListener('click', openArmModal);
+    armInfoToggleMobile.addEventListener('click', openArmModal);
 
-function showWarning(executor, url) {
- if (warnings[executor]) {
-   warningTitle.innerHTML = warnings[executor].title;
-   warningSubtitle.textContent = warnings[executor].subtitle;
-   warningBody.innerHTML = warnings[executor].body;
-   warningModal.classList.add('active');
+    [cancelBtn, armCloseBtn].forEach(btn => {
+      btn.addEventListener('click', () => {
+        warningModal.classList.remove('active');
+        armModal.classList.remove('active');
+      });
+    });
 
-   continueBtn.onclick = () => {
-     window.open(url, '_blank');
-     warningModal.classList.remove('active');
-   };
- } else {
-   window.open(url, '_blank');
- }
-}
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        warningModal.classList.remove('active');
+        armModal.classList.remove('active');
+      }
+    });
 
-cancelBtn.addEventListener('click', () => warningModal.classList.remove('active'));
-warningModal.addEventListener('click', (e) => {
- if (e.target === warningModal) warningModal.classList.remove('active');
-});
-document.addEventListener('keydown', (e) => {
- if (e.key === 'Escape' && warningModal.classList.contains('active')) {
-   warningModal.classList.remove('active');
- }
-});
+    const API_URL = 'https://antihambreadoscriptteam.github.io/Updates/Executores.json';
+    const executorsContainer = document.getElementById('executorsContainer');
 
-const armModal = document.getElementById('armModal');
-const armCloseBtn = document.getElementById('armCloseBtn');
-const armInfoToggle = document.getElementById('armInfoToggle');
+    async function fetchExecutorData() {
+      try {
+        const response = await fetch(API_URL, { cache: 'no-cache' });
+        const data = await response.json();
+        processExecutorData(data.executores);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    }
 
-let currentData = {};
-const API_URL = 'https://antihambreadoscriptteam.github.io/Updates/Executores.json';
+    function processExecutorData(newData) {
+      Object.entries(newData).forEach(([key, executorData]) => {
+        let card = document.querySelector(`[data-executor="${key}"]`);
 
-async function fetchExecutorData() {
- try {
-   const response = await fetch(API_URL, {cache: 'no-cache'});
-   const data = await response.json();
-   processExecutorData(data.executores);
- } catch (error) {
-   console.error('Error al obtener datos:', error);
- }
-}
+        if (!card) {
+          card = createExecutorCard(key);
+          executorsContainer.appendChild(card);
+        }
 
-function processExecutorData(newData) {
- Object.entries(newData).forEach(([key, executorData]) => {
-   let card = document.querySelector(`[data-executor="${key}"]`);
+        card.querySelector('.executor-version').textContent = `v${executorData.version}`;
+        card.querySelector('.executor-date').textContent = executorData.fecha_actualizacion;
+        card.querySelector('img').src = executorData.imagen;
+        card.querySelector('h2').textContent = executorData.nombre;
 
-   if (!card) {
-     card = createExecutorCard(key);
-     document.getElementById('executorsContainer').appendChild(card);
-   }
+        updateCardStatus(card, executorData.status, executorData.link_descarga_arm64, executorData.link_descarga_arm32);
+      });
+    }
 
-   const versionEl = card.querySelector('.executor-version');
-   const dateEl = card.querySelector('.executor-date');
-   const imgEl = card.querySelector('img');
-   const nameEl = card.querySelector('h2');
-
-   versionEl.textContent = `v${executorData.version}`;
-   dateEl.textContent = executorData.fecha_actualizacion;
-   imgEl.src = executorData.imagen;
-   nameEl.textContent = executorData.nombre;
-
-   updateCardStatus(card, executorData.status, executorData.link_descarga_arm64, executorData.link_descarga_arm32);
- });
-
- currentData = JSON.parse(JSON.stringify(newData));
-}
-
-function createExecutorCard(key) {
- const card = document.createElement('div');
- card.className = 'card';
- card.dataset.executor = key;
- card.innerHTML = `
-   <img src="" alt="">
-   <h2></h2>
-   <div class="executor-meta">
-     <span class="executor-version"></span>
-     <span class="executor-date"></span>
-   </div>
-   <div class="status-container"></div>
-   <div class="button-container"></div>
- `;
- return card;
+    function createExecutorCard(key) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.dataset.executor = key;
+      card.innerHTML = \`
+    <div class="executor-img-wrap">
+      <img src="" alt="Executor Logo">
+    </div>
+    <h2></h2>
+    <div class="executor-meta">
+      <span class="executor-version"></span>
+      <span class="executor-date"></span>
+    </div>
+    <div class="status-container"></div>
+    <div class="button-container"></div>
+  \`;
+  return card;
 }
 
 function createDownloadButton(url, arch, executor) {
- const btn = document.createElement('a');
- btn.className = 'download-btn';
- btn.href = url || '#';
- btn.target = '_blank';
- btn.rel = 'noopener noreferrer';
- btn.innerHTML = `<i class="fas fa-download"></i> Descargar ${arch}`;
- btn.addEventListener('click', function(e) {
-   e.preventDefault();
-   if (this.href && this.href !== '#') {
-     showWarning(executor, this.href);
-   }
- });
- return btn;
+  const btn = document.createElement('a');
+  btn.className = 'download-btn';
+  btn.href = url || '#';
+  btn.innerHTML = \`<i class="fas fa-download"></i> Descargar \${arch}\`;
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (this.href && this.href !== '#') {
+      showWarning(executor, this.href);
+    }
+  });
+  return btn;
 }
 
 function updateCardStatus(card, status, arm64Link, arm32Link) {
- const statusContainer = card.querySelector('.status-container');
- statusContainer.innerHTML = '';
+  const statusContainer = card.querySelector('.status-container');
+  statusContainer.innerHTML = '';
+  
+  const statusConfig = {
+    'detectable': { text: 'Detectable', class: 'status-detectable' },
+    'peligro': { text: 'Peligroso', class: 'status-peligro' },
+    'descontinuado': { text: 'Descontinuado', class: 'status-descontinuado' },
+    'desactualizado': { text: 'Desactualizado', class: 'status-desactualizado' },
+    'indetectable': { text: 'Indetectable', class: 'status-indetectable' },
+    'desconocido': { text: 'Desconocido', class: 'status-descontinuado' } /* default fallback styled as unknown */
+  };
 
- const statusTexts = {
-   'detectable': 'Detectable',
-   'peligro': 'Peligroso',
-   'descontinuado': 'Descontinuado',
-   'desactualizado': 'Desactualizado',
-   'indetectable': 'Indetectable',
-   'desconocido': 'Desconocido'
- };
+  const currentStatus = statusConfig[status] || statusConfig['desconocido'];
+  
+  statusContainer.innerHTML = \`
+    <div class="status-label \${currentStatus.class}">
+      <div class="status-dot"></div>
+      \${currentStatus.text}
+    </div>
+  \`;
 
- const statusEl = document.createElement('div');
- statusEl.className = `status-label ${status}`;
- statusEl.textContent = statusTexts[status] || 'Desconocido';
- statusContainer.appendChild(statusEl);
-
- const buttonContainer = card.querySelector('.button-container');
- buttonContainer.innerHTML = '';
-
- const executor = card.dataset.executor;
-
- if (arm64Link && arm64Link !== '#') {
-   const arm64Btn = createDownloadButton(arm64Link, 'ARM64', executor);
-   buttonContainer.appendChild(arm64Btn);
- }
-
- if (arm32Link && arm32Link !== '#') {
-   const arm32Btn = createDownloadButton(arm32Link, 'ARM32', executor);
-   buttonContainer.appendChild(arm32Btn);
- }
+  const buttonContainer = card.querySelector('.button-container');
+  buttonContainer.innerHTML = '';
+  
+  const executor = card.dataset.executor;
+  
+  if (arm64Link && arm64Link !== '#') {
+    buttonContainer.appendChild(createDownloadButton(arm64Link, 'ARM64', executor));
+  }
+  if (arm32Link && arm32Link !== '#') {
+    buttonContainer.appendChild(createDownloadButton(arm32Link, 'ARM32', executor));
+  }
 }
-
-armInfoToggle.addEventListener('click', () => {
- armModal.classList.add('active');
- menuToggle.classList.remove('active');
- menuPanel.classList.remove('active');
- menuOverlay.classList.remove('active');
-});
-
-armCloseBtn.addEventListener('click', () => armModal.classList.remove('active'));
-armModal.addEventListener('click', (e) => {
- if (e.target === armModal) armModal.classList.remove('active');
-});
-
-document.addEventListener('keydown', (e) => {
- if (e.key === 'Escape') {
-   if (armModal.classList.contains('active')) {
-     armModal.classList.remove('active');
-   }
-   if (warningModal.classList.contains('active')) {
-     warningModal.classList.remove('active');
-   }
- }
-});
 
 fetchExecutorData();
 setInterval(fetchExecutorData, 11000);
-</script>
 
+  </script>
 </body>
+
 </html>
