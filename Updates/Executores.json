@@ -4,7 +4,7 @@
       "nombre": "PunkX",
       "version": "2.707",
       "fecha_actualizacion": "12-01-2026",
-      "status": "indetectable",
+      "status": "desactualizado",
       "link_descarga_arm64": "https://www.mediafire.com/file/n9f8ks39z73w35v/PunkX_64Bits-2.707.734.apk/file",
       "link_descarga_arm32": "https://www.mediafire.com/file/fdmpkhmf18b8m3b/PunkX_32Bits-2.707.734.apk/file", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/PunkX.png"
@@ -13,7 +13,7 @@
       "nombre": "Fluxus Z",
       "version": "3.9.5",
       "fecha_actualizacion": "26-01-2026",
-      "status": "desactualizado",
+      "status": "descontinuado",
       "link_descarga_arm64": "https://www.mediafire.com/file/nacmh2iymo3k8wx/FluxusZ+V3.9.4+ARM64.apk/file",
       "link_descarga_arm32": "https://www.mediafire.com/file/c90t3lsxtq1xsco/FluxusZ+v3.9.4+ARM32.apk/file", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/FLUXUS-Z.jpeg"
@@ -36,8 +36,8 @@
     },
     "delta": {
       "nombre": "Delta",
-      "version": "2.707",
-      "fecha_actualizacion": "17-02-2026",
+      "version": "2.708",
+      "fecha_actualizacion": "23-02-2026",
       "status": "peligro",
       "link_descarga_arm64": "https://delta.filenetwork.vip/android.html",
       "link_descarga_arm32": "https://delta.filenetwork.vip/android.html", 
