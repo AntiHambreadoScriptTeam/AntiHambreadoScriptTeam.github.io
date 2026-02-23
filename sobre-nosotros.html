@@ -90,6 +90,9 @@
       --glass-border: rgba(255, 255, 255, 0.04);
       --accent: #ff0044;
       --accent-light: #ff3366;
+      --accent-cyan: #00d4ff;
+      --accent-gold: #ffbf36;
+      --accent-violet: #7c5cff;
       --accent-glow: rgba(255, 0, 68, 0.3);
       --text: #f8f8f8;
       --muted: #888888;
@@ -105,6 +108,10 @@
 
     body {
       background-color: var(--black);
+      background-image:
+        radial-gradient(circle at 10% 15%, rgba(255, 0, 68, 0.15), transparent 35%),
+        radial-gradient(circle at 85% 25%, rgba(0, 212, 255, 0.12), transparent 30%),
+        radial-gradient(circle at 60% 85%, rgba(124, 92, 255, 0.1), transparent 35%);
       color: var(--text);
       font-family: 'Inter', sans-serif;
       line-height: 1.6;
@@ -552,7 +559,9 @@
 
     .section-tag {
       font-family: 'Outfit', sans-serif;
-      color: var(--accent);
+      background: linear-gradient(90deg, var(--accent), var(--accent-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       font-size: 0.9rem;
       font-weight: 700;
       letter-spacing: 2px;
@@ -564,7 +573,9 @@
     .section-title {
       font-size: clamp(2.5rem, 5vw, 3.5rem);
       font-weight: 800;
-      color: var(--text);
+      background: linear-gradient(180deg, #ffffff 0%, #ffcfdb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       margin-bottom: 20px;
       letter-spacing: -1px;
     }
@@ -605,6 +616,17 @@
       z-index: -1;
       opacity: 0;
       transition: 0.5s;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-cyan), var(--accent-violet));
+      opacity: 0.45;
     }
 
     .card:hover {
@@ -785,6 +807,14 @@
       font-size: 0.75rem;
     }
 
+    .team-grid .member-card:nth-child(3n+2) .member-role {
+      color: var(--accent-cyan);
+    }
+
+    .team-grid .member-card:nth-child(3n) .member-role {
+      color: var(--accent-gold);
+    }
+
     .member-desc {
       font-size: 0.95rem;
       color: var(--muted);
@@ -856,7 +886,8 @@
 
     .vs-box.us {
       border-color: rgba(255, 0, 68, 0.3);
-      box-shadow: 0 10px 30px rgba(255, 0, 68, 0.05);
+      box-shadow: 0 10px 30px rgba(255, 0, 68, 0.12);
+      background: linear-gradient(180deg, rgba(255, 0, 68, 0.08) 0%, rgba(11, 11, 11, 1) 100%);
     }
 
     .vs-box h4 {
@@ -1010,6 +1041,7 @@
       border-color: var(--accent);
       color: var(--accent);
       transform: translateY(-5px);
+      box-shadow: 0 12px 26px rgba(0, 212, 255, 0.2);
     }
 
     footer {
