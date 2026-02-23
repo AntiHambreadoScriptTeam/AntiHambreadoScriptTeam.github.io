@@ -259,8 +259,16 @@
     .typing-svg {
       margin: 1.5rem auto;
       display: block;
-      max-width: 100%;
+      width: min(100%, 530px);
       filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.5));
+    }
+
+    .typing-svg img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
     }
 
     .motto-card {
@@ -661,6 +669,10 @@
         height: 140px;
       }
 
+      .typing-svg {
+        width: min(100%, calc(100vw - 2rem));
+      }
+
       .motto-card {
         padding: 1.5rem;
       }
@@ -697,6 +709,10 @@
       .nav-title {
         font-size: 0.85rem;
         gap: 6px;
+      }
+
+      .typing-svg {
+        width: calc(100vw - 2rem);
       }
     }
   </style>
