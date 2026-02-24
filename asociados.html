@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asociados | Anti-Hambreado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Poppins:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-color: #0d0f12;
+      --surface-color: rgba(255, 255, 255, 0.05);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --primary-glow: #00f0ff;
+      --secondary-glow: #ff003c;
+      --text-main: #ffffff;
+      --text-muted: #a0a5b1;
+      --glass-bg: rgba(20, 22, 28, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --card-radius: 20px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+      position: relative;
+    }
+
+
+    .bg-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at 15% 50%, rgba(0, 240, 255, 0.08), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(255, 0, 60, 0.08), transparent 25%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+
+    .floating-nav {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 1000;
+      background: var(--glass-bg);
+      padding: 10px 20px;
+      border-radius: 50px;
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      animation: slideDown 0.8s ease backwards;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-main);
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid transparent;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .nav-btn i {
+      font-size: 1.1rem;
+    }
+
+
+    header {
+      text-align: center;
+      padding: 120px 20px 60px;
+      animation: fadeIn 1s ease backwards 0.2s;
+    }
+
+    .main-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid transparent;
+      background: linear-gradient(var(--bg-color), var(--bg-color)) padding-box,
+        linear-gradient(45deg, var(--primary-glow), var(--secondary-glow)) border-box;
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+      margin-bottom: 20px;
+      transition: transform 0.5s ease;
+    }
+
+    .main-logo:hover {
+      transform: scale(1.05) rotate(5deg);
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #fff, #a0a5b1);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      color: var(--primary-glow);
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .card {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: var(--card-radius);
+      padding: 30px;
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      backdrop-filter: blur(10px);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 0.8s ease backwards;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(0, 240, 255, 0.1);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+      transition: 0.5s;
+    }
+
+    .card:hover::before {
+      left: 100%;
+    }
+
+    .partner-logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .partner-info {
+      flex-grow: 1;
+    }
+
+    .partner-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 5px;
+    }
+
+    .verified-badge {
+      color: #1da1f2;
+      font-size: 1.2rem;
+      filter: drop-shadow(0 0 5px rgba(29, 161, 242, 0.5));
+    }
+
+    .partner-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+
+    .partner-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.3s;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .partner-link.youtube:hover {
+      background: #ff0000;
+      border-color: #ff0000;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    }
+
+    .partner-link.discord:hover {
+      background: #5865F2;
+      border-color: #5865F2;
+      box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
+    }
+
+
+    .card-empty {
+      opacity: 0.5;
+      justify-content: center;
+      flex-direction: column;
+      border: 2px dashed rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.02);
+      cursor: pointer;
+      padding: 40px;
+    }
+
+    .card-empty:hover {
+      opacity: 1;
+      border-color: var(--primary-glow);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.1);
+    }
+
+    .plus-icon {
+      font-size: 3rem;
+      color: var(--text-muted);
+      transition: all 0.3s;
+    }
+
+    .card-empty:hover .plus-icon {
+      color: var(--primary-glow);
+      transform: scale(1.2) rotate(90deg);
+    }
+
+    .vacancy-text {
+      margin-top: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+
+
+    .faq-section {
+      margin-top: 80px;
+      width: 100%;
+      max-width: 860px;
+      animation: fadeIn 1s ease backwards 0.8s;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.06), rgba(255, 0, 60, 0.06));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      position: relative;
+      background: linear-gradient(90deg, #ffffff, #7cf6ff, #ff7f9d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+      border-radius: 3px;
+    }
+
+    .faq-item {
+      background: linear-gradient(135deg, rgba(16, 20, 28, 0.9), rgba(24, 28, 38, 0.85));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-question {
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1.02rem;
+      user-select: none;
+      color: #f6fbff;
+    }
+
+    .faq-question i {
+      color: var(--primary-glow);
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      color: #c7d2e0;
+      transition: all 0.4s ease;
+      opacity: 0;
+      border-top: 1px solid transparent;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 0 20px 20px;
+      max-height: 320px;
+      opacity: 1;
+      border-top-color: rgba(0, 240, 255, 0.2);
+    }
+
+    .faq-item:hover {
+      border-color: rgba(0, 240, 255, 0.45);
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 60, 0.12));
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.15), 0 0 14px rgba(255, 0, 60, 0.14);
+    }
+
+
+    .info-section {
+      margin-top: 60px;
+      margin-bottom: 80px;
+      background: linear-gradient(135deg, rgba(20, 22, 28, 0.8), rgba(30, 33, 40, 0.8));
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      max-width: 800px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 1s ease backwards 1s;
+    }
+
+    .info-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--secondary-glow), transparent);
+    }
+
+    .info-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .animated-star {
+      color: #ff3333;
+      font-size: 2rem;
+      animation: pulseStar 1.5s infinite alternate, rotateStar 6s linear infinite;
+      filter: drop-shadow(0 0 10px rgba(255, 51, 51, 0.6));
+    }
+
+    @keyframes pulseStar {
+      0% {
+        transform: scale(0.9);
+      }
+
+      100% {
+        transform: scale(1.1);
+      }
+    }
+
+    .info-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .info-content {
+      color: #d1d5db;
+    }
+
+    .info-content p {
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+    }
+
+    .info-list {
+      list-style: none;
+      margin-bottom: 25px;
+    }
+
+    .info-list li {
+      position: relative;
+      padding-left: 25px;
+      margin-bottom: 12px;
+    }
+
+    .info-list li::before {
+      position: absolute;
+      left: 0;
+      top: 2px;
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+    }
+
+    .req-list li::before {
+      content: "\f0da";
+
+      color: #00f0ff;
+    }
+
+    .ben-list li::before {
+      content: "\f00c";
+
+      color: #00ff88;
+    }
+
+    .info-subtitle {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.3rem;
+      color: #fff;
+      margin: 25px 0 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .channel-link {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+      color: var(--text-main);
+      text-decoration: none;
+      padding: 15px 30px;
+      background: linear-gradient(45deg, rgba(255, 0, 0, 0.8), rgba(200, 0, 0, 0.8));
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: 1px solid rgba(255, 100, 100, 0.3);
+    }
+
+    .channel-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
+      background: linear-gradient(45deg, #ff1a1a, #e60000);
+    }
+
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translate(-50%, -20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes rotateStar {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .card {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .partner-name {
+        justify-content: center;
+      }
+
+      .floating-nav {
+        width: 90%;
+        justify-content: space-between;
+      }
+
+      .nav-btn span {
+        display: none;
+      }
+
+
+      .nav-btn {
+        padding: 8px 12px;
+      }
+
+      .info-section {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-gradient"></div>
+
+
+  <nav class="floating-nav">
+    <a href="https://antihambreadoscriptteam.github.io/" class="nav-btn">
+      <i class="fa-solid fa-bars"></i>
+      <span>Página Principal</span>
+    </a>
+    <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="nav-btn" style="color: #5865F2;">
+      <i class="fa-brands fa-discord"></i>
+      <span>Comunidad</span>
+    </a>
+  </nav>
+
+
+  <header>
+    <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Anti-Hambreado Logo" class="main-logo">
+    <h1>Nuestros Asociados</h1>
+    <div class="subtitle">La Élite de Creadores y Programadores</div>
+  </header>
+
+
+  <main class="container">
+
+    <div class="card" style="animation-delay: 0.3s;">
+      <img src="https://tobby-scriptsxd.github.io/TobbyLogo2.jpg" alt="Tobby Scripts Logo" class="partner-logo">
+      <div class="partner-info">
+        <div class="partner-name">
+          Tobby Scripts
+          <i class="fa-solid fa-circle-check verified-badge" title="Verificado Oficial"></i>
+        </div>
+        <div class="partner-desc">
+          "Bienvenido a este canal con mala edicion y memes innecesarios"
+        </div>
+        <a href="https://www.youtube.com/@Tobby-scripts" target="_blank" class="partner-link youtube">
+          <i class="fa-brands fa-youtube"></i> Visitar Canal
+        </a>
+      </div>
+    </div>
+
+
+    <div class="card" style="animation-delay: 0.5s;">
+      <img src="https://i.postimg.cc/brq86RKj/loc-phub-jpg.png" alt="FloppHub Team Logo" class="partner-logo">
+      <div class="partner-info">
+        <div class="partner-name">
+          FloppHub Team
+        </div>
+        <div class="partner-desc">
+          "Welcome to FloppHub | The Best Programmers On One Server | © 2022-2026"
+        </div>
+        <a href="https://discord.com/invite/J9dSv7hq55" target="_blank" class="partner-link discord">
+          <i class="fa-brands fa-discord"></i> Unirse al Servidor
+        </a>
+      </div>
+    </div>
+
+
+    <div class="card card-empty" style="animation-delay: 0.7s;">
+      <i class="fa-solid fa-plus plus-icon"></i>
+      <div class="vacancy-text">Buscando nuevos talentos...</div>
+    </div>
+
+
+    <section class="faq-section">
+      <h2 class="section-title">FAQ - Programa de Asociados</h2>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          1. ¿Qué es el Programa de Asociados? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Es una oportunidad para creadores que quieran colaborar oficialmente con Anti-Hambreado Script Team y
+            crecer junto a nosotros.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          2. ¿Cuáles son los requisitos para entrar? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Necesitas más de 100 suscriptores, subir contenido de calidad, tener mínimo 100+ vistas por video y no
+            colaborar con otros canales (excepto si es FloppHub Team).</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          3. ¿Qué tipo de contenido se considera "contenido bueno"? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Contenido bien editado, claro, original y relacionado con la temática del canal (scripts, Roblox, contenido
+            gaming, etc.).</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          4. ¿Qué pasa si tengo 100 suscriptores pero no llego a 100 vistas por video? <i
+            class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Deberás mejorar tu rendimiento antes de ser aceptado. Buscamos constancia y buen alcance.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          5. ¿Puedo colaborar con otros canales si soy asociado? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>No, a menos que sea FloppHub Team.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          6. ¿Qué beneficios obtengo al entrar? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Colaboraciones oficiales, apoyo del team, rango Admin en el servidor de Discord y futuros beneficios cuando
+            el canal llegue a 1,000+ suscriptores.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          7. ¿El rango Admin en Discord es permanente? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Sí, siempre y cuando sigas cumpliendo las reglas y permanezcas activo dentro del programa.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          8. ¿Cómo puedo aplicar? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Contactando al equipo directamente por nuestro servidor de Discord o por medio del canal oficial.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          9. ¿Puedo salir del programa si quiero? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Sí, la participación es voluntaria.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          10. ¿Qué pasa si incumplo las reglas? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Podrías perder los beneficios y ser retirado del programa.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="info-section">
+      <div class="info-header">
+        <i class="fa-solid fa-star animated-star"></i>
+        <h2 class="info-title">¿Qué es el programa de asociados?</h2>
+        <i class="fa-solid fa-star animated-star"></i>
+      </div>
+
+      <div class="info-content">
+        <p><strong>🚀 Programa de Asociados – Anti-Hambreado Script Team</strong></p>
+        <p>¿Quieres crecer junto a nosotros? Nuestro programa de asociados está diseñado para creadores comprometidos
+          que quieran formar parte del team y llevar su contenido al siguiente nivel.</p>
+
+        <h3 class="info-subtitle">🔹 Requisitos:</h3>
+        <ul class="info-list req-list">
+          <li>Tener más de 100 suscriptores.</li>
+          <li>Subir contenido de buena calidad.</li>
+          <li>Alcanzar más de 100 vistas por video.</li>
+          <li>No colaborar con otros canales (excepto si eres parte de FloppHub Team).</li>
+        </ul>
+
+        <h3 class="info-subtitle">🎁 Beneficios:</h3>
+        <ul class="info-list ben-list">
+          <li>Posibilidad de hacer colaboraciones oficiales con nosotros.</li>
+          <li>Apoyo y respaldo de nuestro equipo.</li>
+          <li>Rango Admin en nuestro servidor de Discord.</li>
+          <li>¡Y más beneficios exclusivos cuando nuestro canal alcance los 1,000+ suscriptores!</li>
+        </ul>
+
+        <p style="margin-top: 20px; font-weight: 500; text-align: center; color: #fff;">Si estás listo para crecer en
+          serio y acabar con el hambre disfrazado de monetización, esta es tu oportunidad.</p>
+
+        <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="channel-link">
+          📌 Unirse al Servidor
+        </a>
+      </div>
+    </section>
+  </main>
+
+
+  <script>
+    document.querySelectorAll('.faq-question').forEach(item => {
+      item.addEventListener('click', () => {
+        const parent = item.parentElement;
+
+        document.querySelectorAll('.faq-item').forEach(faq => {
+          if (faq !== parent) {
+            faq.classList.remove('active');
+          }
+        });
+
+        parent.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+
+</html>
