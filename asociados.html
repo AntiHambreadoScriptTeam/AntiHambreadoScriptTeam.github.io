@@ -362,6 +362,80 @@
       color: var(--text-muted);
     }
 
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1200;
+      padding: 20px;
+    }
+
+    .popup-overlay.active {
+      display: flex;
+    }
+
+    .popup-card {
+      width: 100%;
+      max-width: 760px;
+      padding: 32px;
+      border-radius: 20px;
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      background: linear-gradient(135deg, rgba(20, 26, 35, 0.96), rgba(34, 20, 30, 0.96));
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.45);
+      position: relative;
+      animation: slideUp 0.3s ease;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .popup-close:hover {
+      background: rgba(255, 0, 60, 0.35);
+      border-color: rgba(255, 0, 60, 0.8);
+    }
+
+    .popup-content p {
+      margin-bottom: 14px;
+      color: #e7eef9;
+      font-size: 1.03rem;
+    }
+
+    .know-more-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 12px;
+      padding: 10px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      background: linear-gradient(45deg, #00d2ff, #ff2e63);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .know-more-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+    }
+
 
     .faq-section {
       margin-top: 80px;
@@ -709,7 +783,9 @@
       <div class="partner-info">
         <div class="partner-name">
           FloppHub Team
-          <i class="fa-solid fa-circle-check verified-badge" style="color: #ff8c00; filter: drop-shadow(0 0 5px rgba(255, 140, 0, 0.55));" title="Verificado Oficial"></i>
+          <i class="fa-solid fa-circle-check verified-badge"
+            style="color: #ff8c00; filter: drop-shadow(0 0 5px rgba(255, 140, 0, 0.55));"
+            title="Verificado Oficial"></i>
         </div>
         <div class="partner-desc">
           "Welcome to FloppHub | The Best Programmers On One Server | © 2022-2026"
@@ -720,166 +796,199 @@
       </div>
     </div>
 
-
     <div class="card card-empty" style="animation-delay: 0.7s;">
       <i class="fa-solid fa-plus plus-icon"></i>
       <div class="vacancy-text">Buscando nuevos talentos...</div>
     </div>
-
-
+    <section class="info-section" id="programa-asociados">
+      <div class="info-header">
+        <i class="fa-solid fa-star animated-star"></i>
+        <h2 class="info-title">&iquest;Qu&eacute; es el programa de asociados?</h2>
+        <i class="fa-solid fa-star animated-star"></i>
+      </div>
+      <div class="info-content">
+        <p><strong>&#128640; Programa de Asociados - Anti-Hambreado Script Team</strong></p>
+        <p>&iquest;Quieres crecer junto a nosotros? Nuestro programa de asociados est&aacute; dise&ntilde;ado para
+          creadores comprometidos
+          que quieran formar parte del team y llevar su contenido al siguiente nivel.</p>
+        <h3 class="info-subtitle">&#128313; Requisitos:</h3>
+        <ul class="info-list req-list">
+          <li>Tener m&aacute;s de 100 suscriptores.</li>
+          <li>Subir contenido de buena calidad.</li>
+          <li>Alcanzar m&aacute;s de 100 vistas por video.</li>
+          <li>No colaborar con otros canales (excepto si es con FloppHub Team).</li>
+        </ul>
+        <h3 class="info-subtitle">&#127873; Beneficios:</h3>
+        <ul class="info-list ben-list">
+          <li>Posibilidad de hacer colaboraciones oficiales con nosotros.</li>
+          <li>Apoyo y respaldo de nuestro equipo.</li>
+          <li>Rango Admin en nuestro servidor de Discord.</li>
+          <li>&iexcl;Y m&aacute;s beneficios exclusivos cuando nuestro canal alcance los 1,000+ suscriptores!</li>
+        </ul>
+        <p style="margin-top: 20px; font-weight: 500; text-align: center; color: #fff;">Si est&aacute;s listo para
+          crecer en
+          serio y acabar con el hambre disfrazado de monetizaci&oacute;n, esta es tu oportunidad.</p>
+        <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="channel-link">
+          &#128204; Unirse al Servidor
+        </a>
+      </div>
+    </section>
     <section class="faq-section">
       <h2 class="section-title">FAQ - Programa de Asociados</h2>
-
       <div class="faq-item">
         <div class="faq-question">
-          1. ¿Qué es el Programa de Asociados? <i class="fa-solid fa-chevron-down"></i>
+          1. &iquest;Qu&eacute; es el Programa de Asociados? <i class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-answer">
           <p>Es una oportunidad para creadores que quieran colaborar oficialmente con Anti-Hambreado Script Team y
             crecer junto a nosotros.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <div class="faq-question">
-          2. ¿Cuáles son los requisitos para entrar? <i class="fa-solid fa-chevron-down"></i>
+          2. &iquest;Cu&aacute;les son los requisitos para entrar? <i class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-answer">
-          <p>Necesitas más de 100 suscriptores, subir contenido de calidad, tener mínimo 100+ vistas por video y no
+          <p>Necesitas m&aacute;s de 100 suscriptores, subir contenido de calidad, tener m&iacute;nimo 100+ vistas por
+            video y no
             colaborar con otros canales (excepto si es FloppHub Team).</p>
         </div>
       </div>
-
       <div class="faq-item">
         <div class="faq-question">
-          3. ¿Qué tipo de contenido se considera "contenido bueno"? <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="faq-answer">
-          <p>Contenido bien editado, claro, original y relacionado con la temática del canal (scripts, Roblox, contenido
-            gaming, etc.).</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          4. ¿Qué pasa si tengo 100 suscriptores pero no llego a 100 vistas por video? <i
+          3. &iquest;Qu&eacute; tipo de contenido se considera "contenido bueno"? <i
             class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-answer">
-          <p>Deberás mejorar tu rendimiento antes de ser aceptado. Buscamos constancia y buen alcance.</p>
+          <p>Contenido bien editado, claro, original y relacionado con la tem&aacute;tica del canal (scripts, Roblox,
+            contenido
+            gaming, etc.).</p>
         </div>
       </div>
-
       <div class="faq-item">
         <div class="faq-question">
-          5. ¿Puedo colaborar con otros canales si soy asociado? <i class="fa-solid fa-chevron-down"></i>
+          4. &iquest;Qu&eacute; pasa si tengo 100 suscriptores pero no llego a 100 vistas por video? <i
+            class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Deber&aacute;s mejorar tu rendimiento antes de ser aceptado. Buscamos constancia y buen alcance.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          5. &iquest;Puedo colaborar con otros canales si soy asociado? <i class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-answer">
           <p>No, a menos que sea con FloppHub Team.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <div class="faq-question">
-          6. ¿Qué beneficios obtengo al entrar? <i class="fa-solid fa-chevron-down"></i>
+          6. &iquest;Qu&eacute; beneficios obtengo al entrar? <i class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-answer">
           <p>Colaboraciones oficiales, apoyo del team, rango Admin en el servidor de Discord y futuros beneficios cuando
             el canal llegue a 1,000+ suscriptores.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <div class="faq-question">
-          7. ¿El rango Admin en Discord es permanente? <i class="fa-solid fa-chevron-down"></i>
+          7. &iquest;El rango Admin en Discord es permanente? <i class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-answer">
-          <p>Sí, siempre y cuando sigas cumpliendo las reglas y permanezcas activo dentro del programa.</p>
+          <p>S&iacute;, siempre y cuando sigas cumpliendo las reglas y permanezcas activo dentro del programa.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <div class="faq-question">
-          8. ¿Cómo puedo aplicar? <i class="fa-solid fa-chevron-down"></i>
+          8. &iquest;C&oacute;mo puedo aplicar? <i class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-answer">
           <p>Contactando al equipo directamente por nuestro servidor de Discord o por medio del canal oficial.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <div class="faq-question">
-          9. ¿Puedo salir del programa si quiero? <i class="fa-solid fa-chevron-down"></i>
+          9. &iquest;Puedo salir del programa si quiero? <i class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-answer">
-          <p>Sí, la participación es voluntaria.</p>
+          <p>S&iacute;, la participaci&oacute;n es voluntaria.</p>
         </div>
       </div>
-
       <div class="faq-item">
         <div class="faq-question">
-          10. ¿Qué pasa si incumplo las reglas? <i class="fa-solid fa-chevron-down"></i>
+          10. &iquest;Qu&eacute; pasa si incumplo las reglas? <i class="fa-solid fa-chevron-down"></i>
         </div>
         <div class="faq-answer">
-          <p>Podrías perder los beneficios y ser retirado del programa.</p>
+          <p>Podr&iacute;as perder los beneficios y ser retirado del programa.</p>
         </div>
-      </div>
-    </section>
-
-
-    <section class="info-section">
-      <div class="info-header">
-        <i class="fa-solid fa-star animated-star"></i>
-        <h2 class="info-title">¿Qué es el programa de asociados?</h2>
-        <i class="fa-solid fa-star animated-star"></i>
-      </div>
-
-      <div class="info-content">
-        <p><strong>🚀 Programa de Asociados – Anti-Hambreado Script Team</strong></p>
-        <p>¿Quieres crecer junto a nosotros? Nuestro programa de asociados está diseñado para creadores comprometidos
-          que quieran formar parte del team y llevar su contenido al siguiente nivel.</p>
-
-        <h3 class="info-subtitle">🔹 Requisitos:</h3>
-        <ul class="info-list req-list">
-          <li>Tener más de 100 suscriptores.</li>
-          <li>Subir contenido de buena calidad.</li>
-          <li>Alcanzar más de 100 vistas por video.</li>
-          <li>No colaborar con otros canales (excepto si es con FloppHub Team).</li>
-        </ul>
-
-        <h3 class="info-subtitle">🎁 Beneficios:</h3>
-        <ul class="info-list ben-list">
-          <li>Posibilidad de hacer colaboraciones oficiales con nosotros.</li>
-          <li>Apoyo y respaldo de nuestro equipo.</li>
-          <li>Rango Admin en nuestro servidor de Discord.</li>
-          <li>¡Y más beneficios exclusivos cuando nuestro canal alcance los 1,000+ suscriptores!</li>
-        </ul>
-
-        <p style="margin-top: 20px; font-weight: 500; text-align: center; color: #fff;">Si estás listo para crecer en
-          serio y acabar con el hambre disfrazado de monetización, esta es tu oportunidad.</p>
-
-        <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="channel-link">
-          📌 Unirse al Servidor
-        </a>
       </div>
     </section>
   </main>
+
+  <div class="popup-overlay" id="join-popup" aria-hidden="true">
+    <div class="popup-card">
+      <button type="button" class="popup-close" id="popup-close" aria-label="Cerrar ventana">&times;</button>
+      <div class="popup-content">
+        <p><strong>&#128640; &iquest;Quieres ser nuestro pr&oacute;ximo asociado?</strong></p>
+        <p>En Anti-Hambreado Script Team estamos buscando creadores comprometidos que quieran crecer de verdad y formar
+          parte de algo grande.</p>
+        <p>Si est&aacute;s cansado del contenido vac&iacute;o y quieres llevar tu canal al siguiente nivel, esta es tu
+          oportunidad.</p>
+        <p><strong>&#128313; &iquest;Qu&eacute; es el Programa de Asociados?</strong></p>
+        <p>Es una iniciativa creada para apoyar a creadores que realmente aportan valor. No buscamos cantidad, buscamos
+          calidad, constancia y 0 HAMBRE.</p>
+        <a href="#programa-asociados" class="know-more-btn" id="popup-know-more">saber mas</a>
+      </div>
+    </div>
+  </div>
 
 
   <script>
     document.querySelectorAll('.faq-question').forEach(item => {
       item.addEventListener('click', () => {
         const parent = item.parentElement;
-
         document.querySelectorAll('.faq-item').forEach(faq => {
           if (faq !== parent) {
             faq.classList.remove('active');
           }
         });
-
         parent.classList.toggle('active');
       });
     });
+    const joinCardTrigger = document.querySelector('.card-empty');
+    const joinPopup = document.getElementById('join-popup');
+    const popupClose = document.getElementById('popup-close');
+    const popupKnowMore = document.getElementById('popup-know-more');
+    const programSection = document.getElementById('programa-asociados');
+    if (joinCardTrigger && joinPopup) {
+      joinCardTrigger.addEventListener('click', () => {
+        joinPopup.classList.add('active');
+        joinPopup.setAttribute('aria-hidden', 'false');
+      });
+    }
+    if (popupClose && joinPopup) {
+      popupClose.addEventListener('click', () => {
+        joinPopup.classList.remove('active');
+        joinPopup.setAttribute('aria-hidden', 'true');
+      });
+    }
+    if (joinPopup) {
+      joinPopup.addEventListener('click', (event) => {
+        if (event.target === joinPopup) {
+          joinPopup.classList.remove('active');
+          joinPopup.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+    if (popupKnowMore && programSection && joinPopup) {
+      popupKnowMore.addEventListener('click', (event) => {
+        event.preventDefault();
+        joinPopup.classList.remove('active');
+        joinPopup.setAttribute('aria-hidden', 'true');
+        programSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
   </script>
 </body>
 
