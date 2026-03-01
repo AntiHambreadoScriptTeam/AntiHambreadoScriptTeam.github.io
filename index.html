@@ -1,4 +1,3 @@
-
 <!--
   #############################################################################################
   #                                                                                           #
@@ -68,673 +67,76 @@
 
 
 
+
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anti-Hambreado Script Team | V2.0</title>
+  <title>Anti-Hambreado Script Team | Premium 2.0</title>
   <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Outfit:wght@300;400;600;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;700;800;900&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     :root {
-      --bg-base: #0b0708;
-      --bg-surface: rgba(28, 12, 15, 0.58);
-      --bg-glass: rgba(193, 18, 31, 0.08);
-      --accent: #c1121f;
-      --accent-hover: #e5383b;
-      
-      --accent-alt: #f2c078;
+      --black: #030303;
+      --surface: #0b0b0b;
+      --surface-hover: #141414;
+      --glass: rgba(15, 15, 15, 0.5);
+      --glass-border: rgba(255, 255, 255, 0.04);
+      --accent: #ff0044;
+      --accent-light: #ff3366;
       --accent-cyan: #00d4ff;
-      --text-main: #ffffff;
-      --text-muted: #e8d7cc;
-      --border-glass: rgba(229, 56, 59, 0.22);
-      --neon-shadow: 0 0 20px var(--accent-glow);
-      --font-display: 'Orbitron', sans-serif;
-      --font-body: 'Outfit', sans-serif;
-      --border-radius: 16px;
+      --accent-gold: #ffbf36;
+      --accent-violet: #7c5cff;
+      --accent-glow: rgba(255, 0, 68, 0.3);
+      --text: #f8f8f8;
+      --muted: #888888;
+      --card-radius: 20px;
+    }
+
+    html,
+    body {
+      width: 100%;
+      max-width: 100%;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: var(--font-body);
-      background-color: var(--bg-base);
-      color: var(--text-main);
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
-
-    .bg-fx {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    .bg-gradient {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100vw;
-      height: 100vh;
-      background: radial-gradient(circle at center, rgba(255, 0, 60, 0.1) 0%, transparent 60%);
-    }
-
-    .bg-grid {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-image:
-        linear-gradient(var(--border-glass) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border-glass) 1px, transparent 1px);
-      background-size: 40px 40px;
-      opacity: 0.15;
-      mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-    }
-
-    canvas#particles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.6;
-    }
-
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-      background: rgba(5, 0, 0, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-glass);
-    }
-
-    .nav-title {
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: 1.2rem;
-      color: var(--accent);
-      text-shadow: 0 0 10px var(--accent-glow);
-      letter-spacing: 2px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      justify-content: center;
-      text-align: center;
-      flex-wrap: wrap;
-      max-width: 100%;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 8rem 2rem 4rem;
-      position: relative;
-      z-index: 10;
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: 5rem;
-      animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .logo-box {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 2rem;
-    }
-
-    .logo-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 120%;
-      height: 120%;
-      background: var(--accent);
-      filter: blur(60px);
-      opacity: 0.4;
-      border-radius: 50%;
-      z-index: -1;
-      animation: pulseGlow 4s infinite alternate;
-    }
-
-    .logo {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      border: 2px solid var(--accent);
-      box-shadow: 0 0 30px rgba(255, 0, 60, 0.3), inset 0 0 20px rgba(255, 0, 60, 0.3);
-      object-fit: cover;
-      position: relative;
-      z-index: 2;
-      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .logo:hover {
-      transform: scale(1.05) rotate(5deg);
-    }
-
-    .hero h1 {
-      font-family: var(--font-display);
-      font-size: 3.5rem;
-      font-weight: 900;
-      line-height: 1.1;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 8px rgba(255, 0, 60, 0.4));
-      letter-spacing: -1px;
-    }
-
-    .typing-svg {
-      margin: 1.5rem auto;
-      display: block;
-      width: min(100%, 530px);
-      filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.5));
-    }
-
-    .typing-svg img {
-      display: block;
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-      margin: 0 auto;
-    }
-
-    .motto-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-glass);
-      border-radius: var(--border-radius);
-      padding: 2rem 3rem;
-      margin: 3rem auto;
-      max-width: 800px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      border-left: 4px solid var(--accent);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .motto-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, transparent, rgba(255, 0, 60, 0.05), transparent);
-      z-index: 0;
-    }
-
-    .motto-card p {
-      position: relative;
-      z-index: 1;
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      margin-bottom: 1.2rem;
-      text-align: justify;
-    }
-
-    .motto-card p:last-child {
-      margin-bottom: 0;
-    }
-
-    .motto-card strong {
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .motto-card em {
-      color: var(--accent);
-      font-style: normal;
-    }
-
-    .links-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin: 4rem 0;
-    }
-
-    .btn-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 1.2rem;
-      background: var(--bg-glass);
-      border: 1px solid var(--border-glass);
-      border-radius: 12px;
-      color: var(--text-main);
-      text-decoration: none;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(5px);
-    }
-
-    .btn-link::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .btn-link:hover::before {
-      left: 100%;
-    }
-
-    .btn-link:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 0, 60, 0.15);
-      border-color: var(--accent);
-      box-shadow: var(--neon-shadow);
-    }
-
-    .btn-link.discord {
-      background: rgba(88, 101, 242, 0.1);
-      border-color: rgba(88, 101, 242, 0.3);
-    }
-
-    .btn-link.discord:hover {
-      background: rgba(88, 101, 242, 0.2);
-      border-color: #5865F2;
-      box-shadow: 0 0 20px rgba(88, 101, 242, 0.5);
-    }
-
-    .btn-link i {
-      font-size: 1.4rem;
-      color: var(--accent);
-      transition: transform 0.3s ease;
-    }
-
-    .btn-link.discord i {
-      color: #5865F2;
-    }
-
-    .btn-link:hover i {
-      transform: scale(1.2) rotate(5deg);
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-      margin: 6rem 0 3rem;
-      font-family: var(--font-display);
-      font-size: 2.2rem;
-      color: var(--text-main);
-      text-transform: uppercase;
-    }
-
-    
-    .hero h1,
-    .section-header {
-      background: linear-gradient(135deg, #ffffff 0%, var(--accent) 55%, var(--accent-alt) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .links-grid .btn-link:nth-child(2) {
-      border-color: rgba(0, 212, 255, 0.35);
-      background: rgba(0, 212, 255, 0.08);
-    }
-
-    .links-grid .btn-link:nth-child(2) i {
-      color: var(--accent-cyan);
-    }
-
-    .links-grid .btn-link:nth-child(2):hover {
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.45);
-    }
-
-    .tabs-container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .accordion-item {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-glass);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 1rem;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-    }
-
-    .accordion-item:hover {
-      border-color: rgba(255, 50, 50, 0.4);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .accordion-item.active {
-      border-color: var(--accent);
-      box-shadow: 0 0 20px rgba(255, 0, 60, 0.15);
-    }
-
-    .accordion-header {
-      padding: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
       user-select: none;
     }
 
-    .accordion-title {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #fff;
+    body {
+      background-color: var(--black);
+      background-image:
+        radial-gradient(circle at 10% 15%, rgba(255, 0, 68, 0.15), transparent 35%),
+        radial-gradient(circle at 85% 25%, rgba(0, 212, 255, 0.12), transparent 30%),
+        radial-gradient(circle at 60% 85%, rgba(124, 92, 255, 0.1), transparent 35%);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .accordion-title i {
-      color: var(--accent);
-      font-size: 1.2rem;
-      width: 24px;
-      text-align: center;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Outfit', sans-serif;
     }
 
-    .accordion-icon {
-      color: var(--accent);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .accordion-item.active .accordion-icon {
-      transform: rotate(180deg);
-    }
-
-    .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    .accordion-inner {
-      padding: 0 1.5rem 1.5rem 4.5rem;
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      line-height: 1.7;
-    }
-
-    .accordion-inner p {
-      margin-bottom: 1rem;
-    }
-
-    .accordion-inner p:last-child {
-      margin-bottom: 0;
-    }
-
-    .legal-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .legal-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-glass);
-      border-radius: 12px;
-      padding: 2rem;
-      border-left: 3px solid var(--accent);
-      backdrop-filter: blur(10px);
-      transition: transform 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .legal-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at top right, rgba(255, 0, 60, 0.05), transparent);
-    }
-
-    .legal-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--accent);
-    }
-
-    .legal-card h3 {
-      font-family: var(--font-display);
-      color: var(--text-main);
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .legal-card h3 i {
-      color: var(--accent);
-    }
-
-    .legal-card p,
-    .legal-card ul {
-      color: var(--text-muted);
-      font-size: 1rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .legal-card ul {
-      padding-left: 1.5rem;
-      margin-top: 0.5rem;
-    }
-
-    .legal-card ul li {
-      margin-bottom: 0.3rem;
-    }
-
-    .legal-footer {
-      margin: 3rem auto 0;
-      max-width: 1000px;
-      text-align: center;
-      padding: 2.5rem;
-      background: linear-gradient(180deg, transparent, rgba(255, 0, 60, 0.1));
-      border: 1px dashed var(--border-glass);
-      border-radius: 12px;
-    }
-
-    .legal-footer p.quote {
-      font-family: var(--font-display);
-      color: var(--text-main);
-      font-size: 1.4rem;
-      font-weight: 700;
-      text-shadow: 0 0 10px var(--accent-glow);
-    }
-
-    .legal-footer p.date {
-      color: var(--accent);
-      font-size: 0.95rem;
-      margin-top: 0.8rem;
-      letter-spacing: 1px;
-      opacity: 0.8;
-    }
-
-    footer {
-      text-align: center;
-      padding: 3rem 2rem;
-      border-top: 1px solid rgba(255, 50, 50, 0.1);
-      margin-top: 4rem;
-      position: relative;
-      z-index: 10;
-      background: rgba(5, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-    }
-
-    footer p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 0.5rem;
-    }
-
-    footer i {
-      color: var(--accent);
-      margin: 0 5px;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes pulseGlow {
-      from {
-        opacity: 0.2;
-        transform: translate(-50%, -50%) scale(0.95);
-      }
-
-      to {
-        opacity: 0.5;
-        transform: translate(-50%, -50%) scale(1.05);
-      }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 900px) {
-      .legal-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .navbar {
-        padding: 0.9rem 1rem;
-      }
-
-      .hero h1 {
-        font-size: 2.2rem;
-      }
-
-      .container {
-        padding-top: 6rem;
-        padding-bottom: 2rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
-
-      .logo {
-        width: 140px;
-        height: 140px;
-      }
-
-      .typing-svg {
-        width: min(100%, calc(100vw - 2rem));
-      }
-
-      .motto-card {
-        padding: 1.5rem;
-      }
-
-      .motto-card p {
-        font-size: 1rem;
-      }
-
-      .section-header {
-        font-size: 1.6rem;
-        margin: 4rem 0 2rem;
-      }
-
-      .accordion-inner {
-        padding: 0 1rem 1.5rem 1rem;
-      }
-
-      .accordion-title {
-        font-size: 1rem;
-      }
-
-      .nav-title {
-        font-size: 1rem;
-        letter-spacing: 1px;
-        line-height: 1.25;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero h1 {
-        font-size: 1.8rem;
-      }
-
-      .nav-title {
-        font-size: 0.85rem;
-        gap: 6px;
-      }
-
-      .typing-svg {
-        width: calc(100vw - 2rem);
-      }
-    }
+    /* --- ESTILOS DE LA NUEVA INTRO ANIMADA --- */
     body.intro-active {
       overflow: hidden;
     }
@@ -750,147 +152,1487 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: rgba(5, 0, 0, 0.75);
+      background: rgba(5, 0, 0, 0.95);
       backdrop-filter: blur(25px);
       -webkit-backdrop-filter: blur(25px);
-      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.9s;
-      will-change: opacity, transform, visibility;
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.9s;
     }
 
     #intro-screen.hide {
       opacity: 0;
       visibility: hidden;
-      transform: scale(1.15);
       pointer-events: none;
     }
 
-    #intro-logo {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      border: 2px solid var(--accent);
-      box-shadow: 0 0 30px rgba(255, 0, 60, 0.4), inset 0 0 20px rgba(255, 0, 60, 0.4);
-      object-fit: cover;
-      animation: introLogoBounce 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
-        introLogoPulse 2s cubic-bezier(0.4, 0, 0.2, 1) 1s infinite alternate;
-      transform: scale(0);
-      will-change: transform, box-shadow;
+    /* Start Button Overlay */
+    #start-intro-btn {
+      padding: 15px 40px;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: white;
+      background: transparent;
+      border: 3px solid var(--accent);
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 20px var(--accent-glow), inset 0 0 10px var(--accent-glow);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      animation: neonPulseIntro 1.5s infinite alternate;
+      transition: all 0.3s ease;
+      font-family: 'Outfit', sans-serif;
+      z-index: 10;
     }
 
-    #intro-title {
-      margin-top: 2rem;
-      font-family: var(--font-display);
-      font-size: 2.5rem;
+    #start-intro-btn:hover {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 0 40px var(--accent), inset 0 0 20px #fff;
+      transform: scale(1.05);
+    }
+
+    .skip-btn {
+      position: absolute;
+      bottom: 40px;
+      padding: 10px 25px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 30px;
+      color: var(--muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.3s;
+      z-index: 10;
+    }
+
+    .skip-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+
+    /* Logos Container */
+    #intro-logos-container {
+      display: none;
+      /* Hidden until play is clicked */
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      margin-bottom: 40px;
+      position: relative;
+      width: 100%;
+    }
+
+    .intro-logo {
+      width: 150px;
+      height: 150px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .intro-logo-anti {
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 20px var(--accent), inset 0 0 10px var(--accent);
+      animation: introAntiFloat 3s ease-in-out infinite alternate, neonPulseIntro 2s infinite alternate;
+      z-index: 2;
+    }
+
+    @keyframes introAntiFloat {
+      0% {
+        transform: translateY(0px) rotate(-5deg) scale(1.05);
+      }
+
+      50% {
+        transform: translateY(-10px) rotate(5deg) scale(1.1);
+      }
+
+      100% {
+        transform: translateY(0px) rotate(-5deg) scale(1.05);
+      }
+    }
+
+    .intro-campione-wrapper {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      animation: introShake 0.5s infinite;
+      filter: grayscale(0.5);
+      transition: all 0.5s ease;
+    }
+
+    .intro-logo-camp {
+      border: 3px solid #333;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      animation: introDimLogo 4s forwards;
+    }
+
+    .intro-cross {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .intro-cross::before,
+    .intro-cross::after {
+      content: '';
+      position: absolute;
+      width: 130%;
+      height: 15px;
+      background: var(--accent);
+      box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent), inset 0 0 8px white;
+      border-radius: 10px;
+    }
+
+    .intro-cross::before {
+      transform: rotate(45deg);
+    }
+
+    .intro-cross::after {
+      transform: rotate(-45deg);
+    }
+
+    .crossed-out .intro-cross {
+      transform: translate(-50%, -50%) scale(1.1);
+      opacity: 1;
+      animation: introFlicker 0.15s infinite alternate;
+    }
+
+    .crossed-out .intro-logo-camp {
+      filter: blur(4px) grayscale(1) brightness(0.2);
+      transform: scale(0.85);
+      box-shadow: none;
+    }
+
+    .crossed-out~.active-dance.intro-logo-anti,
+    .active-dance.intro-logo-anti {
+      animation: introAntiExtreme 0.4s infinite alternate, neonPulseIntro 0.5s infinite alternate !important;
+      transform: scale(1.3) !important;
+      z-index: 10;
+    }
+
+    @keyframes introAntiExtreme {
+      0% {
+        transform: scale(1.3) translate3d(-5px, -3px, 0) rotate(-6deg);
+      }
+
+      100% {
+        transform: scale(1.35) translate3d(5px, 3px, 0) rotate(6deg);
+      }
+    }
+
+    @keyframes introShake {
+
+      0%,
+      100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+
+      25% {
+        transform: translate3d(-2px, 2px, 0) rotate(-1deg);
+      }
+
+      50% {
+        transform: translate3d(2px, -1px, 0) rotate(1deg);
+      }
+
+      75% {
+        transform: translate3d(-1px, -2px, 0) rotate(0deg);
+      }
+    }
+
+    /* Intro Subtitles */
+    #intro-subs-wrapper {
+      height: 120px;
+      display: none;
+      /* Hidden until play */
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      position: relative;
+      padding: 0 20px;
+    }
+
+    .intro-sub {
+      font-size: clamp(2rem, 5vw, 4rem);
       font-weight: 900;
       text-transform: uppercase;
-      background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+      line-height: 1.1;
+      background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 10px rgba(255, 0, 60, 0.5));
-      letter-spacing: 2px;
       opacity: 0;
-      transform: translateY(30px);
-      animation: introTitleReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards,
-        introTitleFloat 3s ease-in-out 1.2s infinite;
-      text-align: center;
-      padding: 0 1rem;
-      will-change: transform, opacity, filter;
+      transform: translateY(30px) scale(0.8) rotateX(20deg);
+      transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-shadow: 0 0 15px rgba(255, 0, 68, 0.6), 0 0 30px rgba(255, 255, 255, 0.3);
+      position: absolute;
+      font-family: 'Outfit', sans-serif;
+      font-style: italic;
     }
 
-    #intro-subtitle {
-      margin-top: 1rem;
-      font-family: var(--font-body);
-      font-size: 1.25rem;
-      font-weight: 600;
+    .intro-sub.active {
+      opacity: 1;
+      transform: translateY(0) scale(1) rotateX(0deg);
+      animation: introTextPulse 0.4s alternate infinite;
+    }
+
+    .intro-sub.exit {
       opacity: 0;
-      transform: translateY(20px);
-      animation: introTitleReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      will-change: transform, opacity;
-      padding: 0 1rem;
-      text-align: center;
+      transform: translateY(-40px) scale(1.2) rotateX(-20deg);
+      filter: blur(5px);
     }
 
-    #intro-subtitle span {
-      background: linear-gradient(135deg, #ffffff 0%, #f2c078 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: 0.5px;
-    }
-
-    #intro-subtitle .discord-icon {
-      color: #5865F2;
-      font-size: 1.6rem;
-      filter: drop-shadow(0 0 10px rgba(88, 101, 242, 0.8));
-    }
-
-    @keyframes introLogoBounce {
+    @keyframes introTextPulse {
       0% {
-        transform: scale(0) rotate(-25deg);
-        opacity: 0;
+        text-shadow: 0 0 10px rgba(255, 0, 68, 0.8), 0 0 20px rgba(255, 0, 68, 0.5);
+      }
+
+      100% {
+        text-shadow: 0 0 25px rgba(255, 0, 68, 1), 0 0 45px rgba(255, 0, 68, 0.8);
+      }
+    }
+
+    @keyframes neonPulseIntro {
+      0% {
+        box-shadow: 0 0 15px var(--accent), inset 0 0 5px var(--accent);
+        border-color: var(--accent-light);
+      }
+
+      100% {
+        box-shadow: 0 0 40px var(--accent), 0 0 70px var(--accent), inset 0 0 25px var(--accent);
+        border-color: var(--accent);
+      }
+    }
+
+    @keyframes introFlicker {
+      0% {
+        opacity: 0.8;
       }
 
       50% {
         opacity: 1;
+        box-shadow: 0 0 30px var(--accent), 0 0 60px var(--accent);
       }
 
       100% {
-        transform: scale(1) rotate(0deg);
-        opacity: 1;
+        opacity: 0.9;
       }
     }
 
-    @keyframes introLogoPulse {
+    .intro-flash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 100000;
+    }
+
+    .intro-flash-active {
+      animation: introFlashAnim 0.3s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+    }
+
+    @keyframes introFlashAnim {
       0% {
-        box-shadow: 0 0 30px rgba(255, 0, 60, 0.4), inset 0 0 20px rgba(255, 0, 60, 0.4);
-        transform: scale(1);
+        opacity: 0.8;
       }
 
       100% {
-        box-shadow: 0 0 60px rgba(255, 0, 60, 0.8), inset 0 0 30px rgba(255, 0, 60, 0.8);
-        transform: scale(1.05);
-      }
-    }
-
-    @keyframes introTitleReveal {
-      0% {
         opacity: 0;
-        transform: translateY(30px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateY(0);
       }
     }
 
-    @keyframes introTitleFloat {
+    /* Glitch text specific for intro */
+    .intro-glitch-text {
+      position: relative;
+    }
+
+    .intro-glitch-text::before,
+    .intro-glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .intro-glitch-text::before {
+      left: 3px;
+      text-shadow: -3px 0 var(--accent);
+      background: transparent;
+      animation: intro-glitch-anim 2s infinite linear alternate-reverse;
+    }
+
+    .intro-glitch-text::after {
+      left: -3px;
+      text-shadow: 3px 0 white;
+      background: transparent;
+      animation: intro-glitch-anim 1.5s infinite linear alternate-reverse;
+    }
+
+    @keyframes intro-glitch-anim {
+      0% {
+        clip: rect(10px, 9999px, 86px, 0);
+      }
+
+      20% {
+        clip: rect(33px, 9999px, 31px, 0);
+      }
+
+      40% {
+        clip: rect(96px, 9999px, 63px, 0);
+      }
+
+      60% {
+        clip: rect(69px, 9999px, 66px, 0);
+      }
+
+      80% {
+        clip: rect(81px, 9999px, 90px, 0);
+      }
+
+      100% {
+        clip: rect(4px, 9999px, 2px, 0);
+      }
+    }
+
+    .intro-shake-body {
+      animation: introBodyShake 0.4s infinite alternate ease-in-out;
+      will-change: transform;
+    }
+
+    @keyframes introBodyShake {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate3d(3px, -3px, 0) scale(1.01);
+      }
+    }
+
+    /* --- FIN ESTILOS DE LA NUEVA INTRO --- */
+
+    .noise-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -2;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .grid-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -3;
+      background-image: linear-gradient(var(--glass-border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--glass-border) 1px, transparent 1px);
+      background-size: 50px 50px;
+      mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 70%);
+      -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 70%);
+    }
+
+    .ambient-light {
+      position: fixed;
+      width: 60vw;
+      height: 60vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+      top: -20vw;
+      left: -20vw;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.4;
+      filter: blur(80px);
+      animation: pulseAmbient 10s infinite alternate ease-in-out;
+    }
+
+    .ambient-light.right {
+      top: auto;
+      bottom: -20vw;
+      left: auto;
+      right: -20vw;
+      background: radial-gradient(circle, rgba(255, 51, 102, 0.15) 0%, transparent 60%);
+    }
+
+    @keyframes pulseAmbient {
+      0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: scale(1.1) translate(20px, 20px);
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: scale(0.9) translate(-20px, -20px);
+        opacity: 0.3;
+      }
+    }
+
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      display: block;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1200px;
+      height: 70px;
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid transparent;
+      transition: 0.4s;
+    }
+
+    .nav-logo:hover img {
+      border-color: var(--accent);
+      box-shadow: 0 0 15px var(--accent-glow);
+      transform: rotate(10deg);
+    }
+
+    .nav-logo span {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--text);
+      letter-spacing: 0.5px;
+      background: linear-gradient(90deg, #fff, #aaa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 5px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 10px 18px;
+      border-radius: 100px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--surface-hover);
+      z-index: -1;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.3s ease;
+      border-radius: 100px;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+    }
+
+    .nav-link:hover::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .nav-link.active {
+      color: #fff;
+      background: var(--accent);
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .hamburger {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      transition: 0.3s;
+    }
+
+    .hamburger span {
+      width: 18px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 300px;
+      height: 100vh;
+      background: var(--black);
+      border-right: 1px solid var(--glass-border);
+      z-index: 998;
+      padding: 120px 30px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+      overflow-y: auto;
+    }
+
+    .mobile-menu.open {
+      left: 0;
+      box-shadow: 20px 0 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-link {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 1.1rem;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .mobile-link i {
+      font-size: 1.2rem;
+      color: var(--accent);
+      width: 24px;
+      text-align: center;
+      opacity: 0.7;
+      transition: 0.3s;
+    }
+
+    .mobile-link:hover {
+      background: var(--surface);
+      border-color: var(--glass-border);
+      color: var(--text);
+      transform: translateX(10px);
+    }
+
+    .mobile-link:hover i {
+      opacity: 1;
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 8px var(--accent));
+    }
+
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 997;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.4s;
+    }
+
+    .mobile-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255, 0, 68, 0.1);
+      border: 1px solid rgba(255, 0, 68, 0.3);
+      border-radius: 100px;
+      margin-bottom: 30px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .hero-badge span {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero-badge i {
+      color: var(--accent);
+      animation: pulseText 2s infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #888888 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -2px;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+    }
+
+    .hero h1 span.highlight {
+      background: linear-gradient(135deg, var(--accent) 0%, #ff6688 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero h1 span.highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      width: 100%;
+      height: 15px;
+      background: var(--accent);
+      opacity: 0.3;
+      filter: blur(10px);
+      z-index: -1;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 600px;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 40px var(--accent-glow);
+      background: #ff1a55;
+    }
+
+    .btn-secondary {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-hover);
+      border-color: var(--muted);
+      transform: translateY(-4px);
+    }
+
+    .btn i {
+      transition: 0.3s;
+    }
+
+    .btn:hover i {
+      transform: translateX(4px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 20px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(90deg, var(--accent), var(--accent-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 800;
+      background: linear-gradient(180deg, #ffffff 0%, #ffcfdb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--card-radius);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      z-index: 1;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at top right, rgba(255, 0, 68, 0.1) 0%, transparent 60%);
+      z-index: -1;
+      opacity: 0;
+      transition: 0.5s;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-cyan), var(--accent-violet));
+      opacity: 0.45;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255, 0, 68, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      width: 70px;
+      height: 70px;
+      background: var(--black);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 30px;
+      box-shadow: inset 0 0 20px rgba(255, 0, 68, 0.05);
+      transition: 0.4s;
+    }
+
+    .card:hover .card-icon {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 10px 20px var(--accent-glow);
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .card-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text);
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .card-list {
+      margin-top: 25px;
+      list-style: none;
+    }
+
+    .card-list li {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 12px;
+      color: #ccc;
+      font-size: 1rem;
+    }
+
+    .card-list li i {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .member-card {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--card-radius);
+      padding: 30px 20px;
+      text-align: center;
+      transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .member-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: 0.4s;
+    }
+
+    .member-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 255, 255, 0.1);
+      background: var(--surface-hover);
+    }
+
+    .member-card:hover::after {
+      opacity: 1;
+    }
+
+    .member-avatar-wrap {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+    }
+
+    .member-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--black);
+      box-shadow: 0 0 0 2px var(--glass-border);
+      transition: 0.4s;
+      position: relative;
+      z-index: 2;
+    }
+
+    .avatar-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      border-radius: 50%;
+      filter: blur(20px);
+      opacity: 0;
+      z-index: 1;
+      transition: 0.4s;
+    }
+
+    .member-card:hover .member-avatar {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+
+    .member-card:hover .avatar-glow {
+      opacity: 0.5;
+    }
+
+    .member-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .developer-badge {
+      width: 22px;
+      height: 22px;
+      filter: drop-shadow(0 0 5px var(--accent-glow));
+    }
+
+    .member-role {
+      font-size: 0.95rem;
+      color: var(--accent-light);
+      font-weight: 500;
+      margin-bottom: 15px;
+      font-family: 'Outfit', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.75rem;
+    }
+
+    .team-grid .member-card:nth-child(3n+2) .member-role {
+      color: var(--accent-cyan);
+    }
+
+    .team-grid .member-card:nth-child(3n) .member-role {
+      color: var(--accent-gold);
+    }
+
+    .member-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .section-separator {
+      width: 1px;
+      height: 100px;
+      background: linear-gradient(to bottom, transparent, var(--glass-border), transparent);
+      margin: 0 auto;
+    }
+
+    .opinion-showcase {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--card-radius);
+      padding: 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .opinion-showcase i.bg-icon {
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      font-size: 30rem;
+      color: rgba(255, 255, 255, 0.02);
+      transform: rotate(-15deg);
+      z-index: 0;
+    }
+
+    .opinion-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .opinion-content h3 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .opinion-content p {
+      color: var(--muted);
+      font-size: 1.15rem;
+      margin-bottom: 30px;
+    }
+
+    .vs-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 20px;
+      align-items: center;
+      text-align: left;
+      margin-top: 40px;
+    }
+
+    .vs-box {
+      padding: 30px;
+      border-radius: 16px;
+      background: var(--black);
+      border: 1px solid var(--glass-border);
+    }
+
+    .vs-box.us {
+      border-color: rgba(255, 0, 68, 0.3);
+      box-shadow: 0 10px 30px rgba(255, 0, 68, 0.12);
+      background: linear-gradient(180deg, rgba(255, 0, 68, 0.08) 0%, rgba(11, 11, 11, 1) 100%);
+    }
+
+    .vs-box h4 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .vs-box.them h4 {
+      color: #888;
+    }
+
+    .vs-box.us h4 {
+      color: var(--accent);
+    }
+
+    .vs-box ul li {
+      color: #aaa;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .vs-box.them ul li i {
+      color: #555;
+      margin-top: 4px;
+    }
+
+    .vs-box.us ul li i {
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    .vs-badge {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit';
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      z-index: 2;
+    }
+
+    .cta-section {
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--surface) 0%, #1a050a 100%);
+      border: 1px solid rgba(255, 0, 68, 0.2);
+      border-radius: 30px;
+      padding: 80px 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(255, 0, 68, 0.1);
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff0044' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .cta-desc {
+      font-size: 1.15rem;
+      color: #bbb;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .social-row {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 30px;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #fff;
+      text-decoration: none;
+      transition: 0.4s;
+      background: var(--black);
+      border: 1px solid var(--glass-border);
+    }
+
+    .social-btn.discord {
+      background: #5865F2;
+      border-color: #5865F2;
+      box-shadow: 0 10px 20px rgba(88, 101, 242, 0.3);
+    }
+
+    .social-btn.discord:hover {
+      background: #4752C4;
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(88, 101, 242, 0.4);
+    }
+
+    .social-btn.email {
+      background: var(--surface);
+    }
+
+    .social-btn.email:hover {
+      background: #fff;
+      color: var(--black);
+      transform: translateY(-5px);
+    }
+
+    .social-btn.home {
+      background: var(--glass);
+    }
+
+    .social-btn.home:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 26px rgba(0, 212, 255, 0.2);
+    }
+
+    footer {
+      border-top: 1px solid var(--glass-border);
+      padding: 40px 20px;
+      text-align: center;
+      background: var(--black);
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      opacity: 0.5;
+      transition: 0.3s;
+    }
+
+    .footer-logo:hover {
+      opacity: 1;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    footer p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    footer .heart {
+      color: var(--accent);
+      animation: pulseText 1.5s infinite;
+      display: inline-block;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .fade-up.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes float {
 
       0%,
       100% {
         transform: translateY(0);
-        filter: drop-shadow(0 0 10px rgba(255, 0, 60, 0.5));
       }
 
       50% {
-        transform: translateY(-12px);
-        filter: drop-shadow(0 0 25px rgba(255, 0, 60, 0.9));
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes pulseText {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 991px) {
+      .navbar {
+        width: calc(100% - 20px);
+        height: 62px;
+        top: 10px;
+        padding: 0 14px;
+      }
+
+      .nav-logo span {
+        font-size: 1rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .mobile-menu {
+        width: min(84vw, 320px);
+        padding: 95px 20px 30px;
+      }
+
+      .hero {
+        min-height: 100dvh;
+        padding: 100px 16px 40px;
+      }
+
+      .hero-cta .btn {
+        width: 100%;
+        max-width: 360px;
+      }
+
+      .container {
+        padding: 80px 16px;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .vs-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .vs-badge {
+        margin: 0 auto;
+        transform: none;
+      }
+
+      .vs-box ul li {
+        justify-content: center;
       }
     }
 
     @media (max-width: 768px) {
-      #intro-title {
-        font-size: 1.8rem;
-        margin-top: 1.5rem;
+      .hero h1 {
+        font-size: clamp(2.2rem, 10vw, 3rem);
       }
 
-      #intro-logo {
-        width: 130px;
-        height: 130px;
+      .hero p {
+        font-size: 0.98rem;
+      }
+
+      .opinion-showcase {
+        padding: 40px 20px;
+      }
+
+      .cta-box {
+        padding: 50px 20px;
+        border-radius: 20px;
+      }
+
+      .social-row {
+        flex-direction: column;
+      }
+
+      .social-btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .section-title {
+        font-size: clamp(2rem, 8vw, 2.6rem);
+      }
+
+      .card {
+        padding: 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        border-radius: 16px;
+      }
+
+      .nav-logo img {
+        width: 34px;
+        height: 34px;
+      }
+
+      .hero-badge {
+        margin-bottom: 20px;
+      }
+
+      .member-card {
+        padding: 24px 16px;
+      }
+
+      .cta-box {
+        padding: 40px 16px;
       }
     }
   </style>
@@ -898,437 +1640,571 @@
 
 <body class="intro-active">
 
+  <audio id="intro-audio"
+    src="https://antihambreadoscriptteam.github.io/Audios/AntiHambreadoScriptOnTheTop.mp3"></audio>
+  <div class="intro-flash" id="intro-flash"></div>
 
   <div id="intro-screen">
-    <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo Intro" id="intro-logo">
-    <h1 id="intro-title">Anti-Hambreado Script Team On Top</h1>
-    <p id="intro-subtitle">
-      <i class="fab fa-discord discord-icon"></i>
-      <span>¡No olvides unirte a nuestro servidor de Discord!</span>
-    </p>
+    <button id="start-intro-btn">Ver Intro Musical</button>
+    <button class="skip-btn" id="skip-intro-btn">Saltar Intro</button>
+
+    <div id="intro-logos-container">
+      <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Anti-Hambreado"
+        class="intro-logo intro-logo-anti" id="intro-anti-logo">
+      <div class="intro-campione-wrapper" id="intro-camp-container">
+        <img
+          src="https://yt3.ggpht.com/mTxU8HLFbOvKkZ_gOmwuAsGOU5PldPEI7VclrfgPbIQv-Ti62wEERJna9YcXwYArYSunGhhXZJQ=s176-c-k-c0x00ffffff-no-rj-mo"
+          alt="Campione" class="intro-logo intro-logo-camp">
+        <div class="intro-cross"></div>
+      </div>
+    </div>
+
+    <div id="intro-subs-wrapper">
+    </div>
   </div>
 
-  <div class="bg-fx">
-    <div class="bg-gradient"></div>
-    <div class="bg-grid"></div>
-    <canvas id="particles"></canvas>
-  </div>
+  <div class="noise-bg"></div>
+  <div class="grid-bg"></div>
+  <div class="ambient-light"></div>
+  <div class="ambient-light right"></div>
+  <canvas id="particles"></canvas>
 
-  <nav class="navbar">
-    <div class="nav-title">
-      <i class="fas fa-skull"></i>
-      ANTI-HAMBREADO SCRIPT TEAM
-      <i class="fas fa-skull"></i>
+  <nav class="navbar" id="navbar">
+    <a href="#" class="nav-logo">
+      <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo">
+      <span>Anti-Hambreado</span>
+    </a>
+    <div class="nav-links">
+      <a href="#proposito" class="nav-link">Propósito</a>
+      <a href="#fundador" class="nav-link">Fundador</a>
+      <a href="#equipo" class="nav-link">Equipo</a>
+      <a href="#opinion" class="nav-link">Sátira</a>
+      <a href="#contacto" class="nav-link">Contacto</a>
+    </div>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
   </nav>
 
-  <main class="container">
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#proposito" class="mobile-link"><i class="fas fa-bullseye"></i> Propósito</a>
+    <a href="#fundador" class="mobile-link"><i class="fas fa-crown"></i> Fundador</a>
+    <a href="#equipo" class="mobile-link"><i class="fas fa-shield-alt"></i> Equipo</a>
+    <a href="#mision" class="mobile-link"><i class="fas fa-rocket"></i> Misión</a>
+    <a href="#opinion" class="mobile-link"><i class="fas fa-theater-masks"></i> Sátira</a>
+    <a href="#contacto" class="mobile-link"><i class="fas fa-envelope"></i> Contacto</a>
+  </div>
 
-    <section class="hero">
-      <div class="logo-box">
-        <div class="logo-glow"></div>
-        <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo Anti-Hambreado" class="logo">
-      </div>
-
-      <h1>Anti-Hambreado Script Team</h1>
-
-      <a href="https://git.io/typing-svg" class="typing-svg">
-        <img
-          src="https://readme-typing-svg.herokuapp.com?font=Outfit&size=22&duration=2500&pause=10&color=FF003C&center=true&vCenter=true&random=true&width=530&lines=Executores+siempre+actualizados;Anti-Hambreado+Script+Team+On+Top;Links+directos;Calidad+sin+complicaciones;Respeto+sin+acortadores;0%25+IA;0%25+Skid;Anti-Hambreados;No+m%C3%A1s+campione+script;7+canales+borrados%2C+7mil%2B+suscriptores;Suscribete+a+nuestro+canal+y+dale+like"
-          alt="Typing SVG" />
+  <header class="hero" id="inicio">
+    <div class="hero-badge fade-up">
+      <i class="fas fa-bolt"></i>
+      <span>Comunidad Primero, Hambre Nunca</span>
+    </div>
+    <h1 class="fade-up" style="transition-delay: 0.1s;">
+      Somos el Anti-Hambreado <br>
+      <span class="highlight">Script Team.</span>
+    </h1>
+    <p class="fade-up" style="transition-delay: 0.2s;">
+      La alternativa directa, limpia y libre de anuncios absurdos. Olvídate de los acortadores abusivos, el contenido
+      engañoso y las páginas basura. Aquí valoramos tu tiempo y tu confianza.
+    </p>
+    <div class="hero-cta fade-up" style="transition-delay: 0.3s;">
+      <a href="#equipo" class="btn btn-primary">
+        Conoce al Equipo <i class="fas fa-arrow-right"></i>
       </a>
+      <a href="#contacto" class="btn btn-secondary">
+        <i class="fab fa-discord"></i> Únete al Discord
+      </a>
+    </div>
+  </header>
 
-      <div class="motto-card">
-        <p><strong>Anti-Hambreado Script Team</strong> es el lugar donde los verdaderos jugadores consiguen scripts y
-          executores sin rodeos: links directos, sin virus, sin anuncios, sin loot-link ni tonterías.</p>
-        <p>A diferencia de <strong>Campione Script</strong>, que parece más interesado en llenar su cartera que en
-          ayudar a la comunidad <em>[con sus acortadores eternos y páginas llenas de anuncios]</em>, nosotros sí
-          respetamos tu tiempo.</p>
-        <p><strong>Menos hambre, más calidad.</strong> Eso es lo que nos define.</p>
+  <div class="section-separator"></div>
+
+  <section class="container" id="proposito">
+    <div class="grid-2">
+      <div class="fade-up">
+        <span class="section-tag">Nuestra Razón de Ser</span>
+        <h2 class="section-title">El propósito que nos mueve</h2>
+        <p class="section-desc" style="text-align: left; margin: 0; margin-bottom: 20px;">
+          Nacimos con una idea clara: liberar a la comunidad del yugo de los anuncios abusivos y los acortadores
+          hambrientos. Ningún usuario debería pasar por publicidad engañosa o contenido inapropiado solo para acceder a
+          un script.
+        </p>
+        <p class="section-desc" style="text-align: left; margin: 0;">
+          En un mundo donde algunos prefieren llenar sus bolsillos a costa de tu paciencia, nosotros decidimos crear un
+          ecosistema basado en el respeto y la transparencia.
+        </p>
       </div>
-
-      <div class="links-grid reveal">
-        <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn-link discord">
-          <i class="fab fa-discord"></i> Discord Server
-        </a>
-        <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="btn-link">
-          <i class="fas fa-code"></i> Scripts Hub
-        </a>
-        <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn-link">
-          <i class="fas fa-terminal"></i> Executores
-        </a>
-        <a href="https://antihambreadoscriptteam.github.io/bypass" target="_blank" class="btn-link">
-          <i class="fas fa-key"></i> Bypass Tool
-        </a>
-        <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="btn-link">
-          <i class="fab fa-youtube"></i> YouTube
-        </a>
-      </div>
-    </section>
-
-    <section class="reveal">
-      <h2 class="section-header">
-        <i class="fas fa-question-circle"></i> Preguntas Frecuentes
-      </h2>
-
-      <div class="tabs-container">
-        <div class="accordion-item">
-          <div class="accordion-header">
-            <div class="accordion-title">
-              <i class="fas fa-info-circle"></i>
-              <span>¿Qué es exactamente el Anti-Hambreado Team?</span>
-            </div>
-            <i class="fas fa-chevron-down accordion-icon"></i>
-          </div>
-          <div class="accordion-content">
-            <div class="accordion-inner">
-              <p>Somos un grupo que sube scripts, hubs y herramientas de Roblox 100% limpios, sin acortadores, sin 50
-                anuncios, sin esperar 30 segundos y sin pedirte que te suscribas a 10 canales. Solo link directo y ya.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header">
-            <div class="accordion-title">
-              <i class="fas fa-shield"></i>
-              <span>¿Los scripts tienen virus o backdoor?</span>
-            </div>
-            <i class="fas fa-chevron-down accordion-icon"></i>
-          </div>
-          <div class="accordion-content">
-            <div class="accordion-inner">
-              <p>Nunca. Todos los scripts que subimos están revisados por el equipo. Si dudas, siempre ponemos el link
-                directo al código fuente para que cualquiera pueda auditarlo.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header">
-            <div class="accordion-title">
-              <i class="fas fa-bolt"></i>
-              <span>¿Por qué odian a Campione Script?</span>
-            </div>
-            <i class="fas fa-chevron-down accordion-icon"></i>
-          </div>
-          <div class="accordion-content">
-            <div class="accordion-inner">
-              <p>No lo odiamos, pero es el ejemplo perfecto de "hambreado": 8 acortadores seguidos, anuncios que abren
-                20 pestañas y te exigen entrar a WhatsApp. Nosotros hacemos totalmente lo contrario.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header">
-            <div class="accordion-title">
-              <i class="fas fa-sync-alt"></i>
-              <span>¿Los executores están actualizados tras los parches de Roblox?</span>
-            </div>
-            <i class="fas fa-chevron-down accordion-icon"></i>
-          </div>
-          <div class="accordion-content">
-            <div class="accordion-inner">
-              <p>Sí. La mayoría de executores se actualizan en 24-48h después de un parche grande de Roblox. Si uno se
-                descontinua, lo marcamos claramente con [DESCONTINUADO] en nuestros portales.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header">
-            <div class="accordion-title">
-              <i class="fas fa-comment-dots"></i>
-              <span>¿Puedo pedirles scripts o me ignoran?</span>
-            </div>
-            <i class="fas fa-chevron-down accordion-icon"></i>
-          </div>
-          <div class="accordion-content">
-            <div class="accordion-inner">
-              <p>Claro que puedes. Si el script existe y es verdaderamente seguro, lo buscamos y lo publicamos sin
-                trampas. Si no existe, te hablamos con la verdad y no te hacemos perder tiempo.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header">
-            <div class="accordion-title">
-              <i class="fas fa-link-slash"></i>
-              <span>¿Por qué algunos links se caen o dice "archivo eliminado"?</span>
-            </div>
-            <i class="fas fa-chevron-down accordion-icon"></i>
-          </div>
-          <div class="accordion-content">
-            <div class="accordion-inner">
-              <p>Lamentablemente sitios como Mediafire, Pastebin y otros hostings borran los scripts rápido. Si pasa,
-                repórtalo en Discord y lo resubiremos en menos de 5 minutos con nuevos mirrors funcionales.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header">
-            <div class="accordion-title">
-              <i class="fas fa-crown"></i>
-              <span>¿Aceptan donaciones o hay un sistema VIP/pago?</span>
-            </div>
-            <i class="fas fa-chevron-down accordion-icon"></i>
-          </div>
-          <div class="accordion-content">
-            <div class="accordion-inner">
-              <p>Todo es y será gratis por siempre. No aceptamos pagos ni existen suscripciones para obtener ventajas
-                "exclusivas" en nuestro canal. Eso iría en contra de nuestra ideología.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header">
-            <div class="accordion-title">
-              <i class="fas fa-users"></i>
-              <span>¿Puedo unirme al equipo o ser staff?</span>
-            </div>
-            <i class="fas fa-chevron-down accordion-icon"></i>
-          </div>
-          <div class="accordion-content">
-            <div class="accordion-inner">
-              <p>Sí, pero solo si ya te conocemos y aportas de manera real a la comunidad (subiendo scripts buenos,
-                avisando de updates rápidamente, o diseñando). No admitimos a personas desconocidas sin pruebas de su
-                valor.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header">
-            <div class="accordion-title">
-              <i class="fas fa-cogs"></i>
-              <span>¿Los scripts funcionan con todos los executores?</span>
-            </div>
-            <i class="fas fa-chevron-down accordion-icon"></i>
-          </div>
-          <div class="accordion-content">
-            <div class="accordion-inner">
-              <p>Sí, la gran mayoría están diseñados para ser universales. Si alguno solo funciona en un executor en
-                concreto, lo ponemos en el título del video o de la página web (ej: [SOLARA ONLY] o [DELTAX ONLY]).</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header">
-            <div class="accordion-title">
-              <i class="fas fa-clock"></i>
-              <span>¿Por qué a veces tardáis en responder?</span>
-            </div>
-            <i class="fas fa-chevron-down accordion-icon"></i>
-          </div>
-          <div class="accordion-content">
-            <div class="accordion-inner">
-              <p>Todos tenemos vida fuera del equipo: colegio, universidad, trabajo... Pero siempre vuelve alguien para
-                atender. El grupo nunca muere, aunque a veces duerma unas horas.</p>
-            </div>
-          </div>
+      <div class="fade-up" style="transition-delay: 0.2s;">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-shield"></i></div>
+          <h3 class="card-title">Cero Hambre Digital</h3>
+          <p>Nuestro compromiso es inquebrantable:</p>
+          <ul class="card-list">
+            <li><i class="fas fa-check"></i> Compartir sin hambre y sin ataduras.</li>
+            <li><i class="fas fa-check"></i> Enlaces directos, limpios y 100% seguros.</li>
+            <li><i class="fas fa-check"></i> Respeto absoluto por el usuario.</li>
+          </ul>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="reveal">
-      <h2 class="section-header">
-        <i class="fas fa-gavel"></i> Legal & Términos
-      </h2>
-
-      <div class="legal-grid">
-        <div class="legal-card">
-          <h3><i class="fas fa-exclamation-triangle"></i> Uso Bajo Tu Riesgo</h3>
-          <p>Todos los recursos, scripts y herramientas compartidas son con fines educativos y de investigación.
-            Eximimos toda responsabilidad por el uso dado a nuestras publicaciones por parte del usuario final.</p>
-        </div>
-
-        <div class="legal-card">
-          <h3><i class="fas fa-ban"></i> ToS de Roblox</h3>
-          <p>El uso de clientes modificados o inyecciones de código va en contra de los Términos de Servicio de Roblox.
-            Utilizar estos programas puede derivar en baneos permanentes o borrados de cuenta. Tú asumes todo el riesgo.
+  <section class="container" id="fundador">
+    <div class="card fade-up">
+      <div class="grid-2">
+        <div>
+          <span class="section-tag">El Origen</span>
+          <h2 class="section-title" style="font-size: 2.5rem;">El fundador: <br><span
+              style="color: var(--accent);">TheBanHammer</span></h2>
+          <p style="color: var(--muted); font-size: 1.1rem; margin-bottom: 15px;">
+            El 16 de marzo de 2025, TheBanHammer decidió que ya era suficiente. Cansado de navegar por la jungla de
+            anuncios, tomó el martillo y fundó este proyecto.
+          </p>
+          <p style="color: var(--muted); font-size: 1.1rem;">
+            No fue un capricho: fue una respuesta a la frustración de miles de usuarios. Él entendió algo que otros
+            olvidaron: <strong>la comunidad merece respeto, no trampas disfrazadas de "monetización".</strong>
           </p>
         </div>
-
-        <div class="legal-card">
-          <h3><i class="fas fa-bug"></i> Ausencia de Garantías</h3>
-          <p>No garantizamos el funcionamiento ininterrumpido de los scripts ni la inmunidad ante sistemas anti-cheat
-            modernos como Byfron/Hyperion. Nos desvinculamos si tu antivirus lo marca o contiene fallos.</p>
+        <div style="display: flex; justify-content: center;">
+          <div class="member-avatar-wrap" style="width: 200px; height: 200px; margin: 0;">
+            <div class="avatar-glow"></div>
+            <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/TheRealBanHammer.png" alt="TheBanHammer"
+              class="member-avatar">
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="legal-card">
-          <h3><i class="fas fa-hand-holding-usd"></i> Prohibición de Lucro</h3>
-          <p>Está terminalmente prohibido revender, monetizar o re-subir nuestros scripts detrás de acortadores y
-            anuncios. Somos un equipo que lucha contra esas prácticas "hambreadas".</p>
+  <section class="container" id="equipo">
+    <div class="section-header fade-up">
+      <span class="section-tag">Nuestra Escuadra</span>
+      <h2 class="section-title">Los Integrantes</h2>
+      <p class="section-desc">Un equipo de guerreros digitales defendiendo la misma causa. Cero anuncios, máxima calidad
+        y links directos.</p>
+    </div>
+
+    <h3 class="fade-up" style="color: #fff; font-size: 1.5rem; text-align: center; margin-bottom: 10px;">Dueños de la
+      Comunidad</h3>
+    <div class="team-grid fade-up" style="margin-bottom: 60px;">
+      <div class="member-card">
+        <div class="member-avatar-wrap">
+          <div class="avatar-glow"></div>
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/KYS-FELICIA.png" alt="FeliciaXxxTop"
+            class="member-avatar">
         </div>
+        <h4 class="member-name">FeliciaXxxTop</h4>
+        <div class="member-role">Estratega</div>
+        <p class="member-desc">Voz firme contra el hambre digital y protectora de nuestros principios.</p>
+      </div>
 
-        <div class="legal-card">
-          <h3><i class="fas fa-times-circle"></i> No Somos Responsables</h4>
-            <p>El equipo Anti-Hambreado Script Team no será responsable de:</p>
+      <div class="member-card">
+        <div class="member-avatar-wrap">
+          <div class="avatar-glow"></div>
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/IWOOZY0SKID.png" alt="iWoozy"
+            class="member-avatar">
+        </div>
+        <h4 class="member-name">iWoozy</h4>
+        <div class="member-role">Maestro del Timing</div>
+        <p class="member-desc">Siempre un paso adelante en la encarnizada batalla contra los acortadores.</p>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar-wrap">
+          <div class="avatar-glow"></div>
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/NO-SLOWWW.png" alt="No-Slowww"
+            class="member-avatar">
+        </div>
+        <h4 class="member-name">No-Slowww</h4>
+        <div class="member-role">Velocista</div>
+        <p class="member-desc">Como su nombre indica, velocidad pura: scripts directos, sin retrasos.</p>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar-wrap">
+          <div class="avatar-glow"></div>
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/ANGELLTFMXD.png" alt="AngelltfmXD"
+            class="member-avatar">
+        </div>
+        <h4 class="member-name">AngelltfmXD</h4>
+        <div class="member-role">Creativo</div>
+        <p class="member-desc">El toque humorístico, porque la lucha contra el hambre también se gana con risas.</p>
+      </div>
+    </div>
+
+    <h3 class="fade-up" style="color: #fff; font-size: 1.5rem; text-align: center; margin-bottom: 10px;">Desarrolladores
+      Principales</h3>
+    <div class="team-grid fade-up" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+      <div class="member-card"
+        style="border-color: rgba(255,0,68,0.2); background: linear-gradient(180deg, var(--surface) 0%, #150508 100%);">
+        <div class="member-avatar-wrap" style="width: 140px; height: 140px;">
+          <div class="avatar-glow" style="opacity: 0.3;"></div>
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/Mw_Anonymous.gif" alt="Mw_Anonymous"
+            class="member-avatar" style="border-color: var(--accent);">
+        </div>
+        <h4 class="member-name">
+          Mw_Anonymous
+          <img src="https://i.postimg.cc/GpKWKm69/Developer.png" alt="Dev" class="developer-badge">
+        </h4>
+        <div class="member-role" style="color: #fff;">Lead Developer Web</div>
+        <p class="member-desc" style="color: #ccc;">Arquitecto principal del ecosistema web y diseñador de la
+          experiencia de usuario suprema. Creador de la versión 2.0.</p>
+      </div>
+
+      <div class="member-card"
+        style="border-color: rgba(255,0,68,0.2); background: linear-gradient(180deg, var(--surface) 0%, #150508 100%);">
+        <div class="member-avatar-wrap" style="width: 140px; height: 140px;">
+          <div class="avatar-glow" style="opacity: 0.3;"></div>
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/KYS-FELICIA.png" alt="FeliciaXxxTop"
+            class="member-avatar" style="border-color: var(--accent);">
+        </div>
+        <h4 class="member-name">
+          FeliciaXxxTop
+          <img src="https://i.postimg.cc/GpKWKm69/Developer.png" alt="Dev" class="developer-badge">
+        </h4>
+        <div class="member-role" style="color: #fff;">Hub & Core Dev</div>
+        <p class="member-desc" style="color: #ccc;">Desarrolladora principal de nuestro Script Hub y pilar fundamental
+          en la programación secundaria de proyectos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" id="opinion">
+    <div class="opinion-showcase fade-up">
+      <i class="fas fa-theater-masks bg-icon"></i>
+      <div class="opinion-content">
+        <span class="section-tag">La Cruda Realidad</span>
+        <h3>Nuestra opinión sobre el "hambre"</h3>
+        <p>
+          Aquí no hay odio ciego. Podríamos decir que somos "amigos" de Campione Script… pero amigos como los que te
+          encuentras en un manicomio: convives, pero sabes que algo no anda bien. No los odiamos, pero exponemos su
+          modelo de negocio: <strong>Hambre de clics. Hambre de anuncios. Hambre de dinero fácil.</strong>
+        </p>
+
+        <div class="vs-grid">
+          <div class="vs-box them">
+            <h4><i class="fas fa-times-circle"></i> Campione</h4>
             <ul>
-              <li>Bans o pérdidas de cuentas, Robux o ítems.</li>
-              <li>Daños a tu dispositivo o software.</li>
-              <li>Pérdida de datos o perjuicios indirectos.</li>
+              <li><i class="fas fa-long-arrow-alt-right"></i> Promete "Clic aquí para script" y te manda a 10 ventanas.
+              </li>
+              <li><i class="fas fa-long-arrow-alt-right"></i> Presume de comunidad mientras la monetiza sin piedad.</li>
+              <li><i class="fas fa-long-arrow-alt-right"></i> Confunde "apoyo" con exprimir al usuario.</li>
             </ul>
-        </div>
+          </div>
 
-        <div class="legal-card">
-          <h3><i class="fas fa-copyright"></i> Propiedad Intelectual</h3>
-          <p>Los scripts pueden contener código de terceros. El crédito corresponde a sus autores originales. Nosotros
-            solo los compartimos de forma limpia, directa y accesible sin ad-links.</p>
+          <div class="vs-badge">VS</div>
+
+          <div class="vs-box us">
+            <h4><i class="fas fa-check-circle"></i> Nosotros</h4>
+            <ul>
+              <li><i class="fas fa-bolt"></i> Clic aquí = El maldito script directo en tus manos.</li>
+              <li><i class="fas fa-shield-alt"></i> Valoramos la comunidad construyendo confianza real.</li>
+              <li><i class="fas fa-heart"></i> Entendemos que el apoyo se gana, no se secuestra con acortadores.</li>
+            </ul>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="legal-footer reveal">
-        <p class="quote"><i class="fas fa-skull"></i> "Scripts limpios o la muerte." <i class="fas fa-skull"></i></p>
-        <p class="date">Última actualización: 07 de Diciembre de 2025</p>
+  <section class="cta-section" id="contacto">
+    <div class="cta-box fade-up">
+      <div class="cta-content">
+        <span class="section-tag" style="color: #fff;">Únete al Movimiento</span>
+        <h2 class="cta-title">¿Listo para dejar de pasar hambre?</h2>
+        <p class="cta-desc">
+          El Anti-Hambreado Script Team no nació para competir por fama, sino para defender la dignidad. Somos la
+          alternativa que estabas esperando.
+        </p>
+        <div class="social-row">
+          <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="social-btn discord">
+            <i class="fab fa-discord"></i> Discord Oficial
+          </a>
+          <a href="mailto:antianunciostest@gmail.com" class="social-btn email">
+            <i class="fas fa-paper-plane"></i> Contacto
+          </a>
+          <a href="https://antihambreadoscriptteam.github.io/" target="_blank" class="social-btn home">
+            <i class="fas fa-globe"></i> Hub Principal
+          </a>
+        </div>
       </div>
-
-    </section>
-
-  </main>
+    </div>
+  </section>
 
   <footer>
-    <p>© 2026 Anti-Hambreado Script Team | Todos los derechos reservados.</p>
-    <p><i class="fas fa-skull"></i> No seas hambread@ <i class="fas fa-skull"></i></p>
+    <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo" class="footer-logo">
+    <p>© 2026 Anti-Hambreado Script Team.</p>
+    <p>Comunidad primero. Hambre nunca.</p>
+    <p style="margin-top: 15px; font-size: 0.8rem;">
+      Diseñado con <i class="fas fa-heart heart"></i> por Mw_Anonymous
+    </p>
   </footer>
 
   <script>
-    window.addEventListener('load', () => {
-      const introScreen = document.getElementById('intro-screen');
-      const body = document.body;
+    // --- LÓGICA DE LA INTRO ANIMADA CON AUDIO ---
+    const introScreen = document.getElementById('intro-screen');
+    const startBtn = document.getElementById('start-intro-btn');
+    const skipBtn = document.getElementById('skip-intro-btn');
+    const audio = document.getElementById('intro-audio');
+    const logosContainer = document.getElementById('intro-logos-container');
+    const subsWrapper = document.getElementById('intro-subs-wrapper');
+    const campContainer = document.getElementById('intro-camp-container');
+    const antiLogo = document.getElementById('intro-anti-logo');
+    const flash = document.getElementById('intro-flash');
+    const bodyTag = document.body;
+
+    const introSubtitles = [
+      { time: 0.0, text: "Ey, pa' la web", effect: "normal", doFlash: true },
+      { time: 1.0, text: "Sube el nivel", effect: "glitch" },
+      { time: 3.0, text: "Cansado de tanto link que no se puede ver", effect: "normal", doFlash: true },
+      { time: 6.0, text: "Deja el hambre, no seas así, rompemo' el esquema", effect: "cross", doFlash: true, screenShake: true },
+      { time: 9.0, text: "Anti-hambreado script on the top", effect: "dance", doFlash: true },
+      { time: 12.0, text: "Anti-hambreado script on the top, ¡yeah!", effect: "glitch", doFlash: true, screenShake: true },
+      { time: 15.0, text: "Anti-hambreado script on the top", effect: "dance", doFlash: true },
+      { time: 18.0, text: "Subiendo el código sin un acortador", effect: "normal", doFlash: true },
+      { time: 21.0, text: "Anti-hambreado script on the top", effect: "dance", doFlash: true, screenShake: true },
+      { time: 24.0, text: "Anti-hambreado script on the top", effect: "glitch", doFlash: true },
+      { time: 27.0, text: "Anti-hambreado script on the top", effect: "dance", doFlash: true },
+      { time: 31.0, text: "", effect: "end" }
+    ];
+
+    let currentSubIndex = -1;
+
+    function endIntro() {
+      bodyTag.classList.remove('intro-shake-body');
+      introScreen.classList.add('hide');
+      bodyTag.classList.remove('intro-active');
+      audio.pause();
       setTimeout(() => {
-        introScreen.classList.add('hide');
-        body.classList.remove('intro-active');
-        setTimeout(() => {
-          if (introScreen) introScreen.remove();        }, 900);
-      }, 2800);
-    });
+        if (introScreen) introScreen.remove();
+        if (flash) flash.remove();
+      }, 900);
+    }
 
-    const revealElements = document.querySelectorAll('.reveal');
+    if (skipBtn) {
+      skipBtn.addEventListener('click', endIntro);
+    }
 
-    const revealCallback = (entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
+    if (startBtn) {
+      startBtn.addEventListener('click', () => {
+        startBtn.style.display = 'none';
+        if (skipBtn) skipBtn.style.bottom = '20px';
+        logosContainer.style.display = 'flex';
+        subsWrapper.style.display = 'flex';
+
+        audio.play().catch(e => {
+          console.error("Audio failed or buffered too long:", e);
+        });
+      });
+    }
+
+    if (audio) {
+      audio.addEventListener('timeupdate', () => {
+        const time = audio.currentTime;
+
+        if (time >= 27.0 && time <= 31.0) {
+          const progress = (time - 27.0) / 4.0;
+          audio.volume = Math.max(0, 1 - progress);
+          bodyTag.style.opacity = Math.max(0, 1 - progress);
+        }
+
+        let activeIndex = -1;
+        for (let i = 0; i < introSubtitles.length; i++) {
+          if (time >= introSubtitles[i].time) activeIndex = i;
+        }
+
+        if (activeIndex !== currentSubIndex && activeIndex !== -1) {
+          currentSubIndex = activeIndex;
+          updateIntroSub(introSubtitles[activeIndex]);
         }
       });
-    };
 
-    const revealOptions = {
+      audio.addEventListener('ended', () => {
+        audio.volume = 1;
+        bodyTag.style.opacity = '1';
+        endIntro();
+      });
+    }
+
+    function updateIntroSub(sub) {
+      if (!subsWrapper) return;
+
+      const oldSubs = subsWrapper.querySelectorAll('.intro-sub');
+      oldSubs.forEach(s => {
+        s.classList.remove('active');
+        s.classList.add('exit');
+        setTimeout(() => s.remove(), 200);
+      });
+
+      if (sub.effect === "end" || sub.text === "") {
+        if (campContainer) campContainer.classList.remove('crossed-out');
+        if (antiLogo) antiLogo.classList.remove('active-dance');
+        if (bodyTag) bodyTag.classList.remove('intro-shake-body');
+        return;
+      }
+
+      const el = document.createElement('div');
+      el.className = 'intro-sub';
+      el.innerText = sub.text;
+
+      if (sub.effect === "glitch" || sub.effect === "cross" || sub.effect === "dance") {
+        el.classList.add('intro-glitch-text');
+        el.setAttribute('data-text', sub.text);
+      }
+
+      subsWrapper.appendChild(el);
+      void el.offsetWidth;
+      el.classList.add('active');
+
+      if (sub.effect === "cross" && campContainer && antiLogo) {
+        campContainer.classList.add('crossed-out');
+        antiLogo.classList.add('active-dance');
+      }
+      if (sub.effect === "dance" && antiLogo) antiLogo.classList.add('active-dance');
+
+      if (sub.screenShake && bodyTag) bodyTag.classList.add('intro-shake-body');
+      else if (bodyTag) bodyTag.classList.remove('intro-shake-body');
+
+      if (sub.doFlash && flash) {
+        flash.classList.remove('intro-flash-active');
+        void flash.offsetWidth;
+        flash.classList.add('intro-flash-active');
+      }
+    }
+    // --- FIN LÓGICA DE LA INTRO ---
+
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles = [];
+
+    function initParticles() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      particles = [];
+
+      const numParticles = Math.min(window.innerWidth / 15, 80);
+
+      for (let i = 0; i < numParticles; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: Math.random() * 2,
+          speedX: (Math.random() - 0.5) * 0.5,
+          speedY: (Math.random() - 0.5) * 0.5,
+          opacity: Math.random() * 0.5 + 0.1
+        });
+      }
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = '#ff0044';
+
+      particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        ctx.globalAlpha = p.opacity;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    initParticles();
+    drawParticles();
+    window.addEventListener('resize', initParticles);
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('mobileOverlay');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    let menuOpen = false;
+
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        mobileMenu.classList.add('open');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      } else {
+        mobileMenu.classList.remove('open');
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (menuOpen) toggleMenu();
+      });
+    });
+
+    const observerOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -50px 0px"
     };
 
-    const revealObserver = new IntersectionObserver(revealCallback, revealOptions);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
 
-    revealElements.forEach(el => revealObserver.observe(el));
+    document.querySelectorAll('.fade-up').forEach(el => {
+      observer.observe(el);
+    });
 
-    const accordions = document.querySelectorAll('.accordion-header');
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(10,10,10,0.85)';
+        navbar.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
+        navbar.style.border = '1px solid rgba(255,0,68,0.2)';
+      } else {
+        navbar.style.background = 'var(--glass)';
+        navbar.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+        navbar.style.border = '1px solid var(--glass-border)';
+      }
+    });
 
-    accordions.forEach(accordion => {
-      accordion.addEventListener('click', function () {
-        const item = this.parentElement;
-        const content = this.nextElementSibling;
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section, header');
 
-        document.querySelectorAll('.accordion-item').forEach(otherItem => {
-          if (otherItem !== item) {
-            otherItem.classList.remove('active');
-            otherItem.querySelector('.accordion-content').style.maxHeight = null;
-          }
-        });
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= (sectionTop - 200)) {
+          current = section.getAttribute('id');
+        }
+      });
 
-        item.classList.toggle('active');
-
-        if (item.classList.contains('active')) {
-          content.style.maxHeight = content.scrollHeight + "px";
-        } else {
-          content.style.maxHeight = null;
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').substring(1) === current) {
+          link.classList.add('active');
         }
       });
     });
-
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    let w, h;
-
-    function resize() {
-      w = innerWidth;
-      h = innerHeight;
-      canvas.width = w;
-      canvas.height = h;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    class Particle {
-      constructor() {
-        this.reset();
-        this.life = Math.random() * this.max;
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        this.life++;
-
-        if (this.life < this.max / 3) this.a += this.as;
-        else if (this.life > this.max * 0.75) this.a -= this.as;
-
-        if (this.life > this.max || this.a <= 0) this.reset();
-      }
-
-      reset() {
-        const edge = Math.floor(Math.random() * 4);
-        switch (edge) {
-          case 0: this.x = Math.random() * w; this.y = 0; break;
-          case 1: this.x = w; this.y = Math.random() * h; break;
-          case 2: this.x = Math.random() * w; this.y = h; break;
-          case 3: this.x = 0; this.y = Math.random() * h; break;
-        }
-        this.vx = (w / 2 - this.x) * 0.001 * (Math.random() * 0.8 + 0.4);
-        this.vy = (h / 2 - this.y) * 0.001 * (Math.random() * 0.8 + 0.4);
-        this.r = Math.random() * 2 + 1;
-        this.life = 0;
-        this.max = 300 + Math.random() * 300;
-        this.a = 0;
-        this.as = 0.008 + Math.random() * 0.005;
-        this.color = `rgba(255, ${Math.floor(Math.random() * 50)}, ${Math.floor(Math.random() * 50)},`;
-      }
-
-      draw() {
-        ctx.beginPath();
-        const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r * 2.5);
-        g.addColorStop(0, this.color + this.a + ')');
-        g.addColorStop(1, this.color + '0)');
-        ctx.fillStyle = g;
-        ctx.arc(this.x, this.y, this.r * 2.5, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.fillStyle = this.color + this.a + ')';
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    const particlesArray = Array.from({ length: 60 }, () => new Particle());
-
-    function animateCanvas() {
-      ctx.clearRect(0, 0, w, h);
-      particlesArray.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animateCanvas);
-    }
-    animateCanvas();
   </script>
 </body>
 
