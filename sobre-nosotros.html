@@ -135,7 +135,6 @@
       font-family: 'Outfit', sans-serif;
     }
 
-    /* --- ESTILOS DE LA NUEVA INTRO ANIMADA --- */
     body.intro-active {
       overflow: hidden;
     }
@@ -163,7 +162,6 @@
       pointer-events: none;
     }
 
-    /* Start Button Overlay */
     #start-intro-btn {
       padding: 15px 40px;
       font-size: 1.5rem;
@@ -209,10 +207,8 @@
       color: white;
     }
 
-    /* Logos Container */
     #intro-logos-container {
       display: none;
-      /* Hidden until play is clicked */
       justify-content: center;
       align-items: center;
       gap: 50px;
@@ -350,11 +346,9 @@
       }
     }
 
-    /* Intro Subtitles */
     #intro-subs-wrapper {
       height: 120px;
       display: none;
-      /* Hidden until play */
       justify-content: center;
       align-items: center;
       text-align: center;
@@ -455,7 +449,6 @@
       }
     }
 
-    /* Glitch text specific for intro */
     .intro-glitch-text {
       position: relative;
     }
@@ -527,7 +520,6 @@
       }
     }
 
-    /* --- FIN ESTILOS DE LA NUEVA INTRO --- */
 
     .noise-bg {
       position: fixed;
@@ -1644,7 +1636,7 @@
   <div class="intro-flash" id="intro-flash"></div>
 
   <div id="intro-screen">
-    <button id="start-intro-btn">Ver Intro Musical</button>
+    <button id="start-intro-btn">Acceder</button>
     <button class="skip-btn" id="skip-intro-btn">Saltar Intro</button>
 
     <div id="intro-logos-container">
@@ -2074,7 +2066,6 @@
         flash.classList.add('intro-flash-active');
       }
     }
-    // --- FIN LÓGICA DE LA INTRO ---
 
     const canvas = document.getElementById('particles');
     const ctx = canvas.getContext('2d');
