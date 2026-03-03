@@ -4,7 +4,7 @@
       "nombre": "PunkX",
       "version": "2.708",
       "fecha_actualizacion": "26-02-2026",
-      "status": "indetectable",
+      "status": "desactualizado",
       "link_descarga_arm64": "https://www.mediafire.com/file/hx8uw87uez1eya4/PunkX_64Bits-2.708.880_%2528Fixed%2529.apk/file",
       "link_descarga_arm32": "https://www.mediafire.com/file/aw2ovlawjagfmfe/PunkX_32Bits-2.708.880_%2528Fixed%2529.apk/file", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/PunkX.png"
@@ -21,7 +21,7 @@
       "nombre": "ArceusX",
       "version": "2.0.6",
       "fecha_actualizacion": "21-02-2026",
-      "status": "detectable",
+      "status": "desactualizado",
       "link_descarga_arm64": "https://android.spdmteam.com/",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/ARCEUS.jpeg"
     },
