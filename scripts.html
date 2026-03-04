@@ -886,6 +886,10 @@ html {
     <span class="folder-icon">📁</span>
     ANIME FINAL QUESTS
 </div>
+<div class="sidebar-item" onclick="showContent('anime-ghost')">
+    <span class="folder-icon">📁</span>
+    ANIME GHOST
+</div>
         <div class="sidebar-item" onclick="showContent('basically-fnf-remix')">
             <span class="folder-icon">📁</span>
             BASICALLY FNF: REMIX
@@ -1172,6 +1176,10 @@ html {
 <div id="anime-final-quests" class="content">
     <h2 class="section-title">✨ ANIME FINAL QUESTS</h2>
     <div class="script-card"><div class="script-header"><div class="script-title">NEW OMG HUB 2025</div><button class="copy-button" onclick="copyScript(this, 'animef-omg')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="animef-omg">https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file</pre></div></div>
+</div>
+<div id="anime-ghost" class="content">
+    <h2 class="section-title">👻 ANIME GHOST</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">MAI HUB</div><button class="copy-button" onclick="copyScript(this, 'animeghost-mai')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="animeghost-mai">https://www.mediafire.com/file/u2escfcd131x0fh/SCRIPT+MAI+HUB.txt/file</pre></div></div>
 </div>
     <div id="basically-fnf-remix" class="content">
         <h2 class="section-title">🎵 BASICALLY FNF: REMIX</h2>
@@ -1592,6 +1600,7 @@ end)</pre></div></div>
 { game: 'ABYSS', title: 'IMP HUB', id: 'abyss-imp' }, 
 { game: 'ABYSS', title: 'JUMANTARA HUB', id: 'abyss-jumantara' },
 { game: 'ANIME FINAL QUESTS', title: 'NEW OMG HUB 2025', id: 'animef-omg' }, 
+{ game: 'ANIME GHOST', title: 'MAI HUB', id: 'animeghost-mai' }, 
                 { game: 'BASICALLY FNF: REMIX', title: 'AUTO PLAYER', id: 'fnf1' },
                 { game: 'BLOCK SPIN', title: 'HERMANOS-DEV', id: 'bs1' },
                 { game: 'BLOCK SPIN', title: 'QUARTY', id: 'bs2' },
@@ -1795,6 +1804,7 @@ end)</pre></div></div>
 (itemText.includes('ARSENAL') && sectionId === 'arsenal') ||
 (itemText.includes('ABYSS') && sectionId === 'abyss') ||
 (itemText.includes('ANIME FINAL') && sectionId === 'anime-final-quests') ||
+(itemText.includes('ANIME GHOST') && sectionId === 'anime-ghost') ||
                         (itemText.includes('BASICALLY FNF') && sectionId === 'basically-fnf-remix') ||
                         (itemText.includes('BLOCK SPIN') && sectionId === 'block-spin') ||
                         (itemText.includes('BLOODMONEY') && sectionId === 'bloodmoney') ||
