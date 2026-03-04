@@ -922,6 +922,10 @@ html {
     <span class="folder-icon">📁</span>
     BRAINROT SEA
        </div>
+<div class="sidebar-item" onclick="showContent('bizarre-lineage')">
+    <span class="folder-icon">📁</span>
+    BIZARRE LINEAGE
+</div>
         <div class="sidebar-item" onclick="showContent('dandy-world')">
             <span class="folder-icon">📁</span>
             DANDY'S WORLD
@@ -1239,6 +1243,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Scripts/refs/h
     <h2 class="section-title">🧠 BRAINROT SEA</h2>
     <div class="script-card"><div class="script-header"><div class="script-title">STATS OP</div><button class="copy-button" onclick="copyScript(this, 'brainrot-stats')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="brainrot-stats">loadstring(game:HttpGet("https://antihambreadoscriptteam.github.io/Scripts/Brainrot%20Sea.lua"))()</pre></div></div>
    </div>
+<div id="bizarre-lineage" class="content">
+    <h2 class="section-title">🌀 BIZARRE LINEAGE</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">BLACK HUB</div><button class="copy-button" onclick="copyScript(this, 'bizarre-black')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="bizarre-black">https://www.mediafire.com/file/dgsk6uepq1s07jm/SCRIPT+BLACK+HUB.txt/file</pre></div></div>
+</div>
     <div id="dandy-world" class="content">
         <h2 class="section-title">🌼 DANDY'S WORLD</h2>
         <div class="script-card"><div class="script-header"><div class="script-title">DANDY'S WORLD HUB</div><button class="copy-button" onclick="copyScript(this, 'dw1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="dw1">loadstring(game:HttpGet("https://pastebin.com/raw/H3u62n7D"))()</pre></div></div>
@@ -1616,6 +1624,7 @@ end)</pre></div></div>
                 { game: 'BEE SWARM SIMULATOR', title: 'MACROWARE', id: 'bee-macro' }, 
                 { game: 'BRAINROT SEA', title: 'STATS OP', id: 'brainrot-stats' }, 
                 { game: 'BUILD A BOAT', title: 'BABFT', id: 'babft-script' }, 
+{ game: 'BIZARRE LINEAGE', title: 'BLACK HUB', id: 'bizarre-black' }, 
                 { game: 'DANDY\'S WORLD', title: 'DANDY\'S WORLD HUB', id: 'dw1' },
                 { game: 'DEAD DEFENSE', title: 'GUMANBA', id: 'dd1' },
                 { game: 'DEAD RAILS', title: 'NAT HUB', id: 'dr1' },
@@ -1795,6 +1804,7 @@ end)</pre></div></div>
                         (itemText.includes('BUILD A BOAT') && sectionId === 'build-a-boat') ||
                         (itemText.includes('BEE SWARM') && sectionId === 'bee-swarm-simulator') ||
                         (itemText.includes('BRAINROT SEA') && sectionId === 'brainrot-sea') ||
+(itemText.includes('BIZARRE LINEAGE') && sectionId === 'bizarre-lineage') ||
                         (itemText.includes('DANDY') && sectionId === 'dandy-world') ||
                         (itemText.includes('DEAD DEFENSE') && sectionId === 'dead-defense') ||
                         (itemText.includes('DEAD RAILS') && sectionId === 'dead-rails') ||
