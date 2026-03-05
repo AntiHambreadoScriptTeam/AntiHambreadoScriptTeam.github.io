@@ -19,8 +19,8 @@
     },
     "arceus": {
       "nombre": "ArceusX",
-      "version": "2.0.6",
-      "fecha_actualizacion": "21-02-2026",
+      "version": "2.0.7",
+      "fecha_actualizacion": "05-03-2026",
       "status": "desactualizado",
       "link_descarga_arm64": "https://android.spdmteam.com/",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/ARCEUS.jpeg"
@@ -35,10 +35,11 @@
     },
     "ronix": {
       "nombre": "Ronix",
-      "version": "2.709",
-      "fecha_actualizacion": "03-03-2026",
+      "version": "2.710",
+      "fecha_actualizacion": "05-03-2026",
       "status": "peligro",
-      "link_descarga_arm64": "https://wrdcdn.net/r/154522/1772550954255/Ronix_64Bits-2.709.873_FIX.apk",
+      "link_descarga_arm64": "https://wrdcdn.net/r/154522/1772697006689/Ronix_64Bits-2.710.707.apk",
+      "link_descarga_arm32": "https://wrdcdn.net/r/154522/1772697074296/Ronix_32Bits-2.710.707.apk" 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/RONIX.webp"
     },
      "fluxusz": {
