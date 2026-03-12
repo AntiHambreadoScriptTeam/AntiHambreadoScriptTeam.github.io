@@ -1,5 +1,14 @@
 {
   "executores": {
+  "punkx": {
+      "nombre": "PunkX",
+      "version": "2.710",
+      "fecha_actualizacion": "11-03-2026",
+      "status": "indetectable",
+      "link_descarga_arm64": "https://www.mediafire.com/file/iroz8xlx9paw6is/PunkX_64Bits-2.710.707.apk/file",
+      "link_descarga_arm32": "https://www.mediafire.com/file/zfpavgwwdle63ac/PunkX_32Bits-2.710.707.apk/file", 
+      "imagen": "https://antihambreadoscriptteam.github.io/Foto/PunkX.png"
+    }, 
     "codex": {
       "nombre": "CodeX",
       "version": "2.710",
@@ -41,15 +50,6 @@
       "link_descarga_arm64": "https://wrdcdn.net/r/154522/1772697006689/Ronix_64Bits-2.710.707.apk",
       "link_descarga_arm32": "https://wrdcdn.net/r/154522/1772697074296/Ronix_32Bits-2.710.707.apk", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/RONIX.webp"
-    },
-    "punkx": {
-      "nombre": "PunkX",
-      "version": "2.708",
-      "fecha_actualizacion": "26-02-2026",
-      "status": "descontinuado",
-      "link_descarga_arm64": "https://www.mediafire.com/file/hx8uw87uez1eya4/PunkX_64Bits-2.708.880_%2528Fixed%2529.apk/file",
-      "link_descarga_arm32": "https://www.mediafire.com/file/aw2ovlawjagfmfe/PunkX_32Bits-2.708.880_%2528Fixed%2529.apk/file", 
-      "imagen": "https://antihambreadoscriptteam.github.io/Foto/PunkX.png"
     },
     "krnl": {
       "nombre": "KRNL",
