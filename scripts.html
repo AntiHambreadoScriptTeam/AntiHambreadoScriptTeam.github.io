@@ -1026,6 +1026,10 @@ html {
             <span class="folder-icon">📁</span>
             KING LEGACY
         </div>
+<div class="sidebar-item" onclick="showContent('kaisen')">
+    <span class="folder-icon">📁</span>
+    KAISEN
+</div>
         <div class="sidebar-item" onclick="showContent('muscle-legends')">
             <span class="folder-icon">📁</span>
             MUSCLE LEGENDS
@@ -1392,6 +1396,10 @@ getgenv().ResetFirstLoad = true -- For Reset First Time Load true = yes and fals
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ChopLoris/ArcHub/main/main.lua"))()</pre></div></div>
         <div class="script-card"><div class="script-header"><div class="script-title">OMG HUB</div><button class="copy-button" onclick="copyScript(this, 'kl2')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="kl2">https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file</pre></div></div>
     </div>
+<div id="kaisen" class="content">
+    <h2 class="section-title">⚡ KAISEN</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">NEW OMG HUB 2025</div><button class="copy-button" onclick="copyScript(this, 'kaisen-omg')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="kaisen-omg">https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file</pre></div></div>
+</div>
     <div id="muscle-legends" class="content">
         <h2 class="section-title">💪 MUSCLE LEGENDS</h2>
         <div class="script-card"><div class="script-header"><div class="script-title">ECLIPSE HUB</div><button class="copy-button" onclick="copyScript(this, 'ml1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="ml1">loadstring(game:HttpGet("https://protected-roblox-scripts.onrender.com/ef14c49aab8ad4e9ab69171b40989cd2"))()</pre></div></div>
@@ -1690,6 +1698,7 @@ end)</pre></div></div>
                 { game: 'JUJUTSU ZERO', title: 'SIMCA HUB', id: 'jzero-simca' }, 
                 { game: 'KING LEGACY', title: 'ARC HUB', id: 'kl1' },
                 { game: 'KING LEGACY', title: 'OMG HUB', id: 'kl2' },
+{ game: 'KAISEN', title: 'NEW OMG HUB 2025', id: 'kaisen-omg' }, 
                 { game: 'MUSCLE LEGENDS', title: 'ECLIPSE HUB', id: 'ml1' },
                 { game: 'MUSCLE LEGENDS', title: 'SPEED HUB', id: 'ml2' },
                 { game: 'MURDER MYSTERY', title: 'MM2 NAVIDAD', id: 'mm2-navidad' }, 
@@ -1840,6 +1849,7 @@ end)</pre></div></div>
                         (itemText.includes('JUJUTSU') && sectionId === 'jujutsu-infinite') || 
                         (itemText.includes('JUJUTSU ZERO') && sectionId === 'jujutsu-zero') ||
                         (itemText.includes('KING LEGACY') && sectionId === 'king-legacy') ||
+(itemText.includes('KAISEN') && sectionId === 'kaisen') ||
                         (itemText.includes('MUSCLE LEGENDS') && sectionId === 'muscle-legends') ||
                         (itemText.includes('MURDER MYSTERY') && sectionId === 'murder-mystery') ||
                         (itemText.includes('NINJA TIMES') && sectionId === 'ninja-times') ||
