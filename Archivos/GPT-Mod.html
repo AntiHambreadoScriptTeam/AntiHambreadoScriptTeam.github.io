@@ -133,6 +133,7 @@
             letter-spacing: -0.5px;
             background: linear-gradient(135deg, #ffffff 0%, #ff8a8a 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -214,6 +215,7 @@
         .text-gradient {
             background: linear-gradient(135deg, #ff2a2a, #ff8a8a);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             position: relative;
             display: inline-block;
@@ -605,6 +607,223 @@
             to { opacity: 1; }
         }
 
+        .fab-menu-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 25px rgba(255,42,42,0.4);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 900;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fab-menu-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 35px rgba(255,42,42,0.6);
+        }
+
+        .menu-backdrop {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 990;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .menu-panel {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 420px;
+            max-width: 100%;
+            height: 85vh;
+            background: rgba(15, 0, 0, 0.95);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-top-left-radius: 32px;
+            border-left: 1px solid rgba(255,42,42,0.2);
+            border-top: 1px solid rgba(255,42,42,0.2);
+            box-shadow: -10px 0 40px rgba(0,0,0,0.8);
+            z-index: 995;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 768px) {
+            .menu-panel {
+                width: 100%;
+                border-top-right-radius: 32px;
+                border-left: none;
+            }
+        }
+
+        .menu-panel.active {
+            transform: translateY(0);
+        }
+
+        .menu-header {
+            padding: 24px 30px;
+            border-bottom: 1px solid rgba(255,42,42,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-header h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-panel {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex; justify-content: center; align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .close-panel:hover {
+            background: rgba(255,42,42,0.3);
+            transform: rotate(90deg);
+        }
+
+        .menu-content {
+            padding: 30px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .menu-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .menu-content::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.02);
+        }
+        .menu-content::-webkit-scrollbar-thumb {
+            background: rgba(255,42,42,0.3);
+            border-radius: 10px;
+        }
+
+        .section-title {
+            color: #ff6b6b;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255,42,42,0.3), transparent);
+        }
+
+        .faq-item {
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.02);
+            padding: 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .faq-item h4 {
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .faq-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .faq-item img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-top: 8px;
+        }
+
+        .divider {
+            border: none;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin: 30px 0;
+        }
+
+        .donations-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 16px;
+        }
+
+        .btn-donate {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,42,42,0.05);
+            border: 1px solid rgba(255,42,42,0.2);
+            color: white;
+            padding: 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-donate:hover {
+            background: rgba(255,42,42,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255,42,42,0.25);
+            border-color: rgba(255,42,42,0.4);
+        }
+
+        .robux-icon {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             main { padding-top: 100px; }
@@ -723,9 +942,71 @@
         </div>
     </div>
 
+        <!-- Help / Settings Floating Menu -->
+    <button class="fab-menu-btn" onclick="toggleMenuPanel()" aria-label="Abrir menú de ayuda">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="menu-backdrop" id="menuBackdrop" onclick="toggleMenuPanel()"></div>
+    
+    <div class="menu-panel" id="menuPanel">
+        <div class="menu-header">
+            <h2><i class="fa-solid fa-circle-question"></i> Ayuda y Soporte</h2>
+            <button class="close-panel" onclick="toggleMenuPanel()" aria-label="Cerrar panel"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div class="menu-content">
+            <h3 class="section-title">¿Cómo arreglar el inicio de sesión?</h3>
+            
+            <div class="faq-item">
+                <h4>No me deja iniciar con el botón de Google</h4>
+                <p>Usa el método de gmail que chatgpt trae incorporado de manera nativa en la app.</p>
+                <img src="https://files.catbox.moe/wcpabe.png" alt="Solución método de Gmail">
+            </div>
+
+            <div class="faq-item">
+                <h4>El método de Gmail tampoco me funciona</h4>
+                <p>Se arregla bastante fácil. Instala chatgpt original e inicia sesión con el botón de Google, luego, lo borras e instalas el mod y vuelves usar el botón de Google. El inicio de sesión ahora funcionará.</p>
+                <img src="https://files.catbox.moe/bqc0hy.jpg" alt="Solución reinstalación">
+            </div>
+
+            <hr class="divider">
+
+            <h3 class="section-title">Apoya nuestro trabajo</h3>
+            <div class="faq-item">
+                <h4>Me gustaría donar para que no abandonen este mod</h4>
+                <p>Si gustas donarnos puedes hacerlo mediante los siguientes links. <strong>NO ES OBLIGATORIO</strong>.</p>
+                
+                <div class="donations-container">
+                    <a href="https://www.roblox.com/game-pass/1233584501/25" target="_blank" class="btn-donate">
+                        <img src="https://i.etsystatic.com/33651042/r/il/16c008/6819700938/il_fullxfull.6819700938_868m.jpg" alt="Robux" class="robux-icon"> 25 Robux
+                    </a>
+                    <a href="https://www.roblox.com/game-pass/1070311366/55" target="_blank" class="btn-donate">
+                        <img src="https://i.etsystatic.com/33651042/r/il/16c008/6819700938/il_fullxfull.6819700938_868m.jpg" alt="Robux" class="robux-icon"> 55 Robux
+                    </a>
+                    <a href="https://www.roblox.com/game-pass/1058944228/100" target="_blank" class="btn-donate">
+                        <img src="https://i.etsystatic.com/33651042/r/il/16c008/6819700938/il_fullxfull.6819700938_868m.jpg" alt="Robux" class="robux-icon"> 100 Robux
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logic Script -->
     <script>
         const modal = document.getElementById('downloadModal');
         let timerStarted = false;
+
+        function toggleMenuPanel() {
+            document.getElementById('menuPanel').classList.toggle('active');
+            document.getElementById('menuBackdrop').classList.toggle('active');
+            
+            // Toggle body scroll lock
+            if (document.getElementById('menuPanel').classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
 
         function openModal() {
             modal.classList.add('active');
@@ -788,4 +1069,3 @@
     </script>
 </body>
 </html>
-
