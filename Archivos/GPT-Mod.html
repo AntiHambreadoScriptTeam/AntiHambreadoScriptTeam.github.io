@@ -1,1 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Pro Mod - Anti-Hambreado Script</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --red-primary: #ff2a2a;
+            --red-secondary: #cc0000;
+            --red-dark: #8a0000;
+            --bg-color: #050000;
+            --surface: rgba(255, 42, 42, 0.03);
+            --surface-hover: rgba(255, 42, 42, 0.08);
+            --surface-border: rgba(255, 42, 42, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.65);
+            --glass: rgba(10, 0, 0, 0.5);
+            --blur-amount: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .background-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, #150000 0%, var(--bg-color) 100%);
+        }
+
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.45;
+            animation: float 12s infinite ease-in-out alternate;
+            z-index: 0;
+        }
+
+        .red-glow-1 {
+            top: -20%;
+            left: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: rgba(255, 42, 42, 0.2);
+        }
+
+        .red-glow-2 {
+            bottom: -20%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: rgba(204, 0, 0, 0.25);
+            animation-delay: -6s;
+        }
+        
+        .grid-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255, 42, 42, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 42, 42, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.5;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(3%, 5%) scale(1.1); }
+        }
+
+        .glass-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: var(--glass);
+            backdrop-filter: blur(var(--blur-amount));
+            -webkit-backdrop-filter: blur(var(--blur-amount));
+            border-bottom: 1px solid var(--surface-border);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(255, 42, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo span {
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 0%, #ff8a8a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        main {
+            padding: 120px 24px 80px;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 70px;
+            animation: slideUp 0.8s ease-out cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-logo-wrapper {
+            margin: 0 auto 24px;
+            width: 90px;
+            height: 90px;
+            border-radius: 24px;
+            padding: 3px;
+            background: linear-gradient(135deg, rgba(255, 42, 42, 0.4), transparent);
+            box-shadow: 0 10px 30px rgba(255, 42, 42, 0.3), inset 0 0 20px rgba(255, 42, 42, 0.2);
+            animation: float 6s infinite ease-in-out alternate;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero-logo {
+            width: 100%;
+            height: 100%;
+            border-radius: 21px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: #000;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background: rgba(255, 42, 42, 0.1);
+            border: 1px solid rgba(255, 42, 42, 0.25);
+            border-radius: 100px;
+            color: #ff6b6b;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(255, 42, 42, 0.1);
+        }
+        
+        .badge i {
+            font-size: 14px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.6; transform: scale(0.9); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            margin-bottom: 24px;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #ff2a2a, #ff8a8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            width: 100%;
+            margin-bottom: 90px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 28px;
+            padding: 36px 32px;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: fadeIn 1s ease-out backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 42, 42, 0.5), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            background: var(--surface-hover);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 42, 42, 0.1);
+            border-color: rgba(255, 42, 42, 0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255, 42, 42, 0.15), rgba(255, 42, 42, 0.05));
+            border: 1px solid rgba(255, 42, 42, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover .icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, rgba(255, 42, 42, 0.25), rgba(255, 42, 42, 0.05));
+        }
+
+        .feature-card i {
+            font-size: 1.6rem;
+            color: #ff5555;
+            filter: drop-shadow(0 0 10px rgba(255, 85, 85, 0.5));
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .screenshots {
+            width: 100%;
+            margin-bottom: 90px;
+            text-align: center;
+            animation: fadeIn 1s ease-out backwards 0.4s;
+        }
+
+        .screenshots h2 {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .img-wrapper {
+            position: relative;
+            border-radius: 32px;
+            overflow: hidden;
+            max-width: 320px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,42,42,0.1);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            background: var(--surface);
+        }
+
+        .img-wrapper:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 42, 42, 0.2);
+            border-color: rgba(255, 42, 42, 0.3);
+        }
+
+        .img-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.6) 100%);
+            pointer-events: none;
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+
+        .img-wrapper:hover img {
+            transform: scale(1.05);
+        }
+
+        .cta-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            animation: fadeIn 1s ease-out backwards 0.5s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 48px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 100px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(204, 0, 0, 0.4), inset 0 2px 0 rgba(255,255,255,0.2);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(255, 42, 42, 0.5), inset 0 2px 0 rgba(255,255,255,0.3);
+            background: linear-gradient(135deg, #ff4040, var(--red-secondary));
+        }
+
+        .btn-primary:hover::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .btn-primary:active {
+            transform: translateY(1px);
+        }
+
+        .btn-primary i {
+            font-size: 1.3rem;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background: rgba(10, 0, 0, 0.85);
+            border: 1px solid rgba(255, 42, 42, 0.25);
+            border-radius: 36px;
+            padding: 48px 40px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            transform: translateY(40px) scale(0.95);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 40px rgba(255,42,42,0.1);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 24px; right: 24px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex; justify-content: center; align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 42, 42, 0.2);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .youtube-icon {
+            font-size: 3.5rem;
+            color: #ff0000;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 8px 16px rgba(255, 0, 0, 0.4));
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .modal-text {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .btn-youtube, .btn-final {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            padding: 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid transparent;
+        }
+
+        .btn-youtube {
+            background: #ff0000;
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3), inset 0 2px 0 rgba(255,255,255,0.2);
+        }
+
+        .btn-youtube:hover {
+            background: #e60000;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 0, 0, 0.4), inset 0 2px 0 rgba(255,255,255,0.2);
+        }
+
+        .timer-container {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .progress-bar-wrap {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 100px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff2a2a, #ff8a8a);
+            border-radius: 100px;
+            transition: width 1s linear;
+            box-shadow: 0 0 10px rgba(255,42,42,0.5);
+        }
+
+        #timerText {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-variant-numeric: tabular-nums;
+            font-weight: 500;
+        }
+
+        .btn-final {
+            background: rgba(255, 42, 42, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 42, 42, 0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.6s ease-out, pulseBtn 2s infinite;
+        }
+
+        @keyframes pulseBtn {
+            0% { box-shadow: 0 0 0 0 rgba(255, 42, 42, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 42, 42, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 42, 42, 0); }
+        }
+
+        .btn-final:hover {
+            background: rgba(255, 42, 42, 0.2);
+            transform: translateY(-3px);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            main { padding-top: 100px; }
+            .features { grid-template-columns: 1fr; }
+            .modal-content { padding: 40px 24px; }
+            .gallery { gap: 20px; }
+            .img-wrapper { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-effects">
+        <div class="grid-overlay"></div>
+        <div class="glow red-glow-1"></div>
+        <div class="glow red-glow-2"></div>
+    </div>
+
+    <header class="glass-nav">
+        <a href="#" class="logo">
+            <img src="https://antihambreadoscriptteam.github.io/Foto/LogoRework.jpg" alt="Logo Anti-Hambreado Script">
+            <span>Anti-Hambreado Script</span>
+        </a>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="badge">
+                <i class="fa-solid fa-bolt"></i> Nueva Actualización
+            </div>
+            
+            <div class="hero-logo-wrapper">
+                <img src="https://static.vecteezy.com/system/resources/previews/021/608/790/non_2x/chatgpt-logo-chat-gpt-icon-on-black-background-free-vector.jpg" alt="ChatGPT Logo" class="hero-logo">
+            </div>
+
+            <h1>ChatGPT Pro <span class="text-gradient">Mod</span></h1>
+            <p>La herramienta definitiva ha llegado. Disfruta de la experiencia premium completa y el motor más avanzado sin restricciones.</p>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-unlock-keyhole"></i>
+                </div>
+                <h3>Pro Desbloqueado</h3>
+                <p>Disfruta de todas las características exclusivas de la versión Pro sin ninguna limitación, totalmente gratis.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h3>Se permite iniciar sesión</h3>
+                <p>Accede con tu cuenta personal de forma segura y sincroniza tu historial sin ningún inconveniente.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <h3>GPT 5.3 Desbloqueado</h3>
+                <p>Aprovecha el poder del modelo de lenguaje más avanzado e inteligente lanzado hasta la fecha.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <h3>Última Versión</h3>
+                <p>Siempre actualizado con los últimos parches de seguridad y mejoras de rendimiento implementadas.</p>
+            </div>
+        </section>
+
+        <section class="screenshots">
+            <h2>Pruebas de Funcionamiento</h2>
+            <div class="gallery">
+                <div class="img-wrapper">
+                    <img src="https://files.catbox.moe/m5ar4i.jpg" alt="ChatGPT Mod Demostración 1">
+                </div>
+                <div class="img-wrapper">
+                    <img src="https://files.catbox.moe/osap80.png" alt="ChatGPT Mod Demostración 2">
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <button class="btn-primary" onclick="openModal()">
+                <i class="fa-solid fa-cloud-arrow-down"></i> Descargar mod
+            </button>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="downloadModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()" aria-label="Cerrar ventana">
+                <i class="fa-solid fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <i class="fa-brands fa-youtube youtube-icon"></i>
+                <h2>Paso Requerido</h2>
+            </div>
+            <p class="modal-text">Apreciamos tu confianza para utilizar nuestro mod. Sin embargo, requerimos que estés suscrito a nuestro canal de Youtube. Una vez te suscribas, el link se desbloqueará.</p>
+            
+            <div class="modal-actions">
+                <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="btn-youtube" id="btnYoutube" onclick="startTimer(this)">
+                    <i class="fa-brands fa-youtube"></i> Suscribirme al canal
+                </a>
+                
+                <div class="timer-container" id="timerContainer" style="display: none;">
+                    <div class="progress-bar-wrap">
+                        <div class="progress" id="progressFill"></div>
+                    </div>
+                    <p id="timerText">Verificando suscripción...</p>
+                </div>
+
+                <a href="https://www.mediafire.com/file/izp2092275rhpb9/Grupo_A-HS_Modz_%257C_Chatgpt_Pro_Mod.apk/file" target="_blank" class="btn-final" id="finalLink" style="display: none;">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Ir a la URL final
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('downloadModal');
+        let timerStarted = false;
+
+        function openModal() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        function startTimer(btnElement) {
+            if (timerStarted) return;
+            timerStarted = true;
+            
+            setTimeout(() => {
+                btnElement.style.display = 'none';
+                
+                const timerContainer = document.getElementById('timerContainer');
+                timerContainer.style.display = 'block';
+                
+                let totalTime = 15;
+                let timeLeft = totalTime;
+                
+                const timerText = document.getElementById('timerText');
+                const progressFill = document.getElementById('progressFill');
+                
+                progressFill.style.width = '0%';
+                
+                const updateTimer = () => {
+                    let percentage = ((totalTime - timeLeft) / totalTime) * 100;
+                    progressFill.style.width = percentage + '%';
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(interval);
+                        progressFill.style.width = '100%';
+                        timerText.innerText = '¡Verificación completada!';
+                        timerText.style.color = '#4ade80';
+                        
+                        setTimeout(() => {
+                            timerContainer.style.display = 'none';
+                            const finalBtn = document.getElementById('finalLink');
+                            finalBtn.style.display = 'flex';
+                        }, 500);
+                    }
+                    timeLeft--;
+                };
+                
+                updateTimer();
+                const interval = setInterval(updateTimer, 1000);
+                
+            }, 600);
+        }
+    </script>
+</body>
+</html>
 
