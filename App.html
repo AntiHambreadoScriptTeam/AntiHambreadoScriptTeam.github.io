@@ -1,1 +1,3292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>AHST | Premium V2.0</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        
+        :root {
+            
+            --bg-base: #000000;
+            --accent: #ff0044;
+            --accent-glow: rgba(255, 0, 68, 0.4);
+            --text-main: #ffffff;
+            --text-muted: #8e8e93;
+
+            --glass-bg: rgba(20, 20, 22, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-accent: rgba(255, 0, 68, 0.25);
+            --glass-blur: blur(24px);
+
+            --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+
+            --safe-area-bottom: env(safe-area-inset-bottom, 20px);
+            --tab-bar-height: calc(70px + var(--safe-area-bottom));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            overflow: hidden; 
+            width: 100vw;
+            height: 100vh;
+            
+            background-image: 
+                radial-gradient(ellipse at 10% 10%, rgba(255, 0, 68, 0.15) 0%, transparent 40%),
+                radial-gradient(ellipse at 90% 90%, rgba(100, 0, 20, 0.2) 0%, transparent 50%);
+        }
+
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ambient-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.5;
+            animation: floatOrb 8s infinite alternate ease-in-out;
+        }
+        .orb-1 { width: 50vw; height: 50vw; top: -10vw; left: -10vw; background: var(--accent-glow); }
+        .orb-2 { width: 40vw; height: 40vw; bottom: 10vw; right: -10vw; background: rgba(50, 0, 15, 0.8); animation-delay: -4s; }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 40px) scale(1.1); }
+        }
+
+        #app-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+        }
+
+        .view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: calc(100% - var(--tab-bar-height));
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 24px 20px;
+            display: none;
+            
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .view > * {
+            flex-shrink: 0;
+        }
+        .view::-webkit-scrollbar {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+            
+        }
+
+        @keyframes slideFadeIn {
+            0% { opacity: 0; transform: translateY(30px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .bottom-tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: var(--tab-bar-height);
+            background: rgba(10, 10, 10, 0.75);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-evenly;
+            align-items: flex-start;
+            padding-top: 10px;
+            z-index: 1000;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 20%;
+            min-height: 48px; 
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .tab-btn i {
+            font-size: 22px;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .tab-btn span {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+            transition: color 0.3s;
+        }
+
+        .tab-btn.active {
+            color: var(--text-main);
+        }
+
+        .tab-btn.active i {
+            color: var(--accent);
+            transform: translateY(-4px) scale(1.15);
+            text-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .tab-btn.active span {
+            color: var(--text-main);
+            opacity: 1;
+        }
+
+        .tab-indicator {
+            position: absolute;
+            top: -11px;
+            width: 32px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 10px var(--accent-glow);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            left: calc(10% - 16px); 
+            pointer-events: none;
+        }
+
+        h1.title {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #aaaaaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,0,68,0.05), transparent 60%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .glass-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            width: 100%;
+            min-height: 52px;
+            background: linear-gradient(135deg, var(--accent), #cc0036);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-family: var(--font-main);
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 25px var(--accent-glow);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.96);
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-discord {
+            background: #5865F2;
+            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.4);
+        }
+
+        .input-glass {
+            width: 100%;
+            min-height: 52px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 0 16px 0 44px;
+            color: white;
+            font-family: var(--font-main);
+            font-size: 16px;
+            transition: all 0.3s;
+            outline: none;
+        }
+        .input-glass:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+        .input-icon-wrap {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .input-icon-wrap i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        #view-home {
+            text-align: center;
+            display: none;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        #view-home.active {
+            display: flex;
+        }
+        .logo-main {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            box-shadow: 0 15px 40px var(--accent-glow), inset 0 0 20px var(--accent-glow);
+            object-fit: cover;
+            margin-bottom: 24px;
+            animation: pulseLogo 3s infinite alternate;
+        }
+        @keyframes pulseLogo {
+            0% { transform: scale(1); box-shadow: 0 15px 40px var(--accent-glow); }
+            100% { transform: scale(1.05); box-shadow: 0 25px 50px rgba(255,0,68,0.6); }
+        }
+        .welcome-text {
+            font-size: 18px;
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .script-card {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .script-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .script-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .script-badge {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        .script-code {
+            background: #000;
+            border: 1px solid var(--glass-border);
+            padding: 12px;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #d1d5db;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        .btn-copy {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .exec-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            border: 1px solid var(--glass-border);
+        }
+        .exec-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            border: 1px solid transparent;
+        }
+        .status-badge i { font-size: 10px; }
+        .s-safe { background: rgba(0, 230, 118, 0.1); color: #00e676; border-color: rgba(0, 230, 118, 0.3); }
+        .s-risk { background: rgba(255, 145, 0, 0.1); color: #ff9100; border-color: rgba(255, 145, 0, 0.3); }
+        .s-danger { background: rgba(255, 23, 68, 0.1); color: #ff1744; border-color: rgba(255, 23, 68, 0.3); }
+
+        .bypass-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: var(--text-muted);
+        }
+        .bypass-icons i {
+            background: var(--glass-bg);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .links-toggle {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s;
+        }
+        .links-toggle:hover { color: var(--text-main); }
+        .links-toggle i.dot { color: var(--accent); font-size: 10px; }
+        .links-toggle i.chevron { margin-left: auto; transition: transform 0.3s; font-size: 10px; }
+        .links-toggle.open i.chevron { transform: rotate(180deg); }
+        
+        .links-grid {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .links-grid.open { display: grid; animation: slideFadeIn 0.3s ease-out forwards; }
+        
+        .link-group {
+            background: rgba(255, 0, 68, 0.05);
+            border: 1px solid rgba(255, 0, 68, 0.15);
+            border-radius: 12px;
+            padding: 12px;
+        }
+        .link-group-title {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .link-item {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .link-item::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.6;
+            flex-shrink: 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .feat-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 16px 12px;
+            text-align: center;
+        }
+        .feat-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,0,68,0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 16px;
+            color: var(--accent);
+        }
+        .feat-item h3 { font-size: 13px; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
+        .feat-item p { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+        
+        @media (max-width: 500px) {
+            .features-grid { grid-template-columns: 1fr; }
+            .links-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .member-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .member-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .member-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 1px solid var(--accent);
+        }
+        .member-info h4 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .member-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .faq-item {
+            margin-bottom: 10px;
+            border-radius: 12px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .faq-question {
+            padding: 14px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            color: #fff;
+        }
+        .faq-question i {
+            color: var(--accent);
+            transition: transform 0.3s;
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            padding: 0 16px;
+            max-height: 0;
+            overflow: hidden;
+            color: var(--text-muted);
+            font-size: 13px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            border-top: 1px solid transparent;
+        }
+        .faq-item.active .faq-answer {
+            padding: 14px 16px;
+            max-height: 500px;
+            opacity: 1;
+            border-top-color: var(--glass-border);
+        }
+        
+        .legal-notice {
+            background: rgba(255,0,0,0.05);
+            border-left: 3px solid var(--accent);
+            padding: 12px 16px;
+            border-radius: 0 12px 12px 0;
+            font-size: 12px;
+            color: #d1d5db;
+            margin-top: 30px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            padding: 24px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 400px;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 0;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        details.glass-accordion {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            border-radius: 0;
+            margin-bottom: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+            flex-shrink: 0;
+            width: 100%;
+        }
+        details.glass-accordion[open] {
+            border-color: var(--glass-border-accent);
+            box-shadow: none;
+            background: rgba(255,0,68,0.02);
+        }
+        details.glass-accordion summary {
+            padding: 18px 16px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        details.glass-accordion summary::-webkit-details-marker {
+            display: none;
+        }
+        details.glass-accordion summary i.icon-main {
+            color: var(--accent);
+            width: 20px;
+            text-align: center;
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        details.glass-accordion summary i.icon-chevron {
+            color: var(--text-muted);
+            transition: transform 0.3s;
+            position: absolute;
+            right: 16px;
+        }
+        details.glass-accordion[open] summary i.icon-chevron {
+            transform: rotate(180deg);
+            color: var(--accent);
+        }
+        .accordion-content {
+            padding: 0 16px 20px 16px;
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.6;
+            text-align: center;
+        }
+        .accordion-content ul {
+            padding-left: 0;
+            margin-top: 10px;
+            list-style: none;
+            display: inline-block;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+
+    <div id="app-container">
+
+        <section id="view-home" class="view active">
+            <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Anti-Hambreado Logo" class="logo-main">
+            <p class="welcome-text">Anti-Hambreado</p>
+            <h1 class="title">Script Team</h1>
+            
+            <a href="https://git.io/typing-svg" style="display: block; margin: 15px 0;">
+                <img src="https://readme-typing-svg.herokuapp.com?font=Outfit&size=16&duration=2500&pause=10&color=FF0044&center=true&vCenter=true&random=true&width=350&lines=Executores+siempre+actualizados;Anti-Hambreado+Script+Team+On+Top;Links+directos;Calidad+sin+complicaciones;Respeto+sin+acortadores;0%25+IA;0%25+Skid;Anti-Hambreados;No+m%C3%A1s+campione+script;7+canales+borrados%2C+7mil%2B+suscriptores;Suscribete+a+nuestro+canal+y+dale+like" alt="Typing SVG" style="width: 100%; max-width: 350px;">
+            </a>
+
+            <div class="glass-card" style="text-align: left; margin-top: 20px;">
+                <p class="subtitle" style="margin-bottom: 12px;">A diferencia de <strong>Campione Script</strong>, que parece más interesado en llenar su cartera que en ayudar a la comunidad <em>[con sus acortadores eternos y páginas llenas de anuncios]</em>, nosotros sí respetamos tu tiempo.</p>
+                <p class="subtitle" style="margin-bottom: 0;"><strong>Menos hambre, más calidad.</strong> Eso es lo que nos define.</p>
+            </div>
+            
+            <div style="margin-top: 30px; width: 100%; display: flex; flex-direction: column; gap: 16px;">
+                <button class="btn-primary" onclick="switchTab('scripts')">
+                    Explorar Scripts Hub <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <button class="btn-primary btn-discord" onclick="navigator.clipboard.writeText('https://discord.gg/rTGF5xhe3h').then(() => { this.innerHTML = '<i class=\'fa-solid fa-check\'></i> ¡Link copiado!'; setTimeout(() => { this.innerHTML = '<i class=\'fa-brands fa-discord\'></i> Únete a Discord'; }, 2000); })">
+                    <i class="fa-brands fa-discord"></i> Únete a Discord
+                </button>
+                <button class="btn-primary" style="background: linear-gradient(135deg, #ff0000, #990000);" onclick="window.open('https://youtube.com/@anti-hambreado-script-team', '_blank')">
+                    <i class="fa-brands fa-youtube"></i> Seguir en YouTube
+                </button>
+            </div>
+
+            <h2 class="title" style="text-align: center; font-size: 24px; margin-top: 50px; margin-bottom: 30px;"><i class="fa-solid fa-circle-question" style="color:var(--accent);"></i> FAQ</h2>
+            
+            <details class="glass-accordion">
+                <summary><i class="fa-solid fa-info-circle icon-main"></i> ¿Qué es exactamente AHST? <i class="fa-solid fa-chevron-down icon-chevron"></i></summary>
+                <div class="accordion-content">
+                    Somos un grupo que sube scripts, hubs y herramientas de Roblox 100% limpios, sin acortadores, sin 50 anuncios, sin esperar 30 segundos y sin pedirte que te suscribas a 10 canales. Solo link directo y ya.
+                </div>
+            </details>
+            <details class="glass-accordion">
+                <summary><i class="fa-solid fa-shield-halved icon-main"></i> ¿Los scripts tienen virus o backdoor? <i class="fa-solid fa-chevron-down icon-chevron"></i></summary>
+                <div class="accordion-content">
+                    Nunca. Todos los scripts que subimos están revisados por el equipo. Si dudas, siempre ponemos el link directo al código fuente para que cualquiera pueda auditarlo.
+                </div>
+            </details>
+            <details class="glass-accordion">
+                <summary><i class="fa-solid fa-bolt icon-main"></i> ¿Por qué odian a Campione Script? <i class="fa-solid fa-chevron-down icon-chevron"></i></summary>
+                <div class="accordion-content">
+                    No lo odiamos, pero es el ejemplo perfecto de "hambreado": 8 acortadores seguidos, anuncios que abren 20 pestañas y te exigen entrar a WhatsApp. Nosotros hacemos totalmente lo contrario.
+                </div>
+            </details>
+            <details class="glass-accordion">
+                <summary><i class="fa-solid fa-sync icon-main"></i> ¿Updates tras los parches? <i class="fa-solid fa-chevron-down icon-chevron"></i></summary>
+                <div class="accordion-content">
+                    Sí. La mayoría de executores se actualizan en 24-48h después de un parche grande de Roblox. Si uno se descontinua, lo marcamos claramente.
+                </div>
+            </details>
+            <details class="glass-accordion">
+                <summary><i class="fa-solid fa-comment-dots icon-main"></i> ¿Puedo pedirles scripts? <i class="fa-solid fa-chevron-down icon-chevron"></i></summary>
+                <div class="accordion-content">
+                    Claro que puedes. Si el script existe y es verdaderamente seguro, lo buscamos y lo publicamos sin trampas. Si no existe, te hablamos con la verdad y no te hacemos perder tiempo.
+                </div>
+            </details>
+            <details class="glass-accordion">
+                <summary><i class="fa-solid fa-link-slash icon-main"></i> ¿Por qué algunos links se caen? <i class="fa-solid fa-chevron-down icon-chevron"></i></summary>
+                <div class="accordion-content">
+                    Lamentablemente sitios como Mediafire, Pastebin y otros hostings borran los scripts rápido. Si pasa, repórtalo en Discord y lo resubiremos en menos de 5 minutos.
+                </div>
+            </details>
+            <details class="glass-accordion">
+                <summary><i class="fa-solid fa-crown icon-main"></i> ¿VIP o pagos? <i class="fa-solid fa-chevron-down icon-chevron"></i></summary>
+                <div class="accordion-content">
+                    Todo es y será gratis por siempre. No aceptamos pagos ni existen suscripciones para obtener ventajas "exclusivas" en nuestro canal.
+                </div>
+            </details>
+
+            <h2 class="title" style="text-align: center; font-size: 24px; margin-top: 60px; margin-bottom: 30px;"><i class="fa-solid fa-gavel" style="color:var(--accent);"></i> Legal & Términos</h2>
+            
+            <details class="glass-accordion">
+                <summary><i class="fa-solid fa-triangle-exclamation icon-main"></i> Uso Bajo Tu Riesgo <i class="fa-solid fa-chevron-down icon-chevron"></i></summary>
+                <div class="accordion-content">
+                    Todos los recursos, scripts y herramientas compartidas son con fines educativos y de investigación. Eximimos toda responsabilidad por el uso dado a nuestras publicaciones.
+                </div>
+            </details>
+            <details class="glass-accordion">
+                <summary><i class="fa-solid fa-ban icon-main"></i> ToS de Roblox <i class="fa-solid fa-chevron-down icon-chevron"></i></summary>
+                <div class="accordion-content">
+                    El uso de clientes modificados o inyecciones de código va en contra de los Términos de Servicio de Roblox. Utilizar estos programas puede derivar en baneos. Tú asumes todo el riesgo.
+                </div>
+            </details>
+            <details class="glass-accordion">
+                <summary><i class="fa-solid fa-bug icon-main"></i> Ausencia de Garantías <i class="fa-solid fa-chevron-down icon-chevron"></i></summary>
+                <div class="accordion-content">
+                    No garantizamos el funcionamiento ininterrumpido de los scripts ni la inmunidad ante sistemas anti-cheat modernos. Nos desvinculamos si tu antivirus lo marca o contiene fallos.
+                </div>
+            </details>
+            <details class="glass-accordion">
+                <summary><i class="fa-solid fa-hand-holding-dollar icon-main"></i> Prohibición de Lucro <i class="fa-solid fa-chevron-down icon-chevron"></i></summary>
+                <div class="accordion-content">
+                    Está terminalmente prohibido revender, monetizar o re-subir nuestros scripts detrás de acortadores y anuncios. Somos un equipo que lucha contra esas prácticas "hambreadas".
+                </div>
+            </details>
+            <details class="glass-accordion">
+                <summary><i class="fa-regular fa-circle-xmark icon-main"></i> No Somos Responsables <i class="fa-solid fa-chevron-down icon-chevron"></i></summary>
+                <div class="accordion-content">
+                    El equipo Anti-Hambreado Script Team no será responsable de:
+                    <ul>
+                      <li>Bans o pérdidas de cuentas, Robux o ítems.</li>
+                      <li>Daños a tu dispositivo o software.</li>
+                      <li>Pérdida de datos o perjuicios indirectos.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <div class="glass-card" style="text-align: center; margin-top: 30px; border: 1px dashed var(--glass-border-accent);">
+                <p style="font-weight: 800; font-size: 16px; margin-bottom: 4px; text-shadow: 0 0 10px var(--accent-glow);"><i class="fa-solid fa-skull"></i> "Scripts limpios o la muerte." <i class="fa-solid fa-skull"></i></p>
+                <p style="color: var(--accent); font-size: 12px; margin-bottom: 0;">Última actualización: Diciembre 2025</p>
+            </div>
+            
+            <p style="margin-top: 30px; margin-bottom: 20px; font-size: 11px; color: var(--text-muted); opacity: 0.5;">
+                App Mobile © 2026 Anti-Hambreado
+            </p>
+        </section>
+
+        <section id="view-scripts" class="view">
+            <h1 class="title">Scripts Hub <i class="fa-solid fa-code" style="color:var(--accent); font-size:24px;"></i></h1>
+            <p class="subtitle">Encuentra los scripts más actualizados y eficientes.</p>
+            
+            <div class="input-icon-wrap">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-scripts" class="input-glass" placeholder="Buscar script..." onkeyup="filterScripts()">
+            </div>
+
+            <div id="scripts-list">
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">BONK HUB</div>
+                        <div class="script-badge">99 NOCHES EN EL BOSQUE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/87bvqmx9qtq9ynq/KAITAN+99NOCHES.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/87bvqmx9qtq9ynq/KAITAN+99NOCHES.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">BONK HUB NORMAL</div>
+                        <div class="script-badge">99 NOCHES EN EL BOSQUE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/8snedlegw42wys7/SCRIPT+BONK+HUB+NORMAL.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/8snedlegw42wys7/SCRIPT+BONK+HUB+NORMAL.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">FOXNAME</div>
+                        <div class="script-badge">99 NOCHES EN EL BOSQUE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/pb8chz4qx3e14ok/SCRIPT+FOXNAME+DIAMOND99.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/pb8chz4qx3e14ok/SCRIPT+FOXNAME+DIAMOND99.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">FOXNAME V2</div>
+                        <div class="script-badge">99 NOCHES EN EL BOSQUE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/962kvzgws7fdtl3/SCRIPT+FARM+DAY+++GEMAS.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/962kvzgws7fdtl3/SCRIPT+FARM+DAY+++GEMAS.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">H4X HUB</div>
+                        <div class="script-badge">99 NOCHES EN EL BOSQUE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/2florr3w9dw0ydf/SCRIPT+H4X.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/2florr3w9dw0ydf/SCRIPT+H4X.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NUEVO SCRIPT</div>
+                        <div class="script-badge">99 NOCHES EN EL BOSQUE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/1t99xa9wv0tgytz/SCRIPT+99+NOCHES+EN+EL+BOSQUE+ALINS.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/1t99xa9wv0tgytz/SCRIPT+99+NOCHES+EN+EL+BOSQUE+ALINS.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SERIOUSLY</div>
+                        <div class="script-badge">99 NOCHES EN EL BOSQUE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/2lg692qhlvht152/SCRIPT+SERIOUSLY+99NOCHES.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/2lg692qhlvht152/SCRIPT+SERIOUSLY+99NOCHES.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">VOID WARE</div>
+                        <div class="script-badge">99 NOCHES EN EL BOSQUE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/nm491e4nvwnbr2j/SCRIPT+VOIDWARE.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/nm491e4nvwnbr2j/SCRIPT+VOIDWARE.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">VORTEX HUB</div>
+                        <div class="script-badge">99 NOCHES EN EL BOSQUE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/svhh5vhscr8ogmi/SCRIPT+99NIGHT+VORTEX+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/svhh5vhscr8ogmi/SCRIPT+99NIGHT+VORTEX+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">INF CANDY</div>
+                        <div class="script-badge">99 NOCHES EN EL BOSQUE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/8b4tsnhoh1ofctw/SCRIPT+INF+CANDY+99NOCHES.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/8b4tsnhoh1ofctw/SCRIPT+INF+CANDY+99NOCHES.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">FOXNAME HUB</div>
+                        <div class="script-badge">99 NOCHES EN EL BOSQUE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/1uo4uilb1svidid/SCRIPT+FOXNAME+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/1uo4uilb1svidid/SCRIPT+FOXNAME+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">GOOMBA HUB</div>
+                        <div class="script-badge">ARISE CROSSOVER</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/JustLevel/goombahub/main/AriseCrossover.lua&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/JustLevel/goombahub/main/AriseCrossover.lua&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">LUNARZ</div>
+                        <div class="script-badge">ATTACK ON TITAN REVOLUTION</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/5g5cet0ha9da467/SCRIPT+LUNARZ.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/5g5cet0ha9da467/SCRIPT+LUNARZ.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">TEKKIT HUB</div>
+                        <div class="script-badge">ATTACK ON TITAN REVOLUTION</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/qb71f2am4v5b7u9/SCRIPT+TEKKIT+HUB+AOTR.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/qb71f2am4v5b7u9/SCRIPT+TEKKIT+HUB+AOTR.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NEW OMG HUB</div>
+                        <div class="script-badge">ANIME WEAPONS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SHADOW HUB</div>
+                        <div class="script-badge">ANIME FIGHTING SIMULADOR</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/yncunlrnox3qk1m/SCRIPT+SHADOW+HUB+ANINE+FIGHTING.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/yncunlrnox3qk1m/SCRIPT+SHADOW+HUB+ANINE+FIGHTING.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">FELICIA SCRIPT</div>
+                        <div class="script-badge">ARSENAL</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://antihambreadoscriptteam.github.io/Scripts/Arsenal.lua&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://antihambreadoscriptteam.github.io/Scripts/Arsenal.lua&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">IMP HUB</div>
+                        <div class="script-badge">ABYSS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">JUMANTARA HUB</div>
+                        <div class="script-badge">ABYSS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/6oq2hhyw0nxxptr/SCRIPT+JUMANTARA+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/6oq2hhyw0nxxptr/SCRIPT+JUMANTARA+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NEW OMG HUB 2025</div>
+                        <div class="script-badge">ANIME FINAL QUESTS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">MAI HUB</div>
+                        <div class="script-badge">ANIME GHOST</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/u2escfcd131x0fh/SCRIPT+MAI+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/u2escfcd131x0fh/SCRIPT+MAI+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">AUTO PLAYER</div>
+                        <div class="script-badge">BASICALLY FNF: REMIX</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://rawscripts.net/raw/Basically-FNF:-Remix-AutoPlayer-Lite-9989&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://rawscripts.net/raw/Basically-FNF:-Remix-AutoPlayer-Lite-9989&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">HERMANOS-DEV</div>
+                        <div class="script-badge">BLOCK SPIN</div>
+                    </div>
+                    <div class="script-code">--[[
+Credit: Hermanos-Dev, Dont Delete This.
+]]
+local loader = loadstring
+local url = &quot;https://raw.githubusercontent.com/hermanos-dev/hermanos-hub/refs/heads/main/BlockSpin/blockspin-pvp.lua&quot;
+local response = game:HttpGet(url)
+loader(response)()</div>
+                    <button class="btn-copy" onclick="copyText(this, '--[[
+Credit: Hermanos-Dev, Dont Delete This.
+]]
+local loader = loadstring
+local url = &quot;https://raw.githubusercontent.com/hermanos-dev/hermanos-hub/refs/heads/main/BlockSpin/blockspin-pvp.lua&quot;
+local response = game:HttpGet(url)
+loader(response)()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">QUARTY</div>
+                        <div class="script-badge">BLOCK SPIN</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/qg500i15aeucrbv/SCRIPT+QUARTY.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/qg500i15aeucrbv/SCRIPT+QUARTY.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">ANTI-HAMBREADO TEAM SCRIPT | BLOODMONEY</div>
+                        <div class="script-badge">BLOODMONEY</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/FloppHub-Team/Scripts-idk/refs/heads/main/BloodMoney%20Script.txt&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/FloppHub-Team/Scripts-idk/refs/heads/main/BloodMoney%20Script.txt&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">ANDEPZAIHUB</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/xpnq8upphf1enys/SCRIPT+ANDEPZAIHUB.TXT/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/xpnq8upphf1enys/SCRIPT+ANDEPZAIHUB.TXT/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">ASTRAL HUB</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&#x27;https://cdn.robloxscripts.gg/public/furky/furky-astral-source.lua&#x27;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(\'https://cdn.robloxscripts.gg/public/furky/furky-astral-source.lua\'))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">BLUE X HUB</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/mizwgtlc6gdwkl1/SCRIPT+BLUEX+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/mizwgtlc6gdwkl1/SCRIPT+BLUEX+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">DAT THG</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/j6d2fva815bpfpp/SCRIPT+DAT+THG.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/j6d2fva815bpfpp/SCRIPT+DAT+THG.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">GRAVITY HUB</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/nkbcvf5y1ijevcb/GRAVITY+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/nkbcvf5y1ijevcb/GRAVITY+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">HOHO HUB</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NEW OMG HUB</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SCRIPT SERVER HOP</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/2sz4aephhdiu0l0/SCRIPT+HOP+SERVER.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/2sz4aephhdiu0l0/SCRIPT+HOP+SERVER.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">TEDDY HUB</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/uweo7ms5gvl1c3h/SCRIPT+TEDDY+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/uweo7ms5gvl1c3h/SCRIPT+TEDDY+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">TSUO HUB</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/giyq8l80fpqk2jb/SCRIPT+TSUO+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/giyq8l80fpqk2jb/SCRIPT+TSUO+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">W-AZURE</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/lvehh3dle23ej5a/NUEVO+W-AZURE+TRUE.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/lvehh3dle23ej5a/NUEVO+W-AZURE+TRUE.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">ARYA KAITUN</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/h0a2tetp4ryx2y5/SCRIPT+ARYA+KAITUN.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/h0a2tetp4ryx2y5/SCRIPT+ARYA+KAITUN.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">REDZ HUB FAKE</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/n9x5ndmhwjm1g03/SCRIPT+REDz+HUB+FAKE.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/n9x5ndmhwjm1g03/SCRIPT+REDz+HUB+FAKE.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">XETER HUB</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/eeyh59i7qfzclux/SCRIPT+XETER+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/eeyh59i7qfzclux/SCRIPT+XETER+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">HIRU HUB</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/dudbvhokovuvexv/SCRIPT+HIRU+HUB.txt+(1)/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/dudbvhokovuvexv/SCRIPT+HIRU+HUB.txt+(1)/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">KING RUA HUB</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/7lxngv6nmyff445/SCRIPT+KING+RUA+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/7lxngv6nmyff445/SCRIPT+KING+RUA+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">BACON HUB</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/d4siid3o5xs429j/SCRIPT+BACON+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/d4siid3o5xs429j/SCRIPT+BACON+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">FLOPPBLOX</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/FloppHub-Team/BloxFruits-Script/refs/heads/main/FloppHubX.lua&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/FloppHub-Team/BloxFruits-Script/refs/heads/main/FloppHubX.lua&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">HOP BOSS SCRIPT</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/WhiteX1208/Scripts/refs/heads/main/HopScript.luau&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/WhiteX1208/Scripts/refs/heads/main/HopScript.luau&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">FLOW BLOXFRUITS</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/6m57we73lcfq7j7/SCRIPT+FLOW+BLOXFRUITS.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/6m57we73lcfq7j7/SCRIPT+FLOW+BLOXFRUITS.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SOLIX HUB</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/d66j12ef9ynbuv0/SCRIPT+SOLIX+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/d66j12ef9ynbuv0/SCRIPT+SOLIX+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">RELZ HUB 2026</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/aves33gobpxarw2/SCRIPT+RELZ+HUB+2026.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/aves33gobpxarw2/SCRIPT+RELZ+HUB+2026.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">REDZ HUB (REMAKE)</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">local Settings = {
+  JoinTeam = &quot;Pirates&quot;; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/PlockScripts/newredz/refs/heads/main/Remake-version.luau&quot;))(Settings)</div>
+                    <button class="btn-copy" onclick="copyText(this, 'local Settings = {
+  JoinTeam = &quot;Pirates&quot;; -- Pirates/Marines
+  Translator = true; -- true/false
+}
+loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/PlockScripts/newredz/refs/heads/main/Remake-version.luau&quot;))(Settings)')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">MIDNIGHT X</div>
+                        <div class="script-badge">BLOX FRUITS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/x9g8ugifgar2mm4/SCRIPT+MIDNIGHT+X.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/x9g8ugifgar2mm4/SCRIPT+MIDNIGHT+X.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">OMG HUB</div>
+                        <div class="script-badge">BLUE LOCK RIVALS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">IMP HUB</div>
+                        <div class="script-badge">BOB ESPONJA TOWER DEFENSE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">BABFT</div>
+                        <div class="script-badge">BUILD A BOAT</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/example-prog/Build-A-Boat-For-Treasure/refs/heads/main/BABFT&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/example-prog/Build-A-Boat-For-Treasure/refs/heads/main/BABFT&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">MACROWARE</div>
+                        <div class="script-badge">BEE SWARM SIMULATOR</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/c5nix0iekstbriq/SCRIPT+MACROWARE.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/c5nix0iekstbriq/SCRIPT+MACROWARE.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">STATS OP</div>
+                        <div class="script-badge">BRAINROT SEA</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://antihambreadoscriptteam.github.io/Scripts/Brainrot%20Sea.lua&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://antihambreadoscriptteam.github.io/Scripts/Brainrot%20Sea.lua&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">BLACK HUB</div>
+                        <div class="script-badge">BIZARRE LINEAGE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/dgsk6uepq1s07jm/SCRIPT+BLACK+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/dgsk6uepq1s07jm/SCRIPT+BLACK+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NEW OMG HUB 2025</div>
+                        <div class="script-badge">BIZARRE LINEAGE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">DANDY'S WORLD HUB</div>
+                        <div class="script-badge">DANDY'S WORLD</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://pastebin.com/raw/H3u62n7D&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://pastebin.com/raw/H3u62n7D&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">GUMANBA</div>
+                        <div class="script-badge">DEAD DEFENSE</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/gumanba/Scripts/main/DeadDefense&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/gumanba/Scripts/main/DeadDefense&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NAT HUB</div>
+                        <div class="script-badge">DEAD RAILS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/d89mbxqwkzjwt3o/SCRIPT_NAT_HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/d89mbxqwkzjwt3o/SCRIPT_NAT_HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SKULL HUB</div>
+                        <div class="script-badge">DEAD RAILS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/fhtm57gmk7gzuk4/SCRIPT+SKULL+HUB+AUTO+BONOS.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/fhtm57gmk7gzuk4/SCRIPT+SKULL+HUB+AUTO+BONOS.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">DEMON BLADE SCRIPT</div>
+                        <div class="script-badge">DEMON BLADE</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&#x27;https://raw.githubusercontent.com/shakaUnlocked/IiI/refs/heads/main/dbrw.lua&#x27;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/shakaUnlocked/IiI/refs/heads/main/dbrw.lua\'))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NOOB HUB</div>
+                        <div class="script-badge">DEMON FALL</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/gkn6mmk0jgv2gui/Script_Demon_FALL.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/gkn6mmk0jgv2gui/Script_Demon_FALL.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">FROSTBYTE</div>
+                        <div class="script-badge">DIG</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/j0ua34pwf4lnv94/SCRIPT+FROSTBYTE+DIG.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/j0ua34pwf4lnv94/SCRIPT+FROSTBYTE+DIG.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">DOORS SCRIPT</div>
+                        <div class="script-badge">DOORS</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/TheHunterSolo1/Scripts/refs/heads/main/Protected_2809220311826785.lua.txt&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/TheHunterSolo1/Scripts/refs/heads/main/Protected_2809220311826785.lua.txt&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">IMP HUB</div>
+                        <div class="script-badge">DRAGON BALL RAGE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">DEMONIC HUB</div>
+                        <div class="script-badge">DRAGON BLOX</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/Prosexy/Demonic-HUB-V2/main/DemonicHub_V2.lua&quot;, true))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/Prosexy/Demonic-HUB-V2/main/DemonicHub_V2.lua&quot;, true))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NATIVE HUB</div>
+                        <div class="script-badge">DEATH BALL</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/7b8apdysqo369ne/SCRIPT_NATIVE_NEW.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/7b8apdysqo369ne/SCRIPT_NATIVE_NEW.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SPEEDHAX</div>
+                        <div class="script-badge">EVADE</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/thesigmacorex/RobloxScripts/main/speedhax&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/thesigmacorex/RobloxScripts/main/speedhax&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">TORAISME</div>
+                        <div class="script-badge">EVADE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/aacsiih11xsn166/SCRIPT+EVADE+HALLOWEEN+TORAISME.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/aacsiih11xsn166/SCRIPT+EVADE+HALLOWEEN+TORAISME.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">FELICIA SCRIPT</div>
+                        <div class="script-badge">EVADE</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://antihambreadoscriptteam.github.io/Scripts/Evade.lua&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://antihambreadoscriptteam.github.io/Scripts/Evade.lua&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">ALCHEMY HUB</div>
+                        <div class="script-badge">FISCH</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://scripts.alchemyhub.xyz&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://scripts.alchemyhub.xyz&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NATIVE HUB</div>
+                        <div class="script-badge">FISCH</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/7b8apdysqo369ne/SCRIPT_NATIVE_NEW.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/7b8apdysqo369ne/SCRIPT_NATIVE_NEW.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NATIVE HUB NEW</div>
+                        <div class="script-badge">FISCH</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/7b8apdysqo369ne/SCRIPT_NATIVE_NEW.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/7b8apdysqo369ne/SCRIPT_NATIVE_NEW.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">RIFT HUB</div>
+                        <div class="script-badge">FISCH</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/1kforlypif7dbdu/SCRIPT+RIFT+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/1kforlypif7dbdu/SCRIPT+RIFT+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">ZENITH HUB</div>
+                        <div class="script-badge">FISCH</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/rxito/ZenithHub/refs/heads/main/Loader&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/rxito/ZenithHub/refs/heads/main/Loader&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">LUNOR HUB</div>
+                        <div class="script-badge">FISCH</div>
+                    </div>
+                    <div class="script-code">script_key = &#x27;Insert Lunor Key Here&#x27;;
+loadstring(game:HttpGet(&#x27;https://raw.githubusercontent.com/Catto-YFCN/Lunor_Dependencies/refs/heads/main/Loader&#x27;))()
+-- Para obtener la key: https://ads.luarmor.net/get_key?for=LinkvertiseAD12_Hours-HhMMjfiZOeFt</div>
+                    <button class="btn-copy" onclick="copyText(this, 'script_key = \'Insert Lunor Key Here\';
+loadstring(game:HttpGet(\'https://raw.githubusercontent.com/Catto-YFCN/Lunor_Dependencies/refs/heads/main/Loader\'))()
+-- Para obtener la key: https://ads.luarmor.net/get_key?for=LinkvertiseAD12_Hours-HhMMjfiZOeFt')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">BLESSED HUB</div>
+                        <div class="script-badge">FISH IT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/hggzozdcfltiade/SCRIPT+BLESSED+HUB+FISH+IT.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/hggzozdcfltiade/SCRIPT+BLESSED+HUB+FISH+IT.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NAT HUB</div>
+                        <div class="script-badge">FISH IT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/d89mbxqwkzjwt3o/SCRIPT_NAT_HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/d89mbxqwkzjwt3o/SCRIPT_NAT_HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">LOLNOTAKID</div>
+                        <div class="script-badge">FORSAKEN</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/LolnotaKid/project/refs/heads/main/obfuscated_script-1758536932336.lua.txt&quot;))()
+print(&quot;V1&quot;)</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/LolnotaKid/project/refs/heads/main/obfuscated_script-1758536932336.lua.txt&quot;))()
+print(&quot;V1&quot;)')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">TSUO HUB</div>
+                        <div class="script-badge">FORSAKEN</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/giyq8l80fpqk2jb/SCRIPT+TSUO+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/giyq8l80fpqk2jb/SCRIPT+TSUO+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">VOIDWARE</div>
+                        <div class="script-badge">FORSAKEN</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/VapeVoidware/VW-Add/refs/heads/main/newforsaken.lua&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/VapeVoidware/VW-Add/refs/heads/main/newforsaken.lua&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">FORGE HUB</div>
+                        <div class="script-badge">FORSAKEN</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/ju8e9tb0og0vaup/SCRIPT+FORGE+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/ju8e9tb0og0vaup/SCRIPT+FORGE+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">DEVSEHUB</div>
+                        <div class="script-badge">FRUIT BATTLEGROUNDS</div>
+                    </div>
+                    <div class="script-code">script_key=&quot;replacekey&quot;;
+loadstring(game:HttpGet(&quot;https://api.luarmor.net/files/v3/loaders/d92ae761864b636f15e5214d8b9e1b57.lua&quot;))()
+ -- Link de la key : https://ads.luarmor.net/get_key?for=DevseHUB_KEY-LpxFTiZSpAVU</div>
+                    <button class="btn-copy" onclick="copyText(this, 'script_key=&quot;replacekey&quot;;
+loadstring(game:HttpGet(&quot;https://api.luarmor.net/files/v3/loaders/d92ae761864b636f15e5214d8b9e1b57.lua&quot;))()
+ -- Link de la key : https://ads.luarmor.net/get_key?for=DevseHUB_KEY-LpxFTiZSpAVU')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">IMP HUB</div>
+                        <div class="script-badge">FRUIT BATTLEGROUNDS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SWITCH HUB</div>
+                        <div class="script-badge">GRAND PIECE ONLINE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/ze8c788cair9stx/SCRIPT+SWITCH+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/ze8c788cair9stx/SCRIPT+SWITCH+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">BONK HUB</div>
+                        <div class="script-badge">GROW A GARDEN</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/8snedlegw42wys7/SCRIPT+BONK+HUB+NORMAL.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/8snedlegw42wys7/SCRIPT+BONK+HUB+NORMAL.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">DUPLICAR DINERO</div>
+                        <div class="script-badge">GROW A GARDEN</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/t3uuf2f10p0xww1/SCRIPT+LUNOR.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/t3uuf2f10p0xww1/SCRIPT+LUNOR.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">GUMANBA</div>
+                        <div class="script-badge">GROW A GARDEN</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/t3uuf2f10p0xww1/SCRIPT+LUNOR.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/t3uuf2f10p0xww1/SCRIPT+LUNOR.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">KICIAHOOK</div>
+                        <div class="script-badge">GROW A GARDEN</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/loader.luau&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/loader.luau&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">LUNOR HUB</div>
+                        <div class="script-badge">GROW A GARDEN</div>
+                    </div>
+                    <div class="script-code">script_key = &#x27;Insert Lunor Key Here&#x27;;
+loadstring(game:HttpGet(&#x27;https://raw.githubusercontent.com/Catto-YFCN/Lunor_Dependencies/refs/heads/main/Loader&#x27;))()
+-- Para obtener la key: https://ads.luarmor.net/get_key?for=LinkvertiseAD12_Hours-HhMMjfiZOeFt</div>
+                    <button class="btn-copy" onclick="copyText(this, 'script_key = \'Insert Lunor Key Here\';
+loadstring(game:HttpGet(\'https://raw.githubusercontent.com/Catto-YFCN/Lunor_Dependencies/refs/heads/main/Loader\'))()
+-- Para obtener la key: https://ads.luarmor.net/get_key?for=LinkvertiseAD12_Hours-HhMMjfiZOeFt')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NAT HUB</div>
+                        <div class="script-badge">GROW A GARDEN</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/d89mbxqwkzjwt3o/SCRIPT_NAT_HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/d89mbxqwkzjwt3o/SCRIPT_NAT_HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NO LAG HUB</div>
+                        <div class="script-badge">GROW A GARDEN</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/6t5t3pb7e8jtjvs/SCRIPT+NO+LAG+GROW+GARDEN.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/6t5t3pb7e8jtjvs/SCRIPT+NO+LAG+GROW+GARDEN.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SPEED HUB</div>
+                        <div class="script-badge">GROW A GARDEN</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua&quot;, true))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua&quot;, true))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">THUNDAR Z</div>
+                        <div class="script-badge">GROW A GARDEN</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/ny412eci4oz8sml/SCRIPT+THUNDAR+Z.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/ny412eci4oz8sml/SCRIPT+THUNDAR+Z.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SOLIX HUB</div>
+                        <div class="script-badge">GROW A GARDEN</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/d66j12ef9ynbuv0/SCRIPT+SOLIX+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/d66j12ef9ynbuv0/SCRIPT+SOLIX+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">THUNDER HUB</div>
+                        <div class="script-badge">GARDEN TOWER DEFENSE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/xl2s4gxv6yvmzq4/SCRIPT+THUNDER+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/xl2s4gxv6yvmzq4/SCRIPT+THUNDER+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">ALCHEMY HUB</div>
+                        <div class="script-badge">HUNTY ZOMBIE</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://scripts.alchemyhub.xyz&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://scripts.alchemyhub.xyz&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">CHIYO HUB</div>
+                        <div class="script-badge">HUNTY ZOMBIE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/l6p95il7t8sa9yc/SCRIPT+CHIYO+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/l6p95il7t8sa9yc/SCRIPT+CHIYO+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">HUNTY ZOMBIE SCRIPT</div>
+                        <div class="script-badge">HUNTY ZOMBIE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/nlr7pib279xkfxv/SCRIPT+HUNTY+ZOMBIE+TORA+ISME.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/nlr7pib279xkfxv/SCRIPT+HUNTY+ZOMBIE+TORA+ISME.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">MIRAGE HUB</div>
+                        <div class="script-badge">HUNTY ZOMBIE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/cbor7shfei6xi5y/SCRIPT+MIRAGE+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/cbor7shfei6xi5y/SCRIPT+MIRAGE+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SOLIX HUB</div>
+                        <div class="script-badge">HUNTY ZOMBIE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/d66j12ef9ynbuv0/SCRIPT_SOLIX_HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/d66j12ef9ynbuv0/SCRIPT_SOLIX_HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">TYPE HUB</div>
+                        <div class="script-badge">HUNTY ZOMBIE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/xjcmcidto7rsjl3/SCRIPT+TYPE+HUB+HUNTY+ZOMBIE.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/xjcmcidto7rsjl3/SCRIPT+TYPE+HUB+HUNTY+ZOMBIE.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">ZEE HUB</div>
+                        <div class="script-badge">HUNTY ZOMBIE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/1tzpo49zjgij7gv/SCRIPT+ZEE+HUB+HUNTY+ZOMBIE.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/1tzpo49zjgij7gv/SCRIPT+ZEE+HUB+HUNTY+ZOMBIE.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">VOID WARE</div>
+                        <div class="script-badge">INK GAME</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/inkgame.lua&quot;, true))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/inkgame.lua&quot;, true))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">AX SCRIPTS</div>
+                        <div class="script-badge">INK GAME</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/sql2h8c0hyvzif0/SCRIPT+AX-INK+GAMER.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/sql2h8c0hyvzif0/SCRIPT+AX-INK+GAMER.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SOLIX</div>
+                        <div class="script-badge">JAILBREAK</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/debunked69/solixloader/refs/heads/main/solix%20v2%20new%20loader.lua&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/debunked69/solixloader/refs/heads/main/solix%20v2%20new%20loader.lua&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">AUTO ARREST</div>
+                        <div class="script-badge">JAILBREAK</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/gc5ad5378m4wi31/SCRIPT+AUTO+ARREST+JAILBREAK.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/gc5ad5378m4wi31/SCRIPT+AUTO+ARREST+JAILBREAK.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SOLIX HUB</div>
+                        <div class="script-badge">JUJUTSU INFINITE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/d66j12ef9ynbuv0/SCRIPT+SOLIX+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/d66j12ef9ynbuv0/SCRIPT+SOLIX+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SIMCA HUB</div>
+                        <div class="script-badge">JUJUTSU ZERO</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/8bcd3vgeugg030i/SCRIPT+SIMCA+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/8bcd3vgeugg030i/SCRIPT+SIMCA+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">ARC HUB</div>
+                        <div class="script-badge">KING LEGACY</div>
+                    </div>
+                    <div class="script-code">getgenv().RaidUI = false -- For Hidden Raid Mode true = show and false = hidden
+getgenv().CustomDistance = 10 -- For Bug Can&#x27;t Swipe Distance
+getgenv().ResetFirstLoad = true -- For Reset First Time Load true = yes and false = no
+loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/ChopLoris/ArcHub/main/main.lua&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'getgenv().RaidUI = false -- For Hidden Raid Mode true = show and false = hidden
+getgenv().CustomDistance = 10 -- For Bug Can\'t Swipe Distance
+getgenv().ResetFirstLoad = true -- For Reset First Time Load true = yes and false = no
+loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/ChopLoris/ArcHub/main/main.lua&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">OMG HUB</div>
+                        <div class="script-badge">KING LEGACY</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NEW OMG HUB 2025</div>
+                        <div class="script-badge">KAISEN</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">ECLIPSE HUB</div>
+                        <div class="script-badge">MUSCLE LEGENDS</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://protected-roblox-scripts.onrender.com/ef14c49aab8ad4e9ab69171b40989cd2&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://protected-roblox-scripts.onrender.com/ef14c49aab8ad4e9ab69171b40989cd2&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SPEED HUB</div>
+                        <div class="script-badge">MUSCLE LEGENDS</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua&quot;, true))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua&quot;, true))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">MM2 NAVIDAD</div>
+                        <div class="script-badge">MURDER MYSTERY</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/kucp7b7cyn5r8a4/SCRIPT+MM2+NAVIDAD.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/kucp7b7cyn5r8a4/SCRIPT+MM2+NAVIDAD.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">FOXNAME MURDER MYSTERY 2</div>
+                        <div class="script-badge">MURDER MYSTERY</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/ndelpeoxu8z4w5a/SCRIPT+FOXNAME+MURDER+MYSTERY+2.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/ndelpeoxu8z4w5a/SCRIPT+FOXNAME+MURDER+MYSTERY+2.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SCYLLA</div>
+                        <div class="script-badge">NINJA TIMES</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/acezqqq/Scylla/refs/heads/main/Loader.lua&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/acezqqq/Scylla/refs/heads/main/Loader.lua&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">STARHACK HUB</div>
+                        <div class="script-badge">PIGGY</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/StarHackScripts/StarHack-Hub-Deepstar-Hub/refs/heads/main/StarHack%20Hub%20-%20Piggy%20Pro%20Hub.txt&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/StarHackScripts/StarHack-Hub-Deepstar-Hub/refs/heads/main/StarHack%20Hub%20-%20Piggy%20Pro%20Hub.txt&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">BLESSED HUB</div>
+                        <div class="script-badge">PLANTAS VS BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/oh1bmjdn3p2k5mq/SCRIPT+BLESSED+HUB+X.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/oh1bmjdn3p2k5mq/SCRIPT+BLESSED+HUB+X.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">CHIYO HUB</div>
+                        <div class="script-badge">PLANTAS VS BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/l6p95il7t8sa9yc/SCRIPT+CHIYO+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/l6p95il7t8sa9yc/SCRIPT+CHIYO+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">RIFT HUB</div>
+                        <div class="script-badge">PLANTAS VS BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/1kforlypif7dbdu/SCRIPT+RIFT+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/1kforlypif7dbdu/SCRIPT+RIFT+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SPEED HUB</div>
+                        <div class="script-badge">PLANTAS VS BRAINROT</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua&quot;, true))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua&quot;, true))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NUEVO SCRIPT</div>
+                        <div class="script-badge">PROSPECTING</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/gmu353izjgrg33c/SCRIPT+PROSPECTING.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/gmu353izjgrg33c/SCRIPT+PROSPECTING.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">RAISE A FLOPPA SCRIPT</div>
+                        <div class="script-badge">RAISE A FLOPPA</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://pastebin.com/raw/Fif1YVVR&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://pastebin.com/raw/Fif1YVVR&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">TBAO HUB</div>
+                        <div class="script-badge">RAISE ANIMALS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/loiduq3q1ujcgjm/SCRIPT+TBAO+HUB+RAISE+ANIMALS.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/loiduq3q1ujcgjm/SCRIPT+TBAO+HUB+RAISE+ANIMALS.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">JINKX HUB</div>
+                        <div class="script-badge">RAISE ANIMALS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/hohjhaxp4j5bvjw/SCRIPT+JINKX+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/hohjhaxp4j5bvjw/SCRIPT+JINKX+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">FloppHub</div>
+                        <div class="script-badge">SCRIPTS UNIVERSALES</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://is.gd/JwNMnE&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://is.gd/JwNMnE&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">Anti-Hambreado Script Hub</div>
+                        <div class="script-badge">SCRIPTS UNIVERSALES</div>
+                    </div>
+                    <div class="script-code">🚀 ¡Próximamente!</div>
+                    <button class="btn-copy" onclick="copyText(this, '🚀 ¡Próximamente!')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">FLYLING SCRIPT</div>
+                        <div class="script-badge">SCRIPTS UNIVERSALES</div>
+                    </div>
+                    <div class="script-code">pcall(function()
+loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/hellohellohell012321/KAWAII-FREAKY-FLING/main/kawaii_freaky_fling.lua&quot;,true))()
+end)</div>
+                    <button class="btn-copy" onclick="copyText(this, 'pcall(function()
+loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/hellohellohell012321/KAWAII-FREAKY-FLING/main/kawaii_freaky_fling.lua&quot;,true))()
+end)')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NEXOR HUB</div>
+                        <div class="script-badge">SMASH PROJECT</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&#x27;https://raw.githubusercontent.com/NexorHub/Games/refs/heads/main/Universal/Scripts.lua&#x27;))();</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/NexorHub/Games/refs/heads/main/Universal/Scripts.lua\'))();')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">AJJAN</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/b8gzxd0hu3dmydc/SCRIPT+AJJAN+STEAL+A+BRAINROT.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/b8gzxd0hu3dmydc/SCRIPT+AJJAN+STEAL+A+BRAINROT.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">ARBIX TP NUEVO</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/3jvwf5xpoa2ocar/SCRIPT+ARBIX+TP+VC+SERVER.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/3jvwf5xpoa2ocar/SCRIPT+ARBIX+TP+VC+SERVER.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">CHILLI HUB</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/edydn45v754qxm3/SCRIPT+CHILLI+HUB+BRAINROT.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/edydn45v754qxm3/SCRIPT+CHILLI+HUB+BRAINROT.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">HOHO HUB</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">KENGER HUB</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/s4ocwl0p4h0xvhf/SCRIPT+KENGER+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/s4ocwl0p4h0xvhf/SCRIPT+KENGER+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">LEGENDS BRAINROT</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/vj0in6milhaui15/SCRIPT+LEGENDS+BRAINROT.txt/file
+-- Key = ayam</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/vj0in6milhaui15/SCRIPT+LEGENDS+BRAINROT.txt/file
+-- Key = ayam')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">LEMON HUB</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/loxj38lxrqr31a4/SCRIPT+LEMON+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/loxj38lxrqr31a4/SCRIPT+LEMON+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">LENNON V3</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/6phdz9th76ddq6v/SCRIPT+LENNON+V3.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/6phdz9th76ddq6v/SCRIPT+LENNON+V3.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">LURK HACK V4</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/karv5yskubk0aqa/SCRIPT+LURK+HACKV4.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/karv5yskubk0aqa/SCRIPT+LURK+HACKV4.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">MAKAL HUB</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/k29my232199w3k8/SCRIPT+MAKAL+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/k29my232199w3k8/SCRIPT+MAKAL+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">MIRANDAN HUB</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/nwwtnvdhzfo070h/SCRIPT+MIRANDAN+STEAL+A+BRAINROT.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/nwwtnvdhzfo070h/SCRIPT+MIRANDAN+STEAL+A+BRAINROT.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">PUSARX</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/9taswgj9izhjd3w/SCRIPT+PUSARX+BRAINROT.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/9taswgj9izhjd3w/SCRIPT+PUSARX+BRAINROT.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">TELEGUIADOS HUB</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/8hhki6yha35hnxg/SCRIPT+TELEGUIADOS+STEAL+A+BRAINROT.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/8hhki6yha35hnxg/SCRIPT+TELEGUIADOS+STEAL+A+BRAINROT.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">TP ARBIX</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/3hj8kgeynzmnx4g/NEW+TP+ARBIX+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/3hj8kgeynzmnx4g/NEW+TP+ARBIX+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">AUTO BUY DEALER</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/AutoBuyBrainrotDealer/Auto-Buy/refs/heads/main/AutoBuyDealer&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/AutoBuyBrainrotDealer/Auto-Buy/refs/heads/main/AutoBuyDealer&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">UGLYS FISHING</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/crn8ugyhoiu2ywz/SCRIPT+UGLYS+FISHING.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/crn8ugyhoiu2ywz/SCRIPT+UGLYS+FISHING.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NAMELESS HUB</div>
+                        <div class="script-badge">STEAL A BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/g29i3mg0kc8bvp3/SCRIPT+NAMELESS+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/g29i3mg0kc8bvp3/SCRIPT+NAMELESS+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">IMP HUB</div>
+                        <div class="script-badge">SOLO HUNTER</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">AEONIC HUB</div>
+                        <div class="script-badge">SOLO HUNTER</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/gzg78oyqmotgj23/SCRIPT+AEONIC+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/gzg78oyqmotgj23/SCRIPT+AEONIC+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SURVIVE LAVA BRAINROT</div>
+                        <div class="script-badge">SURVIVE LAVA BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/l1fpo0pgo3jcxmo/SCRIPT+SURVIVE+LAVA+BRAINROT.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/l1fpo0pgo3jcxmo/SCRIPT+SURVIVE+LAVA+BRAINROT.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NEW OMG HUB 2025</div>
+                        <div class="script-badge">SAILOR PIECE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SOLIX HUB</div>
+                        <div class="script-badge">SAILOR PIECE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/d66j12ef9ynbuv0/SCRIPT+SOLIX+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/d66j12ef9ynbuv0/SCRIPT+SOLIX+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">TAOLAO</div>
+                        <div class="script-badge">SAILOR PIECE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/1veepwrrqhscam5/SCRIPT+TAOLAO.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/1veepwrrqhscam5/SCRIPT+TAOLAO.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">MINHNHAT HUB</div>
+                        <div class="script-badge">THE STRONGEST BATTLEGROUNDS</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/minhnhatdepzai8-cloud/MinhNhat-HUB-V5/refs/heads/main/MinhNhatDZ.lua.txt&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/minhnhatdepzai8-cloud/MinhNhat-HUB-V5/refs/heads/main/MinhNhatDZ.lua.txt&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SANS MOVESET</div>
+                        <div class="script-badge">THE STRONGEST BATTLEGROUNDS</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://paste.ee/r/rF9d3&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://paste.ee/r/rF9d3&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">CHIYO HUB</div>
+                        <div class="script-badge">THE FORGE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/q4mhx7sy1owtwdx/SCRIPT+CHIYO+THE+FORGE.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/q4mhx7sy1owtwdx/SCRIPT+CHIYO+THE+FORGE.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">LUNOR HUB</div>
+                        <div class="script-badge">THE FORGE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/t3uuf2f10p0xww1/SCRIPT+LUNOR.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/t3uuf2f10p0xww1/SCRIPT+LUNOR.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">MIRAGE HUB</div>
+                        <div class="script-badge">THE FORGE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/is4v1zycw7uzpnq/SCRIPT_MIRAGE_HUB_THE_FORGE.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/is4v1zycw7uzpnq/SCRIPT_MIRAGE_HUB_THE_FORGE.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SPEED HUB</div>
+                        <div class="script-badge">TSUNAMI BRAINROT</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua&quot;, true))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua&quot;, true))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">EKUVE HUB</div>
+                        <div class="script-badge">TSUNAMI BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/vw8abxcpwu2v4y4/SCRIPT+EKUVE+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/vw8abxcpwu2v4y4/SCRIPT+EKUVE+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">TORA IS ME</div>
+                        <div class="script-badge">TSUNAMI BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/b7pvoizumxkj9z8/SCRIPT+ESCAPE+TSUNAMI+TORAISME.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/b7pvoizumxkj9z8/SCRIPT+ESCAPE+TSUNAMI+TORAISME.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SOLIX HUB</div>
+                        <div class="script-badge">TSUNAMI BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/d66j12ef9ynbuv0/SCRIPT+SOLIX+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/d66j12ef9ynbuv0/SCRIPT+SOLIX+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">LUMIN</div>
+                        <div class="script-badge">TSUNAMI BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/wz42axwww68czyi/SCRIPT+LUMIN+ESCAPE+TSUNAMI.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/wz42axwww68czyi/SCRIPT+LUMIN+ESCAPE+TSUNAMI.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">AJJAN HUB</div>
+                        <div class="script-badge">TSUNAMI BRAINROT</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/robuzyhuhkc2vvz/SCRIPT+AJJAN+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/robuzyhuhkc2vvz/SCRIPT+AJJAN+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">IMP HUB</div>
+                        <div class="script-badge">TOWER DEFENSE SIMULATOR</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NOUSIGI HUB</div>
+                        <div class="script-badge">UNIVERSAL TOWER DEFENSE</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/spz7rvhgagn3weh/SCRIPT+NOUSIGI+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/spz7rvhgagn3weh/SCRIPT+NOUSIGI+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">FARM DINERO</div>
+                        <div class="script-badge">VOX SEAS</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&#x27;https://raw.githubusercontent.com/shakaUnlocked/IiI/refs/heads/main/AutoVoxSeas.lua&#x27;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/shakaUnlocked/IiI/refs/heads/main/AutoVoxSeas.lua\'))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">LEGEND HUB</div>
+                        <div class="script-badge">VOX SEAS</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://pastefy.app/ULaWpxKm/raw&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://pastefy.app/ULaWpxKm/raw&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NEXUS HUB</div>
+                        <div class="script-badge">VOX SEAS</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/CrazyHub123/NexusHubRevival/refs/heads/main/NewLoader.lua&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/CrazyHub123/NexusHubRevival/refs/heads/main/NewLoader.lua&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">OMG HUB</div>
+                        <div class="script-badge">VOX SEAS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">SPARKX SCRIPT</div>
+                        <div class="script-badge">VOX SEAS</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/FloppHub-Team/Scripts-idk/refs/heads/main/Main/Vox%20Seas%20Open%20Source%20Cracked&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/FloppHub-Team/Scripts-idk/refs/heads/main/Main/Vox%20Seas%20Open%20Source%20Cracked&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">TYPE HUB</div>
+                        <div class="script-badge">VOX SEAS</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/nzh2hrfjrt59e3i/SCRIPT+TYPE+HUB.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/nzh2hrfjrt59e3i/SCRIPT+TYPE+HUB.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">L4BIB HUB</div>
+                        <div class="script-badge">WEAK LEGACY</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/o1ddp0bcc008i4o/SCRIPT+L4BIB+HUB+WEAK+LEGACY2.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/o1ddp0bcc008i4o/SCRIPT+L4BIB+HUB+WEAK+LEGACY2.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">NEW OMG HUB</div>
+                        <div class="script-badge">WEAK LEGACY</div>
+                    </div>
+                    <div class="script-code">https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file</div>
+                    <button class="btn-copy" onclick="copyText(this, 'https://www.mediafire.com/file/yqty2pkjbqmlfut/SCRIPT+NEW+OMG+HUB+2025.txt/file')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+                <div class="glass-card script-card">
+                    <div class="script-header">
+                        <div class="script-title">WEAK LEGACY SCRIPT</div>
+                        <div class="script-badge">WEAK LEGACY</div>
+                    </div>
+                    <div class="script-code">loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/OhhMyGehlee/sh/refs/heads/main/a&quot;))()</div>
+                    <button class="btn-copy" onclick="copyText(this, 'loadstring(game:HttpGet(&quot;https://raw.githubusercontent.com/OhhMyGehlee/sh/refs/heads/main/a&quot;))()')">
+                        <i class="fa-solid fa-copy"></i> Copiar Código
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-executores" class="view">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                <div>
+                    <h1 class="title" style="margin-bottom: 4px;">Executores <i class="fa-solid fa-bolt" style="color:var(--accent); font-size:24px;"></i></h1>
+                    <p class="subtitle" style="margin-bottom: 0;">Estado y descargas para exploits (ARM64/32).</p>
+                </div>
+                <button id="armInfoToggleBtn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: white; padding: 6px 12px; border-radius: 12px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap;">
+                    <i class="fa-solid fa-microchip"></i> Info
+                </button>
+            </div>
+            
+            <div id="executorsContainer">
+                <div style="text-align: center; color: var(--text-muted); padding: 20px;">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Cargando executores...
+                </div>
+            </div>
+        </section>
+
+        <section id="view-bypass" class="view">
+            <h1 class="title">Bypass Tool <i class="fa-solid fa-unlock-keyhole" style="color:var(--accent); font-size:24px;"></i></h1>
+            <p class="subtitle">Salta anuncios de Linkvertise, Lootlabs, Work.ink y más, directo al script. ¡Instantáneo!</p>
+            
+            <div class="bypass-icons">
+                <i class="fa-solid fa-link"></i>
+                <i class="fa-solid fa-arrow-right-arrow-left" style="color:var(--accent);"></i>
+                <i class="fa-solid fa-shield-check" style="color:#00ff44;"></i>
+            </div>
+            
+            <div class="glass-card">
+                <div class="input-icon-wrap">
+                    <i class="fa-solid fa-link"></i>
+                    <input type="url" id="bypass-input" class="input-glass" placeholder="Pega tu link (ej. linkvertise.com/...)">
+                </div>
+                <button class="btn-primary" onclick="doBypass()">
+                    <i class="fa-solid fa-shield-halved"></i> Bypassear Ahora
+                </button>
+            </div>
+            
+            <div class="glass-card" style="margin-top: 20px; padding: 16px;">
+                <div class="links-toggle" id="links-toggle" onclick="toggleLinks()">
+                    <i class="fa-solid fa-circle-dot dot"></i>
+                    <span>Ver links compatibles (38+)</span>
+                    <i class="fa-solid fa-chevron-down chevron"></i>
+                </div>
+
+                <div class="links-grid" id="links-grid">
+                    <div class="link-group">
+                        <div class="link-group-title"><i class="fa-solid fa-rectangle-ad"></i> Monetización</div>
+                        <div class="link-item">Linkvertise.com</div>
+                        <div class="link-item">Lootlabs.gg</div>
+                        <div class="link-item">Lootlinks.com</div>
+                        <div class="link-item">Adfoc.us</div>
+                        <div class="link-item">Cuty.io</div>
+                        <div class="link-item">Cety.io</div>
+                        <div class="link-item">Boost.ink</div>
+                        <div class="link-item">Work.ink (todos)</div>
+                        <div class="link-item">Mendationforc.info</div>
+                        <div class="link-item">Mboost.me</div>
+                        <div class="link-item">Bst.gg</div>
+                        <div class="link-item">Booo.st</div>
+                    </div>
+                    <div class="link-group">
+                        <div class="link-group-title"><i class="fa-solid fa-paste"></i> Pastes</div>
+                        <div class="link-item">Paster.so</div>
+                        <div class="link-item">Paster.gg</div>
+                        <div class="link-item">Paste-drop.com</div>
+                        <div class="link-item">Pastebin.com</div>
+                        <div class="link-item">Pastecanyon.com</div>
+                        <div class="link-item">Pastehill.com</div>
+                        <div class="link-item">Pastemode.com</div>
+                        <div class="link-item">Rentry.org</div>
+                        <div class="link-item">Justpaste.it</div>
+                    </div>
+                    <div class="link-group">
+                        <div class="link-group-title"><i class="fa-solid fa-lock-open"></i> Sub2Unlock</div>
+                        <div class="link-item">Rekonise.com</div>
+                        <div class="link-item">Social-unlock.com</div>
+                        <div class="link-item">Socialwolvez.com</div>
+                        <div class="link-item">Sub2get.com</div>
+                        <div class="link-item">Sub2unlock.com</div>
+                        <div class="link-item">Sub2unlock.net</div>
+                        <div class="link-item">Sub4unlock.io</div>
+                        <div class="link-item">Subfinal.com</div>
+                        <div class="link-item">Unlocknow.net</div>
+                        <div class="link-item">Ytsubme.com</div>
+                    </div>
+                    <div class="link-group">
+                        <div class="link-group-title"><i class="fa-solid fa-compress"></i> Acortadores</div>
+                        <div class="link-item">Bit.ly</div>
+                        <div class="link-item">Cl.gy</div>
+                        <div class="link-item">Goo.gl</div>
+                        <div class="link-item">Is.gd</div>
+                        <div class="link-item">Rebrand.ly</div>
+                        <div class="link-item">Rkns.link</div>
+                        <div class="link-item">Shorter.me</div>
+                        <div class="link-item">T.co</div>
+                        <div class="link-item">T.ly</div>
+                        <div class="link-item">Tiny.cc</div>
+                        <div class="link-item">Tinylink.onl</div>
+                        <div class="link-item">Tinyurl.com</div>
+                        <div class="link-item">V.gd</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feat-item">
+                    <div class="feat-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <h3>Instantáneo</h3>
+                    <p>En menos de 1 segundo</p>
+                </div>
+                <div class="feat-item">
+                    <div class="feat-icon"><i class="fa-solid fa-shield"></i></div>
+                    <h3>Seguro</h3>
+                    <p>Sin malware ni rastreo</p>
+                </div>
+                <div class="feat-item">
+                    <div class="feat-icon"><i class="fa-solid fa-infinity"></i></div>
+                    <h3>Ilimitado</h3>
+                    <p>100% gratuito siempre</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-team" class="view">
+            <h1 class="title">Sobre Nosotros <i class="fa-solid fa-users" style="color:var(--accent); font-size:24px;"></i></h1>
+            <p class="subtitle">Conoce nuestra historia, propósito y a la élite de Anti-Hambreado Script Team.</p>
+
+            <div class="glass-card">
+                <h3 style="margin-bottom: 12px; font-size: 16px;"><i class="fa-solid fa-bullseye" style="color:var(--accent);"></i> Nuestro Propósito</h3>
+                <p style="font-size: 13px; color: var(--text-main); line-height: 1.6; margin-bottom: 10px;">
+                    Liberar a la comunidad del yugo de los anuncios abusivos y acortadores hambrientos. Ningún usuario debería pasar por publicidad engañosa para acceder a un script.
+                </p>
+                <div style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+                    • Compartir sin hambre y sin ataduras.<br>
+                    • Enlaces directos, limpios y 100% seguros.<br>
+                    • Respeto absoluto por el usuario.
+                </div>
+            </div>
+
+            <div class="glass-card" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                <h3 style="margin-bottom: 16px; font-size: 16px; align-self: flex-start;"><i class="fa-solid fa-crown" style="color:#ffbf36;"></i> El Fundador</h3>
+                <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/TheRealBanHammer.png" alt="TheBanHammer" class="member-avatar" style="width: 90px; height: 90px; margin-bottom: 12px; border-radius: 50%; border: 2px solid var(--accent);">
+                <h4 style="font-size: 18px; font-weight: 700; color: var(--text-main);">TheBanHammer</h4>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-top: 8px;">
+                    El 16 de marzo de 2025, fundó este proyecto cansado de la jungla de anuncios. Él entendió que "la comunidad merece respeto, no trampas disfrazadas de monetización".
+                </p>
+            </div>
+
+            <div class="glass-card">
+                <h3 style="margin-bottom: 16px; font-size: 16px;"><i class="fa-solid fa-star" style="color:#ffbf36;"></i> Dueños de la Comunidad</h3>
+                
+                <div class="member-row">
+                    <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/KYS-FELICIA.png" class="member-avatar">
+                    <div class="member-info">
+                        <h4>FeliciaXxxTop</h4>
+                        <p style="color: var(--text-muted); font-size: 13px;">Estratega</p>
+                        <p style="font-size: 11px; margin-top: 4px; color: var(--text-muted);">Voz firme contra el hambre digital y protectora de nuestros principios.</p>
+                    </div>
+                </div>
+                
+                <div class="member-row">
+                    <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/IWOOZY0SKID.png" class="member-avatar">
+                    <div class="member-info">
+                        <h4>iWoozy</h4>
+                        <p style="color: var(--text-muted); font-size: 13px;">Maestro del Timing</p>
+                        <p style="font-size: 11px; margin-top: 4px; color: var(--text-muted);">Siempre un paso adelante en la encarnizada batalla contra los acortadores.</p>
+                    </div>
+                </div>
+
+                <div class="member-row">
+                    <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/NO-SLOWWW.png" class="member-avatar">
+                    <div class="member-info">
+                        <h4>No-Slowww</h4>
+                        <p style="color: var(--text-muted); font-size: 13px;">Velocista</p>
+                        <p style="font-size: 11px; margin-top: 4px; color: var(--text-muted);">Como su nombre indica, velocidad pura: scripts directos, sin retrasos.</p>
+                    </div>
+                </div>
+
+                <div class="member-row" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+                    <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/ANGELLTFMXD.png" class="member-avatar">
+                    <div class="member-info">
+                        <h4>AngelltfmXD</h4>
+                        <p style="color: var(--text-muted); font-size: 13px;">Creativo</p>
+                        <p style="font-size: 11px; margin-top: 4px; color: var(--text-muted);">El toque humorístico, porque la lucha contra el hambre también se gana con risas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h3 style="margin-bottom: 16px; font-size: 16px;"><i class="fa-solid fa-code" style="color:var(--accent-cyan);"></i> Desarrolladores Principales</h3>
+                
+                <div class="member-row">
+                    <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/Mw_Anonymous.gif" class="member-avatar">
+                    <div class="member-info">
+                        <h4>Mw_Anonymous <img src="https://i.postimg.cc/GpKWKm69/Developer.png" style="width: 14px; vertical-align: middle;"></h4>
+                        <p style="color: var(--text-main); font-size: 13px;">Lead Developer Web</p>
+                        <p style="font-size: 11px; margin-top: 4px; color: var(--text-muted);">Arquitecto principal del ecosistema web y creador de la versión 2.0.</p>
+                    </div>
+                </div>
+
+                <div class="member-row" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+                    <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/KYS-FELICIA.png" class="member-avatar">
+                    <div class="member-info">
+                        <h4>FeliciaXxxTop <img src="https://i.postimg.cc/GpKWKm69/Developer.png" style="width: 14px; vertical-align: middle;"></h4>
+                        <p style="color: var(--text-main); font-size: 13px;">Hub & Core Dev</p>
+                        <p style="font-size: 11px; margin-top: 4px; color: var(--text-muted);">Desarrolladora principal del Script Hub y pilar en programación.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card" style="border-color: rgba(255, 0, 68, 0.4);">
+                <h3 style="margin-bottom: 12px; font-size: 16px;"><i class="fa-solid fa-theater-masks" style="color:#fff;"></i> La Cruda Realidad</h3>
+                <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px;">
+                    Exponemos su modelo de negocio: hambre de clics y de dinero fácil. Prometen "Clic aquí para script" y te mandan a 10 ventanas.
+                </p>
+                <div style="font-size: 13px; line-height: 1.6; background: rgba(255,0,68,0.1); padding: 12px; border-radius: 12px; border: 1px solid var(--glass-border-accent);">
+                    <strong style="color: var(--accent);"><i class="fa-solid fa-check-circle"></i> Nosotros:</strong><br>
+                    • Clic aquí = El maldito script directo en tus manos.<br>
+                    • Valoramos la comunidad construyendo confianza real.
+                </div>
+            </div>
+
+            <div class="glass-card" id="programa-asociados">
+                <h3 style="margin-bottom: 12px; font-size: 16px;"><i class="fa-solid fa-rocket" style="color:var(--accent);"></i> Programa de Asociados</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+                    ¿Quieres crecer junto a nosotros? Nuestro programa está diseñado para creadores comprometidos que quieran formar parte del team y llevar su contenido al siguiente nivel.
+                </p>
+
+                <h4 style="font-size: 14px; margin-bottom: 8px; color: #fff;"><i class="fa-solid fa-caret-right" style="color: var(--accent);"></i> Requisitos:</h4>
+                <ul style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; padding-left: 20px; list-style-type: none;">
+                    <li style="position:relative;"><i class="fa-solid fa-check" style="color: #00e676; position: absolute; left: -20px; top: 3px;"></i> Tener más de 100 suscriptores.</li>
+                    <li style="position:relative;"><i class="fa-solid fa-check" style="color: #00e676; position: absolute; left: -20px; top: 3px;"></i> Subir contenido de buena calidad.</li>
+                    <li style="position:relative;"><i class="fa-solid fa-check" style="color: #00e676; position: absolute; left: -20px; top: 3px;"></i> Alcanzar más de 100 vistas por video.</li>
+                    <li style="position:relative;"><i class="fa-solid fa-check" style="color: #00e676; position: absolute; left: -20px; top: 3px;"></i> No colaborar con otros canales (excepto FloppHub).</li>
+                </ul>
+
+                <h4 style="font-size: 14px; margin-bottom: 8px; color: #fff;"><i class="fa-solid fa-gift" style="color: var(--accent);"></i> Beneficios:</h4>
+                <ul style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; padding-left: 20px; list-style-type: none;">
+                    <li style="position:relative;"><i class="fa-solid fa-circle-check" style="color: var(--accent); position: absolute; left: -20px; top: 3px;"></i> Colaboraciones oficiales con nosotros.</li>
+                    <li style="position:relative;"><i class="fa-solid fa-circle-check" style="color: var(--accent); position: absolute; left: -20px; top: 3px;"></i> Apoyo y respaldo de nuestro equipo.</li>
+                    <li style="position:relative;"><i class="fa-solid fa-circle-check" style="color: var(--accent); position: absolute; left: -20px; top: 3px;"></i> Rango Admin en nuestro Discord.</li>
+                    <li style="position:relative;"><i class="fa-solid fa-circle-check" style="color: var(--accent); position: absolute; left: -20px; top: 3px;"></i> ¡Más beneficios al llegar a los 1,000+ subs!</li>
+                </ul>
+
+                <button class="btn-primary" onclick="window.location.href='mailto:antianunciostest@gmail.com'" style="min-height: 44px; font-size: 14px;">
+                    <i class="fa-solid fa-envelope"></i> Contáctanos
+                </button>
+            </div>
+
+            <div class="glass-card">
+                <h3 style="margin-bottom: 16px; font-size: 16px;"><i class="fa-solid fa-circle-question" style="color:var(--accent);"></i> FAQ - Asociados</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question">1. ¿Qué es el Programa? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Es una oportunidad para creadores que quieran colaborar oficialmente con AHST y crecer junto a nosotros.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">2. ¿Cuáles son los requisitos? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Necesitas más de 100 subs, contenido de calidad, mínimo 100+ vistas/video y no colaborar con otros canales (excepto FloppHub).</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">3. ¿Qué es "contenido bueno"? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Contenido bien editado, claro, original y relacionado con la temática del canal (scripts, Roblox, gaming).</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">4. ¿Y si no tengo 100 vistas? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Deberás mejorar tu rendimiento antes de ser aceptado. Buscamos constancia y buen alcance.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">5. ¿Colaborar con otros? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">No, a menos que sea con FloppHub Team.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">6. ¿Qué beneficios obtengo? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Colaboraciones, apoyo del team, rango Admin en Discord y futuros beneficios a los 1,000+ subs.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">7. ¿El rango es permanente? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Sí, siempre y cuando sigas cumpliendo las reglas y permanezcas activo en el programa.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">8. ¿Cómo puedo aplicar? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Contactando al equipo por el correo o por el canal oficial de Discord.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">9. ¿Puedo salir del programa? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Sí, la participación es voluntaria.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">10. ¿Si incumplo las reglas? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Podrías perder los beneficios y ser retirado del programa automáticamente.</div>
+                </div>
+            </div>
+
+            <div class="legal-notice">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> Anti-Skid Protection Notice</strong><br>
+                Este sistema utiliza ofuscación y diseño nativo. Robar o copiar este código prueba la falta de habilidades propias. El verdadero desarrollador crea, el hambreado copia. © 2026.
+            </div>
+        </section>
+
+    </div>
+
+    <div class="modal-overlay" id="warningModal">
+        <div class="glass-card modal-content" id="warningContent">
+            <h2 class="title" style="font-size: 24px; color: var(--accent); margin-bottom: 8px;" id="warningTitle">PELIGRO</h2>
+            <p class="subtitle" id="warningSubtitle" style="color: #ff1744; font-weight: 600;">Este executor es detectado como malicioso</p>
+            <div class="modal-body" id="warningBody" style="font-size: 14px; margin-bottom: 20px;">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <button class="btn-primary" style="background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); box-shadow: none;" id="cancelBtn">
+                    Cancelar Descarga
+                </button>
+                <button class="btn-primary" id="continueBtn">
+                    Continuar bajo mi riesgo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="armModal">
+        <div class="glass-card modal-content">
+            <h2 class="title" style="font-size: 24px; margin-bottom: 8px;">¿Qué es ARM 64/32?</h2>
+            <p class="subtitle">Guía rápida de arquitectura</p>
+            <div class="modal-body" style="font-size: 14px; line-height: 1.6; margin-bottom: 20px;">
+                <p style="margin-bottom: 15px;">ARM64 y ARM32 definen cómo tu dispositivo procesa la información.</p>
+                <h3 style="color: var(--text-muted); margin-bottom: 5px; font-size: 16px;"><i class="fa-solid fa-mobile-screen"></i> ARM32 (Antigua)</h3>
+                <p style="margin-bottom: 15px; color: var(--text-muted);">Común en dispositivos antes de 2015.</p>
+                <h3 style="color: var(--accent); margin-bottom: 5px; font-size: 16px;"><i class="fa-solid fa-rocket"></i> ARM64 (Moderna)</h3>
+                <p style="margin-bottom: 15px;">El estándar actual. Más rápido, ideal para Roblox.</p>
+                <div style="background: rgba(255, 0, 68, 0.1); border-left: 3px solid var(--accent); padding: 12px; border-radius: 4px;">
+                    <h4 style="color: var(--accent); margin-bottom: 5px;">💡 ¿Cuál descargo?</h4>
+                    <p style="font-size: 13px;">Si es de 2018 o más nuevo, usa <strong style="color: white;">ARM64</strong>. Si falla, intenta ARM32.</p>
+                </div>
+            </div>
+            <button class="btn-primary" style="background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); box-shadow: none;" id="armCloseBtn">
+                Entendido
+            </button>
+        </div>
+    </div>
+
+    <nav class="bottom-tab-bar">
+        
+        <div class="tab-indicator" id="tab-indicator"></div>
+
+        <button class="tab-btn active" data-target="home" onclick="switchTab('home')">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </button>
+        <button class="tab-btn" data-target="scripts" onclick="switchTab('scripts')">
+            <i class="fa-solid fa-code"></i>
+            <span>Scripts</span>
+        </button>
+        <button class="tab-btn" data-target="executores" onclick="switchTab('executores')">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Executores</span>
+        </button>
+        <button class="tab-btn" data-target="bypass" onclick="switchTab('bypass')">
+            <i class="fa-solid fa-unlock-keyhole"></i>
+            <span>Bypass</span>
+        </button>
+        <button class="tab-btn" data-target="team" onclick="switchTab('team')">
+            <i class="fa-solid fa-users"></i>
+            <span>Team</span>
+        </button>
+    </nav>
+
+    <script>
+        
+        console.log("%c¡ALTO AHÍ HAMBREADO!", "color: red; font-size: 30px; font-weight: bold; text-shadow: 2px 2px 0px black;");
+        console.log("%cSi intentas inspeccionar para robar código, recuerda: Este código fue creado sin IA e invirtiendo esfuerzo real. Haz lo mismo y mejora tus skills. © Anti-Hambreado Script Team.", "color: #fff; font-size: 14px;");
+
+        const views = document.querySelectorAll('.view');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const indicator = document.getElementById('tab-indicator');
+
+        function switchTab(targetId) {
+            
+            views.forEach(view => {
+                view.classList.remove('active');
+                view.style.animation = 'none'; 
+            });
+            const targetView = document.getElementById('view-' + targetId);
+            targetView.classList.add('active');
+
+            void targetView.offsetWidth;
+            targetView.style.animation = 'slideFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+
+            let index = 0;
+            tabBtns.forEach((btn, i) => {
+                btn.classList.remove('active');
+                if(btn.dataset.target === targetId) {
+                    btn.classList.add('active');
+                    index = i;
+                }
+            });
+
+            indicator.style.left = `calc(${index * 20}% + 10% - 16px)`;
+
+            if(navigator.vibrate) { navigator.vibrate(15); }
+        }
+
+        function filterScripts() {
+            const query = document.getElementById('search-scripts').value.toLowerCase();
+            const cards = document.querySelectorAll('.script-card');
+            cards.forEach(card => {
+                const title = card.querySelector('.script-title').textContent.toLowerCase();
+                const badge = card.querySelector('.script-badge').textContent.toLowerCase();
+                if (title.includes(query) || badge.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function copyText(btnElement, text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHTML = btnElement.innerHTML;
+                const originalBg = btnElement.style.background;
+                const originalBorder = btnElement.style.borderColor;
+
+                btnElement.innerHTML = '<i class="fa-solid fa-check"></i> ¡Copiado!';
+                btnElement.style.background = 'rgba(0, 230, 118, 0.2)';
+                btnElement.style.borderColor = '#00e676';
+                btnElement.style.color = '#00e676';
+                
+                if(navigator.vibrate) { navigator.vibrate([10, 30, 10]); } 
+
+                setTimeout(() => {
+                    btnElement.innerHTML = originalHTML;
+                    btnElement.style.background = originalBg;
+                    btnElement.style.borderColor = originalBorder;
+                    btnElement.style.color = 'white';
+                }, 2000);
+            }).catch(err => {
+                console.error('Error al copiar', err);
+                alert("No se pudo copiar el texto. Revisa los permisos.");
+            });
+        }
+
+        function doBypass() {
+            const input = document.getElementById('bypass-input');
+            const link = input.value.trim();
+            if (!link) {
+                
+                input.style.transform = 'translate(-10px, 0)';
+                setTimeout(()=> input.style.transform = 'translate(10px, 0)', 100);
+                setTimeout(()=> input.style.transform = 'translate(-5px, 0)', 200);
+                setTimeout(()=> input.style.transform = 'translate(5px, 0)', 300);
+                setTimeout(()=> input.style.transform = 'translate(0, 0)', 400);
+                if(navigator.vibrate) { navigator.vibrate(50); }
+                return;
+            }
+            
+            if(navigator.vibrate) { navigator.vibrate([15, 30, 15]); }
+            const encoded = encodeURIComponent(link);
+            window.location.href = 'https://linkvertise-bypass.com/bypass?link=' + encoded;
+        }
+
+        document.getElementById('bypass-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') doBypass();
+        });
+
+        function toggleLinks() {
+            const grid = document.getElementById('links-grid');
+            const toggle = document.getElementById('links-toggle');
+            grid.classList.toggle('open');
+            toggle.classList.toggle('open');
+
+            if(navigator.vibrate) { navigator.vibrate(10); }
+        }
+
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                document.querySelectorAll('.faq-item').forEach(faq => {
+                    if (faq !== parent) {
+                        faq.classList.remove('active');
+                    }
+                });
+                parent.classList.toggle('active');
+            });
+        });
+
+        const warningModal = document.getElementById('warningModal');
+        const warningTitle = document.getElementById('warningTitle');
+        const warningSubtitle = document.getElementById('warningSubtitle');
+        const warningBody = document.getElementById('warningBody');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const continueBtn = document.getElementById('continueBtn');
+
+        const armModal = document.getElementById('armModal');
+        const armCloseBtn = document.getElementById('armCloseBtn');
+        const armInfoToggleBtn = document.getElementById('armInfoToggleBtn');
+
+        const warnings = {
+          ronix: {
+            title: "ALERTA DE SEGURIDAD",
+            subtitle: "RONIX es altamente peligroso",
+            body: `<p>🔴 <strong>Ronix representa una grave amenaza para tu dispositivo.</strong></p><p style="margin-top: 8px;">Está diseñado para robar información de usuarios sistemáticamente.</p><div style="background: rgba(255,0,0,0.1); border-left: 2px solid var(--accent); padding: 10px; margin-top: 12px;"><p style="margin:0; color:#fff;"><strong>Actividades Confirmadas:</strong><br>- Robo de IPs y localización<br>- Sustracción de cuentas de Gmail<br>- Falsificación de certificados y plagio de código limpio</p></div>`
+          },
+          delta: {
+            title: "ALERTA DE SEGURIDAD",
+            subtitle: "DELTA compromete tus datos",
+            body: `<p>🔴 <strong>Delta es actualmente inestable y malicioso.</strong></p><p style="margin-top: 8px;">Sus prácticas vulneran la seguridad de sus usuarios mediante exploits de fondo.</p><div style="background: rgba(255,0,0,0.1); border-left: 2px solid var(--accent); padding: 10px; margin-top: 12px;"><p style="margin:0; color:#fff;"><strong>Riesgos Confirmados:</strong><br>- Robo de usuarios y credenciales guardadas<br>- API desactualizada y detectable<br>- Ejecución de procesos de rastreo en segundo plano</p></div>`
+          },
+          krnl: {
+            title: "DESCONTINUADO",
+            subtitle: "KRNL ya no tiene soporte",
+            body: `<p>⚫ <strong>El desarrollo de KRNL ha sido abandonado.</strong></p><p style="margin-top: 8px;">Cualquier versión nueva circulando en la red es falsa y probablemente contenga malware.</p><div style="background: rgba(255,255,255,0.05); border-left: 2px solid #8e8e93; padding: 10px; margin-top: 12px;"><p style="margin:0; color:#fff;"><strong>Motivo:</strong> Los desarrolladores oficiales descontinuaron el proyecto de forma permanente.</p></div>`
+          },
+          fluxus: {
+            title: "DESCONTINUADO",
+            subtitle: "Fluxus inactivo temporal o permanentemente",
+            body: `<p>⚫ <strong>Fluxus ya no recibe actualizaciones de seguridad.</strong></p><p style="margin-top: 8px;">Usar versiones antiguas incrementa enormemente las tasas de baneo.</p><div style="background: rgba(255,255,255,0.05); border-left: 2px solid #8e8e93; padding: 10px; margin-top: 12px;"><p style="margin:0; color:#fff;"><strong>Recomendación:</strong> Usa ejecutores modernos y activos como Codex o Arceus X.</p></div>`
+          }
+        };
+
+        function showWarning(executor, url) {
+          if (warnings[executor]) {
+            warningTitle.innerHTML = warnings[executor].title;
+            warningSubtitle.textContent = warnings[executor].subtitle;
+            warningBody.innerHTML = warnings[executor].body;
+            warningModal.classList.add('active');
+
+            continueBtn.onclick = () => {
+              window.open(url, '_blank');
+              warningModal.classList.remove('active');
+            };
+          } else {
+            window.open(url, '_blank');
+          }
+        }
+
+        if (armInfoToggleBtn) {
+            armInfoToggleBtn.addEventListener('click', (e) => {
+              e.preventDefault();
+              armModal.classList.add('active');
+            });
+        }
+
+        [cancelBtn, armCloseBtn].forEach(btn => {
+          if(btn) {
+              btn.addEventListener('click', () => {
+                warningModal.classList.remove('active');
+                armModal.classList.remove('active');
+              });
+          }
+        });
+
+        const API_URL = 'https://antihambreadoscriptteam.github.io/Updates/Executores.json';
+        const executorsContainer = document.getElementById('executorsContainer');
+
+        async function fetchExecutorData() {
+          try {
+            const response = await fetch(API_URL, { cache: 'no-cache' });
+            const data = await response.json();
+            
+            if(executorsContainer && executorsContainer.innerHTML.includes('Cargando')) {
+                executorsContainer.innerHTML = '';
+            }
+
+            processExecutorData(data.executores);
+          } catch (error) {
+            console.error('Error al obtener datos:', error);
+            if(executorsContainer && executorsContainer.innerHTML.includes('Cargando')) {
+                executorsContainer.innerHTML = '<div style="text-align: center; color: var(--accent); padding: 20px;"><i class="fa-solid fa-triangle-exclamation"></i> Error al cargar. Reintento automático...</div>';
+            }
+          }
+        }
+
+        function processExecutorData(newData) {
+          if (!executorsContainer) return;
+
+          Object.entries(newData).forEach(([key, executorData]) => {
+            let card = document.querySelector(`[data-executor="${key}"]`);
+
+            if (!card) {
+              card = document.createElement('div');
+              card.className = 'glass-card exec-card';
+              card.dataset.executor = key;
+              card.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div class="exec-title" style="font-size: 20px; font-weight: 800; margin-bottom: 4px;"></div>
+                    <div class="executor-version" style="font-size: 10px; font-weight: 700; background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 8px;"></div>
+                </div>
+                <div class="status-container" style="margin: 8px 0 16px 0;"></div>
+                <img src="" alt="Executor Logo" style="width: 120px; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 24px; margin: 0 auto 16px auto; display: block; border: 1px solid var(--glass-border); box-shadow: 0 8px 25px rgba(0,0,0,0.5);">
+                <p class="subtitle" style="margin-bottom: 16px; font-size: 12px; text-align: center;"><i class="fa-solid fa-clock-rotate-left"></i> <span class="executor-date" style="color: var(--text-muted);"></span></p>
+                <div class="button-container" style="display: flex; gap: 10px; flex-direction: column;"></div>
+              `;
+              executorsContainer.appendChild(card);
+            }
+
+            card.querySelector('.executor-version').textContent = `v${executorData.version}`;
+            card.querySelector('.executor-date').textContent = executorData.fecha_actualizacion;
+            card.querySelector('img').src = executorData.imagen;
+            card.querySelector('.exec-title').textContent = executorData.nombre;
+
+            updateCardStatus(card, executorData.status, executorData.link_descarga_arm64, executorData.link_descarga_arm32);
+          });
+        }
+
+        function createDownloadButton(url, arch, executor) {
+            const btn = document.createElement('button');
+            btn.className = 'btn-primary';
+            btn.style.minHeight = '42px';
+            btn.style.fontSize = '14px';
+            btn.innerHTML = `<i class="fa-solid fa-download"></i> Descargar ${arch}`;
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (url && url !== '#') {
+                    showWarning(executor, url);
+                }
+            });
+            return btn;
+        }
+
+        function updateCardStatus(card, status, arm64Link, arm32Link) {
+            const statusContainer = card.querySelector('.status-container');
+            const statusConfig = {
+                'detectable': { text: 'Detectable', class: 's-risk', icon: 'fa-triangle-exclamation' },
+                'peligro': { text: 'Peligroso', class: 's-danger', icon: 'fa-skull-crossbones' },
+                'descontinuado': { text: 'Descontinuado', class: 's-danger', icon: 'fa-ban' },
+                'desactualizado': { text: 'Desactualizado', class: 's-risk', icon: 'fa-clock-rotate-left' },
+                'indetectable': { text: 'Indetectable', class: 's-safe', icon: 'fa-circle-check' },
+                'desconocido': { text: 'Desconocido', class: 's-risk', icon: 'fa-circle-question' }
+            };
+
+            const currentStatus = statusConfig[status] || statusConfig['desconocido'];
+
+            statusContainer.innerHTML = `
+                <div class="status-badge ${currentStatus.class}" style="margin-bottom: 0;">
+                    <i class="fa-solid ${currentStatus.icon}"></i> ${currentStatus.text}
+                </div>
+            `;
+
+            const buttonContainer = card.querySelector('.button-container');
+            buttonContainer.innerHTML = '';
+            const executor = card.dataset.executor;
+
+            if (arm64Link && arm64Link !== '#') {
+                buttonContainer.appendChild(createDownloadButton(arm64Link, 'ARM64', executor));
+            }
+            if (arm32Link && arm32Link !== '#') {
+                buttonContainer.appendChild(createDownloadButton(arm32Link, 'ARM32', executor));
+            }
+            if (!arm64Link && !arm32Link) {
+                const btn = document.createElement('button');
+                btn.className = 'btn-copy';
+                btn.style.width = '100%';
+                btn.style.opacity = '0.6';
+                btn.disabled = true;
+                btn.textContent = 'Fuera de Servicio';
+                buttonContainer.appendChild(btn);
+            }
+        }
+
+        fetchExecutorData();
+        setInterval(fetchExecutorData, 11000);
+    </script>
+</body>
+</html>
