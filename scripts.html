@@ -1062,6 +1062,10 @@ html {
             <span class="folder-icon">📁</span>
             RAISE ANIMALS
         </div>
+<div class="sidebar-item" onclick="showContent('rivals')">
+    <span class="folder-icon">📁</span>
+    RIVALS
+</div>
         <div class="sidebar-item" onclick="showContent('smash-project')">
             <span class="folder-icon">📁</span>
             SMASH PROJECT
@@ -1443,6 +1447,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ChopLoris/ArcHub/main
         <div class="script-card"><div class="script-header"><div class="script-title">TBAO HUB</div><button class="copy-button" onclick="copyScript(this, 'ra1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="ra1">https://www.mediafire.com/file/loiduq3q1ujcgjm/SCRIPT+TBAO+HUB+RAISE+ANIMALS.txt/file</pre></div></div>
 <div class="script-card"><div class="script-header"><div class="script-title">JINKX HUB</div><button class="copy-button" onclick="copyScript(this, 'ra-jinkx')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="ra-jinkx">https://www.mediafire.com/file/hohjhaxp4j5bvjw/SCRIPT+JINKX+HUB.txt/file</pre></div></div>
     </div>
+<div id="rivals" class="content">
+    <h2 class="section-title">⚔️ RIVALS</h2>
+    <div class="script-card"><div class="script-header"><div class="script-title">SOLIX HUB</div><button class="copy-button" onclick="copyScript(this, 'rivals-solix')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="rivals-solix">https://www.mediafire.com/file/d66j12ef9ynbuv0/SCRIPT+SOLIX+HUB.txt/file</pre></div></div>
+</div>
     <div id="script-hub-universales" class="content">
         <h2 class="section-title">🌐 SCRIPTS UNIVERSALES</h2>
         <div class="script-card"><div class="script-header"><div class="script-title">FloppHub</div><button class="copy-button" onclick="copyScript(this, 'universal1')">📋 Copiar</button></div><div class="script-content"><pre class="script-code" id="universal1">loadstring(game:HttpGet("https://is.gd/JwNMnE"))()</pre></div></div>
@@ -1727,6 +1735,7 @@ end)</pre></div></div>
                 { game: 'RAISE A FLOPPA', title: 'RAISE A FLOPPA SCRIPT', id: 'raf1' },
                 { game: 'RAISE ANIMALS', title: 'TBAO HUB', id: 'ra1' },
                 { game: 'RAISE ANIMALS', title: 'JINKX HUB', id: 'ra-jinkx' }, 
+{ game: 'RIVALS', title: 'SOLIX HUB', id: 'rivals-solix' }, 
                 { game: 'SCRIPTS UNIVERSALES', title: 'FloppHub', id: 'universal1' },
                 { game: 'SCRIPTS UNIVERSALES', title: 'Anti-Hambreado Script Hub', id: 'universal2' },
                 { game: 'SCRIPTS UNIVERSALES', title: 'FLYLING SCRIPT', id: 'universal-flyling' }, 
@@ -1877,6 +1886,7 @@ end)</pre></div></div>
                         (itemText.includes('PROSPECTING') && sectionId === 'prospecting') ||
                         (itemText.includes('RAISE A FLOPPA') && sectionId === 'raise-a-floppa') ||
                         (itemText.includes('RAISE ANIMALS') && sectionId === 'raise-animals') ||
+(itemText.includes('RIVALS') && sectionId === 'rivals') ||
                         (itemText.includes('SCRIPT HUB UNIVERSALES') && sectionId === 'script-hub-universales') ||
                         (itemText.includes('SMASH PROJECT') && sectionId === 'smash-project') ||
                         (itemText.includes('STEAL A BRAINROT') && sectionId === 'steal-a-brainrot') ||
