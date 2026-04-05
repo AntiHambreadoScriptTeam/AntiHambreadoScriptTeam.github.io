@@ -408,6 +408,21 @@
       color: #3DDC84;
     }
 
+    .btn-link.whatsapp {
+      background: rgba(37, 211, 102, 0.1);
+      border-color: rgba(37, 211, 102, 0.3);
+    }
+
+    .btn-link.whatsapp:hover {
+      background: rgba(37, 211, 102, 0.2);
+      border-color: #25D366;
+      box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+    }
+
+    .btn-link.whatsapp i {
+      color: #25D366;
+    }
+
     .btn-link:hover i {
       transform: scale(1.2) rotate(5deg);
     }
@@ -843,6 +858,12 @@
       filter: drop-shadow(0 0 10px rgba(88, 101, 242, 0.8));
     }
 
+    #intro-subtitle .whatsapp-icon {
+      color: #25D366;
+      font-size: 1.6rem;
+      filter: drop-shadow(0 0 10px rgba(37, 211, 102, 0.8));
+    }
+
     @keyframes introLogoBounce {
       0% {
         transform: scale(0) rotate(-25deg);
@@ -919,7 +940,8 @@
     <h1 id="intro-title">Anti-Hambreado Script Team On Top</h1>
     <p id="intro-subtitle">
       <i class="fab fa-discord discord-icon"></i>
-      <span>¡No olvides unirte a nuestro servidor de Discord!</span>
+      <i class="fab fa-whatsapp whatsapp-icon"></i>
+      <span>¡No olvides unirte a nuestro servidor de Discord y nuestro canal de WhatsApp!</span>
     </p>
   </div>
 
@@ -980,6 +1002,9 @@
         </a>
         <a href="https://antihambreadoscriptteam.github.io/Archivos/Anti-HambreadoApp" target="_blank" class="btn-link android-app">
           <i class="fab fa-android"></i> Descarga Nuestra App
+        </a>
+        <a href="https://whatsapp.com/channel/0029VbCWPet42DcfSt2khY43" target="_blank" class="btn-link whatsapp">
+          <i class="fab fa-whatsapp"></i> Canal de WhatsApp
         </a>
       </div>
     </section>
