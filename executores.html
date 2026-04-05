@@ -259,6 +259,19 @@
       transform: translateY(-2px);
     }
 
+    .nav-btn-whatsapp {
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(37, 211, 102, 0.0));
+      border: 1px solid rgba(37, 211, 102, 0.3);
+      box-shadow: 0 0 12px rgba(37, 211, 102, 0.1);
+    }
+
+    .nav-btn-whatsapp:hover {
+      background: rgba(37, 211, 102, 0.2) !important;
+      box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+      transform: translateY(-2px);
+      color: #25D366 !important;
+    }
+
     .nav-mobile-toggle {
       display: none;
       font-size: 1.5rem;
@@ -713,6 +726,59 @@
       box-shadow: 0 15px 35px rgba(88, 101, 242, 0.6);
     }
 
+    .whatsapp-cta {
+      position: relative;
+      z-index: 10;
+      max-width: 800px;
+      margin: 0 auto 100px;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .whatsapp-content {
+      background: var(--bg-surface);
+      border: 1px solid rgba(37, 211, 102, 0.3);
+      border-radius: 30px;
+      padding: 60px 40px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(37, 211, 102, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .whatsapp-content::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(37, 211, 102, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .btn-whatsapp-cta {
+      background: #25D366;
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 16px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.05rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+    }
+
+    .btn-whatsapp-cta:hover {
+      background: #128C7E;
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
+    }
+
     footer {
       text-align: center;
       padding: 40px 20px;
@@ -962,6 +1028,8 @@
         Hub</a>
       <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="nav-btn-highlight"><i
           class="fab fa-youtube"></i> YouTube</a>
+      <a href="https://whatsapp.com/channel/0029VbCWPet42DcfSt2khY43" target="_blank" class="nav-btn-whatsapp"><i
+          class="fab fa-whatsapp"></i> WhatsApp</a>
     </div>
     <div class="nav-mobile-toggle" id="mobileToggle">
       <i class="fas fa-bars"></i>
@@ -975,6 +1043,9 @@
       Hub</a>
     <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank"><i class="fab fa-youtube"></i> Canal de
       YouTube</a>
+    <a href="https://whatsapp.com/channel/0029VbCWPet42DcfSt2khY43" target="_blank"
+      style="color: #25D366; border-color: rgba(37, 211, 102, 0.3); background: rgba(37, 211, 102, 0.05);"><i
+        class="fab fa-whatsapp"></i> Canal de WhatsApp</a>
     <a href="https://discord.gg/rTGF5xhe3h" target="_blank"
       style="color: #5865F2; border-color: rgba(88,101,242,0.3); background: rgba(88,101,242,0.05);"><i
         class="fab fa-discord"></i> Discord Oficial</a>
@@ -997,6 +1068,17 @@
       <p>Soporte 24/7, actualizaciones exclusivas, scripts indetectables y la mejor comunidad de Roblox en español.</p>
       <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn-discord">
         <i class="fab fa-discord"></i> Entrar al Servidor de Discord
+      </a>
+    </div>
+  </section>
+
+  <section class="whatsapp-cta">
+    <div class="whatsapp-content">
+      <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="WhatsApp Logo" class="discord-floating-logo">
+      <h2>¿No tienes WhatsApp? <span class="text-gradient">¡No te preocupes!</span></h2>
+      <p>Únete a nuestro canal para recibir noticias rápidas, actualizaciones de ejecutores y anuncios importantes directamente en tu teléfono.</p>
+      <a href="https://whatsapp.com/channel/0029VbCWPet42DcfSt2khY43" target="_blank" class="btn-whatsapp-cta">
+        <i class="fab fa-whatsapp"></i> Seguir Canal de WhatsApp
       </a>
     </div>
   </section>
