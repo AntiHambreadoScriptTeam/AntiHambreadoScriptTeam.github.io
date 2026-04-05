@@ -463,6 +463,22 @@ body {
     height: 24px;
 }
 
+.whatsapp-button {
+    background: linear-gradient(45deg, #25D366, #128C7E);
+    border-color: #25D366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    order: 4;
+}
+
+.whatsapp-button:hover {
+    background: linear-gradient(45deg, #128C7E, #25D366);
+    box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
+}
+
 .search-container {
     margin-top: 1.5rem;
     width: 100%;
@@ -1135,6 +1151,12 @@ html {
                     <button class="cta-button discord-button">
                         <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/discord.svg" alt="Discord" class="discord-icon" style="filter: invert(1);">
                         Únete a Discord
+                    </button>
+                </a>
+                <a href="https://whatsapp.com/channel/0029VbCWPet42DcfSt2khY43" target="_blank" style="text-decoration: none;">
+                    <button class="cta-button whatsapp-button">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/whatsapp.svg" alt="WhatsApp" class="discord-icon" style="filter: invert(1);">
+                        Canal de WhatsApp
                     </button>
                 </a>
                 <button class="cta-button" onclick="toggleSearch()">🔍 Buscar Scripts Por Nombre</button>
