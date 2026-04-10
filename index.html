@@ -1689,22 +1689,15 @@
     }
     animateCanvas();
 
-
+    // ===== YouTube Videos Auto-Fetch =====
     (function loadYouTubeVideos() {
       const CHANNEL_ID = 'UCcyzyjtZUEwqMG9yZsBQxZQ';
       const RSS_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
-      const CACHE_KEY = 'yt_videos_cache_v1';
-      const CACHE_TTL = 15 * 60 * 1000;
-      const FETCH_TIMEOUT = 6000;
-
-
       const CORS_PROXIES = [
         `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`,
         `https://corsproxy.io/?${encodeURIComponent(RSS_URL)}`,
-        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(RSS_URL)}`,
-        `https://thingproxy.freeboard.io/fetch/${encodeURIComponent(RSS_URL)}`
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(RSS_URL)}`
       ];
-
       const container = document.getElementById('yt-videos-container');
       const loading = document.getElementById('yt-loading');
 
@@ -1720,9 +1713,8 @@
         return `Hace ${Math.floor(diff / 31536000)} años`;
       }
 
-      function renderVideos(videos, fromCache) {
+      function renderVideos(videos) {
         loading.style.display = 'none';
-        container.querySelectorAll('.yt-video-card').forEach(el => el.remove());
         const top3 = videos.slice(0, 3);
         top3.forEach(v => {
           const isShort = v.link.includes('/shorts/');
@@ -1754,81 +1746,45 @@
 
       function showError() {
         loading.style.display = 'none';
+        container.innerHTML = `
+          <div class="yt-error" style="grid-column: 1 / -1;">
+            <i class="fas fa-exclamation-circle"></i>
+            <p>No se pudieron cargar los videos. <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" style="color: var(--accent);">Visita nuestro canal directamente</a></p>
+          </div>
+        `;
+      }
 
-        if (!container.querySelector('.yt-video-card')) {
-          container.innerHTML = `
-            <div class="yt-error" style="grid-column: 1 / -1;">
-              <i class="fas fa-exclamation-circle"></i>
-              <p>No se pudieron cargar los videos. <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" style="color: var(--accent);">Visita nuestro canal directamente</a></p>
-            </div>
-          `;
+      async function tryFetch(proxyIndex) {
+        if (proxyIndex >= CORS_PROXIES.length) {
+          showError();
+          return;
         }
-      }
-
-      function parseRSS(text) {
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(text, 'application/xml');
-        const entries = xml.querySelectorAll('entry');
-        if (!entries.length) throw new Error('No entries');
-        const videos = [];
-        entries.forEach(entry => {
-          const title = entry.querySelector('title')?.textContent || '';
-          const videoId = entry.querySelector('videoId')?.textContent || '';
-          const link = entry.querySelector('link[rel="alternate"]')?.getAttribute('href') || '';
-          const published = entry.querySelector('published')?.textContent || '';
-          const stats = entry.querySelector('statistics');
-          const views = stats ? stats.getAttribute('views') : '0';
-          if (videoId) videos.push({ title, videoId, link, published, views });
-        });
-        return videos;
-      }
-
-
-      function fetchWithTimeout(url) {
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
-        return fetch(url, { signal: controller.signal })
-          .finally(() => clearTimeout(timer))
-          .then(resp => {
-            if (!resp.ok) throw new Error('HTTP ' + resp.status);
-            return resp.text();
-          })
-          .then(text => parseRSS(text));
-      }
-
-
-      async function fetchFromNetwork() {
-        return Promise.any(CORS_PROXIES.map(url => fetchWithTimeout(url)));
-      }
-
-      async function init() {
-
-        let cachedData = null;
         try {
-          const raw = localStorage.getItem(CACHE_KEY);
-          if (raw) {
-            const parsed = JSON.parse(raw);
-            if (Date.now() - parsed.ts < CACHE_TTL) {
-              cachedData = parsed.videos;
-              renderVideos(cachedData, true);
-            }
-          }
-        } catch (e) {}
-
-
-        try {
-          const videos = await fetchFromNetwork();
-          try {
-            localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), videos }));
-          } catch (e) {}
-          renderVideos(videos, false);
+          const resp = await fetch(CORS_PROXIES[proxyIndex]);
+          if (!resp.ok) throw new Error('HTTP ' + resp.status);
+          const text = await resp.text();
+          const parser = new DOMParser();
+          const xml = parser.parseFromString(text, 'application/xml');
+          const entries = xml.querySelectorAll('entry');
+          if (!entries.length) throw new Error('No entries');
+          const videos = [];
+          entries.forEach(entry => {
+            const title = entry.querySelector('title')?.textContent || '';
+            const videoId = entry.querySelector('videoId')?.textContent || '';
+            const link = entry.querySelector('link[rel="alternate"]')?.getAttribute('href') || '';
+            const published = entry.querySelector('published')?.textContent || '';
+            const stats = entry.querySelector('statistics');
+            const views = stats ? stats.getAttribute('views') : '0';
+            videos.push({ title, videoId, link, published, views });
+          });
+          renderVideos(videos);
         } catch (e) {
-          console.warn('Todos los proxies de YouTube RSS fallaron:', e.message);
-          if (!cachedData) showError();
+          console.warn('YouTube RSS proxy ' + proxyIndex + ' failed:', e.message);
+          tryFetch(proxyIndex + 1);
         }
       }
 
-      init();
+      tryFetch(0);
     })();
   </script>
 </body>
