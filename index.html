@@ -1689,29 +1689,15 @@
     }
     animateCanvas();
 
-
-    (function () {
-      const VIDEOS = [
-        {
-          videoId: 'uv2jqsto0Bw',
-          title: '🥚 GROW A GARDEN UPD PASCUA 🔥 SCRIPT BRUTAL 😱 AUTO EVENTO EGG EASTER 😍 OP PERFECTO | ROBLOX 🫡',
-          link: 'https://www.youtube.com/watch?v=uv2jqsto0Bw',
-          published: '2026-04-09T23:00:00Z'
-        },
-        {
-          videoId: 'TonOeRdSUr8',
-          title: '🍀 SAILOR PIECE SCRIPT 🌋 BEST OP 🔥 KILL AURA 😱 EZ INF TOWER 😍 FARM INFINITO BRUTAL | ROBLOX 🫡',
-          link: 'https://www.youtube.com/watch?v=TonOeRdSUr8',
-          published: '2026-04-09T11:00:00Z'
-        },
-        {
-          videoId: 'OqwtaxgqXTE',
-          title: '😎 NUEVO SCRIPT INSANO 🔥 BOSSES ✅ MIRAGE 🌙 LUNA LLENA 🥷 ISLA KITSUNE OP BRUTAL | ROBLOX 🫡',
-          link: 'https://www.youtube.com/watch?v=OqwtaxgqXTE',
-          published: '2026-04-09T11:00:00Z'
-        }
+    // ===== YouTube Videos Auto-Fetch =====
+    (function loadYouTubeVideos() {
+      const CHANNEL_ID = 'UCcyzyjtZUEwqMG9yZsBQxZQ';
+      const RSS_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+      const CORS_PROXIES = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`,
+        `https://corsproxy.io/?${encodeURIComponent(RSS_URL)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(RSS_URL)}`
       ];
-
       const container = document.getElementById('yt-videos-container');
       const loading = document.getElementById('yt-loading');
 
@@ -1727,32 +1713,78 @@
         return `Hace ${Math.floor(diff / 31536000)} años`;
       }
 
-      loading.style.display = 'none';
-      VIDEOS.forEach(v => {
-        const isShort = v.link.includes('/shorts/');
-        const card = document.createElement('a');
-        card.href = v.link;
-        card.target = '_blank';
-        card.rel = 'noopener noreferrer';
-        card.className = 'yt-video-card';
-        card.style.textDecoration = 'none';
-        card.innerHTML = `
-          <div class="yt-thumb-wrap">
-            <img src="https://i.ytimg.com/vi/${v.videoId}/hqdefault.jpg" alt="${v.title}" loading="lazy">
-            <div class="yt-play-overlay">
-              <div class="yt-play-btn"><i class="fas fa-play"></i></div>
+      function renderVideos(videos) {
+        loading.style.display = 'none';
+        const top3 = videos.slice(0, 3);
+        top3.forEach(v => {
+          const isShort = v.link.includes('/shorts/');
+          const card = document.createElement('a');
+          card.href = v.link;
+          card.target = '_blank';
+          card.rel = 'noopener noreferrer';
+          card.className = 'yt-video-card';
+          card.style.textDecoration = 'none';
+          card.innerHTML = `
+            <div class="yt-thumb-wrap">
+              <img src="https://i.ytimg.com/vi/${v.videoId}/hqdefault.jpg" alt="${v.title}" loading="lazy">
+              <div class="yt-play-overlay">
+                <div class="yt-play-btn"><i class="fas fa-play"></i></div>
+              </div>
+              ${isShort ? '<span class="yt-short-badge"><i class="fas fa-bolt"></i> Short</span>' : ''}
             </div>
-            ${isShort ? '<span class="yt-short-badge"><i class="fas fa-bolt"></i> Short</span>' : ''}
-          </div>
-          <div class="yt-video-info">
-            <p class="yt-video-title">${v.title}</p>
-            <div class="yt-video-meta">
-              <span><i class="fas fa-clock"></i> ${timeAgo(v.published)}</span>
+            <div class="yt-video-info">
+              <p class="yt-video-title">${v.title}</p>
+              <div class="yt-video-meta">
+                <span><i class="fas fa-eye"></i> ${Number(v.views).toLocaleString('es-MX')} vistas</span>
+                <span><i class="fas fa-clock"></i> ${timeAgo(v.published)}</span>
+              </div>
             </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      function showError() {
+        loading.style.display = 'none';
+        container.innerHTML = `
+          <div class="yt-error" style="grid-column: 1 / -1;">
+            <i class="fas fa-exclamation-circle"></i>
+            <p>No se pudieron cargar los videos. <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" style="color: var(--accent);">Visita nuestro canal directamente</a></p>
           </div>
         `;
-        container.appendChild(card);
-      });
+      }
+
+      async function tryFetch(proxyIndex) {
+        if (proxyIndex >= CORS_PROXIES.length) {
+          showError();
+          return;
+        }
+        try {
+          const resp = await fetch(CORS_PROXIES[proxyIndex]);
+          if (!resp.ok) throw new Error('HTTP ' + resp.status);
+          const text = await resp.text();
+          const parser = new DOMParser();
+          const xml = parser.parseFromString(text, 'application/xml');
+          const entries = xml.querySelectorAll('entry');
+          if (!entries.length) throw new Error('No entries');
+          const videos = [];
+          entries.forEach(entry => {
+            const title = entry.querySelector('title')?.textContent || '';
+            const videoId = entry.querySelector('videoId')?.textContent || '';
+            const link = entry.querySelector('link[rel="alternate"]')?.getAttribute('href') || '';
+            const published = entry.querySelector('published')?.textContent || '';
+            const stats = entry.querySelector('statistics');
+            const views = stats ? stats.getAttribute('views') : '0';
+            videos.push({ title, videoId, link, published, views });
+          });
+          renderVideos(videos);
+        } catch (e) {
+          console.warn('YouTube RSS proxy ' + proxyIndex + ' failed:', e.message);
+          tryFetch(proxyIndex + 1);
+        }
+      }
+
+      tryFetch(0);
     })();
   </script>
 </body>
