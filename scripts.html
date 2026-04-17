@@ -549,8 +549,7 @@ body {
                     </div>
                     <div class="relative mt-2 h-12 sm:h-16 lg:h-20 w-[95vw] sm:w-full max-w-7xl overflow-hidden text-center">
                         <div id="roulette-container" class="absolute inset-x-0 top-0 flex flex-col transition-transform duration-[400ms] ease-in-out" style="transform: translateY(0);">
-                            <div id="dynamic-game-name-1" class="h-12 sm:h-16 lg:h-20 flex items-center justify-center font-black text-2xl sm:text-4xl lg:text-5xl whitespace-nowrap drop-shadow-[0_0_20px_var(--tw-shadow-color)] shadow-white/30" style="color: #ef4444; --tw-shadow-color: #ef4444;">
-                                Blox Fruits
+                            <div id="dynamic-game-name-1" class="h-12 sm:h-16 lg:h-20 flex items-center justify-center font-black text-2xl sm:text-4xl lg:text-5xl whitespace-nowrap drop-shadow-[0_0_20px_var(--tw-shadow-color)] shadow-white/30">
                             </div>
                             <div id="dynamic-game-name-2" class="h-12 sm:h-16 lg:h-20 flex items-center justify-center font-black text-2xl sm:text-4xl lg:text-5xl whitespace-nowrap drop-shadow-[0_0_20px_var(--tw-shadow-color)] shadow-white/30">
                             </div>
@@ -4136,8 +4135,30 @@ end)</code></pre>
 
     setTimeout(() => {
         gamePool = shuffleArray(availableGames);
+        
+        // Pick first random game immediately
+        if (gamePool.length > 0) {
+            const firstGame = gamePool.shift();
+            const [firstRoot, firstSec] = getThemeForGame(firstGame);
+            const firstColor = stringToHSL(firstGame);
+            const name1 = document.getElementById('dynamic-game-name-1');
+            const headerScriptTeam = document.getElementById('header-script-team');
+            
+            if(name1) {
+                name1.innerText = firstGame;
+                name1.style.color = firstColor;
+                name1.style.setProperty('--tw-shadow-color', firstColor);
+            }
+            if(headerScriptTeam) {
+                headerScriptTeam.style.background = `linear-gradient(to right, ${firstColor}, #fff, ${firstColor})`;
+                headerScriptTeam.style.webkitBackgroundClip = 'text';
+                headerScriptTeam.style.webkitTextFillColor = 'transparent';
+            }
+            changeThemeClass(firstRoot, firstSec);
+        }
+        
         setInterval(cycleGameName, 3000);
-    }, 1000);
+    }, 500);
 </script>
 </body>
 </html>
