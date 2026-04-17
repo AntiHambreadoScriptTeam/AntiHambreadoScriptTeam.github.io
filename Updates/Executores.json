@@ -5,6 +5,7 @@
       "version": "2.710",
       "fecha_actualizacion": "16-03-2026",
       "status": "desactualizado",
+      "stars": "5.0"
       "link_descarga_arm64": "https://www.mediafire.com/file/t3td4y3ozj5q9l8/PunkX_64Bits-2.710.707_%28FIXED%29.apk/file",
       "link_descarga_arm32": "https://www.mediafire.com/file/1a3hhemav7hsbs5/PunkX_32Bits-2.710.707_%28FIXED%29.apk/file", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/PunkX.png"
@@ -14,6 +15,7 @@
       "version": "2.715",
       "fecha_actualizacion": "16-04-2026",
       "status": "detectable",
+      "stars": "4.5"
       "link_descarga_arm64": "https://www.mediafire.com/file/qpitgkaqtwfj9st/Codex+v2.715.apk/file",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg"
     },
@@ -22,6 +24,7 @@
       "version": "3.9.5",
       "fecha_actualizacion": "26-01-2026",
       "status": "desactualizado",
+      "stars": "4.0"
       "link_descarga_arm64": "https://www.mediafire.com/file/nacmh2iymo3k8wx/FluxusZ+V3.9.4+ARM64.apk/file",
       "link_descarga_arm32": "https://www.mediafire.com/file/c90t3lsxtq1xsco/FluxusZ+v3.9.4+ARM32.apk/file", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/FLUXUS-Z.jpeg"
@@ -31,6 +34,7 @@
       "version": "2.1.5",
       "fecha_actualizacion": "14-04-2026",
       "status": "detectable",
+      "stars": "3.8"
       "link_descarga_arm64": "https://android.spdmteam.com/",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/ARCEUS.jpeg"
     },
@@ -39,6 +43,7 @@
       "version": "2.714",
       "fecha_actualizacion": "04-04-2026",
       "status": "peligro",
+      "stars": "0.5"
       "link_descarga_arm64": "https://delta.filenetwork.vip/android.html",
       "link_descarga_arm32": "https://delta.filenetwork.vip/android.html",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/DELTA-VIRUS.jpeg"
@@ -48,6 +53,7 @@
       "version": "2.710",
       "fecha_actualizacion": "05-03-2026",
       "status": "desactualizado",
+      "stars": "4.3"
       "link_descarga_arm64": "https://wrdcdn.net/r/154522/1772697006689/Ronix_64Bits-2.710.707.apk",
       "link_descarga_arm32": "https://wrdcdn.net/r/154522/1772697074296/Ronix_32Bits-2.710.707.apk", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/RONIX.webp"
@@ -57,6 +63,7 @@
       "version": "0.0.0",
       "fecha_actualizacion": "01-11-2025",
       "status": "descontinuado",
+      "stars": "5.0"
       "link_descarga_arm64": "https://i.postimg.cc/3wGBBKGd/Screenshot_20251127_063341_787.png",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/KRNL.png"
     },
@@ -65,9 +72,8 @@
       "version": "0.0.0",
       "fecha_actualizacion": "25-09-2025",
       "status": "descontinuado",
+      "stars": "5.0"
       "link_descarga_arm64": "https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/FLUXUS.png"
     }
-  },
-  "ultima_actualizacion": "15-12-2025"
 }
