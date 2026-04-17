@@ -115,16 +115,16 @@ body {
 <div class="pointer-events-none fixed inset-0 -z-20 bg-slate-950">
     <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 </div>
-<div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-    <div class="absolute -top-40 -left-32 h-80 w-80 rounded-full bg-gradient-to-br from-red-500/40 via-red-500/35 to-rose-500/30 blur-[100px] animate-pulse-slow"></div>
-    <div class="absolute top-1/3 -right-40 h-96 w-96 rounded-full bg-gradient-to-bl from-rose-400/30 via-red-500/20 to-red-600/30 blur-[120px] animate-pulse-slow" style="animation-delay: 1s;"></div>
-    <div class="absolute bottom-[-10rem] left-1/3 h-[420px] w-[420px] rounded-full bg-gradient-to-tr from-red-700/40 via-rose-700/30 to-red-500/30 blur-[140px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+<div id="dynamic-bg-glows" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute -top-40 -left-32 h-80 w-80 rounded-full bg-gradient-to-br from-red-500/40 via-red-500/35 to-rose-500/30 blur-[100px] animate-pulse-slow transition-colors duration-1000"></div>
+    <div class="absolute top-1/3 -right-40 h-96 w-96 rounded-full bg-gradient-to-bl from-rose-400/30 via-red-500/20 to-red-600/30 blur-[120px] animate-pulse-slow transition-colors duration-1000" style="animation-delay: 1s;"></div>
+    <div class="absolute bottom-[-10rem] left-1/3 h-[420px] w-[420px] rounded-full bg-gradient-to-tr from-red-700/40 via-rose-700/30 to-red-500/30 blur-[140px] animate-pulse-slow transition-colors duration-1000" style="animation-delay: 2s;"></div>
 </div>
 
 <nav id="sidebar" class="sidebar fixed inset-y-0 left-0 z-50 w-72 flex flex-col border-r border-white/10 bg-slate-950/80 backdrop-blur-xl transition-transform duration-300 lg:translate-x-0">
     <div class="flex h-20 shrink-0 items-center px-6 border-b border-white/10">
         <div class="flex items-center gap-3">
-            <div class="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-red-500/20 to-red-600/20 border border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.3)]">
+            <div class="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-red-500/20 to-red-600/20 border border-red-500/30 shadow-[0_0_15px_var(--tw-shadow-color)] shadow-red-500/30">
                 <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" class="rounded-xl w-full h-full object-cover p-0.5" alt="Logo">
             </div>
             <span class="text-sm font-bold tracking-widest text-slate-100 uppercase">ANTI-HAMBREADO</span>
@@ -136,7 +136,7 @@ body {
     <div class="p-4">
         <div class="relative flex items-center">
             <svg class="absolute left-3 h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-            <input type="text" id="searchInput" placeholder="Buscar scripts..." class="w-full rounded-xl border border-white/10 bg-white/5 py-2.5 pl-10 pr-4 text-sm text-slate-200 placeholder-slate-500 outline-none transition-all hover:bg-white/10 focus:border-red-500/50 focus:bg-white/10 focus:shadow-[0_0_20px_rgba(239,68,68,0.15)]">
+            <input type="text" id="searchInput" placeholder="Buscar scripts..." class="w-full rounded-xl border border-white/10 bg-white/5 py-2.5 pl-10 pr-4 text-sm text-slate-200 placeholder-slate-500 outline-none transition-all hover:bg-white/10 focus:border-red-500/50 focus:bg-white/10 focus:shadow-[0_0_20px_var(--tw-shadow-color)] shadow-red-500/15">
         </div>
     </div>
     <div class="flex-1 overflow-y-auto thin-scrollbar px-3 pb-6">
@@ -527,7 +527,7 @@ body {
             <div class="flex flex-col items-center justify-center py-20 text-center animate-fade-in-up">
                 <div class="mb-8 relative">
                     <div class="absolute inset-0 animate-ping rounded-full bg-red-500/20 blur-xl"></div>
-                    <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo" class="relative z-10 mx-auto h-32 w-32 rounded-full border border-red-500/30 shadow-[0_0_60px_rgba(239,68,68,0.3)] animate-float object-cover p-1">
+                    <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo" class="relative z-10 mx-auto h-32 w-32 rounded-full border border-red-500/30 shadow-[0_0_60px_var(--tw-shadow-color)] shadow-red-500/30 animate-float object-cover p-1">
                 </div>
                 <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-red-300 backdrop-blur-sm">
                     <span class="relative flex h-2 w-2">
@@ -539,10 +539,24 @@ body {
                 <h1 class="text-5xl font-black tracking-tight text-white sm:text-7xl lg:text-8xl">
                     Anti-Hambreado <br>
                     <span class="relative inline-block">
-                        <span class="absolute -inset-2 -z-10 block -skew-y-3 bg-red-500/20 blur-2xl"></span>
-                        <span class="animate-text-gradient bg-gradient-to-r from-red-500 via-red-300 to-red-500 bg-[length:200%_auto] bg-clip-text text-transparent drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">Script Team</span>
+                        <span class="absolute -inset-2 -z-10 block -skew-y-3 bg-red-500/20 blur-2xl transition-colors duration-1000"></span>
+                        <span id="header-script-team" class="animate-text-gradient bg-gradient-to-r from-red-500 via-red-300 to-red-500 bg-[length:200%_auto] bg-clip-text text-transparent drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] transition-colors duration-1000">Script Team</span>
                     </span>
                 </h1>
+                <div class="mt-8 flex flex-col items-center justify-center w-full px-4">
+                    <div class="text-2xl sm:text-4xl lg:text-4xl font-bold tracking-tight text-white/90">
+                        Scripts para 
+                    </div>
+                    <div class="relative mt-4 h-16 sm:h-24 w-full max-w-3xl overflow-hidden text-center">
+                        <div id="roulette-container" class="absolute inset-x-0 top-0 flex flex-col transition-transform duration-[400ms] ease-in-out" style="transform: translateY(0);">
+                            <div id="dynamic-game-name-1" class="h-16 sm:h-24 flex items-center justify-center font-black text-2xl sm:text-4xl lg:text-5xl whitespace-nowrap drop-shadow-[0_0_20px_var(--tw-shadow-color)] shadow-white/30" style="color: #ef4444; --tw-shadow-color: #ef4444;">
+                                Blox Fruits
+                            </div>
+                            <div id="dynamic-game-name-2" class="h-16 sm:h-24 flex items-center justify-center font-black text-2xl sm:text-4xl lg:text-5xl whitespace-nowrap drop-shadow-[0_0_20px_var(--tw-shadow-color)] shadow-white/30">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <p class="mx-auto mt-8 max-w-2xl text-lg text-slate-400 sm:text-lg lg:text-xl">
                     ¡Hola! Bienvenido al repositorio oficial de scripts de Anti-Hambreado Script Team. Aquí encontrarás todos los scripts de @Campione Script organizados por juegos y listos para usar. Únete a nuestra comunidad en Discord y explora nuestra colección de herramientas.
                 </p>
@@ -584,7 +598,7 @@ body {
                 <div class="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-white/10 hover:bg-white/[0.04] hover:shadow-2xl hover:shadow-red-500/10 backdrop-blur-sm">
                     <div class="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-red-500/20 blur-3xl transition-all duration-500 group-hover:bg-red-500/30"></div>
                     <div class="relative z-10">
-                        <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-white/5 to-white/10 text-red-400 ring-1 ring-white/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-red-500 group-hover:to-red-600 group-hover:text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+                        <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-white/5 to-white/10 text-red-400 ring-1 ring-white/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-red-500 group-hover:to-red-600 group-hover:text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_20px_var(--tw-shadow-color)] shadow-red-500/40">
                             <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
                         </div>
                         <h3 class="mb-3 text-xl font-bold text-white transition-colors group-hover:text-red-200">Ultra Rápido</h3>
@@ -594,7 +608,7 @@ body {
                 <div class="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-white/10 hover:bg-white/[0.04] hover:shadow-2xl hover:shadow-red-500/10 backdrop-blur-sm">
                     <div class="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-red-500/20 blur-3xl transition-all duration-500 group-hover:bg-red-500/30"></div>
                     <div class="relative z-10">
-                        <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-white/5 to-white/10 text-red-400 ring-1 ring-white/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-red-500 group-hover:to-red-600 group-hover:text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+                        <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-white/5 to-white/10 text-red-400 ring-1 ring-white/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-red-500 group-hover:to-red-600 group-hover:text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_20px_var(--tw-shadow-color)] shadow-red-500/40">
                             <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
                         </div>
                         <h3 class="mb-3 text-xl font-bold text-white transition-colors group-hover:text-red-200">100% Seguros</h3>
@@ -604,7 +618,7 @@ body {
                 <div class="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-white/10 hover:bg-white/[0.04] hover:shadow-2xl hover:shadow-red-500/10 backdrop-blur-sm">
                     <div class="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-red-500/20 blur-3xl transition-all duration-500 group-hover:bg-red-500/30"></div>
                     <div class="relative z-10">
-                        <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-white/5 to-white/10 text-red-400 ring-1 ring-white/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-red-500 group-hover:to-red-600 group-hover:text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+                        <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-white/5 to-white/10 text-red-400 ring-1 ring-white/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-red-500 group-hover:to-red-600 group-hover:text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_20px_var(--tw-shadow-color)] shadow-red-500/40">
                             <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h4l2-9 5 18 2-9h5"></path></svg>
                         </div>
                         <h3 class="mb-3 text-xl font-bold text-white transition-colors group-hover:text-red-200">Actualizados</h3>
@@ -3943,6 +3957,187 @@ end)</code></pre>
             showSection(hash);
         }
     });
+
+    // Theme cycling logic
+    const themeColorPalettes = {
+        'blox fruits': ['orange', 'amber'],
+        'grow a garden': ['green', 'emerald'],
+        'dead rails': ['amber', 'yellow'],
+        'anime': ['purple', 'fuchsia'],
+        'sea': ['blue', 'sky'],
+        'fisch': ['blue', 'sky'],
+        'blood': ['red', 'rose'],
+        'dead': ['red', 'rose'],
+        'murder': ['red', 'rose'],
+        'pink': ['pink', 'rose'],
+        'girl': ['pink', 'rose'],
+        'demon': ['red', 'rose'],
+        'titan': ['red', 'rose'],
+        'dragon': ['orange', 'amber'],
+        'weapon': ['slate', 'slate']
+    };
+    
+    const fallbackThemes = [
+        ['red', 'rose'], ['blue', 'sky'], ['emerald', 'teal'], 
+        ['amber', 'orange'], ['purple', 'fuchsia'], ['indigo', 'violet'], ['cyan', 'blue']
+    ];
+
+    function getThemeForGame(name) {
+        const lowerName = name.toLowerCase();
+        for(let key in themeColorPalettes) {
+            if(lowerName.includes(key)) return themeColorPalettes[key];
+        }
+        let hash = 0;
+        for (let i = 0; i < lowerName.length; i++) hash = lowerName.charCodeAt(i) + ((hash << 5) - hash);
+        return fallbackThemes[Math.abs(hash) % fallbackThemes.length];
+    }
+
+    const availableGames = Array.from(document.querySelectorAll('#categories-list .nav-link span.truncate'))
+        .map(el => el.textContent.trim())
+        .filter(text => text !== '🏠 Inicio' && text !== 'SCRIPTS UNIVERSALES' && !text.includes('🏠'));
+
+    let currentRootColor = 'red';
+    let currentSecColor = 'rose';
+
+    function changeThemeClass(newRoot, newSec) {
+        if(currentRootColor === newRoot && currentSecColor === newSec) return;
+        
+        const containers = [
+            document.getElementById('section-welcome'),
+            document.getElementById('dynamic-bg-glows')
+        ];
+        
+        const rootRegex = new RegExp(`(^|-)${currentRootColor}-`);
+        const secRegex = new RegExp(`(^|-)${currentSecColor}-`);
+
+        containers.forEach(container => {
+            if(!container) return;
+            const elements = [container, ...container.querySelectorAll('*')];
+            elements.forEach(el => {
+                Array.from(el.classList).forEach(cls => {
+                    if (rootRegex.test(cls)) {
+                        el.classList.replace(cls, cls.replace(rootRegex, `$1${newRoot}-`));
+                    }
+                    if (secRegex.test(cls)) {
+                        el.classList.replace(cls, cls.replace(secRegex, `$1${newSec}-`));
+                    }
+                });
+            });
+        });
+
+        currentRootColor = newRoot;
+        currentSecColor = newSec;
+    }
+
+    let gamePool = [];
+    let isTransitioning = false;
+    
+    function shuffleArray(array) {
+        const newArr = [...array];
+        for (let i = newArr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+        }
+        return newArr;
+    }
+
+    function getHueForGame(name) {
+        const lowerName = name.toLowerCase();
+        
+        if (lowerName.includes('blox fruits') || lowerName.includes('dragon')) return 30; // orange
+        if (lowerName.includes('grow a garden')) return 140; // green
+        if (lowerName.includes('dead rails')) return 40; // amber
+        if (lowerName.includes('anime')) return 280; // purple
+        if (lowerName.includes('sea') || lowerName.includes('fisch')) return 200; // blue
+        if (lowerName.includes('blood') || lowerName.includes('dead') || lowerName.includes('murder') || lowerName.includes('demon') || lowerName.includes('titan')) return 0; // red
+        if (lowerName.includes('pink') || lowerName.includes('girl')) return 330; // pink
+        if (lowerName.includes('weapon')) return 215; // slate
+        
+        return Math.abs(stringToHash(name)) % 360;
+    }
+
+    function getThemeForGame(name) {
+        const h = getHueForGame(name);
+        
+        if (h < 20 || h >= 340) return ['red', 'rose'];
+        if (h < 50) return ['orange', 'amber'];
+        if (h < 90) return ['yellow', 'amber'];
+        if (h < 160) return ['green', 'emerald'];
+        if (h < 210) return ['cyan', 'sky'];
+        if (h < 260) return ['blue', 'indigo'];
+        if (h < 310) return ['purple', 'fuchsia'];
+        return ['pink', 'rose'];
+    }
+
+    function stringToHash(str) {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+            hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        return hash;
+    }
+
+    function stringToHSL(name) {
+        const h = getHueForGame(name);
+        const hash = stringToHash(name);
+        const s = 80 + (Math.abs(hash) % 20);
+        const l = 65 + (Math.abs(hash) % 15);
+        return `hsl(${h}, ${s}%, ${l}%)`;
+    }
+
+    function cycleGameName() {
+        if(isTransitioning) return;
+        
+        const container = document.getElementById('roulette-container');
+        const name1 = document.getElementById('dynamic-game-name-1');
+        const name2 = document.getElementById('dynamic-game-name-2');
+        const headerScriptTeam = document.getElementById('header-script-team');
+        if(!container || !name1 || !name2) return;
+
+        if (gamePool.length === 0) {
+            gamePool = shuffleArray(availableGames);
+            if (gamePool[0] === name1.innerText && gamePool.length > 1) {
+                gamePool.push(gamePool.shift());
+            }
+        }
+        
+        const nextGame = gamePool.shift();
+        const [nextRoot, nextSec] = getThemeForGame(nextGame);
+        const uniqueColor = stringToHSL(nextGame);
+        
+        name2.innerText = nextGame;
+        name2.style.color = uniqueColor;
+        name2.style.setProperty('--tw-shadow-color', uniqueColor);
+        
+        isTransitioning = true;
+        
+        changeThemeClass(nextRoot, nextSec);
+        if(headerScriptTeam) {
+            headerScriptTeam.style.background = `linear-gradient(to right, ${uniqueColor}, #fff, ${uniqueColor})`;
+            headerScriptTeam.style.webkitBackgroundClip = 'text';
+            headerScriptTeam.style.webkitTextFillColor = 'transparent';
+        }
+        
+        container.style.transform = 'translateY(-50%)';
+        
+        setTimeout(() => {
+            name1.innerText = nextGame;
+            name1.style.color = uniqueColor;
+            name1.style.setProperty('--tw-shadow-color', uniqueColor);
+            
+            container.style.transition = 'none';
+            container.style.transform = 'translateY(0)';
+            
+            void container.offsetHeight;
+            container.style.transition = 'transform 0.40s ease-in-out';
+            isTransitioning = false;
+        }, 400);
+    }
+
+    setTimeout(() => {
+        gamePool = shuffleArray(availableGames);
+        setInterval(cycleGameName, 3000);
+    }, 1000);
 </script>
 </body>
 </html>
