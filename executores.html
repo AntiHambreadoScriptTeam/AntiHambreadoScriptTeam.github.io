@@ -2513,9 +2513,7 @@ window.addEventListener("unhandledrejection", (e) => {
       try {
         const response = await fetch(API_URL, { cache: 'no-cache' });
         let text = await response.text();
-        // Corrige el error común de la falta de coma en el JSON externo
         text = text.replace(/"stars":\s*"([^"]+)"\s+"link_descarga_arm64"/g, '"stars": "$1",\n      "link_descarga_arm64"');
-        // Corrige llaves faltantes al final del archivo
         const openBraces = (text.match(/{/g) || []).length;
         const closeBraces = (text.match(/}/g) || []).length;
         if (openBraces > closeBraces) {
@@ -2636,13 +2634,11 @@ window.addEventListener("unhandledrejection", (e) => {
         }
       });
 
-      // After adding cards, remove hidden class from sections and re-run filters
       document.querySelectorAll('.platform-section').forEach(s => s.classList.remove('hidden'));
       const si = document.getElementById("executor-search");
       if(si && si.value) {
           si.dispatchEvent(new Event('input'));
       }
-      // Update total count
       const totalEl = document.getElementById('totalExecutors');
       if(totalEl) {
         const visibleCards = document.querySelectorAll('.executor-card:not(.hidden)').length;
