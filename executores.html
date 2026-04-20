@@ -852,6 +852,53 @@ body {
   border-radius: 50%;
 }
 
+.status-indetectable {
+  color: #22c55e;
+}
+
+.status-indetectable::before {
+  background: #22c55e;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+  animation: pulse 2s infinite;
+}
+
+.status-detectable {
+  color: #f59e0b;
+}
+
+.status-detectable::before {
+  background: #f59e0b;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
+.status-peligro {
+  color: #ef4444;
+}
+
+.status-peligro::before {
+  background: #ef4444;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+}
+
+.status-desactualizado {
+  color: #71717a;
+}
+
+.status-desactualizado::before {
+  background: #71717a;
+  box-shadow: 0 0 8px rgba(113, 113, 122, 0.5);
+}
+
+.status-descontinuado {
+  color: #000000;
+}
+
+.status-descontinuado::before {
+  background: #000000;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .status-online {
   color: var(--success);
 }
@@ -1498,7 +1545,7 @@ a.btn-secondary[href*="wrdcdn"][href*="Vietnam"] {
  <div class="hero-content">
 <div class="hero-badge">
     <i class="fas fa-shield-alt"></i>
-    <span>Versión 3.0</span>
+    <span>Con la confianza de más de 7000 usuarios</span>
 </div>
 <h1 class="hero-title">Roblox Executores <span class="gradient-text">Premium</span></h1>
 <p class="hero-description">Nuestro sistema de <strong>Auto-Update</strong> exclusivo garantiza que los executores siempre estén en su última versión con la máxima seguridad y rendimiento.</p>
@@ -2245,7 +2292,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
-  document.querySelectorAll(".status-online::before").forEach((indicator) => {
+  document.querySelectorAll(".status-online::before, .status-indetectable::before").forEach((indicator) => {
     indicator.style.animation = "pulse 2s infinite"
   })
 
@@ -2538,11 +2585,11 @@ window.addEventListener("unhandledrejection", (e) => {
         let card = document.querySelector(`[data-executor="${key}"]`);
         
         let statusConfig = {
-          'detectable': { text: 'Detectable', class: 'offline', cls2: 'offline' },
-          'peligro': { text: 'Peligroso', class: 'offline', cls2: 'offline' },
-          'descontinuado': { text: 'Descontinuado', class: 'offline', cls2: 'offline' },
-          'desactualizado': { text: 'Desactualizado', class: 'offline', cls2: 'offline' },
-          'indetectable': { text: 'Indetectable', class: 'online', cls2: 'online' },
+          'detectable': { text: 'Detectable', class: 'offline', cls2: 'detectable' },
+          'peligro': { text: 'Peligroso', class: 'offline', cls2: 'peligro' },
+          'descontinuado': { text: 'Descontinuado', class: 'offline', cls2: 'descontinuado' },
+          'desactualizado': { text: 'Desactualizado', class: 'offline', cls2: 'desactualizado' },
+          'indetectable': { text: 'Indetectable', class: 'online', cls2: 'indetectable' },
           'desconocido': { text: 'Desconocido', class: 'offline', cls2: 'offline' }
         };
         const st = statusConfig[d.status] || statusConfig['desconocido'];
