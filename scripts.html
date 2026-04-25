@@ -4155,6 +4155,7 @@ end)</code></pre>
             headerScriptTeam.style.webkitTextFillColor = 'transparent';
         }
         
+        container.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
         container.style.transform = 'translateY(-50%)';
         
         setTimeout(() => {
@@ -4166,9 +4167,9 @@ end)</code></pre>
             container.style.transform = 'translateY(0)';
             
             void container.offsetHeight;
-            container.style.transition = 'transform 0.40s ease-in-out';
+            container.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
             isTransitioning = false;
-        }, 400);
+        }, 600);
     }
 
     setTimeout(() => {
@@ -4194,7 +4195,7 @@ end)</code></pre>
             changeThemeClass(firstRoot, firstSec);
         }
         
-        setInterval(cycleGameName, 3000);
+        setInterval(cycleGameName, 1700);
     }, 500);
 </script>
 </body>
