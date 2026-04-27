@@ -2171,8 +2171,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   applyVNGStyling();
 
-  // initial filter is handled by applyPlatformFilter after data loads
-
   document.querySelectorAll(".btn-download, .btn-premium").forEach((btn) => {
     safeAddEventListener(btn, "click", (e) => {
       try {
@@ -2725,14 +2723,22 @@ window.addEventListener("unhandledrejection", (e) => {
     }
 
     async function fetchWithCorsProxy(url) {
-      for (const proxy of CORS_PROXIES) {
-        try {
-          const resp = await fetch(proxy + encodeURIComponent(url), { cache: 'no-cache' });
-          if (resp.ok) return await resp.text();
-        } catch (e) { continue; }
+      try {
+        const controller = new AbortController();
+        const promises = CORS_PROXIES.map(proxy => 
+          fetch(proxy + encodeURIComponent(url), { cache: 'no-cache', signal: controller.signal })
+            .then(res => {
+              if (res.ok) return res.text();
+              throw new Error('Proxy returned error');
+            })
+        );
+        const result = await Promise.any(promises);
+        controller.abort(); 
+        return result;
+      } catch (e) {
+        const direct = await fetch(url, { cache: 'no-cache', mode: 'cors' });
+        return await direct.text();
       }
-      const direct = await fetch(url, { cache: 'no-cache', mode: 'cors' });
-      return await direct.text();
     }
 
     function parseSamratWindows(html) {
