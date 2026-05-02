@@ -2797,7 +2797,8 @@ window.addEventListener("unhandledrejection", (e) => {
         const customLogos = {
             'isaeva': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMRm-kvoPtPwMbFPkYz4YAGZ2tPDq96bqxA&s',
             'volt': 'https://media.karousell.com/media/photos/products/2025/12/5/roblox_vault_awp_v2__executor__1764921674_37063614_progressive',
-            'fluxusz': 'https://wearedevs.net/images/thumbnails/fluxus-z-111125.webp'
+            'fluxusz': 'https://wearedevs.net/images/thumbnails/fluxus-z-111125.webp',
+            'xeno': 'https://wearedevs.net/images/thumbnails/xeno-112025.webp'
         };
 
         const exNameLower = ex.name.toLowerCase();
@@ -2808,11 +2809,12 @@ window.addEventListener("unhandledrejection", (e) => {
         let isPremium = false;
         let buttonsHtml = '';
         ex.links.forEach(link => {
+          const btnLabel = link.text && link.text !== 'Descargar' ? link.text : 'Descargar';
           if (link.isPurchase) {
             isPremium = true;
             buttonsHtml += `<a href="${link.href}" target="_blank" rel="noopener" class="btn btn-premium"><i class="fas fa-shopping-cart"></i> Comprar</a>`;
           } else {
-            buttonsHtml += `<a href="${link.href}" target="_blank" rel="noopener" class="btn btn-download"><i class="fas fa-download"></i> Descargar</a>`;
+            buttonsHtml += `<a href="${link.href}" target="_blank" rel="noopener" class="btn btn-download"><i class="fas fa-download"></i> ${btnLabel}</a>`;
           }
         });
 
@@ -2846,7 +2848,9 @@ window.addEventListener("unhandledrejection", (e) => {
             'vortex': 4.7,
             'lx63': 4.0,
             'madium': 4.5,
-            'wave cracked': 5.0
+            'wave cracked': 5.0,
+            'pluto': 4.7,
+            'xeno': 4.8
         };
 
         const ratingVal = customStars[exNameLower] !== undefined ? customStars[exNameLower] : 5.0;
@@ -2886,6 +2890,11 @@ window.addEventListener("unhandledrejection", (e) => {
         `;
       });
 
+      const waveCrackedCard = windowsContainer.querySelector('[data-executor="win_wave_cracked"]');
+      if (waveCrackedCard) {
+          windowsContainer.prepend(waveCrackedCard);
+      }
+
       applyPlatformFilter();
     }
 
@@ -2921,10 +2930,206 @@ window.addEventListener("unhandledrejection", (e) => {
       }
     }
 
+    async function parseWeAreDevsPage(url) {
+      try {
+        const html = await fetchWithCorsProxy(url);
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        const downloadLinks = [];
+        doc.querySelectorAll('.btnDownload').forEach(btn => {
+          const onclick = btn.getAttribute('onclick') || '';
+          const match = onclick.match(/IncD\(['"](https?:\/\/[^'"]+)['"]\)/);
+          if (match) {
+            const label = btn.textContent?.trim() || 'Download';
+            downloadLinks.push({ href: match[1], label });
+          }
+        });
+
+        const imgEl = doc.querySelector('.exploit-download-image img, .exploit-image img, img[src*="thumbnails"], img[src*="software"]');
+        const imgSrc = imgEl ? imgEl.getAttribute('src') : '';
+        return { downloadLinks, imgSrc };
+      } catch (e) {
+        console.warn('Error parsing WeAreDevs page:', url, e);
+        return { downloadLinks: [], imgSrc: '' };
+      }
+    }
+
+    async function fetchWeAreDevsExecutors() {
+      try {
+        const [plutoInfo, xenoInfo] = await Promise.all([
+          parseWeAreDevsPage('https://wearedevs.net/d/Pluto'),
+          parseWeAreDevsPage('https://wearedevs.net/d/Xeno')
+        ]);
+
+        const plutoLinks = [];
+        plutoInfo.downloadLinks.forEach(dl => {
+          const isExternal = dl.label.toLowerCase().includes('external');
+          plutoLinks.push({
+            href: dl.href,
+            text: isExternal ? 'External' : 'Executor',
+            isPurchase: false
+          });
+        });
+
+        const xenoLinks = [];
+        xenoInfo.downloadLinks.forEach(dl => {
+          xenoLinks.push({
+            href: dl.href,
+            text: 'Executor',
+            isPurchase: false
+          });
+        });
+
+        const weAreDevsExecutors = [
+          {
+            name: 'Pluto',
+            img: plutoInfo.imgSrc || 'https://obj.wearedevs.net/images/software/pluto/pluto.webp',
+            version: 'Executor & External',
+            statusText: 'Online',
+            statusClass: 'indetectable',
+            links: plutoLinks.length > 0 ? plutoLinks : [{ href: 'https://wearedevs.net/d/Pluto', text: 'Descargar', isPurchase: false }]
+          },
+          {
+            name: 'Xeno',
+            img: xenoInfo.imgSrc || 'https://wearedevs.net/images/thumbnails/xeno-112025.webp',
+            version: 'Executor',
+            statusText: 'Online',
+            statusClass: 'indetectable',
+            links: xenoLinks.length > 0 ? xenoLinks : [{ href: 'https://wearedevs.net/d/Xeno', text: 'Descargar', isPurchase: false }]
+          }
+        ];
+
+        renderWindowsExecutors(weAreDevsExecutors);
+        console.log('WeAreDevs executors (Pluto, Xeno) actualizados');
+      } catch (error) {
+        console.error('Error al obtener WeAreDevs executors:', error);
+      }
+    }
+
+    function parseSamratAndroid(html) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const androidSection = doc.querySelector('#android');
+      if (!androidSection) return [];
+      const cards = androidSection.querySelectorAll('.executor-card');
+      const results = [];
+      const targetNames = ['vegax', 'trigon'];
+      cards.forEach(card => {
+        const name = card.querySelector('h3')?.textContent?.trim() || '';
+        if (!targetNames.includes(name.toLowerCase())) return;
+        const img = card.querySelector('.executor-logo')?.getAttribute('src') || '';
+        const details = card.querySelectorAll('.detail-value');
+        const version = details[0]?.textContent?.trim() || '';
+        const statusEl = card.querySelector('.status');
+        let statusText = statusEl?.textContent?.trim() || 'Online';
+        let statusClass = 'indetectable';
+        if (statusEl) {
+          const cls = statusEl.className || '';
+          if (cls.includes('status-online')) statusClass = 'indetectable';
+          else if (cls.includes('status-offline')) statusClass = 'detectable';
+        }
+        const links = [];
+        card.querySelectorAll('.btn-download, .btn-premium, .btn-secondary').forEach(btn => {
+          const href = btn.getAttribute('href') || '';
+          const text = btn.textContent?.trim() || '';
+          if (href && href !== '#' && href !== '') {
+            links.push({ href, text });
+          }
+        });
+        if (name) results.push({ name, img, version, statusText, statusClass, links });
+      });
+      return results;
+    }
+
+    function renderAndroidFromSamrat(executors) {
+      if (!executorsContainer) return;
+
+      const customAndroidStars = {
+        'vegax': 4.5,
+        'trigon': 4.4
+      };
+
+      executors.forEach(ex => {
+        const key = 'samrat_' + ex.name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+        let card = executorsContainer.querySelector(`[data-executor="${key}"]`);
+
+        if (!card) {
+          card = document.createElement('div');
+          card.className = 'executor-card';
+          card.dataset.executor = key;
+          card.dataset.platform = 'android';
+          executorsContainer.appendChild(card);
+        }
+
+        const imgSrc = ex.img.startsWith('http') ? ex.img : 'https://executors.samrat.lol' + (ex.img.startsWith('/') ? '' : '/') + ex.img;
+
+        const exNameLower = ex.name.toLowerCase();
+        const ratingVal = customAndroidStars[exNameLower] !== undefined ? customAndroidStars[exNameLower] : 5.0;
+        let starsHtml = '';
+        const fullStars = Math.floor(ratingVal);
+        const hasHalfStar = ratingVal % 1 >= 0.5;
+        for (let i = 1; i <= 5; i++) {
+          if (i <= fullStars) {
+            starsHtml += '<i class="fas fa-star"></i>';
+          } else if (i === fullStars + 1 && hasHalfStar) {
+            starsHtml += '<i class="fas fa-star-half-alt"></i>';
+          } else {
+            starsHtml += '<i class="far fa-star"></i>';
+          }
+        }
+
+        let buttonsHtml = '';
+        ex.links.forEach(link => {
+          buttonsHtml += `<a href="${link.href}" target="_blank" rel="noopener" class="btn btn-download"><i class="fas fa-download"></i> Descargar</a>`;
+        });
+
+        card.innerHTML = `
+          <div class="card-header">
+              <img src="${imgSrc}" alt="${ex.name}" class="executor-logo" onerror="this.src='https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg'">
+              <div class="executor-info">
+                  <h3>${ex.name}</h3>
+                  <div class="executor-rating">
+                      <div class="stars">
+                          ${starsHtml}
+                      </div>
+                      <span class="rating-text">${ratingVal.toFixed(1)}</span>
+                  </div>
+              </div>
+          </div>
+          <div class="card-details">
+              <div class="detail-item"><span class="detail-label">Versión:</span><span class="detail-value">${ex.version || 'N/A'}</span></div>
+              <div class="detail-item"><span class="detail-label">Estado:</span><span class="status status-${ex.statusClass}">${ex.statusText}</span></div>
+              <div class="detail-item"><span class="detail-label">Plataforma:</span><span class="detail-value"><i class="fab fa-android"></i> Android</span></div>
+          </div>
+          <div class="card-actions">${buttonsHtml}</div>
+        `;
+      });
+
+      applyPlatformFilter();
+    }
+
+    async function fetchAndroidFromSamrat() {
+      try {
+        const html = await fetchWithCorsProxy(SAMRAT_URL);
+        const executors = parseSamratAndroid(html);
+        if (executors.length > 0) {
+          renderAndroidFromSamrat(executors);
+          console.log(`Android executors de Samrat actualizados: ${executors.length} encontrados`);
+        }
+      } catch (error) {
+        console.error('Error al obtener Android executors de Samrat:', error);
+      }
+    }
+
     fetchExecutorData();
     fetchWindowsExecutors();
+    fetchAndroidFromSamrat();
+    fetchWeAreDevsExecutors();
     setInterval(fetchExecutorData, 11000);
     setInterval(fetchWindowsExecutors, 30000);
+    setInterval(fetchAndroidFromSamrat, 30000);
+    setInterval(fetchWeAreDevsExecutors, 60000);
 </script>
 
 </body>
