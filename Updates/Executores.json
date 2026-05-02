@@ -52,28 +52,10 @@
       "nombre": "PunkX",
       "version": "2.710",
       "fecha_actualizacion": "16-03-2026",
-      "status": "descontinuado",
+      "status": "desactualizado",
       "stars": "4.9"
       "link_descarga_arm64": "https://www.mediafire.com/file/t3td4y3ozj5q9l8/PunkX_64Bits-2.710.707_%28FIXED%29.apk/file",
       "link_descarga_arm32": "https://www.mediafire.com/file/1a3hhemav7hsbs5/PunkX_32Bits-2.710.707_%28FIXED%29.apk/file", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/PunkX.png"
-    },  
-    "krnl": {
-      "nombre": "KRNL",
-      "version": "0.0.0",
-      "fecha_actualizacion": "01-11-2025",
-      "status": "descontinuado",
-      "stars": "5.0"
-      "link_descarga_arm64": "https://i.postimg.cc/3wGBBKGd/Screenshot_20251127_063341_787.png",
-      "imagen": "https://antihambreadoscriptteam.github.io/Foto/KRNL.png"
-    },
-    "fluxus": {
-      "nombre": "Fluxus",
-      "version": "0.0.0",
-      "fecha_actualizacion": "25-09-2025",
-      "status": "descontinuado",
-      "stars": "5.0"
-      "link_descarga_arm64": "https://i.postimg.cc/3wGBBKGd/Screenshot-20251127-063341-787.png",
-      "imagen": "https://antihambreadoscriptteam.github.io/Foto/FLUXUS.png"
     }
 }
