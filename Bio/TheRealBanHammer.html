@@ -1,1 +1,1995 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>𖤐 TheRealBanHammer | Bio Profesional</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #000;
+      --panel: rgba(18, 16, 11, 0.68);
+      --panel-strong: rgba(28, 24, 15, 0.84);
+      --stroke: rgba(255, 211, 113, 0.22);
+      --stroke-soft: rgba(255, 255, 255, 0.12);
+      --gold: #ffd66b;
+      --gold-strong: #ffb927;
+      --gold-soft: rgba(255, 214, 107, 0.16);
+      --text: #fff9e8;
+      --muted: rgba(255, 249, 232, 0.68);
+      --faint: rgba(255, 249, 232, 0.42);
+      --shadow: 0 18px 46px rgba(0, 0, 0, 0.58);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --font-main: "SF Pro Display", "Inter", "Segoe UI", system-ui, sans-serif;
+      --font-alt: "Avenir Next", "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-main);
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      border: 0;
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    #space {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      background: #000;
+    }
+
+    .svg-field {
+      position: fixed;
+      inset: -10vh -8vw;
+      z-index: -2;
+      pointer-events: none;
+      opacity: 0.78;
+      filter: saturate(1.08);
+    }
+
+    .svg-field path {
+      transform-origin: center;
+      animation: drift 34s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    .svg-field path:nth-child(2) {
+      animation-duration: 44s;
+      animation-delay: -8s;
+    }
+
+    .svg-field path:nth-child(3) {
+      animation-duration: 52s;
+      animation-delay: -12s;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.21;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 214, 107, 0.09), transparent 28%),
+        radial-gradient(circle at 82% 16%, rgba(255, 185, 39, 0.08), transparent 25%),
+        linear-gradient(120deg, transparent 0 48%, rgba(255, 255, 255, 0.04) 49%, transparent 52% 100%);
+      mix-blend-mode: screen;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 48px;
+      position: relative;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 22px;
+      color: var(--muted);
+    }
+
+    .brand-mini {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      font-family: var(--font-alt);
+      font-weight: 800;
+    }
+
+    .brand-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 99px;
+      background: radial-gradient(circle, #fff7cf 0 24%, var(--gold) 25% 56%, transparent 57%);
+      box-shadow: 0 0 24px rgba(255, 214, 107, 0.82);
+    }
+
+    .top-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border: 1px solid var(--stroke);
+      border-radius: 999px;
+      background: rgba(255, 214, 107, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.72fr);
+      gap: 22px;
+      min-height: 560px;
+    }
+
+    .glass {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--stroke);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 214, 107, 0.04) 28%, rgba(0, 0, 0, 0.5) 100%),
+        var(--panel);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(14px) saturate(1.12);
+      -webkit-backdrop-filter: blur(14px) saturate(1.12);
+      transform: translateZ(0);
+    }
+
+    .glass::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(115deg, rgba(255, 255, 255, 0.18), transparent 24% 78%, rgba(255, 214, 107, 0.12)),
+        radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 214, 107, 0.11), transparent 30%);
+      opacity: 0.72;
+    }
+
+    .profile-card {
+      padding: clamp(22px, 4vw, 42px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 560px;
+    }
+
+    .hero-main {
+      position: relative;
+      z-index: 1;
+    }
+
+    .avatar-line {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      width: clamp(96px, 12vw, 138px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      padding: 4px;
+      background: conic-gradient(from 120deg, rgba(255, 214, 107, 0.1), #ffe8a0, #be7a13, rgba(255, 214, 107, 0.1));
+      box-shadow: 0 0 28px rgba(255, 185, 39, 0.22);
+      flex: 0 0 auto;
+    }
+
+    .avatar-wrap::before,
+    .avatar-wrap::after {
+      content: "";
+      position: absolute;
+      inset: -13px;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 214, 107, 0.18);
+      animation: ringPulse 5.8s ease-in-out infinite;
+    }
+
+    .avatar-wrap::after {
+      inset: -25px;
+      opacity: 0.48;
+      animation-delay: -2.4s;
+    }
+
+    .avatar {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+      border: 4px solid rgba(0, 0, 0, 0.7);
+    }
+
+    .status-block {
+      min-width: 0;
+    }
+
+    .status-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #27f599;
+      box-shadow: 0 0 10px rgba(39, 245, 153, 0.58);
+    }
+
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      max-width: 100%;
+    }
+
+    h1 {
+      font-size: clamp(1.35rem, 2.45vw, 2.25rem);
+      line-height: 1.08;
+      font-family: var(--font-alt);
+      font-weight: 900;
+      text-wrap: balance;
+      text-shadow: 0 0 18px rgba(255, 214, 107, 0.18);
+      overflow-wrap: anywhere;
+    }
+
+    .badge-img {
+      width: clamp(18px, 1.7vw, 26px);
+      height: clamp(18px, 1.7vw, 26px);
+      object-fit: contain;
+      filter: drop-shadow(0 0 9px rgba(255, 214, 107, 0.4));
+      animation: badgeFloat 4.2s ease-in-out infinite;
+    }
+
+    .subtitle {
+      max-width: 820px;
+      margin-top: 22px;
+      color: rgba(255, 249, 232, 0.52);
+      font-size: clamp(1.08rem, 2.3vw, 1.55rem);
+      line-height: 1.45;
+      font-weight: 700;
+      font-style: italic;
+      transform: skewX(-5deg);
+      transform-origin: left center;
+    }
+
+    .subtitle strong {
+      color: rgba(255, 214, 107, 0.72);
+      font-weight: 900;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 38px;
+      padding: 9px 13px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.065);
+      color: rgba(255, 249, 232, 0.86);
+      font-size: 0.9rem;
+      font-weight: 800;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .chip svg,
+    .icon {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      stroke-width: 2.2;
+    }
+
+    .tech-showcase {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .tech-card {
+      position: relative;
+      min-height: 98px;
+      padding: 13px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      background: linear-gradient(155deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.035));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 10px 24px rgba(0, 0, 0, 0.2);
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .tech-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -18px -34px auto;
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      background: var(--tech-glow, rgba(255, 214, 107, 0.18));
+      filter: blur(6px);
+      opacity: 0.78;
+    }
+
+    .tech-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255, 214, 107, 0.34);
+      background: linear-gradient(155deg, rgba(255, 214, 107, 0.14), rgba(255, 255, 255, 0.045));
+    }
+
+    .tech-logo {
+      position: relative;
+      z-index: 1;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 10px;
+      border-radius: 14px;
+      color: #111;
+      background: #fff;
+      box-shadow: 0 9px 18px rgba(0, 0, 0, 0.24);
+    }
+
+    .tech-logo svg {
+      width: 27px;
+      height: 27px;
+    }
+
+    .tech-logo img {
+      width: 29px;
+      height: 29px;
+      object-fit: contain;
+    }
+
+    .tech-card strong {
+      position: relative;
+      z-index: 1;
+      display: block;
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+    }
+
+    .tech-card span {
+      position: relative;
+      z-index: 1;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 760;
+      line-height: 1.2;
+    }
+
+    .tech-html { --tech-glow: rgba(241, 101, 41, 0.36); }
+    .tech-css { --tech-glow: rgba(41, 101, 241, 0.36); }
+    .tech-js { --tech-glow: rgba(247, 223, 30, 0.32); }
+    .tech-lua { --tech-glow: rgba(45, 69, 155, 0.4); }
+    .tech-roblox { --tech-glow: rgba(255, 255, 255, 0.24); }
+
+    .tech-html .tech-logo { background: rgba(241, 101, 41, 0.14); }
+    .tech-css .tech-logo { background: rgba(41, 101, 241, 0.16); }
+    .tech-js .tech-logo { background: rgba(247, 223, 30, 0.14); }
+    .tech-lua .tech-logo { background: rgba(45, 69, 155, 0.18); }
+    .tech-roblox .tech-logo { background: rgba(255, 255, 255, 0.12); }
+
+    .hero-actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 42px;
+    }
+
+    .action {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #fff1ad, #ffbd36 48%, #9e650d);
+      color: #130d00;
+      font-weight: 950;
+      box-shadow: 0 10px 24px rgba(255, 185, 39, 0.18);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .action:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(255, 185, 39, 0.24);
+      filter: brightness(1.08);
+    }
+
+    .action.secondary {
+      border: 1px solid var(--stroke-soft);
+      background: rgba(255, 255, 255, 0.075);
+      color: var(--text);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 22px;
+      min-height: 560px;
+    }
+
+    .mini-card {
+      padding: 24px;
+    }
+
+    .discord-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 318px;
+    }
+
+    .card-title {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .card-title h2,
+    .section-title h2 {
+      font-family: var(--font-alt);
+      font-size: clamp(1.35rem, 2vw, 2rem);
+      line-height: 1;
+    }
+
+    .card-title span,
+    .section-title span {
+      color: var(--gold);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.11em;
+    }
+
+    .discord-mini {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 66px 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.075);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .discord-logo {
+      width: 66px;
+      height: 66px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: linear-gradient(145deg, #fff1ad, #ffbd36 48%, #9e650d);
+      box-shadow: 0 10px 24px rgba(255, 185, 39, 0.16);
+    }
+
+    .discord-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+      border: 2px solid rgba(0, 0, 0, 0.42);
+    }
+
+    .discord-mini h3 {
+      font-size: 1.08rem;
+      font-weight: 950;
+      margin-bottom: 5px;
+    }
+
+    .discord-mini p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.35;
+    }
+
+    .quote {
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      background: rgba(0, 0, 0, 0.32);
+      border: 1px solid rgba(255, 214, 107, 0.18);
+      color: rgba(255, 249, 232, 0.84);
+      font-weight: 800;
+      line-height: 1.48;
+    }
+
+    .logo-cloud {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 9px;
+      margin-top: 14px;
+    }
+
+    .cloud-logo {
+      min-height: 54px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 17px;
+      background: rgba(255, 255, 255, 0.055);
+      color: rgba(255, 249, 232, 0.86);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .cloud-logo svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .cloud-logo.youtube {
+      color: #ff4d4d;
+    }
+
+    .cloud-logo.discord {
+      color: #7684ff;
+    }
+
+    .cloud-logo.roblox {
+      color: #ffffff;
+    }
+
+    .cloud-logo.gold {
+      color: var(--gold);
+    }
+
+    main {
+      margin-top: 22px;
+      display: grid;
+      gap: 22px;
+    }
+
+    .section {
+      padding: clamp(20px, 3vw, 30px);
+    }
+
+    .section-title {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .section-title p {
+      max-width: 560px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-weight: 650;
+      text-align: right;
+    }
+
+    .project-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .project-card,
+    .social-card,
+    .achievement {
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.09), transparent),
+        rgba(255, 255, 255, 0.052);
+      border-radius: var(--radius-lg);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .project-card:hover,
+    .social-card:hover,
+    .achievement:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 214, 107, 0.35);
+      background:
+        linear-gradient(145deg, rgba(255, 214, 107, 0.12), transparent),
+        rgba(255, 255, 255, 0.072);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 10px 24px rgba(0, 0, 0, 0.22);
+    }
+
+    .project-card {
+      position: relative;
+      min-height: 248px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 78% 16%, rgba(255, 214, 107, 0.16), transparent 34%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 14px;
+    }
+
+    .project-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: #160e00;
+      background: linear-gradient(145deg, #fff3bf, #ffba31);
+      box-shadow: 0 10px 24px rgba(255, 185, 39, 0.14);
+    }
+
+    .project-icon svg {
+      width: 25px;
+      height: 25px;
+    }
+
+    .project-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 18px 0 14px;
+    }
+
+    .project-mark {
+      width: 52px;
+      height: 52px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+      color: var(--gold);
+      font-family: var(--font-alt);
+      font-size: 1.35rem;
+      font-weight: 950;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      overflow: hidden;
+    }
+
+    .project-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+    }
+
+    .project-logo span {
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 860;
+      line-height: 1.25;
+    }
+
+    .project-tag {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 214, 107, 0.12);
+      color: var(--gold);
+      font-size: 0.72rem;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    .project-card h3 {
+      font-size: 1.25rem;
+      line-height: 1.12;
+      margin-bottom: 8px;
+      font-weight: 950;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      line-height: 1.48;
+      font-weight: 650;
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tiny-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 34px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(255, 249, 232, 0.84);
+      font-size: 0.82rem;
+      font-weight: 850;
+      transition: border-color 0.25s ease, color 0.25s ease;
+    }
+
+    .tiny-link:hover {
+      border-color: rgba(255, 214, 107, 0.34);
+      color: var(--gold);
+    }
+
+    .tiny-link svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .achievement-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .achievement {
+      position: relative;
+      padding: 24px;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      overflow: hidden;
+    }
+
+    .achievement::before {
+      content: "";
+      position: absolute;
+      inset: -20% -20% auto auto;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: rgba(255, 214, 107, 0.13);
+      filter: blur(8px);
+    }
+
+    .achievement-badge {
+      position: relative;
+      z-index: 1;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: rgba(255, 214, 107, 0.12);
+      color: var(--gold);
+      border: 1px solid rgba(255, 214, 107, 0.18);
+    }
+
+    .achievement-badge svg {
+      width: 23px;
+      height: 23px;
+    }
+
+    .achievement strong {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(2.1rem, 5vw, 3.5rem);
+      line-height: 0.9;
+      color: var(--gold);
+      font-family: var(--font-alt);
+      text-shadow: 0 0 24px rgba(255, 214, 107, 0.25);
+    }
+
+    .achievement span {
+      position: relative;
+      z-index: 1;
+      color: rgba(255, 249, 232, 0.82);
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 820;
+    }
+
+    .stack-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .stack-feature {
+      min-height: 320px;
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 214, 107, 0.17);
+      background:
+        radial-gradient(circle at 72% 20%, rgba(255, 214, 107, 0.18), transparent 30%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.035));
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .stack-feature h3 {
+      font-family: var(--font-alt);
+      font-size: clamp(1.7rem, 3vw, 3rem);
+      line-height: 0.94;
+      margin-bottom: 14px;
+    }
+
+    .stack-feature p {
+      color: var(--muted);
+      line-height: 1.48;
+      font-weight: 680;
+    }
+
+    .stack-orbit {
+      position: relative;
+      height: 250px;
+      margin-top: 18px;
+    }
+
+    .stack-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .flow-line {
+      fill: none;
+      stroke: rgba(255, 214, 107, 0.48);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-dasharray: 34 18;
+      animation: flowTrace 2.8s linear infinite;
+    }
+
+    .flow-line.alt {
+      stroke: rgba(255, 249, 232, 0.24);
+      animation-duration: 3.6s;
+      animation-direction: reverse;
+    }
+
+    .flow-glow {
+      fill: none;
+      stroke: rgba(255, 214, 107, 0.08);
+      stroke-width: 9;
+      stroke-linecap: round;
+    }
+
+    .architecture-grid {
+      stroke: rgba(255, 249, 232, 0.11);
+      stroke-width: 0.75;
+    }
+
+    .architecture-ring {
+      fill: none;
+      stroke: rgba(255, 214, 107, 0.2);
+      stroke-width: 1;
+      stroke-dasharray: 8 12;
+      animation: flowTrace 18s linear infinite;
+    }
+
+    .orbit-shell {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: orbitRotate 14s linear infinite;
+    }
+
+    .orbit-shell.reverse {
+      animation-duration: 19s;
+      animation-direction: reverse;
+    }
+
+    .flow-core {
+      fill: url(#corePanel);
+      stroke: rgba(255, 225, 125, 0.42);
+      stroke-width: 1.2;
+    }
+
+    .core-ring {
+      fill: none;
+      stroke: rgba(255, 214, 107, 0.34);
+      stroke-width: 1;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: corePulse 4.8s ease-in-out infinite;
+    }
+
+    .core-scan {
+      fill: rgba(255, 255, 255, 0.18);
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: scanSlide 3.6s ease-in-out infinite;
+    }
+
+    .flow-node {
+      filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.34));
+    }
+
+    .node-card {
+      fill: url(#nodeGlass);
+      stroke: rgba(255, 214, 107, 0.3);
+      stroke-width: 1;
+    }
+
+    .node-card.primary {
+      fill: url(#nodeGold);
+      stroke: rgba(255, 244, 184, 0.58);
+    }
+
+    .node-icon {
+      fill: rgba(255, 249, 232, 0.94);
+    }
+
+    .node-icon.dark {
+      fill: rgba(22, 14, 0, 0.78);
+    }
+
+    .node-label {
+      fill: rgba(255, 249, 232, 0.8);
+      font-family: var(--font-main);
+      font-size: 9px;
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+
+    .node-label.dark {
+      fill: rgba(22, 14, 0, 0.76);
+    }
+
+    .node-caption {
+      fill: rgba(255, 249, 232, 0.48);
+      font-family: var(--font-main);
+      font-size: 6.8px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .data-pulse {
+      fill: var(--gold);
+      filter: drop-shadow(0 0 9px rgba(255, 214, 107, 0.65));
+    }
+
+    .signal-beam {
+      fill: none;
+      stroke: rgba(255, 214, 107, 0.7);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-dasharray: 18 230;
+      animation: beamRun 3.4s ease-in-out infinite;
+      filter: drop-shadow(0 0 8px rgba(255, 214, 107, 0.45));
+    }
+
+    .signal-beam.alt {
+      animation-delay: -1.6s;
+      animation-duration: 4.2s;
+    }
+
+    .social-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .social-card {
+      min-height: 156px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .social-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .social-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 214, 107, 0.12);
+      color: var(--gold);
+      border: 1px solid rgba(255, 214, 107, 0.18);
+    }
+
+    .social-icon svg {
+      width: 23px;
+      height: 23px;
+    }
+
+    .social-icon img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.18));
+    }
+
+    .social-card.discord {
+      background: linear-gradient(145deg, rgba(88, 101, 242, 0.2), rgba(255, 255, 255, 0.045));
+      text-align: left;
+      align-items: stretch;
+    }
+
+    .social-card.discord .social-top {
+      justify-content: space-between;
+    }
+
+    .social-card.discord h3,
+    .social-card.discord p {
+      text-align: left;
+    }
+
+    .social-card.server {
+      background: linear-gradient(145deg, rgba(255, 214, 107, 0.14), rgba(255, 255, 255, 0.045));
+    }
+
+    .social-card.tiktok {
+      background: linear-gradient(145deg, rgba(255, 0, 80, 0.12), rgba(0, 242, 234, 0.07));
+    }
+
+    .social-card.roblox {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.035));
+    }
+
+    .social-card h3 {
+      font-size: 1rem;
+      margin-bottom: 5px;
+      font-weight: 950;
+    }
+
+    .social-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.38;
+      font-weight: 650;
+      overflow-wrap: anywhere;
+    }
+
+    .state {
+      min-width: 88px;
+      text-align: center;
+      padding: 7px 9px;
+      border-radius: 999px;
+      background: rgba(255, 214, 107, 0.1);
+      color: var(--gold);
+      font-size: 0.72rem;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .state.off {
+      color: var(--faint);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .copy-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 10;
+      transform: translate(-50%, 22px);
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 214, 107, 0.24);
+      background: rgba(14, 12, 8, 0.86);
+      color: var(--text);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.48);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-weight: 850;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .copy-toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .dock {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      z-index: 8;
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      background: rgba(8, 7, 5, 0.54);
+      backdrop-filter: blur(12px) saturate(1.12);
+      -webkit-backdrop-filter: blur(12px) saturate(1.12);
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.42);
+    }
+
+    .dock a,
+    .dock button {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
+      transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+    }
+
+    .dock a:hover,
+    .dock button:hover {
+      transform: translateY(-5px) scale(1.04);
+      background: rgba(255, 214, 107, 0.16);
+      color: var(--gold);
+    }
+
+    .dock svg {
+      width: 21px;
+      height: 21px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.48s ease, transform 0.48s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes drift {
+      from {
+        transform: rotate(-2deg) translate3d(-1vw, -0.5vh, 0) scale(1);
+      }
+      to {
+        transform: rotate(2deg) translate3d(1vw, 0.75vh, 0) scale(1.025);
+      }
+    }
+
+    @keyframes badgeFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(-4deg);
+      }
+      50% {
+        transform: translateY(-8px) rotate(5deg);
+      }
+    }
+
+    @keyframes ringPulse {
+      0%, 100% {
+        transform: scale(0.98);
+        opacity: 0.42;
+      }
+      50% {
+        transform: scale(1.05);
+        opacity: 0.88;
+      }
+    }
+
+    @keyframes flowTrace {
+      to {
+        stroke-dashoffset: -76;
+      }
+    }
+
+    @keyframes lineSweep {
+      0%, 100% {
+        stroke-dashoffset: 280;
+        opacity: 0.34;
+      }
+      50% {
+        stroke-dashoffset: 0;
+        opacity: 0.86;
+      }
+    }
+
+    @keyframes corePulse {
+      0%, 100% {
+        transform: scale(0.96);
+        opacity: 0.46;
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 0.92;
+      }
+    }
+
+    @keyframes scanSlide {
+      0%, 100% {
+        opacity: 0;
+        transform: translateX(-22px);
+      }
+      45%, 62% {
+        opacity: 0.8;
+      }
+      80% {
+        opacity: 0;
+        transform: translateX(22px);
+      }
+    }
+
+    @media (max-width: 960px) {
+      .hero,
+      .project-grid,
+      .achievement-grid,
+      .stack-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero,
+      .profile-card,
+      .side-stack {
+        min-height: auto;
+      }
+
+      .side-stack {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .tech-showcase {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      .social-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .svg-field {
+        opacity: 0.56;
+        inset: -6vh -18vw;
+      }
+
+      .glass {
+        backdrop-filter: blur(8px) saturate(1.05);
+        -webkit-backdrop-filter: blur(8px) saturate(1.05);
+      }
+
+      .avatar-wrap::before,
+      .avatar-wrap::after,
+      .badge-img,
+      .svg-field path {
+        animation: none;
+      }
+
+      .shell {
+        width: min(100% - 20px, 1180px);
+        padding-top: 18px;
+        padding-bottom: 104px;
+      }
+
+      .topbar,
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .section-title p {
+        text-align: left;
+      }
+
+      .avatar-line {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      h1 {
+        font-size: clamp(1.28rem, 6vw, 1.72rem);
+      }
+
+      .badge-img {
+        width: 18px;
+        height: 18px;
+        margin-top: 3px;
+      }
+
+      .profile-card,
+      .mini-card,
+      .section {
+        border-radius: 22px;
+      }
+
+      .side-stack,
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stack-feature {
+        min-height: 300px;
+      }
+
+      .stack-orbit {
+        height: 205px;
+      }
+
+      .tech-showcase {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .tech-card {
+        min-height: 92px;
+        padding: 12px;
+      }
+
+      .tech-card strong {
+        font-size: 0.86rem;
+      }
+
+      .tech-card span {
+        font-size: 0.72rem;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .action {
+        width: 100%;
+      }
+
+      .dock {
+        width: calc(100% - 26px);
+        justify-content: center;
+        bottom: 12px;
+        border-radius: 22px;
+      }
+
+      .dock a,
+      .dock button {
+        width: 44px;
+        height: 44px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="space" aria-hidden="true"></canvas>
+  <svg class="svg-field" viewBox="0 0 1200 900" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="goldFlow" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#2a1600" stop-opacity="0.1"></stop>
+        <stop offset="0.48" stop-color="#ffb927" stop-opacity="0.52"></stop>
+        <stop offset="1" stop-color="#000000" stop-opacity="0"></stop>
+      </linearGradient>
+      <linearGradient id="violetFade" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#15000f" stop-opacity="0.78"></stop>
+        <stop offset="0.55" stop-color="#5a3900" stop-opacity="0.28"></stop>
+        <stop offset="1" stop-color="#000000" stop-opacity="0"></stop>
+      </linearGradient>
+    </defs>
+    <path fill="url(#goldFlow)" d="M-90 780 C150 460 280 520 390 215 C505 -110 775 -60 675 195 C575 455 685 565 520 915 Z"></path>
+    <path fill="url(#violetFade)" d="M760 -80 C940 165 795 380 1020 520 C1190 625 1240 735 1325 1010 L810 1005 C645 785 690 560 740 380 C795 180 675 65 760 -80 Z"></path>
+    <path fill="rgba(255,214,107,0.13)" d="M250 -90 C370 88 360 200 280 350 C210 480 250 660 100 825 C30 900 -45 910 -90 930 L-100 -120 Z"></path>
+  </svg>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="shell">
+    <nav class="topbar" aria-label="Navegación principal">
+      <a class="brand-mini" href="#inicio" aria-label="Ir al inicio">
+        <span class="brand-dot"></span>
+        <span>BanHammer Bio</span>
+      </a>
+      <div class="top-pill">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 3l1.8 5.6h5.9l-4.8 3.5 1.8 5.7L12 14.3l-4.7 3.5 1.8-5.7-4.8-3.5h5.9L12 3z"></path></svg>
+        Programador HTML, CSS, JS y Lua
+      </div>
+    </nav>
+
+    <header id="inicio" class="hero">
+      <section class="glass profile-card reveal">
+        <div class="hero-main">
+          <div class="avatar-line">
+            <div class="avatar-wrap">
+              <img class="avatar" src="https://i.postimg.cc/qqDS0mrq/Gato-RC.png" alt="Foto de perfil de TheRealBanHammer">
+            </div>
+            <div class="status-block">
+              <div class="status-kicker"><span class="live-dot"></span> Developer Profile</div>
+              <div class="name-row">
+                <h1>𖤐 TheRealBanHammer</h1>
+                <img class="badge-img" src="https://i.postimg.cc/GpKWKm69/Developer.png" alt="Insignia de desarrollador">
+              </div>
+            </div>
+          </div>
+          <p class="subtitle">"<strong>Tus scripts son truchos,</strong> los haces en PowerPoint."</p>
+          <div class="chips" aria-label="Especialidades">
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M16 18l6-6-6-6"></path><path d="M8 6l-6 6 6 6"></path></svg>Programador</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 2v20"></path><path d="M2 12h20"></path><path d="M4.93 4.93l14.14 14.14"></path><path d="M19.07 4.93L4.93 19.07"></path></svg>3+ años de experiencia</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h10"></path></svg>HTML, CSS, JS</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 8l-4 4 4 4"></path><path d="M17 8l4 4-4 4"></path><path d="M14 4l-4 16"></path></svg>Scripts en Lua</span>
+          </div>
+          <div class="tech-showcase" aria-label="Stack visual">
+            <div class="tech-card tech-html">
+              <div class="tech-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="Logo de HTML5"></div>
+              <strong>HTML</strong>
+              <span>Estructura limpia</span>
+            </div>
+            <div class="tech-card tech-css">
+              <div class="tech-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="Logo de CSS3"></div>
+              <strong>CSS</strong>
+              <span>Diseño moderno</span>
+            </div>
+            <div class="tech-card tech-js">
+              <div class="tech-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="Logo de JavaScript"></div>
+              <strong>JavaScript</strong>
+              <span>UI interactiva</span>
+            </div>
+            <div class="tech-card tech-lua">
+              <div class="tech-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/lua/lua-original.svg" alt="Logo de Lua"></div>
+              <strong>Lua</strong>
+              <span>Scripts Roblox</span>
+            </div>
+            <div class="tech-card tech-roblox">
+              <div class="tech-logo"><img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Logo de Roblox"></div>
+              <strong>Roblox</strong>
+              <span>Comunidad y juegos</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a class="action" href="https://antihambreadoscriptteam.github.io/" target="_blank" rel="noopener noreferrer">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+            Equipo A-HS
+          </a>
+          <button class="action secondary" data-copy="the_banhammer.">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M8 7h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"></path><path d="M16 3H6a2 2 0 0 0-2 2v10"></path></svg>
+            Copiar Discord
+          </button>
+          <a class="action secondary" href="#proyectos">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 12l7-7 4 4 7-7"></path><path d="M14 2h7v7"></path><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5"></path></svg>
+            Ver proyectos
+          </a>
+        </div>
+      </section>
+
+      <aside class="side-stack">
+        <section class="glass mini-card discord-card reveal">
+          <div class="card-title">
+            <div>
+              <span>Estado</span>
+              <h2>Enfoque actual</h2>
+            </div>
+          </div>
+          <div class="discord-mini">
+            <div class="discord-logo" aria-hidden="true">
+              <img src="https://i.postimg.cc/qqDS0mrq/Gato-RC.png" alt="Foto de perfil de TheRealBanHammer">
+            </div>
+            <div>
+              <h3>the_banhammer.</h3>
+              <p>Programador activo, fundador de Equipo A-HS y creador de scripts para comunidades de Roblox.</p>
+            </div>
+          </div>
+          <p class="quote">Actualmente construyo páginas web, herramientas visuales y scripts en Lua con una estética directa, premium y funcional.</p>
+          <div class="logo-cloud" aria-label="Logos de plataformas">
+            <div class="cloud-logo discord"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.54 5.23a16.9 16.9 0 0 0-4.18-1.31 11.9 11.9 0 0 0-.54 1.1 15.8 15.8 0 0 0-4.64 0 9.6 9.6 0 0 0-.55-1.1 16.8 16.8 0 0 0-4.18 1.31C2.8 9.15 2.23 12.99 2.58 16.77a16.95 16.95 0 0 0 5.11 2.58c.41-.56.78-1.15 1.1-1.77a10.9 10.9 0 0 1-1.73-.83l.43-.33a12.1 12.1 0 0 0 10.25 0l.43.33c-.55.33-1.13.61-1.73.83.32.62.69 1.21 1.1 1.77a16.8 16.8 0 0 0 5.12-2.58c.42-4.38-.72-8.18-3.12-11.54zM9.2 14.47c-1 0-1.83-.91-1.83-2.02 0-1.12.81-2.03 1.83-2.03 1.03 0 1.85.92 1.83 2.03 0 1.11-.81 2.02-1.83 2.02zm5.6 0c-1 0-1.83-.91-1.83-2.02 0-1.12.81-2.03 1.83-2.03 1.03 0 1.85.92 1.83 2.03 0 1.11-.81 2.02-1.83 2.02z"></path></svg></div>
+            <div class="cloud-logo youtube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><path d="M10 15l5.2-3.25L10 8.5V15z"></path></svg></div>
+            <div class="cloud-logo roblox"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.15 2.2l16.65 2.95-2.95 16.65L2.2 18.85 5.15 2.2zm6.21 7.25l-.76 4.28 4.27.76.77-4.28-4.28-.76z"></path></svg></div>
+            <div class="cloud-logo gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 8l-4 4 4 4"></path><path d="M17 8l4 4-4 4"></path><path d="M14 4l-4 16"></path></svg></div>
+          </div>
+        </section>
+
+      </aside>
+    </header>
+
+    <main>
+      <section id="proyectos" class="glass section reveal">
+        <div class="section-title">
+          <div>
+            <span>Portfolio</span>
+            <h2>Proyectos principales</h2>
+          </div>
+          <p>Actualmente estoy enfocado en comunidades, páginas web y scripts que combinan utilidad real con una presentación limpia.</p>
+        </div>
+        <div class="project-grid">
+          <article class="project-card">
+            <div>
+              <div class="project-head">
+                <div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4.2 2.1 7.2L12 16l-6.6 4.4 2.1-7.2L2 9h7l3-7z"></path></svg></div>
+                <span class="project-tag">Fundador</span>
+              </div>
+              <div class="project-logo">
+                <div class="project-mark"><img src="https://antihambreadoscriptteam.github.io/Foto/Anti-Hambreado-Girl-Logo.gif" alt="Logo de Anti Hambreado Script Team"></div>
+                <span>Anti Hambreado Script Team</span>
+              </div>
+              <h3>Equipo A-HS</h3>
+              <p>Fundador y actual propietario de Anti Hambreado Script Team, una comunidad enfocada en scripts y contenido para Roblox.</p>
+            </div>
+            <div class="link-row">
+              <a class="tiny-link" href="https://antihambreadoscriptteam.github.io/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>Web</a>
+              <a class="tiny-link" href="https://www.youtube.com/@Anti-Hambreado-Script-Team" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><path d="M10 15l5.2-3.25L10 8.5V15z"></path></svg>YouTube</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div>
+              <div class="project-head">
+                <div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 6h16v12H4z"></path><path d="M8 22h8"></path><path d="M12 18v4"></path></svg></div>
+                <span class="project-tag">Web</span>
+              </div>
+              <div class="project-logo">
+                <div class="project-mark"><img src="https://i.postimg.cc/tgPnMFp6/IMG-20260423-WA0033-(1).jpg" alt="Logo de Stream Logic Anime"></div>
+                <span>Stream Logic Anime</span>
+              </div>
+              <h3>Stream Logic Anime</h3>
+              <p>Trabajé en la página de Stream Logic Anime, reforzando estructura visual y experiencia web.</p>
+            </div>
+            <div class="link-row">
+              <a class="tiny-link" href="https://streamlogicanime.github.io/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg>Visitar</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div>
+              <div class="project-head">
+                <div class="project-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M8 6h13"></path><path d="M8 12h13"></path><path d="M8 18h13"></path><path d="M3 6h.01"></path><path d="M3 12h.01"></path><path d="M3 18h.01"></path></svg></div>
+                <span class="project-tag">Dev actual</span>
+              </div>
+              <div class="project-logo">
+                <div class="project-mark"><img src="https://tobby-scriptsxd.github.io/TobbyLogo2.jpg" alt="Logo de Tobby Scripts XD"></div>
+                <span>Tobby Scripts XD</span>
+              </div>
+              <h3>Tobby Scripts XD</h3>
+              <p>Proyecto de un amigo. No es mi canal como tal; colaboro como actual desarrollador de la página y su presentación web.</p>
+            </div>
+            <div class="link-row">
+              <a class="tiny-link" href="https://tobby-scriptsxd.github.io/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14L21 3"></path></svg>Visitar</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="glass section reveal">
+        <div class="section-title">
+          <div>
+            <span>Stack</span>
+            <h2>Herramientas y enfoque</h2>
+          </div>
+          <p>Desarrollo visual, scripts, comunidades y paginas hechas para verse bien y funcionar rapido.</p>
+        </div>
+        <div class="stack-grid">
+          <div class="stack-feature">
+            <div>
+              <h3>Web + Lua + Roblox</h3>
+              <p>Combino interfaz, automatizacion y contenido de comunidad para crear experiencias mas completas alrededor de scripts y proyectos.</p>
+            </div>
+            <div class="stack-orbit" aria-hidden="true">
+              <svg class="stack-svg" viewBox="0 0 520 230" role="img">
+                <defs>
+                  <linearGradient id="nodeGold" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#fff2a8"></stop>
+                    <stop offset="0.55" stop-color="#ffd15c"></stop>
+                    <stop offset="1" stop-color="#b87510"></stop>
+                  </linearGradient>
+                  <linearGradient id="nodeGlass" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#fff8d1" stop-opacity="0.18"></stop>
+                    <stop offset="0.58" stop-color="#ffd66b" stop-opacity="0.1"></stop>
+                    <stop offset="1" stop-color="#000000" stop-opacity="0.18"></stop>
+                  </linearGradient>
+                  <linearGradient id="corePanel" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#332711" stop-opacity="0.96"></stop>
+                    <stop offset="0.55" stop-color="#17130d" stop-opacity="0.96"></stop>
+                    <stop offset="1" stop-color="#5b4215" stop-opacity="0.9"></stop>
+                  </linearGradient>
+                  <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0" stop-color="#ffd66b" stop-opacity="0.34"></stop>
+                    <stop offset="1" stop-color="#ffd66b" stop-opacity="0"></stop>
+                  </radialGradient>
+                </defs>
+                <g class="architecture-grid" opacity="0.52">
+                  <path d="M52 54H468"></path>
+                  <path d="M52 116H468"></path>
+                  <path d="M52 178H468"></path>
+                  <path d="M116 24V204"></path>
+                  <path d="M260 24V204"></path>
+                  <path d="M404 24V204"></path>
+                </g>
+                <ellipse cx="260" cy="116" rx="172" ry="82" fill="url(#coreGlow)"></ellipse>
+                <path class="flow-glow" d="M146 106 C190 48 330 48 374 106"></path>
+                <path class="flow-glow" d="M146 130 C194 184 326 184 374 130"></path>
+                <path class="flow-line" d="M146 106 C190 48 330 48 374 106"></path>
+                <path class="flow-line alt" d="M146 130 C194 184 326 184 374 130"></path>
+                <path class="flow-line" d="M260 80 C230 104 230 136 260 160 C290 136 290 104 260 80"></path>
+                <ellipse class="architecture-ring" cx="260" cy="118" rx="105" ry="55"></ellipse>
+                <ellipse class="architecture-ring" cx="260" cy="118" rx="62" ry="86"></ellipse>
+                <rect class="flow-core" x="214" y="90" width="92" height="58" rx="22"></rect>
+                <ellipse class="core-ring" cx="260" cy="119" rx="58" ry="42"></ellipse>
+                <rect class="core-scan" x="229" y="96" width="13" height="46" rx="6"></rect>
+                <path class="node-icon" d="M252 112l14-18-4 17h13l-17 24 4-19h-10z"></path>
+                <text class="node-label" x="245" y="139">CORE</text>
+                <g class="flow-node web-node" transform="translate(34 84)">
+                  <rect class="node-card primary" width="126" height="68" rx="22"></rect>
+                  <path class="node-icon dark" d="M32 18h28l-2.4 30.2L46 52l-11.6-3.8L32 18zm8 11h12.4l.3-3.2H39.4l.6 3.2zm.9 7.9h7.8l-.3 4.1-2.4.7-2.4-.7-.2-2.1H40l.5 4.8 5.5 1.5 5.6-1.5.8-10.1H40.6l.3 3.3z"></path>
+                  <text class="node-label dark" x="72" y="38">WEB</text>
+                  <text class="node-caption" x="72" y="50">HTML CSS JS</text>
+                </g>
+                <g class="flow-node lua-node" transform="translate(197 18)">
+                  <rect class="node-card" width="126" height="68" rx="22"></rect>
+                  <circle class="node-icon" cx="43" cy="39" r="12"></circle>
+                  <circle class="node-icon" cx="61" cy="24" r="6" opacity="0.76"></circle>
+                  <text class="node-label" x="74" y="38">LUA</text>
+                  <text class="node-caption" x="74" y="50">SCRIPTS</text>
+                </g>
+                <g class="flow-node roblox-node" transform="translate(360 84)">
+                  <rect class="node-card primary" width="126" height="68" rx="22"></rect>
+                  <path class="node-icon dark" d="M34 17l32 6-6 32-32-6 6-32zm12 13l-1.5 8.3 8.3 1.5 1.5-8.3L46 30z"></path>
+                  <text class="node-label dark" x="75" y="38">RBLX</text>
+                  <text class="node-caption" x="75" y="50">ROBLOX</text>
+                </g>
+                <circle class="data-pulse" r="4">
+                  <animateMotion dur="4.6s" repeatCount="indefinite" path="M146 106 C190 48 330 48 374 106"></animateMotion>
+                </circle>
+                <circle class="data-pulse" r="4">
+                  <animateMotion dur="5.4s" begin="-1.8s" repeatCount="indefinite" path="M374 130 C326 184 194 184 146 130"></animateMotion>
+                </circle>
+                <circle class="data-pulse" r="3.5">
+                  <animateMotion dur="5.8s" begin="-2.6s" repeatCount="indefinite" path="M260 80 C230 104 230 136 260 160 C290 136 290 104 260 80"></animateMotion>
+                </circle>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="glass section reveal">
+        <div class="section-title">
+          <div>
+            <span>Logros</span>
+            <h2>Números que pesan</h2>
+          </div>
+          <p>Resultados acumulados entre comunidad, donaciones, contenido y desarrollo de scripts.</p>
+        </div>
+        <div class="achievement-grid">
+          <div class="achievement">
+            <div class="achievement-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 1v22"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
+            <strong>1.3M+</strong>
+            <span>Robux donados a mi comunidad.</span>
+          </div>
+          <div class="achievement">
+            <div class="achievement-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><path d="M10 15l5.2-3.25L10 8.5V15z"></path></svg></div>
+            <strong>7K+</strong>
+            <span>Suscriptores en un canal de YouTube.</span>
+          </div>
+          <div class="achievement">
+            <div class="achievement-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M16 18l6-6-6-6"></path><path d="M8 6l-6 6 6 6"></path><path d="M14 4l-4 16"></path></svg></div>
+            <strong>20+</strong>
+            <span>Scripts creados para distintos juegos de Roblox.</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="redes" class="glass section reveal">
+        <div class="section-title">
+          <div>
+            <span>Contacto</span>
+            <h2>Redes sociales</h2>
+          </div>
+          <p>Canales actuales y estados de cuentas para ubicar rápido dónde contactarme.</p>
+        </div>
+        <div class="social-grid">
+          <button class="social-card discord" data-copy="the_banhammer.">
+            <div class="social-top">
+              <div class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.54 5.23a16.9 16.9 0 0 0-4.18-1.31 11.9 11.9 0 0 0-.54 1.1 15.8 15.8 0 0 0-4.64 0 9.6 9.6 0 0 0-.55-1.1 16.8 16.8 0 0 0-4.18 1.31C2.8 9.15 2.23 12.99 2.58 16.77a16.95 16.95 0 0 0 5.11 2.58c.41-.56.78-1.15 1.1-1.77a10.9 10.9 0 0 1-1.73-.83l.43-.33a12.1 12.1 0 0 0 10.25 0l.43.33c-.55.33-1.13.61-1.73.83.32.62.69 1.21 1.1 1.77a16.8 16.8 0 0 0 5.12-2.58c.42-4.38-.72-8.18-3.12-11.54zM9.2 14.47c-1 0-1.83-.91-1.83-2.02 0-1.12.81-2.03 1.83-2.03 1.03 0 1.85.92 1.83 2.03 0 1.11-.81 2.02-1.83 2.02zm5.6 0c-1 0-1.83-.91-1.83-2.02 0-1.12.81-2.03 1.83-2.03 1.03 0 1.85.92 1.83 2.03 0 1.11-.81 2.02-1.83 2.02z"></path></svg></div>
+              <span class="state">Copiar</span>
+            </div>
+            <div>
+              <h3>Discord</h3>
+              <p>the_banhammer.</p>
+            </div>
+          </button>
+          <a class="social-card server" href="https://discord.gg/rTGF5xhe3h" target="_blank" rel="noopener noreferrer">
+            <div class="social-top">
+              <div class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></div>
+              <span class="state">Server</span>
+            </div>
+            <div>
+              <h3>Discord Server</h3>
+              <p>discord.gg/rTGF5xhe3h</p>
+            </div>
+          </a>
+          <div class="social-card tiktok">
+            <div class="social-top">
+              <div class="social-icon"><img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="Logo de TikTok"></div>
+              <span class="state off">Abandonado</span>
+            </div>
+            <div>
+              <h3>TikTok</h3>
+              <p>Cuenta abandonada.</p>
+            </div>
+          </div>
+          <div class="social-card roblox">
+            <div class="social-top">
+              <div class="social-icon"><img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Logo de Roblox"></div>
+              <span class="state off">Dev focus</span>
+            </div>
+            <div>
+              <h3>Roblox</h3>
+              <p>Cuenta abandonada, enfocado en programar.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <div class="dock" aria-label="Accesos rápidos">
+    <a href="#inicio" aria-label="Inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 11l9-8 9 8"></path><path d="M5 10v10h14V10"></path></svg></a>
+    <a href="#proyectos" aria-label="Proyectos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 3h7v7H3z"></path><path d="M14 3h7v7h-7z"></path><path d="M14 14h7v7h-7z"></path><path d="M3 14h7v7H3z"></path></svg></a>
+    <a href="#redes" aria-label="Redes sociales"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.59 13.51l6.83 3.98"></path><path d="M15.41 6.51L8.59 10.49"></path></svg></a>
+  </div>
+
+  <div class="copy-toast" id="toast" role="status" aria-live="polite">Copiado</div>
+
+  <script>
+    const canvas = document.getElementById("space");
+    const ctx = canvas.getContext("2d");
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isSmallScreen = window.matchMedia("(max-width: 680px)").matches;
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let particles = [];
+    let ribbons = [];
+    let lastFrame = 0;
+    let animationId = 0;
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, isSmallScreen ? 1 : 1.35);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const particleCount = isSmallScreen ? 24 : Math.round(Math.min(54, Math.max(30, width / 34)));
+      particles = Array.from({ length: particleCount }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.08,
+        vy: (Math.random() - 0.5) * 0.08,
+        size: Math.random() * 1.45 + 0.55,
+        glow: Math.random() * 0.28 + 0.18
+      }));
+      ribbons = Array.from({ length: isSmallScreen ? 1 : 2 }, (_, index) => ({
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.00042 + index * 0.0002,
+        amp: (isSmallScreen ? 18 : 26) + index * 13,
+        y: height * (0.28 + index * 0.28)
+      }));
+    }
+
+    function drawRibbon(time, ribbon, index) {
+      const gradient = ctx.createLinearGradient(0, ribbon.y - 90, width, ribbon.y + 90);
+      gradient.addColorStop(0, "rgba(255,214,107,0)");
+      gradient.addColorStop(0.48, index === 1 ? "rgba(255,185,39,0.08)" : "rgba(255,214,107,0.075)");
+      gradient.addColorStop(1, "rgba(255,214,107,0)");
+      ctx.beginPath();
+      ctx.moveTo(-80, ribbon.y);
+      for (let x = -80; x <= width + 90; x += 54) {
+        const wave = Math.sin(x * 0.004 + time * ribbon.speed + ribbon.phase) * ribbon.amp;
+        const lift = Math.cos(x * 0.002 + time * ribbon.speed * 1.2) * ribbon.amp * 0.42;
+        ctx.lineTo(x, ribbon.y + wave + lift);
+      }
+      ctx.lineTo(width + 90, ribbon.y + 72);
+      ctx.lineTo(-80, ribbon.y + 86);
+      ctx.closePath();
+      ctx.fillStyle = gradient;
+      ctx.fill();
+    }
+
+    function animate(time = 0) {
+      if (time - lastFrame < 42) {
+        animationId = requestAnimationFrame(animate);
+        return;
+      }
+      lastFrame = time;
+      ctx.clearRect(0, 0, width, height);
+      const bg = ctx.createRadialGradient(width * 0.5, height * 0.35, 0, width * 0.5, height * 0.35, Math.max(width, height));
+      bg.addColorStop(0, "rgba(42,28,6,0.38)");
+      bg.addColorStop(0.34, "rgba(5,4,3,0.85)");
+      bg.addColorStop(1, "rgba(0,0,0,1)");
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, width, height);
+      ribbons.forEach((ribbon, index) => drawRibbon(time, ribbon, index));
+      particles.forEach((particle) => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        if (particle.x < -20) particle.x = width + 20;
+        if (particle.x > width + 20) particle.x = -20;
+        if (particle.y < -20) particle.y = height + 20;
+        if (particle.y > height + 20) particle.y = -20;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 214, 107, ${particle.glow})`;
+        ctx.fill();
+      });
+      if (!prefersReduced) animationId = requestAnimationFrame(animate);
+    }
+
+    async function copyValue(value) {
+      if (navigator.clipboard && window.isSecureContext) {
+        try {
+          await navigator.clipboard.writeText(value);
+          return true;
+        } catch (error) {}
+      }
+      const field = document.createElement("textarea");
+      field.value = value;
+      field.setAttribute("readonly", "");
+      field.style.position = "fixed";
+      field.style.left = "-9999px";
+      field.style.top = "0";
+      document.body.appendChild(field);
+      field.focus();
+      field.select();
+      let copied = false;
+      try {
+        copied = document.execCommand("copy");
+      } catch (error) {
+        copied = false;
+      }
+      field.remove();
+      return copied;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    window.addEventListener("resize", () => {
+      cancelAnimationFrame(animationId);
+      resize();
+      if (!prefersReduced) animate();
+    }, { passive: true });
+
+    document.querySelectorAll("[data-copy]").forEach((control) => {
+      control.addEventListener("click", async () => {
+        const copied = await copyValue(control.dataset.copy);
+        showToast(copied ? "Discord copiado" : "No se pudo copiar");
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+    resize();
+    animate();
+  </script>
+</body>
+</html>
 
