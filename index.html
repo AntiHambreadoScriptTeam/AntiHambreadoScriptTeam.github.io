@@ -1758,10 +1758,8 @@
         loading.style.display = 'none';
         const PINNED_ID = 'o5J3d_SJ9o8';
         
-        // Buscar si el video fijado está en la lista actual para usar sus datos frescos
         let pinnedVideo = videos.find(v => v.videoId === PINNED_ID);
         
-        // Si no está (video antiguo), usamos datos predefinidos
         if (!pinnedVideo) {
           pinnedVideo = {
             videoId: PINNED_ID,
@@ -1772,7 +1770,6 @@
           };
         }
 
-        // Filtrar el video fijado de los demás para no repetirlo y tomar los 2 más recientes
         const otherVideos = videos.filter(v => v.videoId !== PINNED_ID).slice(0, 2);
         const finalDisplay = [pinnedVideo, ...otherVideos];
 
