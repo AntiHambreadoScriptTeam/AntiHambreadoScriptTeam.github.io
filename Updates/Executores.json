@@ -2,11 +2,11 @@
   "executores": {
     "codex": {
       "nombre": "CodeX",
-      "version": "2.718",
-      "fecha_actualizacion": "03-05-2026",
-      "status": "desactualizado",
+      "version": "2.719",
+      "fecha_actualizacion": "11-05-2026",
+      "status": "indetectable",
       "stars": "4.0"
-      "link_descarga_arm64": "https://www.mediafire.com/file/y8zf4cffo7tlacu/Codex_2.718.apk/file",
+      "link_descarga_arm64": "https://www.mediafire.com/file/0r2bsyo4q169wcs/Codex+v2.719.apk/file",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg"
     },
 "fluxusz": {
