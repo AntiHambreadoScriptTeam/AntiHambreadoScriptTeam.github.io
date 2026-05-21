@@ -1,12 +1,3 @@
-<!--
-██████╗░ ██╗ ██████╗░ ░░░░ ░█████╗░ ░█████╗░ ███╗░░░███╗ ██████╗░ ██╗ ░█████╗░ ███╗░░██╗ ███████╗ ░░░░░░ ░██████╗ ░█████╗░ ██████╗░ ██╗ ██████╗░ ████████╗
-██╔══██╗ ██║ ██╔══██╗ ░░░░ ██╔══██╗ ██╔══██╗ ████╗░████║ ██╔══██╗ ██║ ██╔══██╗ ████╗░██║ ██╔════╝ ░░░░░░ ██╔════╝ ██╔══██╗ ██╔══██╗ ██║ ██╔══██╗ ╚══██╔══╝
-██████╔╝ ██║ ██████╔╝ ░░░░ ██║░░╚═╝ ███████║ ██╔████╔██║ ██████╔╝ ██║ ██║░░██║ ██╔██╗██║ █████╗░░ █████╗ ╚█████╗░ ██║░░╚═╝ ██████╔╝ ██║ ██████╔╝ ░░░██║░░░
-██╔══██╗ ██║ ██╔═══╝░ ░░░░ ██║░░██╗ ██╔══██║ ██║╚██╔╝██║ ██╔═══╝░ ██║ ██║░░██║ ██║╚████║ ██╔══╝░░ ╚════╝ ░╚═══██╗ ██║░░██╗ ██╔══██╗ ██║ ██╔═══╝░ ░░░██║░░░
-██║░░██║ ██║ ██║░░░░░ ░░░░ ╚█████╔╝ ██║░░██║ ██║░╚═╝░██║ ██║░░░░░ ██║ ╚█████╔╝ ██║░╚███║ ███████╗ ░░░░░░ ██████╔╝ ╚█████╔╝ ██║░░██║ ██║ ██║░░░░░ ░░░██║░░░
-╚═╝░░╚═╝ ╚═╝ ╚═╝░░░░░ ░░░░ ░╚════╝░ ╚═╝░░╚═╝ ╚═╝░░░░░╚═╝ ╚═╝░░░░░ ╚═╝ ░╚════╝░ ╚═╝░░╚══╝ ╚══════╝ ░░░░░░ ╚═════╝░ ░╚════╝░ ╚═╝░░╚═╝ ╚═╝ ╚═╝░░░░░ ░░░╚═╝░░░
--->
-
 <!DOCTYPE html>
 <html lang="es" data-theme="dark">
 <head>
@@ -3120,6 +3111,37 @@ window.addEventListener("unhandledrejection", (e) => {
     }
 
     async function fetchWindowsExecutors() {
+      const hardcodedExecutors = [];
+
+      hardcodedExecutors.unshift({
+        name: 'Wave',
+        img: 'https://getwave.gg/icon',
+        version: 'Executor',
+        statusText: 'Online',
+        statusClass: 'indetectable',
+        links: [{ href: 'https://getwave.gg/', text: 'Purchase', isPurchase: true }]
+      });
+
+      hardcodedExecutors.unshift({
+        name: 'Madium',
+        img: 'https://files.catbox.moe/e4ob02.png',
+        version: 'version-9377ee10133e4be3',
+        statusText: 'Offline',
+        statusClass: 'detectable',
+        links: [{ href: 'https://filerift.com/file/w3Zpjdoc10', text: 'Descargar', isPurchase: false }]
+      });
+
+      hardcodedExecutors.unshift({
+        name: 'Wave Cracked',
+        img: 'https://i.postimg.cc/8kxhCQdv/Wave-cracked.png',
+        version: 'version-4b6315bf1f0a4dbb',
+        statusText: 'Online',
+        statusClass: 'indetectable',
+        links: [{ href: 'https://flopphub-team.github.io/WaveCracked', text: 'Descargar', isPurchase: false }]
+      });
+
+      renderWindowsExecutors(hardcodedExecutors);
+
       let executors = [];
       try {
         const html = await fetchWithCorsProxy(SAMRAT_URL);
@@ -3133,36 +3155,9 @@ window.addEventListener("unhandledrejection", (e) => {
         executors.splice(waveIndex, 1);
       }
 
-      executors.unshift({
-        name: 'Wave',
-        img: 'https://getwave.gg/icon',
-        version: 'Executor',
-        statusText: 'Online',
-        statusClass: 'indetectable',
-        links: [{ href: 'https://getwave.gg/', text: 'Purchase', isPurchase: true }]
-      });
-
-      executors.unshift({
-        name: 'Madium',
-        img: 'https://files.catbox.moe/e4ob02.png',
-        version: 'version-9377ee10133e4be3',
-        statusText: 'Offline',
-        statusClass: 'detectable',
-        links: [{ href: 'https://filerift.com/file/w3Zpjdoc10', text: 'Descargar', isPurchase: false }]
-      });
-
-      executors.unshift({
-        name: 'Wave Cracked',
-        img: 'https://i.postimg.cc/8kxhCQdv/Wave-cracked.png',
-        version: 'version-4b6315bf1f0a4dbb',
-        statusText: 'Online',
-        statusClass: 'indetectable',
-        links: [{ href: 'https://flopphub-team.github.io/WaveCracked', text: 'Descargar', isPurchase: false }]
-      });
-
       if (executors.length > 0) {
         renderWindowsExecutors(executors);
-        console.log(`Windows executors actualizados: ${executors.length} encontrados`);
+        console.log(`Windows executors actualizados: ${executors.length + hardcodedExecutors.length} encontrados`);
       }
     }
 
