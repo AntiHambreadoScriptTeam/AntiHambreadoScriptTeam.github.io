@@ -2806,7 +2806,10 @@ window.addEventListener("unhandledrejection", (e) => {
             'isaeva': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMRm-kvoPtPwMbFPkYz4YAGZ2tPDq96bqxA&s',
             'volt': 'https://media.karousell.com/media/photos/products/2025/12/5/roblox_vault_awp_v2__executor__1764921674_37063614_progressive',
             'fluxusz': 'https://wearedevs.net/images/thumbnails/fluxus-z-111125.webp',
-            'xeno': 'https://wearedevs.net/images/thumbnails/xeno-112025.webp'
+            'xeno': 'https://wearedevs.net/images/thumbnails/xeno-112025.webp',
+            'pluto': 'https://obj.wearedevs.net/images/software/pluto/pluto.webp',
+            'solara': 'https://obj.wearedevs.net/images/software/solara/solara-011026.webp',
+            'drift': 'https://wearedevs.net/images/thumbnails/drift.webp'
         };
 
         const exNameLower = ex.name.toLowerCase();
@@ -2846,7 +2849,8 @@ window.addEventListener("unhandledrejection", (e) => {
             'trigon': 4.4,
             'sirhurt': 4.9,
             'jjsploit': 3.5,
-            'drift': 4.2,
+            'drift': 4.1,
+            'solara': 3.5,
             'potassium': 4.8,
             'seliware': 4.6,
             'volt': 5.0,
@@ -2907,34 +2911,35 @@ window.addEventListener("unhandledrejection", (e) => {
     }
 
     async function fetchWindowsExecutors() {
+      let executors = [];
       try {
         const html = await fetchWithCorsProxy(SAMRAT_URL);
-        const executors = parseSamratWindows(html);
-
-        executors.unshift({
-          name: 'Madium',
-          img: 'https://files.catbox.moe/e4ob02.png',
-          version: 'version-bf6344c9c23446bf',
-          statusText: 'Online',
-          statusClass: 'indetectable',
-          links: [{ href: 'https://filerift.com/file/w3Zpjdoc10', text: 'Descargar', isPurchase: false }]
-        });
-
-        executors.unshift({
-          name: 'Wave Cracked',
-          img: 'https://i.postimg.cc/8kxhCQdv/Wave-cracked.png',
-          version: 'version-bf6344c9c23446bf',
-          statusText: 'Online',
-          statusClass: 'indetectable',
-          links: [{ href: 'https://flopphub-team.github.io/WaveCracked', text: 'Descargar', isPurchase: false }]
-        });
-
-        if (executors.length > 0) {
-          renderWindowsExecutors(executors);
-          console.log(`Windows executors actualizados: ${executors.length} encontrados`);
-        }
+        executors = parseSamratWindows(html);
       } catch (error) {
         console.error('Error al obtener Windows executors:', error);
+      }
+
+      executors.unshift({
+        name: 'Madium',
+        img: 'https://files.catbox.moe/e4ob02.png',
+        version: 'version-9377ee10133e4be3',
+        statusText: 'Offline',
+        statusClass: 'detectable',
+        links: [{ href: 'https://filerift.com/file/w3Zpjdoc10', text: 'Descargar', isPurchase: false }]
+      });
+
+      executors.unshift({
+        name: 'Wave Cracked',
+        img: 'https://i.postimg.cc/8kxhCQdv/Wave-cracked.png',
+        version: 'version-4b6315bf1f0a4dbb',
+        statusText: 'Online',
+        statusClass: 'indetectable',
+        links: [{ href: 'https://flopphub-team.github.io/WaveCracked', text: 'Descargar', isPurchase: false }]
+      });
+
+      if (executors.length > 0) {
+        renderWindowsExecutors(executors);
+        console.log(`Windows executors actualizados: ${executors.length} encontrados`);
       }
     }
 
@@ -2965,9 +2970,11 @@ window.addEventListener("unhandledrejection", (e) => {
 
     async function fetchWeAreDevsExecutors() {
       try {
-        const [plutoInfo, xenoInfo] = await Promise.all([
+        const [plutoInfo, xenoInfo, solaraInfo, driftInfo] = await Promise.all([
           parseWeAreDevsPage('https://wearedevs.net/d/Pluto'),
-          parseWeAreDevsPage('https://wearedevs.net/d/Xeno')
+          parseWeAreDevsPage('https://wearedevs.net/d/Xeno'),
+          parseWeAreDevsPage('https://wearedevs.net/d/Solara'),
+          parseWeAreDevsPage('https://wearedevs.net/d/Drift')
         ]);
 
         const plutoLinks = [];
@@ -2989,6 +2996,24 @@ window.addEventListener("unhandledrejection", (e) => {
           });
         });
 
+        const solaraLinks = [];
+        solaraInfo.downloadLinks.forEach(dl => {
+          solaraLinks.push({
+            href: dl.href,
+            text: dl.label.includes('Windows PC') ? 'Windows PC' : dl.label,
+            isPurchase: false
+          });
+        });
+
+        const driftLinks = [];
+        driftInfo.downloadLinks.forEach(dl => {
+          driftLinks.push({
+            href: dl.href,
+            text: dl.label.includes('External') ? 'External' : (dl.label.includes('Executor') ? 'Executor' : 'Descargar'),
+            isPurchase: false
+          });
+        });
+
         const weAreDevsExecutors = [
           {
             name: 'Pluto',
@@ -3005,11 +3030,27 @@ window.addEventListener("unhandledrejection", (e) => {
             statusText: 'Online',
             statusClass: 'indetectable',
             links: xenoLinks.length > 0 ? xenoLinks : [{ href: 'https://wearedevs.net/d/Xeno', text: 'Descargar', isPurchase: false }]
+          },
+          {
+            name: 'Solara',
+            img: solaraInfo.imgSrc || 'https://obj.wearedevs.net/images/software/solara/solara-011026.webp',
+            version: 'Executor',
+            statusText: 'Online',
+            statusClass: 'indetectable',
+            links: solaraLinks.length > 0 ? solaraLinks : [{ href: 'https://wearedevs.net/d/Solara', text: 'Descargar', isPurchase: false }]
+          },
+          {
+            name: 'Drift',
+            img: driftInfo.imgSrc || 'https://wearedevs.net/images/thumbnails/drift.webp',
+            version: 'Executor & External',
+            statusText: 'Online',
+            statusClass: 'indetectable',
+            links: driftLinks.length > 0 ? driftLinks : [{ href: 'https://wearedevs.net/d/Drift', text: 'Descargar', isPurchase: false }]
           }
         ];
 
         renderWindowsExecutors(weAreDevsExecutors);
-        console.log('WeAreDevs executors (Pluto, Xeno) actualizados');
+        console.log('WeAreDevs executors (Pluto, Xeno, Solara, Drift) actualizados');
       } catch (error) {
         console.error('Error al obtener WeAreDevs executors:', error);
       }
