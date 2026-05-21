@@ -6,6 +6,7 @@
 ██║░░██║ ██║ ██║░░░░░ ░░░░ ╚█████╔╝ ██║░░██║ ██║░╚═╝░██║ ██║░░░░░ ██║ ╚█████╔╝ ██║░╚███║ ███████╗ ░░░░░░ ██████╔╝ ╚█████╔╝ ██║░░██║ ██║ ██║░░░░░ ░░░██║░░░
 ╚═╝░░╚═╝ ╚═╝ ╚═╝░░░░░ ░░░░ ░╚════╝░ ╚═╝░░╚═╝ ╚═╝░░░░░╚═╝ ╚═╝░░░░░ ╚═╝ ░╚════╝░ ╚═╝░░╚══╝ ╚══════╝ ░░░░░░ ╚═════╝░ ░╚════╝░ ╚═╝░░╚═╝ ╚═╝ ╚═╝░░░░░ ░░░╚═╝░░░
 -->
+
 <!DOCTYPE html>
 <html lang="es" data-theme="dark">
 <head>
@@ -649,13 +650,57 @@ body {
 .section-icon {
   width: 60px;
   height: 60px;
-  background: linear-gradient(45deg, var(--primary), var(--primary-light));
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   font-size: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.section-icon::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(145deg, rgba(255,255,255,0.14), rgba(255,255,255,0.02));
+  z-index: -1;
+}
+
+.section-logo {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.28));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+}
+
+.section-logo-video {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.section-header:hover .section-logo {
+  transform: scale(1.08) rotate(-2deg);
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.34));
+}
+
+.section-icon.android-logo {
+  box-shadow: 0 14px 34px rgba(255, 255, 255, 0.08), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+.section-icon.windows-logo {
+  box-shadow: 0 14px 34px rgba(255, 255, 255, 0.08), inset 0 1px 0 rgba(255,255,255,0.18);
 }
 
 .section-info h2 {
@@ -1502,6 +1547,156 @@ a.btn-secondary[href*="wrdcdn"][href*="Vietnam"] {
 .modal-body { overflow-y: auto; color: var(--text-secondary); font-size: 0.95rem; }
 .modal-body p { margin-bottom: 10px; }
 
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-light); }
+
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(-18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-badge       { animation: heroFadeIn 0.5s ease both; animation-delay: 0.05s; }
+.hero-title       { animation: heroFadeIn 0.6s ease both; animation-delay: 0.22s; }
+.hero-description { animation: heroFadeIn 0.6s ease both; animation-delay: 0.38s; }
+.hero-actions     { animation: heroFadeIn 0.6s ease both; animation-delay: 0.54s; }
+
+.executor-card {
+  border-radius: 24px !important;
+  background: linear-gradient(145deg, rgba(255,255,255,0.065), rgba(255,255,255,0.025)) !important;
+}
+.executor-card::before {
+  opacity: 0.2 !important;
+}
+.executor-card:hover {
+  transform: translateY(-7px) !important;
+  box-shadow: 0 24px 50px rgba(0,0,0,0.4),
+              0 0 0 1px rgba(239,68,68,0.35),
+              0 0 35px rgba(239,68,68,0.07) !important;
+}
+.executor-card:hover::before {
+  opacity: 1 !important;
+}
+
+#android-section .executor-card::before {
+  background: linear-gradient(90deg, #3ddc84, #00c853);
+}
+#windows-section .executor-card::before {
+  background: linear-gradient(90deg, #0078d4, #5b4ef0);
+}
+
+.executor-card.featured, .executor-card.premium {
+  box-shadow: 0 4px 25px rgba(245, 158, 11, 0.12);
+}
+.executor-card.featured:hover, .executor-card.premium:hover {
+  box-shadow: 0 24px 50px rgba(0,0,0,0.4),
+              0 0 0 1px rgba(245,158,11,0.5),
+              0 0 35px rgba(245,158,11,0.1) !important;
+}
+
+.executor-logo {
+  border-radius: 14px;
+  transition: transform 0.3s ease;
+}
+.executor-card:hover .executor-logo {
+  transform: scale(1.07);
+}
+
+.stars {
+  filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.55));
+}
+
+.btn-download {
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.28);
+  position: relative;
+  overflow: hidden;
+}
+.btn-download::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -65%;
+  width: 35%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+.btn-download:hover::after { left: 130%; }
+.btn-download:hover {
+  box-shadow: 0 8px 30px rgba(239, 68, 68, 0.55) !important;
+  transform: translateY(-3px) !important;
+}
+
+.btn-premium { box-shadow: 0 4px 16px rgba(245, 158, 11, 0.25); }
+.btn-premium:hover { box-shadow: 0 8px 28px rgba(245, 158, 11, 0.5) !important; }
+
+.btn-secondary:hover { box-shadow: 0 4px 14px rgba(239, 68, 68, 0.12); }
+
+.filter-tag.active {
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+  transform: translateY(-2px);
+}
+.filter-tag:hover:not(.active) { transform: translateY(-1px); }
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px currentColor; }
+  50%       { opacity: 0.5; box-shadow: 0 0 3px currentColor; }
+}
+.status-indetectable::before { animation: statusPulse 2s infinite !important; }
+.status-online::before       { animation: statusPulse 2s infinite !important; }
+
+.search-input:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15),
+              0 0 25px rgba(239, 68, 68, 0.07) !important;
+}
+
+.search-results-counter {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  margin-top: 0.75rem;
+  min-height: 1.25em;
+  transition: opacity 0.2s ease;
+}
+.search-results-counter strong { color: var(--primary); font-weight: 600; }
+
+.stat-number {
+  background: linear-gradient(45deg, var(--primary), var(--primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.25));
+}
+
+.brand-logo { box-shadow: 0 0 16px rgba(239, 68, 68, 0.3); }
+
+.nav-link:hover, .nav-link.active {
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.35);
+}
+
+.section-icon { box-shadow: 0 8px 22px rgba(0,0,0,0.3); }
+
+.feature-card:hover { box-shadow: 0 15px 40px rgba(239, 68, 68, 0.1); }
+.feature-icon {
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.22);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.feature-card:hover .feature-icon {
+  transform: scale(1.1);
+  box-shadow: 0 10px 28px rgba(239, 68, 68, 0.38);
+}
+
+.social-link:hover { box-shadow: 0 4px 14px rgba(239, 68, 68, 0.32); }
+
+.modal-overlay { backdrop-filter: blur(14px) !important; -webkit-backdrop-filter: blur(14px) !important; }
+.modal-content {
+  box-shadow: 0 40px 90px rgba(0,0,0,0.75),
+              0 0 0 1px rgba(255,255,255,0.06) !important;
+}
+
 </style>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
  <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
@@ -1574,6 +1769,7 @@ a.btn-secondary[href*="wrdcdn"][href*="Vietnam"] {
  <input type="text" id="executor-search" placeholder="Buscar por nombre..." class="search-input">
  <div class="search-suggestions" id="search-suggestions"></div>
  </div>
+ <div id="search-results-counter" class="search-results-counter"></div>
 
  <div class="filter-section">
   <div class="filter-group">
@@ -1592,8 +1788,8 @@ a.btn-secondary[href*="wrdcdn"][href*="Vietnam"] {
  <main id="executors" class="executors-main">
     <section class="platform-section" id="android-section" data-platform="android">
         <div class="section-header">
-            <div class="section-icon" style="background: linear-gradient(45deg, #3ddc84, #00c853);">
-                <i class="fab fa-android"></i>
+            <div class="section-icon android-logo">
+                <video class="section-logo section-logo-video" src="https://www.gstatic.com/marketing-cms/70/cf/d01cdfc84a2292c8e2556d23930d/neural-bot-voyager-2x-av1.mp4" autoplay muted loop playsinline preload="auto" disablepictureinpicture disableremoteplayback controlslist="nodownload noplaybackrate noremoteplayback" aria-label="Android"></video>
             </div>
             <div class="section-info">
                 <h2>Android Executors</h2>
@@ -1610,8 +1806,8 @@ a.btn-secondary[href*="wrdcdn"][href*="Vietnam"] {
 
     <section class="platform-section" id="windows-section" data-platform="windows">
         <div class="section-header">
-            <div class="section-icon" style="background: linear-gradient(45deg, #0078d4, #5b4ef0);">
-                <i class="fab fa-windows"></i>
+            <div class="section-icon windows-logo">
+                <img class="section-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%2300a4ef' d='M0 0h242.5v242.5H0zM269.5 0H512v242.5H269.5zM0 269.5h242.5V512H0zM269.5 269.5H512V512H269.5z'/%3E%3C/svg%3E" alt="Windows">
             </div>
             <div class="section-info">
                 <h2>Windows Executors</h2>
@@ -2552,6 +2748,17 @@ window.addEventListener("unhandledrejection", (e) => {
       const wc = document.getElementById('windowsCount');
       if (ac) ac.textContent = androidCards.length;
       if (wc) wc.textContent = windowsCards.length;
+
+      const counter = document.getElementById('search-results-counter');
+      if (counter) {
+        const total = androidCards.length + windowsCards.length;
+        const searchTerm = document.getElementById('executor-search')?.value || '';
+        if (searchTerm.length > 0) {
+          counter.innerHTML = `<strong>${total}</strong> resultado${total !== 1 ? 's' : ''} encontrado${total !== 1 ? 's' : ''}`;
+        } else {
+          counter.innerHTML = `<strong>${total}</strong> executores disponibles`;
+        }
+      }
     }
 
     function applyPlatformFilter() {
