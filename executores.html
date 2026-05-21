@@ -2809,7 +2809,9 @@ window.addEventListener("unhandledrejection", (e) => {
             'xeno': 'https://wearedevs.net/images/thumbnails/xeno-112025.webp',
             'pluto': 'https://obj.wearedevs.net/images/software/pluto/pluto.webp',
             'solara': 'https://obj.wearedevs.net/images/software/solara/solara-011026.webp',
-            'drift': 'https://wearedevs.net/images/thumbnails/drift.webp'
+            'drift': 'https://wearedevs.net/images/thumbnails/drift.webp',
+            'jjsploit': 'https://wearedevs.net/images/thumbnails/JJSploit.webp',
+            'ronix': 'https://obj.wearedevs.net/images/software/ronix/ronix-020426.webp'
         };
 
         const exNameLower = ex.name.toLowerCase();
@@ -2848,15 +2850,15 @@ window.addEventListener("unhandledrejection", (e) => {
             'yub-x': 4.0,
             'trigon': 4.4,
             'sirhurt': 4.9,
-            'jjsploit': 3.5,
+            'jjsploit': 2.6,
             'drift': 4.1,
             'solara': 3.5,
             'potassium': 4.8,
             'seliware': 4.6,
             'volt': 5.0,
-            'wave': 4.7,
+            'wave': 5.0,
             'isaeva': 4.5,
-            'ronix': 4.1,
+            'ronix': 4.3,
             'vortex': 4.7,
             'lx63': 4.0,
             'madium': 4.5,
@@ -2919,6 +2921,20 @@ window.addEventListener("unhandledrejection", (e) => {
         console.error('Error al obtener Windows executors:', error);
       }
 
+      const waveIndex = executors.findIndex(e => e.name.toLowerCase() === 'wave');
+      if (waveIndex !== -1) {
+        executors.splice(waveIndex, 1);
+      }
+
+      executors.unshift({
+        name: 'Wave',
+        img: 'https://getwave.gg/icon',
+        version: 'Executor',
+        statusText: 'Online',
+        statusClass: 'indetectable',
+        links: [{ href: 'https://getwave.gg/', text: 'Purchase', isPurchase: true }]
+      });
+
       executors.unshift({
         name: 'Madium',
         img: 'https://files.catbox.moe/e4ob02.png',
@@ -2959,8 +2975,12 @@ window.addEventListener("unhandledrejection", (e) => {
           }
         });
 
-        const imgEl = doc.querySelector('.exploit-download-image img, .exploit-image img, img[src*="thumbnails"], img[src*="software"]');
-        const imgSrc = imgEl ? imgEl.getAttribute('src') : '';
+        const wrapperImg = doc.querySelector('.description .wrapper img');
+        const imgEl = wrapperImg || doc.querySelector('.exploit-download-image img, .exploit-image img, img[src*="thumbnails"], img[src*="software"]');
+        let imgSrc = imgEl ? imgEl.getAttribute('src') : '';
+        if (imgSrc && imgSrc.startsWith('/')) {
+            imgSrc = 'https://wearedevs.net' + imgSrc;
+        }
         return { downloadLinks, imgSrc };
       } catch (e) {
         console.warn('Error parsing WeAreDevs page:', url, e);
@@ -2970,11 +2990,13 @@ window.addEventListener("unhandledrejection", (e) => {
 
     async function fetchWeAreDevsExecutors() {
       try {
-        const [plutoInfo, xenoInfo, solaraInfo, driftInfo] = await Promise.all([
+        const [plutoInfo, xenoInfo, solaraInfo, driftInfo, jjsploitInfo, ronixInfo] = await Promise.all([
           parseWeAreDevsPage('https://wearedevs.net/d/Pluto'),
           parseWeAreDevsPage('https://wearedevs.net/d/Xeno'),
           parseWeAreDevsPage('https://wearedevs.net/d/Solara'),
-          parseWeAreDevsPage('https://wearedevs.net/d/Drift')
+          parseWeAreDevsPage('https://wearedevs.net/d/Drift'),
+          parseWeAreDevsPage('https://wearedevs.net/d/JJSploit'),
+          parseWeAreDevsPage('https://wearedevs.net/d/Ronix')
         ]);
 
         const plutoLinks = [];
@@ -3014,6 +3036,24 @@ window.addEventListener("unhandledrejection", (e) => {
           });
         });
 
+        const jjsploitLinks = [];
+        jjsploitInfo.downloadLinks.forEach(dl => {
+          jjsploitLinks.push({
+            href: dl.href,
+            text: dl.label.includes('Windows PC') ? 'Windows PC' : dl.label,
+            isPurchase: false
+          });
+        });
+
+        const ronixLinks = [];
+        ronixInfo.downloadLinks.forEach(dl => {
+          ronixLinks.push({
+            href: dl.href,
+            text: dl.label.includes('Windows PC') ? 'Windows PC' : dl.label,
+            isPurchase: false
+          });
+        });
+
         const weAreDevsExecutors = [
           {
             name: 'Pluto',
@@ -3046,11 +3086,27 @@ window.addEventListener("unhandledrejection", (e) => {
             statusText: 'Online',
             statusClass: 'indetectable',
             links: driftLinks.length > 0 ? driftLinks : [{ href: 'https://wearedevs.net/d/Drift', text: 'Descargar', isPurchase: false }]
+          },
+          {
+            name: 'JJSploit',
+            img: jjsploitInfo.imgSrc || 'https://wearedevs.net/images/thumbnails/jjsploit.webp',
+            version: 'Executor',
+            statusText: 'Online',
+            statusClass: 'indetectable',
+            links: jjsploitLinks.length > 0 ? jjsploitLinks : [{ href: 'https://wearedevs.net/d/JJSploit', text: 'Descargar', isPurchase: false }]
+          },
+          {
+            name: 'Ronix',
+            img: ronixInfo.imgSrc || 'https://wearedevs.net/images/thumbnails/ronix.webp',
+            version: 'Executor',
+            statusText: 'Online',
+            statusClass: 'indetectable',
+            links: ronixLinks.length > 0 ? ronixLinks : [{ href: 'https://wearedevs.net/d/Ronix', text: 'Descargar', isPurchase: false }]
           }
         ];
 
         renderWindowsExecutors(weAreDevsExecutors);
-        console.log('WeAreDevs executors (Pluto, Xeno, Solara, Drift) actualizados');
+        console.log('WeAreDevs executors actualizados');
       } catch (error) {
         console.error('Error al obtener WeAreDevs executors:', error);
       }
