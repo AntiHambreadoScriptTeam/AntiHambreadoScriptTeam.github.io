@@ -2830,6 +2830,43 @@ window.addEventListener("unhandledrejection", (e) => {
       return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     }
 
+    function sortAndroidExecutors() {
+      if (!executorsContainer) return;
+      const cards = Array.from(executorsContainer.querySelectorAll('.executor-card'));
+      cards.sort((a, b) => {
+        const aStatusEl = a.querySelector('.status');
+        const bStatusEl = b.querySelector('.status');
+        const aIsOnline = aStatusEl && (
+          aStatusEl.classList.contains('status-indetectable') ||
+          aStatusEl.classList.contains('status-peligro') ||
+          aStatusEl.textContent.trim() === 'Online' ||
+          aStatusEl.textContent.trim() === 'Indetectable' ||
+          aStatusEl.textContent.trim() === 'Peligroso'
+        );
+        const bIsOnline = bStatusEl && (
+          bStatusEl.classList.contains('status-indetectable') ||
+          bStatusEl.classList.contains('status-peligro') ||
+          bStatusEl.textContent.trim() === 'Online' ||
+          bStatusEl.textContent.trim() === 'Indetectable' ||
+          bStatusEl.textContent.trim() === 'Peligroso'
+        );
+        const aName = (a.querySelector('h3, .exe-name')?.textContent || '').toLowerCase();
+        const bName = (b.querySelector('h3, .exe-name')?.textContent || '').toLowerCase();
+        const aIsDangerous = aName.includes('delta') || aName.includes('ronix');
+        const bIsDangerous = bName.includes('delta') || bName.includes('ronix');
+        let aScore = 0;
+        if (aIsOnline) {
+          aScore = aIsDangerous ? 1 : 2;
+        }
+        let bScore = 0;
+        if (bIsOnline) {
+          bScore = bIsDangerous ? 1 : 2;
+        }
+        return bScore - aScore;
+      });
+      cards.forEach(card => executorsContainer.appendChild(card));
+    }
+
     function processExecutorData(newData) {
       Object.entries(newData).forEach(([key, d]) => {
         let card = document.querySelector(`#executorsContainer [data-executor="${key}"]`);
@@ -2933,6 +2970,7 @@ window.addEventListener("unhandledrejection", (e) => {
         }
       });
 
+      sortAndroidExecutors();
       applyPlatformFilter();
     }
 
@@ -3017,7 +3055,7 @@ window.addEventListener("unhandledrejection", (e) => {
             'solara': 'https://obj.wearedevs.net/images/software/solara/solara-011026.webp',
             'drift': 'https://wearedevs.net/images/thumbnails/drift.webp',
             'jjsploit': 'https://wearedevs.net/images/thumbnails/JJSploit.webp',
-            '': 'https://obj.wearedevs.net/images/software//ronix-020426.webp'
+            'ronix': 'https://obj.wearedevs.net/images/software/ronix/ronix-020426.webp'
         };
 
         const exNameLower = ex.name.toLowerCase();
@@ -3309,7 +3347,7 @@ window.addEventListener("unhandledrejection", (e) => {
             name: 'Ronix',
             img: ronixInfo.imgSrc || 'https://wearedevs.net/images/thumbnails/ronix.webp',
             version: 'Executor',
-            statusText: 'Offline',
+            statusText: 'Online',
             statusClass: 'indetectable',
             links: ronixLinks.length > 0 ? ronixLinks : [{ href: 'https://wearedevs.net/d/Ronix', text: 'Descargar', isPurchase: false }]
           }
@@ -3421,6 +3459,7 @@ window.addEventListener("unhandledrejection", (e) => {
         `;
       });
 
+      sortAndroidExecutors();
       applyPlatformFilter();
     }
 
