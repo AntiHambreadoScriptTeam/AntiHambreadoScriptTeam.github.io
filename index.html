@@ -378,7 +378,15 @@
       text-decoration: none;
       border: none;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    .nav-btn:active {
+      transform: translateY(0) scale(0.95);
     }
 
     .nav-btn-ghost {
@@ -423,32 +431,79 @@
       display: none;
       width: 38px;
       height: 38px;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
+      gap: 4px;
       border-radius: 50%;
       border: 1px solid rgba(255,255,255,0.06);
       background: rgba(255,255,255,0.04);
-      color: #94a3b8;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .mobile-toggle:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .mobile-toggle:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .mobile-toggle span {
+      display: block;
+      width: 16px;
+      height: 2px;
+      background-color: #cbd5e1;
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mobile-toggle.active span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+      background-color: var(--accent-hover);
+    }
+
+    .mobile-toggle.active span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .mobile-toggle.active span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+      background-color: var(--accent-hover);
+    }
 
     .mobile-menu {
-      display: none;
+      display: flex;
       flex-direction: column;
       gap: 0.4rem;
-      padding: 0.85rem;
-      margin-top: 0.4rem;
+      padding: 0;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 0;
       border-radius: var(--radius-lg);
       background: rgba(8,14,30,0.96);
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid transparent;
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(-10px) scale(0.97);
+      pointer-events: none;
     }
 
-    .mobile-menu.show { display: flex; }
-    .mobile-menu .nav-btn { width: 100%; justify-content: center; }
+    .mobile-menu.show {
+      padding: 0.85rem;
+      max-height: 280px;
+      opacity: 1;
+      margin-top: 0.4rem;
+      border-color: rgba(255,255,255,0.08);
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .mobile-menu .nav-btn {
+      width: 100%;
+      justify-content: center;
+    }
 
     main {
       max-width: 1280px;
@@ -596,14 +651,18 @@
       text-decoration: none;
       border: none;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       letter-spacing: 0.02em;
     }
 
     .btn-primary:hover {
       background: #fff;
       box-shadow: 0 0 40px -8px rgba(255,255,255,0.4);
-      transform: translateY(-2px);
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0) scale(0.96);
     }
 
     .btn-discord {
@@ -620,7 +679,7 @@
       color: #a5b4fc;
       text-decoration: none;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       letter-spacing: 0.02em;
     }
 
@@ -629,7 +688,11 @@
       border-color: rgba(88,101,242,0.55);
       color: #c7d2fe;
       box-shadow: 0 0 30px -8px rgba(88,101,242,0.5);
-      transform: translateY(-2px);
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .btn-discord:active {
+      transform: translateY(0) scale(0.96);
     }
 
     .btn-secondary {
@@ -647,14 +710,18 @@
       text-decoration: none;
       cursor: pointer;
       backdrop-filter: blur(4px);
-      transition: all 0.3s;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       letter-spacing: 0.02em;
     }
 
     .btn-secondary:hover {
       background: rgba(255,255,255,0.09);
       border-color: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .btn-secondary:active {
+      transform: translateY(0) scale(0.96);
     }
 
     .hero-stats {
@@ -936,7 +1003,11 @@
       gap: 8px;
       text-decoration: none;
       color: #fff;
-      transition: all 0.3s cubic-bezier(0.25,0.8,0.25,1);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .link-card:active {
+      transform: translateY(0) scale(0.96);
     }
 
     .link-card-top {
@@ -954,13 +1025,13 @@
       align-items: center;
       justify-content: center;
       font-size: 1.1rem;
-      transition: all 0.3s;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .link-card-arrow {
       color: var(--text-dim);
       font-size: 0.7rem;
-      transition: all 0.3s;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .link-card:hover .link-card-arrow {
@@ -983,9 +1054,13 @@
     }
 
     .link-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-4px) scale(1.02);
       border-color: var(--border-hover);
-      background: rgba(255,255,255,0.04);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .link-card:hover .link-card-icon {
+      transform: scale(1.12) rotate(3deg);
     }
 
     .link-card.discord .link-card-icon { background: rgba(88,101,242,0.12); color: #818cf8; border: 1px solid rgba(88,101,242,0.2); }
@@ -1178,7 +1253,8 @@
     }
 
     .yt-subscribe-btn:hover::before { left: 100%; }
-    .yt-subscribe-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(239,68,68,0.55); }
+    .yt-subscribe-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 30px rgba(239,68,68,0.55); }
+    .yt-subscribe-btn:active { transform: translateY(0) scale(0.96); }
     .yt-subscribe-btn i { font-size: 1.05rem; }
 
     .yt-loading { text-align: center; padding: 3rem; color: var(--text-muted); font-size: 0.95rem; }
@@ -1598,8 +1674,10 @@
           </a>
         </nav>
 
-        <button class="mobile-toggle" onclick="document.querySelector('.mobile-menu').classList.toggle('show')" aria-label="Menú">
-          <i class="fas fa-bars"></i>
+        <button class="mobile-toggle" aria-label="Menú">
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
       </div>
 
@@ -2094,7 +2172,7 @@
   </footer>
 
   <script>
-    window.addEventListener('load', () => {
+    const startIntroTimeout = () => {
       const introScreen = document.getElementById('intro-screen');
       const body = document.body;
       setTimeout(() => {
@@ -2102,7 +2180,13 @@
         body.classList.remove('intro-active');
         setTimeout(() => { if (introScreen) introScreen.remove(); }, 800);
       }, 1900);
-    });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startIntroTimeout);
+    } else {
+      startIntroTimeout();
+    }
 
     const revealElements = document.querySelectorAll('.reveal');
     const revealObserver = new IntersectionObserver(
@@ -2302,6 +2386,21 @@
 
       tryFetch(0);
     })();
+
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    if (mobileToggle && mobileMenu) {
+      mobileToggle.addEventListener('click', () => {
+        mobileToggle.classList.toggle('active');
+        mobileMenu.classList.toggle('show');
+      });
+      document.querySelectorAll('.mobile-menu .nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          mobileToggle.classList.remove('active');
+          mobileMenu.classList.remove('show');
+        });
+      });
+    }
   </script>
 </body>
 </html>
