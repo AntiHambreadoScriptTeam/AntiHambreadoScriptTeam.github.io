@@ -724,6 +724,36 @@
       transform: translateY(0) scale(0.96);
     }
 
+    .btn-userscript {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, rgba(168,85,247,0.2) 0%, rgba(168,85,247,0.1) 100%);
+      border: 1px solid rgba(168,85,247,0.35);
+      padding: 0.85rem 1.85rem;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #d8b4fe;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      letter-spacing: 0.02em;
+    }
+
+    .btn-userscript:hover {
+      background: rgba(168,85,247,0.3);
+      border-color: rgba(168,85,247,0.6);
+      color: #f3e8ff;
+      box-shadow: 0 0 35px -8px rgba(168,85,247,0.5);
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .btn-userscript:active {
+      transform: translateY(0) scale(0.96);
+    }
+
     .hero-stats {
       margin-top: 2.75rem;
       display: flex;
@@ -1083,6 +1113,9 @@
 
     .link-card.default .link-card-icon { background: rgba(255,255,255,0.06); color: #94a3b8; border: 1px solid rgba(255,255,255,0.08); }
     .link-card.default:hover { border-color: rgba(255,255,255,0.2); box-shadow: 0 20px 40px -12px rgba(255,255,255,0.06); }
+
+    .link-card.purple .link-card-icon { background: rgba(168,85,247,0.12); color: #c084fc; border: 1px solid rgba(168,85,247,0.2); }
+    .link-card.purple:hover { border-color: rgba(168,85,247,0.3); box-shadow: 0 20px 40px -12px rgba(168,85,247,0.15); }
 
     .yt-section { margin: 1.5rem 0 3.5rem; }
 
@@ -1607,7 +1640,7 @@
       .hero-stats { flex-wrap: wrap; gap: 1rem; }
       .links-grid { grid-template-columns: 1fr; }
       .hero-buttons { flex-direction: column; width: 100%; }
-      .btn-primary, .btn-discord, .btn-secondary { width: 100%; justify-content: center; }
+      .btn-primary, .btn-discord, .btn-secondary, .btn-userscript { width: 100%; justify-content: center; }
       .features-grid { grid-template-columns: 1fr 1fr; }
       .feature-pills { gap: 0.4rem; }
     }
@@ -1669,6 +1702,9 @@
           <a href="https://antihambreadoscriptteam.github.io/bypass" class="nav-btn nav-btn-ghost">
             <i class="fas fa-key"></i> <span>Bypass</span>
           </a>
+          <a href="https://antihambreadoscriptteam.github.io/SuaURL" target="_blank" class="nav-btn nav-btn-ghost">
+            <i class="fas fa-scroll"></i> <span>Userscript</span>
+          </a>
           <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="nav-btn nav-btn-discord">
             <i class="fab fa-discord"></i> <span>Discord</span>
           </a>
@@ -1690,6 +1726,9 @@
         </a>
         <a href="https://antihambreadoscriptteam.github.io/bypass" class="nav-btn nav-btn-ghost">
           <i class="fas fa-key"></i> Bypass
+        </a>
+        <a href="https://antihambreadoscriptteam.github.io/SuaURL" target="_blank" class="nav-btn nav-btn-ghost">
+          <i class="fas fa-scroll"></i> Userscript
         </a>
         <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="nav-btn nav-btn-discord">
           <i class="fab fa-discord"></i> Discord
@@ -1739,6 +1778,10 @@
         <a href="https://antihambreadoscriptteam.github.io/scripts" class="btn-primary">
           <i class="fas fa-code"></i>
           <span>Ver Scripts</span>
+        </a>
+        <a href="https://antihambreadoscriptteam.github.io/SuaURL" target="_blank" class="btn-userscript">
+          <i class="fas fa-scroll"></i>
+          <span>Userscript</span>
         </a>
         <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="btn-secondary">
           <i class="fab fa-youtube"></i>
@@ -1866,6 +1909,14 @@
             </div>
             <span class="link-card-name">Página Bypass</span>
             <span class="link-card-desc">// saltate las keys fácil</span>
+          </a>
+          <a href="https://antihambreadoscriptteam.github.io/SuaURL" target="_blank" class="link-card purple">
+            <div class="link-card-top">
+              <div class="link-card-icon"><i class="fas fa-scroll"></i></div>
+              <i class="fas fa-arrow-up-right link-card-arrow"></i>
+            </div>
+            <span class="link-card-name">Userscript</span>
+            <span class="link-card-desc">// instalación directa</span>
           </a>
           <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="link-card youtube">
             <div class="link-card-top">
