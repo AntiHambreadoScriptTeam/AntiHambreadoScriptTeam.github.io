@@ -754,6 +754,36 @@
       transform: translateY(0) scale(0.96);
     }
 
+    .btn-bypass {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, rgba(245,158,11,0.2) 0%, rgba(245,158,11,0.1) 100%);
+      border: 1px solid rgba(245,158,11,0.35);
+      padding: 0.85rem 1.85rem;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fbbf24;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      letter-spacing: 0.02em;
+    }
+
+    .btn-bypass:hover {
+      background: rgba(245,158,11,0.3);
+      border-color: rgba(245,158,11,0.6);
+      color: #fef3c7;
+      box-shadow: 0 0 35px -8px rgba(245,158,11,0.5);
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .btn-bypass:active {
+      transform: translateY(0) scale(0.96);
+    }
+
     .hero-stats {
       margin-top: 2.75rem;
       display: flex;
@@ -1779,9 +1809,9 @@
           <i class="fas fa-code"></i>
           <span>Ver Scripts</span>
         </a>
-        <a href="https://antihambreadoscriptteam.github.io/SuaURL" target="_blank" class="btn-userscript">
-          <i class="fas fa-scroll"></i>
-          <span>Userscript</span>
+        <a href="https://antihambreadoscriptteam.github.io/bypass" target="_blank" class="btn-bypass">
+          <i class="fas fa-key"></i>
+          <span>Bypass</span>
         </a>
         <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="btn-secondary">
           <i class="fab fa-youtube"></i>
@@ -1881,7 +1911,7 @@
           <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="link-card discord">
             <div class="link-card-top">
               <div class="link-card-icon"><i class="fab fa-discord"></i></div>
-              <i class="fas fa-arrow-up-right link-card-arrow"></i>
+              <i class="fas fa-arrow-up-right-from-square link-card-arrow"></i>
             </div>
             <span class="link-card-name">Servidor de Discord</span>
             <span class="link-card-desc">// comunidad activa &amp; soporte</span>
@@ -1889,7 +1919,7 @@
           <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="link-card cyan">
             <div class="link-card-top">
               <div class="link-card-icon"><i class="fas fa-code"></i></div>
-              <i class="fas fa-arrow-up-right link-card-arrow"></i>
+              <i class="fas fa-arrow-up-right-from-square link-card-arrow"></i>
             </div>
             <span class="link-card-name">Scripts</span>
             <span class="link-card-desc">// links directos, 0 anuncios</span>
@@ -1897,7 +1927,7 @@
           <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="link-card default">
             <div class="link-card-top">
               <div class="link-card-icon"><i class="fas fa-terminal"></i></div>
-              <i class="fas fa-arrow-up-right link-card-arrow"></i>
+              <i class="fas fa-arrow-up-right-from-square link-card-arrow"></i>
             </div>
             <span class="link-card-name">Executores</span>
             <span class="link-card-desc">// siempre actualizados</span>
@@ -1905,7 +1935,7 @@
           <a href="https://antihambreadoscriptteam.github.io/bypass" target="_blank" class="link-card amber">
             <div class="link-card-top">
               <div class="link-card-icon"><i class="fas fa-key"></i></div>
-              <i class="fas fa-arrow-up-right link-card-arrow"></i>
+              <i class="fas fa-arrow-up-right-from-square link-card-arrow"></i>
             </div>
             <span class="link-card-name">Página Bypass</span>
             <span class="link-card-desc">// saltate las keys fácil</span>
@@ -1913,7 +1943,7 @@
           <a href="https://antihambreadoscriptteam.github.io/SuaURL" target="_blank" class="link-card purple">
             <div class="link-card-top">
               <div class="link-card-icon"><i class="fas fa-scroll"></i></div>
-              <i class="fas fa-arrow-up-right link-card-arrow"></i>
+              <i class="fas fa-arrow-up-right-from-square link-card-arrow"></i>
             </div>
             <span class="link-card-name">Userscript</span>
             <span class="link-card-desc">// instalación directa</span>
@@ -1921,7 +1951,7 @@
           <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="link-card youtube">
             <div class="link-card-top">
               <div class="link-card-icon"><i class="fab fa-youtube"></i></div>
-              <i class="fas fa-arrow-up-right link-card-arrow"></i>
+              <i class="fas fa-arrow-up-right-from-square link-card-arrow"></i>
             </div>
             <span class="link-card-name">YouTube</span>
             <span class="link-card-desc">// tutoriales &amp; reviews</span>
@@ -1929,7 +1959,7 @@
           <a href="https://antihambreadoscriptteam.github.io/Archivos/Anti-HambreadoApp" target="_blank" class="link-card android">
             <div class="link-card-top">
               <div class="link-card-icon"><i class="fab fa-android"></i></div>
-              <i class="fas fa-arrow-up-right link-card-arrow"></i>
+              <i class="fas fa-arrow-up-right-from-square link-card-arrow"></i>
             </div>
             <span class="link-card-name">App Android</span>
             <span class="link-card-desc">// descarga nuestra app oficial</span>
@@ -1937,7 +1967,7 @@
           <a href="https://whatsapp.com/channel/0029VbCWPet42DcfSt2khY43" target="_blank" class="link-card whatsapp">
             <div class="link-card-top">
               <div class="link-card-icon"><i class="fab fa-whatsapp"></i></div>
-              <i class="fas fa-arrow-up-right link-card-arrow"></i>
+              <i class="fas fa-arrow-up-right-from-square link-card-arrow"></i>
             </div>
             <span class="link-card-name">Canal de WhatsApp</span>
             <span class="link-card-desc">// notificaciones directas</span>
