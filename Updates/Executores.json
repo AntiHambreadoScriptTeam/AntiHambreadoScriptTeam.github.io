@@ -2,11 +2,11 @@
   "executores": {
     "codex": {
       "nombre": "CodeX",
-      "version": "2.721",
-      "fecha_actualizacion": "03-06-2026",
+      "version": "2.723",
+      "fecha_actualizacion": "05-06-2026",
       "status": "indetectable",
       "stars": "4.0"
-      "link_descarga_arm64": "https://www.mediafire.com/file/sobpqtwcfmrp6r8/Codex+v2.721.apk/file",
+      "link_descarga_arm64": "https://www.mediafire.com/file/oru3fm6zznsekbz/Codex+V2.723.apk/file",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg"
     },
 "fluxusz": {
@@ -21,8 +21,8 @@
     },   
     "arceus": {
       "nombre": "ArceusX",
-      "version": "2.2.1",
-      "fecha_actualizacion": "22-05-2026",
+      "version": "2.2.2",
+      "fecha_actualizacion": "05-06-2026",
       "status": "indetectable",
       "stars": "3.4"
       "link_descarga_arm64": "https://android.spdmteam.com/",
