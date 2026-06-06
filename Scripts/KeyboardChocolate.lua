@@ -20,7 +20,9 @@ local Config = {
     DefaultCollectRadius = 45,
     DefaultAutoBuyDelay = 1.5,
     DefaultFlySpeed = 55,
-    TeleportYOffset = 2.75
+    TeleportYOffset = 2.75,
+    SupportPlatformYOffset = 3.15,
+    SupportPlatformSize = Vector3.new(9, 0.35, 9)
 }
 
 local Services = {
@@ -95,6 +97,8 @@ local State = {
     FlyConnection = nil,
     FlyBodyVelocity = nil,
     FlyBodyGyro = nil,
+    SupportPlatform = nil,
+    SupportPlatformConnection = nil,
     AntiAfkConnection = nil,
     AutoCollectThread = nil,
     AutoBuyThread = nil
@@ -359,6 +363,67 @@ local function cancelTween()
     end
 end
 
+local function clearSupportPlatform()
+    if State.SupportPlatformConnection then
+        State.SupportPlatformConnection:Disconnect()
+        State.SupportPlatformConnection = nil
+    end
+    if State.SupportPlatform then
+        State.SupportPlatform:Destroy()
+        State.SupportPlatform = nil
+    end
+end
+
+local function ensureSupportPlatform()
+    if State.SupportPlatform then
+        return State.SupportPlatform
+    end
+    local platform = Instance.new("Part")
+    platform.Name = "ORVA_AutoFarmSupport"
+    platform.Size = Config.SupportPlatformSize
+    platform.Transparency = 1
+    platform.Anchored = true
+    platform.CanCollide = true
+    platform.CanTouch = false
+    platform.CanQuery = false
+    platform.CastShadow = false
+    local character = LocalPlayer.Character
+    local root = character and character:FindFirstChild("HumanoidRootPart")
+    if root then
+        platform.CFrame = CFrame.new(root.Position - Vector3.new(0, Config.SupportPlatformYOffset, 0))
+    end
+    platform.Parent = Services.Workspace
+    State.SupportPlatform = platform
+    return platform
+end
+
+local function updateSupportPlatform()
+    if not State.AutoFarm and not State.Fly then
+        clearSupportPlatform()
+        return
+    end
+    ensureSupportPlatform()
+    if State.SupportPlatformConnection then
+        return
+    end
+    State.SupportPlatformConnection = Services.RunService.Heartbeat:Connect(function()
+        if not State.AutoFarm and not State.Fly then
+            clearSupportPlatform()
+            return
+        end
+        local character = LocalPlayer.Character
+        local root = character and character:FindFirstChild("HumanoidRootPart")
+        if not root or not State.SupportPlatform then
+            return
+        end
+        local velocity = root.AssemblyLinearVelocity
+        if velocity.Y < 0 then
+            root.AssemblyLinearVelocity = Vector3.new(velocity.X, 0, velocity.Z)
+        end
+        State.SupportPlatform.CFrame = CFrame.new(root.Position - Vector3.new(0, Config.SupportPlatformYOffset, 0))
+    end)
+end
+
 local function applyMovement()
     local humanoid = getHumanoid()
     if not humanoid then
@@ -429,8 +494,10 @@ local function startAutoFarm()
         return
     end
     State.AutoFarm = true
+    updateSupportPlatform()
     State.AutoFarmThread = task.spawn(function()
         repeat
+            updateSupportPlatform()
             followSelectedRoute(function()
                 return not State.AutoFarm
             end)
@@ -439,6 +506,7 @@ local function startAutoFarm()
         State.AutoFarm = false
         State.AutoFarmThread = nil
         cancelTween()
+        updateSupportPlatform()
     end)
     notify("Auto Farm", "Started on " .. State.SelectedWorld)
 end
@@ -446,6 +514,7 @@ end
 local function stopAutoFarm()
     State.AutoFarm = false
     cancelTween()
+    updateSupportPlatform()
     notify("Auto Farm", "Stopped")
 end
 
@@ -533,13 +602,16 @@ local function setFly(enabled)
         if humanoid then
             humanoid.PlatformStand = false
         end
+        updateSupportPlatform()
         return
     end
     if not root then
         State.Fly = false
+        updateSupportPlatform()
         notify("Fly", "Character not ready")
         return
     end
+    updateSupportPlatform()
     if humanoid then
         humanoid.PlatformStand = true
     end
@@ -564,6 +636,7 @@ local function setFly(enabled)
         if not camera or not currentRoot or not State.FlyBodyVelocity or not State.FlyBodyGyro then
             return
         end
+        updateSupportPlatform()
         if currentHumanoid then
             currentHumanoid.PlatformStand = true
         end
@@ -1092,7 +1165,7 @@ local function createCrackedKeyNotification()
     subtitle.Position = UDim2.new(0, 0, 0, 38)
     subtitle.Size = UDim2.new(1, 0, 0, 28)
     subtitle.Font = Enum.Font.Gotham
-    subtitle.Text = "Dale las gracias a TheRealBanHammer y a WeAreDevs.net por hacer un ofuscador de mierda"
+    subtitle.Text = "Dale las gracias a TheRealBanHammer por desofuscar el script y a WeAreDevs.net por hacer un ofuscador de mierda"
     subtitle.TextColor3 = Color3.fromRGB(210, 205, 235)
     subtitle.TextSize = 13
     subtitle.TextWrapped = true
@@ -1529,6 +1602,7 @@ end)
 LocalPlayer.CharacterAdded:Connect(function()
     task.wait(0.5)
     applyMovement()
+    updateSupportPlatform()
     if State.Fly then
         setFly(true)
     end
