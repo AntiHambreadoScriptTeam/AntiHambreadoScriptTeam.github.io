@@ -1502,7 +1502,7 @@ createButton(StatsTab, {
 })
 
 CreditTab:CreateSection("Credit")
-createLabel(CreditTab, Config.KeyTitle)
+createLabel(CreditTab, "TheRealBanHammer - La mera verdura del caldo 🥵")
 createLabel(CreditTab, "+1 Speed Keyboard Escape | Candy & Chocolate")
 createLabel(CreditTab, "Discord: https://discord.gg/" .. Config.DiscordInvite)
 createLabel(CreditTab, "Key: " .. Config.Key)
