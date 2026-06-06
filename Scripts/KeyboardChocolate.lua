@@ -130,6 +130,11 @@ local ObstacleKeywords = {
     "hazard",
     "spike",
     "blade",
+    "wave",
+    "ball",
+    "chocolate",
+    "boss",
+    "bear",
     "wall"
 }
 
