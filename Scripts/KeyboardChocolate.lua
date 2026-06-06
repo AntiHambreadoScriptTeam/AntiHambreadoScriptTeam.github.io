@@ -21,7 +21,7 @@ local Config = {
     DefaultAutoBuyDelay = 1.5,
     DefaultFlySpeed = 55,
     TeleportYOffset = 2.75,
-    SupportPlatformYOffset = 3.15,
+    SupportPlatformGap = 0.12,
     SupportPlatformSize = Vector3.new(9, 0.35, 9)
 }
 
@@ -374,6 +374,16 @@ local function clearSupportPlatform()
     end
 end
 
+local function getSupportPlatformCFrame(root)
+    local character = LocalPlayer.Character
+    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+    local rootHalfHeight = root.Size.Y * 0.5
+    local platformHalfHeight = Config.SupportPlatformSize.Y * 0.5
+    local hipHeight = humanoid and humanoid.HipHeight or 2
+    local yOffset = rootHalfHeight + hipHeight + platformHalfHeight + Config.SupportPlatformGap
+    return CFrame.new(root.Position - Vector3.new(0, yOffset, 0))
+end
+
 local function ensureSupportPlatform()
     if State.SupportPlatform then
         return State.SupportPlatform
@@ -390,7 +400,7 @@ local function ensureSupportPlatform()
     local character = LocalPlayer.Character
     local root = character and character:FindFirstChild("HumanoidRootPart")
     if root then
-        platform.CFrame = CFrame.new(root.Position - Vector3.new(0, Config.SupportPlatformYOffset, 0))
+        platform.CFrame = getSupportPlatformCFrame(root)
     end
     platform.Parent = Services.Workspace
     State.SupportPlatform = platform
@@ -417,10 +427,10 @@ local function updateSupportPlatform()
             return
         end
         local velocity = root.AssemblyLinearVelocity
-        if velocity.Y < 0 then
+        if velocity.Y < -1 then
             root.AssemblyLinearVelocity = Vector3.new(velocity.X, 0, velocity.Z)
         end
-        State.SupportPlatform.CFrame = CFrame.new(root.Position - Vector3.new(0, Config.SupportPlatformYOffset, 0))
+        State.SupportPlatform.CFrame = getSupportPlatformCFrame(root)
     end)
 end
 
