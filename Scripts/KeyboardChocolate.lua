@@ -1,857 +1,603 @@
-local Rayfield = loadstring(game:HttpGet("https://raw.githubusercontent.com/FloppHub-Team/UIs/refs/heads/main/RayField%20Version%20Cracked"))()
+local Config = {
+    RayfieldUrl = "https://sirius.menu/rayfield",
+    WindowName = "[CRACKED] 🍫 +1 Speed Keyboard Escape | Candy & Chocolate",
+    LoadingTitle = "[CRACKED] 🍫 +1 Speed Keyboard Escape",
+    LoadingSubtitle = "BY TheRealBanHammer",
+    DiscordInvite = "rTGF5xhe3h",
+    KeySystem = true,
+    KeyTitle = "CRACKED",
+    KeySubtitle = "Script Crackeado Lol",
+    KeyNote = "La key es: ElCreadorDeEsteScriptEsUnGranMonoNegro",
+    Keys = { "ElCreadorDeEsteScriptEsUnGranMonoNegro" },
+    ConfigFolder = "CrackeadoHub",
+    KeyFolder = "CrackeadoKeySystem",
+    ToggleUiKeybind = "K"
+}
 
-local Window = Rayfield:CreateWindow({
-   Name = "⚡ Speed Keyboard Escape v3 ⚡",
-   LoadingTitle = "+1 Speed Keyboard Escape Hub",
-   LoadingSubtitle = "by TheRealBanHammer",
-   Theme = "DarkBlue",
-   ConfigurationSaving = {
-      Enabled = true,
-      FolderName = "SpeedKeyboardEscapeConfigV3",
-      FileName = "config"
-   },
-   Discord = {
-      Enabled = false,
-      Invite = "",
-      RememberJoins = true
-   },
-   KeySystem = false
-})
+local Theme = {
+    TextColor = Color3.fromRGB(235, 235, 245),
+    Background = Color3.fromRGB(15, 15, 35),
+    Topbar = Color3.fromRGB(22, 22, 50),
+    Shadow = Color3.fromRGB(10, 10, 25),
+    NotificationBackground = Color3.fromRGB(18, 18, 40),
+    NotificationActionsBackground = Color3.fromRGB(180, 140, 255),
+    TabBackground = Color3.fromRGB(40, 40, 90),
+    TabStroke = Color3.fromRGB(70, 60, 120),
+    TabBackgroundSelected = Color3.fromRGB(120, 90, 255),
+    TabTextColor = Color3.fromRGB(235, 235, 245),
+    SelectedTabTextColor = Color3.fromRGB(20, 20, 30),
+    ElementBackground = Color3.fromRGB(25, 25, 55),
+    ElementBackgroundHover = Color3.fromRGB(35, 35, 75),
+    SecondaryElementBackground = Color3.fromRGB(18, 18, 40),
+    ElementStroke = Color3.fromRGB(80, 70, 140),
+    SecondaryElementStroke = Color3.fromRGB(60, 55, 110),
+    SliderBackground = Color3.fromRGB(120, 90, 255),
+    SliderProgress = Color3.fromRGB(140, 110, 255),
+    SliderStroke = Color3.fromRGB(180, 150, 255),
+    ToggleBackground = Color3.fromRGB(20, 20, 45),
+    ToggleEnabled = Color3.fromRGB(130, 90, 255),
+    ToggleDisabled = Color3.fromRGB(80, 80, 100),
+    ToggleEnabledStroke = Color3.fromRGB(170, 130, 255),
+    ToggleDisabledStroke = Color3.fromRGB(100, 100, 130),
+    ToggleEnabledOuterStroke = Color3.fromRGB(70, 60, 120),
+    ToggleDisabledOuterStroke = Color3.fromRGB(50, 50, 80),
+    DropdownSelected = Color3.fromRGB(30, 30, 65),
+    DropdownUnselected = Color3.fromRGB(20, 20, 45),
+    InputBackground = Color3.fromRGB(20, 20, 45),
+    InputStroke = Color3.fromRGB(90, 80, 150),
+    PlaceholderColor = Color3.fromRGB(160, 160, 190)
+}
 
-local Tab1 = Window:CreateTab("🌾 Farms & Victorias")
-local Tab2 = Window:CreateTab("🏃 Movimiento & Jugador")
-local Tab3 = Window:CreateTab("⚙️ Ajustes & Extras")
+local WorldRoutes = {
+    ["World 1"] = {
+        Vector3.new(2.81, 7.68, 129.98),
+        Vector3.new(-0.48, 7.68, 284.92),
+        Vector3.new(50.45, 7.68, 399.32),
+        Vector3.new(0.22, 7.68, 504.8),
+        Vector3.new(-12.28, 7.68, 526.86),
+        Vector3.new(-15.79, 7.68, 559.83),
+        Vector3.new(-16.23, 49.29, 677.16),
+        Vector3.new(-15.94, 75.96, 757.34),
+        Vector3.new(17.74, 75.96, 789.65),
+        Vector3.new(15.94, 75.96, 929.52),
+        Vector3.new(3.16, 75.96, 1111.83),
+        Vector3.new(4.08, 75.96, 1150.4),
+        Vector3.new(0.54, 75.96, 1365.5),
+        Vector3.new(1.57, 75.96, 1414.83),
+        Vector3.new(-126.49, 53.31, 1444.94),
+        Vector3.new(-433.16, 53.31, 1463.62),
+        Vector3.new(-546.43, 53.32, 1463.7),
+        Vector3.new(-712.52, 53.32, 1465.25),
+        Vector3.new(-1007.36, 53.32, 1466.5),
+        Vector3.new(-1080.07, 53.32, 1468.84),
+        Vector3.new(-1080.09, 322.48, 1468.84),
+        Vector3.new(-1122.78, 295.32, 1465.14),
+        Vector3.new(-1244.95, 302.75, 1470.11),
+        Vector3.new(-1858.42, 314.87, 1464.63),
+        Vector3.new(-2520.88, 321.59, 1464.34),
+        Vector3.new(-2972.63, 295.32, 1465.91),
+        Vector3.new(-3251.58, 295.32, 1468.47),
+        Vector3.new(-3732.62, 295.32, 1464.91),
+        Vector3.new(-3943.55, 295.32, 1466.12),
+        Vector3.new(-4123.24, 295.32, 1467.74),
+        Vector3.new(-4296.84, 295.32, 1471.44),
+        Vector3.new(-4314.44, 472.78, 1528.26),
+        Vector3.new(-4368.97, 469.83, 1530.54),
+        Vector3.new(-4584.82, 469.65, 1529.69),
+        Vector3.new(-4628.37, 469.65, 1141.16),
+        Vector3.new(-5046.67, 469.65, 1588.44),
+        Vector3.new(-5266.65, 469.65, 1477.57),
+        Vector3.new(-5341.57, 469.43, 1477.3),
+        Vector3.new(-5398.84, 476.83, 1480.4),
+        Vector3.new(-5902.1, 486.11, 1565.53),
+        Vector3.new(-6479.85, 488.56, 1388.15),
+        Vector3.new(-6808.44, 520.43, 1487.06),
+        Vector3.new(-6808.57, 523.6, 1470.37)
+    },
+    ["World 2"] = {
+        Vector3.new(-396.22, 503.82, -89.15),
+        Vector3.new(-395.11, 502.91, -3.26),
+        Vector3.new(-399.85, 502.63, 62.19),
+        Vector3.new(-400.23, 502.91, 132.14),
+        Vector3.new(-395.21, 498.99, 192.76),
+        Vector3.new(-392.64, 498.99, 364.55),
+        Vector3.new(-391.59, 498.85, 465.59),
+        Vector3.new(-345.09, 498.85, 468.92),
+        Vector3.new(-347.68, 525.92, 578.02),
+        Vector3.new(-455.16, 525.92, 576.05),
+        Vector3.new(-454.9, 552.92, 463.35),
+        Vector3.new(-347.07, 552.92, 464.38),
+        Vector3.new(-345.93, 579.99, 577.71),
+        Vector3.new(-453.01, 579.99, 578.51),
+        Vector3.new(-449.94, 606.99, 465.45),
+        Vector3.new(-398.96, 606.99, 467.96),
+        Vector3.new(-399.56, 606.78, 615.39),
+        Vector3.new(-400.07, 626.87, 748.33),
+        Vector3.new(-400.47, 606.34, 844.2),
+        Vector3.new(-399.26, 606.34, 1050.49),
+        Vector3.new(-400.15, 606.34, 1275.53),
+        Vector3.new(-390.74, 616.23, 1327.35),
+        Vector3.new(-391.24, 606.34, 1454.43),
+        Vector3.new(-361.57, 627.13, 1601.27),
+        Vector3.new(-359.82, 604.22, 1715.61),
+        Vector3.new(-359.21, 614.4, 1787.58),
+        Vector3.new(-397.93, 606.35, 1922.74),
+        Vector3.new(-396.77, 606.34, 2103.07),
+        Vector3.new(-395.8, 606.34, 2247.85),
+        Vector3.new(-395.34, 616.58, 2312.83),
+        Vector3.new(-400.62, 622.28, 2401.14),
+        Vector3.new(-402.18, 622.24, 2521.79),
+        Vector3.new(-403.84, 622.23, 2650.09),
+        Vector3.new(-398.01, 622.24, 2734.83),
+        Vector3.new(-396.32, 622.24, 2854.44),
+        Vector3.new(-399.09, 622.24, 2977.76),
+        Vector3.new(-402.67, 622.25, 3156.06),
+        Vector3.new(-325.14, 622.25, 3338.71),
+        Vector3.new(-210.07, 622.25, 3651.9),
+        Vector3.new(-100.59, 622.25, 3857.55),
+        Vector3.new(188.2, 622.41, 3863.21),
+        Vector3.new(544.92, 622.38, 3863.84),
+        Vector3.new(596.06, 622.41, 3817.04),
+        Vector3.new(593.71, 626.04, 3801.68)
+    }
+}
 
-local farmMode = "Solo Última Etapa"
-local specificStageNum = 1
-local superObbyActive = false
-local autofarmActive = false
-local autoWinActive = false
-local autoTreadmillActive = false
-local autoRebirthActive = false
-local autoClickActive = false
-local hyperSpeedActive = false
-local speedValue = 100
-local autowalkActive = false
-local noclipActive = false
-local infiniteJumpActive = false
-local startPos = nil
-local sequentialIndex = 1
-local superObbyIndex = 1
-local winCache = {}
+local AutoFarm = {
+    Enabled = false,
+    Running = false,
+    Loop = true,
+    SelectedWorld = "World 1",
+    TweenSpeed = 90,
+    PointDelay = 0.05,
+    LoopDelay = 0.5
+}
 
-local player = game:GetService("Players").LocalPlayer
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local LocalPlayer = Players.LocalPlayer
+local Rayfield = loadstring(game:HttpGet(Config.RayfieldUrl))()
+local ActiveTween = nil
+local AutoFarmToggle = nil
+local CrackedKey = Config.Keys[1]
 
-local function getSpawnPos()
-    local spawn = workspace:FindFirstChildOfClass("SpawnLocation")
-    if spawn then
-        return spawn.Position
-    end
-    local char = player.Character
-    local root = char and char:FindFirstChild("HumanoidRootPart")
-    if root then
-        return root.Position
-    end
-    return Vector3.new(0, 0, 0)
-end
+local function copyKeyToClipboard()
+    local clipboardFunctions = {
+        setclipboard,
+        toclipboard,
+        set_clipboard,
+        Clipboard and Clipboard.set,
+        syn and syn.write_clipboard
+    }
 
-local function isCharacterDescendant(v)
-    for _, p in ipairs(game:GetService("Players"):GetPlayers()) do
-        if p.Character and v:IsDescendantOf(p.Character) then
-            return true
+    for _, clipboardFunction in ipairs(clipboardFunctions) do
+        if type(clipboardFunction) == "function" then
+            local success = pcall(clipboardFunction, CrackedKey)
+            if success then
+                return true
+            end
         end
     end
+
     return false
 end
 
-local function findWinText(instance)
-    local current = instance
-    for _ = 1, 3 do
-        if not current or current == workspace then break end
-        for _, child in ipairs(current:GetDescendants()) do
-            if child:IsA("TextLabel") or child:IsA("TextBox") or child:IsA("TextMesh") then
-                local txt = child.Text:lower()
-                if not (txt:find("paso") or txt:find("step") or txt:find("speed") or txt:find("requiere") or txt:find("require") or txt:find("req")) then
-                    if txt:find("win") or txt:find("vitoria") or txt:find("victoria") or txt:find("+") or txt:find("etapa") or txt:find("stage") or txt:find("nivel") or txt:find("level") or txt:find("zona") or txt:find("zone") or txt:find("area") or txt:find("world") or txt:find("mundo") or txt:find("portal") or txt:find("gate") or txt:find("teleport") or txt:find("tp") or txt:find("pad") or txt:find("door") then
-                        local num = tonumber(txt:match("%d+"))
-                        if num then
-                            if txt:find("world") or txt:find("mundo") then
-                                return (num - 1) * 5 + 1, txt
-                            end
-                            return num, txt
-                        end
-                    end
-                end
-            end
-        end
-        current = current.Parent
-    end
-    return nil, nil
-end
-
-local function checkIsTreadmill(instance)
-    local current = instance
-    for _ = 1, 3 do
-        if not current or current == workspace then break end
-        for _, child in ipairs(current:GetDescendants()) do
-            if child:IsA("TextLabel") or child:IsA("TextBox") or child:IsA("TextMesh") then
-                local txt = child.Text:lower()
-                if txt:find("paso") or txt:find("step") or txt:find("speed") or txt:find("requiere") or txt:find("require") or txt:find("req") then
-                    return true
-                end
-            end
-        end
-        current = current.Parent
-    end
-    return false
-end
-
-local function parseNameForWin(instance)
-    local current = instance
-    for _ = 1, 3 do
-        if not current or current == workspace then break end
-        local name = current.Name:lower()
-        if name:find("win") or name:find("vitoria") or name:find("victoria") or name:find("finish") or name:find("reward") or name:find("award") or name:find("prize") or name:find("stage") or name:find("etapa") or name:find("door") or name:find("portal") or name:find("gate") or name:find("level") or name:find("nivel") or name:find("zona") or name:find("zone") or name:find("area") or name:find("world") or name:find("mundo") or name:find("teleport") or name:find("tp") or name:find("pad") or name:find("button") or name:find("boton") or name:find("block") or name:find("bloque") or name:find("part") or name:find("next") or name:find("siguiente") then
-            local num = tonumber(name:match("%d+"))
-            if num then
-                if name:find("world") or name:find("mundo") then
-                    return (num - 1) * 5 + 1
-                end
-                return num
-            end
-        end
-        current = current.Parent
-    end
-    return nil
-end
-
-local function parseNumberOnly(instance)
-    local current = instance
-    for _ = 1, 3 do
-        if not current or current == workspace then break end
-        local num = tonumber(current.Name:match("^%d+$"))
-        if num then
-            return num
-        end
-        current = current.Parent
-    end
-    return nil
-end
-
-local function getWinPartsSorted()
-    local spawnPos = getSpawnPos()
-    for _, v in ipairs(workspace:GetDescendants()) do
-        if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then
-            if not isCharacterDescendant(v) then
-                local name = v.Name:lower()
-                local parentName = v.Parent and v.Parent.Name:lower() or ""
-                
-                local winVal, winText = findWinText(v)
-                if not winVal then
-                    winVal = parseNameForWin(v)
-                end
-                if not winVal then
-                    winVal = parseNumberOnly(v)
-                end
-                
-                local isExcluded = name:find("checkpoint") or parentName:find("checkpoint") 
-                    or name:find("spawn") or parentName:find("spawn") 
-                    or name:find("lobby") or parentName:find("lobby") 
-                    or name:find("treadmill") or name:find("cinta")
-                    or name:find("kill") or name:find("lava") 
-                    or name:find("death") or name:find("hazard")
-                    or name:find("event") or parentName:find("event")
-                    or name:find("shop") or parentName:find("shop")
-                    or name:find("modal") or parentName:find("modal")
-                    or name:find("hitbox") or parentName:find("hitbox")
-                    or name:find("wall") or parentName:find("wall")
-                    or name:find("admin") or parentName:find("admin")
-                    or name:find("abuse") or parentName:find("abuse")
-                    or name:find("chest") or parentName:find("chest")
-                    or name:find("gift") or parentName:find("gift")
-                    or name:find("wheel") or parentName:find("wheel")
-                    or name:find("spin") or parentName:find("spin")
-                    or name:find("pet") or parentName:find("pet")
-                    or name:find("egg") or parentName:find("egg")
-                    or name:find("rebirth") or parentName:find("rebirth")
-                
-                if checkIsTreadmill(v) then
-                    isExcluded = true
-                end
-                
-                local isWinPart = false
-                if winVal then
-                    isWinPart = true
-                else
-                    local combined = name .. " " .. parentName
-                    if combined:find("win") or combined:find("vitoria") or combined:find("victoria") or combined:find("finish") or combined:find("reward") or combined:find("stage") or combined:find("etapa") or combined:find("door") or combined:find("portal") or combined:find("gate") or combined:find("level") then
-                        isWinPart = true
-                    end
-                end
-                
-                if not isExcluded and isWinPart then
-                    local cacheKey = tostring(winVal or 0) .. "_" .. v.Name
-                    winCache[cacheKey] = {
-                        Part = v,
-                        Name = v.Name,
-                        StageNumber = winVal or 0,
-                        CFrame = v.CFrame,
-                        Position = v.Position
-                    }
-                end
-            end
+local function getUiParent()
+    if type(gethui) == "function" then
+        local success, result = pcall(gethui)
+        if success and result ~= nil then
+            return result
         end
     end
 
-    local list = {}
-    for _, data in pairs(winCache) do
-        local partInstance = data.Part
-        if not partInstance or not partInstance:IsDescendantOf(workspace) then
-            partInstance = nil
-        end
-        table.insert(list, {
-            Part = partInstance,
-            Name = data.Name,
-            StageNumber = data.StageNumber,
-            CFrame = data.CFrame,
-            Position = data.Position,
-            Distance = (data.Position - spawnPos).Magnitude
-        })
-    end
-
-    table.sort(list, function(a, b)
-        if a.StageNumber ~= b.StageNumber then
-            return a.StageNumber < b.StageNumber
-        end
-        return a.Distance < b.Distance
+    local success, result = pcall(function()
+        return game:GetService("CoreGui")
     end)
-    return list
+
+    if success and result ~= nil then
+        return result
+    end
+
+    return LocalPlayer:WaitForChild("PlayerGui")
 end
 
-local function getSpecificWinPart(targetStageNum)
-    local winParts = getWinPartsSorted()
-    for _, data in ipairs(winParts) do
-        if data.StageNumber == targetStageNum then
-            return data.Part
+local function createCrackedKeyNotification()
+    local parent = getUiParent()
+    local existing = parent:FindFirstChild("CrackedKeyNotification")
+
+    if existing ~= nil then
+        existing:Destroy()
+    end
+
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "CrackedKeyNotification"
+    screenGui.IgnoreGuiInset = true
+    screenGui.ResetOnSpawn = false
+    screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    screenGui.Parent = parent
+
+    local frame = Instance.new("Frame")
+    frame.AnchorPoint = Vector2.new(0.5, 0)
+    frame.Position = UDim2.new(0.5, 0, 0, -120)
+    frame.Size = UDim2.new(0.92, 0, 0, 88)
+    frame.BackgroundColor3 = Color3.fromRGB(18, 18, 40)
+    frame.BackgroundTransparency = 0.08
+    frame.BorderSizePixel = 0
+    frame.ZIndex = 1000
+    frame.Parent = screenGui
+
+    local sizeLimit = Instance.new("UISizeConstraint")
+    sizeLimit.MaxSize = Vector2.new(620, 88)
+    sizeLimit.MinSize = Vector2.new(280, 88)
+    sizeLimit.Parent = frame
+
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 18)
+    corner.Parent = frame
+
+    local stroke = Instance.new("UIStroke")
+    stroke.Color = Color3.fromRGB(180, 140, 255)
+    stroke.Thickness = 1.4
+    stroke.Transparency = 0.18
+    stroke.Parent = frame
+
+    local padding = Instance.new("UIPadding")
+    padding.PaddingLeft = UDim.new(0, 18)
+    padding.PaddingRight = UDim.new(0, 18)
+    padding.PaddingTop = UDim.new(0, 12)
+    padding.PaddingBottom = UDim.new(0, 12)
+    padding.Parent = frame
+
+    local title = Instance.new("TextLabel")
+    title.BackgroundTransparency = 1
+    title.Position = UDim2.new(0, 0, 0, 0)
+    title.Size = UDim2.new(1, 0, 0, 34)
+    title.Font = Enum.Font.GothamSemibold
+    title.Text = "Hola, este script ha sido crackeado lol. La key es " .. CrackedKey
+    title.TextColor3 = Color3.fromRGB(245, 243, 255)
+    title.TextSize = 17
+    title.TextWrapped = true
+    title.TextXAlignment = Enum.TextXAlignment.Left
+    title.TextYAlignment = Enum.TextYAlignment.Center
+    title.ZIndex = 1001
+    title.Parent = frame
+
+    local subtitle = Instance.new("TextLabel")
+    subtitle.BackgroundTransparency = 1
+    subtitle.Position = UDim2.new(0, 0, 0, 38)
+    subtitle.Size = UDim2.new(1, 0, 0, 28)
+    subtitle.Font = Enum.Font.Gotham
+    subtitle.Text = "Dale las gracias a TheRealBanHammer y a WeAreDevs por hacer un ofuscador de mierda"
+    subtitle.TextColor3 = Color3.fromRGB(210, 205, 235)
+    subtitle.TextSize = 13
+    subtitle.TextWrapped = true
+    subtitle.TextXAlignment = Enum.TextXAlignment.Left
+    subtitle.TextYAlignment = Enum.TextYAlignment.Center
+    subtitle.ZIndex = 1001
+    subtitle.Parent = frame
+
+    task.spawn(function()
+        frame.Position = UDim2.new(0.5, 0, 0, -120)
+        frame.BackgroundTransparency = 0.18
+        title.TextTransparency = 1
+        subtitle.TextTransparency = 1
+        stroke.Transparency = 1
+
+        TweenService:Create(frame, TweenInfo.new(0.45, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+            Position = UDim2.new(0.5, 0, 0, 18),
+            BackgroundTransparency = 0.08
+        }):Play()
+        TweenService:Create(title, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            TextTransparency = 0
+        }):Play()
+        TweenService:Create(subtitle, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            TextTransparency = 0
+        }):Play()
+        TweenService:Create(stroke, TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            Transparency = 0.18
+        }):Play()
+
+        task.wait(5)
+
+        TweenService:Create(frame, TweenInfo.new(0.35, Enum.EasingStyle.Quint, Enum.EasingDirection.In), {
+            Position = UDim2.new(0.5, 0, 0, -120),
+            BackgroundTransparency = 0.25
+        }):Play()
+        TweenService:Create(title, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+            TextTransparency = 1
+        }):Play()
+        TweenService:Create(subtitle, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+            TextTransparency = 1
+        }):Play()
+        TweenService:Create(stroke, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+            Transparency = 1
+        }):Play()
+
+        task.wait(0.75)
+
+        if screenGui.Parent ~= nil then
+            screenGui:Destroy()
         end
-    end
-    if winParts[targetStageNum] then
-        return winParts[targetStageNum].Part
-    end
-    return nil
+    end)
 end
 
-local function getKeyboardKeys()
-    local keys = {}
-    for _, v in ipairs(workspace:GetDescendants()) do
-        if v:IsA("BasePart") and v:FindFirstChildOfClass("TouchTransmitter") then
-            if not isCharacterDescendant(v) then
-                local name = v.Name:lower()
-                local parentName = v.Parent and v.Parent.Name:lower() or ""
-                local isKey = false
-                if #v.Name == 1 or name:find("key") or name:find("tecla") or name:find("keyboard") then
-                    isKey = true
-                elseif parentName:find("key") or parentName:find("keyboard") or parentName:find("spawn") or parentName:find("lobby") then
-                    if not name:find("checkpoint") and not name:find("spawnlocation") then
-                        isKey = true
-                    end
-                end
-                if isKey then
-                    table.insert(keys, v)
-                end
-            end
-        end
+copyKeyToClipboard()
+createCrackedKeyNotification()
+
+local function numberFromInput(value, fallback, minimum)
+    local number = tonumber(value)
+    if number == nil then
+        return fallback
     end
-    return keys
+    if minimum ~= nil and number < minimum then
+        return minimum
+    end
+    return number
 end
 
-local vim = game:GetService("VirtualInputManager")
+local function selectedOption(value)
+    if type(value) == "table" then
+        return value[1] or AutoFarm.SelectedWorld
+    end
+    return value or AutoFarm.SelectedWorld
+end
 
-task.spawn(function()
-    local isW = true
-    local lastSwitch = tick()
-    while true do
-        task.wait(0.01)
-        if autofarmActive then
-            local char = player.Character
-            local root = char and char:FindFirstChild("HumanoidRootPart")
-            if root then
-                if tick() - lastSwitch > 1.5 then
-                    if isW then
-                        vim:SendKeyEvent(false, Enum.KeyCode.W, false, game)
-                        vim:SendKeyEvent(true, Enum.KeyCode.S, false, game)
-                        isW = false
-                    else
-                        vim:SendKeyEvent(false, Enum.KeyCode.S, false, game)
-                        vim:SendKeyEvent(true, Enum.KeyCode.W, false, game)
-                        isW = true
-                    end
-                    lastSwitch = tick()
-                end
-                
-                local keys = getKeyboardKeys()
-                if #keys > 0 then
-                    for i = 1, math.min(#keys, 20) do
-                        if not autofarmActive then break end
-                        local keyPart = keys[math.random(1, #keys)]
-                        if keyPart and firetouchinterest then
-                            firetouchinterest(root, keyPart, 0)
-                            firetouchinterest(root, keyPart, 1)
-                        end
-                    end
-                else
-                    task.wait(0.1)
-                end
+local function notify(title, content, duration)
+    Rayfield:Notify({
+        Title = title,
+        Content = content,
+        Duration = duration or 4
+    })
+end
+
+local function getCharacterParts()
+    local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    local root = character:FindFirstChild("HumanoidRootPart") or character:WaitForChild("HumanoidRootPart")
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    return character, root, humanoid
+end
+
+local function cancelTween()
+    if ActiveTween ~= nil then
+        pcall(function()
+            ActiveTween:Cancel()
+        end)
+        ActiveTween = nil
+    end
+end
+
+local function tweenTo(position)
+    if not AutoFarm.Enabled then
+        return
+    end
+
+    local _, root, humanoid = getCharacterParts()
+
+    if humanoid ~= nil then
+        pcall(function()
+            humanoid:ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
+        end)
+    end
+
+    local distance = (root.Position - position).Magnitude
+    local duration = math.max(distance / math.max(AutoFarm.TweenSpeed, 1), 0.03)
+
+    cancelTween()
+    ActiveTween = TweenService:Create(root, TweenInfo.new(duration, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {
+        CFrame = CFrame.new(position)
+    })
+
+    ActiveTween:Play()
+    ActiveTween.Completed:Wait()
+    ActiveTween = nil
+end
+
+local function runRouteOnce(worldName)
+    local route = WorldRoutes[worldName]
+    if route == nil then
+        notify("Auto Farm", "World route not found: " .. tostring(worldName), 4)
+        return
+    end
+
+    for _, point in ipairs(route) do
+        if not AutoFarm.Enabled then
+            break
+        end
+        tweenTo(point)
+        task.wait(AutoFarm.PointDelay)
+    end
+end
+
+local function stopAutoFarm()
+    AutoFarm.Enabled = false
+    cancelTween()
+end
+
+local function startAutoFarm()
+    if AutoFarm.Running then
+        return
+    end
+
+    AutoFarm.Enabled = true
+    AutoFarm.Running = true
+
+    task.spawn(function()
+        while AutoFarm.Enabled do
+            local success, result = pcall(function()
+                runRouteOnce(AutoFarm.SelectedWorld)
+            end)
+
+            if not success then
+                notify("Auto Farm", tostring(result), 5)
+                task.wait(1)
             end
-        else
-            vim:SendKeyEvent(false, Enum.KeyCode.W, false, game)
-            vim:SendKeyEvent(false, Enum.KeyCode.S, false, game)
-            isW = true
-            task.wait(0.5)
-        end
-    end
-end)
 
-task.spawn(function()
-    while true do
-        task.wait(0.3)
-        if autoWinActive then
-            local char = player.Character
-            local root = char and char:FindFirstChild("HumanoidRootPart")
-            if root then
-                local winParts = getWinPartsSorted()
-                if #winParts > 0 then
-                    local targetData = nil
-                    if farmMode == "Solo Última Etapa" then
-                        targetData = winParts[#winParts]
-                    elseif farmMode == "Secuencial (Todas)" then
-                        if not sequentialIndex or sequentialIndex > #winParts then
-                            sequentialIndex = 1
-                        end
-                        for i = sequentialIndex, #winParts do
-                            if not autoWinActive then break end
-                            local data = winParts[i]
-                            local currentRoot = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-                            if currentRoot then
-                                currentRoot.Anchored = false
-                                local targetCFrame = data.CFrame + Vector3.new(0, 1.5, 0)
-                                currentRoot.CFrame = targetCFrame
-                                currentRoot.AssemblyLinearVelocity = Vector3.zero
-                                
-                                task.wait(0.15)
-                                
-                                local part = data.Part
-                                if not part or not part:IsDescendantOf(workspace) then
-                                    for _, child in ipairs(workspace:GetDescendants()) do
-                                        if child:IsA("BasePart") and child.Name == data.Name and child:FindFirstChildOfClass("TouchTransmitter") then
-                                            if (child.Position - currentRoot.Position).Magnitude < 20 then
-                                                part = child
-                                                break
-                                            end
-                                        end
-                                    end
-                                end
-                                
-                                if part and firetouchinterest then
-                                    firetouchinterest(currentRoot, part, 0)
-                                    firetouchinterest(currentRoot, part, 1)
-                                end
-                                task.wait(0.15)
-                                
-                                if currentRoot and (currentRoot.Position - targetCFrame.Position).Magnitude > 30 then
-                                    task.wait(1.5)
-                                    local spawnPos = getSpawnPos()
-                                    if (currentRoot.Position - spawnPos).Magnitude < 100 then
-                                        sequentialIndex = i + 1
-                                    else
-                                        sequentialIndex = 1
-                                    end
-                                    break
-                                else
-                                    sequentialIndex = i + 1
-                                end
-                            end
-                        end
-                    elseif farmMode == "Etapa Específica" then
-                        local specificNum = specificStageNum
-                        for _, data in ipairs(winParts) do
-                            if data.StageNumber == specificNum then
-                                targetData = data
-                                break
-                            end
-                        end
-                        if not targetData and winParts[specificNum] then
-                            targetData = winParts[specificNum]
-                        end
-                    end
-                    
-                    if targetData and farmMode ~= "Secuencial (Todas)" then
-                        root.CFrame = targetData.CFrame + Vector3.new(0, 3, 0)
-                        task.wait(0.15)
-                        local part = targetData.Part
-                        if not part or not part:IsDescendantOf(workspace) then
-                            for _, child in ipairs(workspace:GetDescendants()) do
-                                if child:IsA("BasePart") and child.Name == targetData.Name and child:FindFirstChildOfClass("TouchTransmitter") then
-                                    if (child.Position - root.Position).Magnitude < 20 then
-                                        part = child
-                                        break
-                                    end
-                                end
-                            end
-                        end
-                        if part and firetouchinterest then
-                            firetouchinterest(root, part, 0)
-                            task.wait(0.02)
-                            firetouchinterest(root, part, 1)
-                        end
-                        task.wait(1.5)
-                    end
-                end
-            end
-        end
-    end
-end)
-
-task.spawn(function()
-    while true do
-        task.wait(0.5)
-        if superObbyActive then
-            local char = player.Character
-            local root = char and char:FindFirstChild("HumanoidRootPart")
-            local hum = char and char:FindFirstChild("Humanoid")
-            if root and hum and hum.Health > 0 then
-                noclipActive = true
-                local winParts = getWinPartsSorted()
-                if #winParts > 0 then
-                    if not superObbyIndex or superObbyIndex > #winParts then
-                        superObbyIndex = 1
-                    end
-                    for i = superObbyIndex, #winParts do
-                        if not superObbyActive or not root or not hum or hum.Health <= 0 then break end
-                        local data = winParts[i]
-                        root.Anchored = false
-                        local targetCFrame = data.CFrame + Vector3.new(0, 1.5, 0)
-                        root.CFrame = targetCFrame
-                        root.AssemblyLinearVelocity = Vector3.zero
-                        
-                        task.wait(0.15)
-                        
-                        local part = data.Part
-                        if not part or not part:IsDescendantOf(workspace) then
-                            for _, child in ipairs(workspace:GetDescendants()) do
-                                if child:IsA("BasePart") and child.Name == data.Name and child:FindFirstChildOfClass("TouchTransmitter") then
-                                    if (child.Position - root.Position).Magnitude < 20 then
-                                        part = child
-                                        break
-                                    end
-                                end
-                            end
-                        end
-                        
-                        if part and firetouchinterest then
-                            firetouchinterest(root, part, 0)
-                            firetouchinterest(root, part, 1)
-                        end
-                        
-                        task.wait(0.15)
-                        
-                        if root and (root.Position - targetCFrame.Position).Magnitude > 30 then
-                            task.wait(1.5)
-                            local spawnPos = getSpawnPos()
-                            if (root.Position - spawnPos).Magnitude < 100 then
-                                superObbyIndex = i + 1
-                            else
-                                superObbyIndex = 1
-                            end
-                            break
-                        else
-                            superObbyIndex = i + 1
-                        end
-                    end
-                end
-            end
-        end
-    end
-end)
-
-task.spawn(function()
-    while true do
-        task.wait(1)
-        if autoTreadmillActive then
-            local char = player.Character
-            local root = char and char:FindFirstChild("HumanoidRootPart")
-            if root then
-                local treadmillPart = nil
-                for _, v in ipairs(workspace:GetDescendants()) do
-                    if v:IsA("BasePart") and v.Name:lower():find("treadmill") then
-                        treadmillPart = v
-                        break
-                    end
-                end
-                if treadmillPart then
-                    root.CFrame = treadmillPart.CFrame + Vector3.new(0, 3, 0)
-                    local hum = char:FindFirstChildOfClass("Humanoid")
-                    if hum then
-                        hum:Move(Vector3.new(0, 0, -1), true)
-                    end
-                else
-                    Rayfield:Notify({
-                        Title = "Error",
-                        Content = "No se encontraron cintas de correr.",
-                        Duration = 3
-                    })
-                    autoTreadmillActive = false
-                end
-            end
-        end
-    end
-end)
-
-task.spawn(function()
-    while true do
-        task.wait(1)
-        if autoRebirthActive then
-            local rebirthRemote = nil
-            for _, v in ipairs(game:GetDescendants()) do
-                if v:IsA("RemoteEvent") and (v.Name:lower():find("rebirth") or v.Name:lower():find("prestige")) then
-                    rebirthRemote = v
-                    break
-                end
-            end
-            if rebirthRemote then
-                rebirthRemote:FireServer()
-            end
-        end
-    end
-end)
-
-task.spawn(function()
-    while true do
-        task.wait(0.05)
-        if autoClickActive then
-            for _, v in ipairs(game:GetDescendants()) do
-                if v:IsA("RemoteEvent") then
-                    local rName = v.Name:lower()
-                    if rName:find("click") or rName:find("tap") or rName:find("addspeed") or rName:find("gain") or rName:find("step") or rName:find("train") then
-                        v:FireServer()
-                    end
-                end
-            end
-        end
-    end
-end)
-
-task.spawn(function()
-    while true do
-        task.wait(30)
-        if setclipboard then
-            setclipboard("https://discord.gg/rTGF5xhe3h")
-        elseif toclipboard then
-            toclipboard("https://discord.gg/rTGF5xhe3h")
-        end
-        Rayfield:Notify({
-            Title = "Únete a nuestro Discord",
-            Content = "Enlace copiado al portapapeles: discord.gg/rTGF5xhe3h",
-            Duration = 5
-        })
-    end
-end)
-
-Tab1:CreateDropdown({
-    Name = "Modo de Farm de Victorias",
-    Options = {"Solo Última Etapa", "Secuencial (Todas)", "Etapa Específica"},
-    CurrentOption = "Solo Última Etapa",
-    MultipleOptions = false,
-    Flag = "FarmModeDropdown",
-    Callback = function(Option)
-        farmMode = Option[1] or Option
-    end
-})
-
-Tab1:CreateSlider({
-    Name = "Número de Etapa Específica",
-    Range = {1, 100},
-    Increment = 1,
-    Suffix = " Stage",
-    CurrentValue = 1,
-    Flag = "SpecificStageSlider",
-    Callback = function(Value)
-        specificStageNum = Value
-    end
-})
-
-local toggleWin, toggleObby, toggleFarm, toggleTreadmill
-
-toggleWin = Tab1:CreateToggle({
-    Name = "Bucle de Victorias AFK",
-    CurrentValue = false,
-    Flag = "AutoWinToggle",
-    Callback = function(Value)
-        autoWinActive = Value
-        if Value then
-            if toggleObby then toggleObby:Set(false) end
-            if toggleFarm then toggleFarm:Set(false) end
-            if toggleTreadmill then toggleTreadmill:Set(false) end
-        end
-    end
-})
-
-toggleObby = Tab1:CreateToggle({
-    Name = "Super Auto-Obby Caminar AFK",
-    CurrentValue = false,
-    Flag = "SuperObbyToggle",
-    Callback = function(Value)
-        superObbyActive = Value
-        if Value then
-            if toggleWin then toggleWin:Set(false) end
-            if toggleFarm then toggleFarm:Set(false) end
-            if toggleTreadmill then toggleTreadmill:Set(false) end
-            local winParts = getWinPartsSorted()
-            local names = {}
-            for _, data in ipairs(winParts) do
-                table.insert(names, data.Name .. " (" .. data.StageNumber .. ")")
-            end
-            if #names > 0 then
-                Rayfield:Notify({
-                    Title = "Obby Secuencial",
-                    Content = "Ruta detectada: " .. table.concat(names, " -> "),
-                    Duration = 5
-                })
-            else
-                Rayfield:Notify({
-                    Title = "Alerta",
-                    Content = "No se detectaron zonas de victoria en este mapa.",
-                    Duration = 5
-                })
-            end
-        else
-            noclipActive = false
-        end
-    end
-})
-
-toggleFarm = Tab1:CreateToggle({
-    Name = "Auto Farm (Ganar Pasos en Spawn)",
-    CurrentValue = false,
-    Flag = "AutoFarmToggle",
-    Callback = function(Value)
-        autofarmActive = Value
-        if Value then
-            if toggleWin then toggleWin:Set(false) end
-            if toggleObby then toggleObby:Set(false) end
-            if toggleTreadmill then toggleTreadmill:Set(false) end
-        end
-    end
-})
-
-toggleTreadmill = Tab1:CreateToggle({
-    Name = "Auto Cinta de Correr (Treadmill)",
-    CurrentValue = false,
-    Flag = "AutoTreadmillToggle",
-    Callback = function(Value)
-        autoTreadmillActive = Value
-        if Value then
-            if toggleWin then toggleWin:Set(false) end
-            if toggleObby then toggleObby:Set(false) end
-            if toggleFarm then toggleFarm:Set(false) end
-        end
-    end
-})
-
-Tab1:CreateToggle({
-    Name = "Auto Rebirth (Rebotes)",
-    CurrentValue = false,
-    Flag = "AutoRebirthToggle",
-    Callback = function(Value)
-        autoRebirthActive = Value
-    end
-})
-
-Tab1:CreateToggle({
-    Name = "Auto Auto-Click (Velocidad Extra)",
-    CurrentValue = false,
-    Flag = "AutoClickToggle",
-    Callback = function(Value)
-        autoClickActive = Value
-    end
-})
-
-Tab1:CreateButton({
-    Name = "Win Instantáneo (TP a Win Seleccionado)",
-    Callback = function()
-        local char = player.Character
-        local root = char and char:FindFirstChild("HumanoidRootPart")
-        if root then
-            local winParts = getWinPartsSorted()
-            if #winParts > 0 then
-                local targetPart = nil
-                if farmMode == "Solo Última Etapa" then
-                    targetPart = winParts[#winParts].Part
-                elseif farmMode == "Etapa Específica" then
-                    targetPart = getSpecificWinPart(specificStageNum)
-                else
-                    targetPart = winParts[1].Part
-                end
-                
-                if targetPart then
-                    root.CFrame = targetPart.CFrame + Vector3.new(0, 3, 0)
-                    if firetouchinterest then
-                        firetouchinterest(root, targetPart, 0)
-                        task.wait(0.05)
-                        firetouchinterest(root, targetPart, 1)
-                    end
-                else
-                    Rayfield:Notify({
-                        Title = "Error",
-                        Content = "No se encontró la zona seleccionada.",
-                        Duration = 3
-                    })
-                end
-            else
-                Rayfield:Notify({
-                    Title = "Error",
-                    Content = "No se encontraron zonas de victoria.",
-                    Duration = 3
-                })
-            end
-        end
-    end
-})
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if hyperSpeedActive then
-        local char = player.Character
-        local hum = char and char:FindFirstChildOfClass("Humanoid")
-        if hum then
-            hum.WalkSpeed = speedValue
-        end
-    end
-end)
-
-Tab2:CreateToggle({
-    Name = "Activar Hyper Velocidad",
-    CurrentValue = false,
-    Flag = "HyperSpeedToggle",
-    Callback = function(Value)
-        hyperSpeedActive = Value
-        if not Value then
-            local char = player.Character
-            local hum = char and char:FindFirstChildOfClass("Humanoid")
-            if hum then
-                hum.WalkSpeed = 16
-            end
-        end
-    end
-})
-
-Tab2:CreateSlider({
-    Name = "Valor de Velocidad",
-    Range = {16, 500},
-    Increment = 1,
-    Suffix = " Walkspeed",
-    CurrentValue = 100,
-    Flag = "SpeedSlider",
-    Callback = function(Value)
-        speedValue = Value
-    end
-})
-
-game:GetService("RunService").RenderStepped:Connect(function()
-    if autowalkActive then
-        local char = player.Character
-        local hum = char and char:FindFirstChildOfClass("Humanoid")
-        if hum then
-            hum:Move(Vector3.new(0, 0, -1), true)
-        end
-    end
-end)
-
-Tab2:CreateToggle({
-    Name = "Auto Caminar Adelante",
-    CurrentValue = false,
-    Flag = "AutoWalkToggle",
-    Callback = function(Value)
-        autowalkActive = Value
-    end
-})
-
-game:GetService("RunService").Stepped:Connect(function()
-    if noclipActive then
-        local char = player.Character
-        if char then
-            for _, child in ipairs(char:GetDescendants()) do
-                if child:IsA("BasePart") and child.CanCollide then
-                    child.CanCollide = false
-                end
-            end
-        end
-    end
-end)
-
-Tab2:CreateToggle({
-    Name = "Noclip (Atravesar Paredes)",
-    CurrentValue = false,
-    Flag = "NoclipToggle",
-    Callback = function(Value)
-        noclipActive = Value
-    end
-})
-
-game:GetService("UserInputService").JumpRequest:Connect(function()
-    if infiniteJumpActive then
-        local char = player.Character
-        local hum = char and char:FindFirstChildOfClass("Humanoid")
-        if hum then
-            hum:ChangeState(Enum.HumanoidStateType.Jumping)
-        end
-    end
-end)
-
-Tab2:CreateToggle({
-    Name = "Salto Infinito",
-    CurrentValue = false,
-    Flag = "InfJumpToggle",
-    Callback = function(Value)
-        infiniteJumpActive = Value
-    end
-})
-
-Tab3:CreateButton({
-    Name = "Reconectar Servidor",
-    Callback = function()
-        local TeleportService = game:GetService("TeleportService")
-        local Players = game:GetService("Players")
-        local LocalPlayer = Players.LocalPlayer
-        if #Players:GetPlayers() <= 1 then
-            LocalPlayer:Kick("Reconectando...")
-            task.wait(0.5)
-            TeleportService:Teleport(game.PlaceId, LocalPlayer)
-        else
-            TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LocalPlayer)
-        end
-    end
-})
-
-Tab3:CreateButton({
-    Name = "Servidor Serverhop",
-    Callback = function()
-        local HttpService = game:GetService("HttpService")
-        local TeleportService = game:GetService("TeleportService")
-        local Players = game:GetService("Players")
-        local LocalPlayer = Players.LocalPlayer
-        local Servers = HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"))
-        for _, server in ipairs(Servers.data) do
-            if server.playing < server.maxPlayers and server.id ~= game.JobId then
-                TeleportService:TeleportToPlaceInstance(game.PlaceId, server.id, LocalPlayer)
+            if not AutoFarm.Loop then
+                AutoFarm.Enabled = false
                 break
             end
+
+            task.wait(AutoFarm.LoopDelay)
+        end
+
+        AutoFarm.Running = false
+        cancelTween()
+
+        if AutoFarmToggle ~= nil then
+            pcall(function()
+                AutoFarmToggle:Set(false)
+            end)
+        end
+    end)
+end
+
+local Window = Rayfield:CreateWindow({
+    Name = Config.WindowName,
+    Icon = 0,
+    LoadingTitle = Config.LoadingTitle,
+    LoadingSubtitle = Config.LoadingSubtitle,
+    Theme = Theme,
+    DisableRayfieldPrompts = false,
+    DisableBuildWarnings = false,
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = Config.ConfigFolder,
+        FileName = Config.ConfigFolder
+    },
+    Discord = {
+        Enabled = true,
+        Invite = Config.DiscordInvite,
+        RememberJoins = false
+    },
+    KeySystem = Config.KeySystem,
+    KeySettings = {
+        Title = Config.KeyTitle,
+        Subtitle = Config.KeySubtitle,
+        Note = Config.KeyNote,
+        FileName = Config.KeyFolder,
+        SaveKey = false,
+        GrabKeyFromSite = false,
+        Key = Config.Keys
+    },
+    ToggleUIKeybind = Config.ToggleUiKeybind
+})
+
+local MainTab = Window:CreateTab("⚙️ Main")
+
+MainTab:CreateSection("World Selection")
+
+MainTab:CreateDropdown({
+    Name = "🌎 Select World",
+    Options = { "World 1", "World 2" },
+    CurrentOption = { AutoFarm.SelectedWorld },
+    MultipleOptions = false,
+    Flag = "SelectWorld",
+    Callback = function(value)
+        AutoFarm.SelectedWorld = selectedOption(value)
+    end
+})
+
+MainTab:CreateSection("Auto Farm")
+
+AutoFarmToggle = MainTab:CreateToggle({
+    Name = "Auto Farm",
+    CurrentValue = false,
+    Flag = "AutoFarm",
+    Callback = function(value)
+        if value then
+            startAutoFarm()
+        else
+            stopAutoFarm()
         end
     end
 })
 
-Tab3:CreateButton({
-    Name = "Cerrar Interfaz",
-    Callback = function()
-        Rayfield:Destroy()
+MainTab:CreateToggle({
+    Name = "Loop Route",
+    CurrentValue = AutoFarm.Loop,
+    Flag = "LoopRoute",
+    Callback = function(value)
+        AutoFarm.Loop = value
     end
 })
+
+MainTab:CreateInput({
+    Name = "Tween Speed",
+    CurrentValue = tostring(AutoFarm.TweenSpeed),
+    PlaceholderText = "90",
+    RemoveTextAfterFocusLost = false,
+    Flag = "TweenSpeed",
+    Callback = function(value)
+        AutoFarm.TweenSpeed = numberFromInput(value, AutoFarm.TweenSpeed, 1)
+    end
+})
+
+MainTab:CreateInput({
+    Name = "Point Delay",
+    CurrentValue = tostring(AutoFarm.PointDelay),
+    PlaceholderText = "0.05",
+    RemoveTextAfterFocusLost = false,
+    Flag = "PointDelay",
+    Callback = function(value)
+        AutoFarm.PointDelay = numberFromInput(value, AutoFarm.PointDelay, 0)
+    end
+})
+
+MainTab:CreateButton({
+    Name = "Run Selected Route Once",
+    Callback = function()
+        if AutoFarm.Running then
+            return
+        end
+
+        AutoFarm.Loop = false
+        AutoFarm.Enabled = true
+        startAutoFarm()
+    end
+})
+
+MainTab:CreateButton({
+    Name = "Stop Auto Farm",
+    Callback = function()
+        stopAutoFarm()
+    end
+})
+
+MainTab:CreateButton({
+    Name = "Teleport To First Checkpoint",
+    Callback = function()
+        local route = WorldRoutes[AutoFarm.SelectedWorld]
+        if route == nil or route[1] == nil then
+            notify("Teleport", "No checkpoint found for " .. tostring(AutoFarm.SelectedWorld), 4)
+            return
+        end
+
+        local _, root = getCharacterParts()
+        root.CFrame = CFrame.new(route[1])
+    end
+})
+
+MainTab:CreateKeybind({
+    Name = "Toggle Auto Farm",
+    CurrentKeybind = "F",
+    HoldToInteract = false,
+    Flag = "ToggleAutoFarmKeybind",
+    Callback = function()
+        if AutoFarm.Enabled then
+            stopAutoFarm()
+            if AutoFarmToggle ~= nil then
+                pcall(function()
+                    AutoFarmToggle:Set(false)
+                end)
+            end
+        else
+            if AutoFarmToggle ~= nil then
+                pcall(function()
+                    AutoFarmToggle:Set(true)
+                end)
+            end
+            startAutoFarm()
+        end
+    end
+})
+
+notify("CrackeadoHub", "Script loaded. Selected route: " .. AutoFarm.SelectedWorld, 4)
