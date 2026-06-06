@@ -1092,7 +1092,7 @@ local function createCrackedKeyNotification()
     subtitle.Position = UDim2.new(0, 0, 0, 38)
     subtitle.Size = UDim2.new(1, 0, 0, 28)
     subtitle.Font = Enum.Font.Gotham
-    subtitle.Text = "Dale las gracias a TheRealBanHammer y a WeAredevs.net por hacer un ofuscador de mierda"
+    subtitle.Text = "Dale las gracias a TheRealBanHammer y a WeAreDevs.net por hacer un ofuscador de mierda"
     subtitle.TextColor3 = Color3.fromRGB(210, 205, 235)
     subtitle.TextSize = 13
     subtitle.TextWrapped = true
