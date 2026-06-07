@@ -562,24 +562,24 @@ local function stopAutoFarm()
 end
 
 local function getSelectedCheckpoint()
-    for _, checkpoint in ipairs(CheckpointTargets) do
+    for index, checkpoint in ipairs(CheckpointTargets) do
         if checkpoint.Name == State.SelectedCheckpoint then
-            return checkpoint
+            return checkpoint, index
         end
     end
-    return CheckpointTargets[1]
+    return CheckpointTargets[1], 1
 end
 
-local function walkForwardForSeconds(seconds)
+local function walkLeftForSeconds(seconds)
     local endTime = os.clock() + seconds
     while os.clock() < endTime and State.CheckpointFlyActive do
         local character = LocalPlayer.Character
         local humanoid = character and character:FindFirstChildOfClass("Humanoid")
         local root = character and character:FindFirstChild("HumanoidRootPart")
         if humanoid and root then
-            local forward = Vector3.new(root.CFrame.LookVector.X, 0, root.CFrame.LookVector.Z)
-            if forward.Magnitude > 0 then
-                humanoid:Move(forward.Unit, false)
+            local left = Vector3.new(-root.CFrame.RightVector.X, 0, -root.CFrame.RightVector.Z)
+            if left.Magnitude > 0 then
+                humanoid:Move(left.Unit, false)
             end
         end
         Services.RunService.Heartbeat:Wait()
@@ -595,17 +595,31 @@ local function flyToSelectedCheckpoint()
         notify("Checkpoint Fly", "Already flying")
         return false
     end
-    local checkpoint = getSelectedCheckpoint()
+    local checkpoint, checkpointIndex = getSelectedCheckpoint()
     if not checkpoint then
         return false
     end
     State.CheckpointFlyActive = true
     updateSupportPlatform()
-    local success = tweenTo(checkpoint.Position, function()
-        return not State.CheckpointFlyActive
-    end)
+    local success = true
+    for index = 1, checkpointIndex do
+        if not State.CheckpointFlyActive then
+            success = false
+            break
+        end
+        local routeCheckpoint = CheckpointTargets[index]
+        success = tweenTo(routeCheckpoint.Position, function()
+            return not State.CheckpointFlyActive
+        end)
+        if not success then
+            break
+        end
+        if State.PointDelay > 0 then
+            task.wait(State.PointDelay)
+        end
+    end
     if success and State.CheckpointFlyActive then
-        walkForwardForSeconds(Config.CheckpointForwardTime)
+        walkLeftForSeconds(Config.CheckpointForwardTime)
     end
     State.CheckpointFlyActive = false
     updateSupportPlatform()
