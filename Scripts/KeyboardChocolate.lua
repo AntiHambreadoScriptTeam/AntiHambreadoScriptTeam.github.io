@@ -6,9 +6,9 @@ local Config = {
     DiscordInvite = "rTGF5xhe3h",
     KeySystem = true,
     Key = "ElCreadorDeEsteScriptEsUnGranMonoNegro",
-    KeyTitle = "TheRealBanHammer - Skidder Final Boss",
+    KeyTitle = "CRACKED",
     KeySubtitle = "Script Crackeado Lol",
-    KeyNote = "Key: ElCreadorDeEsteScriptEsUnGranMonoNegro",
+    KeyNote = "La key es: ElCreadorDeEsteScriptEsUnGranMonoNegro",
     Keys = {"ElCreadorDeEsteScriptEsUnGranMonoNegro"},
     ConfigFolder = "CrackeadoHub",
     KeyFileName = "CrackeadoKeySystem",
@@ -23,7 +23,8 @@ local Config = {
     TeleportYOffset = 2.75,
     SupportPlatformGap = 0.12,
     SupportPlatformSize = Vector3.new(9, 0.35, 9),
-    CheckpointForwardTime = 2
+    CheckpointForwardTime = 2,
+    CheckpointSidePushSpeed = 6
 }
 
 local Services = {
@@ -87,6 +88,7 @@ local State = {
     CheckpointFlyLoop = false,
     CheckpointFlyThread = nil,
     CheckpointFlyActive = false,
+    CheckpointSidePush = true,
     AutoCollect = false,
     AutoBuy = false,
     LoopRoute = true,
@@ -580,13 +582,14 @@ local function walkLeftForSeconds(seconds)
             humanoid.PlatformStand = false
             humanoid:ChangeState(Enum.HumanoidStateType.Running)
             humanoid:Move(Vector3.new(1, 0, 0), true)
-            local camera = Services.Workspace.CurrentCamera
-            local rightVector = camera and camera.CFrame.RightVector or root.CFrame.RightVector
-            local left = Vector3.new(rightVector.X, 0, rightVector.Z)
-            if left.Magnitude > 0 then
-                local speed = math.max(humanoid.WalkSpeed, 16)
-                local velocity = root.AssemblyLinearVelocity
-                root.AssemblyLinearVelocity = Vector3.new(left.Unit.X * speed, math.max(velocity.Y, 0), left.Unit.Z * speed)
+            if State.CheckpointSidePush then
+                local camera = Services.Workspace.CurrentCamera
+                local rightVector = camera and camera.CFrame.RightVector or root.CFrame.RightVector
+                local left = Vector3.new(rightVector.X, 0, rightVector.Z)
+                if left.Magnitude > 0 then
+                    local velocity = root.AssemblyLinearVelocity
+                    root.AssemblyLinearVelocity = Vector3.new(left.Unit.X * Config.CheckpointSidePushSpeed, math.max(velocity.Y, 0), left.Unit.Z * Config.CheckpointSidePushSpeed)
+                end
             end
         end
         Services.RunService.Heartbeat:Wait()
@@ -1527,6 +1530,15 @@ MainTab:CreateToggle({
         else
             stopCheckpointFlyLoop()
         end
+    end
+})
+MainTab:CreateToggle({
+    Name = "Empuje lateral al llegar",
+    CurrentValue = true,
+    Flag = "CheckpointSidePush",
+    Callback = function(value)
+        State.CheckpointSidePush = value
+        notify("Checkpoint Fly", value and "Empuje lateral activado" or "Empuje lateral desactivado")
     end
 })
 createButton(MainTab, {
