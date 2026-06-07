@@ -562,12 +562,12 @@ local function stopAutoFarm()
 end
 
 local function getSelectedCheckpoint()
-    for index, checkpoint in ipairs(CheckpointTargets) do
+    for _, checkpoint in ipairs(CheckpointTargets) do
         if checkpoint.Name == State.SelectedCheckpoint then
-            return checkpoint, index
+            return checkpoint
         end
     end
-    return CheckpointTargets[1], 1
+    return CheckpointTargets[1]
 end
 
 local function walkLeftForSeconds(seconds)
@@ -577,9 +577,16 @@ local function walkLeftForSeconds(seconds)
         local humanoid = character and character:FindFirstChildOfClass("Humanoid")
         local root = character and character:FindFirstChild("HumanoidRootPart")
         if humanoid and root then
-            local left = Vector3.new(-root.CFrame.RightVector.X, 0, -root.CFrame.RightVector.Z)
+            humanoid.PlatformStand = false
+            humanoid:ChangeState(Enum.HumanoidStateType.Running)
+            humanoid:Move(Vector3.new(-1, 0, 0), true)
+            local camera = Services.Workspace.CurrentCamera
+            local rightVector = camera and camera.CFrame.RightVector or root.CFrame.RightVector
+            local left = Vector3.new(-rightVector.X, 0, -rightVector.Z)
             if left.Magnitude > 0 then
-                humanoid:Move(left.Unit, false)
+                local speed = math.max(humanoid.WalkSpeed, 16)
+                local velocity = root.AssemblyLinearVelocity
+                root.AssemblyLinearVelocity = Vector3.new(left.Unit.X * speed, math.max(velocity.Y, 0), left.Unit.Z * speed)
             end
         end
         Services.RunService.Heartbeat:Wait()
@@ -588,6 +595,25 @@ local function walkLeftForSeconds(seconds)
     if humanoid then
         humanoid:Move(Vector3.new(0, 0, 0), false)
     end
+    local root = getRoot()
+    if root then
+        local velocity = root.AssemblyLinearVelocity
+        root.AssemblyLinearVelocity = Vector3.new(0, velocity.Y, 0)
+    end
+end
+
+local function getNearestAutoFarmRouteIndex(position)
+    local route = WorldRoutes["World 1"]
+    local nearestIndex = 1
+    local nearestDistance = math.huge
+    for index, routePosition in ipairs(route) do
+        local distance = (routePosition - position).Magnitude
+        if distance < nearestDistance then
+            nearestDistance = distance
+            nearestIndex = index
+        end
+    end
+    return nearestIndex
 end
 
 local function flyToSelectedCheckpoint()
@@ -595,20 +621,21 @@ local function flyToSelectedCheckpoint()
         notify("Checkpoint Fly", "Already flying")
         return false
     end
-    local checkpoint, checkpointIndex = getSelectedCheckpoint()
+    local checkpoint = getSelectedCheckpoint()
     if not checkpoint then
         return false
     end
     State.CheckpointFlyActive = true
     updateSupportPlatform()
     local success = true
-    for index = 1, checkpointIndex do
+    local route = WorldRoutes["World 1"]
+    local targetRouteIndex = getNearestAutoFarmRouteIndex(checkpoint.Position)
+    for index = 1, targetRouteIndex do
         if not State.CheckpointFlyActive then
             success = false
             break
         end
-        local routeCheckpoint = CheckpointTargets[index]
-        success = tweenTo(routeCheckpoint.Position, function()
+        success = tweenTo(route[index], function()
             return not State.CheckpointFlyActive
         end)
         if not success then
@@ -617,6 +644,11 @@ local function flyToSelectedCheckpoint()
         if State.PointDelay > 0 then
             task.wait(State.PointDelay)
         end
+    end
+    if success and State.CheckpointFlyActive and (route[targetRouteIndex] - checkpoint.Position).Magnitude > 1 then
+        success = tweenTo(checkpoint.Position, function()
+            return not State.CheckpointFlyActive
+        end)
     end
     if success and State.CheckpointFlyActive then
         walkLeftForSeconds(Config.CheckpointForwardTime)
