@@ -1,1 +1,2393 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sorteo 1er Aniversario | Anti-Hambreado Script Team</title>
+  <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg-black: #000000;
+      --bg-system: #050505;
+      --ios-card: rgba(20, 20, 20, 0.45);
+      --ios-glass: rgba(10, 10, 10, 0.65);
+      --border-thin: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(255, 255, 255, 0.15);
+      --accent-red: #ff3b30;
+      --accent-pink: #ff2d55;
+      --accent-gold: #ffcc00;
+      --accent-blue: #007aff;
+      --accent-green: #34c759;
+      --accent-glow: rgba(255, 45, 85, 0.35);
+      --text-main: #ffffff;
+      --text-muted: #8e8e93;
+      --text-ios-blue: #0a84ff;
+    }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    body {
+      background-color: var(--bg-black);
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(255, 45, 85, 0.12), transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(255, 204, 0, 0.08), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(0, 122, 255, 0.08), transparent 50%);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+    }
+
+    .noise-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -2;
+      opacity: 0.02;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .grid-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -3;
+      background-image: 
+        linear-gradient(var(--border-thin) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-thin) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
+      -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
+    }
+
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      display: block;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 92%;
+      max-width: 1200px;
+      height: 64px;
+      background: var(--ios-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-thin);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 1000;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+
+
+    .nav-brand-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-logo span {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 1rem;
+      color: var(--text-main);
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .nav-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 1px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--accent-green);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .status-dot::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: var(--accent-green);
+      border-radius: 50%;
+      animation: pingStatus 1.5s infinite;
+    }
+
+    @keyframes pingStatus {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(2.5);
+        opacity: 0;
+      }
+    }
+
+    .nav-status span {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 18px;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-link.active {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-thin);
+    }
+
+    .hamburger {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-thin);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1001;
+    }
+
+    .hamburger:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    .hamburger span {
+      width: 18px;
+      height: 2px;
+      background: var(--text-main);
+      border-radius: 2px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+      background-color: var(--accent-pink);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+      background-color: var(--accent-pink);
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 300px;
+      height: 100vh;
+      background: rgba(5, 5, 5, 0.75);
+      backdrop-filter: blur(35px);
+      -webkit-backdrop-filter: blur(35px);
+      border-left: 1px solid var(--border-thin);
+      z-index: 998;
+      padding: 120px 16px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+    }
+
+    .mobile-menu.open {
+      right: 0;
+      box-shadow: -20px 0 60px rgba(0, 0, 0, 0.95);
+    }
+
+    .mobile-link, .menu-section-title, .menu-divider {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-family: 'Outfit', sans-serif;
+      padding: 14px 20px;
+      border-radius: 18px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid transparent;
+      transform: translateX(30px);
+      opacity: 0;
+    }
+
+    .menu-section-title {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 10px 20px 4px;
+      display: block;
+      opacity: 0.6;
+    }
+
+    .menu-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 45, 85, 0.35), transparent);
+      margin: 10px 15px;
+      width: 80%;
+      align-self: center;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+    }
+
+    .mobile-menu.open > * {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .mobile-menu.open > *:nth-child(1) { transition-delay: 0.05s; }
+    .mobile-menu.open > *:nth-child(2) { transition-delay: 0.1s; }
+    .mobile-menu.open > *:nth-child(3) { transition-delay: 0.15s; }
+    .mobile-menu.open > *:nth-child(4) { transition-delay: 0.2s; }
+    .mobile-menu.open > *:nth-child(5) { transition-delay: 0.25s; }
+    .mobile-menu.open > *:nth-child(6) { transition-delay: 0.3s; }
+    .mobile-menu.open > *:nth-child(7) { transition-delay: 0.35s; }
+    .mobile-menu.open > *:nth-child(8) { transition-delay: 0.4s; }
+    .mobile-menu.open > *:nth-child(9) { transition-delay: 0.45s; }
+    .mobile-menu.open > *:nth-child(10) { transition-delay: 0.5s; }
+    .mobile-menu.open > *:nth-child(11) { transition-delay: 0.55s; }
+    .mobile-menu.open > *:nth-child(12) { transition-delay: 0.6s; }
+
+    .mobile-link i {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      transition: all 0.3s;
+    }
+
+    .mobile-link:hover, .mobile-link.active {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .mobile-link:hover i, .mobile-link.active i {
+      color: var(--accent-pink);
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 8px var(--accent-glow));
+    }
+
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 997;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mobile-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .hero-container {
+      min-height: 90vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 270px 20px 80px;
+      position: relative;
+      z-index: 10;
+      background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.85) 100%), url('https://i.postimg.cc/QMQxjrm7/Banner-Sorteo.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-bottom: 1px solid var(--border-thin);
+    }
+
+
+
+    .ios-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(255, 45, 85, 0.08);
+      border: 1px solid rgba(255, 45, 85, 0.25);
+      border-radius: 100px;
+      margin-bottom: 24px;
+      animation: floatBadge 3.5s ease-in-out infinite;
+    }
+
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .ios-badge i {
+      color: var(--accent-pink);
+      font-size: 0.8rem;
+    }
+
+    .ios-badge span {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-pink);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .hero-container h1 {
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      letter-spacing: -1.5px;
+      background: linear-gradient(180deg, #ffffff 0%, #a1a1a1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-container h1 span.gradient {
+      background: linear-gradient(135deg, var(--accent-pink) 0%, var(--accent-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .hero-container p {
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 650px;
+      margin-bottom: 40px;
+      font-weight: 400;
+      padding: 0 10px;
+    }
+
+    .ticket-perspective {
+      perspective: 1200px;
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .ticket-3d {
+      width: 100%;
+      aspect-ratio: 1.8 / 1;
+      background: linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(5, 5, 5, 0.9) 100%);
+      border: 1px solid var(--border-glow);
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: left;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease;
+    }
+
+    .ticket-3d::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(125deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 60%);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .ticket-glow {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(255, 45, 85, 0.15) 0%, transparent 70%);
+      top: -60px;
+      right: -60px;
+      z-index: 0;
+      border-radius: 50%;
+    }
+
+    .ticket-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      z-index: 2;
+    }
+
+    .ticket-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+
+
+    .ticket-logo span {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #eaeaea;
+    }
+
+    .ticket-chip-dollar {
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 8px rgba(255, 204, 0, 0.4));
+      animation: pulseDollar 2.5s infinite alternate ease-in-out;
+      transform-style: preserve-3d;
+      transform: translateZ(20px);
+    }
+
+    @keyframes pulseDollar {
+      0% { transform: translateZ(20px) scale(0.95); filter: drop-shadow(0 2px 6px rgba(255, 204, 0, 0.3)); }
+      100% { transform: translateZ(20px) scale(1.05); filter: drop-shadow(0 2px 12px rgba(255, 204, 0, 0.6)); }
+    }
+
+    .ticket-body {
+      z-index: 2;
+    }
+
+    .ticket-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+      margin-bottom: 2px;
+      font-family: 'Space Grotesk', sans-serif;
+      text-shadow: 0 0 10px rgba(255,255,255,0.1);
+    }
+
+    .ticket-subtitle {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--accent-gold);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .ticket-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      z-index: 2;
+    }
+
+    .ticket-holder {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ticket-holder span:first-child {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+
+    .ticket-holder span:last-child {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .ticket-date {
+      text-align: right;
+    }
+
+    .ticket-date span {
+      display: block;
+    }
+
+    .ticket-date span:first-child {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+
+    .ticket-date span:last-child {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-pink);
+    }
+
+    .countdown-section {
+      width: 100%;
+      max-width: 800px;
+      margin: -20px auto 100px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .countdown-widget {
+      background: var(--ios-card);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid var(--border-thin);
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .countdown-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-pink);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .live-dot::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: var(--accent-pink);
+      border-radius: 50%;
+      animation: pingStatus 1.5s infinite;
+    }
+
+    .countdown-header span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      width: 100%;
+    }
+
+    .countdown-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-thin);
+      border-radius: 18px;
+      padding: 15px 10px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .countdown-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--border-glow);
+    }
+
+    .countdown-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .countdown-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .countdown-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 100px;
+      overflow: hidden;
+      margin-top: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.02);
+    }
+
+    .countdown-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-pink), var(--accent-gold));
+      width: 75%;
+      border-radius: 100px;
+      transition: width 1s ease-in-out;
+    }
+
+    .expired-message-container {
+      display: none;
+      width: 100%;
+      text-align: center;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .expired-message {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .expired-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--text-ios-blue);
+      border: none;
+      border-radius: 100px;
+      color: #ffffff;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(10, 132, 255, 0.4);
+      transition: 0.3s;
+    }
+
+    .expired-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(10, 132, 255, 0.5);
+    }
+
+    .expired-btn i {
+      font-size: 1.1rem;
+    }
+
+    .tabs-section {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto 100px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .segmented-control {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-thin);
+      border-radius: 16px;
+      padding: 4px;
+      display: flex;
+      position: relative;
+      margin-bottom: 40px;
+      z-index: 10;
+    }
+
+    .segmented-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 12px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      z-index: 2;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .segmented-btn.active {
+      color: #ffffff;
+    }
+
+    .segmented-btn i {
+      font-size: 0.95rem;
+    }
+
+    .segmented-indicator {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      left: 4px;
+      width: calc(33.333% - 4px);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      z-index: 1;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .tab-content {
+      display: none;
+      opacity: 0;
+      transform: scale(0.98);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tab-content.active {
+      display: block;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .prizes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .prize-card {
+      background: var(--ios-card);
+      border: 1px solid var(--border-thin);
+      border-radius: 24px;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .prize-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at top right, rgba(255, 45, 85, 0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .prize-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 45, 85, 0.25);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+
+    .prize-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .prize-icon {
+      width: 54px;
+      height: 54px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-thin);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      transition: 0.3s;
+    }
+
+    .prize-card:hover .prize-icon {
+      background: var(--accent-pink);
+      color: #ffffff;
+      transform: scale(1.08) rotate(5deg);
+      border-color: var(--accent-pink);
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .prize-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-primary {
+      background: rgba(255, 45, 85, 0.12);
+      border: 1px solid rgba(255, 45, 85, 0.3);
+      color: var(--accent-pink);
+    }
+
+    .badge-cyan {
+      background: rgba(0, 122, 255, 0.12);
+      border: 1px solid rgba(0, 122, 255, 0.3);
+      color: var(--text-ios-blue);
+    }
+
+    .badge-green {
+      background: rgba(52, 199, 89, 0.12);
+      border: 1px solid rgba(52, 199, 89, 0.3);
+      color: var(--accent-green);
+    }
+
+    .badge-gold {
+      background: rgba(255, 204, 0, 0.12);
+      border: 1px solid rgba(255, 204, 0, 0.3);
+      color: var(--accent-gold);
+    }
+
+    .prize-card-body {
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .prize-card-body h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .prize-card-body p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .prize-card-footer {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .prize-card-footer i {
+      color: var(--accent-pink);
+    }
+
+    .prize-card-full {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(10, 5, 8, 0.9) 100%);
+      border: 1px solid rgba(255, 45, 85, 0.2);
+    }
+
+    .prize-card-full p {
+      max-width: 750px;
+    }
+
+    .rules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .rule-card {
+      background: var(--ios-card);
+      border: 1px solid var(--border-thin);
+      border-radius: 20px;
+      padding: 20px 24px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: all 0.3s ease;
+    }
+
+    .rule-card:hover {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateX(6px);
+    }
+
+    .rule-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 45, 85, 0.08);
+      border: 1px solid rgba(255, 45, 85, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      color: var(--accent-pink);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .rule-info h3 {
+      font-size: 1.15rem;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .rule-info p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .legal-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .legal-card {
+      background: var(--ios-card);
+      border: 1px solid var(--border-thin);
+      border-radius: 22px;
+      padding: 30px;
+    }
+
+    .legal-card h3 {
+      font-size: 1.25rem;
+      color: #ffffff;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .legal-card h3 i {
+      color: var(--accent-gold);
+    }
+
+    .legal-card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .legal-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .legal-card strong {
+      color: #ffffff;
+    }
+
+    .hosters-section {
+      max-width: 900px;
+      margin: 0 auto 100px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-eyebrow {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, var(--accent-pink), var(--accent-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+
+    .hosters-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    .hoster-card {
+      background: var(--ios-card);
+      border: 1px solid var(--border-thin);
+      border-radius: 28px;
+      padding: 35px 25px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hoster-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 255, 255, 0.15);
+      background: rgba(20, 20, 20, 0.6);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    }
+
+    .hoster-avatar-wrap {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 20px;
+    }
+
+    .hoster-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+      transition: transform 0.4s;
+    }
+
+    .hoster-card:hover .hoster-avatar {
+      transform: scale(1.05);
+      border-color: var(--accent-pink);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .hoster-role-badge {
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 45, 85, 0.15);
+      border: 1px solid var(--accent-pink);
+      padding: 2px 10px;
+      border-radius: 100px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--accent-pink);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .hoster-card:nth-child(2) .hoster-role-badge {
+      background: rgba(0, 122, 255, 0.15);
+      border-color: var(--accent-blue);
+      color: var(--text-ios-blue);
+    }
+
+    .hoster-name {
+      font-size: 1.5rem;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .hoster-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+    }
+
+    .hoster-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .cta-section {
+      max-width: 1000px;
+      margin: 0 auto 80px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, rgba(25, 10, 15, 0.7) 0%, rgba(5, 5, 5, 0.9) 100%);
+      border: 1px solid rgba(255, 45, 85, 0.25);
+      border-radius: 30px;
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(255, 45, 85, 0.05);
+    }
+
+    .cta-title {
+      font-size: 2.2rem;
+      color: #ffffff;
+      margin-bottom: 15px;
+    }
+
+    .cta-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 35px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-discord {
+      background: #5865f2;
+      color: #ffffff;
+      box-shadow: 0 8px 25px rgba(88, 101, 242, 0.3);
+    }
+
+    .btn-discord:hover {
+      background: #4752c4;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(88, 101, 242, 0.4);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-thin);
+      color: var(--text-main);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--border-glow);
+      transform: translateY(-3px);
+    }
+
+    footer {
+      border-top: 1px solid var(--border-thin);
+      padding: 40px 20px;
+      text-align: center;
+      background: var(--bg-black);
+      position: relative;
+      z-index: 10;
+    }
+
+
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 5px;
+    }
+
+    footer .heart {
+      color: var(--accent-pink);
+      display: inline-block;
+      animation: heartPulse 1.5s infinite;
+    }
+
+    @keyframes heartPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .fade-up.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+
+
+
+
+    .typewrite {
+      opacity: 0;
+    }
+
+    .ticket-section {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 180px auto 80px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 20;
+    }
+
+    #contador, #agradecimiento, #entrega, #tabs-section, #hosters {
+      scroll-margin-top: 100px;
+    }
+
+    .thanks-section {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 100px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .thanks-widget {
+      background: var(--ios-card);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid var(--border-thin);
+      border-radius: 28px;
+      padding: 40px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .thanks-widget::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at bottom center, rgba(0, 122, 255, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .thanks-eyebrow {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, var(--accent-pink), var(--accent-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .thanks-title {
+      font-size: 1.8rem;
+      color: #ffffff;
+      margin-bottom: 15px;
+      letter-spacing: -0.5px;
+    }
+
+    .thanks-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 680px;
+      margin: 0 auto 30px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-thin);
+      border-radius: 20px;
+      padding: 20px 15px;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .stat-icon.red {
+      background: rgba(255, 59, 48, 0.1);
+      color: var(--accent-red);
+      border: 1px solid rgba(255, 59, 48, 0.2);
+    }
+
+    .stat-icon.gold {
+      background: rgba(255, 204, 0, 0.1);
+      color: var(--accent-gold);
+      border: 1px solid rgba(255, 204, 0, 0.2);
+    }
+
+    .stat-icon.blue {
+      background: rgba(0, 122, 255, 0.1);
+      color: var(--text-ios-blue);
+      border: 1px solid rgba(0, 122, 255, 0.2);
+    }
+
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .stat-card:hover .stat-num {
+      color: var(--accent-pink);
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    .delivery-section {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 100px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .delivery-widget {
+      background: var(--ios-card);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid var(--border-thin);
+      border-radius: 28px;
+      padding: 40px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .delivery-widget::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at bottom center, rgba(52, 199, 89, 0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .delivery-eyebrow {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, var(--accent-pink), var(--accent-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .delivery-title {
+      font-size: 1.8rem;
+      color: #ffffff;
+      margin-bottom: 15px;
+      letter-spacing: -0.5px;
+    }
+
+    .delivery-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 680px;
+      margin: 0 auto 30px;
+    }
+
+    .delivery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+
+    .delivery-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-thin);
+      border-radius: 20px;
+      padding: 25px 20px;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .delivery-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .delivery-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      background: rgba(0, 122, 255, 0.1);
+      color: var(--text-ios-blue);
+      border: 1px solid rgba(0, 122, 255, 0.2);
+    }
+
+    .delivery-card h3 {
+      font-size: 1.15rem;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .delivery-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .slogan-box {
+      margin-top: 10px;
+      padding: 14px 24px;
+      border-radius: 16px;
+      background: rgba(255, 59, 48, 0.04);
+      border: 1px dashed rgba(255, 59, 48, 0.25);
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .slogan-box:hover {
+      background: rgba(255, 59, 48, 0.08);
+      border-color: rgba(255, 59, 48, 0.4);
+      box-shadow: 0 0 15px rgba(255, 59, 48, 0.1);
+    }
+
+    .slogan-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--accent-red);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-shadow: 0 0 8px rgba(255, 59, 48, 0.15);
+    }
+
+    @media (max-width: 600px) {
+      .delivery-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .navbar {
+        width: calc(100% - 30px);
+        height: 58px;
+        top: 10px;
+        padding: 0 16px;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .hero-container {
+        min-height: 65vh;
+        padding-top: 180px;
+        padding-bottom: 60px;
+      }
+      .ticket-section {
+        margin: -10px auto 60px;
+      }
+      .hosters-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .countdown-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .ticket-3d {
+        padding: 16px;
+      }
+      .ticket-title {
+        font-size: 1.8rem;
+      }
+      .segmented-control {
+        border-radius: 12px;
+      }
+      .segmented-btn {
+        font-size: 0.75rem;
+        padding: 10px 4px;
+      }
+      .segmented-indicator {
+        border-radius: 10px;
+      }
+      .hero-container {
+        min-height: 60vh;
+        padding-top: 150px;
+        padding-bottom: 50px;
+      }
+      .ticket-section {
+        margin: -20px auto 50px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="noise-bg"></div>
+  <div class="grid-bg"></div>
+  <canvas id="particles"></canvas>
+
+  <nav class="navbar">
+    <a href="#" class="nav-logo">
+      <div class="nav-brand-container">
+        <span>Anti-Hambreado Script Team</span>
+        <div class="nav-status">
+          <div class="status-dot"></div>
+          <span>Sorteo Online</span>
+        </div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Inicio</a>
+      <a href="sobre-nosotros.html" class="nav-link">Sobre Nosotros</a>
+      <a href="#contador" class="nav-link active">Contador</a>
+      <a href="#agradecimiento" class="nav-link">Agradecimiento</a>
+      <a href="#entrega" class="nav-link">Entrega</a>
+      <a href="#tabs-section" class="nav-link" onclick="switchTabShortcut(0)">Premios</a>
+      <a href="#tabs-section" class="nav-link" onclick="switchTabShortcut(1)">Reglas</a>
+      <a href="#tabs-section" class="nav-link" onclick="switchTabShortcut(2)">Términos</a>
+      <a href="#hosters" class="nav-link">Hosters</a>
+    </div>
+    <button class="hamburger" id="hamburgerBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-overlay" id="menuOverlay"></div>
+  <div class="mobile-menu" id="sideMenu">
+    <span class="menu-section-title">Páginas</span>
+    <a href="index.html" class="mobile-link"><i class="fas fa-home"></i> Inicio</a>
+    <a href="sobre-nosotros.html" class="mobile-link"><i class="fas fa-users"></i> Sobre Nosotros</a>
+    
+    <div class="menu-divider"></div>
+    
+    <span class="menu-section-title">Atajos del Sorteo</span>
+    <a href="#contador" class="mobile-link"><i class="fas fa-clock"></i> Contador</a>
+    <a href="#agradecimiento" class="mobile-link"><i class="fas fa-heart"></i> Agradecimiento</a>
+    <a href="#entrega" class="mobile-link"><i class="fas fa-truck-ramp-box"></i> Entrega</a>
+    <a href="#tabs-section" class="mobile-link" onclick="switchTabShortcut(0)"><i class="fas fa-gift"></i> Premios</a>
+    <a href="#tabs-section" class="mobile-link" onclick="switchTabShortcut(1)"><i class="fas fa-list-check"></i> Reglas</a>
+    <a href="#tabs-section" class="mobile-link" onclick="switchTabShortcut(2)"><i class="fas fa-shield-halved"></i> Términos</a>
+    <a href="#hosters" class="mobile-link"><i class="fas fa-user-tie"></i> Hosters</a>
+  </div>
+
+  <header class="hero-container" id="inicio">
+
+    <div class="ios-badge fade-up">
+      <i class="fas fa-sparkles"></i>
+      <span>Primer Aniversario</span>
+    </div>
+    
+    <h1 class="fade-up">
+      Anti-Hambreado <br>
+      <span class="gradient">Script Team Sorteo</span>
+    </h1>
+    
+    <p class="fade-up typewrite">
+      Con motivos de celebrar el primer aniversario de Anti-Hambreado Script Team, queremos regalar 30* dólares a nuestra comunidad. Revisa los detalles del premio, las bases del sorteo y participa de forma totalmente segura.
+    </p>
+  </header>
+
+  <section class="ticket-section fade-up">
+    <div class="ticket-perspective">
+      <div class="ticket-3d" id="prizeTicket">
+        <div class="ticket-glow"></div>
+        <div class="ticket-header">
+          <div class="ticket-logo">
+            <span>Anti-Hambreado</span>
+          </div>
+          <div class="ticket-chip-dollar"><i class="fa-solid fa-money-bill-1"></i></div>
+        </div>
+        <div class="ticket-body">
+          <div class="ticket-title">$30* USD</div>
+          <div class="ticket-subtitle">Premio Principal Digital</div>
+        </div>
+        <div class="ticket-footer">
+          <div class="ticket-holder">
+            <span>Comunidad</span>
+            <span>Rip Campione-Script</span>
+          </div>
+          <div class="ticket-date">
+            <span>Lanzamiento</span>
+            <span>01 / JUL / 26</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="countdown-section fade-up" id="contador">
+    <div class="countdown-widget">
+      <div class="countdown-header" id="countdownHeader">
+        <div class="live-dot"></div>
+        <span>El sorteo inicia en</span>
+      </div>
+      <div class="countdown-grid" id="timerGrid">
+        <div class="countdown-item">
+          <div class="countdown-value" id="days">00</div>
+          <div class="countdown-label">Días</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-value" id="hours">00</div>
+          <div class="countdown-label">Horas</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-value" id="minutes">00</div>
+          <div class="countdown-label">Min</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-value" id="seconds">00</div>
+          <div class="countdown-label">Seg</div>
+        </div>
+      </div>
+      <div class="countdown-bar-bg" id="timerProgress">
+        <div class="countdown-bar-fill" id="timerProgressFill"></div>
+      </div>
+      <div class="expired-message-container" id="expiredMessage">
+        <div class="expired-message">¡El sorteo ha empezado! ¡Ve a nuestro Discord para ver a los futuros ganadores!</div>
+        <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="expired-btn">
+          <i class="fab fa-discord"></i> Ir a Discord
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="thanks-section fade-up" id="agradecimiento">
+    <div class="thanks-widget">
+      <span class="thanks-eyebrow">Agradecimiento Especial</span>
+      <h2 class="thanks-title">Gracias por seguir apoyándonos</h2>
+      <p class="thanks-desc typewrite">A lo largo de este primer año, nos han borrado 7 canales oficiales. Cualquiera se habría rendido, pero gracias a tu apoyo incondicional y a los más de 7,000 suscriptores que formamos esta gran familia, seguimos de pie. Este sorteo es nuestro humilde agradecimiento hacia ti. Tu lealtad demuestra que hacer las cosas bien (sin enlaces engañosos y sin hambre digital) vale la pena.</p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon red"><i class="fas fa-trash-can"></i></div>
+          <div class="stat-num">7</div>
+          <div class="stat-label">Canales Borrados</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon gold"><i class="fas fa-users"></i></div>
+          <div class="stat-num">+7,000</div>
+          <div class="stat-label">Suscriptores Totales</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fas fa-shield-halved"></i></div>
+          <div class="stat-num">1</div>
+          <div class="stat-label">Año de Resistencia</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tabs-section fade-up" id="tabs-section">
+    <div class="segmented-control">
+      <button class="segmented-btn active" onclick="switchTab(0)">
+        <i class="fas fa-gift"></i> Premios
+      </button>
+      <button class="segmented-btn" onclick="switchTab(1)">
+        <i class="fas fa-list-check"></i> Reglas
+      </button>
+      <button class="segmented-btn" onclick="switchTab(2)">
+        <i class="fas fa-shield-halved"></i> Términos
+      </button>
+      <div class="segmented-indicator" id="tabIndicator"></div>
+    </div>
+
+    <div class="tab-content active" id="tab-premios">
+      <div class="prizes-grid">
+        <div class="prize-card">
+          <div class="prize-card-header">
+            <div class="prize-icon"><i class="fas fa-mobile-screen-button"></i></div>
+            <span class="prize-badge badge-cyan">Suscripción</span>
+          </div>
+          <div class="prize-card-body">
+            <h3>Suscripción de Apps</h3>
+            <p class="typewrite">Elige la suscripción que prefieras en tu aplicación favorita (streaming, música, utilidades o servicios en la nube).</p>
+          </div>
+          <div class="prize-card-footer">
+            <i class="fas fa-circle-check"></i>
+            <span>Valor equivalente hasta 30 USD</span>
+          </div>
+        </div>
+
+        <div class="prize-card">
+          <div class="prize-card-header">
+            <div class="prize-icon"><i class="fas fa-cube"></i></div>
+            <span class="prize-badge badge-gold">Gaming</span>
+          </div>
+          <div class="prize-card-body">
+            <h3>Tarjeta de Roblox</h3>
+            <p class="typewrite">Canjea una tarjeta de regalo digital de Roblox con un valor aproximado de 2000 Robux para tu cuenta personal.</p>
+          </div>
+          <div class="prize-card-footer">
+            <i class="fas fa-circle-check"></i>
+            <span>Código de canje inmediato</span>
+          </div>
+        </div>
+
+        <div class="prize-card">
+          <div class="prize-card-header">
+            <div class="prize-icon"><i class="fab fa-discord"></i></div>
+            <span class="prize-badge badge-primary">Discord</span>
+          </div>
+          <div class="prize-card-body">
+            <h3>Discord Nitro</h3>
+            <p class="typewrite">Sube de nivel tu perfil de Discord con Nitro clásico o premium para disfrutar de emojis personalizados, banners y mejoras de servidor.</p>
+          </div>
+          <div class="prize-card-footer">
+            <i class="fas fa-circle-check"></i>
+            <span>Regalo digital vía link oficial</span>
+          </div>
+        </div>
+
+        <div class="prize-card">
+          <div class="prize-card-header">
+            <div class="prize-icon"><i class="fas fa-cloud"></i></div>
+            <span class="prize-badge badge-cyan">Herramientas</span>
+          </div>
+          <div class="prize-card-body">
+            <h3>UgPhone</h3>
+            <p class="typewrite">Accede a un teléfono Android virtual en la nube para ejecutar juegos, scripts y aplicaciones de manera ininterrumpida.</p>
+          </div>
+          <div class="prize-card-footer">
+            <i class="fas fa-circle-check"></i>
+            <span>Suscripción mensual habilitada</span>
+          </div>
+        </div>
+
+        <div class="prize-card">
+          <div class="prize-card-header">
+            <div class="prize-icon"><i class="fab fa-spotify"></i></div>
+            <span class="prize-badge badge-green">Música</span>
+          </div>
+          <div class="prize-card-body">
+            <h3>Spotify Premium</h3>
+            <p class="typewrite">Disfruta de tu música y listas de reproducción favoritas sin anuncios intermedios, sin conexión a internet y con máxima fidelidad.</p>
+          </div>
+          <div class="prize-card-footer">
+            <i class="fas fa-circle-check"></i>
+            <span>Planes mensuales disponibles</span>
+          </div>
+        </div>
+
+        <div class="prize-card">
+          <div class="prize-card-header">
+            <div class="prize-icon"><i class="fas fa-plus"></i></div>
+            <span class="prize-badge badge-gold">Adicional</span>
+          </div>
+          <div class="prize-card-body">
+            <h3>Cualquier otra opción</h3>
+            <p class="typewrite">Si prefieres otro premio digital dentro del límite presupuestado, puedes coordinar directamente con los hosters para su compra.</p>
+          </div>
+          <div class="prize-card-footer">
+            <i class="fas fa-circle-check"></i>
+            <span>Sujeto a factibilidad de compra</span>
+          </div>
+        </div>
+
+        <div class="prize-card prize-card-full">
+          <div class="prize-card-header">
+            <div class="prize-icon"><i class="fas fa-circle-info"></i></div>
+            <span class="prize-badge badge-primary">Condiciones Especiales del Premio</span>
+          </div>
+          <div class="prize-card-body">
+            <h3>Flexibilidad y Distribución</h3>
+            <p class="typewrite">El ganador tiene completa flexibilidad para elegir el premio digital que prefiera siempre y cuando no requiera transferencias de dinero en efectivo o transacciones bancarias directas. Adicionalmente, se permite y autoriza que el ganador decida voluntariamente compartir el 50% de su premio con cualquier otra persona que pertenezca al servidor oficial de Discord.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-reglas">
+      <div class="rules-list">
+        <div class="rule-card">
+          <div class="rule-num">1</div>
+          <div class="rule-info">
+            <h3>Unirse al Servidor de Discord</h3>
+            <p class="typewrite">Es una condición fundamental formar parte activa del servidor oficial de Discord de Anti-Hambreado Script Team. Toda la comunicación y anuncio del sorteo se realizará en dicho servidor.</p>
+          </div>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-num">2</div>
+          <div class="rule-info">
+            <h3>Prohibición Absoluta de Multicuentas</h3>
+            <p class="typewrite">Queda estrictamente prohibido participar utilizando cuentas múltiples, bots, alias o cualquier tipo de automatización para alterar las probabilidades de ganar. El sistema de filtrado de Discord detectará cuentas creadas recientemente y patrones sospechosos. Cualquier violación a esta regla resultará en la descalificación inmediata del sorteo y baneo permanente del servidor.</p>
+          </div>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-num">3</div>
+          <div class="rule-info">
+            <h3>Comunidad y Respeto</h3>
+            <p class="typewrite">Los participantes deben mantener un comportamiento respetuoso dentro de la comunidad. Mensajes de odio, spam masivo, insultos o toxicidad hacia otros usuarios o miembros del equipo técnico antes o durante el sorteo anularán el derecho a reclamar el premio.</p>
+          </div>
+        </div>
+
+        <div class="rule-card">
+          <div class="rule-num">4</div>
+          <div class="rule-info">
+            <h3>Plazo Limite de Reclamación</h3>
+            <p class="typewrite">Una vez anunciado el ganador oficial en los canales dedicados de Discord, este dispondrá de un plazo máximo improrrogable de 48 horas para reclamar el premio contactando a los Hosters oficiales. De no hacerlo, se procederá a realizar una nueva selección.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-terminos">
+      <div class="legal-container">
+        <div class="legal-card">
+          <h3><i class="fas fa-bank"></i> Exclusión de Transferencia Bancaria Directa</h3>
+          <p class="typewrite">Para garantizar el cumplimiento de las normativas de seguridad digital, evitar suplantaciones de identidad y asegurar un canal transparente de distribución, <strong>no se realizarán entregas de dinero en efectivo bajo ningún concepto</strong>.</p>
+          <p class="typewrite">El valor equivalente de los 30* dólares se entregará exclusivamente a través de la compra directa de los códigos, suscripciones o tarjetas seleccionadas por el ganador. No se efectuarán depósitos bancarios, transferencias por aplicaciones financieras directas o giros internacionales.</p>
+        </div>
+
+        <div class="legal-card">
+          <h3><i class="fas fa-share-nodes"></i> Distribución Autorizada del Premio</h3>
+          <p class="typewrite">El ganador tiene el derecho unilateral de repartir la mitad del valor del premio (equivalente a 15 USD) con otro miembro de la comunidad de Discord. Para hacer válida esta opción:</p>
+          <p class="typewrite">Ambos usuarios deben estar en el servidor antes de la fecha de inicio del sorteo. El ganador deberá formalizar su decisión por medio de un ticket de soporte oficial de Discord antes de la adquisición de los premios.</p>
+        </div>
+
+        <div class="legal-card">
+          <h3><i class="fas fa-lock"></i> Política de Privacidad del Sorteo</h3>
+          <p class="typewrite">Los datos identificativos obtenidos durante el desarrollo de este sorteo (nombre de usuario en Discord e ID único de Discord) se procesarán con el único fin de gestionar la participación y verificar a los ganadores. Si el ganador elige la Opción A (proporcionar su cuenta personal para una suscripción), nos comprometemos formalmente a borrar cualquier credencial, correo o información personal una vez completada la compra.</p>
+          <p class="typewrite">Anti-Hambreado Script Team se compromete a no compartir, transferir ni vender dichos datos a terceros. Nosotros no venderemos datos de nuestros usuarios como Delta. Nunca. Toda la información será eliminada una vez completada la entrega satisfactoria del premio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="delivery-section fade-up" id="entrega">
+    <div class="delivery-widget">
+      <span class="delivery-eyebrow">Proceso de Entrega</span>
+      <h2 class="delivery-title">¿Qué pasa si ganas?</h2>
+      <p class="delivery-desc typewrite">Si resultas ganador y eliges una suscripción digital (como ChatGPT Plus, Apps o servicios similares), te ofrecemos dos opciones cómodas y seguras para recibir tu premio:</p>
+      
+      <div class="delivery-grid">
+        <div class="delivery-card">
+          <div class="delivery-card-icon"><i class="fas fa-user-gear"></i></div>
+          <h3>Opción A: Cuenta Personal</h3>
+          <p class="typewrite">Nos proporcionas tu cuenta para comprar la suscripción directamente en ella. Al finalizar, nos comprometemos bajo estricta confidencialidad a borrar cualquier credencial, correo o información de tu cuenta.</p>
+          <button class="btn btn-ghost" onclick="navigateToPrivacyPolicy()" style="margin-top: 15px; font-size: 0.8rem; padding: 8px 16px; width: auto; border-radius: 12px; gap: 6px;">
+            <i class="fas fa-shield-halved"></i> Ver Política de Privacidad
+          </button>
+        </div>
+        
+        <div class="delivery-card">
+          <div class="delivery-card-icon"><i class="fas fa-user-plus"></i></div>
+          <h3>Opción B: Cuenta Nueva</h3>
+          <p class="typewrite">Nosotros creamos una cuenta completamente nueva, activamos la suscripción premium en ella y te enviamos todos los datos de acceso listos para usar de manera privada vía Mensaje Directo (MD) en Discord.</p>
+        </div>
+      </div>
+
+      <div class="slogan-box">
+        <span class="slogan-text">Nosotros no venderemos datos de nuestros usuarios como Delta. Nunca</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="hosters-section fade-up" id="hosters">
+    <div class="section-header">
+      <span class="section-eyebrow">Organización</span>
+      <h2 class="section-title">Hosters del Sorteo</h2>
+    </div>
+    <div class="hosters-grid">
+      <div class="hoster-card">
+        <div class="hoster-avatar-wrap">
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/TheRealBanHammer.png" alt="TheRealBanHammer Avatar" class="hoster-avatar">
+          <div class="hoster-role-badge">Fundador</div>
+        </div>
+        <h3 class="hoster-name">TheRealBanHammer</h3>
+        <div class="hoster-tag">Hoster Principal</div>
+        <p class="hoster-desc typewrite">Fundó este proyecto el 16 de marzo de 2025 para liberar a la comunidad de los acortadores abusivos y la publicidad intrusiva. Lidera y patrocina esta celebración para agradecer la lealtad de la comunidad.</p>
+      </div>
+
+      <div class="hoster-card">
+        <div class="hoster-avatar-wrap">
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/KYS-FELICIA.png" alt="FeliciaXxxTop Avatar" class="hoster-avatar">
+          <div class="hoster-role-badge">Hub & Core Dev</div>
+        </div>
+        <h3 class="hoster-name">FeliciaXxxTop</h3>
+        <div class="hoster-tag">Hoster & Estratega</div>
+        <p class="hoster-desc typewrite">Voz firme contra la publicidad abusiva y pilar fundamental en el desarrollo del Script Hub. Contribuyó económicamente para hacer posible este sorteo de 30 dólares, apoyando de forma directa a la comunidad en nuestro aniversario.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section fade-up">
+    <div class="cta-box">
+      <h2 class="cta-title">¿Listo para participar?</h2>
+      <p class="cta-desc typewrite">Ingresa a nuestro servidor oficial de Discord, interactúa con la comunidad y prepárate para el inicio el próximo 1 de Julio.</p>
+      <div class="cta-buttons">
+        <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn btn-discord">
+          <i class="fab fa-discord"></i> Entrar a Discord
+        </a>
+        <a href="https://antihambreadoscriptteam.github.io/" target="_blank" class="btn btn-ghost">
+          <i class="fas fa-globe"></i> Hub Principal
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Anti-Hambreado Script Team.</p>
+    <p>Comunidad primero. Hambre nunca.</p>
+    <p style="margin-top: 15px; font-size: 0.75rem;">Diseñado con <i class="fas fa-heart heart"></i> para todos nuestros seguidores.</p>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles = [];
+
+    function initParticles() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      particles = [];
+      const numParticles = Math.min(window.innerWidth / 16, 60);
+
+      for (let i = 0; i < numParticles; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: Math.random() * 2 + 0.5,
+          speedX: (Math.random() - 0.5) * 0.4,
+          speedY: (Math.random() - 0.5) * 0.4,
+          opacity: Math.random() * 0.4 + 0.1
+        });
+      }
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = '#ff2d55';
+
+      particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        ctx.globalAlpha = p.opacity;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    initParticles();
+    drawParticles();
+    window.addEventListener('resize', initParticles);
+
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    let menuOpen = false;
+
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        sideMenu.classList.add('open');
+        menuOverlay.classList.add('open');
+        hamburgerBtn.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      } else {
+        sideMenu.classList.remove('open');
+        menuOverlay.classList.remove('open');
+        hamburgerBtn.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    hamburgerBtn.addEventListener('click', toggleMenu);
+    menuOverlay.addEventListener('click', toggleMenu);
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const targetId = href.substring(1);
+          const targetEl = document.getElementById(targetId);
+          if (menuOpen) toggleMenu();
+          if (targetEl) {
+            setTimeout(() => {
+              targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+          }
+        } else {
+          if (menuOpen) toggleMenu();
+        }
+      });
+    });
+
+    document.querySelectorAll('.nav-links .nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const targetId = href.substring(1);
+          const targetEl = document.getElementById(targetId);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.querySelectorAll('.nav-links .nav-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+          }
+        }
+      });
+    });
+
+    const observerOptions = {
+      threshold: 0.05,
+      rootMargin: "0px 0px -40px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-up').forEach(el => {
+      observer.observe(el);
+    });
+
+    const targetDate = new Date('July 1, 2026 00:00:00').getTime();
+    const startDate = new Date('June 1, 2026 00:00:00').getTime();
+    const totalDuration = targetDate - startDate;
+
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    const timerGrid = document.getElementById('timerGrid');
+    const timerProgress = document.getElementById('timerProgress');
+    const timerProgressFill = document.getElementById('timerProgressFill');
+    const expiredMessage = document.getElementById('expiredMessage');
+    const countdownHeader = document.getElementById('countdownHeader');
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        timerGrid.style.display = 'none';
+        timerProgress.style.display = 'none';
+        countdownHeader.style.display = 'none';
+        expiredMessage.style.display = 'block';
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      daysEl.textContent = String(days).padStart(2, '0');
+      hoursEl.textContent = String(hours).padStart(2, '0');
+      minutesEl.textContent = String(minutes).padStart(2, '0');
+      secondsEl.textContent = String(seconds).padStart(2, '0');
+
+      const elapsed = now - startDate;
+      const progressPercent = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));
+      timerProgressFill.style.width = progressPercent + '%';
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    const typedElements = new Set();
+
+    function typeWriter(element, speed = 8) {
+      if (typedElements.has(element)) return;
+      typedElements.add(element);
+
+      const text = element.getAttribute('data-full-text') || element.textContent;
+      if (!element.getAttribute('data-full-text')) {
+        element.setAttribute('data-full-text', text);
+      }
+      
+      element.textContent = '';
+      element.style.opacity = '1';
+      
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        }
+      }
+      type();
+    }
+
+    const typeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          let parent = el;
+          let isHidden = false;
+          while (parent && parent !== document.body) {
+            if (window.getComputedStyle(parent).display === 'none') {
+              isHidden = true;
+              break;
+            }
+            parent = parent.parentElement;
+          }
+          if (!isHidden) {
+            typeWriter(el, 8);
+            typeObserver.unobserve(el);
+          }
+        }
+      });
+    }, { threshold: 0.05 });
+
+    function initTypewriter() {
+      document.querySelectorAll('.typewrite').forEach(el => {
+        typeObserver.observe(el);
+      });
+    }
+
+    initTypewriter();
+
+    function switchTab(index) {
+      const tabs = ['tab-premios', 'tab-reglas', 'tab-terminos'];
+      const buttons = document.querySelectorAll('.segmented-btn');
+      const indicator = document.getElementById('tabIndicator');
+
+      buttons.forEach((btn, i) => {
+        if (i === index) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      indicator.style.transform = `translateX(${index * 100}%)`;
+
+      tabs.forEach((tabId, i) => {
+        const el = document.getElementById(tabId);
+        if (i === index) {
+          el.classList.add('active');
+          el.querySelectorAll('.typewrite').forEach(child => {
+            typeWriter(child, 8);
+          });
+        } else {
+          el.classList.remove('active');
+        }
+      });
+    }
+
+    function switchTabShortcut(index) {
+      switchTab(index);
+    }
+
+    function navigateToPrivacyPolicy() {
+      const targetEl = document.getElementById('tabs-section');
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      switchTab(2);
+    }
+
+    const ticket = document.getElementById('prizeTicket');
+    if (ticket) {
+      const container = ticket.parentElement;
+      container.addEventListener('mousemove', (e) => {
+        const rect = ticket.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        const rotateX = -(y / rect.height) * 16;
+        const rotateY = (x / rect.width) * 16;
+
+        ticket.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+      });
+
+      container.addEventListener('mouseleave', () => {
+        ticket.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+      });
+    }
+  </script>
+</body>
+</html>
