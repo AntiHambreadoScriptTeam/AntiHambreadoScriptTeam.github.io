@@ -6,9 +6,9 @@ local Config = {
     DiscordInvite = "rTGF5xhe3h",
     KeySystem = true,
     Key = "ElCreadorDeEsteScriptEsUnGranMonoNegro",
-    KeyTitle = "CRACKED",
+    KeyTitle = "TheRealBanHammer - Skidder Final Boss",
     KeySubtitle = "Script Crackeado Lol",
-    KeyNote = "La key es: ElCreadorDeEsteScriptEsUnGranMonoNegro",
+    KeyNote = "Key: ElCreadorDeEsteScriptEsUnGranMonoNegro",
     Keys = {"ElCreadorDeEsteScriptEsUnGranMonoNegro"},
     ConfigFolder = "CrackeadoHub",
     KeyFileName = "CrackeadoKeySystem",
@@ -579,10 +579,10 @@ local function walkLeftForSeconds(seconds)
         if humanoid and root then
             humanoid.PlatformStand = false
             humanoid:ChangeState(Enum.HumanoidStateType.Running)
-            humanoid:Move(Vector3.new(-1, 0, 0), true)
+            humanoid:Move(Vector3.new(1, 0, 0), true)
             local camera = Services.Workspace.CurrentCamera
             local rightVector = camera and camera.CFrame.RightVector or root.CFrame.RightVector
-            local left = Vector3.new(-rightVector.X, 0, -rightVector.Z)
+            local left = Vector3.new(rightVector.X, 0, rightVector.Z)
             if left.Magnitude > 0 then
                 local speed = math.max(humanoid.WalkSpeed, 16)
                 local velocity = root.AssemblyLinearVelocity
