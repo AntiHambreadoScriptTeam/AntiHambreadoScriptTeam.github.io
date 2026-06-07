@@ -22,7 +22,8 @@ local Config = {
     DefaultFlySpeed = 55,
     TeleportYOffset = 2.75,
     SupportPlatformGap = 0.12,
-    SupportPlatformSize = Vector3.new(9, 0.35, 9)
+    SupportPlatformSize = Vector3.new(9, 0.35, 9),
+    CheckpointForwardTime = 2
 }
 
 local Services = {
@@ -82,6 +83,10 @@ local State = {
     AutoBuyDelay = Config.DefaultAutoBuyDelay,
     AutoFarm = false,
     AutoFarmThread = nil,
+    SelectedCheckpoint = "Checkpoint 1 | -7.72, 8.86, 284.85",
+    CheckpointFlyLoop = false,
+    CheckpointFlyThread = nil,
+    CheckpointFlyActive = false,
     AutoCollect = false,
     AutoBuy = false,
     LoopRoute = true,
@@ -249,6 +254,29 @@ local WorldRoutes = {
     }
 }
 
+local CheckpointTargets = {
+    {Name = "Checkpoint 1 | -7.72, 8.86, 284.85", Position = Vector3.new(-7.72, 8.86, 284.85)},
+    {Name = "Checkpoint 2 | -5.40, 8.86, 506.93", Position = Vector3.new(-5.40, 8.86, 506.93)},
+    {Name = "Checkpoint 3 | -8.02, 77.15, 773.73", Position = Vector3.new(-8.02, 77.15, 773.73)},
+    {Name = "Checkpoint 4 | -6.97, 77.15, 1109.22", Position = Vector3.new(-6.97, 77.15, 1109.22)},
+    {Name = "Checkpoint 5 | -7.32, 77.15, 1411.90", Position = Vector3.new(-7.32, 77.15, 1411.90)},
+    {Name = "Checkpoint 6 | -540.73, 54.50, 1457.41", Position = Vector3.new(-540.73, 54.50, 1457.41)},
+    {Name = "Checkpoint 7 | -1009.88, 54.50, 1456.93", Position = Vector3.new(-1009.88, 54.50, 1456.93)},
+    {Name = "Checkpoint 8 | -1124.39, 296.50, 1455.23", Position = Vector3.new(-1124.39, 296.50, 1455.23)},
+    {Name = "Checkpoint 9 | -2970.94, 296.50, 1457.82", Position = Vector3.new(-2970.94, 296.50, 1457.82)},
+    {Name = "Checkpoint 10 | -3940.07, 296.50, 1457.86", Position = Vector3.new(-3940.07, 296.50, 1457.86)},
+    {Name = "Checkpoint 11 | -4367.68, 471.01, 1523.05", Position = Vector3.new(-4367.68, 471.01, 1523.05)},
+    {Name = "Checkpoint 12 | -5342.58, 470.61, 1467.19", Position = Vector3.new(-5342.58, 470.61, 1467.19)},
+    {Name = "Checkpoint 13 | -6810.36, 521.61, 1479.14", Position = Vector3.new(-6810.36, 521.61, 1479.14)},
+    {Name = "Checkpoint 14 | -8353.23, 484.49, 1476.83", Position = Vector3.new(-8353.23, 484.49, 1476.83)},
+    {Name = "Checkpoint 15 | -14003.84, 750.54, 3080.51", Position = Vector3.new(-14003.84, 750.54, 3080.51)}
+}
+
+local CheckpointNames = {}
+for _, checkpoint in ipairs(CheckpointTargets) do
+    table.insert(CheckpointNames, checkpoint.Name)
+end
+
 local ShopItems = {
     {Name = "Candy", Hints = {"Candy", "BuyCandy", "PurchaseCandy", "CandyShop"}, Args = {"Candy"}},
     {Name = "Chocolate", Hints = {"Chocolate", "BuyChocolate", "PurchaseChocolate", "ChocolateShop"}, Args = {"Chocolate"}},
@@ -413,7 +441,7 @@ local function ensureSupportPlatform()
 end
 
 local function updateSupportPlatform()
-    if not State.AutoFarm and not State.Fly then
+    if not State.AutoFarm and not State.Fly and not State.CheckpointFlyActive and not State.CheckpointFlyLoop then
         clearSupportPlatform()
         return
     end
@@ -422,7 +450,7 @@ local function updateSupportPlatform()
         return
     end
     State.SupportPlatformConnection = Services.RunService.Heartbeat:Connect(function()
-        if not State.AutoFarm and not State.Fly then
+        if not State.AutoFarm and not State.Fly and not State.CheckpointFlyActive and not State.CheckpointFlyLoop then
             clearSupportPlatform()
             return
         end
@@ -531,6 +559,84 @@ local function stopAutoFarm()
     cancelTween()
     updateSupportPlatform()
     notify("Auto Farm", "Stopped")
+end
+
+local function getSelectedCheckpoint()
+    for _, checkpoint in ipairs(CheckpointTargets) do
+        if checkpoint.Name == State.SelectedCheckpoint then
+            return checkpoint
+        end
+    end
+    return CheckpointTargets[1]
+end
+
+local function walkForwardForSeconds(seconds)
+    local endTime = os.clock() + seconds
+    while os.clock() < endTime and State.CheckpointFlyActive do
+        local character = LocalPlayer.Character
+        local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+        local root = character and character:FindFirstChild("HumanoidRootPart")
+        if humanoid and root then
+            local forward = Vector3.new(root.CFrame.LookVector.X, 0, root.CFrame.LookVector.Z)
+            if forward.Magnitude > 0 then
+                humanoid:Move(forward.Unit, false)
+            end
+        end
+        Services.RunService.Heartbeat:Wait()
+    end
+    local humanoid = getHumanoid()
+    if humanoid then
+        humanoid:Move(Vector3.new(0, 0, 0), false)
+    end
+end
+
+local function flyToSelectedCheckpoint()
+    if State.CheckpointFlyActive then
+        notify("Checkpoint Fly", "Already flying")
+        return false
+    end
+    local checkpoint = getSelectedCheckpoint()
+    if not checkpoint then
+        return false
+    end
+    State.CheckpointFlyActive = true
+    updateSupportPlatform()
+    local success = tweenTo(checkpoint.Position, function()
+        return not State.CheckpointFlyActive
+    end)
+    if success and State.CheckpointFlyActive then
+        walkForwardForSeconds(Config.CheckpointForwardTime)
+    end
+    State.CheckpointFlyActive = false
+    updateSupportPlatform()
+    return success
+end
+
+local function startCheckpointFlyLoop()
+    if State.CheckpointFlyThread then
+        return
+    end
+    State.CheckpointFlyLoop = true
+    updateSupportPlatform()
+    State.CheckpointFlyThread = task.spawn(function()
+        while State.CheckpointFlyLoop do
+            flyToSelectedCheckpoint()
+            if State.CheckpointFlyLoop then
+                task.wait(0.25)
+            end
+        end
+        State.CheckpointFlyThread = nil
+        updateSupportPlatform()
+    end)
+    notify("Checkpoint Fly", "Loop started: " .. State.SelectedCheckpoint)
+end
+
+local function stopCheckpointFlyLoop()
+    State.CheckpointFlyLoop = false
+    State.CheckpointFlyActive = false
+    cancelTween()
+    updateSupportPlatform()
+    notify("Checkpoint Fly", "Loop stopped")
 end
 
 local function runRouteOnce()
@@ -1344,6 +1450,38 @@ createButton(MainTab, {
     Name = "⛔ Stop Auto Farm",
     Flag = "StopAutoFarmButton",
     Callback = stopAutoFarm
+})
+MainTab:CreateDropdown({
+    Name = "Volar a checkpoint",
+    Options = CheckpointNames,
+    CurrentOption = {State.SelectedCheckpoint},
+    MultipleOptions = false,
+    Flag = "FlyToCheckpointDropdown",
+    Callback = function(value)
+        State.SelectedCheckpoint = optionValue(value, State.SelectedCheckpoint)
+        notify("Checkpoint Fly", "Selected " .. State.SelectedCheckpoint)
+    end
+})
+createButton(MainTab, {
+    Name = "Volar al checkpoint seleccionado",
+    Flag = "FlySelectedCheckpointOnce",
+    Callback = function()
+        task.spawn(function()
+            flyToSelectedCheckpoint()
+        end)
+    end
+})
+MainTab:CreateToggle({
+    Name = "Loop al checkpoint seleccionado",
+    CurrentValue = false,
+    Flag = "LoopSelectedCheckpoint",
+    Callback = function(value)
+        if value then
+            startCheckpointFlyLoop()
+        else
+            stopCheckpointFlyLoop()
+        end
+    end
 })
 createButton(MainTab, {
     Name = "📍 Teleport To First Checkpoint",
