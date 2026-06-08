@@ -3,10 +3,10 @@
     "codex": {
       "nombre": "CodeX",
       "version": "2.723",
-      "fecha_actualizacion": "05-06-2026",
+      "fecha_actualizacion": "08-06-2026",
       "status": "indetectable",
       "stars": "4.0"
-      "link_descarga_arm64": "https://www.mediafire.com/file/oru3fm6zznsekbz/Codex+V2.723.apk/file",
+      "link_descarga_arm64": "https://www.mediafire.com/file/pisyl3fezmn74ev/Codex+v2.723.787.apk/file",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg"
     },
 "fluxusz": {
@@ -30,8 +30,8 @@
     },
     "delta": {
       "nombre": "Delta",
-      "version": "2.721",
-      "fecha_actualizacion": "20-05-2026",
+      "version": "2.724",
+      "fecha_actualizacion": "08-06-2026",
       "status": "peligro",
       "stars": "0.1"
       "link_descarga_arm64": "https://delta.filenetwork.vip/android.html",
