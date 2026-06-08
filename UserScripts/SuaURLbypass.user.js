@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti-SuaURL | Equipo A-HS
 // @namespace    http://tampermonkey.net/
-// @version      3.0.1
+// @version      3.0.0
 // @description  Bypass SuaURL | Anti-Hambreado Team.
 // @author       TheRealBanHammer
 // @icon         https://i.postimg.cc/8kv8w1Mn/Sua-URL-RIP.png
