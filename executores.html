@@ -2731,7 +2731,6 @@ window.addEventListener("unhandledrejection", (e) => {
     [cancelBtn, armCloseBtn].forEach(btn => { if(btn) btn.addEventListener('click', () => { warningModal.classList.remove('active'); armModal.classList.remove('active'); }); });
 
     const API_URL = 'https://antihambreadoscriptteam.github.io/Updates/Executores.json';
-    const SAMRAT_URL = 'https://executors.samrat.lol/';
     const CORS_PROXIES = [
       'https://api.allorigins.win/raw?url=',
       'https://corsproxy.io/?',
@@ -2993,40 +2992,7 @@ window.addEventListener("unhandledrejection", (e) => {
       }
     }
 
-    function parseSamratWindows(html) {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const windowsSection = doc.querySelector('#windows');
-      if (!windowsSection) return [];
-      const cards = windowsSection.querySelectorAll('.executor-card');
-      const results = [];
-      cards.forEach(card => {
-        const name = card.querySelector('h3')?.textContent?.trim() || '';
-        const img = card.querySelector('.executor-logo')?.getAttribute('src') || '';
-        const details = card.querySelectorAll('.detail-value');
-        const version = details[0]?.textContent?.trim() || '';
-        const updated = details[1]?.textContent?.trim() || '';
-        const statusEl = card.querySelector('.status');
-        let statusText = statusEl?.textContent?.trim() || 'Online';
-        let statusClass = 'online';
-        if (statusEl) {
-          const cls = statusEl.className || '';
-          if (cls.includes('status-online')) statusClass = 'indetectable';
-          else if (cls.includes('status-offline')) statusClass = 'detectable';
-        }
-        const links = [];
-        card.querySelectorAll('.btn-download, .btn-premium, .btn-secondary').forEach(btn => {
-          const href = btn.getAttribute('href') || '';
-          const text = btn.textContent?.trim() || '';
-          if (href && href !== '#' && href !== '') {
-            const isPurchase = text.toLowerCase().includes('purchase') || btn.classList.contains('btn-premium');
-            links.push({ href, text, isPurchase });
-          }
-        });
-        if (name) results.push({ name, img, version, updated, statusText, statusClass, links });
-      });
-      return results;
-    }
+
 
     function renderWindowsExecutors(executors) {
       if (!windowsContainer) return;
@@ -3162,7 +3128,7 @@ window.addEventListener("unhandledrejection", (e) => {
       hardcodedExecutors.unshift({
         name: 'Wave',
         img: 'https://getwave.gg/icon',
-        version: 'Executor',
+        version: 'version-76173e47a79145c7',
         statusText: 'Online',
         statusClass: 'indetectable',
         links: [{ href: 'https://getwave.gg/', text: 'Purchase', isPurchase: true }]
@@ -3171,40 +3137,22 @@ window.addEventListener("unhandledrejection", (e) => {
       hardcodedExecutors.unshift({
         name: 'Madium',
         img: 'https://files.catbox.moe/e4ob02.png',
-        version: 'version-4b6315bf1f0a4dbb',
+        version: 'version-76173e47a79145c7',
         statusText: 'Online',
         statusClass: 'indetectable',
-        links: [{ href: 'https://filerift.com/file/w3Zpjdoc10', text: 'Descargar', isPurchase: false }]
+        links: [{ href: 'https://gofile.io/d/9L9Aj5', text: 'Descargar', isPurchase: false }]
       });
 
       hardcodedExecutors.unshift({
         name: 'Wave Cracked',
         img: 'https://i.postimg.cc/8kxhCQdv/Wave-cracked.png',
-        version: 'version-4b6315bf1f0a4dbb',
+        version: 'version-76173e47a79145c7',
         statusText: 'Online',
         statusClass: 'indetectable',
         links: [{ href: 'https://flopphub-team.github.io/WaveCracked', text: 'Descargar', isPurchase: false }]
       });
 
       renderWindowsExecutors(hardcodedExecutors);
-
-      let executors = [];
-      try {
-        const html = await fetchWithCorsProxy(SAMRAT_URL);
-        executors = parseSamratWindows(html);
-      } catch (error) {
-        console.error('Error al obtener Windows executors:', error);
-      }
-
-      const waveIndex = executors.findIndex(e => e.name.toLowerCase() === 'wave');
-      if (waveIndex !== -1) {
-        executors.splice(waveIndex, 1);
-      }
-
-      if (executors.length > 0) {
-        renderWindowsExecutors(executors);
-        console.log(`Windows executors actualizados: ${executors.length + hardcodedExecutors.length} encontrados`);
-      }
     }
 
     async function parseWeAreDevsPage(url) {
@@ -3306,7 +3254,7 @@ window.addEventListener("unhandledrejection", (e) => {
           {
             name: 'Pluto',
             img: plutoInfo.imgSrc || 'https://obj.wearedevs.net/images/software/pluto/pluto.webp',
-            version: 'Executor & External',
+            version: 'version-76173e47a79145c7',
             statusText: 'Online',
             statusClass: 'indetectable',
             links: plutoLinks.length > 0 ? plutoLinks : [{ href: 'https://wearedevs.net/d/Pluto', text: 'Descargar', isPurchase: false }]
@@ -3314,7 +3262,7 @@ window.addEventListener("unhandledrejection", (e) => {
           {
             name: 'Xeno',
             img: xenoInfo.imgSrc || 'https://wearedevs.net/images/thumbnails/xeno-112025.webp',
-            version: 'Executor',
+            version: 'version-76173e47a79145c7',
             statusText: 'Online',
             statusClass: 'indetectable',
             links: xenoLinks.length > 0 ? xenoLinks : [{ href: 'https://wearedevs.net/d/Xeno', text: 'Descargar', isPurchase: false }]
@@ -3322,7 +3270,7 @@ window.addEventListener("unhandledrejection", (e) => {
           {
             name: 'Solara',
             img: solaraInfo.imgSrc || 'https://obj.wearedevs.net/images/software/solara/solara-011026.webp',
-            version: 'Executor',
+            version: 'version-76173e47a79145c7',
             statusText: 'Online',
             statusClass: 'indetectable',
             links: solaraLinks.length > 0 ? solaraLinks : [{ href: 'https://wearedevs.net/d/Solara', text: 'Descargar', isPurchase: false }]
@@ -3330,7 +3278,7 @@ window.addEventListener("unhandledrejection", (e) => {
           {
             name: 'Drift',
             img: driftInfo.imgSrc || 'https://wearedevs.net/images/thumbnails/drift.webp',
-            version: 'Executor & External',
+            version: 'version-76173e47a79145c7',
             statusText: 'Online',
             statusClass: 'indetectable',
             links: driftLinks.length > 0 ? driftLinks : [{ href: 'https://wearedevs.net/d/Drift', text: 'Descargar', isPurchase: false }]
@@ -3338,7 +3286,7 @@ window.addEventListener("unhandledrejection", (e) => {
           {
             name: 'JJSploit',
             img: jjsploitInfo.imgSrc || 'https://wearedevs.net/images/thumbnails/jjsploit.webp',
-            version: 'Executor',
+            version: 'version-76173e47a79145c7',
             statusText: 'Online',
             statusClass: 'indetectable',
             links: jjsploitLinks.length > 0 ? jjsploitLinks : [{ href: 'https://wearedevs.net/d/JJSploit', text: 'Descargar', isPurchase: false }]
@@ -3346,7 +3294,7 @@ window.addEventListener("unhandledrejection", (e) => {
           {
             name: 'Ronix',
             img: ronixInfo.imgSrc || 'https://wearedevs.net/images/thumbnails/ronix.webp',
-            version: 'Executor',
+            version: 'version-76173e47a79145c7',
             statusText: 'Online',
             statusClass: 'indetectable',
             links: ronixLinks.length > 0 ? ronixLinks : [{ href: 'https://wearedevs.net/d/Ronix', text: 'Descargar', isPurchase: false }]
@@ -3360,129 +3308,11 @@ window.addEventListener("unhandledrejection", (e) => {
       }
     }
 
-    function parseSamratAndroid(html) {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const androidSection = doc.querySelector('#android');
-      if (!androidSection) return [];
-      const cards = androidSection.querySelectorAll('.executor-card');
-      const results = [];
-      const targetNames = ['vegax', 'trigon'];
-      cards.forEach(card => {
-        const name = card.querySelector('h3')?.textContent?.trim() || '';
-        if (!targetNames.includes(name.toLowerCase())) return;
-        const img = card.querySelector('.executor-logo')?.getAttribute('src') || '';
-        const details = card.querySelectorAll('.detail-value');
-        const version = details[0]?.textContent?.trim() || '';
-        const statusEl = card.querySelector('.status');
-        let statusText = statusEl?.textContent?.trim() || 'Online';
-        let statusClass = 'indetectable';
-        if (statusEl) {
-          const cls = statusEl.className || '';
-          if (cls.includes('status-online')) statusClass = 'indetectable';
-          else if (cls.includes('status-offline')) statusClass = 'detectable';
-        }
-        const links = [];
-        card.querySelectorAll('.btn-download, .btn-premium, .btn-secondary').forEach(btn => {
-          const href = btn.getAttribute('href') || '';
-          const text = btn.textContent?.trim() || '';
-          if (href && href !== '#' && href !== '') {
-            links.push({ href, text });
-          }
-        });
-        if (name) results.push({ name, img, version, statusText, statusClass, links });
-      });
-      return results;
-    }
-
-    function renderAndroidFromSamrat(executors) {
-      if (!executorsContainer) return;
-
-      const customAndroidStars = {
-        'vegax': 4.5,
-        'trigon': 4.4
-      };
-
-      executors.forEach(ex => {
-        const key = 'samrat_' + ex.name.toLowerCase().replace(/[^a-z0-9]/g, '_');
-        let card = executorsContainer.querySelector(`[data-executor="${key}"]`);
-
-        if (!card) {
-          card = document.createElement('div');
-          card.className = 'executor-card';
-          card.dataset.executor = key;
-          card.dataset.platform = 'android';
-          executorsContainer.appendChild(card);
-        }
-
-        const imgSrc = ex.img.startsWith('http') ? ex.img : 'https://executors.samrat.lol' + (ex.img.startsWith('/') ? '' : '/') + ex.img;
-
-        const exNameLower = ex.name.toLowerCase();
-        const ratingVal = customAndroidStars[exNameLower] !== undefined ? customAndroidStars[exNameLower] : 5.0;
-        let starsHtml = '';
-        const fullStars = Math.floor(ratingVal);
-        const hasHalfStar = ratingVal % 1 >= 0.5;
-        for (let i = 1; i <= 5; i++) {
-          if (i <= fullStars) {
-            starsHtml += '<i class="fas fa-star"></i>';
-          } else if (i === fullStars + 1 && hasHalfStar) {
-            starsHtml += '<i class="fas fa-star-half-alt"></i>';
-          } else {
-            starsHtml += '<i class="far fa-star"></i>';
-          }
-        }
-
-        let buttonsHtml = '';
-        ex.links.forEach(link => {
-          buttonsHtml += `<a href="${link.href}" target="_blank" rel="noopener" class="btn btn-download"><i class="fas fa-download"></i> Descargar</a>`;
-        });
-
-        card.innerHTML = `
-          <div class="card-header">
-              <img src="${imgSrc}" alt="${ex.name}" class="executor-logo" onerror="this.src='https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg'">
-              <div class="executor-info">
-                  <h3>${ex.name}</h3>
-                  <div class="executor-rating">
-                      <div class="stars">
-                          ${starsHtml}
-                      </div>
-                      <span class="rating-text">${ratingVal.toFixed(1)}</span>
-                  </div>
-              </div>
-          </div>
-          <div class="card-details">
-              <div class="detail-item"><span class="detail-label">Versión:</span><span class="detail-value">${ex.version || 'N/A'}</span></div>
-              <div class="detail-item"><span class="detail-label">Estado:</span><span class="status status-${ex.statusClass}">${ex.statusText}</span></div>
-              <div class="detail-item"><span class="detail-label">Plataforma:</span><span class="detail-value"><i class="fab fa-android"></i> Android</span></div>
-          </div>
-          <div class="card-actions">${buttonsHtml}</div>
-        `;
-      });
-
-      sortAndroidExecutors();
-      applyPlatformFilter();
-    }
-
-    async function fetchAndroidFromSamrat() {
-      try {
-        const html = await fetchWithCorsProxy(SAMRAT_URL);
-        const executors = parseSamratAndroid(html);
-        if (executors.length > 0) {
-          renderAndroidFromSamrat(executors);
-          console.log(`Android executors de Samrat actualizados: ${executors.length} encontrados`);
-        }
-      } catch (error) {
-        console.error('Error al obtener Android executors de Samrat:', error);
-      }
-    }
-
     fetchExecutorData();
     fetchWindowsExecutors();
-    fetchAndroidFromSamrat();
     fetchWeAreDevsExecutors();
     setInterval(fetchExecutorData, 11000);
     setInterval(fetchWindowsExecutors, 30000);
-    setInterval(fetchAndroidFromSamrat, 30000);
     setInterval(fetchWeAreDevsExecutors, 60000);
 </script>
 
