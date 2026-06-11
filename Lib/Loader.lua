@@ -940,6 +940,7 @@ local function ChangeTheme(Theme)
 	end
 
 	Rayfield.Main.BackgroundColor3 = SelectedTheme.Background
+	Rayfield.Main.ImageColor3 = SelectedTheme.Background
 	Rayfield.Main.BackgroundTransparency = 0.2
 	Rayfield.Main.Topbar.BackgroundColor3 = SelectedTheme.Topbar
 	Rayfield.Main.Topbar.BackgroundTransparency = 0.5
@@ -1383,7 +1384,7 @@ local function setElementsVisible(show)
 						elseif element.Name == 'Divider' then
 							TweenService:Create(element.Divider, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundTransparency = show and 0.85 or 1}):Play()
 						else
-							local bgTarget = element:GetAttribute("BackgroundTransparencyTarget") or 0
+							local bgTarget = element:GetAttribute("BackgroundTransparencyTarget") or 0.45
 							local strokeTarget = element:GetAttribute("UIStrokeTransparencyTarget") or 0
 							local titleTarget = element:GetAttribute("TitleTextTransparencyTarget") or 0
 							TweenService:Create(element, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundTransparency = show and bgTarget or 1}):Play()
@@ -1493,8 +1494,8 @@ local function Maximise()
 	TweenService:Create(Topbar.CornerRepair, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
 	TweenService:Create(Topbar.Divider, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
 	TweenService:Create(dragBarCosmetic, TweenInfo.new(0.25, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = 0.7}):Play()
-	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = useMobileSizing and UDim2.new(0, 500, 0, 275) or UDim2.new(0, 500, 0, 475)}):Play()
-	TweenService:Create(Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = UDim2.new(0, 500, 0, 45)}):Play()
+	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = useMobileSizing and UDim2.new(0, 550, 0, 260) or UDim2.new(0, 600, 0, 380)}):Play()
+	TweenService:Create(Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = useMobileSizing and UDim2.new(0, 550, 0, 45) or UDim2.new(0, 600, 0, 45)}):Play()
 	TabList.Visible = true
 	task.wait(0.2)
 
@@ -1515,8 +1516,8 @@ local function Unhide()
 	Debounce = true
 	Main.Position = UDim2.new(0.5, 0, 0.5, 0)
 	Main.Visible = true
-	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = useMobileSizing and UDim2.new(0, 500, 0, 275) or UDim2.new(0, 500, 0, 475)}):Play()
-	TweenService:Create(Main.Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = UDim2.new(0, 500, 0, 45)}):Play()
+	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = useMobileSizing and UDim2.new(0, 550, 0, 260) or UDim2.new(0, 600, 0, 380)}):Play()
+	TweenService:Create(Main.Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = useMobileSizing and UDim2.new(0, 550, 0, 45) or UDim2.new(0, 600, 0, 45)}):Play()
 	TweenService:Create(Main.Shadow.Image, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {ImageTransparency = 0.6}):Play()
 	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 1}):Play()
 	TweenService:Create(Main.Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
@@ -2068,8 +2069,9 @@ function AHSTLib:CreateWindow(Settings)
 	Elements.UIPageLayout.TouchInputEnabled = false
 	TabList.Template.Visible = false
 
+	TabList.AnchorPoint = Vector2.new(0, 0)
 	TabList.Position = UDim2.new(0, 12, 0, 55)
-	TabList.Size = UDim2.new(0, 120, 1, -65)
+	TabList.Size = UDim2.new(0, 140, 1, -65)
 
 	local tabListLayout = TabList:FindFirstChildOfClass("UIListLayout")
 	if tabListLayout then
@@ -2077,8 +2079,9 @@ function AHSTLib:CreateWindow(Settings)
 		tabListLayout.Padding = UDim.new(0, 6)
 	end
 
-	Elements.Position = UDim2.new(0, 142, 0, 55)
-	Elements.Size = UDim2.new(1, -154, 1, -65)
+	Elements.AnchorPoint = Vector2.new(0, 0)
+	Elements.Position = UDim2.new(0, 162, 0, 55)
+	Elements.Size = UDim2.new(1, -174, 1, -65)
 
 	
 	local FirstTab = false
@@ -3603,7 +3606,7 @@ function AHSTLib:CreateWindow(Settings)
 	TweenService:Create(LoadingFrame.Subtitle, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
 	TweenService:Create(LoadingFrame.Version, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
 	task.wait(0.1)
-	TweenService:Create(Main, TweenInfo.new(0.6, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = useMobileSizing and UDim2.new(0, 500, 0, 275) or UDim2.new(0, 500, 0, 475)}):Play()
+	TweenService:Create(Main, TweenInfo.new(0.6, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = useMobileSizing and UDim2.new(0, 550, 0, 260) or UDim2.new(0, 600, 0, 380)}):Play()
 	TweenService:Create(Main.Shadow.Image, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {ImageTransparency = 0.6}):Play()
 
 	Topbar.BackgroundTransparency = 1
