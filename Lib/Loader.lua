@@ -74,6 +74,15 @@ local Themes = {
     }
 }
 
+local Fonts = {
+    Title = Enum.Font.MontserratBold,
+    SubTitle = Enum.Font.UbuntuMedium,
+    SectionHeader = Enum.Font.MontserratBold,
+    ComponentLabel = Enum.Font.GothamMedium,
+    Value = Enum.Font.RobotoMono,
+    Body = Enum.Font.SourceSans
+}
+
 local ahst_lib = {
     CurrentTheme = Themes["AMOLED Red"],
     Windows = {},
@@ -181,8 +190,8 @@ function ahst_lib:CreateWindow(config)
 
     local titleLabel = make("TextLabel", {
         Text = titleText,
-        Font = Enum.Font.GothamBold,
-        TextSize = 22,
+        Font = Fonts.Title,
+        TextSize = 20,
         TextColor3 = currentTheme.Accent,
         Position = UDim2.new(0.5, 0, 0, 25),
         AnchorPoint = Vector2.new(0.5, 0.5),
@@ -193,7 +202,7 @@ function ahst_lib:CreateWindow(config)
 
     local subTitleLabel = make("TextLabel", {
         Text = "✦ PREMIUM SCRIPT HUB ✦",
-        Font = Enum.Font.GothamMedium,
+        Font = Fonts.SubTitle,
         TextSize = 10,
         TextColor3 = currentTheme.SubText,
         Position = UDim2.new(0.5, 0, 0, 48),
@@ -250,7 +259,7 @@ function ahst_lib:CreateWindow(config)
 
     local profileName = make("TextLabel", {
         Text = Players.LocalPlayer.DisplayName,
-        Font = Enum.Font.GothamBold,
+        Font = Fonts.ComponentLabel,
         TextSize = 13,
         TextColor3 = currentTheme.Text,
         Position = UDim2.new(0, 60, 0, 12),
@@ -262,7 +271,7 @@ function ahst_lib:CreateWindow(config)
 
     local profileTag = make("TextLabel", {
         Text = "Premium",
-        Font = Enum.Font.GothamMedium,
+        Font = Fonts.SubTitle,
         TextSize = 10,
         TextColor3 = currentTheme.Accent,
         Position = UDim2.new(0, 60, 0, 28),
@@ -294,11 +303,11 @@ function ahst_lib:CreateWindow(config)
     searchContainer.Parent = mainFrame
 
     local searchIcon = make("ImageLabel", {
-        Size = UDim2.fromOffset(20, 20),
+        Size = UDim2.fromOffset(18, 18),
         Position = UDim2.new(0, 12, 0.5, 0),
         AnchorPoint = Vector2.new(0, 0.5),
         BackgroundTransparency = 1,
-        Image = "rbxassetid://10734950553",
+        Image = "rbxassetid://7734052925",
         ImageColor3 = currentTheme.SubText
     })
     searchIcon.Parent = searchContainer
@@ -307,7 +316,7 @@ function ahst_lib:CreateWindow(config)
         Size = UDim2.new(1, -45, 1, 0),
         Position = UDim2.new(0, 40, 0, 0),
         BackgroundTransparency = 1,
-        Font = Enum.Font.Gotham,
+        Font = Fonts.Body,
         TextSize = 13,
         TextColor3 = currentTheme.Text,
         PlaceholderText = "Search features...",
@@ -327,7 +336,7 @@ function ahst_lib:CreateWindow(config)
 
     local footerText = make("TextLabel", {
         Text = "AHST HUB  •  Premium Script Hub for Roblox",
-        Font = Enum.Font.GothamMedium,
+        Font = Fonts.SubTitle,
         TextSize = 11,
         TextColor3 = currentTheme.SubText,
         Size = UDim2.new(0.7, 0, 1, 0),
@@ -338,7 +347,7 @@ function ahst_lib:CreateWindow(config)
 
     local footerVersion = make("TextLabel", {
         Text = "v2.6.0",
-        Font = Enum.Font.GothamMedium,
+        Font = Fonts.Value,
         TextSize = 11,
         TextColor3 = currentTheme.SubText,
         Size = UDim2.new(0.3, 0, 1, 0),
@@ -368,45 +377,60 @@ function ahst_lib:CreateWindow(config)
     local minimizeButton = make("TextButton", {
         Size = UDim2.fromOffset(24, 24),
         BackgroundColor3 = currentTheme.CardBackground,
-        Text = "−",
-        Font = Enum.Font.GothamBold,
-        TextColor3 = currentTheme.Text,
-        TextSize = 14,
+        Text = "",
         AutoButtonColor = false,
         LayoutOrder = 1
     }, {
         make("UICorner", { CornerRadius = UDim.new(0, 6) }),
-        make("UIStroke", { Color = currentTheme.Border, Thickness = 1 })
+        make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
+        make("ImageLabel", {
+            Size = UDim2.fromOffset(12, 12),
+            Position = UDim2.fromScale(0.5, 0.5),
+            AnchorPoint = Vector2.new(0.5, 0.5),
+            BackgroundTransparency = 1,
+            Image = "rbxassetid://7734054475",
+            ImageColor3 = currentTheme.Text
+        })
     })
     minimizeButton.Parent = controlButtons
 
     local maximizeButton = make("TextButton", {
         Size = UDim2.fromOffset(24, 24),
         BackgroundColor3 = currentTheme.CardBackground,
-        Text = "▢",
-        Font = Enum.Font.GothamBold,
-        TextColor3 = currentTheme.Text,
-        TextSize = 12,
+        Text = "",
         AutoButtonColor = false,
         LayoutOrder = 2
     }, {
         make("UICorner", { CornerRadius = UDim.new(0, 6) }),
-        make("UIStroke", { Color = currentTheme.Border, Thickness = 1 })
+        make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
+        make("ImageLabel", {
+            Size = UDim2.fromOffset(12, 12),
+            Position = UDim2.fromScale(0.5, 0.5),
+            AnchorPoint = Vector2.new(0.5, 0.5),
+            BackgroundTransparency = 1,
+            Image = "rbxassetid://7733955767",
+            ImageColor3 = currentTheme.Text
+        })
     })
     maximizeButton.Parent = controlButtons
 
     local closeButton = make("TextButton", {
         Size = UDim2.fromOffset(24, 24),
         BackgroundColor3 = currentTheme.CardBackground,
-        Text = "✕",
-        Font = Enum.Font.GothamBold,
-        TextColor3 = currentTheme.Accent,
-        TextSize = 12,
+        Text = "",
         AutoButtonColor = false,
         LayoutOrder = 3
     }, {
         make("UICorner", { CornerRadius = UDim.new(0, 6) }),
-        make("UIStroke", { Color = currentTheme.Border, Thickness = 1 })
+        make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
+        make("ImageLabel", {
+            Size = UDim2.fromOffset(12, 12),
+            Position = UDim2.fromScale(0.5, 0.5),
+            AnchorPoint = Vector2.new(0.5, 0.5),
+            BackgroundTransparency = 1,
+            Image = "rbxassetid://7734058863",
+            ImageColor3 = currentTheme.Accent
+        })
     })
     closeButton.Parent = controlButtons
 
@@ -447,7 +471,7 @@ function ahst_lib:CreateWindow(config)
         BackgroundColor3 = currentTheme.CardBackground,
         Text = "◀",
         TextColor3 = currentTheme.Text,
-        Font = Enum.Font.GothamBold,
+        Font = Fonts.Title,
         TextSize = 12,
         ZIndex = 5
     }, {
@@ -620,8 +644,22 @@ function ahst_lib:CreateWindow(config)
         ActiveTab = nil,
         Flags = {},
         CurrentTheme = currentTheme,
-        Notifications = notificationContainer
+        Notifications = notificationContainer,
+        OpenDropdown = nil
     }
+
+    UserInputService.InputBegan:Connect(function(input)
+        if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and windowObj.OpenDropdown then
+            local openDrop = windowObj.OpenDropdown
+            local frame = openDrop.Frame
+            local pos = input.Position
+            local absPos = frame.AbsolutePosition
+            local absSize = frame.AbsoluteSize
+            if pos.X < absPos.X or pos.X > absPos.X + absSize.X or pos.Y < absPos.Y or pos.Y > absPos.Y + absSize.Y then
+                openDrop:Close()
+            end
+        end
+    end)
 
     function windowObj:CreateNotification(opts)
         opts = opts or {}
@@ -656,7 +694,7 @@ function ahst_lib:CreateWindow(config)
             }),
             make("TextLabel", {
                 Text = nTitle,
-                Font = Enum.Font.GothamBold,
+                Font = Fonts.Title,
                 TextSize = 13,
                 TextColor3 = currentTheme.Text,
                 Position = UDim2.new(0, 15, 0, 10),
@@ -666,7 +704,7 @@ function ahst_lib:CreateWindow(config)
             }),
             make("TextLabel", {
                 Text = nDesc,
-                Font = Enum.Font.Gotham,
+                Font = Fonts.Body,
                 TextSize = 11,
                 TextColor3 = currentTheme.SubText,
                 Position = UDim2.new(0, 15, 0, 30),
@@ -718,7 +756,7 @@ function ahst_lib:CreateWindow(config)
             make("UIStroke", { Color = currentTheme.Border, Thickness = 1.5 }),
             make("TextLabel", {
                 Text = dTitle,
-                Font = Enum.Font.GothamBold,
+                Font = Fonts.Title,
                 TextSize = 16,
                 TextColor3 = currentTheme.Text,
                 Position = UDim2.new(0, 20, 0, 15),
@@ -728,7 +766,7 @@ function ahst_lib:CreateWindow(config)
             }),
             make("TextLabel", {
                 Text = dDesc,
-                Font = Enum.Font.Gotham,
+                Font = Fonts.Body,
                 TextSize = 12,
                 TextColor3 = currentTheme.SubText,
                 Position = UDim2.new(0, 20, 0, 45),
@@ -762,7 +800,7 @@ function ahst_lib:CreateWindow(config)
                 Position = UDim2.new(0, 20, 0, 100),
                 BackgroundColor3 = currentTheme.Background,
                 BorderSizePixel = 0,
-                Font = Enum.Font.Gotham,
+                Font = Fonts.Body,
                 TextSize = 13,
                 TextColor3 = currentTheme.Text,
                 PlaceholderText = "Type input here...",
@@ -789,7 +827,7 @@ function ahst_lib:CreateWindow(config)
             Size = UDim2.fromOffset(90, 36),
             BackgroundColor3 = Color3.fromRGB(20, 20, 20),
             Text = "Cancel",
-            Font = Enum.Font.GothamMedium,
+            Font = Fonts.ComponentLabel,
             TextColor3 = currentTheme.Text,
             TextSize = 12,
             AutoButtonColor = false
@@ -808,7 +846,7 @@ function ahst_lib:CreateWindow(config)
             Size = UDim2.fromOffset(90, 36),
             BackgroundColor3 = currentTheme.Accent,
             Text = "Confirm",
-            Font = Enum.Font.GothamMedium,
+            Font = Fonts.ComponentLabel,
             TextColor3 = currentTheme.Text,
             TextSize = 12,
             AutoButtonColor = false
@@ -840,16 +878,20 @@ function ahst_lib:CreateWindow(config)
         })
         tabBtn.Parent = tabsScroller
 
-        local iconId = "rbxassetid://10734950309"
-        if iconName == "home" then iconId = "rbxassetid://10734950309"
-        elseif iconName == "code" or iconName == "scripts" then iconId = "rbxassetid://10747373111"
-        elseif iconName == "game" or iconName == "games" then iconId = "rbxassetid://10734950020"
-        elseif iconName == "rocket" or iconName == "exploits" then iconId = "rbxassetid://10723345869"
-        elseif iconName == "user" or iconName == "player" then iconId = "rbxassetid://10747373176"
-        elseif iconName == "eye" or iconName == "visuals" then iconId = "rbxassetid://10734950356"
-        elseif iconName == "grid" or iconName == "misc" then iconId = "rbxassetid://10747384394"
-        elseif iconName == "settings" then iconId = "rbxassetid://10734950109"
-        elseif iconName == "crown" or iconName == "premium" then iconId = "rbxassetid://10734953241"
+        local iconId = "rbxassetid://7733960981"
+        iconName = iconName and iconName:lower() or ""
+        if iconName == "home" then iconId = "rbxassetid://7733960981"
+        elseif iconName == "code" or iconName == "scripts" or iconName == "main" then iconId = "rbxassetid://7733934747"
+        elseif iconName == "game" or iconName == "games" then iconId = "rbxassetid://7733965118"
+        elseif iconName == "rocket" or iconName == "exploits" or iconName == "advanced" then iconId = "rbxassetid://7734053426"
+        elseif iconName == "user" or iconName == "player" then iconId = "rbxassetid://7734068321"
+        elseif iconName == "eye" or iconName == "visuals" or iconName == "overlays" then iconId = "rbxassetid://7743875962"
+        elseif iconName == "grid" or iconName == "misc" or iconName == "pickers" then iconId = "rbxassetid://7733966124"
+        elseif iconName == "settings" then iconId = "rbxassetid://7734056608"
+        elseif iconName == "crown" or iconName == "premium" then iconId = "rbxassetid://7733942286"
+        elseif iconName == "combat" then iconId = "rbxassetid://7734057860"
+        elseif iconName == "target" then iconId = "rbxassetid://7743878857"
+        elseif iconName == "teleport" or iconName == "map" then iconId = "rbxassetid://7743869054"
         end
 
         local tabIcon = make("ImageLabel", {
@@ -864,7 +906,7 @@ function ahst_lib:CreateWindow(config)
 
         local tabLabel = make("TextLabel", {
             Text = name,
-            Font = Enum.Font.GothamMedium,
+            Font = Fonts.ComponentLabel,
             TextSize = 13,
             TextColor3 = currentTheme.SubText,
             Position = UDim2.new(0, 42, 0, 0),
@@ -1005,7 +1047,7 @@ function ahst_lib:CreateWindow(config)
 
             local sectionTitle = make("TextLabel", {
                 Text = secName,
-                Font = Enum.Font.GothamBold,
+                Font = Fonts.SectionHeader,
                 TextSize = 14,
                 TextColor3 = currentTheme.Accent,
                 Size = UDim2.new(1, 0, 0, 20),
@@ -1017,7 +1059,7 @@ function ahst_lib:CreateWindow(config)
             if secDesc then
                 local sectionDescription = make("TextLabel", {
                     Text = secDesc,
-                    Font = Enum.Font.Gotham,
+                    Font = Fonts.Body,
                     TextSize = 11,
                     TextColor3 = currentTheme.SubText,
                     Position = UDim2.new(0, 0, 0, 20),
@@ -1055,7 +1097,7 @@ function ahst_lib:CreateWindow(config)
                     make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
                     make("TextLabel", {
                         Text = bName,
-                        Font = Enum.Font.GothamMedium,
+                        Font = Fonts.ComponentLabel,
                         TextSize = 13,
                         TextColor3 = currentTheme.Text,
                         Position = UDim2.new(0, 15, 0, 0),
@@ -1136,7 +1178,7 @@ function ahst_lib:CreateWindow(config)
                     make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
                     make("TextLabel", {
                         Text = tName,
-                        Font = Enum.Font.GothamMedium,
+                        Font = Fonts.ComponentLabel,
                         TextSize = 13,
                         TextColor3 = currentTheme.Text,
                         Position = UDim2.new(0, 15, 0, 0),
@@ -1220,7 +1262,7 @@ function ahst_lib:CreateWindow(config)
                     make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
                     make("TextLabel", {
                         Text = sName,
-                        Font = Enum.Font.GothamMedium,
+                        Font = Fonts.ComponentLabel,
                         TextSize = 13,
                         TextColor3 = currentTheme.Text,
                         Position = UDim2.new(0, 15, 0, 10),
@@ -1255,7 +1297,7 @@ function ahst_lib:CreateWindow(config)
                     Position = UDim2.new(1, -75, 0, 10),
                     BackgroundColor3 = Color3.fromRGB(25, 25, 25),
                     BorderSizePixel = 0,
-                    Font = Enum.Font.GothamMedium,
+                    Font = Fonts.Value,
                     TextSize = 12,
                     TextColor3 = currentTheme.Text,
                     Text = tostring(sDefault),
@@ -1358,7 +1400,7 @@ function ahst_lib:CreateWindow(config)
 
                 local labelText = make("TextLabel", {
                     Text = dName,
-                    Font = Enum.Font.GothamMedium,
+                    Font = Fonts.ComponentLabel,
                     TextSize = 13,
                     TextColor3 = currentTheme.Text,
                     Position = UDim2.new(0, 15, 0, 0),
@@ -1370,7 +1412,7 @@ function ahst_lib:CreateWindow(config)
 
                 local selectionText = make("TextLabel", {
                     Text = dMulti and "Select Option" or tostring(currentSelection),
-                    Font = Enum.Font.Gotham,
+                    Font = Fonts.ComponentLabel,
                     TextSize = 12,
                     TextColor3 = currentTheme.SubText,
                     Position = UDim2.new(0.5, 0, 0, 0),
@@ -1385,14 +1427,13 @@ function ahst_lib:CreateWindow(config)
                     Position = UDim2.new(1, -30, 0.5, 0),
                     AnchorPoint = Vector2.new(0, 0.5),
                     BackgroundTransparency = 1,
-                    Image = "rbxassetid://10734950309",
-                    ImageColor3 = currentTheme.SubText,
-                    Rotation = 90
+                    Image = "rbxassetid://7734056411",
+                    ImageColor3 = currentTheme.SubText
                 })
                 arrow.Parent = triggerBtn
 
                 local dropContainer = make("Frame", {
-                    Size = UDim2.new(1, -20, 0, 0),
+                    Size = UDim2.new(1, -20, 0, 155),
                     Position = UDim2.new(0, 10, 0, 40),
                     BackgroundTransparency = 1,
                     Visible = false
@@ -1403,7 +1444,7 @@ function ahst_lib:CreateWindow(config)
                     Size = UDim2.new(1, 0, 0, 30),
                     BackgroundColor3 = Color3.fromRGB(25, 25, 25),
                     BorderSizePixel = 0,
-                    Font = Enum.Font.Gotham,
+                    Font = Fonts.Body,
                     TextSize = 12,
                     TextColor3 = currentTheme.Text,
                     PlaceholderText = "Search options...",
@@ -1431,6 +1472,36 @@ function ahst_lib:CreateWindow(config)
                     Padding = UDim.new(0, 4)
                 })
                 optLayout.Parent = optScroll
+
+                local dropObj = { Frame = dropFrame }
+
+                local function closeDrop()
+                    if not isExpanded then return end
+                    isExpanded = false
+                    if windowObj.OpenDropdown == dropObj then
+                        windowObj.OpenDropdown = nil
+                    end
+                    tween(dropFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingStyle.Out), { Size = UDim2.new(1, 0, 0, 40) })
+                    tween(arrow, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingStyle.Out), { Rotation = 0 })
+                    task.delay(0.25, function()
+                        if not isExpanded then dropContainer.Visible = false end
+                    end)
+                end
+
+                local function openDrop()
+                    if isExpanded then return end
+                    if windowObj.OpenDropdown then
+                        windowObj.OpenDropdown:Close()
+                    end
+                    isExpanded = true
+                    windowObj.OpenDropdown = dropObj
+                    dropContainer.Visible = true
+                    tween(dropFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingStyle.Out), { Size = UDim2.new(1, 0, 0, 205) })
+                    tween(arrow, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingStyle.Out), { Rotation = 180 })
+                end
+
+                dropObj.Close = closeDrop
+                dropObj.Open = openDrop
 
                 local function updateSelectionDisplay()
                     if dMulti then
@@ -1475,7 +1546,7 @@ function ahst_lib:CreateWindow(config)
                                 make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
                                 make("TextLabel", {
                                     Text = option,
-                                    Font = Enum.Font.GothamMedium,
+                                    Font = Fonts.ComponentLabel,
                                     TextSize = 12,
                                     TextColor3 = currentTheme.Text,
                                     Position = UDim2.new(0, 10, 0, 0),
@@ -1495,10 +1566,7 @@ function ahst_lib:CreateWindow(config)
                                     dCallback(currentSelection)
                                 else
                                     currentSelection = option
-                                    isExpanded = false
-                                    tween(dropFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingStyle.Out), { Size = UDim2.new(1, 0, 0, 40) })
-                                    tween(arrow, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingStyle.Out), { Rotation = 90 })
-                                    dropContainer.Visible = false
+                                    closeDrop()
                                     buildOptions()
                                     updateSelectionDisplay()
                                     dCallback(currentSelection)
@@ -1514,17 +1582,10 @@ function ahst_lib:CreateWindow(config)
                 searchBar:GetPropertyChangedSignal("Text"):Connect(buildOptions)
 
                 triggerBtn.MouseButton1Click:Connect(function()
-                    isExpanded = not isExpanded
                     if isExpanded then
-                        dropContainer.Visible = true
-                        tween(dropFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingStyle.Out), { Size = UDim2.new(1, 0, 0, 205) })
-                        tween(arrow, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingStyle.Out), { Rotation = 270 })
+                        closeDrop()
                     else
-                        tween(dropFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingStyle.Out), { Size = UDim2.new(1, 0, 0, 40) })
-                        tween(arrow, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingStyle.Out), { Rotation = 90 })
-                        task.delay(0.2, function()
-                            if not isExpanded then dropContainer.Visible = false end
-                        end)
+                        openDrop()
                     end
                 end)
 
@@ -1538,7 +1599,9 @@ function ahst_lib:CreateWindow(config)
                         buildOptions()
                         updateSelectionDisplay()
                         dCallback(currentSelection)
-                    end
+                    end,
+                    Close = closeDrop,
+                    Open = openDrop
                 }
 
                 if dFlag then
@@ -1566,7 +1629,7 @@ function ahst_lib:CreateWindow(config)
                     make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
                     make("TextLabel", {
                         Text = tName,
-                        Font = Enum.Font.GothamMedium,
+                        Font = Fonts.ComponentLabel,
                         TextSize = 13,
                         TextColor3 = currentTheme.Text,
                         Position = UDim2.new(0, 15, 0, 0),
@@ -1583,7 +1646,7 @@ function ahst_lib:CreateWindow(config)
                     AnchorPoint = Vector2.new(1, 0.5),
                     BackgroundColor3 = Color3.fromRGB(25, 25, 25),
                     BorderSizePixel = 0,
-                    Font = Enum.Font.Gotham,
+                    Font = Fonts.Body,
                     TextSize = 12,
                     TextColor3 = currentTheme.Text,
                     PlaceholderText = tPlace,
@@ -1636,7 +1699,7 @@ function ahst_lib:CreateWindow(config)
 
                 local lbl = make("TextLabel", {
                     Text = text,
-                    Font = Enum.Font.GothamMedium,
+                    Font = Fonts.ComponentLabel,
                     TextSize = 13,
                     TextColor3 = currentTheme.Text,
                     Size = UDim2.new(1, 0, 0, 20),
@@ -1665,7 +1728,7 @@ function ahst_lib:CreateWindow(config)
 
                 local titleLbl = make("TextLabel", {
                     Text = pTitle,
-                    Font = Enum.Font.GothamBold,
+                    Font = Fonts.SectionHeader,
                     TextSize = 13,
                     TextColor3 = currentTheme.Accent,
                     Position = UDim2.new(0, 12, 0, 8),
@@ -1676,7 +1739,7 @@ function ahst_lib:CreateWindow(config)
 
                 local paraLabel = make("TextLabel", {
                     Text = pText,
-                    Font = Enum.Font.Gotham,
+                    Font = Fonts.Body,
                     TextSize = 11,
                     TextColor3 = currentTheme.SubText,
                     Position = UDim2.new(0, 12, 0, 26),
@@ -1731,7 +1794,7 @@ function ahst_lib:CreateWindow(config)
                     make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
                     make("TextLabel", {
                         Text = cpName,
-                        Font = Enum.Font.GothamMedium,
+                        Font = Fonts.ComponentLabel,
                         TextSize = 13,
                         TextColor3 = currentTheme.Text,
                         Position = UDim2.new(0, 15, 0, 0),
@@ -1810,7 +1873,7 @@ function ahst_lib:CreateWindow(config)
                     Position = UDim2.new(0.7, 0, 0, 30),
                     BackgroundColor3 = Color3.fromRGB(25, 25, 25),
                     BorderSizePixel = 0,
-                    Font = Enum.Font.Gotham,
+                    Font = Fonts.Value,
                     TextSize = 11,
                     TextColor3 = currentTheme.Text,
                     Text = "255,0,0",
@@ -1911,7 +1974,7 @@ function ahst_lib:CreateWindow(config)
                     make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
                     make("TextLabel", {
                         Text = kName,
-                        Font = Enum.Font.GothamMedium,
+                        Font = Fonts.ComponentLabel,
                         TextSize = 13,
                         TextColor3 = currentTheme.Text,
                         Position = UDim2.new(0, 15, 0, 0),
@@ -1928,7 +1991,7 @@ function ahst_lib:CreateWindow(config)
                     AnchorPoint = Vector2.new(0, 0.5),
                     BackgroundColor3 = Color3.fromRGB(25, 25, 25),
                     Text = currentKey and currentKey.Name or "None",
-                    Font = Enum.Font.GothamMedium,
+                    Font = Fonts.Value,
                     TextSize = 11,
                     TextColor3 = currentTheme.Text,
                     AutoButtonColor = false
@@ -2004,7 +2067,7 @@ function ahst_lib:CreateWindow(config)
                     make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
                     make("TextLabel", {
                         Text = pbName,
-                        Font = Enum.Font.GothamMedium,
+                        Font = Fonts.ComponentLabel,
                         TextSize = 12,
                         TextColor3 = currentTheme.Text,
                         Position = UDim2.new(0, 15, 0, 6),
@@ -2036,7 +2099,7 @@ function ahst_lib:CreateWindow(config)
 
                 local pctText = make("TextLabel", {
                     Text = tostring(math.floor(pbPercent)) .. "%",
-                    Font = Enum.Font.GothamBold,
+                    Font = Fonts.Value,
                     TextSize = 12,
                     TextColor3 = currentTheme.Accent,
                     Position = UDim2.new(1, -75, 0, 6),
@@ -2082,7 +2145,7 @@ function ahst_lib:CreateWindow(config)
                     make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
                     make("TextLabel", {
                         Text = cTitle,
-                        Font = Enum.Font.GothamBold,
+                        Font = Fonts.SectionHeader,
                         TextSize = 14,
                         TextColor3 = currentTheme.Accent,
                         Position = UDim2.new(0, 15, 0, 12),
@@ -2092,7 +2155,7 @@ function ahst_lib:CreateWindow(config)
                     }),
                     make("TextLabel", {
                         Text = cDesc,
-                        Font = Enum.Font.Gotham,
+                        Font = Fonts.Body,
                         TextSize = 12,
                         TextColor3 = currentTheme.SubText,
                         Position = UDim2.new(0, 15, 0, 32),
@@ -2153,7 +2216,7 @@ function ahst_lib:CreateWindow(config)
 
         local fpsText = make("TextLabel", {
             Text = "FPS: 60",
-            Font = Enum.Font.GothamMedium,
+            Font = Fonts.Value,
             TextSize = 10,
             TextColor3 = currentTheme.Text,
             Size = UDim2.fromScale(1, 1),
@@ -2174,7 +2237,7 @@ function ahst_lib:CreateWindow(config)
 
         local pingText = make("TextLabel", {
             Text = "Ping: --",
-            Font = Enum.Font.GothamMedium,
+            Font = Fonts.Value,
             TextSize = 10,
             TextColor3 = currentTheme.Text,
             Size = UDim2.fromScale(1, 1),
@@ -2195,7 +2258,7 @@ function ahst_lib:CreateWindow(config)
 
         local runtimeText = make("TextLabel", {
             Text = "00:00:00",
-            Font = Enum.Font.GothamMedium,
+            Font = Fonts.Value,
             TextSize = 10,
             TextColor3 = currentTheme.Text,
             Size = UDim2.fromScale(1, 1),
@@ -2289,7 +2352,7 @@ function ahst_lib:CreateWindow(config)
         }, {
             make("TextLabel", {
                 Text = "Welcome back,",
-                Font = Enum.Font.Gotham,
+                Font = Fonts.Body,
                 TextSize = 14,
                 TextColor3 = currentTheme.SubText,
                 Size = UDim2.new(1, 0, 0, 20),
@@ -2298,7 +2361,7 @@ function ahst_lib:CreateWindow(config)
             }),
             make("TextLabel", {
                 Text = userName or (Players.LocalPlayer.DisplayName .. " 👑"),
-                Font = Enum.Font.GothamBold,
+                Font = Fonts.Title,
                 TextSize = 24,
                 TextColor3 = currentTheme.Text,
                 Position = UDim2.new(0, 0, 0, 22),
@@ -2335,7 +2398,7 @@ function ahst_lib:CreateWindow(config)
                 make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
                 make("TextLabel", {
                     Text = title,
-                    Font = Enum.Font.Gotham,
+                    Font = Fonts.Body,
                     TextSize = 10,
                     TextColor3 = currentTheme.SubText,
                     Position = UDim2.new(0, 8, 0, 10),
@@ -2345,7 +2408,7 @@ function ahst_lib:CreateWindow(config)
                 }),
                 make("TextLabel", {
                     Text = val,
-                    Font = Enum.Font.GothamBold,
+                    Font = Fonts.Value,
                     TextSize = 16,
                     TextColor3 = currentTheme.Accent,
                     Position = UDim2.new(0, 8, 0, 28),
@@ -2373,7 +2436,7 @@ function ahst_lib:CreateWindow(config)
             make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
             make("TextLabel", {
                 Text = "Featured Scripts",
-                Font = Enum.Font.GothamBold,
+                Font = Fonts.SectionHeader,
                 TextSize = 14,
                 TextColor3 = currentTheme.Text,
                 Position = UDim2.new(0, 15, 0, 12),
@@ -2398,7 +2461,7 @@ function ahst_lib:CreateWindow(config)
         })
         featPadding.Parent = featuredFrame
 
-        local function addFeatScript(sName, sDesc, callback)
+        local function addFeatScript(sName, sDesc, iconId, callback)
             local scriptRow = make("Frame", {
                 Size = UDim2.new(1, 0, 0, 50),
                 BackgroundColor3 = Color3.fromRGB(15, 15, 15),
@@ -2406,23 +2469,31 @@ function ahst_lib:CreateWindow(config)
             }, {
                 make("UICorner", { CornerRadius = UDim.new(0, 6) }),
                 make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
+                make("ImageLabel", {
+                    Size = UDim2.fromOffset(24, 24),
+                    Position = UDim2.new(0, 12, 0.5, 0),
+                    AnchorPoint = Vector2.new(0, 0.5),
+                    BackgroundTransparency = 1,
+                    Image = iconId,
+                    ImageColor3 = currentTheme.Accent
+                }),
                 make("TextLabel", {
                     Text = sName,
-                    Font = Enum.Font.GothamBold,
+                    Font = Fonts.Title,
                     TextSize = 12,
                     TextColor3 = currentTheme.Text,
-                    Position = UDim2.new(0, 12, 0, 8),
-                    Size = UDim2.new(0.6, 0, 0, 16),
+                    Position = UDim2.new(0, 48, 0, 8),
+                    Size = UDim2.new(0.6, -48, 0, 16),
                     TextXAlignment = Enum.TextXAlignment.Left,
                     BackgroundTransparency = 1
                 }),
                 make("TextLabel", {
                     Text = sDesc,
-                    Font = Enum.Font.Gotham,
+                    Font = Fonts.Body,
                     TextSize = 10,
                     TextColor3 = currentTheme.SubText,
-                    Position = UDim2.new(0, 12, 0, 24),
-                    Size = UDim2.new(0.6, 0, 0, 16),
+                    Position = UDim2.new(0, 48, 0, 24),
+                    Size = UDim2.new(0.6, -48, 0, 16),
                     TextXAlignment = Enum.TextXAlignment.Left,
                     BackgroundTransparency = 1
                 })
@@ -2435,7 +2506,7 @@ function ahst_lib:CreateWindow(config)
                 AnchorPoint = Vector2.new(0, -0.5),
                 BackgroundColor3 = currentTheme.Accent,
                 Text = "Execute",
-                Font = Enum.Font.GothamBold,
+                Font = Fonts.SectionHeader,
                 TextColor3 = currentTheme.Text,
                 TextSize = 11,
                 AutoButtonColor = false
@@ -2447,16 +2518,16 @@ function ahst_lib:CreateWindow(config)
             execBtn.MouseButton1Click:Connect(callback)
         end
 
-        addFeatScript("Blox Fruits Auto Farm", "Auto farm, level, quest, and more!", function()
+        addFeatScript("Blox Fruits Auto Farm", "Auto farm, level, quest, and more!", "rbxassetid://7734053692", function()
             windowObj:CreateNotification({ Type = "Success", Title = "Executed", Description = "Blox Fruits Auto Farm loaded!" })
         end)
-        addFeatScript("Pet Simulator X Dupe", "Dupe pets with ease and safety.", function()
+        addFeatScript("Pet Simulator X Dupe", "Dupe pets with ease and safety.", "rbxassetid://7744356657", function()
             windowObj:CreateNotification({ Type = "Warning", Title = "Warning", Description = "Dupe methods might be patched!" })
         end)
-        addFeatScript("Arsenal Silent Aim", "Undetectable silent aim for Arsenal.", function()
+        addFeatScript("Arsenal Silent Aim", "Undetectable silent aim for Arsenal.", "rbxassetid://7743878857", function()
             windowObj:CreateNotification({ Type = "Success", Title = "Executed", Description = "Arsenal Silent Aim active!" })
         end)
-        addFeatScript("Brookhaven Admin", "Admin commands and tools.", function()
+        addFeatScript("Brookhaven Admin", "Admin commands and tools.", "rbxassetid://7734057579", function()
             windowObj:CreateNotification({ Type = "Success", Title = "Executed", Description = "Brookhaven Admin loaded!" })
         end)
 
@@ -2496,7 +2567,7 @@ function ahst_lib:CreateWindow(config)
             make("UIStroke", { Color = currentTheme.Border, Thickness = 1 }),
             make("TextLabel", {
                 Text = "Status",
-                Font = Enum.Font.GothamBold,
+                Font = Fonts.SectionHeader,
                 TextSize = 14,
                 TextColor3 = currentTheme.Text,
                 Position = UDim2.new(0, 15, 0, 12),
@@ -2514,7 +2585,7 @@ function ahst_lib:CreateWindow(config)
             }),
             make("TextLabel", {
                 Text = statusText or "All Systems Operational",
-                Font = Enum.Font.GothamMedium,
+                Font = Fonts.SubTitle,
                 TextSize = 12,
                 TextColor3 = Color3.fromRGB(45, 255, 125),
                 Position = UDim2.new(0, 30, 0, 36),
@@ -2524,7 +2595,7 @@ function ahst_lib:CreateWindow(config)
             }),
             make("TextLabel", {
                 Text = "Latest Announcements",
-                Font = Enum.Font.GothamBold,
+                Font = Fonts.SectionHeader,
                 TextSize = 13,
                 TextColor3 = currentTheme.Text,
                 Position = UDim2.new(0, 15, 0, 65),
@@ -2555,7 +2626,7 @@ function ahst_lib:CreateWindow(config)
             }, {
                 make("TextLabel", {
                     Text = "• " .. title,
-                    Font = Enum.Font.GothamBold,
+                    Font = Fonts.Title,
                     TextSize = 11,
                     TextColor3 = currentTheme.Accent,
                     Size = UDim2.new(0.7, 0, 0, 18),
@@ -2564,7 +2635,7 @@ function ahst_lib:CreateWindow(config)
                 }),
                 make("TextLabel", {
                     Text = timeStr,
-                    Font = Enum.Font.Gotham,
+                    Font = Fonts.Value,
                     TextSize = 10,
                     TextColor3 = currentTheme.SubText,
                     Position = UDim2.new(0.7, 0, 0, 0),
@@ -2574,7 +2645,7 @@ function ahst_lib:CreateWindow(config)
                 }),
                 make("TextLabel", {
                     Text = details,
-                    Font = Enum.Font.Gotham,
+                    Font = Fonts.Body,
                     TextSize = 10,
                     TextColor3 = currentTheme.SubText,
                     Position = UDim2.new(0, 10, 0, 16),
@@ -2600,7 +2671,7 @@ function ahst_lib:CreateWindow(config)
             Position = UDim2.new(0, 15, 1, -50),
             BackgroundColor3 = Color3.fromRGB(40, 50, 110),
             Text = "Join Discord",
-            Font = Enum.Font.GothamBold,
+            Font = Fonts.SectionHeader,
             TextColor3 = currentTheme.Text,
             TextSize = 12,
             AutoButtonColor = false
