@@ -322,41 +322,41 @@ local AHSTLib = {
 			TextColor = Color3.fromRGB(255, 255, 255),
 
 			Background = Color3.fromRGB(0, 0, 0),
-			Topbar = Color3.fromRGB(10, 10, 10),
+			Topbar = Color3.fromRGB(0, 0, 0),
 			Shadow = Color3.fromRGB(0, 0, 0),
 
-			NotificationBackground = Color3.fromRGB(10, 10, 10),
+			NotificationBackground = Color3.fromRGB(0, 0, 0),
 			NotificationActionsBackground = Color3.fromRGB(255, 255, 255),
 
-			TabBackground = Color3.fromRGB(20, 20, 20),
-			TabStroke = Color3.fromRGB(30, 30, 30),
-			TabBackgroundSelected = Color3.fromRGB(255, 0, 50),
+			TabBackground = Color3.fromRGB(5, 5, 6),
+			TabStroke = Color3.fromRGB(35, 8, 14),
+			TabBackgroundSelected = Color3.fromRGB(220, 24, 54),
 			TabTextColor = Color3.fromRGB(255, 255, 255),
 			SelectedTabTextColor = Color3.fromRGB(255, 255, 255),
 
-			ElementBackground = Color3.fromRGB(15, 15, 15),
-			ElementBackgroundHover = Color3.fromRGB(25, 25, 25),
-			SecondaryElementBackground = Color3.fromRGB(10, 10, 10),
-			ElementStroke = Color3.fromRGB(30, 30, 30),
-			SecondaryElementStroke = Color3.fromRGB(20, 20, 20),
+			ElementBackground = Color3.fromRGB(8, 8, 9),
+			ElementBackgroundHover = Color3.fromRGB(20, 16, 18),
+			SecondaryElementBackground = Color3.fromRGB(3, 3, 4),
+			ElementStroke = Color3.fromRGB(38, 12, 18),
+			SecondaryElementStroke = Color3.fromRGB(24, 7, 11),
 
-			SliderBackground = Color3.fromRGB(30, 30, 30),
-			SliderProgress = Color3.fromRGB(255, 0, 50),
-			SliderStroke = Color3.fromRGB(255, 0, 50),
+			SliderBackground = Color3.fromRGB(28, 11, 16),
+			SliderProgress = Color3.fromRGB(220, 24, 54),
+			SliderStroke = Color3.fromRGB(220, 24, 54),
 
-			ToggleBackground = Color3.fromRGB(20, 20, 20),
-			ToggleEnabled = Color3.fromRGB(255, 0, 50),
-			ToggleDisabled = Color3.fromRGB(40, 40, 40),
-			ToggleEnabledStroke = Color3.fromRGB(255, 0, 50),
-			ToggleDisabledStroke = Color3.fromRGB(50, 50, 50),
-			ToggleEnabledOuterStroke = Color3.fromRGB(255, 0, 50),
-			ToggleDisabledOuterStroke = Color3.fromRGB(30, 30, 30),
+			ToggleBackground = Color3.fromRGB(12, 12, 13),
+			ToggleEnabled = Color3.fromRGB(220, 24, 54),
+			ToggleDisabled = Color3.fromRGB(39, 39, 42),
+			ToggleEnabledStroke = Color3.fromRGB(255, 74, 101),
+			ToggleDisabledStroke = Color3.fromRGB(58, 58, 62),
+			ToggleEnabledOuterStroke = Color3.fromRGB(220, 24, 54),
+			ToggleDisabledOuterStroke = Color3.fromRGB(27, 27, 30),
 
-			DropdownSelected = Color3.fromRGB(25, 25, 25),
-			DropdownUnselected = Color3.fromRGB(15, 15, 15),
+			DropdownSelected = Color3.fromRGB(48, 12, 21),
+			DropdownUnselected = Color3.fromRGB(8, 8, 9),
 
-			InputBackground = Color3.fromRGB(15, 15, 15),
-			InputStroke = Color3.fromRGB(30, 30, 30),
+			InputBackground = Color3.fromRGB(4, 4, 5),
+			InputStroke = Color3.fromRGB(42, 13, 20),
 			PlaceholderColor = Color3.fromRGB(150, 150, 150)
 		},
 
@@ -932,6 +932,193 @@ local keybindConnections = {}
 
 local SelectedTheme = AHSTLib.Theme.Default
 
+local function getWindowSize()
+	return useMobileSizing and UDim2.new(0, 590, 0, 310) or UDim2.new(0, 680, 0, 420)
+end
+
+local function getTopbarSize()
+	return useMobileSizing and UDim2.new(0, 590, 0, 46) or UDim2.new(0, 680, 0, 46)
+end
+
+local function getTabWidth()
+	return useMobileSizing and 158 or 176
+end
+
+local function getContentOffset()
+	return getTabWidth() + 38
+end
+
+local function setCornerRadius(guiObject, radius)
+	if not guiObject or not guiObject:IsA("GuiObject") then return end
+	local corner = guiObject:FindFirstChildOfClass("UICorner")
+	if not corner then
+		corner = Instance.new("UICorner")
+		corner.Parent = guiObject
+	end
+	corner.CornerRadius = UDim.new(0, radius)
+end
+
+local function styleTextObject(textObject, weight)
+	if not (textObject:IsA("TextLabel") or textObject:IsA("TextBox")) then return end
+	textObject.Font = weight == "bold" and Enum.Font.GothamBold or Enum.Font.GothamMedium
+	textObject.TextColor3 = SelectedTheme.TextColor
+	textObject.TextWrapped = false
+	textObject.TextTruncate = Enum.TextTruncate.AtEnd
+end
+
+local function styleShell()
+	local tabWidth = getTabWidth()
+	TabList.AnchorPoint = Vector2.new(0, 0)
+	TabList.Position = UDim2.new(0, 14, 0, 58)
+	TabList.Size = UDim2.new(0, tabWidth, 1, -76)
+	TabList.BackgroundTransparency = 1
+	TabList.ClipsDescendants = true
+	TabList.ZIndex = 3
+	if TabList:IsA("ScrollingFrame") then
+		TabList.ScrollBarThickness = 2
+		TabList.ScrollBarImageColor3 = SelectedTheme.TabBackgroundSelected
+		TabList.ScrollBarImageTransparency = 0.45
+	end
+
+	Elements.AnchorPoint = Vector2.new(0, 0)
+	Elements.Position = UDim2.new(0, getContentOffset(), 0, 58)
+	Elements.Size = UDim2.new(1, -(getContentOffset() + 16), 1, -76)
+	Elements.ClipsDescendants = true
+	Elements.ZIndex = 3
+
+	local rail = Main:FindFirstChild("AHST_TabRail")
+	if not rail then
+		rail = Instance.new("Frame")
+		rail.Name = "AHST_TabRail"
+		rail.BorderSizePixel = 0
+		rail.ZIndex = 1
+		setCornerRadius(rail, 12)
+		rail.Parent = Main
+	end
+	rail.Position = TabList.Position
+	rail.Size = UDim2.new(0, tabWidth, 1, -76)
+	rail.BackgroundColor3 = SelectedTheme.SecondaryElementBackground
+	rail.BackgroundTransparency = 0.18
+
+	local separator = Main:FindFirstChild("AHST_TabSeparator")
+	if not separator then
+		separator = Instance.new("Frame")
+		separator.Name = "AHST_TabSeparator"
+		separator.BorderSizePixel = 0
+		separator.ZIndex = 2
+		separator.Parent = Main
+	end
+	separator.Position = UDim2.new(0, tabWidth + 26, 0, 61)
+	separator.Size = UDim2.new(0, 1, 1, -82)
+	separator.BackgroundColor3 = SelectedTheme.ElementStroke
+	separator.BackgroundTransparency = 0.18
+
+	Topbar.Size = getTopbarSize()
+	Topbar.BackgroundColor3 = SelectedTheme.Topbar
+	Topbar.CornerRepair.BackgroundColor3 = SelectedTheme.Topbar
+	if Topbar:FindFirstChild("Title") then
+		styleTextObject(Topbar.Title, "bold")
+	end
+end
+
+local function styleTabPage(tabPage)
+	if not tabPage or not tabPage:IsA("ScrollingFrame") then return end
+	tabPage.BackgroundTransparency = 1
+	tabPage.ScrollBarThickness = 2
+	tabPage.ScrollBarImageColor3 = SelectedTheme.TabBackgroundSelected
+	tabPage.ScrollBarImageTransparency = 0.38
+	local layout = tabPage:FindFirstChildOfClass("UIListLayout")
+	if layout then
+		layout.Padding = UDim.new(0, 8)
+	end
+end
+
+local function styleElementFrame(element)
+	if not element or not element:IsA("Frame") then return end
+	if element.Name == "Placeholder" or element.Name == "SectionSpacing" then return end
+
+	if element.Name == "SectionTitle" or element.Name == "SearchTitle-fsefsefesfsefesfesfThanks" then
+		if element:FindFirstChild("Title") then
+			styleTextObject(element.Title, "bold")
+			element.Title.TextXAlignment = Enum.TextXAlignment.Left
+			element.Title.Size = UDim2.new(1, -12, 1, 0)
+		end
+		return
+	end
+
+	if element.Name == "Divider" then
+		if element:FindFirstChild("Divider") then
+			element.Divider.BackgroundColor3 = SelectedTheme.ElementStroke
+		end
+		return
+	end
+
+	element.BackgroundColor3 = SelectedTheme.ElementBackground
+	element.UIStroke.Color = SelectedTheme.ElementStroke
+	element:SetAttribute("BackgroundTransparencyTarget", element:GetAttribute("BackgroundTransparencyTarget") or 0.16)
+	element:SetAttribute("UIStrokeTransparencyTarget", element:GetAttribute("UIStrokeTransparencyTarget") or 0.18)
+	setCornerRadius(element, 8)
+
+	if element:FindFirstChild("Title") then
+		styleTextObject(element.Title, "bold")
+		element.Title.TextXAlignment = Enum.TextXAlignment.Left
+		if element.Name == "Paragraph" then
+			element.Title.Position = UDim2.new(0, 16, 0, 10)
+			element.Title.Size = UDim2.new(1, -32, 0, 18)
+		else
+			element.Title.Position = UDim2.new(0, 16, 0.5, 0)
+			element.Title.Size = UDim2.new(1, -112, 0, 18)
+		end
+	end
+
+	if element:FindFirstChild("Content") and element.Content:IsA("TextLabel") then
+		styleTextObject(element.Content, "regular")
+		element.Content.TextWrapped = true
+		element.Content.TextTruncate = Enum.TextTruncate.None
+		element.Content.TextXAlignment = Enum.TextXAlignment.Left
+		element.Content.Position = UDim2.new(0, 16, 0, 32)
+		element.Content.Size = UDim2.new(1, -32, 0, math.max(24, element.Content.TextBounds.Y))
+	end
+
+	if element.Name == "Paragraph" then
+		local contentHeight = element:FindFirstChild("Content") and element.Content.TextBounds.Y or 22
+		element.Size = UDim2.new(1, -8, 0, math.max(72, contentHeight + 48))
+		element.BackgroundColor3 = SelectedTheme.SecondaryElementBackground
+		element.UIStroke.Color = SelectedTheme.SecondaryElementStroke
+	elseif element.Name == "Label" then
+		element.Size = UDim2.new(1, -8, 0, 38)
+		element.BackgroundColor3 = SelectedTheme.SecondaryElementBackground
+		element.UIStroke.Color = SelectedTheme.SecondaryElementStroke
+	else
+		element.Size = element.Size.Y.Offset > 50 and UDim2.new(1, -8, 0, element.Size.Y.Offset) or UDim2.new(1, -8, 0, 46)
+	end
+
+	for _, descendant in ipairs(element:GetDescendants()) do
+		if descendant:IsA("TextLabel") or descendant:IsA("TextBox") then
+			styleTextObject(descendant, descendant.Name == "Title" and "bold" or "regular")
+		elseif descendant:IsA("Frame") then
+			setCornerRadius(descendant, 8)
+		end
+	end
+end
+
+local function fitControlFrame(frame, textBox)
+	if not frame or not textBox then return end
+	local parentWidth = frame.Parent and frame.Parent.AbsoluteSize.X or 420
+	local maxWidth = math.max(120, math.floor(parentWidth * 0.42))
+	local width = math.clamp(textBox.TextBounds.X + 28, 92, maxWidth)
+	TweenService:Create(frame, TweenInfo.new(0.35, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = UDim2.new(0, width, 0, 30)}):Play()
+end
+
+local function fitParagraph(paragraph)
+	if not paragraph or not paragraph:FindFirstChild("Content") then return end
+	task.defer(function()
+		task.wait()
+		if not paragraph.Parent then return end
+		styleElementFrame(paragraph)
+	end)
+end
+
 local function ChangeTheme(Theme)
 	if typeof(Theme) == 'string' then
 		SelectedTheme = AHSTLib.Theme[Theme]
@@ -941,11 +1128,11 @@ local function ChangeTheme(Theme)
 
 	Rayfield.Main.BackgroundColor3 = SelectedTheme.Background
 	Rayfield.Main.ImageColor3 = SelectedTheme.Background
-	Rayfield.Main.BackgroundTransparency = 0.2
+	Rayfield.Main.BackgroundTransparency = 0.04
 	Rayfield.Main.Topbar.BackgroundColor3 = SelectedTheme.Topbar
-	Rayfield.Main.Topbar.BackgroundTransparency = 0.5
+	Rayfield.Main.Topbar.BackgroundTransparency = 0
 	Rayfield.Main.Topbar.CornerRepair.BackgroundColor3 = SelectedTheme.Topbar
-	Rayfield.Main.Topbar.CornerRepair.BackgroundTransparency = 1
+	Rayfield.Main.Topbar.CornerRepair.BackgroundTransparency = 0
 	Rayfield.Main.Shadow.Image.ImageColor3 = SelectedTheme.Shadow
 
 	Rayfield.Main.Topbar.ChangeSize.ImageColor3 = SelectedTheme.TextColor
@@ -968,16 +1155,17 @@ local function ChangeTheme(Theme)
 
 	for _, text in ipairs(Rayfield:GetDescendants()) do
 		if text.Parent.Parent ~= Notifications then
-			if text:IsA('TextLabel') or text:IsA('TextBox') then text.TextColor3 = SelectedTheme.TextColor end
+			if text:IsA('TextLabel') or text:IsA('TextBox') then styleTextObject(text, text.Name == "Title" and "bold" or "regular") end
 		end
 	end
 
+	styleShell()
+
 	for _, TabPage in ipairs(Elements:GetChildren()) do
+		styleTabPage(TabPage)
 		for _, Element in ipairs(TabPage:GetChildren()) do
 			if Element.ClassName == "Frame" and Element.Name ~= "Placeholder" and Element.Name ~= "SectionSpacing" and Element.Name ~= "Divider" and Element.Name ~= "SectionTitle" and Element.Name ~= "SearchTitle-fsefsefesfsefesfThanks" then
-				Element.BackgroundColor3 = SelectedTheme.ElementBackground
-				Element.BackgroundTransparency = 0.45
-				Element.UIStroke.Color = SelectedTheme.ElementStroke
+				styleElementFrame(Element)
 			end
 		end
 	end
@@ -1360,10 +1548,10 @@ local function closeSearch()
 				TweenService:Create(tabbtn.Title, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()
 				TweenService:Create(tabbtn.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 			else
-				TweenService:Create(tabbtn, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.7}):Play()
+				TweenService:Create(tabbtn, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.62}):Play()
 				TweenService:Create(tabbtn.Image, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {ImageTransparency = 0.2}):Play()
 				TweenService:Create(tabbtn.Title, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {TextTransparency = 0.2}):Play()
-				TweenService:Create(tabbtn.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {Transparency = 0.5}):Play()
+				TweenService:Create(tabbtn.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {Transparency = 0.28}):Play()
 			end
 		end
 	end
@@ -1414,10 +1602,10 @@ local function setTabButtonsVisible(show)
 					TweenService:Create(tabbtn.Title, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()
 					TweenService:Create(tabbtn.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 				else
-					TweenService:Create(tabbtn, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.7}):Play()
+					TweenService:Create(tabbtn, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.62}):Play()
 					TweenService:Create(tabbtn.Image, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {ImageTransparency = 0.2}):Play()
 					TweenService:Create(tabbtn.Title, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {TextTransparency = 0.2}):Play()
-					TweenService:Create(tabbtn.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {Transparency = 0.5}):Play()
+					TweenService:Create(tabbtn.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {Transparency = 0.28}):Play()
 				end
 			else
 				TweenService:Create(tabbtn, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundTransparency = 1}):Play()
@@ -1494,8 +1682,8 @@ local function Maximise()
 	TweenService:Create(Topbar.CornerRepair, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
 	TweenService:Create(Topbar.Divider, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
 	TweenService:Create(dragBarCosmetic, TweenInfo.new(0.25, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = 0.7}):Play()
-	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = useMobileSizing and UDim2.new(0, 550, 0, 260) or UDim2.new(0, 600, 0, 380)}):Play()
-	TweenService:Create(Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = useMobileSizing and UDim2.new(0, 550, 0, 45) or UDim2.new(0, 600, 0, 45)}):Play()
+	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = getWindowSize()}):Play()
+	TweenService:Create(Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = getTopbarSize()}):Play()
 	TabList.Visible = true
 	task.wait(0.2)
 
@@ -1516,8 +1704,8 @@ local function Unhide()
 	Debounce = true
 	Main.Position = UDim2.new(0.5, 0, 0.5, 0)
 	Main.Visible = true
-	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = useMobileSizing and UDim2.new(0, 550, 0, 260) or UDim2.new(0, 600, 0, 380)}):Play()
-	TweenService:Create(Main.Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = useMobileSizing and UDim2.new(0, 550, 0, 45) or UDim2.new(0, 600, 0, 45)}):Play()
+	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = getWindowSize()}):Play()
+	TweenService:Create(Main.Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = getTopbarSize()}):Play()
 	TweenService:Create(Main.Shadow.Image, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {ImageTransparency = 0.6}):Play()
 	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 1}):Play()
 	TweenService:Create(Main.Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
@@ -2069,19 +2257,13 @@ function AHSTLib:CreateWindow(Settings)
 	Elements.UIPageLayout.TouchInputEnabled = false
 	TabList.Template.Visible = false
 
-	TabList.AnchorPoint = Vector2.new(0, 0)
-	TabList.Position = UDim2.new(0, 12, 0, 55)
-	TabList.Size = UDim2.new(0, 140, 1, -65)
-
 	local tabListLayout = TabList:FindFirstChildOfClass("UIListLayout")
 	if tabListLayout then
 		tabListLayout.FillDirection = Enum.FillDirection.Vertical
-		tabListLayout.Padding = UDim.new(0, 6)
+		tabListLayout.Padding = UDim.new(0, 8)
 	end
 
-	Elements.AnchorPoint = Vector2.new(0, 0)
-	Elements.Position = UDim2.new(0, 162, 0, 55)
-	Elements.Size = UDim2.new(1, -174, 1, -65)
+	styleShell()
 
 	
 	local FirstTab = false
@@ -2093,10 +2275,17 @@ function AHSTLib:CreateWindow(Settings)
 		TabButton.Title.Text = Name
 		TabButton.Parent = TabList
 		TabButton.Title.TextWrapped = false
-		TabButton.Size = UDim2.new(1, -5, 0, 32)
+		TabButton.Title.TextTruncate = Enum.TextTruncate.AtEnd
+		TabButton.Size = UDim2.new(1, -8, 0, 36)
 		TabButton.Title.TextXAlignment = Enum.TextXAlignment.Left
 		TabButton.Title.AnchorPoint = Vector2.new(0, 0.5)
-		TabButton.Title.Position = UDim2.new(0, 10, 0.5, 0)
+		TabButton.Title.Position = UDim2.new(0, 14, 0.5, 0)
+		TabButton.Title.Size = UDim2.new(1, -26, 0, 18)
+		TabButton.ZIndex = 4
+		TabButton.Title.ZIndex = 5
+		TabButton.Image.ZIndex = 5
+		TabButton.Interact.ZIndex = 6
+		setCornerRadius(TabButton, 8)
 
 		if Image and Image ~= 0 then
 			local img, rectOffset, rectSize = resolveIcon(Image)
@@ -2104,7 +2293,8 @@ function AHSTLib:CreateWindow(Settings)
 			if rectOffset then TabButton.Image.ImageRectOffset = rectOffset end
 			if rectSize then TabButton.Image.ImageRectSize = rectSize end
 
-			TabButton.Title.Position = UDim2.new(0, 37, 0.5, 0)
+			TabButton.Title.Position = UDim2.new(0, 42, 0.5, 0)
+			TabButton.Title.Size = UDim2.new(1, -54, 0, 18)
 			TabButton.Image.Visible = true
 		end
 
@@ -2131,6 +2321,12 @@ function AHSTLib:CreateWindow(Settings)
 		end
 
 		TabPage.Parent = Elements
+		styleTabPage(TabPage)
+		TabPage.ChildAdded:Connect(function(child)
+			task.defer(function()
+				styleElementFrame(child)
+			end)
+		end)
 		if not FirstTab and not Ext then
 			Elements.UIPageLayout.Animated = false
 			Elements.UIPageLayout:JumpTo(TabPage)
@@ -2156,10 +2352,10 @@ function AHSTLib:CreateWindow(Settings)
 			TabButton.BackgroundColor3 = SelectedTheme.TabBackground
 			TabButton.Image.ImageColor3 = SelectedTheme.TabTextColor
 			TabButton.Title.TextColor3 = SelectedTheme.TabTextColor
-			TweenService:Create(TabButton, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.7}):Play()
+			TweenService:Create(TabButton, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.62}):Play()
 			TweenService:Create(TabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0.2}):Play()
 			TweenService:Create(TabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {ImageTransparency = 0.2}):Play()
-			TweenService:Create(TabButton.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.5}):Play()
+			TweenService:Create(TabButton.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.28}):Play()
 		elseif not Ext then
 			FirstTab = Name
 			TabButton.BackgroundColor3 = SelectedTheme.TabBackgroundSelected
@@ -2186,10 +2382,10 @@ function AHSTLib:CreateWindow(Settings)
 					TweenService:Create(OtherTabButton, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.TabBackground}):Play()
 					TweenService:Create(OtherTabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextColor3 = SelectedTheme.TabTextColor}):Play()
 					TweenService:Create(OtherTabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {ImageColor3 = SelectedTheme.TabTextColor}):Play()
-					TweenService:Create(OtherTabButton, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.7}):Play()
+					TweenService:Create(OtherTabButton, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.62}):Play()
 					TweenService:Create(OtherTabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0.2}):Play()
 					TweenService:Create(OtherTabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {ImageTransparency = 0.2}):Play()
-					TweenService:Create(OtherTabButton.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.5}):Play()
+					TweenService:Create(OtherTabButton.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.28}):Play()
 				end
 			end
 
@@ -2214,8 +2410,9 @@ function AHSTLib:CreateWindow(Settings)
 			Button.UIStroke.Transparency = 1
 			Button.Title.TextTransparency = 1
 
-			TweenService:Create(Button, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.45}):Play()
-			TweenService:Create(Button.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+			styleElementFrame(Button)
+			TweenService:Create(Button, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.16}):Play()
+			TweenService:Create(Button.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 			TweenService:Create(Button.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()	
 
 
@@ -2236,7 +2433,7 @@ function AHSTLib:CreateWindow(Settings)
 					Button.Title.Text = ButtonSettings.Name
 					TweenService:Create(Button, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
 					TweenService:Create(Button.ElementIndicator, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {TextTransparency = 0.9}):Play()
-					TweenService:Create(Button.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+					TweenService:Create(Button.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 				else
 					if not ButtonSettings.Ext then
 						SaveConfiguration(ButtonSettings.Name..'\n')
@@ -2247,7 +2444,7 @@ function AHSTLib:CreateWindow(Settings)
 					task.wait(0.2)
 					TweenService:Create(Button, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
 					TweenService:Create(Button.ElementIndicator, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {TextTransparency = 0.9}):Play()
-					TweenService:Create(Button.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+					TweenService:Create(Button.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 				end
 			end)
 
@@ -2282,6 +2479,7 @@ function AHSTLib:CreateWindow(Settings)
 			ColorPicker.Title.Text = ColorPickerSettings.Name
 			ColorPicker.Visible = true
 			ColorPicker.Parent = TabPage
+			styleElementFrame(ColorPicker)
 			ColorPicker.Size = UDim2.new(1, -10, 0, 45)
 			Background.Size = UDim2.new(0, 39, 0, 22)
 			Display.BackgroundTransparency = 0
@@ -2313,7 +2511,7 @@ function AHSTLib:CreateWindow(Settings)
 					TweenService:Create(ColorPicker.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 					task.wait(0.2)
 					TweenService:Create(ColorPicker, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
-					TweenService:Create(ColorPicker.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+					TweenService:Create(ColorPicker.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 				end)
 
 				if not opened then
@@ -2585,6 +2783,7 @@ function AHSTLib:CreateWindow(Settings)
 			Label.Title.Text = LabelText
 			Label.Visible = true
 			Label.Parent = TabPage
+			styleElementFrame(Label)
 
 			Label.BackgroundColor3 = Color or SelectedTheme.SecondaryElementBackground
 			Label.UIStroke.Color = Color or SelectedTheme.SecondaryElementStroke
@@ -2609,12 +2808,12 @@ function AHSTLib:CreateWindow(Settings)
 			Label.UIStroke.Transparency = 1
 			Label.Title.TextTransparency = 1
 
-			Label:SetAttribute("BackgroundTransparencyTarget", Color and 0.8 or 0)
-			Label:SetAttribute("UIStrokeTransparencyTarget", Color and 0.7 or 0)
+			Label:SetAttribute("BackgroundTransparencyTarget", Color and 0.72 or 0.08)
+			Label:SetAttribute("UIStrokeTransparencyTarget", Color and 0.55 or 0.18)
 			Label:SetAttribute("TitleTextTransparencyTarget", Color and 0.2 or 0)
 
-			TweenService:Create(Label, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = Color and 0.8 or 0}):Play()
-			TweenService:Create(Label.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = Color and 0.7 or 0}):Play()
+			TweenService:Create(Label, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = Color and 0.72 or 0.08}):Play()
+			TweenService:Create(Label.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = Color and 0.55 or 0.18}):Play()
 			TweenService:Create(Label.Icon, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {ImageTransparency = 0.2}):Play()
 			TweenService:Create(Label.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = Color and 0.2 or 0}):Play()
 
@@ -2665,15 +2864,22 @@ function AHSTLib:CreateWindow(Settings)
 			Paragraph.BackgroundColor3 = SelectedTheme.SecondaryElementBackground
 			Paragraph.UIStroke.Color = SelectedTheme.SecondaryElementStroke
 
-			TweenService:Create(Paragraph, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.45}):Play()
-			TweenService:Create(Paragraph.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+			styleElementFrame(Paragraph)
+			TweenService:Create(Paragraph, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.16}):Play()
+			TweenService:Create(Paragraph.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 			TweenService:Create(Paragraph.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()	
 			TweenService:Create(Paragraph.Content, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()	
 
 			function ParagraphValue:Set(NewParagraphSettings)
 				Paragraph.Title.Text = NewParagraphSettings.Title
 				Paragraph.Content.Text = NewParagraphSettings.Content
+				fitParagraph(Paragraph)
 			end
+
+			Paragraph.Content:GetPropertyChangedSignal("Text"):Connect(function()
+				fitParagraph(Paragraph)
+			end)
+			fitParagraph(Paragraph)
 
 			Rayfield.Main:GetPropertyChangedSignal('BackgroundColor3'):Connect(function()
 				Paragraph.BackgroundColor3 = SelectedTheme.SecondaryElementBackground
@@ -2700,12 +2906,13 @@ function AHSTLib:CreateWindow(Settings)
 			Input.InputFrame.BackgroundColor3 = SelectedTheme.InputBackground
 			Input.InputFrame.UIStroke.Color = SelectedTheme.InputStroke
 
-			TweenService:Create(Input, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.45}):Play()
-			TweenService:Create(Input.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+			styleElementFrame(Input)
+			TweenService:Create(Input, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.16}):Play()
+			TweenService:Create(Input.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 			TweenService:Create(Input.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()	
 
 			Input.InputFrame.InputBox.PlaceholderText = InputSettings.PlaceholderText
-			Input.InputFrame.Size = UDim2.new(0, Input.InputFrame.InputBox.TextBounds.X + 24, 0, 30)
+			fitControlFrame(Input.InputFrame, Input.InputFrame.InputBox)
 
 			Input.InputFrame.InputBox.FocusLost:Connect(function()
 				local Success, Response = pcall(function()
@@ -2722,7 +2929,7 @@ function AHSTLib:CreateWindow(Settings)
 					task.wait(0.5)
 					Input.Title.Text = InputSettings.Name
 					TweenService:Create(Input, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
-					TweenService:Create(Input.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+					TweenService:Create(Input.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 				end
 
 				if InputSettings.RemoveTextAfterFocusLost then
@@ -2743,7 +2950,7 @@ function AHSTLib:CreateWindow(Settings)
 			end)
 
 			Input.InputFrame.InputBox:GetPropertyChangedSignal("Text"):Connect(function()
-				TweenService:Create(Input.InputFrame, TweenInfo.new(0.55, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = UDim2.new(0, Input.InputFrame.InputBox.TextBounds.X + 24, 0, 30)}):Play()
+				fitControlFrame(Input.InputFrame, Input.InputFrame.InputBox)
 			end)
 
 			function InputSettings:Set(text)
@@ -2823,8 +3030,9 @@ function AHSTLib:CreateWindow(Settings)
 
 			Dropdown.Size = UDim2.new(1, -10, 0, 45)
 
-			TweenService:Create(Dropdown, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.45}):Play()
-			TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+			styleElementFrame(Dropdown)
+			TweenService:Create(Dropdown, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.16}):Play()
+			TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 			TweenService:Create(Dropdown.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()	
 
 			for _, ununusedoption in ipairs(Dropdown.List:GetChildren()) do
@@ -2840,7 +3048,7 @@ function AHSTLib:CreateWindow(Settings)
 				TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 				task.wait(0.1)
 				TweenService:Create(Dropdown, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
-				TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+				TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 				if Debounce then return end
 				if Dropdown.List.Visible then
 					Debounce = true
@@ -2867,7 +3075,7 @@ function AHSTLib:CreateWindow(Settings)
 							if DropdownOpt.Name ~= Dropdown.Selected.Text then
 								TweenService:Create(DropdownOpt.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
 							end
-							TweenService:Create(DropdownOpt, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.45}):Play()
+							TweenService:Create(DropdownOpt, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.16}):Play()
 							TweenService:Create(DropdownOpt.Title, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()
 						end
 					end
@@ -2962,7 +3170,7 @@ function AHSTLib:CreateWindow(Settings)
 							task.wait(0.5)
 							Dropdown.Title.Text = DropdownSettings.Name
 							TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
-							TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+							TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 						end
 
 						for _, droption in ipairs(Dropdown.List:GetChildren()) do
@@ -3052,7 +3260,7 @@ function AHSTLib:CreateWindow(Settings)
 					task.wait(0.5)
 					Dropdown.Title.Text = DropdownSettings.Name
 					TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
-					TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+					TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 				end
 
 				for _, droption in ipairs(Dropdown.List:GetChildren()) do
@@ -3131,12 +3339,13 @@ function AHSTLib:CreateWindow(Settings)
 			Keybind.KeybindFrame.BackgroundColor3 = SelectedTheme.InputBackground
 			Keybind.KeybindFrame.UIStroke.Color = SelectedTheme.InputStroke
 
-			TweenService:Create(Keybind, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.45}):Play()
-			TweenService:Create(Keybind.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+			styleElementFrame(Keybind)
+			TweenService:Create(Keybind, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.16}):Play()
+			TweenService:Create(Keybind.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 			TweenService:Create(Keybind.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()	
 
 			Keybind.KeybindFrame.KeybindBox.Text = KeybindSettings.CurrentKeybind
-			Keybind.KeybindFrame.Size = UDim2.new(0, Keybind.KeybindFrame.KeybindBox.TextBounds.X + 24, 0, 30)
+			fitControlFrame(Keybind.KeybindFrame, Keybind.KeybindFrame.KeybindBox)
 
 			Keybind.KeybindFrame.KeybindBox.Focused:Connect(function()
 				CheckingForKey = true
@@ -3197,7 +3406,7 @@ function AHSTLib:CreateWindow(Settings)
 							task.wait(0.5)
 							Keybind.Title.Text = KeybindSettings.Name
 							TweenService:Create(Keybind, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
-							TweenService:Create(Keybind.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+							TweenService:Create(Keybind.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 						end
 					else
 						task.wait(0.25)
@@ -3217,7 +3426,7 @@ function AHSTLib:CreateWindow(Settings)
 			table.insert(keybindConnections, connection)
 
 			Keybind.KeybindFrame.KeybindBox:GetPropertyChangedSignal("Text"):Connect(function()
-				TweenService:Create(Keybind.KeybindFrame, TweenInfo.new(0.55, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = UDim2.new(0, Keybind.KeybindFrame.KeybindBox.TextBounds.X + 24, 0, 30)}):Play()
+				fitControlFrame(Keybind.KeybindFrame, Keybind.KeybindFrame.KeybindBox)
 			end)
 
 			function KeybindSettings:Set(NewKeybind)
@@ -3266,8 +3475,9 @@ function AHSTLib:CreateWindow(Settings)
 				Toggle.Switch.Shadow.Visible = false
 			end
 
-			TweenService:Create(Toggle, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.45}):Play()
-			TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+			styleElementFrame(Toggle)
+			TweenService:Create(Toggle, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.16}):Play()
+			TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 			TweenService:Create(Toggle.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()	
 
 			if ToggleSettings.CurrentValue == true then
@@ -3300,7 +3510,7 @@ function AHSTLib:CreateWindow(Settings)
 					TweenService:Create(Toggle.Switch.Indicator, TweenInfo.new(0.8, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {BackgroundColor3 = SelectedTheme.ToggleDisabled}):Play()
 					TweenService:Create(Toggle.Switch.UIStroke, TweenInfo.new(0.55, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Color = SelectedTheme.ToggleDisabledOuterStroke}):Play()
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
-					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()	
+					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()	
 				else
 					ToggleSettings.CurrentValue = true
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackgroundHover}):Play()
@@ -3310,7 +3520,7 @@ function AHSTLib:CreateWindow(Settings)
 					TweenService:Create(Toggle.Switch.Indicator, TweenInfo.new(0.8, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {BackgroundColor3 = SelectedTheme.ToggleEnabled}):Play()
 					TweenService:Create(Toggle.Switch.UIStroke, TweenInfo.new(0.55, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Color = SelectedTheme.ToggleEnabledOuterStroke}):Play()
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
-					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()		
+					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()		
 				end
 
 				local Success, Response = pcall(function()
@@ -3328,7 +3538,7 @@ function AHSTLib:CreateWindow(Settings)
 					task.wait(0.5)
 					Toggle.Title.Text = ToggleSettings.Name
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
-					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 				end
 
 				if not ToggleSettings.Ext then
@@ -3348,7 +3558,7 @@ function AHSTLib:CreateWindow(Settings)
 					TweenService:Create(Toggle.Switch.UIStroke, TweenInfo.new(0.55, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Color = SelectedTheme.ToggleEnabledOuterStroke}):Play()
 					TweenService:Create(Toggle.Switch.Indicator, TweenInfo.new(0.45, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {Size = UDim2.new(0,17,0,17)}):Play()	
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
-					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()	
+					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()	
 				else
 					ToggleSettings.CurrentValue = false
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackgroundHover}):Play()
@@ -3360,7 +3570,7 @@ function AHSTLib:CreateWindow(Settings)
 					TweenService:Create(Toggle.Switch.UIStroke, TweenInfo.new(0.55, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Color = SelectedTheme.ToggleDisabledOuterStroke}):Play()
 					TweenService:Create(Toggle.Switch.Indicator, TweenInfo.new(0.4, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {Size = UDim2.new(0,17,0,17)}):Play()
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
-					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()	
+					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()	
 				end
 
 				local Success, Response = pcall(function()
@@ -3378,7 +3588,7 @@ function AHSTLib:CreateWindow(Settings)
 					task.wait(0.5)
 					Toggle.Title.Text = ToggleSettings.Name
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
-					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 				end
 
 				if not ToggleSettings.Ext then
@@ -3440,8 +3650,9 @@ function AHSTLib:CreateWindow(Settings)
 			Slider.Main.Progress.UIStroke.Color = SelectedTheme.SliderStroke
 			Slider.Main.Progress.BackgroundColor3 = SelectedTheme.SliderProgress
 
-			TweenService:Create(Slider, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.45}):Play()
-			TweenService:Create(Slider.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+			styleElementFrame(Slider)
+			TweenService:Create(Slider, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.16}):Play()
+			TweenService:Create(Slider.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 			TweenService:Create(Slider.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()	
 
 			local initPercentage = (SliderSettings.CurrentValue - SliderSettings.Range[1]) / (SliderSettings.Range[2] - SliderSettings.Range[1])
@@ -3493,7 +3704,7 @@ function AHSTLib:CreateWindow(Settings)
 						task.wait(0.5)
 						Slider.Title.Text = SliderSettings.Name
 						TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
-						TweenService:Create(Slider.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+						TweenService:Create(Slider.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 					end
 
 					SliderSettings.CurrentValue = NewValue
@@ -3550,7 +3761,7 @@ function AHSTLib:CreateWindow(Settings)
 					task.wait(0.5)
 					Slider.Title.Text = SliderSettings.Name
 					TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
-					TweenService:Create(Slider.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+					TweenService:Create(Slider.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0.18}):Play()
 				end
 
 				SliderSettings.CurrentValue = NewVal
@@ -3606,7 +3817,7 @@ function AHSTLib:CreateWindow(Settings)
 	TweenService:Create(LoadingFrame.Subtitle, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
 	TweenService:Create(LoadingFrame.Version, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
 	task.wait(0.1)
-	TweenService:Create(Main, TweenInfo.new(0.6, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = useMobileSizing and UDim2.new(0, 550, 0, 260) or UDim2.new(0, 600, 0, 380)}):Play()
+	TweenService:Create(Main, TweenInfo.new(0.6, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = getWindowSize()}):Play()
 	TweenService:Create(Main.Shadow.Image, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {ImageTransparency = 0.6}):Play()
 
 	Topbar.BackgroundTransparency = 1
@@ -3808,10 +4019,10 @@ if Topbar:FindFirstChild('Settings') then
 					TweenService:Create(OtherTabButton, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.TabBackground}):Play()
 					TweenService:Create(OtherTabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextColor3 = SelectedTheme.TabTextColor}):Play()
 					TweenService:Create(OtherTabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {ImageColor3 = SelectedTheme.TabTextColor}):Play()
-					TweenService:Create(OtherTabButton, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.7}):Play()
+					TweenService:Create(OtherTabButton, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.62}):Play()
 					TweenService:Create(OtherTabButton.Title, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {TextTransparency = 0.2}):Play()
 					TweenService:Create(OtherTabButton.Image, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {ImageTransparency = 0.2}):Play()
-					TweenService:Create(OtherTabButton.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.5}):Play()
+					TweenService:Create(OtherTabButton.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {Transparency = 0.28}):Play()
 				end
 			end
 
