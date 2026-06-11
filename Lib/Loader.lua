@@ -107,31 +107,33 @@ local Themes = {
 ahst_lib.Themes = Themes
 
 local Icons = {
-    home = "⌂",
-    main = "✦",
-    player = "♙",
-    visuals = "◉",
-    combat = "⚔",
-    teleports = "◎",
-    farming = "◆",
-    misc = "✣",
-    settings = "⚙",
-    scripts = "</>",
-    lightning = "ϟ",
-    crown = "♛",
-    shield = "◇",
-    search = "⌕",
-    close = "×",
-    minimize = "−",
-    maximize = "□",
-    menu = "≡",
-    check = "✓",
+    home = "home",
+    main = "spark",
+    player = "user",
+    visuals = "eye",
+    combat = "crosshair",
+    teleports = "map",
+    farming = "leaf",
+    misc = "grid",
+    settings = "gear",
+    scripts = "code",
+    lightning = "bolt",
+    crown = "crown",
+    shield = "shield",
+    search = "search",
+    close = "x",
+    minimize = "minus",
+    maximize = "square",
+    menu = "menu",
+    check = "check",
     warning = "!",
     info = "i",
-    error = "×",
-    user = "●",
-    cube = "◇",
-    star = "✧"
+    error = "x",
+    user = "user",
+    cube = "box",
+    star = "spark",
+    uptime = "pulse",
+    diamond = "diamond"
 }
 
 local DefaultTabs = {
@@ -230,6 +232,187 @@ local function addPadding(parent, left, right, top, bottom)
         PaddingBottom = UDim.new(0, bottom or top or 0),
         Parent = parent
     })
+end
+
+local function iconLine(parent, color, position, size, rotation, zIndex)
+    local line = create("Frame", {
+        AnchorPoint = Vector2.new(0.5, 0.5),
+        BackgroundColor3 = color,
+        BorderSizePixel = 0,
+        Position = position,
+        Rotation = rotation or 0,
+        Size = size,
+        ZIndex = zIndex or parent.ZIndex + 1,
+        Parent = parent
+    })
+    addCorner(line, 8)
+    return line
+end
+
+local function iconBox(parent, color, position, size, radius, zIndex)
+    local box = create("Frame", {
+        BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+        BackgroundTransparency = 1,
+        BorderSizePixel = 0,
+        Position = position,
+        Size = size,
+        ZIndex = zIndex or parent.ZIndex + 1,
+        Parent = parent
+    })
+    addCorner(box, radius or 8)
+    addStroke(box, color, 0, 2)
+    return box
+end
+
+local function tintIcon(icon, color)
+    if not icon then
+        return
+    end
+    for _, item in ipairs(icon:GetDescendants()) do
+        if item:IsA("Frame") and item.Name ~= "IconRoot" then
+            pcall(function()
+                tween(item, {
+                    BackgroundColor3 = color
+                }, 0.18)
+            end)
+        elseif item:IsA("UIStroke") then
+            pcall(function()
+                tween(item, {
+                    Color = color
+                }, 0.18)
+            end)
+        elseif item:IsA("TextLabel") then
+            pcall(function()
+                tween(item, {
+                    TextColor3 = color
+                }, 0.18)
+            end)
+        end
+    end
+end
+
+local function createVectorIcon(parent, name, color, options)
+    options = options or {}
+    local size = options.Size or 24
+    local holder = create("Frame", {
+        Name = "IconRoot",
+        AnchorPoint = options.AnchorPoint or Vector2.new(0, 0),
+        BackgroundTransparency = 1,
+        Position = options.Position or UDim2.fromOffset(0, 0),
+        Size = UDim2.fromOffset(size, size),
+        ZIndex = options.ZIndex or (parent and parent.ZIndex + 1 or 1),
+        Parent = parent
+    })
+    local c = color or Color3.fromRGB(255, 255, 255)
+    local n = string.lower(tostring(name or "spark"))
+    local function ln(x, y, w, h, rot)
+        return iconLine(holder, c, UDim2.fromScale(x, y), UDim2.fromScale(w, h), rot, holder.ZIndex + 1)
+    end
+    local function bx(x, y, w, h, r)
+        return iconBox(holder, c, UDim2.fromScale(x, y), UDim2.fromScale(w, h), r or math.floor(size * 0.16), holder.ZIndex + 1)
+    end
+    if n == "home" then
+        ln(0.38, 0.32, 0.42, 0.09, -38)
+        ln(0.62, 0.32, 0.42, 0.09, 38)
+        bx(0.25, 0.42, 0.5, 0.42, math.floor(size * 0.12))
+        ln(0.5, 0.72, 0.12, 0.24, 0)
+    elseif n == "user" then
+        bx(0.35, 0.16, 0.3, 0.3, size)
+        bx(0.23, 0.56, 0.54, 0.28, size)
+    elseif n == "eye" then
+        bx(0.18, 0.28, 0.64, 0.42, size)
+        bx(0.42, 0.4, 0.16, 0.16, size)
+    elseif n == "crosshair" then
+        bx(0.26, 0.26, 0.48, 0.48, size)
+        ln(0.5, 0.12, 0.08, 0.22, 0)
+        ln(0.5, 0.88, 0.08, 0.22, 0)
+        ln(0.12, 0.5, 0.22, 0.08, 0)
+        ln(0.88, 0.5, 0.22, 0.08, 0)
+    elseif n == "map" then
+        bx(0.18, 0.24, 0.64, 0.52, math.floor(size * 0.1))
+        ln(0.38, 0.5, 0.05, 0.48, 0)
+        ln(0.62, 0.5, 0.05, 0.48, 0)
+    elseif n == "leaf" then
+        bx(0.28, 0.2, 0.48, 0.48, size)
+        ln(0.38, 0.72, 0.46, 0.08, -38)
+    elseif n == "gear" then
+        bx(0.32, 0.32, 0.36, 0.36, size)
+        ln(0.5, 0.14, 0.08, 0.22, 0)
+        ln(0.5, 0.86, 0.08, 0.22, 0)
+        ln(0.14, 0.5, 0.22, 0.08, 0)
+        ln(0.86, 0.5, 0.22, 0.08, 0)
+        bx(0.43, 0.43, 0.14, 0.14, size)
+    elseif n == "search" then
+        bx(0.22, 0.18, 0.42, 0.42, size)
+        ln(0.72, 0.72, 0.36, 0.08, 45)
+    elseif n == "menu" then
+        ln(0.5, 0.28, 0.58, 0.08, 0)
+        ln(0.5, 0.5, 0.58, 0.08, 0)
+        ln(0.5, 0.72, 0.58, 0.08, 0)
+    elseif n == "minus" then
+        ln(0.5, 0.5, 0.56, 0.08, 0)
+    elseif n == "square" then
+        bx(0.25, 0.25, 0.5, 0.5, math.floor(size * 0.1))
+    elseif n == "x" then
+        ln(0.5, 0.5, 0.62, 0.08, 45)
+        ln(0.5, 0.5, 0.62, 0.08, -45)
+    elseif n == "check" then
+        ln(0.38, 0.58, 0.3, 0.08, 45)
+        ln(0.62, 0.48, 0.52, 0.08, -45)
+    elseif n == "shield" then
+        ln(0.5, 0.2, 0.48, 0.08, 0)
+        ln(0.3, 0.43, 0.45, 0.08, 80)
+        ln(0.7, 0.43, 0.45, 0.08, -80)
+        ln(0.41, 0.72, 0.32, 0.08, 42)
+        ln(0.59, 0.72, 0.32, 0.08, -42)
+    elseif n == "crown" then
+        ln(0.5, 0.72, 0.62, 0.1, 0)
+        ln(0.3, 0.46, 0.38, 0.1, 62)
+        ln(0.5, 0.42, 0.42, 0.1, 90)
+        ln(0.7, 0.46, 0.38, 0.1, -62)
+    elseif n == "box" then
+        bx(0.26, 0.26, 0.48, 0.48, math.floor(size * 0.1))
+        ln(0.5, 0.25, 0.34, 0.07, 25)
+        ln(0.5, 0.75, 0.34, 0.07, 25)
+    elseif n == "diamond" then
+        ln(0.5, 0.22, 0.36, 0.08, 42)
+        ln(0.5, 0.22, 0.36, 0.08, -42)
+        ln(0.5, 0.78, 0.36, 0.08, -42)
+        ln(0.5, 0.78, 0.36, 0.08, 42)
+    elseif n == "pulse" then
+        ln(0.18, 0.56, 0.24, 0.08, 0)
+        ln(0.38, 0.48, 0.24, 0.08, -55)
+        ln(0.56, 0.58, 0.28, 0.08, 45)
+        ln(0.82, 0.42, 0.34, 0.08, -32)
+    elseif n == "code" then
+        ln(0.34, 0.5, 0.36, 0.08, -45)
+        ln(0.34, 0.5, 0.36, 0.08, 45)
+        ln(0.66, 0.5, 0.36, 0.08, 45)
+        ln(0.66, 0.5, 0.36, 0.08, -45)
+    elseif n == "bolt" then
+        ln(0.55, 0.32, 0.42, 0.1, -58)
+        ln(0.45, 0.68, 0.42, 0.1, -58)
+    elseif n == "grid" then
+        bx(0.18, 0.18, 0.24, 0.24, math.floor(size * 0.08))
+        bx(0.58, 0.18, 0.24, 0.24, math.floor(size * 0.08))
+        bx(0.18, 0.58, 0.24, 0.24, math.floor(size * 0.08))
+        bx(0.58, 0.58, 0.24, 0.24, math.floor(size * 0.08))
+    elseif n == "!" or n == "warning" then
+        ln(0.5, 0.42, 0.08, 0.44, 0)
+        bx(0.45, 0.72, 0.1, 0.1, size)
+    elseif n == "i" or n == "info" then
+        bx(0.24, 0.24, 0.52, 0.52, size)
+        ln(0.5, 0.57, 0.08, 0.26, 0)
+        bx(0.45, 0.3, 0.1, 0.1, size)
+    else
+        ln(0.5, 0.18, 0.08, 0.36, 0)
+        ln(0.5, 0.82, 0.08, 0.36, 0)
+        ln(0.18, 0.5, 0.36, 0.08, 0)
+        ln(0.82, 0.5, 0.36, 0.08, 0)
+    end
+    holder:SetAttribute("IconName", n)
+    holder:SetAttribute("IconColor", c)
+    return holder
 end
 
 local function textLabel(properties)
@@ -540,11 +723,11 @@ function WindowClass:_build()
     local theme = self.Theme
     self.Background = create("Frame", {
         BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+        BackgroundTransparency = 1,
         BorderSizePixel = 0,
         Size = UDim2.fromScale(1, 1),
         Parent = self.Gui
     })
-    self:_createSpaceBackground(self.Background)
     self.Root = create("Frame", {
         AnchorPoint = Vector2.new(0.5, 0.5),
         BackgroundColor3 = theme.Background,
@@ -557,6 +740,10 @@ function WindowClass:_build()
     })
     addCorner(self.Root, 24)
     self.RootStroke = addStroke(self.Root, theme.Border, 0.2, 1.4)
+    self.RootScale = create("UIScale", {
+        Scale = 0.985,
+        Parent = self.Root
+    })
     addGradient(self.Root, {
         ColorSequenceKeypoint.new(0, theme.Surface2),
         ColorSequenceKeypoint.new(0.5, theme.Background),
@@ -608,6 +795,20 @@ function WindowClass:_build()
         NumberSequenceKeypoint.new(0, 0.42),
         NumberSequenceKeypoint.new(1, 1)
     }))
+    task.spawn(function()
+        while self.RedGlow and self.RedGlow.Parent do
+            tween(self.RedGlow, {
+                BackgroundTransparency = 0.86,
+                Size = UDim2.fromOffset(330, 260)
+            }, 2.4, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+            task.wait(2.4)
+            tween(self.RedGlow, {
+                BackgroundTransparency = 0.76,
+                Size = UDim2.fromOffset(300, 240)
+            }, 2.4, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+            task.wait(2.4)
+        end
+    end)
     self.Sidebar = create("Frame", {
         BackgroundColor3 = theme.Surface,
         BackgroundTransparency = 0.2,
@@ -642,17 +843,22 @@ function WindowClass:_build()
         ZIndex = 6,
         Parent = self.Sidebar
     })
-    self.BrandIcon = textLabel({
-        Font = Enum.Font.GothamBold,
-        Text = Icons.crown,
-        TextColor3 = theme.Accent,
-        TextSize = 40,
+    self.BrandIcon = create("Frame", {
+        BackgroundColor3 = theme.AccentDark,
+        BackgroundTransparency = 0.28,
+        BorderSizePixel = 0,
         Position = UDim2.fromOffset(28, 22),
         Size = UDim2.fromOffset(54, 54),
         ZIndex = 6,
-        TextXAlignment = Enum.TextXAlignment.Center
+        Parent = self.Brand
     })
-    self.BrandIcon.Parent = self.Brand
+    addCorner(self.BrandIcon, 16)
+    self.BrandIconStroke = addStroke(self.BrandIcon, theme.Accent, 0.28, 1.2)
+    self.BrandVectorIcon = createVectorIcon(self.BrandIcon, Icons.crown, theme.Accent, {
+        Size = 30,
+        Position = UDim2.fromOffset(12, 12),
+        ZIndex = 7
+    })
     self.BrandTitle = textLabel({
         Font = Enum.Font.GothamBold,
         Text = self.Options.Title or "ANUNCOS",
@@ -678,7 +884,7 @@ function WindowClass:_build()
         BackgroundTransparency = 0.35,
         Position = UDim2.new(1, -52, 0, 88),
         Size = UDim2.fromOffset(32, 32),
-        Text = Icons.menu,
+        Text = "",
         TextColor3 = theme.Muted,
         TextSize = 18,
         ZIndex = 7,
@@ -686,8 +892,24 @@ function WindowClass:_build()
     })
     addCorner(self.SidebarToggle, 10)
     addStroke(self.SidebarToggle, theme.Text, 0.88, 1)
+    self.SidebarToggleIcon = createVectorIcon(self.SidebarToggle, Icons.menu, theme.Muted, {
+        Size = 18,
+        Position = UDim2.fromOffset(7, 7),
+        ZIndex = 8
+    })
     self.SidebarToggle.MouseButton1Click:Connect(function()
         self:ToggleSidebar()
+    end)
+    connectHover(self.SidebarToggle, function()
+        tween(self.SidebarToggle, {
+            BackgroundTransparency = 0.18
+        }, 0.16)
+        tintIcon(self.SidebarToggleIcon, self.Theme.Text)
+    end, function()
+        tween(self.SidebarToggle, {
+            BackgroundTransparency = 0.35
+        }, 0.16)
+        tintIcon(self.SidebarToggleIcon, self.Theme.Muted)
     end)
     self.NavFrame = create("ScrollingFrame", {
         AutomaticCanvasSize = Enum.AutomaticSize.Y,
@@ -719,8 +941,10 @@ function WindowClass:_build()
     })
     addCorner(self.Profile, 14)
     addStroke(self.Profile, theme.Text, 0.88, 1)
-    self.Avatar = create("Frame", {
-        BackgroundColor3 = theme.AccentDark,
+    self.Avatar = create("ImageLabel", {
+        BackgroundColor3 = theme.Surface,
+        Image = "",
+        ScaleType = Enum.ScaleType.Crop,
         BorderSizePixel = 0,
         Position = UDim2.fromOffset(16, 14),
         Size = UDim2.fromOffset(48, 48),
@@ -729,16 +953,24 @@ function WindowClass:_build()
     })
     addCorner(self.Avatar, 48)
     addStroke(self.Avatar, theme.Accent, 0.28, 1.2)
-    local avatarIcon = textLabel({
-        Font = Enum.Font.GothamBold,
-        Text = Icons.user,
-        TextColor3 = theme.Accent,
-        TextSize = 22,
-        Size = UDim2.fromScale(1, 1),
-        TextXAlignment = Enum.TextXAlignment.Center,
-        ZIndex = 8,
-        Parent = self.Avatar
+    self.AvatarFallbackIcon = createVectorIcon(self.Avatar, Icons.user, theme.Accent, {
+        Size = 24,
+        Position = UDim2.fromOffset(12, 12),
+        ZIndex = 8
     })
+    task.spawn(function()
+        if LocalPlayer then
+            local ok, image = pcall(function()
+                return Players:GetUserThumbnailAsync(LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100)
+            end)
+            if ok and image and self.Avatar and self.Avatar.Parent then
+                self.Avatar.Image = image
+                if self.AvatarFallbackIcon then
+                    self.AvatarFallbackIcon.Visible = false
+                end
+            end
+        end
+    end)
     self.ProfileName = textLabel({
         Font = Enum.Font.GothamMedium,
         Text = self.Options.UserName or (LocalPlayer and LocalPlayer.DisplayName) or "Anuncos",
@@ -762,7 +994,7 @@ function WindowClass:_build()
     self.VersionLabel = textLabel({
         AnchorPoint = Vector2.new(0, 1),
         Font = Enum.Font.Gotham,
-        Text = "v" .. ahst_lib.Version .. "  •  Premium Edition",
+        Text = "v" .. ahst_lib.Version .. "  -  Premium Edition",
         TextColor3 = theme.Muted,
         TextSize = 12,
         Position = UDim2.new(0, 36, 1, -20),
@@ -788,15 +1020,10 @@ function WindowClass:_build()
     })
     addCorner(self.SearchContainer, 14)
     addStroke(self.SearchContainer, theme.Text, 0.9, 1)
-    self.SearchIcon = textLabel({
-        Text = Icons.search,
-        TextColor3 = theme.Muted,
-        TextSize = 20,
-        Position = UDim2.fromOffset(14, 0),
-        Size = UDim2.fromOffset(28, 42),
-        TextXAlignment = Enum.TextXAlignment.Center,
-        ZIndex = 10,
-        Parent = self.SearchContainer
+    self.SearchIcon = createVectorIcon(self.SearchContainer, Icons.search, theme.Muted, {
+        Size = 22,
+        Position = UDim2.fromOffset(16, 10),
+        ZIndex = 10
     })
     self.SearchBox = textBox({
         PlaceholderText = "Search anything...",
@@ -928,8 +1155,8 @@ function WindowClass:_build()
     self:_enableDrag()
     self:_enableResize()
     self:_startStats()
-    tween(self.Root, {
-        Size = self.Size
+    tween(self.RootScale, {
+        Scale = 1
     }, 0.5, Enum.EasingStyle.Exponential)
 end
 
@@ -937,22 +1164,25 @@ function WindowClass:_windowControl(text, callback, danger)
     local button = textButton({
         BackgroundTransparency = 1,
         Size = UDim2.fromOffset(38, 30),
-        Text = text,
+        Text = "",
         TextColor3 = danger and self.Theme.Accent or self.Theme.Muted,
         TextSize = 22,
         ZIndex = 13,
         Parent = self.Controls
     })
     addCorner(button, 10)
+    button.Icon = createVectorIcon(button, text, danger and self.Theme.Accent or self.Theme.Muted, {
+        Size = 16,
+        Position = UDim2.fromOffset(11, 7),
+        ZIndex = 14
+    })
     connectHover(button, function()
         button.BackgroundTransparency = 0.2
         button.BackgroundColor3 = danger and self.Theme.AccentDark or self.Theme.Surface3
-        tween(button, {
-            TextColor3 = danger and self.Theme.Accent2 or self.Theme.Text
-        }, 0.16)
+        tintIcon(button.Icon, danger and self.Theme.Accent2 or self.Theme.Text)
     end, function()
+        tintIcon(button.Icon, danger and self.Theme.Accent or self.Theme.Muted)
         tween(button, {
-            TextColor3 = danger and self.Theme.Accent or self.Theme.Muted,
             BackgroundTransparency = 1
         }, 0.16)
     end)
@@ -1024,17 +1254,11 @@ function WindowClass:_heroCard(titleText, valueText, iconText, color)
         ZIndex = 16,
         Parent = card
     })
-    local icon = textLabel({
-        Font = Enum.Font.GothamBold,
-        Text = iconText or Icons.star,
-        TextColor3 = color or self.Theme.Accent,
-        TextSize = 22,
+    local icon = createVectorIcon(card, iconText or Icons.star, color or self.Theme.Accent, {
+        Size = 26,
         AnchorPoint = Vector2.new(1, 0.5),
         Position = UDim2.new(1, -16, 0.5, 8),
-        Size = UDim2.fromOffset(30, 30),
-        TextXAlignment = Enum.TextXAlignment.Center,
-        ZIndex = 16,
-        Parent = card
+        ZIndex = 16
     })
     return {
         Instance = card,
@@ -1045,12 +1269,19 @@ function WindowClass:_heroCard(titleText, valueText, iconText, color)
 end
 
 function WindowClass:_createHero()
-    self.Hero = create("Frame", {
+    self.HeroBlock = create("Frame", {
         BackgroundTransparency = 1,
-        Position = UDim2.fromOffset(32, 24),
-        Size = UDim2.new(1, -420, 0, 128),
+        LayoutOrder = -100,
+        Size = UDim2.new(1, -8, 0, 238),
         ZIndex = 14,
         Parent = self.ContentHost
+    })
+    self.Hero = create("Frame", {
+        BackgroundTransparency = 1,
+        Position = UDim2.fromOffset(0, 6),
+        Size = UDim2.new(1, -360, 0, 128),
+        ZIndex = 14,
+        Parent = self.HeroBlock
     })
     self.HeroWelcome = textLabel({
         Font = Enum.Font.Gotham,
@@ -1072,19 +1303,14 @@ function WindowClass:_createHero()
         ZIndex = 15,
         Parent = self.Hero
     })
-    self.HeroGem = textLabel({
-        Font = Enum.Font.GothamBold,
-        Text = "◆",
-        TextColor3 = self.Theme.Accent,
-        TextSize = 34,
+    self.HeroGem = createVectorIcon(self.Hero, Icons.diamond, self.Theme.Accent, {
+        Size = 36,
         Position = UDim2.fromOffset(210, 32),
-        Size = UDim2.fromOffset(48, 42),
-        ZIndex = 15,
-        Parent = self.Hero
+        ZIndex = 15
     })
     self.HeroSubtitle = textLabel({
         Font = Enum.Font.GothamMedium,
-        Text = self.Options.HeroSubtitle or "Premium access • Expires in 365 days",
+        Text = self.Options.HeroSubtitle or "Premium access - Expires in 365 days",
         TextColor3 = self.Theme.Text,
         TextSize = 13,
         Position = UDim2.fromOffset(0, 78),
@@ -1094,10 +1320,10 @@ function WindowClass:_createHero()
     })
     self.HeroCards = create("Frame", {
         BackgroundTransparency = 1,
-        Position = UDim2.fromOffset(32, 152),
-        Size = UDim2.new(1, -390, 0, 78),
+        Position = UDim2.fromOffset(0, 150),
+        Size = UDim2.new(1, -18, 0, 78),
         ZIndex = 14,
-        Parent = self.ContentHost
+        Parent = self.HeroBlock
     })
     create("UIListLayout", {
         FillDirection = Enum.FillDirection.Horizontal,
@@ -1106,7 +1332,7 @@ function WindowClass:_createHero()
         Parent = self.HeroCards
     })
     self.HeroUser = self:_heroCard("User", "Premium", Icons.crown, self.Theme.Accent)
-    self.HeroUptime = self:_heroCard("Uptime", "99.9%", "⌁", self.Theme.Accent)
+    self.HeroUptime = self:_heroCard("Uptime", "99.9%", Icons.uptime, self.Theme.Accent)
     self.HeroScripts = self:_heroCard("Scripts", "24", Icons.cube, self.Theme.Accent)
     self.HeroStatus = self:_heroCard("Status", "Undetected", Icons.shield, self.Theme.Accent)
 end
@@ -1421,15 +1647,10 @@ function WindowClass:CreateTab(name, icon)
         Parent = tab.Button
     })
     addCorner(tab.IconCircle, 14)
-    tab.IconLabel = textLabel({
-        Font = Enum.Font.GothamBold,
-        Text = Icons[string.lower(tostring(tab.Icon))] or tostring(icon or string.sub(name, 1, 1)),
-        TextColor3 = self.Theme.Muted,
-        TextSize = 19,
-        Size = UDim2.fromScale(1, 1),
-        TextXAlignment = Enum.TextXAlignment.Center,
-        ZIndex = 10,
-        Parent = tab.IconCircle
+    tab.IconLabel = createVectorIcon(tab.IconCircle, Icons[string.lower(tostring(tab.Icon))] or tostring(icon or "spark"), self.Theme.Muted, {
+        Size = 22,
+        Position = UDim2.fromOffset(9, 9),
+        ZIndex = 10
     })
     tab.TitleLabel = textLabel({
         Font = Enum.Font.GothamMedium,
@@ -1464,7 +1685,7 @@ function WindowClass:CreateTab(name, icon)
         ZIndex = 12,
         Parent = self.ContentHost
     })
-    addPadding(tab.Page, 0, 8, 246, 16)
+    addPadding(tab.Page, 0, 8, 8, 16)
     tab.Layout = create("UIListLayout", {
         Padding = UDim.new(0, 14),
         SortOrder = Enum.SortOrder.LayoutOrder,
@@ -1481,9 +1702,7 @@ function WindowClass:CreateTab(name, icon)
             tween(tab.IconCircle, {
                 BackgroundTransparency = 0.2
             }, 0.16)
-            tween(tab.IconLabel, {
-                TextColor3 = self.Theme.Text
-            }, 0.16)
+            tintIcon(tab.IconLabel, self.Theme.Text)
         end
     end, function()
         if self.ActiveTab ~= tab then
@@ -1493,9 +1712,7 @@ function WindowClass:CreateTab(name, icon)
             tween(tab.IconCircle, {
                 BackgroundTransparency = 0.42
             }, 0.16)
-            tween(tab.IconLabel, {
-                TextColor3 = self.Theme.Muted
-            }, 0.16)
+            tintIcon(tab.IconLabel, self.Theme.Muted)
         end
     end)
     table.insert(self.Tabs, tab)
@@ -1523,11 +1740,14 @@ function WindowClass:SelectTab(tab)
             BackgroundColor3 = active and self.Theme.Accent or self.Theme.Surface3,
             BackgroundTransparency = active and 0.15 or 0.42
         }, 0.22)
-        tween(item.IconLabel, {
-            TextColor3 = active and Color3.fromRGB(255, 255, 255) or self.Theme.Muted
-        }, 0.22)
+        tintIcon(item.IconLabel, active and Color3.fromRGB(255, 255, 255) or self.Theme.Muted)
         if active then
             item.Page.CanvasPosition = Vector2.new(0, 0)
+            if self.HeroBlock then
+                self.HeroBlock.Parent = item.Page
+                self.HeroBlock.LayoutOrder = -100
+                self.HeroBlock.Visible = true
+            end
         end
     end
     self.ActiveTab = tab
@@ -1576,16 +1796,10 @@ function WindowClass:Notify(options)
         Parent = frame
     })
     addCorner(marker, 6)
-    local iconLabel = textLabel({
-        Font = Enum.Font.GothamBold,
-        Text = icon,
-        TextColor3 = color,
-        TextSize = 20,
+    local iconLabel = createVectorIcon(frame, icon, color, {
+        Size = 24,
         Position = UDim2.fromOffset(18, 14),
-        Size = UDim2.fromOffset(28, 28),
-        TextXAlignment = Enum.TextXAlignment.Center,
-        ZIndex = 82,
-        Parent = frame
+        ZIndex = 82
     })
     local title = textLabel({
         Font = Enum.Font.GothamBold,
@@ -1788,8 +2002,14 @@ function WindowClass:SetTheme(nameOrTheme)
     end
     if self.BrandIcon then
         tween(self.BrandIcon, {
-            TextColor3 = newTheme.Accent
+            BackgroundColor3 = newTheme.AccentDark
         }, 0.22)
+        if self.BrandIconStroke then
+            tween(self.BrandIconStroke, {
+                Color = newTheme.Accent
+            }, 0.22)
+        end
+        tintIcon(self.BrandVectorIcon, newTheme.Accent)
     end
     if self.BrandSubtitle then
         tween(self.BrandSubtitle, {
@@ -1801,47 +2021,40 @@ function WindowClass:SetTheme(nameOrTheme)
             TextColor3 = newTheme.Accent
         }, 0.22)
     end
+    tintIcon(self.AvatarFallbackIcon, newTheme.Accent)
+    tintIcon(self.SidebarToggleIcon, newTheme.Muted)
+    tintIcon(self.SearchIcon, newTheme.Muted)
     if self.ResizeGrip then
         tween(self.ResizeGrip, {
             BackgroundColor3 = newTheme.Accent
         }, 0.22)
     end
     if self.HeroGem then
-        tween(self.HeroGem, {
-            TextColor3 = newTheme.Accent
-        }, 0.22)
+        tintIcon(self.HeroGem, newTheme.Accent)
     end
     if self.HeroUser then
         tween(self.HeroUser.Value, {
             TextColor3 = newTheme.Accent
         }, 0.22)
-        tween(self.HeroUser.Icon, {
-            TextColor3 = newTheme.Accent
-        }, 0.22)
+        tintIcon(self.HeroUser.Icon, newTheme.Accent)
     end
     if self.HeroUptime then
         tween(self.HeroUptime.Value, {
             TextColor3 = newTheme.Accent
         }, 0.22)
-        tween(self.HeroUptime.Icon, {
-            TextColor3 = newTheme.Accent
-        }, 0.22)
+        tintIcon(self.HeroUptime.Icon, newTheme.Accent)
     end
     if self.HeroScripts then
         tween(self.HeroScripts.Value, {
             TextColor3 = newTheme.Accent
         }, 0.22)
-        tween(self.HeroScripts.Icon, {
-            TextColor3 = newTheme.Accent
-        }, 0.22)
+        tintIcon(self.HeroScripts.Icon, newTheme.Accent)
     end
     if self.HeroStatus then
         tween(self.HeroStatus.Value, {
             TextColor3 = newTheme.Accent
         }, 0.22)
-        tween(self.HeroStatus.Icon, {
-            TextColor3 = newTheme.Accent
-        }, 0.22)
+        tintIcon(self.HeroStatus.Icon, newTheme.Accent)
     end
     if self.FooterStatus then
         tween(self.FooterStatus, {
@@ -1861,10 +2074,16 @@ function WindowClass:SetTheme(nameOrTheme)
                 BackgroundColor3 = active and newTheme.Accent or newTheme.Surface3
             }, 0.22)
         end
-        if tab.IconLabel then
-            tween(tab.IconLabel, {
-                TextColor3 = active and Color3.fromRGB(255, 255, 255) or newTheme.Muted
+        tintIcon(tab.IconLabel, active and Color3.fromRGB(255, 255, 255) or newTheme.Muted)
+    end
+    for _, section in ipairs(self.Sections) do
+        if section.Accent then
+            tween(section.Accent, {
+                BackgroundColor3 = newTheme.Accent
             }, 0.22)
+        end
+        if section.HeaderIcon then
+            tintIcon(section.HeaderIcon, newTheme.Muted)
         end
     end
     self:Notify({
@@ -2001,34 +2220,62 @@ function TabClass:CreateSection(title, description, options)
     section.Frame = create("Frame", {
         AutomaticSize = Enum.AutomaticSize.Y,
         BackgroundColor3 = self.Window.Theme.Surface,
-        BackgroundTransparency = 0.13,
+        BackgroundTransparency = 0.1,
         BorderSizePixel = 0,
         Size = UDim2.new(1, 0, 0, 70),
         ZIndex = 14,
         Parent = self.Page
     })
     addCorner(section.Frame, 16)
-    addStroke(section.Frame, self.Window.Theme.Text, 0.88, 1)
+    section.FrameStroke = addStroke(section.Frame, self.Window.Theme.Text, 0.88, 1)
+    section.Scale = create("UIScale", {
+        Scale = 1,
+        Parent = section.Frame
+    })
+    connectHover(section.Frame, function()
+        tween(section.FrameStroke, {
+            Color = self.Window.Theme.Accent,
+            Transparency = 0.58
+        }, 0.18)
+        tween(section.Scale, {
+            Scale = 1.003
+        }, 0.18)
+    end, function()
+        tween(section.FrameStroke, {
+            Color = self.Window.Theme.Text,
+            Transparency = 0.88
+        }, 0.18)
+        tween(section.Scale, {
+            Scale = 1
+        }, 0.18)
+    end)
     section.Gradient = addGradient(section.Frame, {
         ColorSequenceKeypoint.new(0, self.Window.Theme.Surface2),
         ColorSequenceKeypoint.new(1, self.Window.Theme.Background)
     }, 90, NumberSequence.new(0.22))
+    section.Accent = create("Frame", {
+        BackgroundColor3 = self.Window.Theme.Accent,
+        BackgroundTransparency = 0.15,
+        BorderSizePixel = 0,
+        Position = UDim2.fromOffset(0, 16),
+        Size = UDim2.new(0, 3, 1, -32),
+        ZIndex = 16,
+        Parent = section.Frame
+    })
+    addCorner(section.Accent, 8)
     section.Header = create("Frame", {
-        BackgroundTransparency = 1,
+        BackgroundColor3 = self.Window.Theme.Surface2,
+        BackgroundTransparency = 0.56,
+        BorderSizePixel = 0,
         Size = UDim2.new(1, 0, 0, description and 64 or 52),
         ZIndex = 15,
         Parent = section.Frame
     })
-    section.HeaderIcon = textLabel({
-        Font = Enum.Font.GothamBold,
-        Text = options.Icon or Icons.star,
-        TextColor3 = self.Window.Theme.Muted,
-        TextSize = 18,
+    addCorner(section.Header, 16)
+    section.HeaderIcon = createVectorIcon(section.Header, options.Icon or Icons.star, self.Window.Theme.Muted, {
+        Size = 22,
         Position = UDim2.fromOffset(20, 16),
-        Size = UDim2.fromOffset(28, 24),
-        TextXAlignment = Enum.TextXAlignment.Center,
-        ZIndex = 16,
-        Parent = section.Header
+        ZIndex = 16
     })
     section.TitleLabel = textLabel({
         Font = Enum.Font.GothamBold,
@@ -2052,6 +2299,15 @@ function TabClass:CreateSection(title, description, options)
             Parent = section.Header
         })
     end
+    section.Separator = create("Frame", {
+        BackgroundColor3 = self.Window.Theme.Text,
+        BackgroundTransparency = 0.92,
+        BorderSizePixel = 0,
+        Position = UDim2.new(0, 18, 0, section.Header.Size.Y.Offset - 1),
+        Size = UDim2.new(1, -36, 0, 1),
+        ZIndex = 16,
+        Parent = section.Frame
+    })
     section.Container = create("Frame", {
         AutomaticSize = Enum.AutomaticSize.Y,
         BackgroundTransparency = 1,
@@ -2087,7 +2343,34 @@ function SectionClass:_baseComponent(options, height)
         Parent = self.Container
     })
     addCorner(frame, 12)
-    addStroke(frame, self.Window.Theme.Text, 0.93, 1)
+    local frameStroke = addStroke(frame, self.Window.Theme.Text, 0.93, 1)
+    local frameScale = create("UIScale", {
+        Scale = 1,
+        Parent = frame
+    })
+    connectHover(frame, function()
+        tween(frame, {
+            BackgroundTransparency = 0.2
+        }, 0.16)
+        tween(frameStroke, {
+            Transparency = 0.78,
+            Color = self.Window.Theme.Accent
+        }, 0.16)
+        tween(frameScale, {
+            Scale = 1.002
+        }, 0.16)
+    end, function()
+        tween(frame, {
+            BackgroundTransparency = 0.28
+        }, 0.16)
+        tween(frameStroke, {
+            Transparency = 0.93,
+            Color = self.Window.Theme.Text
+        }, 0.16)
+        tween(frameScale, {
+            Scale = 1
+        }, 0.16)
+    end)
     self.Window:_registerSearch(frame, (options.Name or "") .. " " .. (options.Description or ""))
     local title = textLabel({
         Font = Enum.Font.GothamMedium,
@@ -2390,7 +2673,7 @@ function SectionClass:CreateDropdown(options)
         Parent = display
     })
     local arrow = textLabel({
-        Text = "⌄",
+        Text = "v",
         TextColor3 = self.Window.Theme.Muted,
         TextSize = 18,
         Position = UDim2.new(1, -30, 0, 0),
@@ -2810,16 +3093,10 @@ function SectionClass:CreateCard(options)
     })
     addCorner(frame, 14)
     addStroke(frame, self.Window.Theme.Text, 0.9, 1)
-    local icon = textLabel({
-        Font = Enum.Font.GothamBold,
-        Text = options.Icon or Icons.cube,
-        TextColor3 = options.Color or self.Window.Theme.Accent,
-        TextSize = 24,
+    local icon = createVectorIcon(frame, options.Icon or Icons.cube, options.Color or self.Window.Theme.Accent, {
+        Size = 28,
         Position = UDim2.fromOffset(16, 14),
-        Size = UDim2.fromOffset(42, 42),
-        TextXAlignment = Enum.TextXAlignment.Center,
-        ZIndex = 19,
-        Parent = frame
+        ZIndex = 19
     })
     local title = textLabel({
         Font = Enum.Font.GothamMedium,
