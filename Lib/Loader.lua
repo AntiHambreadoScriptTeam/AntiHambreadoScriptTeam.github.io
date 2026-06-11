@@ -5,9 +5,25 @@ local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
-local TargetParent = CoreGui
-if not pcall(function() local a = CoreGui.Name end) then
-    TargetParent = Players.LocalPlayer:WaitForChild("PlayerGui")
+local LocalPlayer = Players.LocalPlayer
+if not LocalPlayer then
+    Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+    LocalPlayer = Players.LocalPlayer
+end
+
+local TargetParent = LocalPlayer:WaitForChild("PlayerGui")
+local gethui = gethui
+if gethui then
+    TargetParent = gethui()
+else
+    local success, _ = pcall(function()
+        local temp = Instance.new("Folder")
+        temp.Parent = CoreGui
+        temp:Destroy()
+    end)
+    if success then
+        TargetParent = CoreGui
+    end
 end
 
 local function GetAsset(Name, Url)
@@ -15,12 +31,20 @@ local function GetAsset(Name, Url)
         return Url
     end
     if not isfile(Name) then
-        local success, content = pcall(game.HttpGet, game, Url)
-        if success then
+        local success, content = pcall(function()
+            return game:HttpGet(Url)
+        end)
+        if success and content then
             writefile(Name, content)
         end
     end
-    return getcustomasset(Name)
+    if isfile(Name) then
+        local success, asset = pcall(getcustomasset, Name)
+        if success then
+            return asset
+        end
+    end
+    return Url
 end
 
 local Themes = {
@@ -251,14 +275,14 @@ function ahst_lib:CreateWindow(config)
         Position = UDim2.new(0, 10, 0.5, 0),
         AnchorPoint = Vector2.new(0, 0.5),
         BackgroundTransparency = 1,
-        Image = "rbxthumb://type=AvatarHeadShot&id=" .. Players.LocalPlayer.UserId .. "&w=150&h=150"
+        Image = "rbxthumb://type=AvatarHeadShot&id=" .. LocalPlayer.UserId .. "&w=150&h=150"
     }, {
         make("UICorner", { CornerRadius = UDim.new(1, 0) })
     })
     avatarImage.Parent = profileContainer
 
     local profileName = make("TextLabel", {
-        Text = Players.LocalPlayer.DisplayName,
+        Text = LocalPlayer.DisplayName,
         Font = Fonts.ComponentLabel,
         TextSize = 13,
         TextColor3 = currentTheme.Text,
@@ -1126,7 +1150,7 @@ function ahst_lib:CreateWindow(config)
                 end)
 
                 btnFrame.MouseButton1Click:Connect(function()
-                    local mouse = Players.LocalPlayer:GetMouse()
+                    local mouse = LocalPlayer:GetMouse()
                     local absolutePosition = btnFrame.AbsolutePosition
                     local mouseX = mouse.X - absolutePosition.X
                     local mouseY = mouse.Y - absolutePosition.Y
@@ -1204,7 +1228,7 @@ function ahst_lib:CreateWindow(config)
                     Size = UDim2.fromOffset(14, 14),
                     Position = UDim2.new(0, toggled and 19 or 3, 0.5, 0),
                     AnchorPoint = Vector2.new(0, 0.5),
-                    BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+                    BackgroundColor3 = Color3.fromRGB(25, 25, 25),
                     BorderSizePixel = 0
                 }, {
                     make("UICorner", { CornerRadius = UDim.new(1, 0) })
@@ -2360,7 +2384,7 @@ function ahst_lib:CreateWindow(config)
                 BackgroundTransparency = 1
             }),
             make("TextLabel", {
-                Text = userName or (Players.LocalPlayer.DisplayName .. " 👑"),
+                Text = userName or (LocalPlayer.DisplayName .. " 👑"),
                 Font = Fonts.Title,
                 TextSize = 24,
                 TextColor3 = currentTheme.Text,
