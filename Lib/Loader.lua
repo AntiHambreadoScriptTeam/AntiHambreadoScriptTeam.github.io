@@ -931,13 +931,26 @@ local Notifications = Rayfield.Notifications
 local keybindConnections = {} 
 
 local SelectedTheme = AHSTLib.Theme.Default
+local currentWindowSize
 
 local function getWindowSize()
-	return useMobileSizing and UDim2.new(0, 590, 0, 310) or UDim2.new(0, 680, 0, 420)
+	return currentWindowSize or (useMobileSizing and UDim2.new(0, 590, 0, 310) or UDim2.new(0, 680, 0, 420))
 end
 
 local function getTopbarSize()
-	return useMobileSizing and UDim2.new(0, 590, 0, 46) or UDim2.new(0, 680, 0, 46)
+	local size = getWindowSize()
+	return UDim2.new(0, size.X.Offset, 0, 46)
+end
+
+local function getDefaultWindowSize()
+	return useMobileSizing and Vector2.new(590, 310) or Vector2.new(680, 420)
+end
+
+local function getResizeBounds()
+	if useMobileSizing then
+		return Vector2.new(520, 260), Vector2.new(820, 520)
+	end
+	return Vector2.new(560, 320), Vector2.new(920, 620)
 end
 
 local function getTabWidth()
@@ -1019,6 +1032,98 @@ local function styleShell()
 	if Topbar:FindFirstChild("Title") then
 		styleTextObject(Topbar.Title, "bold")
 	end
+end
+
+local function applyWindowSize(width, height, animated)
+	local minBounds, maxBounds = getResizeBounds()
+	width = math.clamp(width, minBounds.X, maxBounds.X)
+	height = math.clamp(height, minBounds.Y, maxBounds.Y)
+	currentWindowSize = UDim2.new(0, width, 0, height)
+	local tweenInfo = TweenInfo.new(animated and 0.24 or 0.08, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
+	TweenService:Create(Main, tweenInfo, {Size = currentWindowSize}):Play()
+	TweenService:Create(Topbar, tweenInfo, {Size = UDim2.new(0, width, 0, 46)}):Play()
+	styleShell()
+end
+
+local function ensureResizeHandle()
+	local handle = Main:FindFirstChild("AHST_ResizeHandle")
+	if not handle then
+		handle = Instance.new("TextButton")
+		handle.Name = "AHST_ResizeHandle"
+		handle.Text = ""
+		handle.AutoButtonColor = false
+		handle.BorderSizePixel = 0
+		handle.AnchorPoint = Vector2.new(1, 1)
+		handle.Position = UDim2.new(1, -8, 1, -8)
+		handle.Size = UDim2.new(0, 22, 0, 22)
+		handle.ZIndex = 60
+		handle.Parent = Main
+		setCornerRadius(handle, 7)
+
+		local grip = Instance.new("Frame")
+		grip.Name = "Grip"
+		grip.AnchorPoint = Vector2.new(1, 1)
+		grip.Position = UDim2.new(1, -4, 1, -4)
+		grip.Size = UDim2.new(0, 10, 0, 10)
+		grip.BorderSizePixel = 0
+		grip.ZIndex = 61
+		grip.Parent = handle
+		setCornerRadius(grip, 4)
+
+		local resizing = false
+		local resizeInput
+		local startMouse
+		local startSize
+
+		handle.InputBegan:Connect(function(input)
+			local inputType = input.UserInputType
+			if inputType == Enum.UserInputType.MouseButton1 or inputType == Enum.UserInputType.Touch then
+				resizing = true
+				resizeInput = input
+				startMouse = UserInputService:GetMouseLocation()
+				startSize = Vector2.new(Main.AbsoluteSize.X, Main.AbsoluteSize.Y)
+				TweenService:Create(handle, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.2}):Play()
+				TweenService:Create(grip, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
+			end
+		end)
+
+		handle.InputEnded:Connect(function(input)
+			if input == resizeInput then
+				resizing = false
+				resizeInput = nil
+				TweenService:Create(handle, TweenInfo.new(0.24, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.55}):Play()
+				TweenService:Create(grip, TweenInfo.new(0.24, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.18}):Play()
+			end
+		end)
+
+		UserInputService.InputEnded:Connect(function(input)
+			if input == resizeInput then
+				resizing = false
+				resizeInput = nil
+				TweenService:Create(handle, TweenInfo.new(0.24, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.55}):Play()
+				TweenService:Create(grip, TweenInfo.new(0.24, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.18}):Play()
+			end
+		end)
+
+		UserInputService.InputChanged:Connect(function(input)
+			if not resizing or Minimised or Hidden then return end
+			local inputType = input.UserInputType
+			if input == resizeInput or inputType == Enum.UserInputType.MouseMovement or inputType == Enum.UserInputType.Touch then
+				local currentMouse = UserInputService:GetMouseLocation()
+				local delta = currentMouse - startMouse
+				applyWindowSize(startSize.X + delta.X, startSize.Y + delta.Y, false)
+			end
+		end)
+	end
+
+	handle.BackgroundColor3 = SelectedTheme.ElementStroke
+	handle.BackgroundTransparency = 0.55
+	if handle:FindFirstChild("Grip") then
+		handle.Grip.BackgroundColor3 = SelectedTheme.TabBackgroundSelected
+		handle.Grip.BackgroundTransparency = 0.18
+	end
+	handle.Visible = not Minimised and not Hidden
+	return handle
 end
 
 local function styleTabPage(tabPage)
@@ -1160,6 +1265,7 @@ local function ChangeTheme(Theme)
 	end
 
 	styleShell()
+	ensureResizeHandle()
 
 	for _, TabPage in ipairs(Elements:GetChildren()) do
 		styleTabPage(TabPage)
@@ -1668,6 +1774,9 @@ local function Hide(notify)
 
 	setElementsVisible(false)
 
+	local resizeHandle = Main:FindFirstChild("AHST_ResizeHandle")
+	if resizeHandle then resizeHandle.Visible = false end
+
 	task.wait(0.5)
 	Main.Visible = false
 	Debounce = false
@@ -1682,8 +1791,9 @@ local function Maximise()
 	TweenService:Create(Topbar.CornerRepair, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
 	TweenService:Create(Topbar.Divider, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
 	TweenService:Create(dragBarCosmetic, TweenInfo.new(0.25, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = 0.7}):Play()
-	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = getWindowSize()}):Play()
-	TweenService:Create(Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = getTopbarSize()}):Play()
+	applyWindowSize(getWindowSize().X.Offset, getWindowSize().Y.Offset, true)
+	local resizeHandle = ensureResizeHandle()
+	resizeHandle.Visible = true
 	TabList.Visible = true
 	task.wait(0.2)
 
@@ -1704,8 +1814,9 @@ local function Unhide()
 	Debounce = true
 	Main.Position = UDim2.new(0.5, 0, 0.5, 0)
 	Main.Visible = true
-	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = getWindowSize()}):Play()
-	TweenService:Create(Main.Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = getTopbarSize()}):Play()
+	applyWindowSize(getWindowSize().X.Offset, getWindowSize().Y.Offset, true)
+	local resizeHandle = ensureResizeHandle()
+	resizeHandle.Visible = true
 	TweenService:Create(Main.Shadow.Image, TweenInfo.new(0.7, Enum.EasingStyle.Exponential), {ImageTransparency = 0.6}):Play()
 	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 1}):Play()
 	TweenService:Create(Main.Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
@@ -1772,6 +1883,8 @@ local function Minimise()
 	TweenService:Create(Topbar.Divider, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {BackgroundTransparency = 1}):Play()
 	TweenService:Create(Main, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = UDim2.new(0, 495, 0, 45)}):Play()
 	TweenService:Create(Topbar, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = UDim2.new(0, 495, 0, 45)}):Play()
+	local resizeHandle = Main:FindFirstChild("AHST_ResizeHandle")
+	if resizeHandle then resizeHandle.Visible = false end
 
 	task.wait(0.3)
 
@@ -1922,6 +2035,10 @@ function AHSTLib:CreateWindow(Settings)
 	end
 
 	ensureFolder(RayfieldFolder)
+	if not currentWindowSize then
+		local defaultSize = getDefaultWindowSize()
+		currentWindowSize = UDim2.new(0, defaultSize.X, 0, defaultSize.Y)
+	end
 
 	local Passthrough = false
 	Topbar.Title.Text = Settings.Name
@@ -2022,6 +2139,7 @@ function AHSTLib:CreateWindow(Settings)
 
 	makeDraggable(Main, Topbar, false, {dragOffset, dragOffsetMobile})
 	if dragBar then dragBar.Position = useMobileSizing and UDim2.new(0.5, 0, 0.5, dragOffsetMobile) or UDim2.new(0.5, 0, 0.5, dragOffset) makeDraggable(Main, dragInteract, true, {dragOffset, dragOffsetMobile}) end
+	ensureResizeHandle()
 
 	for _, TabButton in ipairs(TabList:GetChildren()) do
 		if TabButton.ClassName == "Frame" and TabButton.Name ~= "Placeholder" then
@@ -3817,7 +3935,7 @@ function AHSTLib:CreateWindow(Settings)
 	TweenService:Create(LoadingFrame.Subtitle, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
 	TweenService:Create(LoadingFrame.Version, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
 	task.wait(0.1)
-	TweenService:Create(Main, TweenInfo.new(0.6, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = getWindowSize()}):Play()
+	applyWindowSize(getWindowSize().X.Offset, getWindowSize().Y.Offset, true)
 	TweenService:Create(Main.Shadow.Image, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {ImageTransparency = 0.6}):Play()
 
 	Topbar.BackgroundTransparency = 1
