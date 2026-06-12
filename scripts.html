@@ -123,7 +123,7 @@ body {
                 background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 #sidebar-header, #sidebar-menu, #sidebar-search-container {
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .searching-active #sidebar-header {
     height: 0 !important;
@@ -147,6 +147,12 @@ body {
     padding-bottom: 12px !important;
 }
 @media (max-width: 1024px) {
+    #sidebar {
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    #sidebar-header, #sidebar-menu, #sidebar-search-container {
+        transition: opacity 0.2s ease !important;
+    }
     .searching-active #sidebar {
         width: 100% !important;
         height: 64px !important;
@@ -359,6 +365,11 @@ body {
             <a href="#" onclick="showSection('bob-esponja-tower-defense')" class="nav-link flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-200" id="nav-bob-esponja-tower-defense">
                 <svg class="h-4 w-4 shrink-0 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path></svg>
                 <span class="truncate">BOB ESPONJA TOWER DEFENSE</span>
+            </a>
+
+            <a href="#" onclick="showSection('broken-blade')" class="nav-link flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-200" id="nav-broken-blade">
+                <svg class="h-4 w-4 shrink-0 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path></svg>
+                <span class="truncate">BROKEN BLADE</span>
             </a>
 
             <a href="#" onclick="showSection('build-a-boat')" class="nav-link flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-200" id="nav-build-a-boat">
@@ -1756,6 +1767,31 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/PlockScripts/newredz/
                     </div>
                     <div class="relative p-5 flex-1 flex flex-col bg-transparent">
                         <pre class="flex-1 w-full overflow-x-auto rounded-xl bg-slate-900/50 p-4 text-[11px] leading-relaxed text-slate-300 font-mono thin-scrollbar border border-white/5 shadow-inner selection:bg-red-500/30 group-hover:border-white/10 transition-colors"><code id="code_cb95017b">https://www.mediafire.com/file/l0gzkkmv5vlfedh/SCRIPT+IMP+HUB.txt/file</code></pre>
+                    </div>
+                </div>
+
+            </div>
+            <div class="h-12"></div>
+        </div>
+
+        <div id="section-broken-blade" class="content-section hidden animate-fade-in-up transition-opacity duration-300">
+             <div class="mb-10 text-center sm:text-left border-b border-white/5 pb-8">
+                <div class="inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-red-300 backdrop-blur-sm mb-4">HUB DE JUEGOS</div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400 mb-4">BROKEN BLADE</h2>
+                <p class="text-slate-400 max-w-2xl sm:text-lg">Selecciona el script que deseas usar, cópialo al instante, e inyectalo en tu executor favorito.</p>
+            </div>
+            <div class="grid gap-6 sm:grid-cols-2 2xl:grid-cols-3">
+
+                <div class="group relative flex flex-col overflow-hidden rounded-2xl border border-white/5 bg-[#0a0f18]/80 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-red-500/30 hover:shadow-2xl hover:shadow-red-500/15 script-card-item" data-title="axon hub">
+                    <div class="absolute inset-0 bg-gradient-to-b from-red-500/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                    <div class="relative flex items-center justify-between border-b border-white/5 bg-white/[0.01] px-5 py-4 transition-colors group-hover:bg-white/[0.03]">
+                        <h3 class="font-bold text-slate-100 group-hover:text-red-300 transition-colors truncate pr-4 text-sm sm:text-base">AXON HUB</h3>
+                        <button onclick="copyCode('code_axon_hub_broken_blade', this)" class="shrink-0 flex items-center justify-center h-8 w-8 rounded-full border border-white/10 bg-white/5 text-slate-300 transition-all hover:bg-red-500 hover:text-white hover:border-red-500 hover:shadow-[0_0_15px_rgba(239,68,68,0.4)] hover:scale-105" title="Copiar Script">
+                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
+                    <div class="relative p-5 flex-1 flex flex-col bg-transparent">
+                        <pre class="flex-1 w-full overflow-x-auto rounded-xl bg-slate-900/50 p-4 text-[11px] leading-relaxed text-slate-300 font-mono thin-scrollbar border border-white/5 shadow-inner selection:bg-red-500/30 group-hover:border-white/10 transition-colors"><code id="code_axon_hub_broken_blade">https://www.mediafire.com/file/qkljz9rotx2dgzh/SCRIPT+AXON+HUB.txt/file</code></pre>
                     </div>
                 </div>
 
@@ -4474,48 +4510,70 @@ end)</code></pre>
     });
 
     const searchInput = document.getElementById('searchInput');
+    let cachedScripts = null;
+    let searchTimeout = null;
+
+    function getCachedScripts() {
+        if (cachedScripts) return cachedScripts;
+        cachedScripts = [];
+        document.querySelectorAll('.script-card-item').forEach(card => {
+            const section = card.closest('.content-section');
+            const gameTitle = section ? section.querySelector('h2').innerText : '';
+            const cleanGameTitle = gameTitle.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            const dataTitle = (card.getAttribute('data-title') || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            cachedScripts.push({
+                card: card,
+                gameTitle: gameTitle,
+                cleanGameTitle: cleanGameTitle,
+                cleanDataTitle: dataTitle
+            });
+        });
+        return cachedScripts;
+    }
+
     searchInput.addEventListener('input', (e) => {
-        const rawQuery = e.target.value.trim();
-        const query = rawQuery.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const rawQuery = e.target.value;
+        const query = rawQuery.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        if (searchTimeout) clearTimeout(searchTimeout);
         if (query.length > 0) {
             document.body.classList.add('searching-active');
             showSection('search-results');
-            document.getElementById('search-term-display').innerText = rawQuery;
-            
-            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-            
-            const container = document.getElementById('search-cards-container');
-            container.innerHTML = '';
-            
-            let found = 0;
-            document.querySelectorAll('.script-card-item').forEach(card => {
-                const section = card.closest('.content-section');
-                const gameTitle = section ? section.querySelector('h2').innerText : '';
-                const cleanGameTitle = gameTitle.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                const dataTitle = (card.getAttribute('data-title') || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                
-                if (dataTitle.includes(query) || cleanGameTitle.includes(query)) {
-                    const clone = card.cloneNode(true);
-                    if (found < 3) {
-                        clone.classList.add('search-aura-card');
-                    }
-                    if (gameTitle) {
-                        const body = clone.querySelector('.relative.p-5');
-                        if (body) {
-                            const badge = document.createElement('div');
-                            badge.className = 'inline-flex items-center gap-1.5 rounded-md bg-red-500/10 border border-red-500/20 px-2 py-0.5 text-[10px] font-semibold text-red-300 mb-3 w-fit';
-                            badge.innerHTML = `<svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="3"></rect><path d="M6 12h4M8 10v4M15 13h.01M18 11h.01"></path></svg> ${gameTitle.toUpperCase()}`;
-                            body.insertBefore(badge, body.firstChild);
+            document.getElementById('search-term-display').innerText = rawQuery.trim();
+            searchTimeout = setTimeout(() => {
+                document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+                const container = document.getElementById('search-cards-container');
+                container.innerHTML = '';
+                const scripts = getCachedScripts();
+                const fragment = document.createDocumentFragment();
+                let found = 0;
+                for (let i = 0; i < scripts.length; i++) {
+                    const item = scripts[i];
+                    if (item.cleanDataTitle.includes(query) || item.cleanGameTitle.includes(query)) {
+                        const clone = item.card.cloneNode(true);
+                        if (found < 3) {
+                            clone.classList.add('search-aura-card');
                         }
+                        if (item.gameTitle) {
+                            const body = clone.querySelector('.relative.p-5');
+                            if (body) {
+                                const badge = document.createElement('div');
+                                badge.className = 'inline-flex items-center gap-1.5 rounded-md bg-red-500/10 border border-red-500/20 px-2 py-0.5 text-[10px] font-semibold text-red-300 mb-3 w-fit';
+                                badge.innerHTML = `<svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="3"></rect><path d="M6 12h4M8 10v4M15 13h.01M18 11h.01"></path></svg> ${item.gameTitle.toUpperCase()}`;
+                                body.insertBefore(badge, body.firstChild);
+                            }
+                        }
+                        fragment.appendChild(clone);
+                        found++;
                     }
-                    container.appendChild(clone);
-                    found++;
                 }
-            });
-            
-            if (found === 0) {
-                container.innerHTML = '<div class="col-span-1 sm:col-span-2 lg:col-span-3 text-center py-20 text-slate-500 flex flex-col items-center"><svg class="h-12 w-12 text-slate-600 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>No se encontraron scripts con ese nombre.</div>';
-            }
+                if (found === 0) {
+                    const noResults = document.createElement('div');
+                    noResults.className = 'col-span-1 sm:col-span-2 lg:col-span-3 text-center py-20 text-slate-500 flex flex-col items-center';
+                    noResults.innerHTML = '<svg class="h-12 w-12 text-slate-600 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>No se encontraron scripts con ese nombre.';
+                    fragment.appendChild(noResults);
+                }
+                container.appendChild(fragment);
+            }, 60);
         } else {
             document.body.classList.remove('searching-active');
             showSection('welcome');
