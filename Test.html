@@ -1,1 +1,2098 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <title>Anti-Hambreado Script Team</title>
+  <meta name="description" content="Anti-Hambreado Script Team: scripts, executores, bypass, userscripts y herramientas de Roblox con links directos, sin acortadores y sin vueltas.">
+  <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #000000;
+      --bg-2: #050505;
+      --fg: #f7f7f8;
+      --fg-90: rgba(247, 247, 248, 0.9);
+      --fg-70: rgba(247, 247, 248, 0.72);
+      --fg-50: rgba(247, 247, 248, 0.52);
+      --fg-30: rgba(247, 247, 248, 0.32);
+      --ink: #050505;
+      --accent: #ff1734;
+      --accent-2: #ff4b5f;
+      --accent-3: #9f071c;
+      --accent-soft: rgba(255, 23, 52, 0.16);
+      --accent-glow: rgba(255, 23, 52, 0.48);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-2: rgba(255, 255, 255, 0.18);
+      --glass: rgba(255, 255, 255, 0.055);
+      --glass-2: rgba(255, 255, 255, 0.085);
+      --shadow: 0 26px 80px rgba(0, 0, 0, 0.52);
+      --r-sm: 12px;
+      --r-md: 18px;
+      --r-lg: 26px;
+      --r-xl: 34px;
+      --container: 1180px;
+      --font-main: "Inter", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-display: "Bebas Neue", "Inter", sans-serif;
+      --font-heading: "Space Grotesk", "Inter", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
 
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-main);
+      line-height: 1.5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    ::selection {
+      background: rgba(255, 23, 52, 0.35);
+      color: #fff;
+    }
+
+    .page-shell {
+      position: relative;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 23, 52, 0.18), transparent 34rem),
+        radial-gradient(circle at 18% 36rem, rgba(255, 255, 255, 0.045), transparent 28rem),
+        linear-gradient(180deg, #000 0%, #050505 48%, #000 100%);
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: -5;
+      pointer-events: none;
+      opacity: 0.16;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+    }
+
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), #fff, var(--accent-2));
+      box-shadow: 0 0 18px var(--accent-glow);
+    }
+
+    .container {
+      width: min(var(--container), calc(100% - 34px));
+      margin-inline: auto;
+    }
+
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 80;
+      padding: 18px 0;
+      transition: padding 0.28s ease, background 0.28s ease, border-color 0.28s ease;
+    }
+
+    .nav.scrolled {
+      padding: 10px 0;
+      background: rgba(0, 0, 0, 0.62);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+    }
+
+    .nav-inner {
+      width: min(1240px, calc(100% - 32px));
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 0 26px rgba(255, 23, 52, 0.32);
+    }
+
+    .brand-text {
+      display: grid;
+      gap: 1px;
+    }
+
+    .brand-name {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .brand-state {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.54);
+    }
+
+    .brand-state::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #25ff83;
+      box-shadow: 0 0 12px rgba(37, 255, 131, 0.75);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 7px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.045);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 13px;
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      font-weight: 700;
+      transition: color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 21px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 14px;
+      white-space: nowrap;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, background 0.28s ease, border-color 0.28s ease, color 0.28s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), #d70420);
+      box-shadow: 0 14px 38px rgba(255, 23, 52, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.34);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 22px 58px rgba(255, 23, 52, 0.46), inset 0 1px 0 rgba(255, 255, 255, 0.42);
+    }
+
+    .btn-dark {
+      color: #050505;
+      background: #fff;
+      box-shadow: 0 18px 50px rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-glass {
+      color: rgba(255, 255, 255, 0.84);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.13);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .btn-glass:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.13);
+      border-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 18px 42px rgba(255, 255, 255, 0.08);
+    }
+
+    .menu-btn {
+      display: none;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.07);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .menu-btn span {
+      position: relative;
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+      background: #fff;
+      transition: background 0.2s ease;
+    }
+
+    .menu-btn span::before,
+    .menu-btn span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      border-radius: inherit;
+      background: #fff;
+      transition: transform 0.24s ease, top 0.24s ease;
+    }
+
+    .menu-btn span::before {
+      top: -6px;
+    }
+
+    .menu-btn span::after {
+      top: 6px;
+    }
+
+    .menu-open .menu-btn span {
+      background: transparent;
+    }
+
+    .menu-open .menu-btn span::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+
+    .menu-open .menu-btn span::after {
+      top: 0;
+      transform: rotate(-45deg);
+    }
+
+    .mobile-panel {
+      position: fixed;
+      inset: 74px 16px auto 16px;
+      z-index: 75;
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 26px;
+      background: rgba(0, 0, 0, 0.82);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-12px) scale(0.98);
+      transition: opacity 0.28s ease, transform 0.28s ease;
+    }
+
+    .menu-open .mobile-panel {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .mobile-panel a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 46px;
+      padding: 0 16px;
+      border-radius: 18px;
+      color: rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.055);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 126px 0 64px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -4;
+      background-image: url("Foto/WebSource/BannerIndex.png");
+      background-size: cover;
+      background-position: center;
+      filter: saturate(1.08) contrast(1.02);
+      transform: scale(1.02);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.18), transparent 19rem),
+        radial-gradient(circle at 50% 58%, rgba(255, 23, 52, 0.28), transparent 28rem),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.14) 0%, rgba(0, 0, 0, 0.72) 76%, #000 100%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.74), transparent 26%, transparent 74%, rgba(0, 0, 0, 0.74)),
+        radial-gradient(circle at 50% 112%, #000 0%, transparent 44%);
+    }
+
+    .hero-copy {
+      width: min(1040px, calc(100% - 32px));
+      margin-inline: auto;
+      text-align: center;
+      display: grid;
+      justify-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 36px;
+      padding: 0 17px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 12px;
+      font-weight: 800;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 16px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .pill i {
+      color: var(--accent-2);
+      filter: drop-shadow(0 0 10px var(--accent-glow));
+    }
+
+    .hero-title {
+      margin: 34px 0 0;
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: clamp(76px, 14vw, 188px);
+      font-weight: 400;
+      line-height: 0.82;
+      text-transform: uppercase;
+      text-wrap: balance;
+      text-shadow: 0 0 42px rgba(255, 23, 52, 0.24);
+    }
+
+    .hero-title span {
+      display: block;
+      color: transparent;
+      background: linear-gradient(180deg, #fff 0%, #fff 38%, #ffbac2 74%, var(--accent-2) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      filter: drop-shadow(0 18px 48px rgba(255, 23, 52, 0.32));
+    }
+
+    .hero-lede {
+      width: min(760px, 100%);
+      margin: 28px auto 0;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: clamp(18px, 2.4vw, 25px);
+      font-weight: 500;
+      text-wrap: balance;
+    }
+
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .hero-mini {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+      color: rgba(255, 255, 255, 0.52);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .hero-mini span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .hero-mini i {
+      color: var(--accent-2);
+    }
+
+    .hero-peek {
+      position: absolute;
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255, 255, 255, 0.48);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .hero-peek::before,
+    .hero-peek::after {
+      content: "";
+      width: 46px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .section {
+      padding: clamp(78px, 10vw, 140px) 0;
+      position: relative;
+    }
+
+    .section-tight {
+      padding: clamp(54px, 8vw, 96px) 0;
+    }
+
+    .section-head {
+      display: grid;
+      justify-items: center;
+      text-align: center;
+      margin-bottom: clamp(34px, 5vw, 62px);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--accent-2);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .headline {
+      margin: 0;
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: clamp(42px, 7vw, 94px);
+      font-weight: 800;
+      line-height: 0.95;
+      text-wrap: balance;
+    }
+
+    .headline .accent {
+      color: var(--accent-2);
+      text-shadow: 0 0 30px rgba(255, 23, 52, 0.36);
+    }
+
+    .lede {
+      width: min(680px, 100%);
+      margin: 18px auto 0;
+      color: var(--fg-50);
+      font-size: clamp(16px, 2vw, 19px);
+      font-weight: 500;
+      text-wrap: balance;
+    }
+
+    .speed-band {
+      position: relative;
+      overflow: hidden;
+      border-block: 1px solid rgba(255, 255, 255, 0.08);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255, 23, 52, 0.2), transparent 34rem),
+        linear-gradient(90deg, rgba(255, 23, 52, 0.08), rgba(255, 255, 255, 0.04), rgba(255, 23, 52, 0.08));
+    }
+
+    .speed-band::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.12) 42%, transparent 72%);
+      transform: translateX(-58%);
+      animation: sheen 7s ease-in-out infinite;
+    }
+
+    .speed-text {
+      position: relative;
+      z-index: 1;
+      padding: clamp(56px, 8vw, 102px) 0;
+      text-align: center;
+    }
+
+    .speed-title {
+      margin: 0;
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: clamp(48px, 10vw, 140px);
+      font-weight: 400;
+      line-height: 0.84;
+    }
+
+    .screen-stack {
+      display: grid;
+      gap: clamp(28px, 5vw, 56px);
+    }
+
+    .screen-row {
+      display: grid;
+      grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+      gap: clamp(26px, 5vw, 70px);
+      align-items: center;
+      min-height: 420px;
+    }
+
+    .screen-row.reverse {
+      grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr);
+    }
+
+    .screen-row.reverse .screen-text {
+      order: 2;
+    }
+
+    .screen-text {
+      display: grid;
+      align-content: center;
+    }
+
+    .screen-title {
+      margin: 0;
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: clamp(30px, 4.5vw, 58px);
+      font-weight: 800;
+      line-height: 1;
+      text-wrap: balance;
+    }
+
+    .screen-body {
+      margin: 18px 0 0;
+      color: var(--fg-50);
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    .screen-link {
+      width: max-content;
+      margin-top: 24px;
+      color: #fff;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .screen-link i {
+      color: var(--accent-2);
+      transition: transform 0.25s ease;
+    }
+
+    .screen-link:hover i {
+      transform: translate(3px, -3px);
+    }
+
+    .screen-shot {
+      position: relative;
+      min-height: 320px;
+      border-radius: var(--r-xl);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035));
+      box-shadow: var(--shadow), 0 0 0 1px rgba(255, 23, 52, 0.08);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .screen-shot::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.18), transparent 21rem),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 38%, rgba(0, 0, 0, 0.42));
+      opacity: 0.85;
+    }
+
+    .screen-shot::after {
+      content: "";
+      position: absolute;
+      inset: auto 18px 18px 18px;
+      z-index: 3;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.44), transparent);
+    }
+
+    .screen-shot:hover {
+      transform: perspective(1000px) rotateX(2deg) rotateY(-3deg) translateY(-8px);
+      border-color: rgba(255, 23, 52, 0.36);
+      box-shadow: 0 36px 110px rgba(0, 0, 0, 0.66), 0 0 55px rgba(255, 23, 52, 0.18);
+    }
+
+    .screen-shot img {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      object-fit: cover;
+      filter: saturate(1.04) contrast(1.02);
+      transition: transform 0.6s ease, filter 0.6s ease;
+    }
+
+    .screen-shot:hover img {
+      transform: scale(1.035);
+      filter: saturate(1.15) contrast(1.08);
+    }
+
+    .platform-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .platform-stat {
+      min-height: 130px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.055);
+      display: grid;
+      align-content: end;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .platform-stat::before {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      right: -72px;
+      top: -74px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(255, 23, 52, 0.28), transparent 70%);
+    }
+
+    .platform-stat strong {
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: clamp(25px, 4vw, 42px);
+      line-height: 1;
+    }
+
+    .platform-stat span {
+      margin-top: 8px;
+      color: var(--fg-50);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .spotlight-section {
+      position: relative;
+      overflow: hidden;
+      border-block: 1px solid rgba(255, 255, 255, 0.08);
+      background: #020202;
+    }
+
+    .spotlight-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+      gap: clamp(28px, 5vw, 70px);
+      align-items: center;
+    }
+
+    .spotlight-copy {
+      position: relative;
+      z-index: 3;
+    }
+
+    .spotlight-wall {
+      --mx: 50%;
+      --my: 50%;
+      position: relative;
+      min-height: 520px;
+      border-radius: var(--r-xl);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background:
+        radial-gradient(circle at var(--mx) var(--my), rgba(255, 23, 52, 0.22), transparent 19%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      touch-action: none;
+    }
+
+    .spotlight-wall::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--mx) var(--my), rgba(255, 255, 255, 0.42) 0%, rgba(255, 23, 52, 0.22) 10%, transparent 28%);
+      mix-blend-mode: screen;
+    }
+
+    .spotlight-wall::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--mx) var(--my), transparent 0%, transparent 18%, rgba(0, 0, 0, 0.8) 50%, rgba(0, 0, 0, 0.94) 100%);
+    }
+
+    .icon-cloud {
+      position: absolute;
+      inset: -14px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-auto-rows: 108px;
+      gap: 10px;
+      transform: rotate(-3deg) scale(1.04);
+    }
+
+    .code-icon {
+      display: grid;
+      place-items: center;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      filter: grayscale(1) brightness(0.18);
+      opacity: 0.72;
+      transition: filter 0.35s ease, opacity 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
+    }
+
+    .code-icon img {
+      width: clamp(36px, 6vw, 58px);
+      height: clamp(36px, 6vw, 58px);
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    .spotlight-wall:hover .code-icon {
+      filter: grayscale(0.55) brightness(0.34);
+    }
+
+    .code-icon:hover {
+      filter: grayscale(0) brightness(1.15);
+      opacity: 1;
+      transform: translateY(-5px) scale(1.04);
+      border-color: rgba(255, 23, 52, 0.38);
+      box-shadow: 0 18px 60px rgba(255, 23, 52, 0.16);
+    }
+
+    .cinema {
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255, 23, 52, 0.18), transparent 36rem),
+        #000;
+    }
+
+    .cinema-stage {
+      position: relative;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      padding: 26px 0;
+      transform: rotate(-2.2deg);
+    }
+
+    .cinema-stage::before,
+    .cinema-stage::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 13px;
+      background: linear-gradient(90deg, var(--accent), #ff7a86, var(--accent));
+      box-shadow: 0 0 28px rgba(255, 23, 52, 0.62);
+      z-index: 3;
+    }
+
+    .cinema-stage::before {
+      top: 0;
+    }
+
+    .cinema-stage::after {
+      bottom: 0;
+    }
+
+    .movie-track {
+      display: flex;
+      width: max-content;
+      gap: 18px;
+      padding: 22px 0;
+      animation: marquee 42s linear infinite;
+    }
+
+    .cinema-stage:hover .movie-track {
+      animation-play-state: paused;
+    }
+
+    .movie-card {
+      position: relative;
+      width: clamp(220px, 30vw, 410px);
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      overflow: hidden;
+      flex: 0 0 auto;
+      background: #151515;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.48);
+      filter: grayscale(0.45) contrast(1.04);
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+
+    .movie-card:hover {
+      filter: grayscale(0) contrast(1.1);
+      transform: translateY(-6px) scale(1.015);
+    }
+
+    .movie-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .movie-card span {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 10px;
+      z-index: 2;
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 900;
+      text-shadow: 0 2px 14px #000;
+    }
+
+    .movie-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 30%, rgba(0, 0, 0, 0.72) 100%);
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .quick-card {
+      position: relative;
+      min-height: 230px;
+      padding: 22px;
+      border-radius: 26px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.055);
+      overflow: hidden;
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.32s ease, background 0.32s ease;
+    }
+
+    .quick-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -48px -76px auto;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 23, 52, 0.28), transparent 72%);
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+
+    .quick-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(255, 23, 52, 0.36);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .quick-card:hover::before {
+      transform: scale(1.35);
+      opacity: 0.95;
+    }
+
+    .quick-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      color: #fff;
+      background: linear-gradient(135deg, rgba(255, 23, 52, 0.34), rgba(255, 255, 255, 0.08));
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      box-shadow: 0 14px 36px rgba(255, 23, 52, 0.18);
+    }
+
+    .quick-card h3 {
+      margin: 42px 0 9px;
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: 21px;
+      line-height: 1.1;
+    }
+
+    .quick-card p {
+      margin: 0;
+      color: var(--fg-50);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .yt-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+      gap: clamp(24px, 5vw, 56px);
+      align-items: start;
+    }
+
+    .yt-panel {
+      position: sticky;
+      top: 108px;
+      padding: 28px;
+      border-radius: var(--r-xl);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035));
+      box-shadow: var(--shadow);
+    }
+
+    .yt-panel h2 {
+      margin: 0;
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 4.4vw, 60px);
+      line-height: 0.98;
+    }
+
+    .yt-panel p {
+      margin: 16px 0 0;
+      color: var(--fg-50);
+      font-weight: 600;
+    }
+
+    .yt-videos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .yt-video-card {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      min-height: 300px;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.055);
+      box-shadow: 0 18px 54px rgba(0, 0, 0, 0.35);
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.32s ease, box-shadow 0.32s ease;
+    }
+
+    .yt-video-card:first-child {
+      grid-column: 1 / -1;
+      min-height: 380px;
+    }
+
+    .yt-video-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(255, 23, 52, 0.38);
+      box-shadow: 0 26px 90px rgba(0, 0, 0, 0.55), 0 0 46px rgba(255, 23, 52, 0.14);
+    }
+
+    .yt-thumb-wrap {
+      position: absolute;
+      inset: 0;
+    }
+
+    .yt-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease, filter 0.5s ease;
+    }
+
+    .yt-video-card:hover .yt-thumb-wrap img {
+      transform: scale(1.05);
+      filter: saturate(1.12) contrast(1.08);
+    }
+
+    .yt-thumb-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.8) 88%);
+    }
+
+    .yt-play-overlay {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      background: rgba(0, 0, 0, 0.18);
+      transition: opacity 0.3s ease;
+    }
+
+    .yt-video-card:hover .yt-play-overlay {
+      opacity: 1;
+    }
+
+    .yt-play-btn {
+      width: 66px;
+      height: 66px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--accent);
+      box-shadow: 0 0 42px rgba(255, 23, 52, 0.62);
+    }
+
+    .yt-play-btn i {
+      margin-left: 4px;
+      font-size: 20px;
+    }
+
+    .yt-video-info {
+      position: absolute;
+      inset: auto 0 0 0;
+      z-index: 2;
+      padding: 22px;
+    }
+
+    .yt-video-title {
+      margin: 0;
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: 18px;
+      line-height: 1.15;
+      font-weight: 800;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .yt-video-card:first-child .yt-video-title {
+      font-size: clamp(24px, 3vw, 38px);
+      max-width: 760px;
+    }
+
+    .yt-video-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 13px;
+      color: rgba(255, 255, 255, 0.65);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .yt-video-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .yt-video-meta i {
+      color: var(--accent-2);
+    }
+
+    .yt-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 30px;
+      padding: 0 11px;
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.62);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .yt-loading,
+    .yt-error {
+      grid-column: 1 / -1;
+      min-height: 240px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.055);
+      color: var(--fg-50);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      border-top-color: var(--accent);
+      animation: spin 0.8s linear infinite;
+    }
+
+    .faq-grid,
+    .legal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .info-card {
+      padding: 24px;
+      border-radius: 26px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .info-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 12px;
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: 18px;
+    }
+
+    .info-card h3 i {
+      color: var(--accent-2);
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--fg-50);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 54px 0;
+      background: #000;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .footer-brand {
+      display: grid;
+      gap: 12px;
+    }
+
+    .footer-title {
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .footer-brand p {
+      width: min(620px, 100%);
+      margin: 0;
+      color: var(--fg-50);
+      font-weight: 600;
+    }
+
+    .footer-socials {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .social {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.065);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .social:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 23, 52, 0.36);
+      background: rgba(255, 23, 52, 0.12);
+    }
+
+    .copyright {
+      margin-top: 32px;
+      color: rgba(255, 255, 255, 0.36);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--delay, 0s);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .float-soft {
+      animation: floatSoft 7s ease-in-out infinite;
+    }
+
+    @keyframes sheen {
+      0%, 35% {
+        transform: translateX(-65%);
+      }
+      70%, 100% {
+        transform: translateX(65%);
+      }
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes floatSoft {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .nav-links,
+      .nav-actions .btn-glass {
+        display: none;
+      }
+
+      .menu-btn {
+        display: inline-flex;
+      }
+
+      .hero {
+        min-height: 92svh;
+      }
+
+      .screen-row,
+      .screen-row.reverse,
+      .spotlight-layout,
+      .yt-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .screen-row.reverse .screen-text {
+        order: 0;
+      }
+
+      .platform-strip,
+      .quick-grid,
+      .faq-grid,
+      .legal-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .yt-panel {
+        position: relative;
+        top: auto;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .nav {
+        padding: 12px 0;
+      }
+
+      .brand-text {
+        display: none;
+      }
+
+      .nav-actions .btn-primary {
+        min-height: 42px;
+        padding: 0 15px;
+        font-size: 13px;
+      }
+
+      .hero {
+        padding-top: 104px;
+      }
+
+      .hero-title {
+        font-size: clamp(66px, 21vw, 112px);
+      }
+
+      .hero-lede {
+        font-size: 16px;
+      }
+
+      .hero-cta .btn {
+        width: 100%;
+      }
+
+      .hero-mini {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .screen-shot,
+      .screen-shot img,
+      .spotlight-wall {
+        min-height: 300px;
+      }
+
+      .icon-cloud {
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: 86px;
+      }
+
+      .platform-strip,
+      .quick-grid,
+      .faq-grid,
+      .legal-grid,
+      .yt-videos-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .yt-video-card:first-child {
+        min-height: 330px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-socials {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="grain"></div>
+    <div class="progress" id="progress"></div>
+
+    <nav class="nav" id="nav">
+      <div class="nav-inner">
+        <a class="brand" href="#inicio" aria-label="Anti-Hambreado Script Team">
+          <img class="brand-logo" src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo de Anti-Hambreado">
+          <span class="brand-text">
+            <span class="brand-name">Anti-Hambreado</span>
+            <span class="brand-state">links limpios activos</span>
+          </span>
+        </a>
+
+        <div class="nav-links" aria-label="Navegación principal">
+          <a href="#pantallas">Tour</a>
+          <a href="#linterna">Ecosistema</a>
+          <a href="#juegos">Juegos</a>
+          <a href="#videos">Videos</a>
+          <a href="#faq">FAQ</a>
+        </div>
+
+        <div class="nav-actions">
+          <a class="btn btn-glass" href="https://antihambreadoscriptteam.github.io/scripts">Ver scripts</a>
+          <a class="btn btn-primary" href="https://discord.gg/rTGF5xhe3h" target="_blank" rel="noopener">
+            <i class="fab fa-discord"></i>
+            Discord
+          </a>
+          <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="mobile-panel" id="mobilePanel" aria-label="Menú móvil">
+      <a href="#pantallas">Conoce cada pantalla <i class="fas fa-arrow-down"></i></a>
+      <a href="#linterna">Ecosistema <i class="fas fa-wand-magic-sparkles"></i></a>
+      <a href="#juegos">Juegos <i class="fas fa-film"></i></a>
+      <a href="#videos">Últimos videos <i class="fab fa-youtube"></i></a>
+      <a href="https://antihambreadoscriptteam.github.io/scripts">Abrir scripts <i class="fas fa-arrow-up-right-from-square"></i></a>
+    </div>
+
+    <header class="hero" id="inicio">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <div class="pill reveal">
+          <i class="fas fa-shield-halved"></i>
+          Scripts limpios, links directos y cero acortadores
+        </div>
+        <h1 class="hero-title reveal" style="--delay: 0.06s;">
+          Anti-Hambreado
+          <span>Script Team</span>
+        </h1>
+        <p class="hero-lede reveal" style="--delay: 0.12s;">
+          Una central elegante para scripts, executores, bypass, userscripts y herramientas de Roblox sin perder tiempo en anuncios eternos.
+        </p>
+        <div class="hero-cta reveal" style="--delay: 0.18s;">
+          <a class="btn btn-dark" href="https://antihambreadoscriptteam.github.io/scripts">
+            <i class="fas fa-code"></i>
+            Entrar a scripts
+          </a>
+          <a class="btn btn-primary" href="https://antihambreadoscriptteam.github.io/bypass">
+            <i class="fas fa-key"></i>
+            Abrir bypass
+          </a>
+          <a class="btn btn-glass" href="https://youtube.com/@anti-hambreado-script-team" target="_blank" rel="noopener">
+            <i class="fab fa-youtube"></i>
+            YouTube
+          </a>
+        </div>
+        <div class="hero-mini reveal" style="--delay: 0.24s;">
+          <span><i class="fas fa-ban"></i> Sin loot-links</span>
+          <span><i class="fas fa-bolt"></i> Acceso rápido</span>
+          <span><i class="fab fa-android"></i> App disponible</span>
+          <span><i class="fas fa-users"></i> Comunidad activa</span>
+        </div>
+      </div>
+      <div class="hero-peek">desliza para ver el tour</div>
+    </header>
+
+    <main>
+      <section class="speed-band section-tight">
+        <div class="container speed-text reveal">
+          <p class="eyebrow">Anti-hambreado por diseño</p>
+          <h2 class="speed-title">Menos espera.<br>Más scripts.</h2>
+          <p class="lede">La experiencia se centra en lo importante: encontrar, copiar, descargar y seguir jugando sin pasar por páginas basura.</p>
+        </div>
+      </section>
+
+      <section class="section" id="pantallas">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">Tour del sitio</p>
+            <h2 class="headline">Conoce cada <span class="accent">pantalla.</span></h2>
+            <p class="lede">Un recorrido visual por tus páginas principales, con capturas reales preparadas para GitHub Pages.</p>
+          </div>
+
+          <div class="screen-stack">
+            <article class="screen-row reveal">
+              <div class="screen-text">
+                <p class="eyebrow">Página de scripts</p>
+                <h3 class="screen-title">El catálogo central para encontrar scripts rápido.</h3>
+                <p class="screen-body">Organiza scripts por juego, incluye buscador y mantiene el foco en enlaces directos para que el usuario llegue al código sin rodeos.</p>
+                <a class="screen-link" href="https://antihambreadoscriptteam.github.io/scripts">Abrir scripts <i class="fas fa-arrow-up-right-from-square"></i></a>
+              </div>
+              <div class="screen-shot float-soft">
+                <img src="Foto/WebSource/Captura de pantalla 2026-06-12 140712.png" alt="Captura de la página de scripts" loading="lazy" decoding="async">
+              </div>
+            </article>
+
+            <article class="screen-row reverse reveal">
+              <div class="screen-text">
+                <p class="eyebrow">Executores</p>
+                <h3 class="screen-title">Descargas ordenadas para Roblox.</h3>
+                <p class="screen-body">Presenta executores con un look limpio, estados claros y acceso rápido a las opciones que la comunidad necesita revisar después de cada parche.</p>
+                <a class="screen-link" href="https://antihambreadoscriptteam.github.io/executores">Ver executores <i class="fas fa-arrow-up-right-from-square"></i></a>
+              </div>
+              <div class="screen-shot float-soft">
+                <img src="Foto/WebSource/Captura de pantalla 2026-06-12 140747.png" alt="Captura de la página de executores" loading="lazy" decoding="async">
+              </div>
+            </article>
+
+            <article class="screen-row reveal">
+              <div class="screen-text">
+                <p class="eyebrow">Bypass</p>
+                <h3 class="screen-title">Atajos para evitar pasos innecesarios.</h3>
+                <p class="screen-body">Una página directa para herramientas de bypass, pensada para ahorrar tiempo cuando un link intenta meter anuncios o esperas abusivas.</p>
+                <a class="screen-link" href="https://antihambreadoscriptteam.github.io/bypass">Abrir bypass <i class="fas fa-arrow-up-right-from-square"></i></a>
+              </div>
+              <div class="screen-shot float-soft">
+                <img src="Foto/WebSource/Captura de pantalla 2026-06-12 140819.png" alt="Captura de la página de bypass" loading="lazy" decoding="async">
+              </div>
+            </article>
+
+            <article class="screen-row reverse reveal">
+              <div class="screen-text">
+                <p class="eyebrow">Userscript</p>
+                <h3 class="screen-title">Automatización ligera desde el navegador.</h3>
+                <p class="screen-body">La sección de userscript ayuda a instalar herramientas rápidas para mejorar el flujo de enlaces y reducir fricción en páginas externas.</p>
+                <a class="screen-link" href="https://antihambreadoscriptteam.github.io/SuaURL" target="_blank" rel="noopener">Instalar userscript <i class="fas fa-arrow-up-right-from-square"></i></a>
+              </div>
+              <div class="screen-shot float-soft">
+                <img src="Foto/WebSource/Captura de pantalla 2026-06-12 140840.png" alt="Captura de la página de userscript" loading="lazy" decoding="async">
+              </div>
+            </article>
+
+            <article class="screen-row reveal">
+              <div class="screen-text">
+                <p class="eyebrow">Mi app</p>
+                <h3 class="screen-title">Acceso móvil para la comunidad.</h3>
+                <p class="screen-body">La app concentra tus accesos principales en Android, ideal para usuarios que revisan scripts, avisos y descargas desde el teléfono.</p>
+                <a class="screen-link" href="https://antihambreadoscriptteam.github.io/Archivos/Anti-HambreadoApp" target="_blank" rel="noopener">Descargar app <i class="fas fa-arrow-up-right-from-square"></i></a>
+              </div>
+              <div class="screen-shot float-soft">
+                <img src="Foto/WebSource/Captura de pantalla 2026-06-12 140903.png" alt="Captura de la app Anti-Hambreado" loading="lazy" decoding="async">
+              </div>
+            </article>
+
+            <article class="screen-row reverse reveal">
+              <div class="screen-text">
+                <p class="eyebrow">Sobre nosotros</p>
+                <h3 class="screen-title">La identidad detrás del equipo.</h3>
+                <p class="screen-body">Cuenta quiénes son, qué defienden y por qué el proyecto existe: una comunidad que prefiere calidad antes que acortadores y spam.</p>
+                <a class="screen-link" href="https://antihambreadoscriptteam.github.io/sobre-nosotros" target="_blank" rel="noopener">Leer historia <i class="fas fa-arrow-up-right-from-square"></i></a>
+              </div>
+              <div class="screen-shot float-soft">
+                <img src="Foto/WebSource/Captura de pantalla 2026-06-12 140932.png" alt="Captura de la página sobre nosotros" loading="lazy" decoding="async">
+              </div>
+            </article>
+
+            <article class="screen-row reveal">
+              <div class="screen-text">
+                <p class="eyebrow">rip.campionescript</p>
+                <h3 class="screen-title">La comparación que explica el manifiesto.</h3>
+                <p class="screen-body">Una página externa con tono más directo para remarcar la diferencia entre enlaces limpios y experiencias llenas de publicidad innecesaria.</p>
+                <a class="screen-link" href="https://rip-campionescript-lol.github.io/" target="_blank" rel="noopener">Ver página <i class="fas fa-arrow-up-right-from-square"></i></a>
+              </div>
+              <div class="screen-shot float-soft">
+                <img src="Foto/WebSource/Captura de pantalla 2026-06-12 141029.png" alt="Captura de rip.campionescript" loading="lazy" decoding="async">
+              </div>
+            </article>
+          </div>
+
+          <div class="platform-strip reveal">
+            <div class="platform-stat"><strong>0%</strong><span>acortadores forzados</span></div>
+            <div class="platform-stat"><strong>7K+</strong><span>comunidad acumulada</span></div>
+            <div class="platform-stat"><strong>24/7</strong><span>acceso a recursos</span></div>
+            <div class="platform-stat"><strong>100%</strong><span>gratis y directo</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="spotlight-section section" id="linterna">
+        <div class="container spotlight-layout">
+          <div class="spotlight-copy reveal">
+            <p class="eyebrow">Efecto linterna</p>
+            <h2 class="headline">El stack que mantiene todo <span class="accent">encendido.</span></h2>
+            <p class="lede">Pasa el mouse sobre el panel para iluminar los iconos. En teléfono, la luz se mueve sola suavemente para que el efecto siga vivo sin interacción.</p>
+            <div class="hero-cta" style="justify-content: flex-start;">
+              <a class="btn btn-primary" href="https://antihambreadoscriptteam.github.io/SuaURL" target="_blank" rel="noopener">
+                <i class="fas fa-scroll"></i>
+                Probar userscript
+              </a>
+              <a class="btn btn-glass" href="https://antihambreadoscriptteam.github.io/executores">
+                <i class="fas fa-terminal"></i>
+                Ver executores
+              </a>
+            </div>
+          </div>
+
+          <div class="spotlight-wall reveal" id="spotlight">
+            <div class="icon-cloud" aria-hidden="true">
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/lua/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/robloxstudio/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/javascript/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/html5/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/css/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/tampermonkey/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/visualstudiocode/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/github/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/discord/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/youtube/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/android/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/windows11/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/googlechrome/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/cloudflare/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/git/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/json/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/powershell/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/markdown/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/firefox/FFFFFF" alt=""></div>
+              <div class="code-icon"><img src="https://cdn.simpleicons.org/yaml/FFFFFF" alt=""></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cinema section" id="juegos">
+        <div class="container section-head reveal">
+          <p class="eyebrow">Biblioteca Roblox</p>
+          <h2 class="headline">Tenemos scripts para:</h2>
+          <p class="lede">Una cinta tipo cine con juegos populares que aparecen en tu catálogo de scripts.</p>
+        </div>
+
+        <div class="cinema-stage reveal">
+          <div class="movie-track">
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-a64f70da20fc1e80ee76fe5d49c1be0a/512/512/Image/Png/noFilter" alt="Blox Fruits" loading="lazy"><span>Blox Fruits</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-2c691f8c1278352cc98e30afef3c3a4e/512/512/Image/Png/noFilter" alt="Arsenal" loading="lazy"><span>Arsenal</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-45bfd5177a7be086f118e0f13042d9ed/512/512/Image/Png/noFilter" alt="Evade" loading="lazy"><span>Evade</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-53f81a48fb348823169b97fd42a1094a/512/512/Image/Png/noFilter" alt="DOORS" loading="lazy"><span>DOORS</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-a16e27d3d8380da38b43960549590ca2/512/512/Image/Png/noFilter" alt="Build A Boat" loading="lazy"><span>Build A Boat</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-d77b9b4652b7f3039df9ad2d1576197c/512/512/Image/Png/noFilter" alt="Bee Swarm Simulator" loading="lazy"><span>Bee Swarm</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-12eac0d09990a46a0dc9c02ba92d5e6b/512/512/Image/Png/noFilter" alt="Jailbreak" loading="lazy"><span>Jailbreak</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-3ac5af325970a745b0156a5358174169/512/512/Image/Png/noFilter" alt="Murder Mystery 2" loading="lazy"><span>Murder Mystery 2</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-99ee86b3622a89ff7444831321bc9c11/512/512/Image/Png/noFilter" alt="Muscle Legends" loading="lazy"><span>Muscle Legends</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-1ffcaeefd91e7a5f34f6d5c6bce2a890/512/512/Image/Png/noFilter" alt="Slap Battles" loading="lazy"><span>Slap Battles</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-ac1c764a99cfae201fd4fe916170a218/512/512/Image/Png/noFilter" alt="Natural Disaster Survival" loading="lazy"><span>Natural Disaster</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-e0b964db702f633a5831c78311052e24/512/512/Image/Png/noFilter" alt="Fisch" loading="lazy"><span>Fisch</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-a64f70da20fc1e80ee76fe5d49c1be0a/512/512/Image/Png/noFilter" alt="Blox Fruits" loading="lazy"><span>Blox Fruits</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-2c691f8c1278352cc98e30afef3c3a4e/512/512/Image/Png/noFilter" alt="Arsenal" loading="lazy"><span>Arsenal</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-45bfd5177a7be086f118e0f13042d9ed/512/512/Image/Png/noFilter" alt="Evade" loading="lazy"><span>Evade</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-53f81a48fb348823169b97fd42a1094a/512/512/Image/Png/noFilter" alt="DOORS" loading="lazy"><span>DOORS</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-a16e27d3d8380da38b43960549590ca2/512/512/Image/Png/noFilter" alt="Build A Boat" loading="lazy"><span>Build A Boat</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-d77b9b4652b7f3039df9ad2d1576197c/512/512/Image/Png/noFilter" alt="Bee Swarm Simulator" loading="lazy"><span>Bee Swarm</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-12eac0d09990a46a0dc9c02ba92d5e6b/512/512/Image/Png/noFilter" alt="Jailbreak" loading="lazy"><span>Jailbreak</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-3ac5af325970a745b0156a5358174169/512/512/Image/Png/noFilter" alt="Murder Mystery 2" loading="lazy"><span>Murder Mystery 2</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-99ee86b3622a89ff7444831321bc9c11/512/512/Image/Png/noFilter" alt="Muscle Legends" loading="lazy"><span>Muscle Legends</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-1ffcaeefd91e7a5f34f6d5c6bce2a890/512/512/Image/Png/noFilter" alt="Slap Battles" loading="lazy"><span>Slap Battles</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-ac1c764a99cfae201fd4fe916170a218/512/512/Image/Png/noFilter" alt="Natural Disaster Survival" loading="lazy"><span>Natural Disaster</span></article>
+            <article class="movie-card"><img src="https://tr.rbxcdn.com/180DAY-e0b964db702f633a5831c78311052e24/512/512/Image/Png/noFilter" alt="Fisch" loading="lazy"><span>Fisch</span></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">Accesos directos</p>
+            <h2 class="headline">Todo en un <span class="accent">solo lugar.</span></h2>
+          </div>
+          <div class="quick-grid">
+            <a class="quick-card reveal" href="https://discord.gg/rTGF5xhe3h" target="_blank" rel="noopener">
+              <div class="quick-icon"><i class="fab fa-discord"></i></div>
+              <h3>Discord</h3>
+              <p>Comunidad, avisos, soporte y conversación directa con el equipo.</p>
+            </a>
+            <a class="quick-card reveal" href="https://antihambreadoscriptteam.github.io/scripts">
+              <div class="quick-icon"><i class="fas fa-code"></i></div>
+              <h3>Scripts</h3>
+              <p>Catálogo principal con juegos, hubs y recursos limpios.</p>
+            </a>
+            <a class="quick-card reveal" href="https://antihambreadoscriptteam.github.io/executores">
+              <div class="quick-icon"><i class="fas fa-terminal"></i></div>
+              <h3>Executores</h3>
+              <p>Opciones ordenadas para revisar herramientas compatibles.</p>
+            </a>
+            <a class="quick-card reveal" href="https://whatsapp.com/channel/0029VbCWPet42DcfSt2khY43" target="_blank" rel="noopener">
+              <div class="quick-icon"><i class="fab fa-whatsapp"></i></div>
+              <h3>WhatsApp</h3>
+              <p>Canal de notificaciones para novedades sin entrar al sitio.</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="videos">
+        <div class="container yt-shell">
+          <div class="yt-panel reveal">
+            <p class="eyebrow">Últimos videos</p>
+            <h2>Nuevo contenido del canal.</h2>
+            <p>Conservé tu sección de YouTube, pero ahora se integra con cards grandes, overlay de reproducción y un fallback directo al canal si el RSS falla.</p>
+            <div class="hero-cta" style="justify-content: flex-start;">
+              <a class="btn btn-primary" href="https://youtube.com/@anti-hambreado-script-team?sub_confirmation=1" target="_blank" rel="noopener">
+                <i class="fab fa-youtube"></i>
+                Suscribirse gratis
+              </a>
+            </div>
+          </div>
+
+          <div class="yt-videos-grid reveal" id="yt-videos-container">
+            <div class="yt-loading" id="yt-loading">
+              <div>
+                <div class="spinner"></div>
+                <p>Cargando videos...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-tight" id="faq">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">Preguntas frecuentes</p>
+            <h2 class="headline">Respuestas <span class="accent">directas.</span></h2>
+          </div>
+          <div class="faq-grid">
+            <article class="info-card reveal">
+              <h3><i class="fas fa-info-circle"></i> ¿Qué es Anti-Hambreado?</h3>
+              <p>Un equipo que reúne scripts, hubs y herramientas de Roblox con una filosofía clara: links directos, cero vueltas y nada de spam.</p>
+            </article>
+            <article class="info-card reveal">
+              <h3><i class="fas fa-shield-halved"></i> ¿Los scripts se revisan?</h3>
+              <p>La idea es compartir recursos limpios y útiles. Cuando algo no conviene o deja de funcionar, debe marcarse o retirarse.</p>
+            </article>
+            <article class="info-card reveal">
+              <h3><i class="fas fa-rotate"></i> ¿Los executores cambian?</h3>
+              <p>Sí. Roblox actualiza con frecuencia, así que la página de executores sirve para centralizar opciones y estados.</p>
+            </article>
+            <article class="info-card reveal">
+              <h3><i class="fas fa-ban"></i> ¿Por qué sin acortadores?</h3>
+              <p>Porque el usuario no debería atravesar anuncios agresivos, esperas falsas o pestañas extra para llegar a un recurso.</p>
+            </article>
+            <article class="info-card reveal">
+              <h3><i class="fas fa-mobile-screen"></i> ¿Funciona en teléfono?</h3>
+              <p>El rediseño es responsive, con navegación móvil y animaciones que no dependen únicamente del mouse.</p>
+            </article>
+            <article class="info-card reveal">
+              <h3><i class="fas fa-users"></i> ¿Dónde reporto errores?</h3>
+              <p>Lo más práctico es entrar al Discord o al canal de WhatsApp para avisar si una descarga, script o enlace se cayó.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-tight">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">Legal</p>
+            <h2 class="headline">Uso bajo tu <span class="accent">responsabilidad.</span></h2>
+            <p class="lede">Los recursos compartidos son informativos y educativos. Usarlos en Roblox puede ir contra sus términos de servicio y tú asumes el riesgo.</p>
+          </div>
+          <div class="legal-grid">
+            <article class="info-card reveal">
+              <h3><i class="fas fa-triangle-exclamation"></i> Riesgo de cuenta</h3>
+              <p>El uso de scripts o executores puede causar sanciones, bans o pérdida de acceso a cuentas.</p>
+            </article>
+            <article class="info-card reveal">
+              <h3><i class="fas fa-link-slash"></i> Sin lucro abusivo</h3>
+              <p>No se promueve revender, cerrar recursos detrás de anuncios ni monetizar el trabajo ajeno con acortadores.</p>
+            </article>
+            <article class="info-card reveal">
+              <h3><i class="fas fa-copyright"></i> Créditos</h3>
+              <p>Los scripts pueden pertenecer a terceros. El crédito corresponde a sus autores originales.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-title">Anti-Hambreado Script Team</div>
+            <p>Scripts limpios, enlaces directos, comunidad activa y una experiencia visual más premium para la página 2.0.</p>
+          </div>
+          <div class="footer-socials">
+            <a class="social" href="https://discord.gg/rTGF5xhe3h" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            <a class="social" href="https://youtube.com/@anti-hambreado-script-team" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a class="social" href="https://whatsapp.com/channel/0029VbCWPet42DcfSt2khY43" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a class="social" href="https://antihambreadoscriptteam.github.io/Archivos/Anti-HambreadoApp" target="_blank" rel="noopener" aria-label="App Android"><i class="fab fa-android"></i></a>
+            <a class="social" href="https://antihambreadoscriptteam.github.io" target="_blank" rel="noopener" aria-label="GitHub Pages"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <div class="copyright">© 2026 Anti-Hambreado Script Team. Todos los derechos reservados.</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const doc = document.documentElement;
+    const body = document.body;
+    const nav = document.getElementById("nav");
+    const progress = document.getElementById("progress");
+    const menuBtn = document.getElementById("menuBtn");
+    const mobilePanel = document.getElementById("mobilePanel");
+    const spotlight = document.getElementById("spotlight");
+
+    function updateScrollState() {
+      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const pct = Math.min(100, Math.max(0, (window.scrollY / max) * 100));
+      progress.style.width = pct + "%";
+      nav.classList.toggle("scrolled", window.scrollY > 18);
+    }
+
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+    updateScrollState();
+
+    menuBtn.addEventListener("click", () => {
+      const isOpen = body.classList.toggle("menu-open");
+      menuBtn.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    mobilePanel.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        body.classList.remove("menu-open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+
+    document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+
+    if (spotlight) {
+      const setLight = (x, y) => {
+        spotlight.style.setProperty("--mx", x + "%");
+        spotlight.style.setProperty("--my", y + "%");
+      };
+
+      spotlight.addEventListener("pointermove", (event) => {
+        const rect = spotlight.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        setLight(Math.max(0, Math.min(100, x)), Math.max(0, Math.min(100, y)));
+      });
+
+      if (window.matchMedia("(pointer: coarse)").matches) {
+        let start = performance.now();
+        const animateLight = (now) => {
+          const t = (now - start) / 1000;
+          const x = 50 + Math.sin(t * 0.72) * 32;
+          const y = 50 + Math.cos(t * 0.58) * 28;
+          setLight(x, y);
+          requestAnimationFrame(animateLight);
+        };
+        requestAnimationFrame(animateLight);
+      }
+    }
+
+    (function loadYouTubeVideos() {
+      const channelId = "UCcyzyjtZUEwqMG9yZsBQxZQ";
+      const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+      const proxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`,
+        `https://corsproxy.io/?${encodeURIComponent(rssUrl)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(rssUrl)}`
+      ];
+      const container = document.getElementById("yt-videos-container");
+      const loading = document.getElementById("yt-loading");
+      const pinnedVideo = {
+        videoId: "o5J3d_SJ9o8",
+        title: "Descarga scripts directo paso a paso, link sin anuncios y fácil para Roblox",
+        link: "https://www.youtube.com/watch?v=o5J3d_SJ9o8",
+        published: "",
+        publishedText: "Video fijado",
+        views: ""
+      };
+
+      function escapeHtml(value) {
+        return String(value || "").replace(/[&<>"']/g, (char) => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        })[char]);
+      }
+
+      function timeAgo(dateStr) {
+        const date = new Date(dateStr);
+        if (Number.isNaN(date.getTime())) return "";
+        const diff = Math.floor((new Date() - date) / 1000);
+        if (diff < 60) return "Hace unos segundos";
+        const mins = Math.floor(diff / 60);
+        if (diff < 3600) return `Hace ${mins} ${mins === 1 ? "minuto" : "minutos"}`;
+        const hrs = Math.floor(diff / 3600);
+        if (diff < 86400) return `Hace ${hrs} ${hrs === 1 ? "hora" : "horas"}`;
+        const days = Math.floor(diff / 86400);
+        if (diff < 2592000) return `Hace ${days} ${days === 1 ? "día" : "días"}`;
+        const months = Math.floor(diff / 2592000);
+        if (diff < 31536000) return `Hace ${months} ${months === 1 ? "mes" : "meses"}`;
+        const years = Math.floor(diff / 31536000);
+        return `Hace ${years} ${years === 1 ? "año" : "años"}`;
+      }
+
+      function renderVideos(videos) {
+        if (loading) loading.remove();
+        const pinnedId = pinnedVideo.videoId;
+        const foundPinned = videos.find((video) => video.videoId === pinnedId);
+        const lead = foundPinned ? { ...pinnedVideo, ...foundPinned } : pinnedVideo;
+        const rest = videos.filter((video) => video.videoId !== pinnedId).slice(0, 4);
+        const finalVideos = [lead, ...rest].slice(0, 5);
+
+        finalVideos.forEach((video, index) => {
+          const card = document.createElement("a");
+          const title = escapeHtml(video.title);
+          const dateText = video.publishedText || timeAgo(video.published) || "Reciente";
+          card.href = video.link || `https://www.youtube.com/watch?v=${video.videoId}`;
+          card.target = "_blank";
+          card.rel = "noopener noreferrer";
+          card.className = "yt-video-card";
+          card.innerHTML = `
+            <div class="yt-thumb-wrap">
+              <img src="https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg" alt="${title}" loading="lazy" decoding="async">
+              <div class="yt-play-overlay"><div class="yt-play-btn"><i class="fas fa-play"></i></div></div>
+            </div>
+            <span class="yt-badge">${index === 0 ? '<i class="fas fa-thumbtack"></i> Fijado' : '<i class="fab fa-youtube"></i> Nuevo'}</span>
+            <div class="yt-video-info">
+              <p class="yt-video-title">${title}</p>
+              <div class="yt-video-meta">
+                <span><i class="fas fa-clock"></i> ${dateText}</span>
+                <span><i class="fas fa-arrow-up-right-from-square"></i> Ver en YouTube</span>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      function showError() {
+        if (loading) loading.remove();
+        const fallback = document.createElement("div");
+        fallback.className = "yt-error";
+        fallback.innerHTML = `
+          <div>
+            <i class="fas fa-circle-exclamation" style="color: var(--accent-2); font-size: 32px;"></i>
+            <p>No se pudieron cargar los videos en este momento.</p>
+            <a class="btn btn-primary" href="https://youtube.com/@anti-hambreado-script-team" target="_blank" rel="noopener">Abrir canal</a>
+          </div>
+        `;
+        container.appendChild(fallback);
+      }
+
+      async function tryFetch(index) {
+        if (index >= proxies.length) {
+          renderVideos([pinnedVideo]);
+          return;
+        }
+        try {
+          const response = await fetch(proxies[index]);
+          if (!response.ok) throw new Error("HTTP " + response.status);
+          const text = await response.text();
+          const xml = new DOMParser().parseFromString(text, "application/xml");
+          const entries = [...xml.querySelectorAll("entry")];
+          if (!entries.length) throw new Error("Sin entradas");
+          const videos = entries.map((entry) => ({
+            title: entry.querySelector("title")?.textContent || "",
+            videoId: entry.querySelector("videoId")?.textContent || "",
+            link: entry.querySelector('link[rel="alternate"]')?.getAttribute("href") || "",
+            published: entry.querySelector("published")?.textContent || ""
+          })).filter((video) => video.videoId);
+          renderVideos(videos);
+        } catch (error) {
+          tryFetch(index + 1);
+        }
+      }
+
+      tryFetch(0).catch(showError);
+    })();
+  </script>
+</body>
+</html>
