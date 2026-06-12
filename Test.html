@@ -551,8 +551,50 @@
       inset: 0;
       z-index: -1;
       background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.8) 50%, #000000 100%);
-      backdrop-filter: blur(3px);
-      -webkit-backdrop-filter: blur(3px);
+      animation: dynamic-blur 16s infinite ease-in-out;
+    }
+
+    @keyframes dynamic-blur {
+      0%, 100% {
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+      }
+      10% {
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+      }
+      15% {
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+      }
+      22% {
+        backdrop-filter: blur(1px);
+        -webkit-backdrop-filter: blur(1px);
+      }
+      35% {
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+      }
+      48% {
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+      }
+      55% {
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+      }
+      70% {
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      78% {
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+      }
+      88% {
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+      }
     }
 
     .hero-badge {
@@ -1049,12 +1091,16 @@
       z-index: -1;
       pointer-events: none;
       overflow: hidden;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 30px;
+      padding: 40px;
     }
 
     .flashlight-icon {
-      position: absolute;
-      width: 120px;
-      height: 120px;
+      position: relative;
+      width: 100px;
+      height: 100px;
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
@@ -1062,6 +1108,7 @@
       filter: brightness(0.7) grayscale(0.5);
       transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
       will-change: opacity, filter, transform;
+      margin: 0 auto;
     }
 
     .screen-stack {
@@ -1913,13 +1960,13 @@
             </div>
           </div>
           <div class="game-card">
-            <img src="https://tr.rbxcdn.com/180DAY-cc8210344d5c4fb5bce6ba4f6c4a8cf8/150/150/Image/Png/noFilter" alt="Pet Simulator 99">
+            <img src="https://tr.rbxcdn.com/180DAY-77b44c9a2024f7fbdc3d745c4593856a/150/150/Image/Png/noFilter" alt="Pet Simulator 99">
             <div class="game-overlay">
               <span class="game-title">Pet Simulator 99</span>
             </div>
           </div>
           <div class="game-card">
-            <img src="https://t4.rbxcdn.com/180DAY-6f04369060213cc72bbec0d8dd5a47a4" alt="Brookhaven">
+            <img src="https://tr.rbxcdn.com/180DAY-51f0860063b7ee0313cfaf8db7200096/150/150/Image/Png/noFilter" alt="Brookhaven">
             <div class="game-overlay">
               <span class="game-title">Brookhaven</span>
             </div>
@@ -1943,13 +1990,13 @@
             </div>
           </div>
           <div class="game-card">
-            <img src="https://t4.rbxcdn.com/180DAY-dc729135d7789ab11a92a9d761648577" alt="Sol's RNG">
+            <img src="https://tr.rbxcdn.com/180DAY-8a2116bd9d541c179d7bd4e611fe58b8/150/150/Image/Png/noFilter" alt="Sol's RNG">
             <div class="game-overlay">
               <span class="game-title">Sol's RNG</span>
             </div>
           </div>
           <div class="game-card">
-            <img src="https://t4.rbxcdn.com/180DAY-d111e601a049bc036dbee4dd47894778" alt="Arsenal">
+            <img src="https://tr.rbxcdn.com/180DAY-2c691f8c1278352cc98e30afef3c3a4e/150/150/Image/Png/noFilter" alt="Arsenal">
             <div class="game-overlay">
               <span class="game-title">Arsenal</span>
             </div>
@@ -1967,13 +2014,13 @@
             </div>
           </div>
           <div class="game-card">
-            <img src="https://tr.rbxcdn.com/180DAY-cc8210344d5c4fb5bce6ba4f6c4a8cf8/150/150/Image/Png/noFilter" alt="Pet Simulator 99">
+            <img src="https://tr.rbxcdn.com/180DAY-77b44c9a2024f7fbdc3d745c4593856a/150/150/Image/Png/noFilter" alt="Pet Simulator 99">
             <div class="game-overlay">
               <span class="game-title">Pet Simulator 99</span>
             </div>
           </div>
           <div class="game-card">
-            <img src="https://t4.rbxcdn.com/180DAY-6f04369060213cc72bbec0d8dd5a47a4" alt="Brookhaven">
+            <img src="https://tr.rbxcdn.com/180DAY-51f0860063b7ee0313cfaf8db7200096/150/150/Image/Png/noFilter" alt="Brookhaven">
             <div class="game-overlay">
               <span class="game-title">Brookhaven</span>
             </div>
@@ -1997,13 +2044,13 @@
             </div>
           </div>
           <div class="game-card">
-            <img src="https://t4.rbxcdn.com/180DAY-dc729135d7789ab11a92a9d761648577" alt="Sol's RNG">
+            <img src="https://tr.rbxcdn.com/180DAY-8a2116bd9d541c179d7bd4e611fe58b8/150/150/Image/Png/noFilter" alt="Sol's RNG">
             <div class="game-overlay">
               <span class="game-title">Sol's RNG</span>
             </div>
           </div>
           <div class="game-card">
-            <img src="https://t4.rbxcdn.com/180DAY-d111e601a049bc036dbee4dd47894778" alt="Arsenal">
+            <img src="https://tr.rbxcdn.com/180DAY-2c691f8c1278352cc98e30afef3c3a4e/150/150/Image/Png/noFilter" alt="Arsenal">
             <div class="game-overlay">
               <span class="game-title">Arsenal</span>
             </div>
@@ -2090,6 +2137,22 @@
             <h3>Canal de WhatsApp</h3>
             <p>// Alertas al instante</p>
           </a>
+          <a href="https://antihambreadoscriptteam.github.io/Sobre-Nosotros/" target="_blank" class="card-plataforma">
+            <div class="card-plataforma-top">
+              <div class="card-plataforma-icon"><i class="fas fa-users"></i></div>
+              <i class="fas fa-arrow-up-right-from-square card-plataforma-arrow"></i>
+            </div>
+            <h3>Sobre Nosotros</h3>
+            <p>// Concenos & Filosofa</p>
+          </a>
+          <a href="https://antihambreadoscriptteam.github.io/Rip-Campione/" target="_blank" class="card-plataforma">
+            <div class="card-plataforma-top">
+              <div class="card-plataforma-icon"><i class="fas fa-skull"></i></div>
+              <i class="fas fa-arrow-up-right-from-square card-plataforma-arrow"></i>
+            </div>
+            <h3>Rip Campione</h3>
+            <p>// Exponiendo Abusos</p>
+          </a>
         </div>
       </div>
     </section>
@@ -2128,18 +2191,7 @@
 
     <section class="section reveal" id="secciones">
       <div class="screens-container">
-        <div class="flashlight-bg">
-          <div class="flashlight-icon" style="background-image: url('Foto/WebSource/Icons/106446ac-e287-4dd8-9e42-f70678cf65e4.png'); top: 5%; left: 8%;"></div>
-          <div class="flashlight-icon" style="background-image: url('Foto/WebSource/Icons/2e2f934c-785a-4651-94f2-ac9a5282cca4.png'); top: 18%; right: 10%;"></div>
-          <div class="flashlight-icon" style="background-image: url('Foto/WebSource/Icons/33ecee61-f21a-40a9-93b1-598be117a659.png'); top: 32%; left: 6%;"></div>
-          <div class="flashlight-icon" style="background-image: url('Foto/WebSource/Icons/3ba353d0-782c-4356-bd2c-6c7a9a67c824.png'); top: 45%; right: 12%;"></div>
-          <div class="flashlight-icon" style="background-image: url('Foto/WebSource/Icons/4ec3fc92-77c8-4138-a966-7029774834b2.png'); top: 58%; left: 10%;"></div>
-          <div class="flashlight-icon" style="background-image: url('Foto/WebSource/Icons/50a8d274-bda4-4ba3-87c4-6751ab6765bd.png'); top: 72%; right: 8%;"></div>
-          <div class="flashlight-icon" style="background-image: url('Foto/WebSource/Icons/ba463a0a-d758-4e56-9ac7-a6be2c3013df.png'); top: 85%; left: 12%;"></div>
-          <div class="flashlight-icon" style="background-image: url('Foto/WebSource/Icons/c24e2889-dbe1-4483-aa69-ce4d5fd7a2e4.png'); top: 92%; right: 6%;"></div>
-          <div class="flashlight-icon" style="background-image: url('Foto/WebSource/Icons/cae5d8fb-6567-4c01-b7be-b09212568446.png'); top: 25%; left: 88%;"></div>
-          <div class="flashlight-icon" style="background-image: url('Foto/WebSource/Icons/ed66c009-4303-4fcc-a0cd-1e52a4dff6c2.png'); top: 65%; left: 85%;"></div>
-        </div>
+        <div class="flashlight-bg"></div>
 
         <div class="container">
           <div class="section-head">
@@ -2154,6 +2206,8 @@
                 <span class="eyebrow">01 / SCRIPTS</span>
                 <h3>Librería Completa de Scripts</h3>
                 <p>Nuestra sección estrella. Ponemos a tu disposición un catálogo extenso de scripts optimizados para múltiples juegos de Roblox, todos limpios, libres de inyecciones externas de publicidad y listos para copiar con un simple botón.</p>
+              
+                <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="btn btn-primary btn-sm" style="margin-top: 12px;">Ver Scripts <i class="fas fa-arrow-right"></i></a>
               </div>
               <div class="screen-shot">
                 <img src="Foto/WebSource/Captura de pantalla 2026-06-12 140712.png" alt="Página de Scripts">
@@ -2168,6 +2222,8 @@
                 <span class="eyebrow">02 / EXECUTORES</span>
                 <h3>Executores Libres de Publicidad</h3>
                 <p>Monitoreamos y publicamos ejecutores funcionales para Windows, emuladores y dispositivos móviles. Te informamos de su estado tras cada actualización semanal de Roblox, ofreciéndote descargas directas sin acortadores peligrosos.</p>
+              
+                <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn btn-primary btn-sm" style="margin-top: 12px;">Ver Ejecutores <i class="fas fa-arrow-right"></i></a>
               </div>
             </article>
 
@@ -2176,6 +2232,8 @@
                 <span class="eyebrow">03 / BYPASS</span>
                 <h3>Sistemas de Key Bypass</h3>
                 <p>Diseñamos y recopilamos soluciones de bypass estables para saltar los sistemas de keys molestos y los anuncios obligatorios de Linkvertise que implementan otros ejecutores, ahorrándote minutos valiosos en cada inyección.</p>
+              
+                <a href="https://antihambreadoscriptteam.github.io/bypass" target="_blank" class="btn btn-primary btn-sm" style="margin-top: 12px;">Usar Bypass <i class="fas fa-arrow-right"></i></a>
               </div>
               <div class="screen-shot">
                 <img src="Foto/WebSource/Captura de pantalla 2026-06-12 140819.png" alt="Página de Bypass">
@@ -2190,6 +2248,8 @@
                 <span class="eyebrow">04 / USERSCRIPT</span>
                 <h3>Automatización con Userscripts</h3>
                 <p>Proporcionamos scripts de navegador ligeros que facilitan la navegación en nuestros portales y saltan pasos publicitarios en la red de forma automatizada, mejorando drásticamente tu experiencia web al instante.</p>
+              
+                <a href="https://antihambreadoscriptteam.github.io/SuaURL" target="_blank" class="btn btn-primary btn-sm" style="margin-top: 12px;">Instalar Userscript <i class="fas fa-arrow-right"></i></a>
               </div>
             </article>
 
@@ -2198,6 +2258,8 @@
                 <span class="eyebrow">05 / APP MÓVIL</span>
                 <h3>Nuestra Aplicación Oficial</h3>
                 <p>Lleva todo el poder del Anti-Hambreado en tu teléfono móvil. Nuestra app oficial para Android consolida ejecutores compatibles, scripts optimizados para pantallas táctiles y bypassers integrados en una interfaz AMOLED rápida y sin publicidad invasiva.</p>
+              
+                <a href="https://antihambreadoscriptteam.github.io/Archivos/Anti-HambreadoApp" target="_blank" class="btn btn-primary btn-sm" style="margin-top: 12px;">Descargar APK <i class="fas fa-arrow-right"></i></a>
               </div>
               <div class="screen-shot">
                 <img src="Foto/WebSource/Captura de pantalla 2026-06-12 140903.png" alt="Nuestra App Móvil">
@@ -2212,6 +2274,8 @@
                 <span class="eyebrow">06 / FILOSOFÍA</span>
                 <h3>Sobre Nosotros</h3>
                 <p>Somos una iniciativa impulsada por la comunidad, dedicada a proteger el tiempo y la seguridad de los jugadores de habla hispana frente a las malas prácticas de monetización abusiva imperantes en la escena del exploit.</p>
+              
+                <a href="https://antihambreadoscriptteam.github.io/Sobre-Nosotros/" target="_blank" class="btn btn-primary btn-sm" style="margin-top: 12px;">Conócenos <i class="fas fa-arrow-right"></i></a>
               </div>
             </article>
 
@@ -2220,6 +2284,8 @@
                 <span class="eyebrow">07 / CONTRA-ATAQUE</span>
                 <h3>Exponiendo Abusos</h3>
                 <p>Nuestra página insignia dedicada a documentar, mitigar y superar las prácticas hambreadas que saturan la escena del exploit en Roblox. Demostramos que es posible ofrecer calidad técnica e inmediatez sin lucrar con el tiempo de los usuarios.</p>
+              
+                <a href="https://antihambreadoscriptteam.github.io/Rip-Campione/" target="_blank" class="btn btn-primary btn-sm" style="margin-top: 12px;">Ver Reporte <i class="fas fa-arrow-right"></i></a>
               </div>
               <div class="screen-shot">
                 <img src="Foto/WebSource/Captura de pantalla 2026-06-12 141029.png" alt="Rip Campionescript">
@@ -2748,7 +2814,44 @@
     });
 
     const container = document.querySelector('.screens-container');
-    const items = document.querySelectorAll('.flashlight-icon');
+    const bg = document.querySelector('.flashlight-bg');
+    const iconUrls = [
+      'Foto/WebSource/Icons/106446ac-e287-4dd8-9e42-f70678cf65e4.png',
+      'Foto/WebSource/Icons/2e2f934c-785a-4651-94f2-ac9a5282cca4.png',
+      'Foto/WebSource/Icons/33ecee61-f21a-40a9-93b1-598be117a659.png',
+      'Foto/WebSource/Icons/3ba353d0-782c-4356-bd2c-6c7a9a67c824.png',
+      'Foto/WebSource/Icons/4ec3fc92-77c8-4138-a966-7029774834b2.png',
+      'Foto/WebSource/Icons/50a8d274-bda4-4ba3-87c4-6751ab6765bd.png',
+      'Foto/WebSource/Icons/ba463a0a-d758-4e56-9ac7-a6be2c3013df.png',
+      'Foto/WebSource/Icons/c24e2889-dbe1-4483-aa69-ce4d5fd7a2e4.png',
+      'Foto/WebSource/Icons/cae5d8fb-6567-4c01-b7be-b09212568446.png',
+      'Foto/WebSource/Icons/ed66c009-4303-4fcc-a0cd-1e52a4dff6c2.png'
+    ];
+
+    let items = [];
+
+    const fillIcons = () => {
+      bg.innerHTML = '';
+      const w = container.offsetWidth;
+      const h = container.offsetHeight;
+      const colWidth = 130;
+      const cols = Math.floor(w / colWidth) + 1;
+      const rows = Math.floor(h / colWidth) + 1;
+      const total = cols * rows;
+      
+      const fragment = document.createDocumentFragment();
+      for (let i = 0; i < total; i++) {
+        const div = document.createElement('div');
+        div.className = 'flashlight-icon';
+        div.style.backgroundImage = `url('${iconUrls[i % iconUrls.length]}')`;
+        fragment.appendChild(div);
+      }
+      bg.appendChild(fragment);
+      items = document.querySelectorAll('.flashlight-icon');
+    };
+    
+    fillIcons();
+    window.addEventListener('resize', fillIcons);
 
     container.addEventListener('mousemove', (e) => {
       const rect = container.getBoundingClientRect();
@@ -2761,12 +2864,12 @@
         const itemY = itemRect.top - rect.top + itemRect.height / 2;
         
         const dist = Math.hypot(x - itemX, y - itemY);
-        const maxDist = 200;
+        const maxDist = 220;
         if (dist < maxDist) {
           const intensity = 1 - (dist / maxDist);
           item.style.opacity = 0.12 + (intensity * 0.88);
-          item.style.filter = `brightness(${1 + intensity * 2}) grayscale(${1 - intensity})`;
-          item.style.transform = `scale(${1 + intensity * 0.12})`;
+          item.style.filter = `brightness(${1 + intensity * 2.5}) grayscale(${1 - intensity})`;
+          item.style.transform = `scale(${1 + intensity * 0.15})`;
         } else {
           item.style.opacity = 0.12;
           item.style.filter = 'brightness(0.7) grayscale(0.5)';
@@ -2813,177 +2916,11 @@
             item.style.transform = 'scale(1)';
           }
         });
-        angle += 0.005;
+        angle += 0.012;
       }
       requestAnimationFrame(animateSpotlight);
     };
-    animateSpotlight();
-
-    (function loadYouTubeVideos() {
-      const CHANNEL_ID = 'UCcyzyjtZUEwqMG9yZsBQxZQ';
-      const RSS_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
-      const CORS_PROXIES = [
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`,
-        `https://corsproxy.io/?${encodeURIComponent(RSS_URL)}`,
-        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(RSS_URL)}`
-      ];
-      const ytContainer = document.getElementById('yt-videos-container');
-      const loadingEl = document.getElementById('yt-loading');
-      const PINNED_VIDEO = {
-        videoId: 'o5J3d_SJ9o8',
-        title: "DESCARGA SCRIPTS DIRECTO PASO A PASO LINK SIN ANUNCIOS SUPER FÁCIL OP BRUTAL | ROBLOX",
-        link: 'https://www.youtube.com/watch?v=o5J3d_SJ9o8',
-        published: '',
-        publishedText: 'Hace 2 semanas',
-        views: 34
-      };
-
-      const timeAgo = (dateStr) => {
-        const date = new Date(dateStr);
-        if (Number.isNaN(date.getTime())) return '';
-        const diff = Math.floor((new Date() - date) / 1000);
-        if (diff < 0) return 'Reciente';
-        if (diff < 60) return 'Hace unos segundos';
-        const mins = Math.floor(diff / 60);
-        if (diff < 3600) return `Hace ${mins} ${mins === 1 ? 'minuto' : 'minutos'}`;
-        const hrs = Math.floor(diff / 3600);
-        if (diff < 86400) return `Hace ${hrs} ${hrs === 1 ? 'hora' : 'horas'}`;
-        const days = Math.floor(diff / 86400);
-        if (diff < 2592000) return `Hace ${days} ${days === 1 ? 'día' : 'días'}`;
-        const months = Math.floor(diff / 2592000);
-        if (diff < 31536000) return `Hace ${months} ${months === 1 ? 'mes' : 'meses'}`;
-        const years = Math.floor(diff / 31536000);
-        return `Hace ${years} ${years === 1 ? 'año' : 'años'}`;
-      };
-
-      const formatViews = (views) => {
-        const val = Number(String(views ?? '').replace(/[^\d]/g, ''));
-        return Number.isFinite(val) && val >= 0 ? val.toLocaleString('es-MX') + ' vistas' : '';
-      };
-
-      const normalizeText = (val) => {
-        const txt = String(val || '').trim();
-        return txt ? txt.charAt(0).toUpperCase() + txt.slice(1) : '';
-      };
-
-      const fetchRealStats = async (videoId, card) => {
-        const url = 'https://www.youtube.com/watch?v=' + videoId;
-        const proxies = [
-          'https://api.allorigins.win/raw?url=' + encodeURIComponent(url),
-          'https://corsproxy.io/?' + encodeURIComponent(url)
-        ];
-        for (const p of proxies) {
-          try {
-            const r = await fetch(p);
-            if (!r.ok) continue;
-            const html = await r.text();
-            const vm = html.match(/"videoDetails"\s*:\s*\{[\s\S]*?"viewCount"\s*:\s*"(\d+)"/) || html.match(/"viewCount"\s*:\s*"?(\d+)"?/);
-            const dm = html.match(/"(?:publishDate|uploadDate|datePublished)"\s*:\s*"(\d{4}-\d{2}-\d{2})"/);
-            const sm = html.match(/"subtitle"[\s\S]{0,420}?"text"\s*:\s*"([0-9.,\s]+ vistas)"[\s\S]{0,180}?"text"\s*:\s*"(hace [^"]+)"/i);
-            const viewsText = vm ? formatViews(vm[1]) : normalizeText(sm?.[1]);
-            const dateText = dm ? timeAgo(dm[1] + 'T00:00:00Z') : normalizeText(sm?.[2]);
-            if (viewsText) {
-              const el = card.querySelector('.yt-pinned-views');
-              if (el) el.innerHTML = '<i class="fas fa-eye"></i> ' + viewsText;
-            }
-            if (dateText) {
-              const el = card.querySelector('.yt-pinned-date');
-              if (el) el.innerHTML = '<i class="fas fa-clock"></i> ' + dateText;
-            }
-            if (viewsText || dateText) return;
-          } catch(e) {}
-        }
-      };
-
-      const renderVideos = (videos) => {
-        loadingEl.style.display = 'none';
-        const PINNED_ID = PINNED_VIDEO.videoId;
-        let pinnedVideo = videos.find(v => v.videoId === PINNED_ID);
-        if (!pinnedVideo) {
-          pinnedVideo = PINNED_VIDEO;
-        } else {
-          pinnedVideo = {
-            ...pinnedVideo,
-            title: pinnedVideo.title || PINNED_VIDEO.title,
-            link: pinnedVideo.link || PINNED_VIDEO.link,
-            published: pinnedVideo.published || PINNED_VIDEO.published,
-            publishedText: pinnedVideo.published ? '' : PINNED_VIDEO.publishedText,
-            views: pinnedVideo.views && pinnedVideo.views !== '0' ? pinnedVideo.views : PINNED_VIDEO.views
-          };
-        }
-        const otherVideos = videos.filter(v => v.videoId !== PINNED_ID).slice(0, 2);
-        const finalDisplay = [pinnedVideo, ...otherVideos];
-
-        finalDisplay.forEach((v, index) => {
-          const isPinned = index === 0;
-          const isShort = v.link.includes('/shorts/');
-          const card = document.createElement('a');
-          card.href = v.link;
-          card.target = '_blank';
-          card.rel = 'noopener noreferrer';
-          card.className = 'youtube-card';
-          const viewsText = formatViews(v.views);
-          const dateText = v.publishedText || timeAgo(v.published);
-          const viewsHtml = viewsText ? viewsText : '<span style="opacity:0.5">cargando...</span>';
-          card.innerHTML = `
-            <div class="youtube-thumb-wrap">
-              <img src="https://i.ytimg.com/vi/${v.videoId}/hqdefault.jpg" alt="${v.title}" loading="lazy">
-              <div class="youtube-play-overlay">
-                <div class="youtube-play-btn"><i class="fas fa-play"></i></div>
-              </div>
-              ${isPinned ? '<span class="youtube-pinned-badge"><i class="fas fa-thumbtack"></i> Fijado</span>' : ''}
-              ${isShort ? '<span class="youtube-short-badge"><i class="fas fa-bolt"></i> Short</span>' : ''}
-            </div>
-            <div class="youtube-info">
-              <p class="youtube-title">${v.title}</p>
-              <div class="youtube-meta">
-                <span ${isPinned ? 'class="yt-pinned-views"' : ''}><i class="fas fa-eye"></i> ${viewsHtml}</span>
-                <span ${isPinned ? 'class="yt-pinned-date"' : ''}><i class="fas fa-clock"></i> ${dateText}</span>
-              </div>
-            </div>
-          `;
-          ytContainer.appendChild(card);
-          if (isPinned) fetchRealStats(v.videoId, card);
-        });
-      };
-
-      const showError = () => {
-        loadingEl.style.display = 'none';
-        ytContainer.innerHTML = `
-          <div class="youtube-error" style="grid-column: 1 / -1;">
-            <i class="fas fa-circle-exclamation"></i>
-            <p>No se pudieron cargar los videos. <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" style="color:var(--accent);">Visita nuestro canal directamente</a></p>
-          </div>
-        `;
-      };
-
-      const tryFetch = async (proxyIndex) => {
-        if (proxyIndex >= CORS_PROXIES.length) { showError(); return; }
-        try {
-          const resp = await fetch(CORS_PROXIES[proxyIndex]);
-          if (!resp.ok) throw new Error('HTTP ' + resp.status);
-          const text = await resp.text();
-          const xml = new DOMParser().parseFromString(text, 'application/xml');
-          const entries = xml.querySelectorAll('entry');
-          if (!entries.length) throw new Error('No entries');
-          const videos = [];
-          entries.forEach(entry => {
-            videos.push({
-              title: entry.querySelector('title')?.textContent || '',
-              videoId: entry.querySelector('videoId')?.textContent || '',
-              link: entry.querySelector('link[rel="alternate"]')?.getAttribute('href') || '',
-              published: entry.querySelector('published')?.textContent || '',
-              views: entry.querySelector('statistics')?.getAttribute('views') || '0'
-            });
-          });
-          renderVideos(videos);
-        } catch (e) {
-          tryFetch(proxyIndex + 1);
-        }
-      };
-
-      tryFetch(0);
-    })();
-  </script>
+    requestAnimationFrame(animateSpotlight);
+    </script>
 </body>
 </html>
