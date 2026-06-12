@@ -4056,10 +4056,10 @@
       if (!track || !marqueeContainer) return;
       const cards = Array.from(track.querySelectorAll('.game-card'));
 
-      const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+      const isTouch = () => navigator.maxTouchPoints > 0 || 'ontouchstart' in window;
 
       const updateCenterHighlight = () => {
-        if (!isMobile()) {
+        if (!isTouch() && window.innerWidth > 768) {
           cards.forEach(c => c.classList.remove('center-lit'));
           return;
         }
@@ -4086,7 +4086,7 @@
       let isDragging = false;
 
       marqueeContainer.addEventListener('touchstart', (e) => {
-        if (!isMobile()) return;
+        if (!isTouch()) return;
         const t = e.touches[0];
         touchStartX = t.clientX;
         touchStartY = t.clientY;
@@ -4096,7 +4096,7 @@
       }, { passive: true });
 
       marqueeContainer.addEventListener('touchmove', (e) => {
-        if (!isMobile()) return;
+        if (!isTouch()) return;
         const t = e.touches[0];
         const dx = Math.abs(t.clientX - touchStartX);
         const dy = Math.abs(t.clientY - touchStartY);
@@ -4104,7 +4104,7 @@
       }, { passive: true });
 
       marqueeContainer.addEventListener('touchend', (e) => {
-        if (!isMobile()) { track.classList.remove('is-paused'); return; }
+        if (!isTouch()) { track.classList.remove('is-paused'); return; }
         const elapsed = Date.now() - touchStartTime;
         const t = e.changedTouches[0];
         track.classList.remove('is-paused');
