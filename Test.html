@@ -803,7 +803,7 @@
       display: flex;
       gap: 20px;
       width: max-content;
-      animation: marqueeScroll 25s linear infinite;
+      animation: marqueeScroll 12s linear infinite;
     }
 
     .marquee-container:hover .marquee-track {
@@ -811,7 +811,7 @@
     }
 
     .game-card {
-      width: 160px;
+      width: 220px;
       flex-shrink: 0;
       border-radius: var(--r-md);
       overflow: hidden;
@@ -824,7 +824,7 @@
 
     .game-card img {
       width: 100%;
-      height: 160px;
+      height: 220px;
       object-fit: cover;
       filter: grayscale(1);
       opacity: 0.6;
@@ -993,13 +993,13 @@
 
     .card-plataforma-arrow {
       font-size: 11px;
-      color: var(--fg-30);
+      color: var(--accent);
       transition: transform var(--dur-sm) var(--ease), color var(--dur-sm);
     }
 
     .card-plataforma:hover .card-plataforma-arrow {
       transform: translate(2px, -2px);
-      color: var(--fg);
+      color: var(--accent-hover);
     }
 
     .card-plataforma h3 {
@@ -1966,7 +1966,7 @@
             </div>
           </div>
           <div class="game-card">
-            <img src="https://tr.rbxcdn.com/180DAY-51f0860063b7ee0313cfaf8db7200096/150/150/Image/Png/noFilter" alt="Brookhaven">
+            <img src="https://tr.rbxcdn.com/180DAY-8c353be34538e596bc21c155a27da5bf/150/150/Image/Png/noFilter" alt="Brookhaven">
             <div class="game-overlay">
               <span class="game-title">Brookhaven</span>
             </div>
@@ -1990,7 +1990,7 @@
             </div>
           </div>
           <div class="game-card">
-            <img src="https://tr.rbxcdn.com/180DAY-8a2116bd9d541c179d7bd4e611fe58b8/150/150/Image/Png/noFilter" alt="Sol's RNG">
+            <img src="https://tr.rbxcdn.com/180DAY-950708626319e299abab674f3b11816b/150/150/Image/Png/noFilter" alt="Sol's RNG">
             <div class="game-overlay">
               <span class="game-title">Sol's RNG</span>
             </div>
@@ -2020,7 +2020,7 @@
             </div>
           </div>
           <div class="game-card">
-            <img src="https://tr.rbxcdn.com/180DAY-51f0860063b7ee0313cfaf8db7200096/150/150/Image/Png/noFilter" alt="Brookhaven">
+            <img src="https://tr.rbxcdn.com/180DAY-8c353be34538e596bc21c155a27da5bf/150/150/Image/Png/noFilter" alt="Brookhaven">
             <div class="game-overlay">
               <span class="game-title">Brookhaven</span>
             </div>
@@ -2044,7 +2044,7 @@
             </div>
           </div>
           <div class="game-card">
-            <img src="https://tr.rbxcdn.com/180DAY-8a2116bd9d541c179d7bd4e611fe58b8/150/150/Image/Png/noFilter" alt="Sol's RNG">
+            <img src="https://tr.rbxcdn.com/180DAY-950708626319e299abab674f3b11816b/150/150/Image/Png/noFilter" alt="Sol's RNG">
             <div class="game-overlay">
               <span class="game-title">Sol's RNG</span>
             </div>
@@ -2073,14 +2073,6 @@
           <p>Todo el ecosistema de Anti-Hambreado en accesos directos, libres de acortadores y totalmente funcionales.</p>
         </div>
         <div class="grid-plataformas">
-          <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="card-plataforma discord">
-            <div class="card-plataforma-top">
-              <div class="card-plataforma-icon"><i class="fab fa-discord"></i></div>
-              <i class="fas fa-arrow-up-right-from-square card-plataforma-arrow"></i>
-            </div>
-            <h3>Discord Oficial</h3>
-            <p>// Comunidad & Soporte</p>
-          </a>
           <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="card-plataforma">
             <div class="card-plataforma-top">
               <div class="card-plataforma-icon"><i class="fas fa-code"></i></div>
@@ -2113,14 +2105,6 @@
             <h3>Userscript</h3>
             <p>// Automatización web</p>
           </a>
-          <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="card-plataforma youtube">
-            <div class="card-plataforma-top">
-              <div class="card-plataforma-icon"><i class="fab fa-youtube"></i></div>
-              <i class="fas fa-arrow-up-right-from-square card-plataforma-arrow"></i>
-            </div>
-            <h3>Canal de YouTube</h3>
-            <p>// Tutoriales & Reviews</p>
-          </a>
           <a href="https://antihambreadoscriptteam.github.io/Archivos/Anti-HambreadoApp" target="_blank" class="card-plataforma android">
             <div class="card-plataforma-top">
               <div class="card-plataforma-icon"><i class="fab fa-android"></i></div>
@@ -2128,6 +2112,14 @@
             </div>
             <h3>Aplicación Android</h3>
             <p>// APK Oficial limpia</p>
+          </a>
+          <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="card-plataforma discord">
+            <div class="card-plataforma-top">
+              <div class="card-plataforma-icon"><i class="fab fa-discord"></i></div>
+              <i class="fas fa-arrow-up-right-from-square card-plataforma-arrow"></i>
+            </div>
+            <h3>Discord Oficial</h3>
+            <p>// Comunidad & Soporte</p>
           </a>
           <a href="https://whatsapp.com/channel/0029VbCWPet42DcfSt2khY43" target="_blank" class="card-plataforma whatsapp">
             <div class="card-plataforma-top">
@@ -2137,13 +2129,13 @@
             <h3>Canal de WhatsApp</h3>
             <p>// Alertas al instante</p>
           </a>
-          <a href="https://antihambreadoscriptteam.github.io/Sobre-Nosotros/" target="_blank" class="card-plataforma">
+          <a href="https://youtube.com/@anti-hambreado-script-team" target="_blank" class="card-plataforma youtube">
             <div class="card-plataforma-top">
-              <div class="card-plataforma-icon"><i class="fas fa-users"></i></div>
+              <div class="card-plataforma-icon"><i class="fab fa-youtube"></i></div>
               <i class="fas fa-arrow-up-right-from-square card-plataforma-arrow"></i>
             </div>
-            <h3>Sobre Nosotros</h3>
-            <p>// Concenos & Filosofa</p>
+            <h3>Canal de YouTube</h3>
+            <p>// Tutoriales & Reviews</p>
           </a>
           <a href="https://antihambreadoscriptteam.github.io/Rip-Campione/" target="_blank" class="card-plataforma">
             <div class="card-plataforma-top">
@@ -2152,6 +2144,14 @@
             </div>
             <h3>Rip Campione</h3>
             <p>// Exponiendo Abusos</p>
+          </a>
+          <a href="https://antihambreadoscriptteam.github.io/Sobre-Nosotros/" target="_blank" class="card-plataforma">
+            <div class="card-plataforma-top">
+              <div class="card-plataforma-icon"><i class="fas fa-users"></i></div>
+              <i class="fas fa-arrow-up-right-from-square card-plataforma-arrow"></i>
+            </div>
+            <h3>Sobre Nosotros</h3>
+            <p>// Conócenos & Filosofía</p>
           </a>
         </div>
       </div>
@@ -2306,7 +2306,7 @@
           <h3>La lucha contra la monetización abusiva en el scripting</h3>
           <div class="manifesto-content">
             <p>La escena de scripting de Roblox ha sido secuestrada por la avaricia. El usuario promedio que solo busca divertirse unas horas es obligado a atravesar bucles interminables de <strong>Linkvertise, Loot-labs, ventanas emergentes de apuestas, descargas automáticas sospechosas</strong> y peticiones de suscripción a canales de spam. Esta mentalidad mercantilista, ejemplificada por plataformas como <strong>Campione Script</strong>, trata a los jugadores como mercancía y prioriza las ganancias fáciles por encima de la seguridad informática de la comunidad.</p>
-            <p>Nosotros fundamos **Anti-Hambreado Script Team** bajo una premisa sencilla: <em>si el software no es limpio y directo, no tiene derecho a distribuirse en nuestra comunidad</em>. Creemos que la automatización de procesos en videojuegos debe ser accesible para todos, sin barreras financieras ocultas ni trampas publicitarias. Por eso garantizamos links directos hacia repositorios seguros, y nos esforzamos por auditar cada línea de código para descartar backdoors o troyanos.</p>
+            <p>Nosotros fundamos <strong>Anti-Hambreado Script Team</strong> bajo una premisa sencilla: <em>si el software no es limpio y directo, no tiene derecho a distribuirse en nuestra comunidad</em>. Creemos que la automatización de procesos en videojuegos debe ser accesible para todos, sin barreras financieras ocultas ni trampas publicitarias. Por eso garantizamos links directos hacia repositorios seguros, y nos esforzamos por auditar cada línea de código para descartar backdoors o troyanos.</p>
             <p><strong>Buscamos educar al usuario.</strong> Un jugador que sabe descargar de forma segura es un jugador libre. No necesitamos acortadores para mantener encendidos nuestros servidores; el apoyo orgánico de nuestra comunidad activa en Discord es nuestro mayor motor. Exigimos respeto por tu tiempo y tu privacidad. La alternativa real ya está aquí.</p>
           </div>
         </div>
@@ -2853,21 +2853,17 @@
     fillIcons();
     window.addEventListener('resize', fillIcons);
 
-    container.addEventListener('mousemove', (e) => {
+    const updateSpotlight = (x, y, maxDist = 220) => {
       const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
       items.forEach(item => {
         const itemRect = item.getBoundingClientRect();
         const itemX = itemRect.left - rect.left + itemRect.width / 2;
         const itemY = itemRect.top - rect.top + itemRect.height / 2;
         
         const dist = Math.hypot(x - itemX, y - itemY);
-        const maxDist = 220;
         if (dist < maxDist) {
           const intensity = 1 - (dist / maxDist);
-          item.style.opacity = 0.12 + (intensity * 0.88);
+          item.style.opacity = (0.12 + (intensity * 0.88)).toFixed(2);
           item.style.filter = `brightness(${1 + intensity * 2.5}) grayscale(${1 - intensity})`;
           item.style.transform = `scale(${1 + intensity * 0.15})`;
         } else {
@@ -2876,9 +2872,21 @@
           item.style.transform = 'scale(1)';
         }
       });
+    };
+
+    let isTouching = false;
+    let touchTimeout;
+
+    container.addEventListener('mousemove', (e) => {
+      if (isTouching) return;
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      updateSpotlight(x, y, 220);
     });
 
     container.addEventListener('mouseleave', () => {
+      if (isTouching) return;
       items.forEach(item => {
         item.style.opacity = 0.12;
         item.style.filter = 'brightness(0.7) grayscale(0.5)';
@@ -2886,37 +2894,31 @@
       });
     });
 
+    const handleTouch = (e) => {
+      isTouching = true;
+      clearTimeout(touchTimeout);
+      touchTimeout = setTimeout(() => { isTouching = false; }, 2500);
+
+      const rect = container.getBoundingClientRect();
+      const touch = e.touches[0];
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+      updateSpotlight(x, y, 220);
+    };
+
+    container.addEventListener('touchstart', handleTouch, { passive: true });
+    container.addEventListener('touchmove', handleTouch, { passive: true });
+
     let angle = 0;
     const animateSpotlight = () => {
-      if (window.matchMedia("(max-width: 768px)").matches) {
+      if (window.matchMedia("(max-width: 768px)").matches && !isTouching) {
         const rect = container.getBoundingClientRect();
         const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const radiusX = rect.width * 0.45;
-        const radiusY = rect.height * 0.45;
-        
-        const x = centerX + Math.cos(angle) * radiusX;
-        const y = centerY + Math.sin(angle * 0.7) * radiusY;
-        
-        items.forEach(item => {
-          const itemRect = item.getBoundingClientRect();
-          const itemX = itemRect.left - rect.left + itemRect.width / 2;
-          const itemY = itemRect.top - rect.top + itemRect.height / 2;
-          
-          const dist = Math.hypot(x - itemX, y - itemY);
-          const maxDist = 180;
-          if (dist < maxDist) {
-            const intensity = 1 - (dist / maxDist);
-            item.style.opacity = 0.12 + (intensity * 0.88);
-            item.style.filter = `brightness(${1 + intensity * 1.5}) grayscale(${1 - intensity})`;
-            item.style.transform = `scale(${1 + intensity * 0.08})`;
-          } else {
-            item.style.opacity = 0.12;
-            item.style.filter = 'brightness(0.7) grayscale(0.5)';
-            item.style.transform = 'scale(1)';
-          }
-        });
-        angle += 0.012;
+        const centerY = window.innerHeight / 2 - rect.top;
+        const x = centerX + Math.cos(angle) * (rect.width * 0.4);
+        const y = centerY + Math.sin(angle * 1.5) * (window.innerHeight * 0.25);
+        updateSpotlight(x, y, 200);
+        angle += 0.015;
       }
       requestAnimationFrame(animateSpotlight);
     };
