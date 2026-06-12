@@ -195,8 +195,8 @@
     }
 
     @keyframes introTitleReveal {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% { opacity: 0; transform: scale(2.2); filter: blur(12px); }
+      100% { opacity: 1; transform: scale(1); filter: blur(0); }
     }
 
     .scroll-progress {
@@ -3073,7 +3073,7 @@
           </div>
 
           <div class="screen-stack">
-            <article class="screen-row">
+            <article class="screen-row reveal">
               <div class="screen-text">
                 <span class="eyebrow">01 / SCRIPTS</span>
                 <h3>Librería Completa de Scripts</h3>
@@ -3086,7 +3086,7 @@
               </div>
             </article>
 
-            <article class="screen-row reverse">
+            <article class="screen-row reverse reveal">
               <div class="screen-shot">
                 <img src="Foto/WebSource/Captura de pantalla 2026-06-12 140747.png" alt="Página de Executores">
               </div>
@@ -3099,7 +3099,7 @@
               </div>
             </article>
 
-            <article class="screen-row">
+            <article class="screen-row reveal">
               <div class="screen-text">
                 <span class="eyebrow">03 / BYPASS</span>
                 <h3>Sistemas de Key Bypass</h3>
@@ -3112,7 +3112,7 @@
               </div>
             </article>
 
-            <article class="screen-row reverse">
+            <article class="screen-row reverse reveal">
               <div class="screen-shot">
                 <img src="Foto/WebSource/Captura de pantalla 2026-06-12 140840.png" alt="Userscript">
               </div>
@@ -3125,7 +3125,7 @@
               </div>
             </article>
 
-            <article class="screen-row">
+            <article class="screen-row reveal">
               <div class="screen-text">
                 <span class="eyebrow">05 / APP MÓVIL</span>
                 <h3>Nuestra Aplicación Oficial</h3>
@@ -3138,7 +3138,7 @@
               </div>
             </article>
 
-            <article class="screen-row reverse">
+            <article class="screen-row reverse reveal">
               <div class="screen-shot">
                 <img src="Foto/WebSource/Captura de pantalla 2026-06-12 140932.png" alt="Sobre Nosotros">
               </div>
@@ -3151,7 +3151,7 @@
               </div>
             </article>
 
-            <article class="screen-row">
+            <article class="screen-row reveal">
               <div class="screen-text">
                 <span class="eyebrow">07 / CONTRA-ATAQUE</span>
                 <h3>Exponiendo Abusos</h3>
@@ -3791,7 +3791,7 @@
         const x = centerX + Math.cos(angle) * (rect.width * 0.4);
         const y = centerY + Math.sin(angle * 1.5) * (window.innerHeight * 0.25);
         updateSpotlight(x, y, 200);
-        angle += 0.015;
+        angle += 0.045;
       }
       requestAnimationFrame(animateSpotlight);
     };
