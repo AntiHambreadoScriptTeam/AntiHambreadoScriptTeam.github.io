@@ -1,3 +1,1058 @@
+--[[
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoshi Hub Cracked | Anti-Hambreado Script Team</title>
+    <meta name="description" content="El mejor script para +1 Speed Keyboard Escape | Candy & Chocolate. Keyless para siempre, cracked by TheRealbanHammer.">
+    <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            visibility: hidden;
+            margin: 0;
+            padding: 0;
+            background-color: #030307;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        #app-content {
+            visibility: visible;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
+            background: radial-gradient(circle at 50% 0%, #120e25 0%, #030307 70%);
+            color: #f5f5f7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bg-glows {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .glow-1 {
+            position: absolute;
+            top: -10%;
+            left: 10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 59, 48, 0.15) 0%, transparent 70%);
+            filter: blur(80px);
+            animation: floatGlow 20s infinite alternate;
+        }
+
+        .glow-2 {
+            position: absolute;
+            bottom: 10%;
+            right: 5%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(88, 86, 214, 0.12) 0%, transparent 70%);
+            filter: blur(100px);
+            animation: floatGlow 25s infinite alternate-reverse;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 10;
+        }
+
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .logo img {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 59, 48, 0.5);
+            box-shadow: 0 0 15px rgba(255, 59, 48, 0.3);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff, #ff3b30);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-subtitle {
+            font-size: 0.65rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: #ff453a;
+            letter-spacing: 2px;
+        }
+
+        .discord-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(88, 101, 242, 0.15);
+            border: 1px solid rgba(88, 101, 242, 0.3);
+            color: #a5b4fc;
+            padding: 10px 20px;
+            border-radius: 99px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .discord-btn:hover {
+            background: rgba(88, 101, 242, 0.25);
+            border-color: rgba(88, 101, 242, 0.5);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .discord-btn:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .badge {
+            background: rgba(255, 59, 48, 0.1);
+            border: 1px solid rgba(255, 59, 48, 0.3);
+            color: #ff453a;
+            padding: 6px 16px;
+            border-radius: 99px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 59, 48, 0.1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 59, 48, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin: 0 0 16px 0;
+            letter-spacing: -1px;
+            color: #fff;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #ff9f0a, #ff3b30);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: #8e8e93;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+        }
+
+        .copy-card {
+            width: 100%;
+            max-width: 750px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 24px;
+            box-sizing: border-box;
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 80px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .copy-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 159, 10, 0.05);
+        }
+
+        .copy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .copy-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-title i {
+            color: #ff9f0a;
+        }
+
+        .copy-code-container {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .copy-code-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #ffd60a;
+            white-space: nowrap;
+            overflow-x: auto;
+            flex-grow: 1;
+            padding-bottom: 4px;
+        }
+
+        .copy-code-text::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .copy-code-text::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #ff9f0a, #ff3b30);
+            border: none;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(255, 59, 48, 0.3);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(255, 59, 48, 0.5);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.97);
+        }
+
+        .copy-btn.copied {
+            background: #30d158;
+            box-shadow: 0 4px 15px rgba(48, 209, 88, 0.3);
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #8e8e93;
+            margin-bottom: 40px;
+            font-size: 1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            padding: 30px;
+            box-sizing: border-box;
+            backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .feature-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .icon-orange {
+            background: rgba(255, 159, 10, 0.1);
+            color: #ff9f0a;
+            border: 1px solid rgba(255, 159, 10, 0.2);
+        }
+
+        .icon-red {
+            background: rgba(255, 59, 48, 0.1);
+            color: #ff3b30;
+            border: 1px solid rgba(255, 59, 48, 0.2);
+        }
+
+        .icon-purple {
+            background: rgba(191, 90, 242, 0.1);
+            color: #bf5af2;
+            border: 1px solid rgba(191, 90, 242, 0.2);
+        }
+
+        .icon-blue {
+            background: rgba(10, 132, 255, 0.1);
+            color: #0a84ff;
+            border: 1px solid rgba(10, 132, 255, 0.2);
+        }
+
+        .icon-green {
+            background: rgba(48, 209, 88, 0.1);
+            color: #30d158;
+            border: 1px solid rgba(48, 209, 88, 0.2);
+        }
+
+        .icon-yellow {
+            background: rgba(255, 214, 10, 0.1);
+            color: #ffd60a;
+            border: 1px solid rgba(255, 214, 10, 0.2);
+        }
+
+        .feature-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin: 0;
+            color: #fff;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: #8e8e93;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .gallery-container {
+            width: 100%;
+            margin-bottom: 80px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            opacity: 0;
+            display: flex;
+            align-items: flex-end;
+            padding: 16px;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-overlay span {
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transform: translateY(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03) translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item:hover .gallery-overlay span {
+            transform: translateY(0);
+        }
+
+        .credits-section {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .credits-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            padding: 30px;
+            box-sizing: border-box;
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .credits-card:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .credits-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .credits-card-avatar {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+        }
+
+        .avatar-banhammer {
+            background: rgba(255, 59, 48, 0.1);
+            color: #ff3b30;
+            border: 1px solid rgba(255, 59, 48, 0.2);
+        }
+
+        .avatar-hoshi {
+            background: rgba(142, 142, 147, 0.1);
+            color: #aeaeb2;
+            border: 1px solid rgba(142, 142, 147, 0.2);
+        }
+
+        .credits-card-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .credits-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: #fff;
+        }
+
+        .credits-role {
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: #8e8e93;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        .credits-card p {
+            font-size: 0.9rem;
+            color: #8e8e93;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        footer {
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 0;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #8e8e93;
+            letter-spacing: 1px;
+        }
+
+        .footer-logo span {
+            color: #ff3b30;
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            color: #48484a;
+        }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 3, 7, 0.92);
+            backdrop-filter: blur(25px);
+            z-index: 99999;
+            opacity: 0;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-content {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            aspect-ratio: 16 / 9;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
+            transform: scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .lightbox.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 59, 48, 0.2);
+            border-color: rgba(255, 59, 48, 0.3);
+            color: #ff453a;
+            transform: rotate(90deg);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #fff;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        .reveal-init {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-init.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .copy-code-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .copy-btn {
+                justify-content: center;
+            }
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            .lightbox-prev {
+                left: 10px;
+            }
+            .lightbox-next {
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app-content">
+        <div class="bg-glows">
+            <div class="glow-1"></div>
+            <div class="glow-2"></div>
+        </div>
+
+        <div class="container">
+            <header>
+                <a href="#" class="logo">
+                    <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Anti-Hambreado Logo">
+                    <div class="logo-text">
+                        <span class="logo-title">HoshiHub Cracked</span>
+                        <span class="logo-subtitle">ANTI-HAMBREADO TEAM</span>
+                    </div>
+                </a>
+                <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="discord-btn">
+                    <i class="fab fa-discord"></i> Unirse al Discord
+                </a>
+            </header>
+
+            <section class="hero">
+                <div class="badge">KEYLESS PARA SIEMPRE</div>
+                <h1>EL MEJOR SCRIPT PARA<br><span>+1 Speed Keyboard Escape</span></h1>
+                <p>Explota el juego al máximo con la versión cracked de Hoshi Hub. Automatiza tu avance, desbloquea pases y domina las tablas de clasificación sin anuncios ni keys.</p>
+                
+                <div class="copy-card">
+                    <div class="copy-header">
+                        <span class="copy-title">
+                            <i class="fas fa-terminal"></i> Loadstring de Ejecución
+                        </span>
+                    </div>
+                    <div class="copy-code-container">
+                        <div class="copy-code-text" id="script-loadstring">loadstring(game:HttpGet("https://antihambreadoscriptteam.github.io/Scripts/HoshiOnTheShit.lua"))()</div>
+                        <button class="copy-btn" id="btn-copy">
+                            <i class="far fa-copy"></i> Copiar Script
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features">
+                <h2 class="section-title">Características de Hoshi Hub</h2>
+                <p class="section-subtitle">Descubre el poder del script definitivo totalmente desbloqueado y gratis</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card tilt-card">
+                        <div class="feature-icon-wrapper icon-orange">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <h3>KEYLESS Total</h3>
+                        <p>Olvídate de completar molestos acortadores o enlaces de Linkvertise. El script está crackeado para abrirse directamente.</p>
+                    </div>
+
+                    <div class="feature-card tilt-card">
+                        <div class="feature-icon-wrapper icon-red">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <h3>Muy OP</h3>
+                        <p>Integración limpia de funciones premium que te darán ventajas extremas dentro del juego al instante.</p>
+                    </div>
+
+                    <div class="feature-card tilt-card">
+                        <div class="feature-icon-wrapper icon-purple">
+                            <i class="fas fa-ticket"></i>
+                        </div>
+                        <h3>Desbloquea Pases</h3>
+                        <p>Accede gratis a los pases de juego premium y equipa los mejores senderos (Galaxy, Infinity) sin pagar Robux.</p>
+                    </div>
+
+                    <div class="feature-card tilt-card">
+                        <div class="feature-icon-wrapper icon-blue">
+                            <i class="fas fa-person-running"></i>
+                        </div>
+                        <h3>Caminadoras Libres</h3>
+                        <p>Usa y desbloquea las caminadoras y plataformas de entrenamiento más veloces del mapa de forma inmediata.</p>
+                    </div>
+
+                    <div class="feature-card tilt-card">
+                        <div class="feature-icon-wrapper icon-green">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>Auto Farm</h3>
+                        <p>Farmea pasos y gana velocidad constantemente sin hacer nada. El script se encarga de todo el trabajo sucio.</p>
+                    </div>
+
+                    <div class="feature-card tilt-card">
+                        <div class="feature-icon-wrapper icon-yellow">
+                            <i class="fas fa-arrows-spin"></i>
+                        </div>
+                        <h3>Auto Rebirth & Win</h3>
+                        <p>Renace de forma automática al alcanzar la meta y reclama victorias consecutivas en la pista obby rápidamente.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="screenshots">
+                <h2 class="section-title">Capturas de Pantalla</h2>
+                <p class="section-subtitle font-sans">Visualiza el funcionamiento y la interfaz del menú Hoshi Hub en vivo</p>
+                
+                <div class="gallery-container">
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-src="Foto/WebSource/HoshiSkid/Captura de pantalla 2026-06-13 185349.png">
+                            <img src="Foto/WebSource/HoshiSkid/Captura de pantalla 2026-06-13 185349.png" alt="Captura Hoshi Skid 1">
+                            <div class="gallery-overlay">
+                                <span>Ver en Pantalla Completa</span>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-src="Foto/WebSource/HoshiSkid/Captura de pantalla 2026-06-13 185402.png">
+                            <img src="Foto/WebSource/HoshiSkid/Captura de pantalla 2026-06-13 185402.png" alt="Captura Hoshi Skid 2">
+                            <div class="gallery-overlay">
+                                <span>Ver en Pantalla Completa</span>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-src="Foto/WebSource/HoshiSkid/Captura de pantalla 2026-06-13 185411.png">
+                            <img src="Foto/WebSource/HoshiSkid/Captura de pantalla 2026-06-13 185411.png" alt="Captura Hoshi Skid 3">
+                            <div class="gallery-overlay">
+                                <span>Ver en Pantalla Completa</span>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-src="Foto/WebSource/HoshiSkid/Captura de pantalla 2026-06-13 185417.png">
+                            <img src="Foto/WebSource/HoshiSkid/Captura de pantalla 2026-06-13 185417.png" alt="Captura Hoshi Skid 4">
+                            <div class="gallery-overlay">
+                                <span>Ver en Pantalla Completa</span>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-src="Foto/WebSource/HoshiSkid/Captura de pantalla 2026-06-13 185425.png">
+                            <img src="Foto/WebSource/HoshiSkid/Captura de pantalla 2026-06-13 185425.png" alt="Captura Hoshi Skid 5">
+                            <div class="gallery-overlay">
+                                <span>Ver en Pantalla Completa</span>
+                            </div>
+                        </div>
+                        <div class="gallery-item" data-src="Foto/WebSource/HoshiSkid/Captura de pantalla 2026-06-13 185442.png">
+                            <img src="Foto/WebSource/HoshiSkid/Captura de pantalla 2026-06-13 185442.png" alt="Captura Hoshi Skid 6">
+                            <div class="gallery-overlay">
+                                <span>Ver en Pantalla Completa</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="credits">
+                <h2 class="section-title">Créditos Oficiales</h2>
+                <p class="section-subtitle">Los responsables del bypass y las menciones correspondientes</p>
+                
+                <div class="credits-section">
+                    <div class="credits-card">
+                        <div class="credits-card-header">
+                            <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/TheRealBanHammer.png" class="credits-card-avatar" alt="TheRealbanHammer Logo" style="object-fit: cover; border: 1px solid rgba(255, 59, 48, 0.25);">
+                            <div class="credits-card-info">
+                                <span class="credits-name">TheRealbanHammer</span>
+                                <span class="credits-role">Cracker / Bypass</span>
+                            </div>
+                        </div>
+                        <p>Créditos completos por romper la seguridad del script original, remover el sistema de llaves y limpiar el código para hacerlo 100% ejecutable sin restricciones.</p>
+                    </div>
+
+                    <div class="credits-card">
+                        <div class="credits-card-header">
+                            <div class="credits-card-avatar avatar-hoshi">
+                                <i class="fas fa-trash-can"></i>
+                            </div>
+                            <div class="credits-card-info">
+                                <span class="credits-name">Hoshi Team</span>
+                                <span class="credits-role">Creadores Originales</span>
+                            </div>
+                        </div>
+                        <p>Un sincero agradecimiento a Hoshi Team por emplear un ofuscador tan sumamente patético que facilitó el bypass en tiempo récord.</p>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <div class="footer-logo">
+                    Anti-Hambreado <span>Script Team</span>
+                </div>
+                <div class="footer-copyright">
+                    &copy; 2026 Anti-Hambreado. Todos los derechos reservados.
+                </div>
+            </footer>
+        </div>
+
+        <div class="lightbox" id="lightbox">
+            <button class="lightbox-close" id="lightbox-close"><i class="fas fa-times"></i></button>
+            <button class="lightbox-nav lightbox-prev" id="lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="lightbox-nav lightbox-next" id="lightbox-next"><i class="fas fa-chevron-right"></i></button>
+            <div class="lightbox-content">
+                <img src="" alt="Vista Completa" id="lightbox-img">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll('.tilt-card');
+        const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+        cards.forEach(card => {
+            if (!isTouch) {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const xc = rect.width / 2;
+                    const yc = rect.height / 2;
+                    const dx = x - xc;
+                    const dy = y - yc;
+                    card.style.transform = `perspective(1000px) rotateX(${-dy / 8}deg) rotateY(${dx / 8}deg) translateY(-5px)`;
+                    card.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                    card.style.boxShadow = '0 15px 30px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.02)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0deg)';
+                    card.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+                    card.style.boxShadow = 'none';
+                });
+            } else {
+                card.addEventListener('touchstart', () => {
+                    card.style.transform = 'scale(0.97) translateY(-2px)';
+                    card.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                    card.style.boxShadow = '0 8px 20px rgba(0,0,0,0.3)';
+                });
+                card.addEventListener('touchend', () => {
+                    card.style.transform = 'scale(1) translateY(0)';
+                    card.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+                    card.style.boxShadow = 'none';
+                });
+            }
+        });
+
+        const btnCopy = document.getElementById('btn-copy');
+        const scriptText = document.getElementById('script-loadstring').innerText;
+        btnCopy.addEventListener('click', () => {
+            navigator.clipboard.writeText(scriptText).then(() => {
+                btnCopy.classList.add('copied');
+                btnCopy.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
+                setTimeout(() => {
+                    btnCopy.classList.remove('copied');
+                    btnCopy.innerHTML = '<i class="far fa-copy"></i> Copiar Script';
+                }, 2000);
+            });
+        });
+
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        let activeIndex = 0;
+        const images = Array.from(galleryItems).map(item => item.getAttribute('data-src'));
+
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                activeIndex = index;
+                lightboxImg.src = images[activeIndex];
+                lightbox.classList.add('active');
+            });
+        });
+
+        document.getElementById('lightbox-close').addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        document.getElementById('lightbox-prev').addEventListener('click', () => {
+            activeIndex = (activeIndex - 1 + images.length) % images.length;
+            lightboxImg.src = images[activeIndex];
+        });
+
+        document.getElementById('lightbox-next').addEventListener('click', () => {
+            activeIndex = (activeIndex + 1) % images.length;
+            lightboxImg.src = images[activeIndex];
+        });
+
+        lightbox.addEventListener('click', e => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+            }
+        });
+
+        let touchstartX = 0;
+        let touchendX = 0;
+
+        lightbox.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+        });
+
+        lightbox.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            if (touchendX < touchstartX - 50) {
+                activeIndex = (activeIndex + 1) % images.length;
+                lightboxImg.src = images[activeIndex];
+            } else if (touchendX > touchstartX + 50) {
+                activeIndex = (activeIndex - 1 + images.length) % images.length;
+                lightboxImg.src = images[activeIndex];
+            }
+        });
+
+        const revealElements = document.querySelectorAll('.feature-card, .gallery-item, .credits-card, .copy-card');
+        const revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.08
+        });
+
+        revealElements.forEach(el => {
+            el.classList.add('reveal-init');
+            revealObserver.observe(el);
+        });
+    </script>
+</body>
+</html>
+]]
 --[[ BanHammer Obfuscator ]]--
 
 return(function(...)local l={"\070\102\073\061","\090\113\083\069\065\099\065\118\119\113\116\053\043\104\080\067\078\078\061\061","\120\069\043\077\078\087\120\074\119\053\116\073\078\052\069\102\084\079\084\061","\070\113\080\100\120\099\043\104\119\079\088\048\120\098\061\061";"\120\051\071\050\070\053\073\061";"\090\087\120\076\122\098\061\061","\120\087\116\098\052\109\120\088\084\088\084\053\120\079\088\108\119\099\122\061";"\051\069\080\083\120\051\047\100\065\113\116\115\070\113\052\061","\043\053\057\100\084\071\089\114\118\110\087\109\083\100\114\119\121\049\117\082\052\114\070\118\105\099\106\072\103\099\077\074\113\121\103\097\120\067\089\087\085\068\057\106\117\099\078\053\107\116\043\122\121\069\116\099\117\108\121\055\109\076\085\115\083\054\055\119\065\112\116\087\103\073\105\053\056\090\090\118\116\089\110\069\080\083\049\069\071\101\114\097\121\101\047\048\098\086\108\108\086\043\102\080\054\051\074\050\114\065\049\114\048\066\067\068\109\050\111\113\047\085\078\080\085\087\121\112\086\081\098\047\107\075\080\097\076\072\112\099\057\056\085\089\055\050\119\085\088\109\079\113\099\053\077\106\047\109\079\111\100\090\048\056\080\090\099\086\051\102\083\106\073\102\120\114\051\120\050\119\077\043\066\050\104\106\083\088\083\103\072\082\052\085\121\106\116\109\079\102","\122\117\080\048\122\117\116\104";"\119\053\047\050\111\068\114\049";"\052\108\065\112\120\052\116\113\119\113\043\088\090\117\088\076\047\078\061\061";"\122\049\088\104\120\078\061\061";"\090\079\069\069\078\104\097\113\065\113\065\086\043\079\071\088\090\109\109\061";"\065\113\080\108\065\099\071\097\070\079\119\061";"\065\113\080\087\078\079\114\112\047\079\116\104\043\089\061\061","\057\115\121\088\120\082\085\097\057\121\061\061";"\120\117\069\100\065\113\043\085";"\070\113\077\048","\065\068\114\098\122\068\043\107","\077\113\116\083\119\113\077\050\073\105\047\088\065\113\077\087\065\113\077\109\073\078\061\061";"\051\069\080\049\122\098\061\061","\119\079\116\048\120\113\080\083";"\120\053\043\069\122\121\061\061";"\120\117\116\083\120\078\061\061";"\076\099\047\104\119\105\065\088\065\089\061\061","\065\113\116\115\070\113\052\061","";"\051\069\080\112\120\068\056\061";"\065\077\077\118\111\051\071\112\065\053\065\052";"\065\113\080\048\065\068\069\115\120\051\073\061","\051\069\080\097\070\079\047\088\110\089\061\061";"\070\102\105\061";"\120\079\055\106\070\053\073\061";"\057\102\077\087\077\068\119\117\111\105\120\083\084\077\054\074\043\089\061\061";"\070\068\116\104\111\089\061\061";"\119\117\077\104\070\068\077\104\122\051\047\100\122\079\055\088","\119\079\077\083\070\053\120\088","\084\108\065\053\070\051\073\117\052\088\097\098\110\068\121\056\065\108\121\061";"\084\113\055\049\078\049\097\057\068\105\071\053\068\113\072\055\076\121\061\061";"\065\108\054\111\047\087\116\068\090\105\071\055\052\102\100\076";"\122\049\078\056\070\052\114\069\111\088\088\057\119\049\100\049";"\122\117\100\100\119\121\061\061","\119\113\043\100\070\113\098\061";"\057\121\061\061";"\047\116\085\050\070\109\116\109\057\116\109\050\078\104\116\105","\090\088\116\113\122\117\088\102\070\079\069\068"}for i,z in ipairs({{-638657-(-638658);-575500+575547},{-147919+147920;432317-432272};{-836054-(-836100),902972+-902925}})do while z[-388886+388887]<z[124471-124469]do l[z[-198855+198856]],l[z[20436+-20434]],z[-644048+644049],z[-931019+931021]=l[z[-963520+963522]],l[z[-819190-(-819191)]],z[486827+-486826]+(-958062-(-958063)),z[1045317-1045315]-(-382616-(-382617))end end local function i(i)return l[i+(-448968+460669)]end do local i=string.len local z=string.char local F={u=392760+-392706,S=339563-339518;P=-485441-(-485502),v=317314+-317304;M=299313-299292,i=194412-194408;["\049"]=-278045+278084;B=-242920-(-242979),H=-1047585+1047645;D=353254+-353232,o=303939+-303913,d=-690908+690941;["\048"]=14836-14790,s=-481454+481488;L=517135-517117,x=-49613+49638,V=274018-273976;e=-560064+560079;h=1004658+-1004606,b=796613-796565,E=-851237-(-851290);N=719937+-719921,a=-738470-(-738511),Q=537959-537896;["\052"]=817507-817487,R=958809+-958807;z=495015+-494991,q=-912203+912209,I=645345-645337;n=-160889-(-160919);w=-514012+514040,["\054"]=-686319-(-686320);J=908836-908825,G=586667-586658;k=462919-462876;t=294581+-294576;A=-642804+642833,F=321970-321943,["\051"]=-870142+870165,U=498818+-498778;p=-390231-(-390275);g=350920-350889,W=269152-269117;X=-424064+424101,c=563851+-563844,f=-399967+399970,Z=-842499-(-842518),["\057"]=403414+-403400;Y=-389924-(-389924);["\055"]=-248857+248906;["\056"]=1009602-1009546,C=-372148-(-372206);["\050"]=541595-541545;l=-534443+534494;["\053"]=853331-853276,y=-521163-(-521195),j=-499799-(-499846),r=-222412-(-222469);K=565982-565920,["\043"]=-685248+685261;m=-901438-(-901474);O=672954+-672916;["\047"]=601967-601950;T=-696614-(-696626)}local C=type local x=table.insert local Q=math.floor local K=table.concat local R=l local B=string.sub for l=45081+-45080,#R,-485522-(-485523)do local v=R[l]if C(v)=="\115\116\114\105\110\103"then local C=i(v)local h={}local u=803916+-803915 local o=-806159-(-806159)local j=63107-63107 while u<=C do local l=B(v,u,u)local i=F[l]if i then o=o+i*(-249260+249324)^((541489+-541486)-j)j=j+(67876+-67875)if j==46524+-46520 then j=-881500+881500 local l=Q(o/(-311874+377410))local i=Q((o%(703442-637906))/(793819+-793563))local F=o%(970444+-970188)x(h,z(l,i,F))o=272571-272571 end elseif l=="\061"then x(h,z(Q(o/(-414493-(-480029)))))if u>=C or B(v,u+(69138+-69137),u+(335884-335883))~="\061"then x(h,z(Q((o%(-446641-(-512177)))/(-832376+832632))))end break end u=u+(964185-964184)end R[l]=K(h)end end end return(function(l,F,C,x,Q,K,R,v,O,q,G,I,z,u,h,o,j,c,H,B,M)z,G,u,v,B,h,j,o,c,M,O,H,q,I=function(z,C,x,Q)local w,d,n,T,r,g,Z,P,A,L,D,p,j,S,o,b,J,y,s,E,u,f,W,m,H,Y,R,a,t,U,v,e,N,k while z do if z<9039431-183057 then if z<3940632-844669 then if z<-349449+2096234 then if z<350082+1084314 then if z<919287-(-280939)then if z<208061+766105 then if z<-204688+976577 then J=i(-344606-(-332939))D=h()L=1022411+-1022156 B[D]=U R=l[J]a=-241337-(-241437)s=i(635207-646895)J=i(-837686-(-826006))z=R[J]Y=842977-832977 J=747749+-747748 R=z(J,a)J=h()B[J]=R z=B[d]a=-708725+708725 R=z(a,L)a=h()B[a]=R b=317511-317509 L=811672-811671 f=-106996-(-106996)z=B[d]t=B[J]R=z(L,t)L=h()B[L]=R S=-604070-(-604071)R=B[d]t=R(S,b)R=19580+-19579 z=t==R t=h()b=i(1032743+-1044401)R=i(-552550+540864)B[t]=z p=l[s]w=B[d]E={w(f,Y)}s=p(F(E))p=i(-803338-(-791680))m=s..p z=i(-526512-(-514833))z=r[z]S=b..m b=i(696921+-708580)z=z(r,R,S)S=h()B[S]=z m=G(-787532+7202203,{d,D;y;o;u;e;t,S,J,L,a;A})R=l[b]b={R(m)}z={F(b)}b=z z=B[t]z=z and 13005254-(-775881)or 732809+5110152 else j=i(208666+-220354)T=i(724265-735924)R=i(337673-349345)z=l[R]v=B[x[40091-40087]]o=l[j]d=l[T]A=O(-79786+1527724,{})T={d(A)}d=177373+-177371 n={F(T)}H=n[d]j=o(H)o=i(-1020788-(-1009102))u=v(j,o)v={u()}R=z(F(v))u=B[x[393500-393495]]z=u and 9299043-(-96821)or 4360556-707551 v=R R=u end else v=B[x[1015348+-1015347]]R=#v v=392349-392349 z=R==v z=z and 585498+8406233 or 2072648-446710 end else if z<-750969+2135906 then o=-110208+110209 u=B[x[-137791+137794]]v=u~=o z=v and 630553+14591990 or 928024+891274 else z=11971269-735847 end end else if z<175641+1384119 then if z<1024818+423334 then o=14356355-(-510240)u=i(479514-491201)v=u^o R=696483+11655079 z=R-v R=i(-476203-(-464547))v=z z=R/v R={z}z=l[i(-490000+478304)]else r=e a=r Z[r]=a z=3082154-269220 r=nil end else if z<1783411-123665 then z=l[i(11826-23526)]o=i(543340-555016)u=l[o]o=i(88420+-100085)v=u[o]o=B[x[581068-581067]]u={v(o)}R={F(u)}else n=B[H]R=n z=508410+2417757 end end end else if z<2177874-(-343129)then if z<2759949-344757 then if z<614384+1406417 then if z<898453-(-897913)then o=o+H d=not n u=o<=j u=d and u d=o>=j d=n and d u=d or u d=9076167-142023 z=u and d u=9844402-(-441758)z=z or u else u=B[x[915345+-915342]]o=-925097-(-925137)v=u*o z=-598846+1812942 u=757081-756824 R=v%u B[x[-110137+110140]]=R end else z=p R=m z=9694259-211686 end else if z<753053+1758384 then e=#Z k=-1026635+1026635 r=e==k z=r and 2582151-(-197288)or 12502936-(-921267)else R={}z=l[i(-446211-(-434548))]end end else if z<-770292+3565300 then if z<3183551-489805 then z=true z=z and-552514+14859966 or-90936+10710071 else n=nil W=nil e=h()r={}k=M(398917+701255,{e,A,y,H})d=nil s=nil B[e]=r R={}T=nil r=h()a={}d=i(720369-732047)B[r]=k k={}b=i(-506769-(-495074))D=h()J=i(602406+-614072)H=q(H)t=i(-290731-(-279060))j=nil B[D]=k k=l[J]S=B[D]H=i(-9968+-1731)L={[t]=S;[b]=s}J=k(a,L)Z=nil k=I(15941047-554144,{D;e;P;A,y;r})u=J A=q(A)W=25337690049489-(-8773)r=q(r)o=k y=q(y)D=q(D)j=l[H]n=l[d]y=i(-655633+643939)P=q(P)e=q(e)A=o(y,W)T=u[A]A=i(-177250+165573)A=n[A]d={A(n,T)}H=j(F(d))z=l[i(670330+-681987)]u=nil j=H()o=nil end else if z<3872892-987160 then e=e+D r=e<=k a=not J r=a and r a=e>=k a=J and a r=a or r a=-364270+1827445 z=r and a r=16065343-668583 z=z or r else P=i(208425-220101)d=i(-179533+167866)n=R R=l[d]d=i(269216+-280896)z=R[d]d=h()B[d]=z T=i(147463-159139)R=l[T]T=i(-622301+610608)z=R[T]T=z y=z W=l[P]A=W z=W and-704627+13545946 or 2669321-(-767632)end end end end else if z<702713+4920591 then if z<4291616-(-785899)then if z<3835300-(-388861)then if z<-552731+4328016 then if z<412912+3145102 then z=y R=A z=A and 13730411-456576 or-599927+4757418 else z=-687380+14963925 B[x[-479171-(-479176)]]=R v=nil end else y=i(-690613-(-678930))A=l[y]z=-101394+13375229 R=A end else if z<3746141-(-791040)then v=i(198123+-209821)z=l[v]o=-1042579-(-1042579)u=B[x[-659192+659200]]v=z(u,o)z=49829+6331477 else B[u]=U z=B[u]z=z and-405090+9489394 or-949479+6322787 end end else if z<5522118-121529 then if z<5160022-(-197141)then B[u]=m E=B[L]f=420293+-420292 w=E+f s=b[w]p=W+s s=840204-839948 z=p%s W=z w=B[a]z=16779363-88014 s=P+w w=-217270-(-217526)p=s%w P=p else z=true z=10941415-322280 end else if z<-702572+6181234 then R={}z=l[i(689319+-700980)]else N=i(-654519+642831)z=l[N]D=i(-34511-(-22841))k=l[D]N=z(k)z=i(-986746+975091)l[z]=N z=13955237-(-486594)end end end else if z<-848693+7333603 then if z<6227646-(-98375)then if z<858876+5022238 then if z<1002031+4805768 then D=not k U=U+N R=U<=g R=D and R D=U>=g D=k and D R=D or R D=1267322-627742 z=R and D R=-934963+9220690 z=z or R else p=B[u]m=p z=p and 12179962-225502 or 4419102-(-762588)end else R=i(934721+-946419)v=i(1024988+-1036670)z=l[R]R=z(v)R={}z=l[i(170463+-182117)]end else if z<-828473+7215666 then z={}u=880274+-880273 o=B[x[-353201-(-353210)]]v=z j=o z=1980987-196548 o=362972-362971 H=o o=-511731-(-511731)n=H<o o=u-H else j=170685-170684 H=-192269+192271 u=B[x[-577998+577999]]o=u(j,H)u=130834-130833 v=o==u R=v z=v and 409506+9832501 or 10336139-374814 end end else if z<8014922-(-565250)then if z<7475822-(-726350)then R={}z=true B[x[-315849+315850]]=z z=l[i(542407+-554098)]else g=B[u]z=g and 15626833-(-142385)or 3557711-(-1015397)U=g end else if z<8754428-93114 then z=true z=z and 13702888-(-1047218)or 2108064-(-408800)else H=q(H)z=813038+1999896 A=q(A)r=nil u=q(u)T=nil u=nil j=q(j)o=q(o)d=q(d)o=nil d=i(-64842+53175)e=q(e)P=nil y=q(y)Z=nil P=h()n=nil n=i(98246-109913)W=nil H=l[n]n=i(-554474-(-542805))y=h()r=534152-534151 j=H[n]W={}H=h()B[H]=j T=i(303291-314967)A=i(-792382-(-780690))Z={}n=l[d]e=-1008565-(-1008821)d=i(-549665+537985)j=n[d]d=l[T]T=i(-780202-(-768537))n=d[T]T=l[A]k=e A=i(214761-226421)d=T[A]A=h()T=-279469+279469 e=553587-553586 B[A]=T T=820110-820108 B[y]=T D=e T={}B[P]=W e=-998426+998426 J=D<e W=790198-790198 e=r-D end end end end end else if z<771325+12356766 then if z<783105+9378993 then if z<-226593+9619249 then if z<844248+8236502 then if z<8942572-(-34990)then if z<9388078-451859 then z=B[x[881374-881373]]u=o T=-921128-(-921128)A=-550183-(-550438)d=z(T,A)v[u]=d z=767200+1017239 u=nil else z=true z=z and 855487+8514923 or 809003+4667937 end else u=B[x[-606526-(-606528)]]o=681520-681307 v=u*o u=-714593+27607069661590 R=v+u v=35184371799618-(-289214)z=R%v B[x[1036935+-1036933]]=z u=-89360-(-89361)v=B[x[461830+-461827]]R=v~=u z=2405076-585778 end else if z<9016180-(-72641)then z=8121601-(-713094)else k=888567+-888561 N=-936670-(-936671)z=B[d]g=z(N,k)k=i(396368-408023)z=i(781273+-792928)l[z]=g N=l[k]k=-743336+743338 z=N>k z=z and-731046+6223285 or 10330559-840683 end end else if z<926021+8559964 then if z<10305549-909455 then o=B[x[286379+-286373]]u=o==v z=2991097-(-661908)R=u else z=15674489-(-1016860)B[u]=R end else if z<-908638+10567251 then k=i(-957869+946214)z=l[k]k=i(3632+-15302)l[k]=z z=13744746-(-697085)else u=B[x[-765394+765396]]o=B[x[314138+-314135]]v=u==o z=445382+9796625 R=v end end end else if z<12355280-257782 then if z<161476+10745744 then if z<11230416-645356 then if z<9503907-(-756587)then z=R and 803960-(-8047)or 15158604-882059 else z=B[x[453585-453575]]u=B[x[485894-485883]]v[z]=u z=B[x[-494772+494784]]u={z(v)}R={F(u)}z=l[i(-590117+578455)]end else z=O(13904784-861629,{j})g={z()}z=l[i(-274380+262691)]R={F(g)}end else if z<-660609+12565476 then z=l[i(369616-381280)]R={u}else s=63170-63169 p=b[s]m=p z=533979+4647711 end end else if z<721188+12081095 then if z<-512969+12991686 then z=13354512-655914 T=y N=i(-602543+590851)g=l[N]N=i(559744-571434)U=g[N]g=U(v,T)U=B[x[-673740+673746]]N=U()e=g+N r=e+n e=-753207-(-753463)Z=r%e e=o[u]N=-807422+807423 n=Z g=n+N U=j[g]r=e..U T=nil o[u]=r else Z=not P y=y+W T=y<=A T=Z and T Z=y>=A Z=P and Z T=Z or T Z=11741923-(-396912)z=T and Z T=-239186+15086010 z=z or T end else if z<12015620-(-860700)then Z=i(-645139+633463)z=-720399+4157352 P=l[Z]Z=i(727574-739257)W=P[Z]A=W else z=808116+7843168 end end end end else if z<14659114-(-171582)then if z<-950811+15228188 then if z<-31017+13664644 then if z<14280285-836821 then if z<12682960-(-611837)then N=i(551968+-563656)A=h()B[A]=R W=-143542-(-143607)y=-427030+427033 z=B[d]r=c(138671+14685538,{})R=z(y,W)y=h()z=723713-723713 B[y]=R W=z z=-176752+176752 Z=i(392985-404644)R=l[Z]P=z Z={R(r)}z={F(Z)}Z=z R=-4074+4076 z=Z[R]r=z R=i(-1050941-(-1039269))z=l[R]e=B[o]g=l[N]N=g(r)g=i(226921-238607)U=e(N,g)e={U()}R=z(F(e))e=h()B[e]=R R=-711751-(-711752)U=B[y]z=-683506+6458470 g=U U=-763556-(-763557)N=U U=771667-771667 k=N<U U=R-N else e=-1029438+1029439 k=#Z r=j(e,k)a=798086-798085 e=n(Z,r)k=B[P]J=e-a r=nil D=d(J)k[e]=D e=nil z=837820+1671193 end else z={}T=i(-128723-(-117031))B[x[791027-791025]]=z H=95175+35184371993657 R=B[x[1048514-1048511]]j=R d=-359104+359359 R=u%H B[x[738766-738762]]=R n=u%d d=-288799+288801 H=n+d B[x[103150-103145]]=H d=l[T]T=i(277986-289670)n=d[T]d=n(v)n=i(1371-13046)o[u]=n n=-276102+276171 A=d y=54444+-54443 W=y T=97715+-97714 y=-925014-(-925014)z=-28186+12726784 P=W<y y=T-W end else if z<-102871+14231561 then m=B[u]R=m z=m and 15965923-95975 or-571229+10053802 else z=B[x[-211583-(-211590)]]z=z and 4307218-(-203977)or 6170443-(-210863)end end else if z<-246659+14702849 then if z<-270366+14624429 then z=-818547+9757937 else z=842261+8097129 end else if z<14588060-(-175713)then R=i(63253-74908)z=l[R]v=i(-595462+583792)R=l[v]v=i(371908+-383578)l[v]=z v=i(-940655-(-929000))l[v]=R z=-819888+9471172 v=B[x[347073+-347072]]u=v()else o=-92284+9895759 u=i(488137+-499810)R=14809498-(-511744)v=u^o z=R-v R=i(450656-462353)v=z z=R/v R={z}z=l[i(42279+-53947)]end end end else if z<-185663+15665487 then if z<830375+14417205 then if z<-703874+15805672 then if z<14446895-(-465618)then z=-388389+11623811 n=nil d=nil j=nil else z=true o=i(-524807-(-513115))v=C d=i(990153+-1001812)u=h()B[u]=z j=h()R=l[o]o=i(-415221+403536)z=R[o]o=h()B[o]=z z=O(-882461+6909328,{})H=h()B[j]=z z=false B[H]=z T=I(6819630-139805,{H})n=l[d]d=n(T)z=d and 942703+748064 or 2504728-(-421439)R=d end else W=-753761+753774 o=390566+-390534 u=B[x[-966850+966853]]A=744142+-744140 v=u%o j=B[x[719838+-719834]]d=B[x[117412+-117410]]r=B[x[588614+-588611]]Z=r-v r=241965+-241933 P=Z/r y=W-P W=-409452-(-409708)T=A^y n=d/T T=679408-679407 H=j(n)A=-375622+375878 j=-244519+4295211815 o=H%j H=302937+-302935 j=H^v u=o/j j=B[x[-64566+64570]]d=u%T T=-683783+4295651079 n=d*T H=j(n)j=B[x[312384-312380]]v=nil n=j(u)o=H+n d=47283+18253 u=nil H=-565241+630777 j=o%H n=o-j H=n/d d=112438-112182 n=j%d T=j-n d=T/A A=533517+-533261 T=H%A y=H-T z=-156086+1782024 H=nil A=y/W o=nil j=nil y={n,d;T;A}A=nil d=nil T=nil n=nil B[x[182666-182665]]=y end else if z<14389476-(-1002558)then u=C[187893-187891]v=C[-268056+268057]z=B[x[-275346-(-275347)]]o=z z=o[u]z=z and-1037829+2460450 or 12666021-(-853270)else k=-402647-(-402647)z=6040+13418163 e=#Z r=e==k end end else if z<16188042-323489 then if z<15074500-(-704622)then g=W==P U=g z=675338+3897770 else E=345208+-345206 w=b[E]z=3157738-1006587 E=B[S]s=w==E m=s end else if z<-543924+16809897 then E=437416-437415 w=b[E]p=z E=false s=w==E z=s and-763455+16597974 or 3138481-987330 m=s else L=q(L)z=752642+5022322 t=q(t)J=q(J)D=q(D)S=q(S)a=q(a)b=nil end end end end end end end z=#Q return F(R)end,function(l,i)local F=o(i)local C=function(C)return z(l,{C},i,F)end return C end,74871-74871,{},{},function()u=(-724064+724065)+u v[u]=328374-328373 return u end,function(l)local i,z=324210-324209,l[1021064-1021063]while z do v[z],i=v[z]-(252581-252580),i+(-40760+40761)if v[z]==427303-427303 then v[z],B[z]=nil,nil end z=l[i]end end,function(l)for i=487803+-487802,#l,-313248+313249 do v[l[i]]=(-166016-(-166017))+v[l[i]]end if C then local z=C(true)local F=Q(z)F[i(-450625+438954)],F[i(-710925-(-699244))],F[i(-579895+568221)]=l,j,function()return-1524346-(-941125)end return z else return x({},{[i(-346332-(-334651))]=j,[i(59088+-70759)]=l,[i(511544+-523218)]=function()return-289748-293473 end})end end,function(l,i)local F=o(i)local C=function()return z(l,{},i,F)end return C end,function(l,i)local F=o(i)local C=function(C,x,Q)return z(l,{C,x;Q},i,F)end return C end,function(l,i)local F=o(i)local C=function(C,x,Q,K)return z(l,{C,x;Q,K},i,F)end return C end,function(l,i)local F=o(i)local C=function(...)return z(l,{...},i,F)end return C end,function(l)v[l]=v[l]-(345246+-345245)if v[l]==206455-206455 then v[l],B[l]=nil,nil end end,function(l,i)local F=o(i)local C=function(C,x)return z(l,{C;x},i,F)end return C end return(H(14191295-(-892076),{}))(F(R))end)(getfenv and getfenv()or _ENV,unpack or table[i(708791+-720474)],newproxy,setmetatable,getmetatable,select,{...})end)(...)
