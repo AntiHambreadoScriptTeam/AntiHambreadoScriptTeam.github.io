@@ -1355,7 +1355,7 @@
                         <i class="fas fa-seedling"></i> Grow a Garden 2
                     </button>
                     <button class="selector-btn" data-game="lucky-brock">
-                        <i class="fas fa-cube"></i> Kick a Lucky Brock
+                        <i class="fas fa-cube"></i> Kick a Lucky Block
                     </button>
                     <button class="selector-btn" data-game="sell-lemon">
                         <i class="fas fa-lemon"></i> Sell Lemon
@@ -1403,36 +1403,36 @@
                         <p>Funciones premium integradas para reducir tareas repetitivas y acelerar el progreso dentro del juego.</p>
                     </div>
 
-                    <div class="feature-card">
-                        <div class="feature-icon-wrapper icon-purple">
-                            <i class="fas fa-ticket"></i>
+                    <div class="feature-card" id="card-feature-3" style="transition: opacity 0.25s ease, transform 0.25s ease;">
+                        <div class="feature-icon-wrapper icon-purple" id="icon-container-3">
+                            <i class="fas fa-ticket" id="icon-feature-3"></i>
                         </div>
-                        <h3>Pases desbloqueados</h3>
-                        <p>Accede a ventajas del juego y equipa mejoras seleccionadas sin pasar por compras adicionales.</p>
+                        <h3 id="title-feature-3">Pases desbloqueados</h3>
+                        <p id="desc-feature-3">Accede a ventajas del juego y equipa mejoras seleccionadas sin pasar por compras adicionales.</p>
                     </div>
 
-                    <div class="feature-card">
-                        <div class="feature-icon-wrapper icon-blue">
-                            <i class="fas fa-person-running"></i>
+                    <div class="feature-card" id="card-feature-4" style="transition: opacity 0.25s ease, transform 0.25s ease;">
+                        <div class="feature-icon-wrapper icon-blue" id="icon-container-4">
+                            <i class="fas fa-person-running" id="icon-feature-4"></i>
                         </div>
-                        <h3>Zonas liberadas</h3>
-                        <p>Abre caminadoras, plataformas y zonas de entrenamiento para avanzar sin bloqueos artificiales.</p>
+                        <h3 id="title-feature-4">Zonas liberadas</h3>
+                        <p id="desc-feature-4">Abre caminadoras, plataformas y zonas de entrenamiento para avanzar sin bloqueos artificiales.</p>
                     </div>
 
-                    <div class="feature-card">
-                        <div class="feature-icon-wrapper icon-green">
-                            <i class="fas fa-robot"></i>
+                    <div class="feature-card" id="card-feature-5" style="transition: opacity 0.25s ease, transform 0.25s ease;">
+                        <div class="feature-icon-wrapper icon-green" id="icon-container-5">
+                            <i class="fas fa-robot" id="icon-feature-5"></i>
                         </div>
-                        <h3>Auto Farm</h3>
-                        <p>Automatiza pasos, velocidad y progreso continuo mientras mantienes la sesión activa.</p>
+                        <h3 id="title-feature-5">Auto Farm</h3>
+                        <p id="desc-feature-5">Automatiza pasos, velocidad y progreso continuo mientras mantienes la sesión activa.</p>
                     </div>
 
-                    <div class="feature-card">
-                        <div class="feature-icon-wrapper icon-yellow">
-                            <i class="fas fa-arrows-spin"></i>
+                    <div class="feature-card" id="card-feature-6" style="transition: opacity 0.25s ease, transform 0.25s ease;">
+                        <div class="feature-icon-wrapper icon-yellow" id="icon-container-6">
+                            <i class="fas fa-arrows-spin" id="icon-feature-6"></i>
                         </div>
-                        <h3>Auto Rebirth y Win</h3>
-                        <p>Reclama victorias y renacimientos de forma automática cuando el juego lo permite.</p>
+                        <h3 id="title-feature-6">Auto Rebirth y Win</h3>
+                        <p id="desc-feature-6">Reclama victorias y renacimientos de forma automática cuando el juego lo permite.</p>
                     </div>
                 </div>
             </section>
@@ -1574,22 +1574,46 @@
             'keyboard-escape': {
                 title: '+1 Speed Keyboard Escape',
                 desc: 'Ejecuta la versión liberada de Hoshi Hub sin anuncios ni keys. Activa automatizaciones útiles, acelera el progreso y mantén el control desde una interfaz simple.',
-                script: 'loadstring(game:HttpGet("https://antihambreadoscriptteam.github.io/HoshiHub/HoshiSkid.lua"))()'
+                script: 'loadstring(game:HttpGet("https://antihambreadoscriptteam.github.io/HoshiHub/HoshiSkid.lua"))()',
+                features: [
+                    { title: 'Pases desbloqueados', desc: 'Accede a ventajas del juego y equipa mejoras seleccionadas sin pasar por compras adicionales.', icon: 'fa-ticket' },
+                    { title: 'Zonas liberadas', desc: 'Abre caminadoras, plataformas y zonas de entrenamiento para avanzar sin bloqueos artificiales.', icon: 'fa-person-running' },
+                    { title: 'Auto Farm', desc: 'Automatiza pasos, velocidad y progreso continuo mientras mantienes la sesión activa.', icon: 'fa-robot' },
+                    { title: 'Auto Rebirth y Win', desc: 'Reclama victorias y renacimientos de forma automática cuando el juego lo permite.', icon: 'fa-arrows-spin' }
+                ]
             },
             'grow-garden': {
                 title: 'Grow a Garden 2',
                 desc: 'Automatiza tareas repetitivas del jardín, compra mejoras y expande tu progreso sin pasar por anuncios ni sistemas de keys.',
-                script: 'loadstring(game:HttpGet("https://antihambreadoscriptteam.github.io/HoshiHub/GaG2skid.lua"))()'
+                script: 'loadstring(game:HttpGet("https://antihambreadoscriptteam.github.io/HoshiHub/GaG2skid.lua"))()',
+                features: [
+                    { title: 'Auto Regar y Abonar', desc: 'Mantiene tus plantas hidratadas y fertilizadas de forma constante para acelerar su crecimiento.', icon: 'fa-droplet' },
+                    { title: 'Auto Cosecha', desc: 'Recolecta tus plantas automáticamente tan pronto como maduren para generar ingresos constantes.', icon: 'fa-seedling' },
+                    { title: 'Auto Sembrar', desc: 'Adquiere y planta semillas en macetas de forma completamente automatizada.', icon: 'fa-basket-shopping' },
+                    { title: 'Auto Rebirth', desc: 'Activa renacimientos automáticos para multiplicar tus ingresos del jardín sin esperar.', icon: 'fa-circle-up' }
+                ]
             },
             'lucky-brock': {
-                title: 'Kick a Lucky Brock',
-                desc: 'Automatiza golpes y recompensas para avanzar más rápido en Lucky Brock, manteniendo una ejecución directa y sin pasos extra.',
-                script: 'loadstring(game:HttpGet("https://antihambreadoscriptteam.github.io/HoshiHub/KickaBrock.lua"))()'
+                title: 'Kick a Lucky Block',
+                desc: 'Automatiza golpes y recompensas para avanzar más rápido en Lucky Block, manteniendo una ejecución directa y sin pasos extra.',
+                script: 'loadstring(game:HttpGet("https://antihambreadoscriptteam.github.io/HoshiHub/KickaBrock.lua"))()',
+                features: [
+                    { title: 'Auto Hatch', desc: 'Abre huevos y desbloquea mascotas de forma automática para potenciar tu multiplicador de daño.', icon: 'fa-egg' },
+                    { title: 'Auto Romper', desc: 'Golpea y destruye bloques de la suerte velozmente de forma 100% automatizada.', icon: 'fa-hammer' },
+                    { title: 'Auto Recoger', desc: 'Colecta herramientas, monedas y objetos del suelo de forma instantánea.', icon: 'fa-hand-sparkles' },
+                    { title: 'Auto Mejoras', desc: 'Aumenta tu fuerza de golpe y velocidad de regeneración de forma automática.', icon: 'fa-bolt' }
+                ]
             },
             'sell-lemon': {
                 title: 'Sell Lemon',
                 desc: 'Automatiza cosecha, venta y mejoras para subir de forma constante sin depender de anuncios ni verificaciones externas.',
-                script: 'loadstring(game:HttpGet("https://antihambreadoscriptteam.github.io/HoshiHub/SellLemon.lua"))()'
+                script: 'loadstring(game:HttpGet("https://antihambreadoscriptteam.github.io/HoshiHub/SellLemon.lua"))()',
+                features: [
+                    { title: 'Auto Comprar Árboles', desc: 'Adquiere nuevos árboles de limones automáticamente para aumentar tu capacidad de producción.', icon: 'fa-tree' },
+                    { title: 'Auto Cosecha', desc: 'Recolecta limones de tus árboles automáticamente tan pronto como maduren en tu granja.', icon: 'fa-lemon' },
+                    { title: 'Auto Venta', desc: 'Vende tu producción en el puesto de mercado de forma automática para generar ingresos rápidos.', icon: 'fa-money-bill-wave' },
+                    { title: 'Auto Upgrades', desc: 'Compra y mejora puestos de venta para aumentar tus ganancias pasivas automáticamente.', icon: 'fa-store' }
+                ]
             }
         };
 
@@ -1613,6 +1637,25 @@
         window.addEventListener('resize', () => requestAnimationFrame(initPill));
         window.addEventListener('load', initPill);
 
+        const f3Title = document.getElementById('title-feature-3');
+        const f3Desc = document.getElementById('desc-feature-3');
+        const f3Icon = document.getElementById('icon-feature-3');
+        const f4Title = document.getElementById('title-feature-4');
+        const f4Desc = document.getElementById('desc-feature-4');
+        const f4Icon = document.getElementById('icon-feature-4');
+        const f5Title = document.getElementById('title-feature-5');
+        const f5Desc = document.getElementById('desc-feature-5');
+        const f5Icon = document.getElementById('icon-feature-5');
+        const f6Title = document.getElementById('title-feature-6');
+        const f6Desc = document.getElementById('desc-feature-6');
+        const f6Icon = document.getElementById('icon-feature-6');
+        const fCards = [
+            document.getElementById('card-feature-3'),
+            document.getElementById('card-feature-4'),
+            document.getElementById('card-feature-5'),
+            document.getElementById('card-feature-6')
+        ];
+
         selectorBtns.forEach((btn) => {
             btn.addEventListener('click', () => {
                 const gameKey = btn.getAttribute('data-game');
@@ -1624,7 +1667,7 @@
                 
                 updatePill(btn);
                 
-                const animateElements = [gameTitle, gameDesc, scriptLoadstring];
+                const animateElements = [gameTitle, gameDesc, scriptLoadstring, ...fCards];
                 animateElements.forEach(el => {
                     el.style.opacity = '0';
                     el.style.transform = 'translateY(8px)';
@@ -1634,6 +1677,24 @@
                     gameTitle.innerText = data.title;
                     gameDesc.innerText = data.desc;
                     highlightCode(scriptLoadstring, data.script);
+
+                    if (data.features) {
+                        f3Title.innerText = data.features[0].title;
+                        f3Desc.innerText = data.features[0].desc;
+                        f3Icon.className = `fas ${data.features[0].icon}`;
+
+                        f4Title.innerText = data.features[1].title;
+                        f4Desc.innerText = data.features[1].desc;
+                        f4Icon.className = `fas ${data.features[1].icon}`;
+
+                        f5Title.innerText = data.features[2].title;
+                        f5Desc.innerText = data.features[2].desc;
+                        f5Icon.className = `fas ${data.features[2].icon}`;
+
+                        f6Title.innerText = data.features[3].title;
+                        f6Desc.innerText = data.features[3].desc;
+                        f6Icon.className = `fas ${data.features[3].icon}`;
+                    }
                     
                     animateElements.forEach(el => {
                         el.style.opacity = '1';
