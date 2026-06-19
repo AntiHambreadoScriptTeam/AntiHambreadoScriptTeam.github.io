@@ -832,6 +832,8 @@
       gap: 20px;
       width: max-content;
       animation: marqueeScroll 40s linear infinite;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
     }
 
     @media (hover: hover) {
@@ -923,8 +925,8 @@
     }
 
     @keyframes marqueeScroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(calc(-50% - 10px)); }
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(calc(-50% - 10px), 0, 0); }
     }
 
     .section {
