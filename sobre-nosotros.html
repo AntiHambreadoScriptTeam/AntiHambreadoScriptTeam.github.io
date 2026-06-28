@@ -1,11 +1,3 @@
-<!--
-██████╗░ ██╗ ██████╗░ ░░░░ ░█████╗░ ░█████╗░ ███╗░░░███╗ ██████╗░ ██╗ ░█████╗░ ███╗░░██╗ ███████╗ ░░░░░░ ░██████╗ ░█████╗░ ██████╗░ ██╗ ██████╗░ ████████╗
-██╔══██╗ ██║ ██╔══██╗ ░░░░ ██╔══██╗ ██╔══██╗ ████╗░████║ ██╔══██╗ ██║ ██╔══██╗ ████╗░██║ ██╔════╝ ░░░░░░ ██╔════╝ ██╔══██╗ ██╔══██╗ ██║ ██╔══██╗ ╚══██╔══╝
-██████╔╝ ██║ ██████╔╝ ░░░░ ██║░░╚═╝ ███████║ ██╔████╔██║ ██████╔╝ ██║ ██║░░██║ ██╔██╗██║ █████╗░░ █████╗ ╚█████╗░ ██║░░╚═╝ ██████╔╝ ██║ ██████╔╝ ░░░██║░░░
-██╔══██╗ ██║ ██╔═══╝░ ░░░░ ██║░░██╗ ██╔══██║ ██║╚██╔╝██║ ██╔═══╝░ ██║ ██║░░██║ ██║╚████║ ██╔══╝░░ ╚════╝ ░╚═══██╗ ██║░░██╗ ██╔══██╗ ██║ ██╔═══╝░ ░░░██║░░░
-██║░░██║ ██║ ██║░░░░░ ░░░░ ╚█████╔╝ ██║░░██║ ██║░╚═╝░██║ ██║░░░░░ ██║ ╚█████╔╝ ██║░╚███║ ███████╗ ░░░░░░ ██████╔╝ ╚█████╔╝ ██║░░██║ ██║ ██║░░░░░ ░░░██║░░░
-╚═╝░░╚═╝ ╚═╝ ╚═╝░░░░░ ░░░░ ░╚════╝░ ╚═╝░░╚═╝ ╚═╝░░░░░╚═╝ ╚═╝░░░░░ ╚═╝ ░╚════╝░ ╚═╝░░╚══╝ ╚══════╝ ░░░░░░ ╚═════╝░ ░╚════╝░ ╚═╝░░╚═╝ ╚═╝ ╚═╝░░░░░ ░░░╚═╝░░░
--->
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
@@ -15,9 +7,7 @@
   <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;700;800;900&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;700;800;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     :root {
@@ -71,7 +61,6 @@
     h6 {
       font-family: 'Outfit', sans-serif;
     }
-
 
     .noise-bg {
       position: fixed;
@@ -128,12 +117,10 @@
         transform: scale(1) translate(0, 0);
         opacity: 0.3;
       }
-
       50% {
         transform: scale(1.1) translate(20px, 20px);
         opacity: 0.5;
       }
-
       100% {
         transform: scale(0.9) translate(-20px, -20px);
         opacity: 0.3;
@@ -644,127 +631,377 @@
 
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
       gap: 30px;
       margin-top: 40px;
     }
 
-    .member-card {
-      background: var(--surface);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--card-radius);
-      padding: 30px 20px;
-      text-align: center;
-      transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-      position: relative;
+
+
+    .discord-card {
+      background: #1e1f22;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 450px;
+      margin: 0 auto;
+      font-family: 'Inter', sans-serif;
+      color: #dbdee1;
+      text-align: left;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
       overflow: hidden;
-    }
-
-    .member-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 5px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      opacity: 0;
-      transition: 0.4s;
-    }
-
-    .member-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(255, 255, 255, 0.1);
-      background: var(--surface-hover);
-    }
-
-    .member-card:hover::after {
-      opacity: 1;
-    }
-
-    .member-avatar-wrap {
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
       position: relative;
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 20px;
     }
 
-    .member-avatar {
+    .discord-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .discord-banner {
+      height: 100px;
       width: 100%;
-      height: 100%;
+      position: relative;
+    }
+
+    .discord-avatar-container {
+      position: relative;
+      margin-top: -45px;
+      margin-left: 16px;
+      display: inline-block;
+      z-index: 10;
+    }
+
+    .discord-avatar {
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
+      border: 6px solid #1e1f22;
+      background: #1e1f22;
+      display: block;
       object-fit: cover;
-      border: 3px solid var(--black);
-      box-shadow: 0 0 0 2px var(--glass-border);
-      transition: 0.4s;
       position: relative;
-      z-index: 2;
+      z-index: 5;
     }
 
-    .avatar-glow {
+    .discord-status-dot {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      height: 100%;
-      background: var(--accent);
+      bottom: 2px;
+      right: 2px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
-      filter: blur(20px);
-      opacity: 0;
-      z-index: 1;
-      transition: 0.4s;
+      border: 4px solid #1e1f22;
+      z-index: 6;
     }
 
-    .member-card:hover .member-avatar {
-      transform: scale(1.05);
-      box-shadow: 0 0 0 2px var(--accent);
+    .discord-status-dot.online {
+      background: #23a55a;
     }
 
-    .member-card:hover .avatar-glow {
-      opacity: 0.5;
+    .discord-status-dot.offline {
+      background: #80848e;
     }
 
-    .member-name {
-      font-size: 1.4rem;
-      font-weight: 700;
+    .discord-status-dot.offline div {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .discord-body {
+      padding: 16px;
+      margin: 8px;
+      border-radius: 8px;
+    }
+
+    .discord-username {
       color: #fff;
-      margin-bottom: 5px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .discord-tag {
+      color: #949ba4;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
+      flex-wrap: wrap;
+      gap: 4px;
     }
 
-    .developer-badge {
-      width: 22px;
-      height: 22px;
-      filter: drop-shadow(0 0 5px var(--accent-glow));
-    }
-
-    .member-role {
-      font-size: 0.95rem;
-      color: var(--accent-light);
-      font-weight: 500;
-      margin-bottom: 15px;
-      font-family: 'Outfit', sans-serif;
+    .discord-badge-rip {
+      background: rgba(242, 63, 67, 0.15);
+      border: 1px solid rgba(242, 63, 67, 0.3);
+      color: #f23f43;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      vertical-align: middle;
+    }
+
+    .discord-badges-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .discord-badges-inline i {
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .nitro-booster-badge {
+      color: #ff73fa;
+    }
+
+    .nitro-badge {
+      color: #ff73fa;
+    }
+
+    .active-dev-badge {
+      color: #5865f2;
+    }
+
+    .hypesquad-badge {
+      color: #3ca45c;
+    }
+
+    .discord-actions {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .discord-btn {
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+      transition: background-color 0.2s;
+    }
+
+    .discord-btn-primary {
+      background: #5865f2;
+    }
+
+    .discord-btn-primary:hover {
+      background: #4752c4;
+    }
+
+    .discord-btn-secondary {
+      background: #4e5058;
+    }
+
+    .discord-btn-secondary:hover {
+      background: #6d6f78;
+    }
+
+    .discord-btn-icon {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      justify-content: center;
+      border-radius: 4px;
+      background: #35363c;
+    }
+
+    .discord-btn-icon:hover {
+      background: #4e5058;
+    }
+
+    .discord-status-text {
+      font-size: 0.8rem;
+      color: #dbdee1;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .discord-code-status {
+      background: #2b2d31;
+      border: 1px solid #3f4248;
+      font-family: monospace;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #dbdee1;
       font-size: 0.75rem;
     }
 
-    .team-grid .member-card:nth-child(3n+2) .member-role {
-      color: var(--accent-cyan);
+    .discord-section-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #949ba4;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
     }
 
-    .team-grid .member-card:nth-child(3n) .member-role {
-      color: var(--accent-gold);
+    .discord-bio {
+      font-size: 0.8rem;
+      color: #dbdee1;
+      margin-bottom: 12px;
+      line-height: 1.4;
     }
 
-    .member-desc {
-      font-size: 0.95rem;
-      color: var(--muted);
+    .discord-bio a {
+      color: #00a8fc;
+      text-decoration: none;
+    }
+
+    .discord-bio a:hover {
+      text-decoration: underline;
+    }
+
+    .discord-quote-block {
+      border-left: 4px solid #4e5058;
+      padding-left: 10px;
+      margin-top: 6px;
+      margin-bottom: 12px;
+      font-size: 0.8rem;
+      color: #dbdee1;
       line-height: 1.5;
+    }
+
+    .discord-joined {
+      font-size: 0.8rem;
+      color: #dbdee1;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .discord-music-widget {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      margin-top: 8px;
+    }
+
+    .discord-music-widget img {
+      width: 50px;
+      height: 50px;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+
+    .discord-music-header {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #949ba4;
+      letter-spacing: 0.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-transform: uppercase;
+    }
+
+    .discord-music-header .music-type-icon {
+      font-size: 0.9rem;
+    }
+
+    .discord-music-header.spotify .music-type-icon {
+      color: #1ed760;
+    }
+
+    .discord-music-header.apple .music-type-icon {
+      color: #fc3c44;
+    }
+
+    .discord-music-info {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .discord-music-details {
+      overflow: hidden;
+    }
+
+    .discord-music-title {
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .discord-music-artist {
+      color: #b5bac1;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .discord-music-album {
+      color: #949ba4;
+      font-size: 0.7rem;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .discord-music-progress {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .discord-progress-bar-bg {
+      height: 4px;
+      background: #4e5058;
+      border-radius: 2px;
+      position: relative;
+      width: 100%;
+    }
+
+    .discord-progress-bar-fill {
+      height: 100%;
+      background: #dbdee1;
+      border-radius: 2px;
+      width: 0%;
+    }
+
+    .discord-music-header.spotify ~ .discord-music-progress .discord-progress-bar-fill {
+      background: #1ed760;
+    }
+
+    .discord-music-header.apple ~ .discord-music-progress .discord-progress-bar-fill {
+      background: #fc3c44;
+    }
+
+    .discord-music-time {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: #949ba4;
     }
 
     .section-separator {
@@ -793,6 +1030,7 @@
       color: rgba(255, 255, 255, 0.02);
       transform: rotate(-15deg);
       z-index: 0;
+      pointer-events: none;
     }
 
     .opinion-content {
@@ -885,6 +1123,169 @@
       color: #fff;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       z-index: 2;
+    }
+
+    .mascota-container {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .lore-card {
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--card-radius);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .lore-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent));
+    }
+
+    .lore-title {
+      font-size: 2.2rem;
+      color: #fff;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lore-title i {
+      color: var(--accent-gold);
+    }
+
+    .lore-text p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .lore-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .lore-badge {
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+      color: var(--accent-gold);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .carousel-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .polaroid-deck {
+      position: relative;
+      width: 420px;
+      height: 480px;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+
+    .polaroid-card {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #ef4444;
+      border: 12px solid #ef4444;
+      border-bottom: 30px solid #ef4444;
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.6s, z-index 0.6s;
+      cursor: pointer;
+      transform-origin: center center;
+    }
+
+    .polaroid-card img {
+      width: 100%;
+      height: 410px;
+      object-fit: cover;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+    }
+
+    .polaroid-caption {
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #1a1a1a;
+      text-align: center;
+      margin-top: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .tape {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-3deg);
+      width: 90px;
+      height: 26px;
+      background-color: rgba(239, 68, 68, 0.25);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(2px);
+      border-left: 1px dashed rgba(255, 255, 255, 0.2);
+      border-right: 1px dashed rgba(255, 255, 255, 0.2);
+      z-index: 10;
+    }
+
+    .carousel-controls {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      z-index: 10;
+    }
+
+    .carousel-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--glass-border);
+      color: #fff;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .carousel-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: scale(1.1);
+      box-shadow: 0 0 15px var(--accent-glow);
     }
 
     .cta-section {
@@ -1037,12 +1438,9 @@
     }
 
     @keyframes float {
-
-      0%,
-      100% {
+      0%, 100% {
         transform: translateY(0);
       }
-
       50% {
         transform: translateY(-10px);
       }
@@ -1052,17 +1450,23 @@
       0% {
         transform: scale(1);
       }
-
       50% {
         transform: scale(1.1);
       }
-
       100% {
         transform: scale(1);
       }
     }
 
     @media (max-width: 991px) {
+      .team-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+
+      .discord-card {
+        max-width: 350px;
+      }
+
       .navbar {
         width: calc(100% - 20px);
         height: 62px;
@@ -1118,6 +1522,20 @@
       .vs-box ul li {
         justify-content: center;
       }
+
+      .mascota-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .polaroid-deck {
+        width: 280px;
+        height: 340px;
+      }
+
+      .polaroid-card img {
+        height: 240px;
+      }
     }
 
     @media (max-width: 768px) {
@@ -1170,12 +1588,155 @@
         margin-bottom: 20px;
       }
 
-      .member-card {
-        padding: 24px 16px;
-      }
-
       .cta-box {
         padding: 40px 16px;
+      }
+    }
+
+    .video-scroll-section {
+      height: 200vh;
+      position: relative;
+      background: #020617;
+      z-index: 10;
+    }
+
+    .video-sticky-wrapper {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-container-box {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      background: #000;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+      transform: scale(0.8);
+      transform-origin: center center;
+      will-change: transform, border-radius;
+    }
+
+    .video-container-box video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    .screen-reflection {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 50%);
+      pointer-events: none;
+      z-index: 15;
+    }
+
+    .video-discord-btn {
+      background: #5865f2;
+      color: #fff;
+      padding: 16px 36px;
+      border-radius: 100px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 15px 30px rgba(88, 101, 242, 0.4);
+      transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), background-color 0.3s;
+      z-index: 20;
+    }
+
+    .video-discord-btn.desktop-only-btn {
+      position: absolute;
+      transform: translate(-50%, -50%) scale(0.85);
+      opacity: 0;
+      pointer-events: none;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      gap: 8px;
+    }
+
+    .video-discord-btn.desktop-only-btn i {
+      font-size: 1.1rem !important;
+    }
+
+    .video-container-box:hover .video-discord-btn.desktop-only-btn {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .video-discord-btn.mobile-only-btn {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .video-discord-btn:hover {
+      background: #4752c4;
+      box-shadow: 0 20px 40px rgba(88, 101, 242, 0.6);
+    }
+
+    .video-discord-btn.desktop-only-btn:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    .video-discord-btn.mobile-only-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .video-discord-btn i {
+      font-size: 1.4rem;
+    }
+
+    @media (max-width: 768px) {
+      .video-scroll-section {
+        height: auto !important;
+        padding: 60px 16px;
+        background: #020617;
+      }
+
+      .video-sticky-wrapper {
+        position: relative !important;
+        height: auto !important;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .video-container-box {
+        width: 100% !important;
+        max-width: 480px;
+        height: auto !important;
+        aspect-ratio: 16 / 9;
+        border-radius: 16px !important;
+        transform: none !important;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+      }
+
+      .video-discord-btn.desktop-only-btn {
+        display: none !important;
+      }
+
+      .video-discord-btn.mobile-only-btn {
+        display: inline-flex !important;
+        position: relative !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        box-shadow: 0 10px 20px rgba(88, 101, 242, 0.3);
       }
     }
   </style>
@@ -1197,6 +1758,7 @@
       <a href="#proposito" class="nav-link">Propósito</a>
       <a href="#fundador" class="nav-link">Fundador</a>
       <a href="#equipo" class="nav-link">Equipo</a>
+      <a href="#mascota" class="nav-link">Mascota</a>
       <a href="#opinion" class="nav-link">Sátira</a>
       <a href="#contacto" class="nav-link">Contacto</a>
     </div>
@@ -1211,8 +1773,8 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#proposito" class="mobile-link"><i class="fas fa-bullseye"></i> Propósito</a>
     <a href="#fundador" class="mobile-link"><i class="fas fa-crown"></i> Fundador</a>
-    <a href="#equipo" class="mobile-link"><i class="fas fa-shield-alt"></i> Equipo</a>
-    <a href="#mision" class="mobile-link"><i class="fas fa-rocket"></i> Misión</a>
+    <a href="#equipo" class="mobile-link"><i class="fas fa-users"></i> Equipo</a>
+    <a href="#mascota" class="mobile-link"><i class="fas fa-heart"></i> Mascota</a>
     <a href="#opinion" class="mobile-link"><i class="fas fa-theater-masks"></i> Sátira</a>
     <a href="#contacto" class="mobile-link"><i class="fas fa-envelope"></i> Contacto</a>
   </div>
@@ -1227,14 +1789,13 @@
       <span class="highlight">Script Team.</span>
     </h1>
     <p class="fade-up" style="transition-delay: 0.2s;">
-      La alternativa directa, limpia y libre de anuncios absurdos. Olvídate de los acortadores abusivos, el contenido
-      engañoso y las páginas basura. Aquí valoramos tu tiempo y tu confianza.
+      La única alternativa real para obtener scripts sin tener que sortear laberintos infinitos de publicidad engañosa. Cero anuncios abusivos, enlaces 100% directos y transparentes. Aquí respetamos tu tiempo y tu seguridad.
     </p>
     <div class="hero-cta fade-up" style="transition-delay: 0.3s;">
       <a href="#equipo" class="btn btn-primary">
         Conoce al Equipo <i class="fas fa-arrow-right"></i>
       </a>
-      <a href="#contacto" class="btn btn-secondary">
+      <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="btn btn-secondary">
         <i class="fab fa-discord"></i> Únete al Discord
       </a>
     </div>
@@ -1248,24 +1809,21 @@
         <span class="section-tag">Nuestra Razón de Ser</span>
         <h2 class="section-title">El propósito que nos mueve</h2>
         <p class="section-desc" style="text-align: left; margin: 0; margin-bottom: 20px;">
-          Nacimos con una idea clara: liberar a la comunidad del yugo de los anuncios abusivos y los acortadores
-          hambrientos. Ningún usuario debería pasar por publicidad engañosa o contenido inapropiado solo para acceder a
-          un script.
+          El internet se ha llenado de páginas que te obligan a pasar por incontables acortadores y alertas engañosas solo para conseguir un script básico. Decidimos romper ese círculo vicioso trayendo descargas completamente limpias, directas y eficientes.
         </p>
         <p class="section-desc" style="text-align: left; margin: 0;">
-          En un mundo donde algunos prefieren llenar sus bolsillos a costa de tu paciencia, nosotros decidimos crear un
-          ecosistema basado en el respeto y la transparencia.
+          Creemos que la comunidad de desarrollo y usuarios merece respeto, no trampas escondidas tras falsos muros de monetización. Todo lo que hacemos está diseñado para entregarte lo que buscas con honestidad.
         </p>
       </div>
       <div class="fade-up" style="transition-delay: 0.2s;">
         <div class="card">
-          <div class="card-icon"><i class="fas fa-shield"></i></div>
+          <div class="card-icon"><i class="fas fa-shield-halved"></i></div>
           <h3 class="card-title">Cero Hambre Digital</h3>
-          <p>Nuestro compromiso es inquebrantable:</p>
+          <p>Nuestro compromiso con la comunidad es definitivo:</p>
           <ul class="card-list">
-            <li><i class="fas fa-check"></i> Compartir sin hambre y sin ataduras.</li>
-            <li><i class="fas fa-check"></i> Enlaces directos, limpios y 100% seguros.</li>
-            <li><i class="fas fa-check"></i> Respeto absoluto por el usuario.</li>
+            <li><i class="fas fa-check"></i> Distribución de scripts libre de acortadores abusivos.</li>
+            <li><i class="fas fa-check"></i> Enlaces directos y archivos libres de software no deseado.</li>
+            <li><i class="fas fa-check"></i> Transparencia absoluta en todas nuestras herramientas.</li>
           </ul>
         </div>
       </div>
@@ -1273,26 +1831,80 @@
   </section>
 
   <section class="container" id="fundador">
-    <div class="card fade-up">
-      <div class="grid-2">
-        <div>
-          <span class="section-tag">El Origen</span>
-          <h2 class="section-title" style="font-size: 2.5rem;">El fundador: <br><span
-              style="color: var(--accent);">TheBanHammer</span></h2>
-          <p style="color: var(--muted); font-size: 1.1rem; margin-bottom: 15px;">
-            El 16 de marzo de 2025, TheBanHammer decidió que ya era suficiente. Cansado de navegar por la jungla de
-            anuncios, tomó el martillo y fundó este proyecto.
-          </p>
-          <p style="color: var(--muted); font-size: 1.1rem;">
-            No fue un capricho: fue una respuesta a la frustración de miles de usuarios. Él entendió algo que otros
-            olvidaron: <strong>la comunidad merece respeto, no trampas disfrazadas de "monetización".</strong>
-          </p>
+    <div class="section-header fade-up">
+      <span class="section-tag">El Origen</span>
+      <h2 class="section-title">El Fundador</h2>
+    </div>
+    <div style="display: flex; justify-content: center;" class="fade-up">
+      <div class="discord-card" id="music-banhammer" style="background-color: #1b0404;">
+        <div class="discord-banner" style="background: linear-gradient(135deg, #2b0404 0%, #0c0202 100%); display: flex; align-items: center; justify-content: flex-end; padding-right: 20px;">
+          <span style="font-family: 'Times New Roman', Times, serif; font-weight: 300; font-size: 2rem; color: rgba(255,255,255,0.7); letter-spacing: 2px;">THE GOAT?</span>
         </div>
-        <div style="display: flex; justify-content: center;">
-          <div class="member-avatar-wrap" style="width: 200px; height: 200px; margin: 0;">
-            <div class="avatar-glow"></div>
-            <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/TheRealBanHammer.png" alt="TheBanHammer"
-              class="member-avatar">
+        <div class="discord-avatar-container">
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/TheRealBanHammer.png" alt="TheRealBanHammer" class="discord-avatar" style="border-color: #1b0404;">
+          <div class="discord-status-dot online" style="border-color: #1b0404;"></div>
+        </div>
+        <div class="discord-body" style="background: #110202;">
+          <div class="discord-username">⛧ TheRealBanHammer</div>
+          <div class="discord-tag">
+            therealbanhammerlol • Desarrollador con 5 años de experiencia
+            <span class="discord-badges-inline">
+              <span class="discord-badge-rip"><i class="fa-solid fa-skull"></i> RIP</span>
+              <i class="fa-solid fa-rocket nitro-booster-badge" title="Nitro Booster"></i>
+              <i class="fa-solid fa-gem nitro-badge" title="Nitro"></i>
+            </span>
+          </div>
+
+          <div class="discord-actions">
+            <button class="discord-btn discord-btn-secondary"><i class="fa-solid fa-user-pen"></i> Editar perfil</button>
+            <button class="discord-btn discord-btn-icon"><i class="fa-solid fa-house"></i></button>
+            <button class="discord-btn discord-btn-icon"><i class="fa-solid fa-ellipsis"></i></button>
+          </div>
+
+          <div class="discord-status-text">
+            <span>🐸</span> Skidder Final Boss
+          </div>
+          
+          <div class="discord-section-title">Sobre Mí</div>
+          <div class="discord-quote-block">
+            <div>Fundador y Manager @ Anti-Hambreado Team</div>
+            <div>Programador @ Lua, JavaScript y HTML</div>
+            <div>Administrador @ FloppHub</div>
+          </div>
+          
+          <div class="discord-bio">
+            <a href="https://antihambreadoscriptteam.github.io/Bio/TheRealBanHammer" target="_blank">https://antihambreadoscriptteam.github.io/Bio/TheRealBanHammer</a>
+          </div>
+
+          <div class="discord-section-title">Miembro Desde</div>
+          <div class="discord-joined">
+            <i class="fa-brands fa-discord"></i> 21 sept 2024 • <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" style="width: 16px; height: 16px; border-radius: 50%; vertical-align: middle;" alt=""> 24 jul 2025
+          </div>
+          
+          <div class="discord-music-widget">
+            <div class="discord-music-header apple">
+              <span>Escuchando Apple Music</span>
+              <i class="fa-brands fa-apple music-type-icon"></i>
+            </div>
+            <div class="discord-music-info">
+              <div class="discord-music-cover-wrap">
+                <img src="https://i.scdn.co/image/ab67616d0000b273eccf573b113d84bfdc5e5b84" alt="Freak Show" class="discord-music-cover">
+              </div>
+              <div class="discord-music-details">
+                <div class="discord-music-title">Freak Show</div>
+                <div class="discord-music-artist">de punkinloveee</div>
+                <div class="discord-music-album">Álbum: Freak Show (feat. h3artcrush)</div>
+              </div>
+            </div>
+            <div class="discord-music-progress">
+              <div class="discord-progress-bar-bg">
+                <div class="discord-progress-bar-fill progress-fill"></div>
+              </div>
+              <div class="discord-music-time">
+                <span class="time-current">0:00</span>
+                <span class="time-total">2:43</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1303,92 +1915,463 @@
     <div class="section-header fade-up">
       <span class="section-tag">Nuestra Escuadra</span>
       <h2 class="section-title">Los Integrantes</h2>
-      <p class="section-desc">Un equipo de guerreros digitales defendiendo la misma causa. Cero anuncios, máxima calidad
-        y links directos.</p>
+      <p class="section-desc">Un bloque unido contra el abuso publicitario, garantizando descargas seguras y soporte real.</p>
     </div>
 
-    <h3 class="fade-up" style="color: #fff; font-size: 1.5rem; text-align: center; margin-bottom: 10px;">Dueños de la
-      Comunidad</h3>
+
+
+    <h3 class="fade-up" style="color: #fff; font-size: 1.5rem; text-align: center; margin-bottom: 20px;">Miembros del Equipo</h3>
     <div class="team-grid fade-up" style="margin-bottom: 60px;">
-      <div class="member-card">
-        <div class="member-avatar-wrap">
-          <div class="avatar-glow"></div>
-          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/KYS-FELICIA.png" alt="FeliciaXxxTop"
-            class="member-avatar">
+      
+      <div class="discord-card" id="music-felicia" style="background-color: #2c0030;">
+        <div class="discord-banner" style="background: #ff00ff;"></div>
+        <div class="discord-avatar-container">
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/KYS-FELICIA.png" alt="FeliciaXxxTop" class="discord-avatar" style="border-color: #2c0030;">
+          <div class="discord-status-dot offline" style="border-color: #2c0030; display: flex; align-items: center; justify-content: center; background: #80848e;">
+            <div style="width: 6px; height: 6px; border-radius: 50%; background-color: #2c0030;"></div>
+          </div>
         </div>
-        <h4 class="member-name">FeliciaXxxTop</h4>
-        <div class="member-role">Estratega</div>
-        <p class="member-desc">Voz firme contra el hambre digital y protectora de nuestros principios.</p>
+        <div class="discord-body" style="background: #1b0020;">
+          <div class="discord-username">ʚ♡ɞ felixcia</div>
+          <div class="discord-tag">
+            kys_felixcia • fuck you
+            <span class="discord-badges-inline">
+              <span class="discord-badge-rip"><i class="fa-solid fa-skull"></i> RIP</span>
+              <i class="fa-solid fa-rocket nitro-booster-badge" title="Nitro Booster"></i>
+              <i class="fa-solid fa-gem nitro-badge" title="Nitro"></i>
+            </span>
+          </div>
+
+          <div class="discord-actions">
+            <button class="discord-btn discord-btn-primary"><i class="fa-solid fa-user-plus"></i> Añadir amigos</button>
+            <button class="discord-btn discord-btn-icon"><i class="fa-solid fa-message"></i></button>
+            <button class="discord-btn discord-btn-icon"><i class="fa-solid fa-ellipsis"></i></button>
+          </div>
+
+          <div class="discord-bio">
+            <div>Смерть не ждет меня, я жду смерти.</div>
+            <div style="margin-top: 6px; font-weight: 500; color: #dbdee1;"><i class="fa-solid fa-music"></i> Latin Interest</div>
+          </div>
+
+          <div class="discord-bio" style="margin-top: 10px;">
+            <div><a href="https://nohello.net/en/" target="_blank">https://nohello.net/en/</a></div>
+            <div><a href="https://dontasktoask.com/" target="_blank">https://dontasktoask.com/</a></div>
+          </div>
+
+          <div class="discord-section-title">Miembro Desde</div>
+          <div class="discord-joined">
+            <i class="fa-brands fa-discord"></i> 3 may 2025 • <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" style="width: 16px; height: 16px; border-radius: 50%; vertical-align: middle;" alt=""> 24 jul 2025
+          </div>
+          
+          <div class="discord-music-widget">
+            <div class="discord-music-header apple">
+              <span>Escuchando Apple Music</span>
+              <i class="fa-brands fa-apple music-type-icon"></i>
+            </div>
+            <div class="discord-music-info">
+              <div class="discord-music-cover-wrap">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/45/0a/ba/450abab7-1223-eed9-0a60-fbf2b4604cdf/cover_4062851139670.jpg/500x500bb.jpg" alt="lucy~" class="discord-music-cover">
+              </div>
+              <div class="discord-music-details">
+                <div class="discord-music-title">lucy~</div>
+                <div class="discord-music-artist">de Corbon Amodio</div>
+                <div class="discord-music-album">Álbum: lucy~ - Single</div>
+              </div>
+            </div>
+            <div class="discord-music-progress">
+              <div class="discord-progress-bar-bg">
+                <div class="discord-progress-bar-fill progress-fill"></div>
+              </div>
+              <div class="discord-music-time">
+                <span class="time-current">0:00</span>
+                <span class="time-total">1:58</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="member-card">
-        <div class="member-avatar-wrap">
-          <div class="avatar-glow"></div>
-          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/IWOOZY0SKID.png" alt="iWoozy"
-            class="member-avatar">
+      <div class="discord-card" id="music-woozy" style="background-color: #eaddc3; color: #313338;">
+        <div class="discord-banner" style="background: #fcd34d;"></div>
+        <div class="discord-avatar-container">
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/IWOOZY0SKID.png" alt="iWoozy" class="discord-avatar" style="border-color: #eaddc3;">
+          <div class="discord-status-dot offline" style="border-color: #eaddc3; display: flex; align-items: center; justify-content: center; background: #80848e;">
+            <div style="width: 6px; height: 6px; border-radius: 50%; background-color: #eaddc3;"></div>
+          </div>
         </div>
-        <h4 class="member-name">iWoozy</h4>
-        <div class="member-role">Maestro del Timing</div>
-        <p class="member-desc">Siempre un paso adelante en la encarnizada batalla contra los acortadores.</p>
+        <div class="discord-body" style="background: #f2ebd9;">
+          <div class="discord-username" style="color: #111214;">⪻ ɪᴍ ɪᴡᴏᴏᴢʏ | AsYnC</div>
+          <div class="discord-tag" style="color: #4e5058;">
+            realmoonshineforever • ElaMod Co-Owner
+            <span class="discord-badges-inline">
+              <span class="discord-badge-rip"><i class="fa-solid fa-skull"></i> RIP</span>
+              <i class="fa-solid fa-rocket nitro-booster-badge" title="Nitro Booster"></i>
+              <i class="fa-solid fa-gem nitro-badge" title="Nitro"></i>
+            </span>
+          </div>
+
+          <div class="discord-actions">
+            <button class="discord-btn" style="background: #4a431c; color: #fff;"><i class="fa-solid fa-user-plus"></i> Añadir amigos</button>
+            <button class="discord-btn discord-btn-icon" style="background: #e2d9c0; color: #313338;"><i class="fa-solid fa-message"></i></button>
+            <button class="discord-btn discord-btn-icon" style="background: #e2d9c0; color: #313338;"><i class="fa-solid fa-ellipsis"></i></button>
+          </div>
+
+          <div class="discord-bio" style="color: #313338;">
+            <div>I Love A 🧎‍♀️</div>
+            <div style="margin-top: 4px;">Developer Of Cracked Apps | Ela Mods</div>
+            <div style="margin-top: 4px; font-style: italic;">Vos sos un malo, tómate un mejoralito</div>
+          </div>
+
+          <div class="discord-section-title" style="color: #4e5058; margin-top: 10px;">Miembro Desde</div>
+          <div class="discord-joined" style="color: #313338;">
+            <i class="fa-brands fa-discord" style="color: #4e5058;"></i> 30 jul 2025 • <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" style="width: 16px; height: 16px; border-radius: 50%; vertical-align: middle;" alt=""> 5 ago 2025
+          </div>
+          
+          <div class="discord-music-widget" style="background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.08);">
+            <div class="discord-music-header spotify" style="color: #4e5058;">
+              <span>Escuchando Spotify</span>
+              <i class="fa-brands fa-spotify music-type-icon"></i>
+            </div>
+            <div class="discord-music-info">
+              <div class="discord-music-cover-wrap">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b9/88/be/b988be99-a2d6-05fc-e5bb-af44fa371be3/663918990278.jpg/500x500bb.jpg" alt="perfect face" class="discord-music-cover">
+              </div>
+              <div class="discord-music-details">
+                <div class="discord-music-title" style="color: #111214;">perfect face</div>
+                <div class="discord-music-artist" style="color: #4e5058;">de laydownrot</div>
+                <div class="discord-music-album" style="color: #4e5058;">Álbum: perfect face (versions)</div>
+              </div>
+            </div>
+            <div class="discord-music-progress">
+              <div class="discord-progress-bar-bg" style="background: rgba(0,0,0,0.15);">
+                <div class="discord-progress-bar-fill progress-fill" style="background: #1ed760;"></div>
+              </div>
+              <div class="discord-music-time" style="color: #4e5058;">
+                <span class="time-current">0:00</span>
+                <span class="time-total">2:14</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="member-card">
-        <div class="member-avatar-wrap">
-          <div class="avatar-glow"></div>
-          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/NO-SLOWWW.png" alt="No-Slowww"
-            class="member-avatar">
+      <div class="discord-card" id="music-slow" style="background-color: #1b1c1e;">
+        <div class="discord-banner" style="background: #000000;"></div>
+        <div class="discord-avatar-container">
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/NO-SLOWWW.png" alt="No-Slowww" class="discord-avatar" style="border-color: #1b1c1e;">
+          <div class="discord-status-dot offline" style="border-color: #1b1c1e; display: flex; align-items: center; justify-content: center; background: #80848e;">
+            <div style="width: 6px; height: 6px; border-radius: 50%; background-color: #1b1c1e;"></div>
+          </div>
         </div>
-        <h4 class="member-name">No-Slowww</h4>
-        <div class="member-role">Velocista</div>
-        <p class="member-desc">Como su nombre indica, velocidad pura: scripts directos, sin retrasos.</p>
+        <div class="discord-body" style="background: #111214;">
+          <div class="discord-username">⛧𝔑𝔬 | 𝔖𝔩𝔬𝔴𝔴𝔴</div>
+          <div class="discord-tag">
+            agusfortniteapi • 404/DevNotFound
+            <span class="discord-badges-inline">
+              <span class="discord-badge-rip"><i class="fa-solid fa-skull"></i> RIP</span>
+              <i class="fa-solid fa-rocket nitro-booster-badge" title="Nitro Booster"></i>
+              <i class="fa-solid fa-gem nitro-badge" title="Nitro"></i>
+            </span>
+          </div>
+
+          <div class="discord-actions">
+            <button class="discord-btn discord-btn-primary"><i class="fa-solid fa-user-plus"></i> Añadir amigos</button>
+            <button class="discord-btn discord-btn-icon"><i class="fa-solid fa-message"></i></button>
+            <button class="discord-btn discord-btn-icon"><i class="fa-solid fa-ellipsis"></i></button>
+          </div>
+
+          <div class="discord-status-text">
+            <span class="discord-code-status">&lt;/&gt; Silly API</span>
+          </div>
+
+          <div class="discord-section-title">Sobre Mí</div>
+          <div class="discord-bio">
+            - Desarrollador Principal de Silly Triad API
+          </div>
+
+          <div class="discord-section-title">Miembro Desde</div>
+          <div class="discord-joined">
+            <i class="fa-brands fa-discord"></i> 1 jun 2025 • <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" style="width: 16px; height: 16px; border-radius: 50%; vertical-align: middle;" alt=""> 24 jul 2025
+          </div>
+          
+          <div class="discord-music-widget">
+            <div class="discord-music-header spotify">
+              <span>Escuchando Spotify</span>
+              <i class="fa-brands fa-spotify music-type-icon"></i>
+            </div>
+            <div class="discord-music-info">
+              <div class="discord-music-cover-wrap">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/b6/cf/d9/b6cfd931-53d8-4d61-f7e6-26938e5f1144/197190164596.jpg/500x500bb.jpg" alt="METAMORPHOSIS" class="discord-music-cover">
+              </div>
+              <div class="discord-music-details">
+                <div class="discord-music-title">METAMORPHOSIS</div>
+                <div class="discord-music-artist">de INTERWORLD</div>
+                <div class="discord-music-album">Álbum: METAMORPHOSIS - Single</div>
+              </div>
+            </div>
+            <div class="discord-music-progress">
+              <div class="discord-progress-bar-bg">
+                <div class="discord-progress-bar-fill progress-fill"></div>
+              </div>
+              <div class="discord-music-time">
+                <span class="time-current">0:00</span>
+                <span class="time-total">2:23</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="member-card">
-        <div class="member-avatar-wrap">
-          <div class="avatar-glow"></div>
-          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/ANGELLTFMXD.png" alt="AngelltfmXD"
-            class="member-avatar">
+      <div class="discord-card" id="music-angel" style="background-color: #1c1b18;">
+        <div class="discord-banner" style="background: linear-gradient(135deg, #b45309 0%, #78350f 100%);"></div>
+        <div class="discord-avatar-container">
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/ANGELLTFMXD.png" alt="AngelltfmXD" class="discord-avatar" style="border-color: #1c1b18;">
+          <div class="discord-status-dot online" style="border-color: #1c1b18;"></div>
         </div>
-        <h4 class="member-name">AngelltfmXD</h4>
-        <div class="member-role">Creativo</div>
-        <p class="member-desc">El toque humorístico, porque la lucha contra el hambre también se gana con risas.</p>
+        <div class="discord-body" style="background: #111214;">
+          <div class="discord-username">🇵🇪 AngelltfmXD</div>
+          <div class="discord-tag">
+            angel_ltfm • Humor & Memes
+            <span class="discord-badges-inline">
+              <span class="discord-badge-rip"><i class="fa-solid fa-skull"></i> RIP</span>
+              <i class="fa-solid fa-rocket nitro-booster-badge" title="Nitro Booster"></i>
+              <i class="fa-solid fa-gem nitro-badge" title="Nitro"></i>
+            </span>
+          </div>
+
+          <div class="discord-actions">
+            <button class="discord-btn discord-btn-primary"><i class="fa-solid fa-user-plus"></i> Añadir amigos</button>
+            <button class="discord-btn discord-btn-icon"><i class="fa-solid fa-message"></i></button>
+            <button class="discord-btn discord-btn-icon"><i class="fa-solid fa-ellipsis"></i></button>
+          </div>
+
+          <div class="discord-status-text">
+            <span>🔥</span> El Rap de Perú es mi religión
+          </div>
+
+          <div class="discord-section-title">Sobre Mí</div>
+          <div class="discord-bio">
+            Creador de contenido y humorista oficial. Cero anuncios, máximo entretenimiento.
+          </div>
+
+          <div class="discord-section-title">Miembro Desde</div>
+          <div class="discord-joined">
+            <i class="fa-brands fa-discord"></i> 24 mar 2025 • <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" style="width: 16px; height: 16px; border-radius: 50%; vertical-align: middle;" alt=""> 24 jul 2025
+          </div>
+          
+          <div class="discord-music-widget">
+            <div class="discord-music-header spotify">
+              <span>Escuchando Spotify</span>
+              <i class="fa-brands fa-spotify music-type-icon"></i>
+            </div>
+            <div class="discord-music-info">
+              <div class="discord-music-cover-wrap">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/77/b4/54/77b454bc-2f42-9663-4d21-c70e96f1e4fa/16d80c5f-a985-413f-b5bb-cedee6480b74.jpg/500x500bb.jpg" alt="El Rap de Perú" class="discord-music-cover">
+              </div>
+              <div class="discord-music-details">
+                <div class="discord-music-title">El Rap de Perú</div>
+                <div class="discord-music-artist">de Luisardo</div>
+                <div class="discord-music-album">Álbum: Luisardo Animations</div>
+              </div>
+            </div>
+            <div class="discord-music-progress">
+              <div class="discord-progress-bar-bg">
+                <div class="discord-progress-bar-fill progress-fill"></div>
+              </div>
+              <div class="discord-music-time">
+                <span class="time-current">0:00</span>
+                <span class="time-total">1:30</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <div class="discord-card" id="music-anonymous" style="background-color: #111214;">
+        <div class="discord-banner" style="background: radial-gradient(circle at center, #bf5f00 0%, #111214 80%);"></div>
+        <div class="discord-avatar-container">
+          <svg class="discord-wings-svg" viewBox="0 0 120 120" style="position: absolute; top: -20px; left: -20px; width: 120px; height: 120px; pointer-events: none; z-index: 1;">
+            <path d="M 40 85 C 20 80, 5 60, 10 40 C 12 30, 22 25, 30 35 C 25 45, 32 55, 42 60 C 35 68, 42 75, 48 78 Z" fill="rgba(167, 139, 250, 0.15)" stroke="#a78bfa" stroke-width="2" filter="drop-shadow(0 0 4px #a78bfa)"/>
+            <path d="M 80 85 C 100 80, 115 60, 110 40 C 108 30, 98 25, 90 35 C 95 45, 88 55, 78 60 C 85 68, 78 75, 72 78 Z" fill="rgba(167, 139, 250, 0.15)" stroke="#a78bfa" stroke-width="2" filter="drop-shadow(0 0 4px #a78bfa)"/>
+          </svg>
+          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/Mw_Anonymous.gif" alt="Mw_Anonymous" class="discord-avatar" style="border-color: #111214;">
+          <div class="discord-status-dot offline" style="border-color: #111214; display: flex; align-items: center; justify-content: center; background: #80848e;">
+            <div style="width: 6px; height: 6px; border-radius: 50%; background-color: #111214;"></div>
+          </div>
+        </div>
+        <div class="discord-body" style="background: #0b0c0d;">
+          <div class="discord-username">🪽👑 MW_ANONYMOUS 🪽</div>
+          <div class="discord-tag">
+            mw_anonymous • Born to die
+            <span class="discord-badges-inline">
+              <span class="discord-badge-rip"><i class="fa-solid fa-skull"></i> RIP</span>
+              <i class="fa-solid fa-code active-dev-badge" title="Active Developer"></i>
+              <i class="fa-solid fa-shield-halved hypesquad-badge" title="HypeSquad Balance"></i>
+              <i class="fa-solid fa-rocket nitro-booster-badge" title="Nitro Booster"></i>
+              <i class="fa-solid fa-gem nitro-badge" title="Nitro"></i>
+            </span>
+          </div>
+
+          <div class="discord-actions">
+            <button class="discord-btn discord-btn-primary" style="background: #5865f2;"><i class="fa-solid fa-message"></i> Enviar mensaje</button>
+            <button class="discord-btn discord-btn-icon"><i class="fa-solid fa-user-plus"></i></button>
+            <button class="discord-btn discord-btn-icon"><i class="fa-solid fa-ellipsis"></i></button>
+          </div>
+
+          <div class="discord-status-text">
+            PROGRAMMER 🤓
+          </div>
+
+          <div class="discord-bio">
+            <div><a href="https://guns.lol/mw_anonymous" target="_blank">https://guns.lol/mw_anonymous</a></div>
+            <div><a href="https://flopphub-team.github.io/mw_anonymous" target="_blank">https://flopphub-team.github.io/mw_anonymous</a></div>
+          </div>
+
+          <div class="discord-section-title">Miembro Desde</div>
+          <div class="discord-joined">
+            <i class="fa-brands fa-discord"></i> 1 sept 2022 • <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" style="width: 16px; height: 16px; border-radius: 50%; vertical-align: middle;" alt=""> 24 jul 2025
+          </div>
+          
+          <div class="discord-music-widget">
+            <div class="discord-music-header spotify">
+              <span>Escuchando Spotify</span>
+              <i class="fa-brands fa-spotify music-type-icon"></i>
+            </div>
+            <div class="discord-music-info">
+              <div class="discord-music-cover-wrap">
+                <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/51/0f/ab/510fabc1-77ea-3c29-fc7c-d65352119c94/4743351112539.jpg/500x500bb.jpg" alt="The Dark Triad" class="discord-music-cover">
+              </div>
+              <div class="discord-music-details">
+                <div class="discord-music-title">The Dark Triad</div>
+                <div class="discord-music-artist">de Zak Conner</div>
+                <div class="discord-music-album">Álbum: Zak Conner Phonk</div>
+              </div>
+            </div>
+            <div class="discord-music-progress">
+              <div class="discord-progress-bar-bg">
+                <div class="discord-progress-bar-fill progress-fill"></div>
+              </div>
+              <div class="discord-music-time">
+                <span class="time-current">0:00</span>
+                <span class="time-total">3:05</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-separator"></div>
+
+  <section class="container" id="mascota">
+    <div class="section-header fade-up">
+      <span class="section-tag">Nuestra Identidad</span>
+      <h2 class="section-title">Nuestra Mascota: Zani Queen</h2>
+      <p class="section-desc">Conoce a la cara del equipo, reina de las descargas limpias y enemiga del adware.</p>
     </div>
 
-    <h3 class="fade-up" style="color: #fff; font-size: 1.5rem; text-align: center; margin-bottom: 10px;">Desarrolladores
-      Principales</h3>
-    <div class="team-grid fade-up" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-      <div class="member-card"
-        style="border-color: rgba(255,0,68,0.2); background: linear-gradient(180deg, var(--surface) 0%, #150508 100%);">
-        <div class="member-avatar-wrap" style="width: 140px; height: 140px;">
-          <div class="avatar-glow" style="opacity: 0.3;"></div>
-          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/Mw_Anonymous.gif" alt="Mw_Anonymous"
-            class="member-avatar" style="border-color: var(--accent);">
+    <div class="mascota-container">
+      <div class="lore-card fade-up">
+        <div class="lore-title">
+          <i class="fas fa-crown"></i>
+          <h3>Lore de Zani Queen</h3>
         </div>
-        <h4 class="member-name">
-          Mw_Anonymous
-          <img src="https://i.postimg.cc/GpKWKm69/Developer.png" alt="Dev" class="developer-badge">
-        </h4>
-        <div class="member-role" style="color: #fff;">Lead Developer Web</div>
-        <p class="member-desc" style="color: #ccc;">Arquitecto principal del ecosistema web y diseñador de la
-          experiencia de usuario suprema. Creador de la versión 3.0.</p>
+        <div class="lore-text">
+          <p>
+            Zani Queen es la mascota oficial y el espíritu guardián del Anti-Hambreado Script Team. Coronada por la comunidad, es una destacada creadora de contenido (YouTuber) enfocada en guías limpias, directas y sin engaños.
+          </p>
+          <p>
+            Tiene dos rasgos inconfundibles: una obsesión total por los capibaras (a quienes admira por su paz mental infinita) y una intolerancia severa a las ventanas emergentes que pretenden robar el tiempo del usuario.
+          </p>
+          <p>
+            Su corazón le pertenece a un chico emblemático en la comunidad: el único llamado <strong>"No soy hambreado como Campione Script"</strong>, famoso por su total honestidad al compartir software.
+          </p>
+        </div>
+        <div class="lore-badges">
+          <span class="lore-badge"><i class="fas fa-heart"></i> Capybaras Fan</span>
+          <span class="lore-badge"><i class="fas fa-ban"></i> Anti-Anuncios</span>
+          <span class="lore-badge"><i class="fab fa-youtube"></i> YouTuber</span>
+          <span class="lore-badge"><i class="fas fa-crown"></i> Coronada</span>
+        </div>
       </div>
 
-      <div class="member-card"
-        style="border-color: rgba(255,0,68,0.2); background: linear-gradient(180deg, var(--surface) 0%, #150508 100%);">
-        <div class="member-avatar-wrap" style="width: 140px; height: 140px;">
-          <div class="avatar-glow" style="opacity: 0.3;"></div>
-          <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/KYS-FELICIA.png" alt="FeliciaXxxTop"
-            class="member-avatar" style="border-color: var(--accent);">
+      <div class="carousel-wrapper fade-up">
+        <div class="polaroid-deck" id="polaroidDeck">
+          
+          <div class="polaroid-card">
+            <div class="tape"></div>
+            <img src="Foto/ZaniQueen/0c2584b0-5173-4321-ad3d-97cf1a129f8e.png" alt="Zani Queen 1">
+          </div>
+
+          <div class="polaroid-card">
+            <div class="tape"></div>
+            <img src="Foto/ZaniQueen/58e174bd-8942-40af-aa55-e1c6994b45b1.png" alt="Zani Queen 2">
+          </div>
+
+          <div class="polaroid-card">
+            <div class="tape"></div>
+            <img src="Foto/ZaniQueen/82fc31a1-7079-4ff4-9cb5-26f33c3fa3c1.png" alt="Zani Queen 3">
+          </div>
+
+          <div class="polaroid-card">
+            <div class="tape"></div>
+            <img src="Foto/ZaniQueen/841e70b5-5420-4228-ba63-1d552bac2320.png" alt="Zani Queen 4">
+          </div>
+
+          <div class="polaroid-card">
+            <div class="tape"></div>
+            <img src="Foto/ZaniQueen/8e3c60d9-7d9c-4505-b478-24f7fa782eb4.png" alt="Zani Queen 5">
+          </div>
+
+          <div class="polaroid-card">
+            <div class="tape"></div>
+            <img src="Foto/ZaniQueen/95738e13-66a3-4221-9859-5d569237699f.png" alt="Zani Queen 6">
+          </div>
+
+          <div class="polaroid-card">
+            <div class="tape"></div>
+            <img src="Foto/ZaniQueen/9f6a6c9e-9289-40e4-bff9-e70cd59c3e39.png" alt="Zani Queen 7">
+          </div>
+
+          <div class="polaroid-card">
+            <div class="tape"></div>
+            <img src="Foto/ZaniQueen/bc7c087b-0dda-43fc-8289-ca3c7a953f2b.png" alt="Zani Queen 8">
+          </div>
+
+          <div class="polaroid-card">
+            <div class="tape"></div>
+            <img src="Foto/ZaniQueen/bfdec021-e8f9-448b-a738-5b33680c51df.png" alt="Zani Queen 9">
+          </div>
+
+          <div class="polaroid-card">
+            <div class="tape"></div>
+            <img src="Foto/ZaniQueen/eb7a4253-2286-478b-90ee-b90ceb37c42e.png" alt="Zani Queen 10">
+          </div>
+
         </div>
-        <h4 class="member-name">
-          FeliciaXxxTop
-          <img src="https://i.postimg.cc/GpKWKm69/Developer.png" alt="Dev" class="developer-badge">
-        </h4>
-        <div class="member-role" style="color: #fff;">Hub & Core Dev</div>
-        <p class="member-desc" style="color: #ccc;">Desarrolladora principal de nuestro Script Hub y pilar fundamental
-          en la programación secundaria de proyectos.</p>
+        
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="mascota-prev"><i class="fas fa-chevron-left"></i></button>
+          <button class="carousel-btn" id="mascota-next"><i class="fas fa-chevron-right"></i></button>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <section class="video-scroll-section" id="scroll-video-sec">
+    <div class="video-sticky-wrapper">
+      <div class="video-container-box">
+        <video id="scroll-video" src="https://files.catbox.moe/22mk38.mp4" autoplay loop muted playsinline></video>
+        <div class="screen-reflection"></div>
+        <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="video-discord-btn desktop-only-btn">
+          <i class="fab fa-discord"></i> Únete a nuestro Discord
+        </a>
+      </div>
+      <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="video-discord-btn mobile-only-btn">
+        <i class="fab fa-discord"></i> Únete a nuestro Discord
+      </a>
     </div>
   </section>
 
@@ -1397,35 +2380,42 @@
       <i class="fas fa-theater-masks bg-icon"></i>
       <div class="opinion-content">
         <span class="section-tag">La Cruda Realidad</span>
-        <h3>Nuestra opinión sobre el "hambre"</h3>
+        <h3>Nuestra perspectiva frente a las prácticas dudosas</h3>
         <p>
-          Aquí no hay odio ciego. Podríamos decir que somos "amigos" de Campione Script… pero amigos como los que te
-          encuentras en un manicomio: convives, pero sabes que algo no anda bien. No los odiamos, pero exponemos su
-          modelo de negocio: <strong>Hambre de clics. Hambre de anuncios. Hambre de dinero fácil.</strong>
+          No es odio sin fundamentos. Es una respuesta clara y directa contra el modelo abusivo implementado por Campione Script. Consideramos absurdo forzar a los usuarios a navegar en círculos infinitos solo para conseguir scripts ajenos.
         </p>
 
         <div class="vs-grid">
           <div class="vs-box them">
-            <h4><i class="fas fa-times-circle"></i> Campione</h4>
+            <h4><i class="fas fa-circle-xmark"></i> Campione</h4>
             <ul>
-              <li><i class="fas fa-long-arrow-alt-right"></i> Promete "Clic aquí para script" y te manda a 10 ventanas.
-              </li>
-              <li><i class="fas fa-long-arrow-alt-right"></i> Presume de comunidad mientras la monetiza sin piedad.</li>
-              <li><i class="fas fa-long-arrow-alt-right"></i> Confunde "apoyo" con exprimir al usuario.</li>
+              <li><i class="fas fa-arrow-right"></i> Te promete descargas sencillas pero te inunda con redirecciones molestas.</li>
+              <li><i class="fas fa-arrow-right"></i> Prioriza la facturación a costa de la paciencia y seguridad del usuario.</li>
+              <li><i class="fas fa-arrow-right"></i> Condiciona el código libre detrás de muros publicitarios invasivos.</li>
             </ul>
           </div>
 
           <div class="vs-badge">VS</div>
 
           <div class="vs-box us">
-            <h4><i class="fas fa-check-circle"></i> Nosotros</h4>
+            <h4><i class="fas fa-circle-check"></i> Nosotros</h4>
             <ul>
-              <li><i class="fas fa-bolt"></i> Clic aquí = El maldito script directo en tus manos.</li>
-              <li><i class="fas fa-shield-alt"></i> Valoramos la comunidad construyendo confianza real.</li>
-              <li><i class="fas fa-heart"></i> Entendemos que el apoyo se gana, no se secuestra con acortadores.</li>
+              <li><i class="fas fa-bolt"></i> Haces un clic y obtienes exactamente el código limpio que buscabas.</li>
+              <li><i class="fas fa-shield-alt"></i> Priorizamos tu seguridad entregando enlaces sin riesgos adicionales.</li>
+              <li><i class="fas fa-heart"></i> Creemos en el soporte transparente y el respeto a quienes confían en nosotros.</li>
             </ul>
           </div>
         </div>
+
+        <div class="satire-evidence fade-up" style="margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 15px;">
+          <div style="position: relative; max-width: 320px; border-radius: 12px; overflow: hidden; border: 2px dashed rgba(255,0,68,0.4); box-shadow: 0 8px 24px rgba(0,0,0,0.5); transform: rotate(2deg); background: #fff; padding: 8px;">
+            <img src="Foto/ZaniQueen/6b621077-6f34-45fa-994c-f7f5e0415c5e.png" alt="Zani Queen reaccionando a Campione" style="width: 100%; height: auto; display: block; border-radius: 6px;">
+          </div>
+          <p style="font-size: 0.95rem; color: var(--muted); font-style: italic; max-width: 500px; text-align: center; line-height: 1.4;">
+            Zani Queen presenciando el momento exacto en el que Campione Script te abre su decimoquinto acortador sospechoso por un simple código de copiar y pegar.
+          </p>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1434,17 +2424,16 @@
     <div class="cta-box fade-up">
       <div class="cta-content">
         <span class="section-tag" style="color: #fff;">Únete al Movimiento</span>
-        <h2 class="cta-title">¿Listo para dejar de pasar hambre?</h2>
+        <h2 class="cta-title">¿Listo para una experiencia directa?</h2>
         <p class="cta-desc">
-          El Anti-Hambreado Script Team no nació para competir por fama, sino para defender la dignidad. Somos la
-          alternativa que estabas esperando.
+          El Anti-Hambreado Script Team no busca competir por fama, sino defender la usabilidad y honestidad en la comunidad de desarrollo.
         </p>
         <div class="cta-btn-row">
           <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="cta-btn-link discord">
             <i class="fab fa-discord"></i> Discord Oficial
           </a>
           <a href="mailto:antianunciostest@gmail.com" class="cta-btn-link email">
-            <i class="fas fa-paper-plane"></i> Contacto
+            <i class="fas fa-paper-plane"></i> Contactar por Correo
           </a>
           <a href="https://antihambreadoscriptteam.github.io/" target="_blank" class="cta-btn-link home">
             <i class="fas fa-globe"></i> Hub Principal
@@ -1457,9 +2446,9 @@
   <footer>
     <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo" class="footer-logo">
     <p>© 2026 Anti-Hambreado Script Team.</p>
-    <p>Comunidad primero. Hambre nunca.</p>
+    <p>Comunidad unida. Código directo.</p>
     <p style="margin-top: 15px; font-size: 0.8rem;">
-      Diseñado con <i class="fas fa-heart heart"></i> por Mw_Anonymous y FeliciaXxxTop para la comunidad
+      Diseñado con la mayor dedicación técnica por Mw_Anonymous y FeliciaXxxTop para el libre acceso.
     </p>
   </footer>
 
@@ -1580,7 +2569,7 @@
       sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
-        if (pageYOffset >= (sectionTop - 200)) {
+        if (pageYOffset >= (sectionTop - 250)) {
           current = section.getAttribute('id');
         }
       });
@@ -1592,7 +2581,221 @@
         }
       });
     });
+
+    const songsData = {
+      banhammer: { duration: 163, current: Math.floor(Math.random() * 80) },
+      felicia: { duration: 118, current: Math.floor(Math.random() * 60) },
+      woozy: { duration: 134, current: Math.floor(Math.random() * 70) },
+      slow: { duration: 143, current: Math.floor(Math.random() * 70) },
+      angel: { duration: 90, current: Math.floor(Math.random() * 40) },
+      anonymous: { duration: 185, current: Math.floor(Math.random() * 90) }
+    };
+
+    function formatTime(secs) {
+      const m = Math.floor(secs / 60);
+      const s = Math.floor(secs % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateMusicPlayers() {
+      for (const key in songsData) {
+        const song = songsData[key];
+        song.current += 1;
+        if (song.current >= song.duration) {
+          song.current = 0;
+        }
+        const cardEl = document.getElementById(`music-${key}`);
+        if (cardEl) {
+          const timeCurrentEl = cardEl.querySelector('.time-current');
+          const progressFillEl = cardEl.querySelector('.progress-fill');
+          if (timeCurrentEl) timeCurrentEl.textContent = formatTime(song.current);
+          if (progressFillEl) {
+            progressFillEl.style.width = `${(song.current / song.duration) * 100}%`;
+          }
+        }
+      }
+    }
+
+    setInterval(updateMusicPlayers, 1000);
+
+    const polaroidCards = document.querySelectorAll('.polaroid-card');
+    let activeMascotIdx = 0;
+
+    function updatePolaroids() {
+      polaroidCards.forEach((card, idx) => {
+        const diff = (idx - activeMascotIdx + 10) % 10;
+        
+        card.classList.remove('exit-left');
+        
+        if (diff === 0) {
+          card.style.transform = 'translate3d(0, 0, 0) scale(1) rotate(-2deg)';
+          card.style.opacity = '1';
+          card.style.zIndex = '5';
+          card.style.pointerEvents = 'auto';
+        } else if (diff === 1) {
+          card.style.transform = 'translate3d(15px, -15px, -50px) scale(0.95) rotate(2deg)';
+          card.style.opacity = '0.9';
+          card.style.zIndex = '4';
+          card.style.pointerEvents = 'none';
+        } else if (diff === 2) {
+          card.style.transform = 'translate3d(30px, -30px, -100px) scale(0.9) rotate(-4deg)';
+          card.style.opacity = '0.8';
+          card.style.zIndex = '3';
+          card.style.pointerEvents = 'none';
+        } else if (diff === 9) {
+          card.classList.add('exit-left');
+          card.style.transform = 'translate3d(-120%, 30px, 50px) scale(0.9) rotate(-12deg)';
+          card.style.opacity = '0';
+          card.style.zIndex = '1';
+          card.style.pointerEvents = 'none';
+        } else {
+          card.style.transform = 'translate3d(0, 0, -200px) scale(0.8) rotate(0deg)';
+          card.style.opacity = '0';
+          card.style.zIndex = '0';
+          card.style.pointerEvents = 'none';
+        }
+      });
+    }
+
+    document.getElementById('mascota-next').addEventListener('click', () => {
+      activeMascotIdx = (activeMascotIdx + 1) % 10;
+      updatePolaroids();
+    });
+
+    document.getElementById('mascota-prev').addEventListener('click', () => {
+      activeMascotIdx = (activeMascotIdx - 1 + 10) % 10;
+      updatePolaroids();
+    });
+
+    polaroidCards.forEach((card, idx) => {
+      card.addEventListener('click', () => {
+        const diff = (idx - activeMascotIdx + 10) % 10;
+        if (diff === 1) {
+          activeMascotIdx = idx;
+          updatePolaroids();
+        }
+      });
+    });
+
+    updatePolaroids();
+
+    const videoSection = document.getElementById('scroll-video-sec');
+    const videoCard = document.querySelector('.video-container-box');
+    const scrollVideo = document.getElementById('scroll-video');
+
+    if (scrollVideo) {
+      scrollVideo.playbackRate = 0.7;
+    }
+
+    function animateVideoScroll() {
+      if (window.innerWidth <= 768) return;
+      if (!videoSection || !videoCard) return;
+
+      const rect = videoSection.getBoundingClientRect();
+      const viewHeight = window.innerHeight;
+      const nav = document.getElementById('navbar');
+
+      if (rect.top <= 0 && rect.bottom >= 0) {
+        const totalScrollable = rect.height - viewHeight;
+        const currentScroll = -rect.top;
+        const progress = Math.min(Math.max(currentScroll / totalScrollable, 0), 1);
+
+        const scale = 0.8 + (progress * 0.2);
+        const borderRadius = 24 * (1 - progress);
+
+        videoCard.style.transform = `scale(${scale})`;
+        videoCard.style.borderRadius = `${borderRadius}px`;
+
+        if (nav) {
+          const cardRect = videoCard.getBoundingClientRect();
+          const threshold = window.innerWidth > 991 ? 100 : 82;
+          const isOverlapping = cardRect.top <= threshold && cardRect.bottom > threshold;
+
+          if (isOverlapping) {
+            nav.style.transform = 'translate(-50%, -120px)';
+            nav.style.opacity = '0';
+            nav.style.pointerEvents = 'none';
+          } else {
+            nav.style.transform = 'translate(-50%, 0)';
+            nav.style.opacity = '1';
+            nav.style.pointerEvents = 'auto';
+          }
+        }
+      } else if (rect.top > 0) {
+        videoCard.style.transform = 'scale(0.8)';
+        videoCard.style.borderRadius = '24px';
+        if (nav) {
+          nav.style.transform = 'translate(-50%, 0)';
+          nav.style.opacity = '1';
+          nav.style.pointerEvents = 'auto';
+        }
+      } else if (rect.bottom < 0) {
+        videoCard.style.transform = 'scale(1)';
+        videoCard.style.borderRadius = '0px';
+        if (nav) {
+          nav.style.transform = 'translate(-50%, 0)';
+          nav.style.opacity = '1';
+          nav.style.pointerEvents = 'auto';
+        }
+      }
+    }
+
+    window.addEventListener('scroll', animateVideoScroll);
+    window.addEventListener('resize', animateVideoScroll);
+
+    let mouseX = 0, mouseY = 0;
+    let btnX = 0, btnY = 0;
+    let isHovered = false;
+    const videoContainer = document.querySelector('.video-container-box');
+    const discordBtn = document.querySelector('.video-discord-btn.desktop-only-btn');
+
+    function resetToCenter() {
+      if (videoContainer) {
+        mouseX = videoContainer.offsetWidth / 2;
+        mouseY = videoContainer.offsetHeight / 2;
+      }
+    }
+
+    if (videoContainer && discordBtn) {
+      resetToCenter();
+      btnX = mouseX;
+      btnY = mouseY;
+
+      videoContainer.addEventListener('mousemove', (e) => {
+        if (window.innerWidth <= 768) return;
+        const rect = videoContainer.getBoundingClientRect();
+        const scaleX = rect.width / videoContainer.offsetWidth;
+        const scaleY = rect.height / videoContainer.offsetHeight;
+        mouseX = (e.clientX - rect.left) / scaleX;
+        mouseY = (e.clientY - rect.top) / scaleY;
+      });
+
+      videoContainer.addEventListener('mouseenter', () => {
+        if (window.innerWidth <= 768) return;
+        isHovered = true;
+      });
+
+      videoContainer.addEventListener('mouseleave', () => {
+        if (window.innerWidth <= 768) return;
+        isHovered = false;
+        resetToCenter();
+      });
+
+      window.addEventListener('resize', () => {
+        resetToCenter();
+      });
+
+      function updateButtonPosition() {
+        if (window.innerWidth > 768) {
+          btnX += (mouseX - btnX) * 0.1;
+          btnY += (mouseY - btnY) * 0.1;
+          discordBtn.style.left = `${btnX}px`;
+          discordBtn.style.top = `${btnY}px`;
+        }
+        requestAnimationFrame(updateButtonPosition);
+      }
+      updateButtonPosition();
+    }
   </script>
 </body>
-
 </html>
