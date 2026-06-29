@@ -951,6 +951,7 @@
 
     .discord-music-details {
       overflow: hidden;
+      min-width: 0;
     }
 
     .discord-music-title {
@@ -1468,13 +1469,27 @@
       }
     }
 
+    #fundador .card {
+      padding: 40px;
+      border-radius: 24px;
+    }
+
     @media (max-width: 991px) {
       .team-grid {
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       }
 
       .discord-card {
-        max-width: 350px;
+        max-width: 100%;
+      }
+
+      .discord-actions {
+        flex-wrap: wrap;
+      }
+
+      #fundador .card {
+        padding: 20px 16px;
+        border-radius: 16px;
       }
 
       .navbar {
@@ -1865,7 +1880,7 @@
       <span class="section-tag">El Origen</span>
       <h2 class="section-title">El Fundador</h2>
     </div>
-    <div class="card fade-up" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 24px;">
+    <div class="card fade-up" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);">
       <div class="grid-2" style="align-items: center; gap: 40px;">
         <div>
           <h3 style="font-size: 2rem; color: #fff; margin-bottom: 20px;">El origen del proyecto</h3>
