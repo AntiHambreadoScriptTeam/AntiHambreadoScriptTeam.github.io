@@ -1024,39 +1024,105 @@
       flex-shrink: 0;
     }
 
-    .sfx-toggle {
+    .sound-dropdown {
       position: absolute;
       top: 20px;
-      right: 80px;
+      right: 104px;
       z-index: 100;
+    }
+
+    .sound-trigger {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 12px;
-      padding: 6px 8px;
-      cursor: pointer;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-      width: 32px;
+      padding: 6px 10px;
       height: 32px;
+      cursor: pointer;
+      color: #ffffff;
+      transition: all 0.3s;
     }
 
-    .sfx-toggle:hover {
+    .sound-trigger:hover {
       background: rgba(255, 255, 255, 0.05);
       border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .sound-dropdown.open .arrow-icon {
+      transform: rotate(180deg);
+    }
+
+    .sound-options {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      background: rgba(10, 10, 12, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 6px;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 170px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      animation: dropdownAppear 0.2s ease-out forwards;
+    }
+
+    .sound-dropdown.open .sound-options {
+      display: flex;
+    }
+
+    .sound-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      user-select: none;
+    }
+
+    .sound-option:hover {
+      background: rgba(255, 255, 255, 0.04);
       color: #ffffff;
     }
 
-    .sfx-toggle.active {
-      color: #ffffff;
-      background: var(--accent-glow);
+    .sound-check-box {
+      width: 12px;
+      height: 12px;
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .sound-option.active .sound-check-box {
+      background: var(--accent-color);
       border-color: var(--accent-color);
-      box-shadow: 0 0 8px var(--accent-glow);
     }
 
-    .sfx-icon {
+    .sound-option.active .sound-check-box::after {
+      content: '';
+      width: 5px;
+      height: 3px;
+      border-left: 1.5px solid #ffffff;
+      border-bottom: 1.5px solid #ffffff;
+      transform: rotate(-45deg) translate(0.5px, -0.5px);
+    }
+
+    .sound-icon {
       width: 14px;
       height: 14px;
       fill: currentColor;
@@ -1248,6 +1314,92 @@
       text-overflow: ellipsis;
     }
 
+    .intro-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(25px) saturate(1.2);
+      -webkit-backdrop-filter: blur(25px) saturate(1.2);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    .intro-overlay.fade-out {
+      opacity: 0;
+      transform: scale(1.08);
+      pointer-events: none;
+    }
+
+    .intro-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .intro-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 20px var(--accent-glow);
+      animation: introPulse 2s infinite ease-in-out;
+      padding: 0 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+      .intro-title {
+        font-size: 1.4rem;
+        letter-spacing: 0.02em;
+      }
+    }
+
+    @keyframes introPulse {
+      0%, 100% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.02); filter: brightness(1.2); }
+    }
+
+    .intro-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 12px 24px;
+      border-radius: 16px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.05em;
+      transition: all 0.3s;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .intro-overlay:hover .intro-btn {
+      background: var(--accent-glow);
+      border-color: var(--accent-color);
+      box-shadow: 0 0 15px var(--accent-glow);
+      transform: translateY(-2px);
+    }
+
+    .intro-icon {
+      width: 16px;
+      height: 16px;
+    }
+
     .avatar-ring, .profile-status, .tech-card, .project-card, .project-btn, .stat-val, .contact-icon, .contact-action, .slider-fill-progress, .play-btn, .about-card {
       transition: background-color 0.5s, border-color 0.5s, color 0.5s, box-shadow 0.5s, transform 0.3s;
     }
@@ -1257,13 +1409,36 @@
   <div id="canvas-container"></div>
   <audio id="bg-audio" src="https://files.catbox.moe/w16sku.mp3" loop></audio>
 
+  <div class="intro-overlay" id="intro-overlay" onclick="enterSite()">
+    <div class="intro-content">
+      <h2 class="intro-title">𖤐 TheRealBanHammer</h2>
+      <div class="intro-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="intro-icon"><path d="M8 5v14l11-7z"/></svg>
+        <span data-i18n="intro-tap">TOCA PARA ENTRAR</span>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
-    <button class="sfx-toggle active" id="sfx-toggle-btn" onclick="toggleSfx()">
-      <svg class="sfx-icon" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" style="display:none;" id="sfx-off-icon"/>
-        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" id="sfx-on-icon"/>
-      </svg>
-    </button>
+    <div class="sound-dropdown" id="sound-dropdown">
+      <button class="sound-trigger" id="sound-trigger-btn" onclick="toggleSoundMenu(event)">
+        <svg class="sound-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" style="display:none;" id="sound-off-icon"/>
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" id="sound-on-icon"/>
+        </svg>
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sound-options" id="sound-options">
+        <div class="sound-option" id="music-opt" onclick="toggleMusicSetting(event)">
+          <span class="sound-check-box" id="music-check"></span>
+          <span data-i18n="sound-opt-music">Música</span>
+        </div>
+        <div class="sound-option" id="sfx-opt" onclick="toggleSfxSetting(event)">
+          <span class="sound-check-box" id="sfx-check"></span>
+          <span data-i18n="sound-opt-sfx">Efectos</span>
+        </div>
+      </div>
+    </div>
     <div class="lang-dropdown" id="lang-dropdown">
       <button class="lang-trigger" onclick="toggleLangMenu(event)">
         <img class="flag-icon" id="current-flag" src="https://raw.githubusercontent.com/lipis/flag-icons/main/flags/4x3/es.svg" alt="ES">
@@ -1830,7 +2005,8 @@
         'contact-join': 'Unirse',
         'toast-copied': '¡Usuario copiado con éxito!',
         'status-live-activity': 'Actividad en Vivo',
-        'status-loading': 'Cargando estado...'
+        'status-loading': 'Cargando estado...',
+        'intro-tap': 'TOCA PARA ENTRAR'
       },
       en: {
         'nav-inicio': 'Home',
@@ -1867,7 +2043,8 @@
         'contact-join': 'Join',
         'toast-copied': 'Username successfully copied!',
         'status-live-activity': 'Live Activity',
-        'status-loading': 'Loading status...'
+        'status-loading': 'Loading status...',
+        'intro-tap': 'TAP TO ENTER'
       },
       pt: {
         'nav-inicio': 'Início',
@@ -1904,9 +2081,27 @@
         'contact-join': 'Entrar',
         'toast-copied': 'Usuário copiado com sucesso!',
         'status-live-activity': 'Atividade em Tempo Real',
-        'status-loading': 'Carregando estado...'
+        'status-loading': 'Carregando estado...',
+        'intro-tap': 'TOQUE PARA ENTRAR'
       }
     };
+
+    function enterSite() {
+      getAudioContext();
+      playSfx('click');
+      if (audio) {
+        audio.play().then(function() {
+          autoplayStarted = true;
+        }).catch(function() {});
+      }
+      var overlay = document.getElementById('intro-overlay');
+      if (overlay) {
+        overlay.classList.add('fade-out');
+        setTimeout(function() {
+          overlay.remove();
+        }, 600);
+      }
+    }
 
     function toggleLangMenu(e) {
       if (e) e.stopPropagation();
@@ -1921,9 +2116,13 @@
     }
 
     window.addEventListener('click', function(e) {
-      var dropdown = document.getElementById('lang-dropdown');
-      if (dropdown && !dropdown.contains(e.target)) {
-        dropdown.classList.remove('open');
+      var langDropdown = document.getElementById('lang-dropdown');
+      if (langDropdown && !langDropdown.contains(e.target)) {
+        langDropdown.classList.remove('open');
+      }
+      var soundDropdown = document.getElementById('sound-dropdown');
+      if (soundDropdown && !soundDropdown.contains(e.target)) {
+        soundDropdown.classList.remove('open');
       }
     });
 
@@ -1969,6 +2168,7 @@
     }
 
     var sfxEnabled = localStorage.getItem('sfx-enabled') !== 'false';
+    var musicEnabled = localStorage.getItem('music-enabled') !== 'false';
     var audioCtx = null;
 
     function getAudioContext() {
@@ -2021,30 +2221,64 @@
       } catch (e) {}
     }
 
-    function toggleSfx() {
-      sfxEnabled = !sfxEnabled;
-      localStorage.setItem('sfx-enabled', sfxEnabled);
-      updateSfxButton();
+    function toggleSoundMenu(e) {
+      if (e) e.stopPropagation();
+      var dropdown = document.getElementById('sound-dropdown');
+      dropdown.classList.toggle('open');
+    }
+
+    function toggleMusicSetting(e) {
+      if (e) e.stopPropagation();
+      musicEnabled = !musicEnabled;
+      localStorage.setItem('music-enabled', musicEnabled);
+      updateSoundUI();
       playSfx('click');
     }
 
-    function updateSfxButton() {
-      var btn = document.getElementById('sfx-toggle-btn');
-      var onIcon = document.getElementById('sfx-on-icon');
-      var offIcon = document.getElementById('sfx-off-icon');
-      if (sfxEnabled) {
-        btn.classList.add('active');
-        onIcon.style.display = 'block';
-        offIcon.style.display = 'none';
+    function toggleSfxSetting(e) {
+      if (e) e.stopPropagation();
+      sfxEnabled = !sfxEnabled;
+      localStorage.setItem('sfx-enabled', sfxEnabled);
+      updateSoundUI();
+      playSfx('click');
+    }
+
+    function updateSoundUI() {
+      var onIcon = document.getElementById('sound-on-icon');
+      var offIcon = document.getElementById('sound-off-icon');
+
+      var musicOpt = document.getElementById('music-opt');
+      var sfxOpt = document.getElementById('sfx-opt');
+
+      if (musicOpt && sfxOpt) {
+        if (musicEnabled) {
+          musicOpt.classList.add('active');
+        } else {
+          musicOpt.classList.remove('active');
+        }
+
+        if (sfxEnabled) {
+          sfxOpt.classList.add('active');
+        } else {
+          sfxOpt.classList.remove('active');
+        }
+      }
+
+      if (audio) {
+        audio.muted = !musicEnabled;
+      }
+
+      if (!musicEnabled && !sfxEnabled) {
+        if (onIcon) onIcon.style.display = 'none';
+        if (offIcon) offIcon.style.display = 'block';
       } else {
-        btn.classList.remove('active');
-        onIcon.style.display = 'none';
-        offIcon.style.display = 'block';
+        if (onIcon) onIcon.style.display = 'block';
+        if (offIcon) offIcon.style.display = 'none';
       }
     }
 
     window.addEventListener('mouseover', function(e) {
-      var target = e.target.closest('.tab-btn, .about-card, .project-card, .contact-card, .lang-trigger, .lang-option, .play-btn, .sfx-toggle, .contact-action, .range-input');
+      var target = e.target.closest('.tab-btn, .about-card, .project-card, .contact-card, .lang-trigger, .lang-option, .play-btn, .sound-trigger, .sound-option, .contact-action, .range-input');
       if (target && !target.dataset.hovered) {
         playSfx('hover');
         target.dataset.hovered = 'true';
@@ -2338,7 +2572,7 @@
       init3D();
       initPlayer();
       applyLanguage(currentLang);
-      updateSfxButton();
+      updateSoundUI();
       fetchLanyardStatus();
       setInterval(fetchLanyardStatus, 15000);
       var activeTab = document.querySelector('.tab-btn.active');
