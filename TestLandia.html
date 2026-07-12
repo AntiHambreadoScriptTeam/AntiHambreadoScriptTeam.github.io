@@ -26,6 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.add('js')</script>
+  <script src="https://www.google.com/recaptcha/api.js?hl=es" defer async></script>
   <style>
     :root {
       --ink: #050505;
@@ -2395,6 +2396,9 @@
             </div>
             <button class="resolve-button" id="bypass-button" type="submit" disabled><span id="button-label">Resolver enlace</span><span class="button-arrow" aria-hidden="true">→</span></button>
           </div>
+          <div id="captcha-wrapper" style="display: none; justify-content: center; margin-top: 15px; opacity: 0; transition: opacity 0.3s ease;">
+            <div class="g-recaptcha" data-sitekey="6LcqeJ4rAAAAAO5gTGQdzXKNXxwDhbGh9pp2lKPy" data-callback="onRecaptchaSuccess" data-expired-callback="onRecaptchaExpired"></div>
+          </div>
           <p class="form-message" id="form-message" data-type="info" hidden></p>
         </form>
 
@@ -2716,7 +2720,19 @@
         supported: [],
         rotationId: null,
         rotationIndex: 0,
-        menuTimer: null
+        menuTimer: null,
+        captchaToken: ''
+      };
+
+      window.onRecaptchaSuccess = token => {
+        state.captchaToken = token;
+        button.disabled = state.busy || !getValidUrl(input.value);
+        doBypass();
+      };
+
+      window.onRecaptchaExpired = () => {
+        state.captchaToken = '';
+        button.disabled = true;
       };
 
       const createElement = (tag, className, text) => {
@@ -3091,17 +3107,33 @@
         }, requestLimit);
 
         try {
-          const response = await fetch(bypassApi, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams({
-              token: 'mock-recaptcha-token-local',
-              link: url.href
-            }),
-            signal: controller.signal
-          });
+          let response;
+          try {
+            response = await fetch(bypassApi, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              body: new URLSearchParams({
+                token: state.captchaToken,
+                link: url.href
+              }),
+              signal: controller.signal
+            });
+          } catch (fetchErr) {
+            addLog('PROXY', 'Llamada directa fallida. Probando vía CORS proxy...', 'warn');
+            response = await fetch('https://corsproxy.io/?' + encodeURIComponent(bypassApi), {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              body: new URLSearchParams({
+                token: state.captchaToken,
+                link: url.href
+              }),
+              signal: controller.signal
+            });
+          }
 
           if (controller !== state.controller) return;
           if (!response.ok) throw new Error('La API respondió con HTTP ' + response.status + '.');
@@ -3135,18 +3167,33 @@
 
           if (isShortenerDomain(resolvedLink)) {
             addLog('REDIV', 'Enlace encadenado detectado. Re-procesando recursivamente...', 'warn');
-            const subResponse = await fetch(bypassApi, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-              },
-              body: new URLSearchParams({
-                token: 'mock-recaptcha-token-local',
-                link: resolvedLink
-              }),
-              signal: controller.signal
-            });
-            if (subResponse.ok) {
+            let subResponse;
+            try {
+              subResponse = await fetch(bypassApi, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                  token: state.captchaToken,
+                  link: resolvedLink
+                }),
+                signal: controller.signal
+              });
+            } catch (subErr) {
+              subResponse = await fetch('https://corsproxy.io/?' + encodeURIComponent(bypassApi), {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                  token: state.captchaToken,
+                  link: resolvedLink
+                }),
+                signal: controller.signal
+              });
+            }
+            if (subResponse && subResponse.ok) {
               const subRaw = await subResponse.text();
               const subData = JSON.parse(subRaw);
               if (subData && subData.result) {
@@ -3207,6 +3254,8 @@
           if (controller === state.controller) {
             if (state.timeoutId) clearTimeout(state.timeoutId);
             state.timeoutId = null;
+            state.captchaToken = '';
+            if (window.grecaptcha) grecaptcha.reset();
             if (workspace.dataset.state !== 'processing') setBusy(false);
           }
         }
@@ -3540,7 +3589,19 @@
         const url = getValidUrl(input.value);
         input.setAttribute('aria-invalid', 'false');
         hideMessage();
-        button.disabled = state.busy || !url;
+
+        const wrapper = document.getElementById('captcha-wrapper');
+        if (url) {
+          wrapper.style.display = 'flex';
+          setTimeout(() => wrapper.style.opacity = '1', 50);
+        } else {
+          wrapper.style.opacity = '0';
+          setTimeout(() => wrapper.style.display = 'none', 300);
+          state.captchaToken = '';
+          if (window.grecaptcha) grecaptcha.reset();
+        }
+
+        button.disabled = state.busy || !url || !state.captchaToken;
 
         if (!input.value.trim()) {
           routeInputNode.textContent = 'URL';
