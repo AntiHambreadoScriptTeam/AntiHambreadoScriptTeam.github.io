@@ -1,18 +1,4 @@
 <!--
-████████╗ ██████╗░ ██╗░░░░██╗
-╚══██╔══╝ ██╔══██╗ ██║░░░░██║
-░░░██║░░░ ██████╔╝ ██║░█╗░██║
-░░░██║░░░ ██╔══██╗ ██║███╗██║
-░░░██║░░░ ██║░░██║ ╚███╔███╔╝
-░░░╚═╝░░░ ╚═╝░░╚═╝ ░╚══╝╚══╝░
-
-██╗░░██╗
-╚██╗██╔╝
-░╚███╔╝░
-░██╔██╗░
-██╔╝╚██╗
-╚═╝░░╚═╝
-
 ██████╗░ ██╗ ██████╗░ ░░░░ ░█████╗░ ░█████╗░ ███╗░░░███╗ ██████╗░ ██╗ ░█████╗░ ███╗░░██╗ ███████╗ ░██████╗ ░█████╗░ ██████╗░ ██╗ ██████╗░ ████████╗
 ██╔══██╗ ██║ ██╔══██╗ ░░░░ ██╔══██╗ ██╔══██╗ ████╗░████║ ██╔══██╗ ██║ ██╔══██╗ ████╗░██║ ██╔════╝ ██╔════╝ ██╔══██╗ ██╔══██╗ ██║ ██╔══██╗ ╚══██╔══╝
 ██████╔╝ ██║ ██████╔╝ ░░░░ ██║░░╚═╝ ███████║ ██╔████╔██║ ██████╔╝ ██║ ██║░░██║ ██╔██╗██║ █████╗░░ ╚█████╗░ ██║░░╚═╝ ██████╔╝ ██║ ██████╔╝ ░░░██║░░░
@@ -20,6 +6,7 @@
 ██║░░██║ ██║ ██║░░░░░ ░░░░ ╚█████╔╝ ██║░░██║ ██║░╚═╝░██║ ██║░░░░░ ██║ ╚█████╔╝ ██║░╚███║ ███████╗ ██████╔╝ ╚█████╔╝ ██║░░██║ ██║ ██║░░░░░ ░░░██║░░░
 ╚═╝░░╚═╝ ╚═╝ ╚═╝░░░░░ ░░░░ ░╚════╝░ ╚═╝░░╚═╝ ╚═╝░░░░░╚═╝ ╚═╝░░░░░ ╚═╝ ░╚════╝░ ╚═╝░░╚══╝ ╚══════╝ ╚═════╝░ ░╚════╝░ ╚═╝░░╚═╝ ╚═╝ ╚═╝░░░░░ ░░░╚═╝░░░
 -->
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -122,6 +109,19 @@
       opacity: .21;
       pointer-events: none;
       mask-image: linear-gradient(to bottom, transparent 0, #000 10%, #000 88%, transparent 100%);
+    }
+
+    @media (max-width: 620px) {
+      #kana-rain {
+        z-index: 0;
+        opacity: .14;
+      }
+
+      main,
+      .site-footer {
+        position: relative;
+        z-index: 1;
+      }
     }
 
     #title-sparks {
@@ -292,6 +292,189 @@
       display: none;
       align-items: center;
       gap: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .settings-toggle {
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding-inline: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--ink-2);
+      color: var(--paper-soft);
+      font-family: var(--mono);
+      font-size: .65rem;
+      font-weight: 650;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color .2s ease, color .2s ease;
+    }
+
+    .settings-toggle:hover,
+    .settings-toggle[aria-expanded="true"] {
+      border-color: var(--signal);
+      color: var(--paper);
+    }
+
+    .settings-toggle-icon {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .settings-toggle-label {
+      display: none;
+    }
+
+    .settings-panel {
+      position: fixed;
+      top: calc(var(--header-height) + 10px);
+      right: max(16px, calc((100vw - var(--container)) / 2));
+      z-index: 160;
+      width: min(420px, calc(100vw - 32px));
+      max-height: calc(100svh - var(--header-height) - 26px);
+      overflow-y: auto;
+      border: 1px solid var(--line-strong);
+      border-top: 2px solid var(--signal);
+      border-radius: var(--radius-md);
+      background: var(--ink);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .58);
+    }
+
+    .settings-panel[hidden] {
+      display: none;
+    }
+
+    .settings-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .settings-head h2 {
+      margin-bottom: 5px;
+      font-size: 1.15rem;
+    }
+
+    .settings-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    .settings-close {
+      width: 36px;
+      height: 36px;
+      flex: none;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--ink-2);
+      color: var(--paper);
+      font-size: 1.15rem;
+      cursor: pointer;
+    }
+
+    .settings-body {
+      display: grid;
+      gap: 0;
+      padding: 0 20px 20px;
+    }
+
+    .settings-group {
+      margin: 0;
+      padding: 18px 0 10px;
+      border: 0;
+    }
+
+    .settings-group legend {
+      margin-bottom: 10px;
+      color: var(--paper-soft);
+      font-family: var(--mono);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .settings-option,
+    .settings-switch {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      padding: 13px 0;
+      border-top: 1px solid var(--line);
+      cursor: pointer;
+    }
+
+    .settings-option input,
+    .settings-switch input {
+      width: 18px;
+      height: 18px;
+      margin: 2px 0 0;
+      accent-color: var(--signal);
+    }
+
+    .settings-option strong,
+    .settings-switch strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--paper-soft);
+      font-size: .82rem;
+    }
+
+    .settings-option small,
+    .settings-switch small {
+      display: block;
+      color: var(--muted);
+      font-size: .72rem;
+      line-height: 1.45;
+    }
+
+    .settings-switch:has(input:disabled) {
+      opacity: .46;
+      cursor: not-allowed;
+    }
+
+    .settings-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .settings-status {
+      margin: 0;
+      color: var(--mint);
+      font-family: var(--mono);
+      font-size: .64rem;
+    }
+
+    .settings-reset {
+      min-height: 40px;
+      padding-inline: 13px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--ink-2);
+      color: var(--paper-soft);
+      font-size: .72rem;
+      font-weight: 650;
+      cursor: pointer;
     }
 
     .nav-link {
@@ -507,11 +690,11 @@
     }
 
     .title-drop.is-dropping {
-      animation: titleDrop .55s ease-in forwards;
+      animation: titleDrop .85s ease-in forwards;
     }
 
     .title-drop.is-rising {
-      animation: titleRise .5s ease-out forwards;
+      animation: titleRise .75s ease-out forwards;
     }
 
     .hero-lede {
@@ -1156,28 +1339,63 @@
 
     .embed-frame {
       width: 100%;
-      height: calc(100% + 92px);
+      height: calc(100% + 56px);
       display: block;
       border: 0;
-      background: #0a0a0b;
-      transform: translateY(-92px);
+      background: #222;
+      transform: translateY(-56px);
     }
 
     .embed-viewport {
       position: relative;
-      height: clamp(520px, 68vh, 590px);
+      height: 250px;
       overflow: hidden;
-      background: #30304e;
+      background: #222;
+      transition: height .35s var(--ease);
     }
 
-    .embed-link-blocker {
+    .embed-viewport.is-result-view {
+      height: clamp(420px, 58vh, 500px);
+    }
+
+    .embed-viewport.is-tall-result.is-result-view {
+      height: clamp(650px, 76vh, 720px);
+    }
+
+    .embed-navigation-guard {
+      position: absolute;
+      inset: 0;
+      --open-block-top: 250px;
+      --new-block-top: 315px;
+      pointer-events: none;
+    }
+
+    .embed-viewport.is-tall-result .embed-navigation-guard {
+      --open-block-top: 558px;
+      --new-block-top: 623px;
+    }
+
+    .embed-navigation-guard button {
       position: absolute;
       z-index: 2;
-      left: 0;
-      bottom: 0;
-      width: min(260px, 72%);
-      height: 84px;
-      cursor: default;
+      height: 48px;
+      border: 0;
+      opacity: 0;
+      pointer-events: auto;
+      cursor: not-allowed;
+    }
+
+    .embed-block-open {
+      top: var(--open-block-top);
+      left: 50%;
+      width: min(526px, calc(100% - 40px));
+      transform: translateX(-50%);
+    }
+
+    .embed-block-new {
+      top: var(--new-block-top);
+      left: calc(50% + 10px);
+      width: min(253px, calc(50% - 30px));
     }
 
     .embed-actions {
@@ -1196,18 +1414,22 @@
       }
 
       .embed-frame {
-        height: calc(100% + 82px);
-        transform: translateY(-82px);
+        height: calc(100% + 56px);
+        transform: translateY(-56px);
       }
 
       .embed-viewport {
-        height: 620px;
+        height: 250px;
       }
 
-      .embed-link-blocker {
-        width: min(250px, 78%);
-        height: 88px;
+      .embed-viewport.is-result-view {
+        height: 460px;
       }
+
+      .embed-viewport.is-tall-result.is-result-view {
+        height: 720px;
+      }
+
     }
 
     .result-head {
@@ -1317,6 +1539,29 @@
     .network-rail {
       border-block: 1px solid var(--line);
       background: var(--ink-2);
+    }
+
+    .rail-stack .rail-inner + .rail-inner {
+      border-top: 1px solid var(--line);
+    }
+
+    .rail-total {
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .rail-total strong {
+      color: var(--paper-soft);
+      font-weight: 700;
     }
 
     .rail-inner {
@@ -1773,6 +2018,10 @@
       content: "";
     }
 
+    .network-status[data-provider="backup"] {
+      color: #69b8ff;
+    }
+
     .directory-empty {
       padding: 28px 0;
       border-top: 1px solid var(--line);
@@ -1818,6 +2067,16 @@
       margin-bottom: 22px;
       color: var(--muted);
       font-size: .84rem;
+    }
+
+    .faq-list {
+      margin-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .faq-list .compatibility-note {
+      margin-top: 0;
+      border-top: 0;
     }
 
     .transparency {
@@ -2062,6 +2321,10 @@
     @media (min-width: 920px) {
       .desktop-nav {
         display: flex;
+      }
+
+      .settings-toggle-label {
+        display: inline;
       }
 
       .menu-toggle,
@@ -2366,6 +2629,10 @@
     }
 
     @media (max-width: 620px) {
+      .shell {
+        width: calc(100% - 32px);
+      }
+
       .hero-title-row {
         grid-template-columns: minmax(0, 1fr) 106px;
         gap: 14px;
@@ -2373,7 +2640,9 @@
       }
 
       .hero-title-row h1 {
-        font-size: clamp(2.1rem, 10.5vw, 2.8rem);
+        max-width: 100%;
+        font-size: clamp(1.92rem, 9.7vw, 2.8rem);
+        overflow-wrap: anywhere;
       }
 
       .route-panel {
@@ -2453,22 +2722,28 @@
         <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="" width="38" height="38" decoding="async" fetchpriority="high">
         <span class="brand-copy">
           <span class="brand-name">Anti-Hambreado</span>
-          <span class="brand-route">Bypass / Ruta 02</span>
+          <span class="brand-route">Bypass</span>
         </span>
       </a>
 
-      <nav class="desktop-nav" aria-label="Navegación principal">
-        <a class="nav-link" href="#proceso">Proceso</a>
-        <a class="nav-link" href="#compatibilidad">Compatibilidad</a>
-        <a class="nav-link external" href="https://antihambreadoscriptteam.github.io/">Inicio <span class="external-mark" aria-hidden="true">↗</span></a>
-        <a class="nav-link external" href="https://discord.gg/rTGF5xhe3h" target="_blank" rel="noopener noreferrer">Discord <span class="external-mark" aria-hidden="true">↗</span></a>
-      </nav>
+      <div class="header-actions">
+        <nav class="desktop-nav" aria-label="Navegación principal">
+          <a class="nav-link" href="#proceso">Proceso</a>
+          <a class="nav-link" href="#compatibilidad">Compatibilidad</a>
+          <a class="nav-link external" href="https://antihambreadoscriptteam.github.io/">Inicio <span class="external-mark" aria-hidden="true">↗</span></a>
+          <a class="nav-link external" href="https://discord.gg/rTGF5xhe3h" target="_blank" rel="noopener noreferrer">Discord <span class="external-mark" aria-hidden="true">↗</span></a>
+        </nav>
 
-      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Abrir menú">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </button>
+        <button class="settings-toggle" id="settings-toggle" type="button" aria-expanded="false" aria-controls="settings-panel">
+          <span class="settings-toggle-icon" aria-hidden="true">⚙</span><span class="settings-toggle-label">Ajustes</span>
+        </button>
+
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Abrir menú">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
 
     <nav class="mobile-nav" id="mobile-nav" aria-label="Navegación móvil" hidden inert>
@@ -2477,6 +2752,53 @@
       <a class="nav-link external" href="https://antihambreadoscriptteam.github.io/">Inicio <span class="external-mark" aria-hidden="true">↗</span></a>
       <a class="nav-link external" href="https://discord.gg/rTGF5xhe3h" target="_blank" rel="noopener noreferrer">Discord <span class="external-mark" aria-hidden="true">↗</span></a>
     </nav>
+
+    <section class="settings-panel" id="settings-panel" role="dialog" aria-labelledby="settings-title" hidden inert>
+      <div class="settings-head">
+        <div>
+          <h2 id="settings-title">Cómo resolver los enlaces</h2>
+          <p>Elige la ruta que prefieras. Se guardará en este navegador.</p>
+        </div>
+        <button class="settings-close" id="settings-close" type="button" aria-label="Cerrar ajustes">×</button>
+      </div>
+      <div class="settings-body">
+        <fieldset class="settings-group">
+          <legend>Servicio</legend>
+          <label class="settings-option">
+            <input type="radio" name="api-mode" value="auto" checked>
+            <span><strong>Automático</strong><small>Usa trw.lat primero cuando corresponde y bypass.city para las rutas alternativas.</small></span>
+          </label>
+          <label class="settings-option">
+            <input type="radio" name="api-mode" value="trw">
+            <span><strong>Solo trw.lat</strong><small>Nunca abre la sandbox de bypass.city.</small></span>
+          </label>
+          <label class="settings-option">
+            <input type="radio" name="api-mode" value="city">
+            <span><strong>Solo bypass.city</strong><small>Envía todos los enlaces directamente a la sandbox.</small></span>
+          </label>
+        </fieldset>
+
+        <label class="settings-switch">
+          <input id="settings-fallback" type="checkbox" checked>
+          <span><strong>Ofrecer bypass.city si trw.lat falla</strong><small>Solo se aplica en modo Automático.</small></span>
+        </label>
+
+        <label class="settings-switch">
+          <input id="settings-auto-fallback" type="checkbox">
+          <span><strong>Usar la API alternativa automáticamente</strong><small>Abre bypass.city después de un fallo sin pedir otro clic.</small></span>
+        </label>
+
+        <label class="settings-switch">
+          <input id="settings-expand" type="checkbox">
+          <span><strong>Expandir la sandbox automáticamente</strong><small>Muestra desde el inicio el área completa del resultado.</small></span>
+        </label>
+
+        <div class="settings-foot">
+          <p class="settings-status" id="settings-status" aria-live="polite">Modo automático</p>
+          <button class="settings-reset" id="settings-reset" type="button">Restaurar</button>
+        </div>
+      </div>
+    </section>
   </header>
 
   <main>
@@ -2489,16 +2811,16 @@
             <p class="hero-lede">Pega un enlace compatible y nosotros hacemos el resto. Mientras llega la respuesta, puedes ver qué va pasando en la consola.</p>
           </div>
         </div>
-        <ul class="hero-facts" role="list" aria-label="Características">
-          <li>No necesitas cuenta</li>
-          <li>No instalas nada</li>
-          <li>Ves lo que va pasando</li>
+        <ul class="hero-facts" aria-label="Características">
+          <li>Eliges qué API usar</li>
+          <li>Respaldo configurable</li>
+          <li>Ves cada paso</li>
         </ul>
       </div>
 
       <div class="workspace" id="workspace" data-state="idle" data-route-phase="1" data-reveal>
         <div class="workspace-top">
-          <span class="workspace-id">AH / ROUTE_RESOLVER</span>
+          <span class="workspace-id">Resolver enlace</span>
           <span class="workspace-state" id="workspace-state">En espera</span>
         </div>
 
@@ -2523,7 +2845,7 @@
               <path class="route-curve-base" pathLength="1" d="M0 17 C12 17 13 1 25 1 S38 17 50 17 S62 33 75 33 S88 17 100 17"></path>
               <path class="route-curve-progress" pathLength="1" d="M0 17 C12 17 13 1 25 1 S38 17 50 17 S62 33 75 33 S88 17 100 17"></path>
             </svg>
-            <div class="route-steps" aria-label="Pasos de la ruta">
+            <div class="route-steps" role="group" aria-label="Pasos de la ruta">
             <button class="route-node" data-node="input" data-step="1" type="button" data-detail="Primero pegamos y reconocemos el enlace.">
               <strong>Entrada</strong>
               <span id="route-input-node">URL</span>
@@ -2569,38 +2891,37 @@
     </section>
 
     <section class="network-rail" aria-labelledby="networks-title">
-      <h2 class="sr-only" id="networks-title">Redes compatibles</h2>
-      <div class="rail-inner shell">
-        <div class="rail-label"><span id="network-count">Consultando API</span></div>
-        <div class="ticker" aria-hidden="true">
-          <div class="ticker-track" id="ticker-track">
-            <div class="ticker-group"><span class="ticker-item">Consultando redes compatibles</span></div>
+      <h2 class="sr-only" id="networks-title">57 rutas compatibles en dos servicios</h2>
+      <div class="rail-stack shell">
+        <div class="rail-total"><strong>57 rutas</strong><span>trw.lat + bypass.city</span></div>
+        <div class="rail-inner">
+          <div class="rail-label"><span id="network-count">Consultando trw.lat</span></div>
+          <div class="ticker" aria-hidden="true">
+            <div class="ticker-track" id="ticker-track">
+              <div class="ticker-group"><span class="ticker-item">Consultando redes compatibles</span></div>
+            </div>
           </div>
+          <p class="sr-only" id="network-summary" aria-live="polite">Consultando la lista de redes compatibles con trw.lat.</p>
         </div>
-        <p class="sr-only" id="network-summary" aria-live="polite">Consultando la lista de redes compatibles.</p>
-      </div>
-    </section>
-
-    <section class="network-rail" aria-labelledby="alternative-networks-title">
-      <h2 class="sr-only" id="alternative-networks-title">Redes del bypass alternativo</h2>
-      <div class="rail-inner shell">
-        <div class="rail-label"><span id="alternative-network-count">Redes alternativas</span></div>
-        <div class="ticker" aria-hidden="true">
-          <div class="ticker-track" id="alternative-ticker-track"></div>
+        <div class="rail-inner">
+          <div class="rail-label"><span id="alternative-network-count">44 con bypass.city</span></div>
+          <div class="ticker" aria-hidden="true">
+            <div class="ticker-track" id="alternative-ticker-track"></div>
+          </div>
+          <p class="sr-only" id="alternative-network-summary">44 redes compatibles con la API de respaldo bypass.city.</p>
         </div>
-        <p class="sr-only" id="alternative-network-summary">Redes compatibles con el bypass alternativo de linkvertise-bypass.com.</p>
       </div>
     </section>
 
     <section class="section shell" id="proceso" aria-labelledby="process-title">
       <div class="section-grid">
         <div class="section-heading" data-reveal>
-          <p class="section-kicker">Así de simple</p>
-          <h2 id="process-title">Pegas el enlace. Nosotros seguimos la ruta.</h2>
-          <p class="section-intro">Primero revisamos la URL, luego se la pasamos a la API y al final te mostramos lo que devuelva. La consola acompaña la espera para que no parezca que la página se quedó trabada.</p>
+          <p class="section-kicker">Qué pasa después</p>
+          <h2 id="process-title">Primero una ruta. Si falla, probamos la otra.</h2>
+          <p class="section-intro">trw.lat es la primera opción para sus redes compatibles. Si no consigue resolver el enlace, bypass.city entra como API de respaldo dentro de la sandbox.</p>
         </div>
 
-        <ol class="process-list" id="process-list" role="list" data-reveal>
+        <ol class="process-list" id="process-list" data-reveal>
           <li class="process-item">
             <span class="process-number">01</span>
             <div>
@@ -2611,15 +2932,22 @@
           <li class="process-item">
             <span class="process-number">02</span>
             <div>
-              <h3>Se lo pasamos a la API</h3>
-              <p>trw.lat recibe la URL y busca el destino. Si tarda más de 45 segundos, detenemos el intento para que puedas probar otra vez.</p>
+              <h3>Probamos con trw.lat</h3>
+              <p>Enviamos el enlace a la API principal. Si tarda más de 45 segundos o devuelve un error, detenemos ese intento.</p>
             </div>
           </li>
           <li class="process-item">
             <span class="process-number">03</span>
             <div>
-              <h3>Te damos el resultado</h3>
-              <p>Si la API encuentra el destino, podrás abrirlo desde aquí. Si devuelve texto o algo falla, también te lo diremos tal cual.</p>
+              <h3>Entra bypass.city si hace falta</h3>
+              <p>Cuando la ruta principal falla, puedes continuar con la API de respaldo en una sandbox sin ventanas emergentes.</p>
+            </div>
+          </li>
+          <li class="process-item">
+            <span class="process-number">04</span>
+            <div>
+              <h3>Copias el resultado</h3>
+              <p>Si llega una URL o un texto, lo verás tal cual. En la sandbox usa Copiar para evitar aperturas y anuncios.</p>
             </div>
           </li>
         </ol>
@@ -2630,26 +2958,44 @@
       <div class="directory-head" data-reveal>
         <div>
           <p class="section-kicker">Enlaces compatibles</p>
-          <h2 id="compatibility-title">Estas son las redes que reconoce la API.</h2>
-          <p class="section-intro">La lista viene directamente de trw.lat. Que una red aparezca aquí significa que está admitida, aunque algún enlace concreto todavía puede fallar.</p>
+          <h2 id="compatibility-title">Todas las rutas que puedes probar.</h2>
+          <p class="section-intro">Aquí están las 13 redes de trw.lat y las 44 rutas de respaldo de bypass.city. La etiqueta de cada fila te dice qué servicio se encargará del enlace.</p>
         </div>
         <p class="sync-state" id="sync-state" data-state="loading" aria-live="polite">Consultando trw.lat</p>
       </div>
 
-      <ul class="network-directory" id="network-directory" role="list" data-reveal>
+      <div class="faq-list" data-reveal>
+        <details class="compatibility-note">
+          <summary>¿Qué servicio se prueba primero? <span class="summary-mark" aria-hidden="true">+</span></summary>
+          <p>Cuando la red también funciona con trw.lat, esa es la primera ruta. bypass.city queda como respaldo si el intento principal falla.</p>
+        </details>
+        <details class="compatibility-note">
+          <summary>¿bypass.city limita los intentos? <span class="summary-mark" aria-hidden="true">+</span></summary>
+          <p>Según su ayuda oficial, no aplica un límite de bypass por dirección IP. Aun así, una red concreta puede estar caída o rechazar temporalmente un enlace.</p>
+        </details>
+        <details class="compatibility-note">
+          <summary>¿También funciona con Pastebin y otros textos? <span class="summary-mark" aria-hidden="true">+</span></summary>
+          <p>Sí. bypass.city puede extraer texto de servicios como Pastebin, Rentry y JustPaste. Para esos resultados la sandbox ofrece una vista más alta.</p>
+        </details>
+        <details class="compatibility-note">
+          <summary>¿Qué hago si aparece un error? <span class="summary-mark" aria-hidden="true">+</span></summary>
+          <p>Comprueba que el enlace esté completo y vuelve a intentarlo. También puede fallar porque la red está temporalmente fuera de servicio, el enlace fue eliminado o esa variante todavía no es compatible.</p>
+        </details>
+        <details class="compatibility-note">
+          <summary>¿Por qué en la sandbox solo debo usar Copiar? <span class="summary-mark" aria-hidden="true">+</span></summary>
+          <p>Las aperturas, ventanas emergentes y redirecciones están bloqueadas para frenar anuncios. Completa el CAPTCHA, muestra el resultado y usa Copy Link.</p>
+        </details>
+      </div>
+
+      <ul class="network-directory" id="network-directory">
         <li class="directory-empty">Consultando redes compatibles…</li>
       </ul>
-
-      <details class="compatibility-note" data-reveal>
-        <summary>¿Aparece aquí, pero no funciona? <span class="summary-mark" aria-hidden="true">+</span></summary>
-        <p>Revisa que el enlace esté completo y vuelve a intentarlo un poco más tarde. La lista dice qué redes admite la API, pero no confirma que todos sus enlaces funcionen todo el tiempo.</p>
-      </details>
     </section>
 
     <aside class="transparency">
       <div class="transparency-inner shell">
         <strong>Antes de pegar un enlace</strong>
-        <p>La URL se comparte primero con <a href="https://trw.lat/" target="_blank" rel="noopener noreferrer">trw.lat</a> cuando esa red es compatible. Si falla, podrás elegir el bypass alternativo. No pegues enlaces con contraseñas, tokens ni información privada.</p>
+        <p>La URL se comparte primero con <a href="https://trw.lat/" target="_blank" rel="noopener noreferrer">trw.lat</a> cuando esa red es compatible. Si falla, podrás usar bypass.city como respaldo. No pegues enlaces con contraseñas, tokens ni información privada.</p>
       </div>
     </aside>
   </main>
@@ -2681,6 +3027,7 @@
       const input = document.getElementById('link-input');
       const button = document.getElementById('bypass-button');
       const buttonLabel = document.getElementById('button-label');
+      const resolverHelp = document.getElementById('resolver-help');
       const formMessage = document.getElementById('form-message');
       const workspaceState = document.getElementById('workspace-state');
       const routeStateCopy = document.getElementById('route-state-copy');
@@ -2705,6 +3052,15 @@
       const header = document.getElementById('site-header');
       const menuToggle = document.getElementById('menu-toggle');
       const mobileNav = document.getElementById('mobile-nav');
+      const settingsToggle = document.getElementById('settings-toggle');
+      const settingsPanel = document.getElementById('settings-panel');
+      const settingsClose = document.getElementById('settings-close');
+      const settingsFallback = document.getElementById('settings-fallback');
+      const settingsAutoFallback = document.getElementById('settings-auto-fallback');
+      const settingsExpand = document.getElementById('settings-expand');
+      const settingsReset = document.getElementById('settings-reset');
+      const settingsStatus = document.getElementById('settings-status');
+      const settingsModeInputs = [...document.querySelectorAll('input[name="api-mode"]')];
       const kanaCanvas = document.getElementById('kana-rain');
       const titleSparksCanvas = document.getElementById('title-sparks');
       const titleMorph = document.getElementById('title-morph');
@@ -2745,6 +3101,56 @@
       const supportsAlternative = url => hostMatches(url.hostname.toLowerCase(), alternativeDomains);
       const supportsTrw = url => hostMatches(url.hostname.toLowerCase(), trwDomains);
 
+      const defaultSettings = {
+        apiMode: 'auto',
+        cityFallback: true,
+        autoFallback: false,
+        expandEmbed: false
+      };
+
+      const loadSettings = () => {
+        try {
+          const saved = JSON.parse(localStorage.getItem('anti-hambreado-bypass-settings') || '{}');
+          return {
+            apiMode: ['auto', 'trw', 'city'].includes(saved.apiMode) ? saved.apiMode : defaultSettings.apiMode,
+            cityFallback: typeof saved.cityFallback === 'boolean' ? saved.cityFallback : defaultSettings.cityFallback,
+            autoFallback: typeof saved.autoFallback === 'boolean' ? saved.autoFallback : defaultSettings.autoFallback,
+            expandEmbed: typeof saved.expandEmbed === 'boolean' ? saved.expandEmbed : defaultSettings.expandEmbed
+          };
+        } catch {
+          return { ...defaultSettings };
+        }
+      };
+
+      const settings = loadSettings();
+
+      const saveSettings = () => {
+        try {
+          localStorage.setItem('anti-hambreado-bypass-settings', JSON.stringify(settings));
+        } catch {}
+      };
+
+      const primaryActionLabel = url => {
+        if (!url) return 'Resolver enlace';
+        if (settings.apiMode === 'city') return 'Abrir bypass.city';
+        if (settings.apiMode === 'trw') return 'Probar con trw.lat';
+        if (supportsAlternative(url) && !supportsTrw(url)) return 'Abrir alternativa';
+        if (supportsTrw(url)) return 'Probar con trw.lat';
+        return 'Resolver enlace';
+      };
+
+      const primaryActionHelp = url => {
+        if (!url && settings.apiMode === 'city') return 'Todos los enlaces irán directamente a la sandbox de bypass.city.';
+        if (!url && settings.apiMode === 'trw') return 'Solo usaremos trw.lat. bypass.city no aparecerá como respaldo.';
+        if (!url) return settings.cityFallback ? 'Pega una URL completa para ver qué ruta usaremos.' : 'Usaremos trw.lat primero, sin ofrecer bypass.city después de un fallo.';
+        if (settings.apiMode === 'city') return 'Este enlace irá directamente a bypass.city dentro de la sandbox.';
+        if (settings.apiMode === 'trw') return 'Este enlace se enviará únicamente a trw.lat.';
+        if (supportsAlternative(url) && !supportsTrw(url)) return 'Esta red irá directamente al bypass alternativo dentro de la página.';
+        if (supportsTrw(url) && supportsAlternative(url)) return settings.cityFallback ? 'Primero probaremos con trw.lat. Si falla, podrás abrir la alternativa.' : 'Primero probaremos con trw.lat. El respaldo de bypass.city está desactivado.';
+        if (supportsTrw(url)) return 'Este enlace se enviará a trw.lat.';
+        return 'Intentaremos resolver este enlace con trw.lat.';
+      };
+
       const fallbackLogos = {
         'Beta.shortearn.eu': 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"%3E%3Crect width="64" height="64" rx="12" fill="%2323262d"/%3E%3Cpath d="M18 18h30v8H27v8h17v8H27v14h-9z" fill="%23ff3b30"/%3E%3C/svg%3E',
         'Shortearn': 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"%3E%3Crect width="64" height="64" rx="12" fill="%2323262d"/%3E%3Cpath d="M18 18h30v8H27v8h17v8H27v14h-9z" fill="%23ff3b30"/%3E%3C/svg%3E',
@@ -2755,7 +3161,19 @@
       const officialLogoSources = {
         'LootLabs': 'https://cdn.prod.website-files.com/668ba61f0b223db53115e694/669cef95779abfadedd1ab5d_Lootlabs%20Logo.png',
         'AdMaven': 'https://cdn.prod.website-files.com/651bc0575754a33d9bb4b2f0/653fc33b6a4e51a055bc7ecd_logo_white1.svg',
-        'Rekonise': 'https://rekonise.com/assets/images/logo.svg'
+        'Rekonise': 'https://rekonise.com/assets/images/logo.svg',
+        'sub2unlock.net': 'https://sub2unlock.net/favicon.png'
+      };
+
+      const localLogoDomains = new Set([
+        'paster.gg', 'cety.io', 'booo.st', 'mendationforc.info', 'subfinal.com',
+        'social-unlock.com', 'cl.gy', 'pastecanyon.com'
+      ]);
+
+      const logoFallback = domain => {
+        const mark = domain.replace(/^www\./, '').split('.')[0].slice(0, 2).toUpperCase() || 'AH';
+        const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="#050505"/><rect x="2" y="2" width="60" height="60" rx="8" fill="none" stroke="#ff3b30" stroke-width="3"/><text x="32" y="40" fill="#f4f1eb" font-family="Arial,sans-serif" font-size="24" font-weight="700" text-anchor="middle">' + mark + '</text></svg>';
+        return 'data:image/svg+xml,' + encodeURIComponent(svg);
       };
 
       const simulatedMessages = [
@@ -2827,7 +3245,9 @@
         supported: [],
         rotationId: null,
         rotationIndex: 0,
-        menuTimer: null
+        menuTimer: null,
+        settingsFocus: null,
+        sandboxRefreshId: null
       };
 
       const createElement = (tag, className, text) => {
@@ -2844,6 +3264,55 @@
         } catch {
           return null;
         }
+      };
+
+      const routeServiceFor = url => {
+        if (settings.apiMode === 'city') return 'bypass.city';
+        if (settings.apiMode === 'trw') return 'trw.lat';
+        if (url && supportsAlternative(url) && !supportsTrw(url)) return 'bypass.city';
+        return 'trw.lat';
+      };
+
+      const syncSettingsControls = () => {
+        settingsModeInputs.forEach(control => {
+          control.checked = control.value === settings.apiMode;
+        });
+        settingsFallback.checked = settings.cityFallback;
+        settingsFallback.disabled = settings.apiMode !== 'auto';
+        settingsAutoFallback.checked = settings.autoFallback;
+        settingsAutoFallback.disabled = settings.apiMode !== 'auto' || !settings.cityFallback;
+        settingsExpand.checked = settings.expandEmbed;
+
+        if (settings.apiMode === 'trw') settingsStatus.textContent = 'Solo trw.lat';
+        else if (settings.apiMode === 'city') settingsStatus.textContent = 'Solo bypass.city';
+        else if (!settings.cityFallback) settingsStatus.textContent = 'Automático · sin respaldo';
+        else settingsStatus.textContent = settings.autoFallback ? 'Automático · cambio directo' : 'Automático · respaldo manual';
+
+        const url = getValidUrl(input.value);
+        if (!state.busy) buttonLabel.textContent = primaryActionLabel(url);
+        resolverHelp.textContent = primaryActionHelp(url);
+        const service = routeServiceFor(url);
+        routeServiceNode.textContent = service;
+        routeNodes[2].dataset.detail = service === 'bypass.city'
+          ? 'Abrimos la URL en bypass.city dentro de la sandbox.'
+          : 'Enviamos la URL a trw.lat y esperamos su respuesta.';
+      };
+
+      const setSettingsPanel = (open, restoreFocus = true) => {
+        settingsToggle.setAttribute('aria-expanded', String(open));
+        if (open) {
+          state.settingsFocus = document.activeElement;
+          settingsPanel.hidden = false;
+          settingsPanel.inert = false;
+          if (menuToggle.getAttribute('aria-expanded') === 'true') setMenu(false);
+          window.requestAnimationFrame(() => settingsClose.focus());
+          return;
+        }
+
+        settingsPanel.hidden = true;
+        settingsPanel.inert = true;
+        if (restoreFocus && state.settingsFocus instanceof HTMLElement) state.settingsFocus.focus();
+        state.settingsFocus = null;
       };
 
       const normalizeSupported = data => {
@@ -2912,7 +3381,7 @@
         state.busy = busy;
         form.setAttribute('aria-busy', String(busy));
         input.readOnly = busy;
-        buttonLabel.textContent = busy ? 'Resolviendo…' : 'Resolver enlace';
+        buttonLabel.textContent = busy ? 'Resolviendo…' : primaryActionLabel(getValidUrl(input.value));
         button.disabled = busy || !getValidUrl(input.value);
       };
 
@@ -2972,7 +3441,14 @@
         return true;
       };
 
+      const stopSandboxRefresh = () => {
+        if (!state.sandboxRefreshId) return;
+        clearTimeout(state.sandboxRefreshId);
+        state.sandboxRefreshId = null;
+      };
+
       const clearResult = () => {
+        stopSandboxRefresh();
         finalAction.replaceChildren();
         finalAction.hidden = true;
       };
@@ -3126,47 +3602,86 @@
         const head = createElement('div', 'embed-head');
         const copy = createElement('div');
         copy.append(
-          createElement('h3', '', 'Bypass alternativo dentro de Anti-Hambreado'),
-          createElement('p', '', 'El CAPTCHA funciona dentro de una vista recortada. Los enlaces de resultado pueden abrir su destino, pero no pueden redirigir esta pestaña.')
+          createElement('h3', '', 'Sandbox de bypass.city · usa solo Copiar'),
+          createElement('p', '', 'Completa el CAPTCHA y después pulsa Mostrar resultado. Abrir enlaces, cambiar de página y lanzar ventanas emergentes está bloqueado para frenar anuncios. Si todavía ves publicidad, usa un bloqueador de anuncios o un DNS con filtrado. La vista se actualiza sola cada 45 segundos.')
         );
-        head.append(copy, createElement('span', 'embed-badge', 'Pestaña protegida'));
+        head.append(copy, createElement('span', 'embed-badge', 'Solo copiar'));
 
         const frame = createElement('iframe', 'embed-frame');
-        frame.title = 'Bypass alternativo en linkvertise-bypass.com';
-        frame.src = 'https://linkvertise-bypass.com/bypass?link=' + encodeURIComponent(url.href) + '&submit=';
+        frame.title = 'Bypass alternativo en bypass.city';
+        frame.src = 'https://bypass.city/bypass?bypass=' + encodeURIComponent(url.href) + '&ref=v';
         frame.loading = 'eager';
         frame.referrerPolicy = 'no-referrer';
-        frame.setAttribute('sandbox', 'allow-scripts allow-forms allow-same-origin allow-popups');
+        frame.setAttribute('allow', 'clipboard-write');
+        const sandboxPermissions = ['allow-scripts', 'allow-forms', 'allow-same-origin'];
+        frame.setAttribute('sandbox', sandboxPermissions.join(' '));
         frame.setAttribute('scrolling', 'no');
 
         const viewport = createElement('div', 'embed-viewport');
-        const linkBlocker = createElement('div', 'embed-link-blocker');
-        linkBlocker.setAttribute('aria-hidden', 'true');
-        viewport.append(frame, linkBlocker);
+        const tallResultDomains = ['pastebin.com', 'justpaste.it', 'paste-drop.com', 'pastecanyon.com', 'pastehill.com', 'pastemode.com', 'paster.so', 'paster.gg', 'rentry.org'];
+        const usesTallResult = hostMatches(url.hostname.toLowerCase(), tallResultDomains);
+        if (usesTallResult) viewport.classList.add('is-tall-result');
+        if (settings.expandEmbed) viewport.classList.add('is-result-view');
+        const navigationGuard = createElement('div', 'embed-navigation-guard');
+        const openGuard = createElement('button', 'embed-block-open');
+        openGuard.type = 'button';
+        openGuard.tabIndex = -1;
+        openGuard.setAttribute('aria-label', 'Abrir enlace bloqueado');
+        const newGuard = createElement('button', 'embed-block-new');
+        newGuard.type = 'button';
+        newGuard.tabIndex = -1;
+        newGuard.setAttribute('aria-label', 'Nuevo enlace bloqueado');
+        const explainBlockedNavigation = () => showMessage('Esa acción está bloqueada. Usa Copiar para guardar el resultado sin abrir anuncios ni redirecciones.', 'error');
+        openGuard.addEventListener('click', explainBlockedNavigation);
+        newGuard.addEventListener('click', explainBlockedNavigation);
+        navigationGuard.append(openGuard, newGuard);
+        viewport.append(frame, navigationGuard);
 
         const actions = createElement('div', 'embed-actions');
+        const collapsedResultLabel = usesTallResult ? 'Mostrar resultado amplio' : 'Mostrar resultado';
+        const resultViewButton = createElement('button', 'new-button', settings.expandEmbed ? 'Ocultar resultado' : collapsedResultLabel);
+        resultViewButton.type = 'button';
+        resultViewButton.setAttribute('aria-pressed', String(settings.expandEmbed));
+        resultViewButton.addEventListener('click', () => {
+          const expanded = viewport.classList.toggle('is-result-view');
+          resultViewButton.textContent = expanded ? 'Ocultar resultado' : collapsedResultLabel;
+          resultViewButton.setAttribute('aria-pressed', String(expanded));
+        });
         const refreshButton = createElement('button', 'new-button', 'Refrescar vista');
         refreshButton.type = 'button';
+        const scheduleSandboxRefresh = () => {
+          stopSandboxRefresh();
+          state.sandboxRefreshId = window.setTimeout(() => {
+            if (!frame.isConnected) {
+              state.sandboxRefreshId = null;
+              return;
+            }
+            frame.src = frame.src;
+            scheduleSandboxRefresh();
+          }, 45000);
+        };
         refreshButton.addEventListener('click', () => {
           frame.src = frame.src;
+          scheduleSandboxRefresh();
           showMessage('La vista del bypass alternativo se está recargando.', 'success');
         });
         const newButton = createElement('button', 'new-button', 'Probar otro enlace');
         newButton.type = 'button';
         newButton.addEventListener('click', resetTool);
-        actions.append(refreshButton, newButton);
+        actions.append(resultViewButton, refreshButton, newButton);
         panel.append(head, viewport, actions);
         finalAction.replaceChildren(panel);
         finalAction.hidden = false;
+        scheduleSandboxRefresh();
 
         routeInputNode.textContent = url.hostname;
-        routeServiceNode.textContent = 'linkvertise-bypass.com';
-        routeNodes[2].dataset.detail = 'Abrimos el enlace en linkvertise-bypass.com dentro de un iframe aislado.';
+        routeServiceNode.textContent = 'bypass.city';
+        routeNodes[2].dataset.detail = 'Abrimos el enlace en bypass.city dentro de un iframe aislado.';
         routeOutputNode.textContent = 'Vista integrada';
         networkPreview.textContent = url.hostname + ' / Aislado';
         setRoutePhase(5);
         setRouteState('success', 'Vista integrada', 'La alternativa se abrió dentro de esta página.');
-        routeStepDetail.textContent = 'El iframe permite el CAPTCHA y los enlaces de resultado, pero no puede redirigir la pestaña principal.';
+        routeStepDetail.textContent = 'Completa el CAPTCHA y usa solo Copiar. Las aperturas y redirecciones están bloqueadas para evitar anuncios.';
         showMessage('El bypass alternativo se cargó en una vista aislada.', 'success');
         setBusy(false);
         requestAnimationFrame(() => {
@@ -3188,9 +3703,12 @@
         input.value = '';
         input.readOnly = false;
         input.setAttribute('aria-invalid', 'false');
+        resolverHelp.textContent = primaryActionHelp(null);
         routeInputNode.textContent = 'URL';
-        routeServiceNode.textContent = 'trw.lat';
-        routeNodes[2].dataset.detail = 'Enviamos la URL a trw.lat y esperamos su respuesta.';
+        routeServiceNode.textContent = routeServiceFor(null);
+        routeNodes[2].dataset.detail = routeServiceFor(null) === 'bypass.city'
+          ? 'Abrimos la URL en bypass.city dentro de la sandbox.'
+          : 'Enviamos la URL a trw.lat y esperamos su respuesta.';
         routeOutputNode.textContent = 'Destino';
         networkPreview.textContent = state.supported[0] || 'Compatibilidad';
         hideMessage();
@@ -3217,7 +3735,13 @@
         setRouteState('error', 'No resuelto', message);
         routeStepDetail.textContent = explainFailure(message);
         showMessage(message, 'error');
-        if (url && supportsAlternative(url)) {
+        const canUseFallback = url && settings.apiMode === 'auto' && settings.cityFallback && supportsAlternative(url);
+        if (canUseFallback && settings.autoFallback) {
+          setBusy(false);
+          renderAlternativeEmbed(url);
+          return;
+        }
+        if (canUseFallback) {
           const actions = createElement('div', 'embed-actions');
           const alternativeButton = createElement('button', 'new-button', 'Probar bypass alternativo');
           alternativeButton.type = 'button';
@@ -3244,7 +3768,7 @@
         if (state.controller) state.controller.abort();
         if (state.timeoutId) clearTimeout(state.timeoutId);
 
-        if (supportsAlternative(url) && !supportsTrw(url)) {
+        if (settings.apiMode === 'city' || (settings.apiMode === 'auto' && supportsAlternative(url) && !supportsTrw(url))) {
           state.controller = null;
           state.timeoutId = null;
           state.timedOut = false;
@@ -3370,12 +3894,15 @@
             const tickerItem = createElement('span', 'ticker-item');
             const logo = createElement('img', 'ticker-logo');
             const domain = domainFor(item);
-            logo.src = officialLogoSources[item] || fallbackLogos[item] || 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(domain) + '&sz=64';
+            logo.src = officialLogoSources[item] || fallbackLogos[item] || (localLogoDomains.has(domain) ? logoFallback(domain) : 'https://www.google.com/s2/favicons?domain_url=https%3A%2F%2F' + encodeURIComponent(domain) + '&sz=64');
+            logo.addEventListener('error', () => {
+              logo.src = logoFallback(domain);
+            }, { once: true });
             if (item === 'LootLabs' || item === 'AdMaven') logo.classList.add('is-cropped');
             logo.alt = '';
             logo.width = 20;
             logo.height = 20;
-            logo.loading = 'lazy';
+            logo.loading = 'eager';
             logo.decoding = 'async';
             tickerItem.append(logo, createElement('span', '', item));
             group.appendChild(tickerItem);
@@ -3392,18 +3919,25 @@
       const renderDirectory = items => {
         networkDirectory.replaceChildren();
 
-        if (!items.length) {
+        const entries = [
+          ...items.map(item => ({ name: item, domain: domainFor(item), provider: 'trw.lat', providerKey: 'primary' })),
+          ...alternativeTickerItems.map(domain => ({ name: displayName(domain), domain, provider: 'bypass.city', providerKey: 'backup' }))
+        ];
+
+        if (!entries.length) {
           networkDirectory.appendChild(createElement('li', 'directory-empty', 'No se recibió una lista compatible en este momento.'));
           return;
         }
 
         const fragment = document.createDocumentFragment();
-        items.forEach(item => {
+        entries.forEach(item => {
           const row = createElement('li', 'network-row');
+          const provider = createElement('span', 'network-status', item.provider);
+          provider.dataset.provider = item.providerKey;
           row.append(
-            createElement('span', 'network-name', item),
-            createElement('span', 'network-domain', domainFor(item)),
-            createElement('span', 'network-status', 'Soportado')
+            createElement('span', 'network-name', item.name),
+            createElement('span', 'network-domain', item.domain),
+            provider
           );
           fragment.appendChild(row);
         });
@@ -3434,9 +3968,9 @@
           if (!items.length) throw new Error('Lista vacía');
 
           state.supported = items;
-          networkCount.textContent = items.length + ' redes';
+          networkCount.textContent = items.length + ' con trw.lat';
           networkSummary.textContent = items.length + ' redes compatibles leídas desde la API: ' + items.join(', ') + '.';
-          syncState.textContent = items.length + ' redes leídas desde la API';
+          syncState.textContent = items.length + ' trw.lat + ' + alternativeTickerItems.length + ' respaldo';
           syncState.dataset.state = 'ready';
           networkPreview.textContent = items[0];
           renderTicker(items);
@@ -3444,17 +3978,17 @@
           startNetworkRotation();
         } catch {
           state.supported = [];
-          networkCount.textContent = 'Sin conexión';
-          networkSummary.textContent = 'No se pudo consultar la lista de redes compatibles.';
-          syncState.textContent = 'No se pudo consultar trw.lat';
+          networkCount.textContent = 'trw.lat sin conexión';
+          networkSummary.textContent = 'No se pudo consultar trw.lat. La lista de respaldo sigue disponible.';
+          syncState.textContent = alternativeTickerItems.length + ' rutas de respaldo disponibles';
           syncState.dataset.state = 'error';
-          renderTicker(['Compatibilidad no disponible']);
+          renderTicker(['trw.lat no disponible']);
           renderDirectory([]);
         }
       };
 
       renderTicker(alternativeTickerItems, alternativeTickerTrack);
-      alternativeNetworkCount.textContent = alternativeTickerItems.length + ' redes alternativas';
+      alternativeNetworkCount.textContent = alternativeTickerItems.length + ' con bypass.city';
 
       const setMenu = open => {
         if (state.menuTimer) clearTimeout(state.menuTimer);
@@ -3492,7 +4026,7 @@
           fontSize = window.innerWidth < 600 ? 13 : 15;
           kanaCanvas.width = Math.round(window.innerWidth * ratio);
           kanaCanvas.height = Math.round(window.innerHeight * ratio);
-          kanaCanvas.style.width = window.innerWidth + 'px';
+          kanaCanvas.style.width = '100%';
           kanaCanvas.style.height = window.innerHeight + 'px';
           context.setTransform(ratio, 0, 0, ratio, 0, 0);
           drops = Array.from({ length: Math.ceil(window.innerWidth / cellSize) }, () => -Math.random() * 45);
@@ -3532,7 +4066,7 @@
           const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
           titleSparksCanvas.width = Math.round(window.innerWidth * ratio);
           titleSparksCanvas.height = Math.round(window.innerHeight * ratio);
-          titleSparksCanvas.style.width = window.innerWidth + 'px';
+          titleSparksCanvas.style.width = '100%';
           titleSparksCanvas.style.height = window.innerHeight + 'px';
           context.setTransform(ratio, 0, 0, ratio, 0, 0);
         };
@@ -3613,7 +4147,7 @@
             titleDrop.classList.add('is-dropping');
             spawn(titleMorph, 11);
             const trail = window.setInterval(() => spawn(titleDrop, 6), 90);
-            window.setTimeout(() => window.clearInterval(trail), 500);
+            window.setTimeout(() => window.clearInterval(trail), 760);
           }, 900);
 
           window.setTimeout(() => {
@@ -3622,8 +4156,8 @@
             titleDrop.classList.add('is-rising');
             spawn(titleMorph, 7);
             spawn(titleDrop, 5);
-            window.setTimeout(run, 4000 + Math.random() * 3000);
-          }, 3400);
+            window.setTimeout(run, 5200 + Math.random() * 2600);
+          }, 6500);
         };
 
         window.setTimeout(run, 1800);
@@ -3700,6 +4234,13 @@
         input.setAttribute('aria-invalid', 'false');
         hideMessage();
         button.disabled = state.busy || !url;
+        buttonLabel.textContent = primaryActionLabel(url);
+        resolverHelp.textContent = primaryActionHelp(url);
+        const service = routeServiceFor(url);
+        routeServiceNode.textContent = service;
+        routeNodes[2].dataset.detail = service === 'bypass.city'
+          ? 'Abrimos la URL en bypass.city dentro de la sandbox.'
+          : 'Enviamos la URL a trw.lat y esperamos su respuesta.';
 
         if (!input.value.trim()) {
           routeInputNode.textContent = 'URL';
@@ -3727,8 +4268,52 @@
         doBypass();
       });
 
+      settingsToggle.addEventListener('click', () => {
+        setSettingsPanel(settingsToggle.getAttribute('aria-expanded') !== 'true');
+      });
+
+      settingsClose.addEventListener('click', () => setSettingsPanel(false));
+
+      settingsModeInputs.forEach(control => {
+        control.addEventListener('change', () => {
+          if (!control.checked) return;
+          settings.apiMode = control.value;
+          saveSettings();
+          syncSettingsControls();
+        });
+      });
+
+      settingsFallback.addEventListener('change', () => {
+        settings.cityFallback = settingsFallback.checked;
+        if (!settings.cityFallback) settings.autoFallback = false;
+        saveSettings();
+        syncSettingsControls();
+      });
+
+      settingsAutoFallback.addEventListener('change', () => {
+        settings.autoFallback = settingsAutoFallback.checked;
+        if (settings.autoFallback) settings.cityFallback = true;
+        saveSettings();
+        syncSettingsControls();
+      });
+
+      settingsExpand.addEventListener('change', () => {
+        settings.expandEmbed = settingsExpand.checked;
+        saveSettings();
+        syncSettingsControls();
+      });
+
+      settingsReset.addEventListener('click', () => {
+        Object.assign(settings, defaultSettings);
+        saveSettings();
+        syncSettingsControls();
+        settingsStatus.textContent = 'Ajustes restaurados';
+      });
+
       menuToggle.addEventListener('click', () => {
-        setMenu(menuToggle.getAttribute('aria-expanded') !== 'true');
+        const open = menuToggle.getAttribute('aria-expanded') !== 'true';
+        if (open && settingsToggle.getAttribute('aria-expanded') === 'true') setSettingsPanel(false, false);
+        setMenu(open);
       });
 
       routeNodes.forEach(node => {
@@ -3743,16 +4328,29 @@
         if (event.target.closest('a')) setMenu(false);
       });
 
+      document.addEventListener('pointerdown', event => {
+        if (settingsToggle.getAttribute('aria-expanded') !== 'true') return;
+        if (settingsPanel.contains(event.target) || settingsToggle.contains(event.target)) return;
+        setSettingsPanel(false, false);
+      });
+
       document.addEventListener('keydown', event => {
-        if (event.key !== 'Escape' || menuToggle.getAttribute('aria-expanded') !== 'true') return;
-        setMenu(false);
-        menuToggle.focus();
+        if (event.key !== 'Escape') return;
+        if (settingsToggle.getAttribute('aria-expanded') === 'true') {
+          setSettingsPanel(false);
+          return;
+        }
+        if (menuToggle.getAttribute('aria-expanded') === 'true') {
+          setMenu(false);
+          menuToggle.focus();
+        }
       });
 
       document.addEventListener('visibilitychange', () => {
         document.body.classList.toggle('page-hidden', document.hidden);
       });
 
+      syncSettingsControls();
       setRoutePhase(1);
       setupKanaRain();
       setupTitleMotion();
