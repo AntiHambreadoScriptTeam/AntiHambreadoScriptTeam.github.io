@@ -1116,6 +1116,100 @@
       animation: resultIn .55s var(--ease) both;
     }
 
+    .embed-panel {
+      overflow: hidden;
+      scroll-margin-top: calc(var(--header-height) + 16px);
+      border: 1px solid var(--line-strong);
+      border-top-color: var(--signal);
+      border-radius: var(--radius-md);
+      background: var(--ink-2);
+      animation: resultIn .55s var(--ease) both;
+    }
+
+    .embed-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      padding: 18px clamp(16px, 3vw, 26px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .embed-head h3 {
+      margin-bottom: 4px;
+      font-size: clamp(1rem, 2vw, 1.24rem);
+    }
+
+    .embed-head p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .embed-badge {
+      color: var(--mint);
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .embed-frame {
+      width: 100%;
+      height: calc(100% + 92px);
+      display: block;
+      border: 0;
+      background: #0a0a0b;
+      transform: translateY(-92px);
+    }
+
+    .embed-viewport {
+      position: relative;
+      height: clamp(520px, 68vh, 590px);
+      overflow: hidden;
+      background: #30304e;
+    }
+
+    .embed-link-blocker {
+      position: absolute;
+      z-index: 2;
+      left: 0;
+      bottom: 0;
+      width: min(260px, 72%);
+      height: 84px;
+      cursor: default;
+    }
+
+    .embed-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 14px clamp(16px, 3vw, 26px);
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 620px) {
+      .embed-head {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .embed-frame {
+        height: calc(100% + 82px);
+        transform: translateY(-82px);
+      }
+
+      .embed-viewport {
+        height: 620px;
+      }
+
+      .embed-link-blocker {
+        width: min(250px, 78%);
+        height: 88px;
+      }
+    }
+
     .result-head {
       display: flex;
       flex-wrap: wrap;
@@ -1257,7 +1351,7 @@
       width: max-content;
       display: flex;
       align-items: center;
-      animation: tickerMove 28s linear infinite;
+      animation: tickerMove var(--ticker-duration, 28s) linear infinite;
       will-change: transform;
     }
 
@@ -2411,7 +2505,7 @@
         <form class="resolver" id="bypass-form" novalidate>
           <p class="panel-label">Entrada de enlace</p>
           <label class="field-label" for="link-input">Pega aquí el enlace</label>
-          <p class="resolver-help" id="resolver-help">Para resolverlo, enviaremos la URL a <a href="https://rip.linkvertise.lol/" target="_blank" rel="noopener noreferrer">Rip.Linkvertise.Lol</a> mediante trw.lat.</p>
+          <p class="resolver-help" id="resolver-help">Primero probamos con trw.lat. Si esa ruta falla y el enlace es compatible, podrás abrir el bypass alternativo en una vista aislada.</p>
           <div class="form-row">
             <div class="input-shell">
               <span class="input-prefix" aria-hidden="true">URL</span>
@@ -2440,7 +2534,7 @@
             </button>
             <button class="route-node" data-node="api" data-step="3" type="button" data-detail="Enviamos la URL a trw.lat y esperamos su respuesta.">
               <strong>Enviar</strong>
-              <span>trw.lat</span>
+              <span id="route-service-node">trw.lat</span>
             </button>
             <button class="route-node" data-node="read" data-step="4" type="button" data-detail="Leemos lo que devolvió la API y buscamos un destino útil.">
               <strong>Leer</strong>
@@ -2484,6 +2578,17 @@
           </div>
         </div>
         <p class="sr-only" id="network-summary" aria-live="polite">Consultando la lista de redes compatibles.</p>
+      </div>
+    </section>
+
+    <section class="network-rail" aria-labelledby="alternative-networks-title">
+      <h2 class="sr-only" id="alternative-networks-title">Redes del bypass alternativo</h2>
+      <div class="rail-inner shell">
+        <div class="rail-label"><span id="alternative-network-count">Redes alternativas</span></div>
+        <div class="ticker" aria-hidden="true">
+          <div class="ticker-track" id="alternative-ticker-track"></div>
+        </div>
+        <p class="sr-only" id="alternative-network-summary">Redes compatibles con el bypass alternativo de linkvertise-bypass.com.</p>
       </div>
     </section>
 
@@ -2544,7 +2649,7 @@
     <aside class="transparency">
       <div class="transparency-inner shell">
         <strong>Antes de pegar un enlace</strong>
-        <p>La URL se comparte con <a href="https://trw.lat/" target="_blank" rel="noopener noreferrer">trw.lat</a> para poder resolverla. No pegues enlaces con contraseñas, tokens ni información privada.</p>
+        <p>La URL se comparte primero con <a href="https://trw.lat/" target="_blank" rel="noopener noreferrer">trw.lat</a> cuando esa red es compatible. Si falla, podrás elegir el bypass alternativo. No pegues enlaces con contraseñas, tokens ni información privada.</p>
       </div>
     </aside>
   </main>
@@ -2582,6 +2687,7 @@
       const routeStepDetail = document.getElementById('route-step-detail');
       const routeNodes = [...document.querySelectorAll('.route-node')];
       const routeInputNode = document.getElementById('route-input-node');
+      const routeServiceNode = document.getElementById('route-service-node');
       const routeOutputNode = document.getElementById('route-output-node');
       const networkPreview = document.getElementById('network-preview');
       const streamShell = document.getElementById('stream-shell');
@@ -2591,6 +2697,8 @@
       const networkCount = document.getElementById('network-count');
       const networkSummary = document.getElementById('network-summary');
       const tickerTrack = document.getElementById('ticker-track');
+      const alternativeTickerTrack = document.getElementById('alternative-ticker-track');
+      const alternativeNetworkCount = document.getElementById('alternative-network-count');
       const syncState = document.getElementById('sync-state');
       const networkDirectory = document.getElementById('network-directory');
       const processList = document.getElementById('process-list');
@@ -2617,6 +2725,25 @@
         'mega.nz': 'mega.nz',
         'Delta X Android': 'deltaexploits.gg'
       };
+
+      const alternativeDomains = [
+        'linkvertise.com', 'lootlabs.gg', 'lootlinks.com', 'paster.so', 'paster.gg',
+        'work.ink', 'cuty.io', 'cety.io', 'boost.ink', 'adfoc.us', 'mendationforc.info',
+        'rekonise.com', 'mboost.me', 'bst.gg', 'booo.st', 'social-unlock.com',
+        'socialwolvez.com', 'sub2get.com', 'sub2unlock.com', 'sub2unlock.net',
+        'sub4unlock.io', 'subfinal.com', 'unlocknow.net', 'ytsubme.com', 'justpaste.it',
+        'paste-drop.com', 'pastebin.com', 'pastecanyon.com', 'pastehill.com',
+        'pastemode.com', 'rentry.org', 'bit.ly', 'cl.gy', 'goo.gl', 'is.gd',
+        'rebrand.ly', 'rkns.link', 'shorter.me', 't.co', 't.ly', 'tiny.cc',
+        'tinylink.onl', 'tinyurl.com', 'v.gd'
+      ];
+
+      const alternativeTickerItems = alternativeDomains.map(domain => domain.replace(/^www\./, ''));
+
+      const trwDomains = Object.values(knownDomains);
+      const hostMatches = (hostname, domains) => domains.some(domain => hostname === domain || hostname.endsWith('.' + domain));
+      const supportsAlternative = url => hostMatches(url.hostname.toLowerCase(), alternativeDomains);
+      const supportsTrw = url => hostMatches(url.hostname.toLowerCase(), trwDomains);
 
       const fallbackLogos = {
         'Beta.shortearn.eu': 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"%3E%3Crect width="64" height="64" rx="12" fill="%2323262d"/%3E%3Cpath d="M18 18h30v8H27v8h17v8H27v14h-9z" fill="%23ff3b30"/%3E%3C/svg%3E',
@@ -2986,6 +3113,68 @@
         revealResult(result);
       };
 
+      const renderAlternativeEmbed = url => {
+        stopSimulatedLogs();
+        streamList.replaceChildren();
+        streamShell.hidden = true;
+        clearResult();
+        hideMessage();
+        input.readOnly = false;
+        input.setAttribute('aria-invalid', 'false');
+
+        const panel = createElement('section', 'embed-panel');
+        const head = createElement('div', 'embed-head');
+        const copy = createElement('div');
+        copy.append(
+          createElement('h3', '', 'Bypass alternativo dentro de Anti-Hambreado'),
+          createElement('p', '', 'El CAPTCHA funciona dentro de una vista recortada. Los enlaces de resultado pueden abrir su destino, pero no pueden redirigir esta pestaña.')
+        );
+        head.append(copy, createElement('span', 'embed-badge', 'Pestaña protegida'));
+
+        const frame = createElement('iframe', 'embed-frame');
+        frame.title = 'Bypass alternativo en linkvertise-bypass.com';
+        frame.src = 'https://linkvertise-bypass.com/bypass?link=' + encodeURIComponent(url.href) + '&submit=';
+        frame.loading = 'eager';
+        frame.referrerPolicy = 'no-referrer';
+        frame.setAttribute('sandbox', 'allow-scripts allow-forms allow-same-origin allow-popups');
+        frame.setAttribute('scrolling', 'no');
+
+        const viewport = createElement('div', 'embed-viewport');
+        const linkBlocker = createElement('div', 'embed-link-blocker');
+        linkBlocker.setAttribute('aria-hidden', 'true');
+        viewport.append(frame, linkBlocker);
+
+        const actions = createElement('div', 'embed-actions');
+        const refreshButton = createElement('button', 'new-button', 'Refrescar vista');
+        refreshButton.type = 'button';
+        refreshButton.addEventListener('click', () => {
+          frame.src = frame.src;
+          showMessage('La vista del bypass alternativo se está recargando.', 'success');
+        });
+        const newButton = createElement('button', 'new-button', 'Probar otro enlace');
+        newButton.type = 'button';
+        newButton.addEventListener('click', resetTool);
+        actions.append(refreshButton, newButton);
+        panel.append(head, viewport, actions);
+        finalAction.replaceChildren(panel);
+        finalAction.hidden = false;
+
+        routeInputNode.textContent = url.hostname;
+        routeServiceNode.textContent = 'linkvertise-bypass.com';
+        routeNodes[2].dataset.detail = 'Abrimos el enlace en linkvertise-bypass.com dentro de un iframe aislado.';
+        routeOutputNode.textContent = 'Vista integrada';
+        networkPreview.textContent = url.hostname + ' / Aislado';
+        setRoutePhase(5);
+        setRouteState('success', 'Vista integrada', 'La alternativa se abrió dentro de esta página.');
+        routeStepDetail.textContent = 'El iframe permite el CAPTCHA y los enlaces de resultado, pero no puede redirigir la pestaña principal.';
+        showMessage('El bypass alternativo se cargó en una vista aislada.', 'success');
+        setBusy(false);
+        requestAnimationFrame(() => {
+          const top = panel.getBoundingClientRect().top + window.scrollY - header.offsetHeight - 16;
+          window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
+        });
+      };
+
       const resetTool = () => {
         if (state.controller) state.controller.abort();
         if (state.timeoutId) clearTimeout(state.timeoutId);
@@ -3000,6 +3189,8 @@
         input.readOnly = false;
         input.setAttribute('aria-invalid', 'false');
         routeInputNode.textContent = 'URL';
+        routeServiceNode.textContent = 'trw.lat';
+        routeNodes[2].dataset.detail = 'Enviamos la URL a trw.lat y esperamos su respuesta.';
         routeOutputNode.textContent = 'Destino';
         networkPreview.textContent = state.supported[0] || 'Compatibilidad';
         hideMessage();
@@ -3018,7 +3209,7 @@
         return 'No pudimos terminar esta ruta. Revisa que el enlace esté completo y vuelve a intentarlo.';
       };
 
-      const handleFailure = message => {
+      const handleFailure = (message, url) => {
         stopSimulatedLogs();
         addLog('ERROR', message, 'error');
         streamStatus.textContent = 'Falló';
@@ -3026,6 +3217,16 @@
         setRouteState('error', 'No resuelto', message);
         routeStepDetail.textContent = explainFailure(message);
         showMessage(message, 'error');
+        if (url && supportsAlternative(url)) {
+          const actions = createElement('div', 'embed-actions');
+          const alternativeButton = createElement('button', 'new-button', 'Probar bypass alternativo');
+          alternativeButton.type = 'button';
+          alternativeButton.addEventListener('click', () => renderAlternativeEmbed(url));
+          actions.appendChild(alternativeButton);
+          finalAction.replaceChildren(actions);
+          finalAction.hidden = false;
+          routeStepDetail.textContent = explainFailure(message) + ' También puedes probar la alternativa sin salir de esta página.';
+        }
         setBusy(false);
       };
 
@@ -3043,6 +3244,14 @@
         if (state.controller) state.controller.abort();
         if (state.timeoutId) clearTimeout(state.timeoutId);
 
+        if (supportsAlternative(url) && !supportsTrw(url)) {
+          state.controller = null;
+          state.timeoutId = null;
+          state.timedOut = false;
+          renderAlternativeEmbed(url);
+          return;
+        }
+
         const controller = new AbortController();
         state.controller = controller;
         state.timedOut = false;
@@ -3051,6 +3260,8 @@
         hideMessage();
         input.setAttribute('aria-invalid', 'false');
         routeInputNode.textContent = url.hostname;
+        routeServiceNode.textContent = 'trw.lat';
+        routeNodes[2].dataset.detail = 'Enviamos la URL a trw.lat y esperamos su respuesta.';
         routeOutputNode.textContent = 'Destino';
         streamStatus.textContent = 'En curso';
         setBusy(true);
@@ -3137,9 +3348,9 @@
         } catch (error) {
           if (controller !== state.controller) return;
           if (error.name === 'AbortError' && state.timedOut) {
-            handleFailure('La API tardó más de 45 segundos. Inténtalo de nuevo.');
+            handleFailure('La API tardó más de 45 segundos. Inténtalo de nuevo.', url);
           } else if (error.name !== 'AbortError') {
-            handleFailure(error.message || 'No se pudo conectar con la API.');
+            handleFailure(error.message || 'No se pudo conectar con la API.', url);
           }
         } finally {
           if (controller === state.controller) {
@@ -3150,8 +3361,8 @@
         }
       };
 
-      const renderTicker = items => {
-        tickerTrack.replaceChildren();
+      const renderTicker = (items, track = tickerTrack) => {
+        track.replaceChildren();
         const groups = [false, true].map(isDuplicate => {
           const group = createElement('div', 'ticker-group');
           if (isDuplicate) group.setAttribute('aria-hidden', 'true');
@@ -3171,7 +3382,11 @@
           });
           return group;
         });
-        tickerTrack.append(...groups);
+        track.append(...groups);
+        requestAnimationFrame(() => {
+          const groupWidth = groups[0].getBoundingClientRect().width;
+          track.style.setProperty('--ticker-duration', Math.max(groupWidth / 42, 8) + 's');
+        });
       };
 
       const renderDirectory = items => {
@@ -3237,6 +3452,9 @@
           renderDirectory([]);
         }
       };
+
+      renderTicker(alternativeTickerItems, alternativeTickerTrack);
+      alternativeNetworkCount.textContent = alternativeTickerItems.length + ' redes alternativas';
 
       const setMenu = open => {
         if (state.menuTimer) clearTimeout(state.menuTimer);
