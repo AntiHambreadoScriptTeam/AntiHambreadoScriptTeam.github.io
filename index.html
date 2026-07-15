@@ -990,6 +990,13 @@
       gap: 20px;
     }
 
+    @media (min-width: 1025px) {
+      .card-plataforma.platform-search {
+        grid-column: 1;
+        grid-row: 2;
+      }
+    }
+
     .card-plataforma {
       background: var(--bg-2);
       border: 1px solid var(--border);
@@ -1946,6 +1953,9 @@
       .hero-buttons { flex-direction: column; width: 100%; }
       .hero-buttons .btn { width: 100%; }
       .grid-plataformas { grid-template-columns: 1fr; }
+      .grid-plataformas .card-plataforma { order: 3; }
+      .grid-plataformas .platform-scripts { order: 1; }
+      .grid-plataformas .platform-search { order: 2; }
     }
   </style>
 </head>
@@ -3111,7 +3121,7 @@
           <p>Todo el ecosistema de Anti-Hambreado en accesos directos, libres de acortadores y totalmente funcionales.</p>
         </div>
         <div class="grid-plataformas">
-          <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="card-plataforma">
+          <a href="https://antihambreadoscriptteam.github.io/scripts" target="_blank" class="card-plataforma platform-scripts">
             <div class="card-plataforma-top">
               <div class="card-plataforma-icon"><i class="fas fa-code"></i></div>
               <i class="fas fa-arrow-up-right-from-square card-plataforma-arrow"></i>
@@ -3126,6 +3136,14 @@
             </div>
             <h3>Executores</h3>
             <p>// Siempre Actualizados</p>
+          </a>
+          <a href="https://antihambreadoscriptteam.github.io/buscar-scripts" target="_blank" rel="noopener noreferrer" class="card-plataforma platform-search">
+            <div class="card-plataforma-top">
+              <div class="card-plataforma-icon"><i class="fas fa-magnifying-glass"></i></div>
+              <i class="fas fa-arrow-up-right-from-square card-plataforma-arrow"></i>
+            </div>
+            <h3>Buscador de Scripts</h3>
+            <p>// Búsqueda avanzada</p>
           </a>
           <a href="https://antihambreadoscriptteam.github.io/bypass" target="_blank" class="card-plataforma">
             <div class="card-plataforma-top">
@@ -3246,66 +3264,79 @@
 
             <article class="screen-row reverse reveal">
               <div class="screen-shot">
-                <img src="https://antihambreadoscriptteam.github.io/Foto/WebSource/Captura%20de%20pantalla%202026-06-12%20140747.png" alt="Página de Executores">
+                <img src="https://files.catbox.moe/esn1gr.png" alt="Página AHST Script Search" loading="lazy">
               </div>
               <div class="screen-text">
-                <span class="eyebrow">02 / EXECUTORES</span>
+                <span class="eyebrow">02 / BUSCADOR</span>
+                <h3>AHST Script Search</h3>
+                <p>Busca scripts por nombre de juego o título, aplica filtros para encontrar resultados compatibles, consulta su ficha completa y copia el código directamente.</p>
+
+                <a href="https://antihambreadoscriptteam.github.io/buscar-scripts" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" style="margin-top: 12px;">Buscar Scripts <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </article>
+
+            <article class="screen-row reveal">
+              <div class="screen-text">
+                <span class="eyebrow">03 / EXECUTORES</span>
                 <h3>Executores Libres de Publicidad</h3>
                 <p>Monitoreamos y publicamos ejecutores funcionales para Windows, emuladores y dispositivos móviles. Te informamos de su estado tras cada actualización semanal de Roblox, ofreciéndote descargas directas sin acortadores peligrosos.</p>
               
                 <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="btn btn-primary btn-sm" style="margin-top: 12px;">Ver Ejecutores <i class="fas fa-arrow-right"></i></a>
               </div>
+              <div class="screen-shot">
+                <img src="https://antihambreadoscriptteam.github.io/Foto/WebSource/Captura%20de%20pantalla%202026-06-12%20140747.png" alt="Página de Executores">
+              </div>
             </article>
 
-            <article class="screen-row reveal">
+            <article class="screen-row reverse reveal">
+              <div class="screen-shot">
+                <img src="https://antihambreadoscriptteam.github.io/Foto/WebSource/Captura%20de%20pantalla%202026-06-12%20140819.png" alt="Página de Bypass">
+              </div>
               <div class="screen-text">
-                <span class="eyebrow">03 / BYPASS</span>
+                <span class="eyebrow">04 / BYPASS</span>
                 <h3>Sistemas de Key Bypass</h3>
                 <p>Diseñamos y recopilamos soluciones de bypass estables para saltar los sistemas de keys molestos y los anuncios obligatorios de Linkvertise que implementan otros ejecutores, ahorrándote minutos valiosos en cada inyección.</p>
               
                 <a href="https://antihambreadoscriptteam.github.io/bypass" target="_blank" class="btn btn-primary btn-sm" style="margin-top: 12px;">Usar Bypass <i class="fas fa-arrow-right"></i></a>
               </div>
-              <div class="screen-shot">
-                <img src="https://antihambreadoscriptteam.github.io/Foto/WebSource/Captura%20de%20pantalla%202026-06-12%20140819.png" alt="Página de Bypass">
-              </div>
             </article>
 
-            <article class="screen-row reverse reveal">
-              <div class="screen-shot">
-                <img src="https://antihambreadoscriptteam.github.io/Foto/WebSource/Captura%20de%20pantalla%202026-06-12%20140903.png" alt="Nuestra App Móvil">
-              </div>
+            <article class="screen-row reveal">
               <div class="screen-text">
-                <span class="eyebrow">04 / APP MÓVIL</span>
+                <span class="eyebrow">05 / APP MÓVIL</span>
                 <h3>Nuestra Aplicación Oficial</h3>
                 <p>Lleva todo el poder del Anti-Hambreado en tu teléfono móvil. Nuestra app oficial para Android consolida ejecutores compatibles, scripts optimizados para pantallas táctiles y bypassers integrados en una interfaz AMOLED rápida y sin publicidad invasiva.</p>
               
                 <a href="https://antihambreadoscriptteam.github.io/Archivos/Anti-HambreadoApp" target="_blank" class="btn btn-primary btn-sm" style="margin-top: 12px;">Descargar APK <i class="fas fa-arrow-right"></i></a>
               </div>
-            </article>
-
-            <article class="screen-row reveal">
-              <div class="screen-text">
-                <span class="eyebrow">05 / FILOSOFÍA</span>
-                <h3>Sobre Nosotros</h3>
-                <p>Somos una iniciativa impulsada por la comunidad, dedicada a proteger el tiempo y la seguridad de los jugadores de habla hispana frente a las malas prácticas de monetización abusiva imperantes en la escena del exploit.</p>
-              
-                <a href="https://antihambreadoscriptteam.github.io/sobre-nosotros" target="_blank" class="btn btn-primary btn-sm" style="margin-top: 12px;">Conócenos <i class="fas fa-arrow-right"></i></a>
-              </div>
               <div class="screen-shot">
-                <img src="https://antihambreadoscriptteam.github.io/Foto/WebSource/Captura%20de%20pantalla%202026-06-12%20140932.png" alt="Sobre Nosotros">
+                <img src="https://antihambreadoscriptteam.github.io/Foto/WebSource/Captura%20de%20pantalla%202026-06-12%20140903.png" alt="Nuestra App Móvil">
               </div>
             </article>
 
             <article class="screen-row reverse reveal">
               <div class="screen-shot">
-                <img src="https://antihambreadoscriptteam.github.io/Foto/WebSource/Captura%20de%20pantalla%202026-06-12%20141029.png" alt="Rip Campionescript">
+                <img src="https://antihambreadoscriptteam.github.io/Foto/WebSource/Captura%20de%20pantalla%202026-06-12%20140932.png" alt="Sobre Nosotros">
               </div>
               <div class="screen-text">
-                <span class="eyebrow">06 / CONTRA-ATAQUE</span>
+                <span class="eyebrow">06 / FILOSOFÍA</span>
+                <h3>Sobre Nosotros</h3>
+                <p>Somos una iniciativa impulsada por la comunidad, dedicada a proteger el tiempo y la seguridad de los jugadores de habla hispana frente a las malas prácticas de monetización abusiva imperantes en la escena del exploit.</p>
+              
+                <a href="https://antihambreadoscriptteam.github.io/sobre-nosotros" target="_blank" class="btn btn-primary btn-sm" style="margin-top: 12px;">Conócenos <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </article>
+
+            <article class="screen-row reveal">
+              <div class="screen-text">
+                <span class="eyebrow">07 / CONTRA-ATAQUE</span>
                 <h3>Exponiendo Abusos</h3>
                 <p>Nuestra página insignia dedicada a documentar, mitigar y superar las prácticas hambreadas que saturan la escena del exploit en Roblox. Demostramos que es posible ofrecer calidad técnica e inmediatez sin lucrar con el tiempo de los usuarios.</p>
               
                 <a href="https://rip-campionescript-lol.github.io/" target="_blank" class="btn btn-primary btn-sm" style="margin-top: 12px;">Ver Reporte <i class="fas fa-arrow-right"></i></a>
+              </div>
+              <div class="screen-shot">
+                <img src="https://antihambreadoscriptteam.github.io/Foto/WebSource/Captura%20de%20pantalla%202026-06-12%20141029.png" alt="Rip Campionescript">
               </div>
             </article>
           </div>
