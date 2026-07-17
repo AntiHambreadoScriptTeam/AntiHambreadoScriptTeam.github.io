@@ -4,7 +4,7 @@
       "nombre": "CodeX",
       "version": "2.726",
       "fecha_actualizacion": "30-06-2026",
-      "status": "indetectable",
+      "status": "desactualizado",
       "stars": "4.0"
       "link_descarga_arm64": "https://www.mediafire.com/file/a47kuryiguz7w2p/Codex+v2.726.apk/file",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg"
@@ -21,8 +21,8 @@
     },   
     "arceus": {
       "nombre": "ArceusX",
-      "version": "2.2.5",
-      "fecha_actualizacion": "30-06-2026",
+      "version": "2.2.7",
+      "fecha_actualizacion": "17-07-2026",
       "status": "indetectable",
       "stars": "3.4"
       "link_descarga_arm64": "https://android.spdmteam.com/",
