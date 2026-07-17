@@ -784,6 +784,42 @@ body {
                     </div>
                 </div>
             </div>
+
+            <div class="mt-16 w-full max-w-5xl mx-auto px-4 relative group animate-float">
+                <div class="absolute inset-0 bg-gradient-to-r from-red-600/20 via-rose-500/20 to-red-600/20 rounded-3xl blur-xl transition-all duration-500 group-hover:bg-red-500/30 group-hover:blur-2xl"></div>
+                <div class="relative bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 sm:p-12 overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-[1.02] hover:border-red-500/30 group-hover:shadow-red-500/20" style="transform: perspective(1000px) rotateX(0deg) rotateY(0deg); transition: transform 0.3s ease;" onmousemove="let r=this.getBoundingClientRect(),x=(event.clientX-r.left)/r.width-0.5,y=(event.clientY-r.top)/r.height-0.5;this.style.transform=`perspective(1000px) rotateX(${-y*15}deg) rotateY(${x*15}deg)`" onmouseleave="this.style.transform='perspective(1000px) rotateX(0deg) rotateY(0deg)'">
+                    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-red-500/20 rounded-full blur-3xl opacity-50 animate-pulse-slow"></div>
+                    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-rose-500/20 rounded-full blur-3xl opacity-50 animate-pulse-slow" style="animation-delay: 2s;"></div>
+                    
+                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div class="flex-1 text-center md:text-left pointer-events-none">
+                            <div class="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-red-300 mb-4 backdrop-blur-md">
+                                <span class="relative flex h-2 w-2">
+                                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                                    <span class="relative inline-flex h-2 w-2 rounded-full bg-red-500"></span>
+                                </span>
+                                NUEVA HERRAMIENTA
+                            </div>
+                            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white mb-3 drop-shadow-md">
+                                ¿No encuentras un script para tu juego favorito?
+                            </h2>
+                            <p class="text-slate-400 text-sm sm:text-base max-w-2xl drop-shadow-sm">
+                                Prueba nuestro <span class="text-red-400 font-bold drop-shadow-[0_0_10px_rgba(248,113,113,0.5)]">NUEVO</span> buscador de <span class="text-white font-bold">SCRIPTS</span>
+                            </p>
+                        </div>
+                        
+                        <div class="shrink-0 pointer-events-auto">
+                            <a href="https://antihambreadoscriptteam.github.io/buscar-scripts" target="_blank" class="relative group/btn inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 px-8 py-4 text-sm font-bold text-white shadow-[0_0_20px_rgba(220,38,38,0.3)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(220,38,38,0.5)] hover:from-red-500 hover:to-rose-500 overflow-hidden">
+                                <div class="absolute inset-0 bg-white/20 translate-y-full transition-transform duration-300 group-hover/btn:translate-y-0"></div>
+                                <span class="relative z-10 flex items-center gap-2">
+                                    <svg class="h-5 w-5 transition-transform duration-300 group-hover/btn:-rotate-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                                    Ir al Buscador
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             <div class="mt-20 my-12 flex items-center gap-4 opacity-50 max-w-4xl mx-auto">
                 <div class="h-px flex-1 bg-gradient-to-r from-transparent via-slate-500/50 to-transparent"></div>
