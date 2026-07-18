@@ -703,6 +703,12 @@ body {
   box-shadow: 0 14px 34px rgba(255, 255, 255, 0.08), inset 0 1px 0 rgba(255,255,255,0.18);
 }
 
+.section-icon.ios-logo {
+  color: #f5f5f7;
+  font-size: 2.35rem;
+  box-shadow: 0 14px 34px rgba(255, 255, 255, 0.08), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
 .section-info h2 {
   font-size: 2rem;
   font-weight: 700;
@@ -1585,6 +1591,9 @@ a.btn-secondary[href*="wrdcdn"][href*="Vietnam"] {
 #windows-section .executor-card::before {
   background: linear-gradient(90deg, #0078d4, #5b4ef0);
 }
+#ios-section .executor-card::before {
+  background: linear-gradient(90deg, #f5f5f7, #8e8e93);
+}
 
 .executor-card.featured, .executor-card.premium {
   box-shadow: 0 4px 25px rgba(245, 158, 11, 0.12);
@@ -1777,6 +1786,7 @@ a.btn-secondary[href*="wrdcdn"][href*="Vietnam"] {
    <div class="filter-tags">
     <button class="filter-tag active" data-filter="all"><i class="fas fa-globe"></i> Todos</button>
     <button class="filter-tag" data-filter="android"><i class="fab fa-android"></i> Android</button>
+    <button class="filter-tag" data-filter="ios"><i class="fab fa-apple"></i> iOS</button>
     <button class="filter-tag" data-filter="windows"><i class="fab fa-windows"></i> Windows</button>
    </div>
   </div>
@@ -1820,6 +1830,21 @@ a.btn-secondary[href*="wrdcdn"][href*="Vietnam"] {
         </div>
         <div class="executors-grid" id="windowsContainer">
         </div>
+    </section>
+
+    <section class="platform-section" id="ios-section" data-platform="ios">
+        <div class="section-header">
+            <div class="section-icon ios-logo" aria-hidden="true"><i class="fab fa-apple"></i></div>
+            <div class="section-info">
+                <h2>Executores para iOS</h2>
+                <p>Archivos IPA para iPhone y iPad</p>
+            </div>
+            <div class="section-badge">
+                <span class="executor-count" id="iosCount">0</span>
+                <span>Disponibles</span>
+            </div>
+        </div>
+        <div class="executors-grid" id="iosContainer"></div>
     </section>
 </main>
 
@@ -2732,24 +2757,28 @@ window.addEventListener("unhandledrejection", (e) => {
 
     const API_URL = 'https://antihambreadoscriptteam.github.io/Updates/Executores.json';
     const CORS_PROXIES = [
-      'https://api.allorigins.win/raw?url=',
       'https://corsproxy.io/?',
+      'https://api.allorigins.win/raw?url=',
       'https://api.codetabs.com/v1/proxy?quest='
     ];
     const executorsContainer = document.getElementById('executorsContainer');
     const windowsContainer = document.getElementById('windowsContainer');
+    const iosContainer = document.getElementById('iosContainer');
 
     function updatePlatformCounts() {
       const androidCards = document.querySelectorAll('#executorsContainer .executor-card:not(.hidden)');
       const windowsCards = document.querySelectorAll('#windowsContainer .executor-card:not(.hidden)');
+      const iosCards = document.querySelectorAll('#iosContainer .executor-card:not(.hidden)');
       const ac = document.getElementById('androidCount');
       const wc = document.getElementById('windowsCount');
+      const ic = document.getElementById('iosCount');
       if (ac) ac.textContent = androidCards.length;
       if (wc) wc.textContent = windowsCards.length;
+      if (ic) ic.textContent = iosCards.length;
 
       const counter = document.getElementById('search-results-counter');
       if (counter) {
-        const total = androidCards.length + windowsCards.length;
+        const total = androidCards.length + windowsCards.length + iosCards.length;
         const searchTerm = document.getElementById('executor-search')?.value || '';
         if (searchTerm.length > 0) {
           counter.innerHTML = `<strong>${total}</strong> resultado${total !== 1 ? 's' : ''} encontrado${total !== 1 ? 's' : ''}`;
@@ -2868,6 +2897,11 @@ window.addEventListener("unhandledrejection", (e) => {
 
     function processExecutorData(newData) {
       Object.entries(newData).forEach(([key, d]) => {
+        if ((d.plataforma || '').toLowerCase() === 'ios') {
+          iosDeltaMetadata = { ...d };
+          renderIosDelta(iosDeltaMetadata, iosDeltaLiveLink);
+          return;
+        }
         let card = document.querySelector(`#executorsContainer [data-executor="${key}"]`);
         
         let statusConfig = {
@@ -2974,25 +3008,107 @@ window.addEventListener("unhandledrejection", (e) => {
     }
 
     async function fetchWithCorsProxy(url) {
-      try {
-        const controller = new AbortController();
-        const promises = CORS_PROXIES.map(proxy => 
-          fetch(proxy + encodeURIComponent(url), { cache: 'no-cache', signal: controller.signal })
-            .then(res => {
-              if (res.ok) return res.text();
-              throw new Error('Proxy returned error');
-            })
-        );
-        const result = await Promise.any(promises);
-        controller.abort(); 
-        return result;
-      } catch (e) {
-        const direct = await fetch(url, { cache: 'no-cache', mode: 'cors' });
-        return await direct.text();
+      if (url.startsWith('https://deltaexploits.gg/')) {
+        try {
+          const direct = await fetch(url, { cache: 'no-cache', mode: 'cors' });
+          if (direct.ok) return direct.text();
+        } catch (error) {}
       }
+      for (const proxy of CORS_PROXIES) {
+        try {
+          const response = await fetch(proxy + encodeURIComponent(url), { cache: 'no-cache' });
+          if (response.ok) return response.text();
+        } catch (error) {}
+      }
+      throw new Error('No se pudo cargar la URL externa');
     }
 
 
+
+    const DELTA_IOS_PAGE = 'https://deltaexploits.gg/delta-executor-ios';
+    let iosDeltaMetadata = null;
+    let iosDeltaLiveLink = '';
+
+    function renderIosDelta(data, liveLink = '') {
+      if (!iosContainer) return;
+      const rating = Math.max(0, Math.min(5, Number(data.stars || data.Stars || 0)));
+      const downloadUrl = liveLink || data.link_descarga_ios || data.pagina_fuente || '#';
+      const fullStars = Math.floor(rating);
+      const halfStar = rating % 1 >= 0.5;
+      let starsHtml = '';
+      for (let i = 1; i <= 5; i++) {
+        if (i <= fullStars) starsHtml += '<i class="fas fa-star"></i>';
+        else if (i === fullStars + 1 && halfStar) starsHtml += '<i class="fas fa-star-half-alt"></i>';
+        else starsHtml += '<i class="far fa-star"></i>';
+      }
+      let card = iosContainer.querySelector('[data-executor="ios_delta"]');
+      if (!card) {
+        card = document.createElement('div');
+        card.className = 'executor-card';
+        card.dataset.executor = 'ios_delta';
+        card.dataset.platform = 'ios';
+        iosContainer.appendChild(card);
+      }
+      card.dataset.status = data.status === 'indetectable' ? 'online' : 'offline';
+      const statusText = data.status === 'peligro' ? 'Peligroso' : data.status === 'indetectable' ? 'Indetectable' : 'Desconocido';
+      const statusClass = data.status === 'peligro' ? 'peligro' : data.status === 'indetectable' ? 'indetectable' : 'offline';
+      card.innerHTML = `
+        <div class="card-header">
+          <img src="${data.imagen}" alt="Logo de ${data.nombre}" class="executor-logo" onerror="this.src='https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg'">
+          <div class="executor-info">
+            <h3>${data.nombre}</h3>
+            <div class="executor-rating"><div class="stars">${starsHtml}</div><span class="rating-text">${rating.toFixed(1)}</span></div>
+          </div>
+        </div>
+        <div class="card-details">
+          <div class="detail-item"><span class="detail-label">Versión:</span><span class="detail-value">${data.version}</span></div>
+          <div class="detail-item"><span class="detail-label">Actualizado:</span><span class="detail-value">${data.fecha_actualizacion}</span></div>
+          <div class="detail-item"><span class="detail-label">Estado:</span><span class="status status-${statusClass}">${statusText}</span></div>
+          <div class="detail-item"><span class="detail-label">Plataforma:</span><span class="detail-value"><i class="fab fa-apple"></i> iOS</span></div>
+        </div>
+        <div class="card-actions"><a href="#" class="btn btn-download ios-download"><i class="fas fa-download"></i> Descargar IPA</a></div>
+      `;
+      card.querySelector('.ios-download').addEventListener('click', event => {
+        event.preventDefault();
+        showWarning(data.nombre, downloadUrl);
+      });
+      applyPlatformFilter();
+    }
+
+    async function extractDeltaIosLink() {
+      const pageHtml = await fetchWithCorsProxy(DELTA_IOS_PAGE);
+      const pageDoc = new DOMParser().parseFromString(pageHtml, 'text/html');
+      const scriptUrls = Array.from(pageDoc.querySelectorAll('script[src]'))
+        .map(script => new URL(script.getAttribute('src'), DELTA_IOS_PAGE).href)
+        .filter(url => url.includes('delta-executor-ios'));
+      for (const scriptUrl of scriptUrls) {
+        try {
+          const source = await fetchWithCorsProxy(scriptUrl);
+          const decoded = source.replace(/\\u002F/g, '/').replace(/\\\//g, '/');
+          const match = decoded.match(/https?:\/\/[^"'\s]+\.ipa(?:\?[^"'\s]*)?/i);
+          if (match) return match[0];
+        } catch (error) {
+          console.warn('No se pudo leer el script de Delta para iOS:', error);
+        }
+      }
+      return '';
+    }
+
+    async function fetchIosExecutor() {
+      if (!iosDeltaMetadata) return;
+      iosDeltaLiveLink = '';
+      try {
+        iosDeltaLiveLink = await extractDeltaIosLink();
+      } catch (error) {
+        console.warn('No se pudo actualizar el enlace IPA de Delta:', error);
+      }
+      const metadata = { ...iosDeltaMetadata };
+      if (iosDeltaLiveLink) {
+        const versionMatch = iosDeltaLiveLink.match(/Delta-([\d.]+)\.ipa/i);
+        if (versionMatch) metadata.version = versionMatch[1];
+      }
+      renderIosDelta(metadata, iosDeltaLiveLink);
+    }
 
     function renderWindowsExecutors(executors) {
       if (!windowsContainer) return;
@@ -3318,10 +3434,11 @@ window.addEventListener("unhandledrejection", (e) => {
       }
     }
 
-    fetchExecutorData();
+    fetchExecutorData().then(fetchIosExecutor);
     fetchWindowsExecutors();
     fetchWeAreDevsExecutors();
     setInterval(fetchExecutorData, 11000);
+    setInterval(fetchIosExecutor, 60000);
     setInterval(fetchWindowsExecutors, 30000);
     setInterval(fetchWeAreDevsExecutors, 60000);
 </script>
