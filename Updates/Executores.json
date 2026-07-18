@@ -5,7 +5,7 @@
       "version": "2.729",
       "fecha_actualizacion": "17-07-2026",
       "status": "indetectable",
-      "stars": "4.0"
+      "stars": "4.0",
       "link_descarga_arm64": "https://www.mediafire.com/file/vk46d8d9qwiz4ik/Codex+v2.729.840.apk/file",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/CODEX.jpeg"
     },
@@ -14,7 +14,7 @@
       "version": "3.9.5",
       "fecha_actualizacion": "26-01-2026",
       "status": "desactualizado",
-      "stars": "4.5"
+      "stars": "4.5",
       "link_descarga_arm64": "https://www.mediafire.com/file/nacmh2iymo3k8wx/FluxusZ+V3.9.4+ARM64.apk/file",
       "link_descarga_arm32": "https://www.mediafire.com/file/c90t3lsxtq1xsco/FluxusZ+v3.9.4+ARM32.apk/file", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/FLUXUS-Z.jpeg"
@@ -24,7 +24,7 @@
       "version": "2.2.7",
       "fecha_actualizacion": "17-07-2026",
       "status": "indetectable",
-      "stars": "3.4"
+      "stars": "3.4",
       "link_descarga_arm64": "https://android.spdmteam.com/",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/ARCEUS.jpeg"
     },
@@ -33,9 +33,20 @@
       "version": "2.727",
       "fecha_actualizacion": "30-06-2026",
       "status": "peligro",
-      "stars": "0.1"
+      "stars": "2.6",
       "link_descarga_arm64": "https://delta.filenetwork.vip/android.html",
       "link_descarga_arm32": "https://delta.filenetwork.vip/android.html",
+      "imagen": "https://antihambreadoscriptteam.github.io/Foto/DELTA-VIRUS.jpeg"
+    },
+    "delta_ios": {
+      "nombre": "Delta",
+      "version": "2.727.1199",
+      "fecha_actualizacion": "30-06-2026",
+      "status": "peligro",
+      "stars": "0.0",
+      "plataforma": "ios",
+      "link_descarga_ios": "https://cdn.glopdelivery.com/file/Delta-2.727.1199.ipa",
+      "pagina_fuente": "https://deltaexploits.gg/delta-executor-ios",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/DELTA-VIRUS.jpeg"
     },
     "ronix": {
@@ -43,9 +54,10 @@
       "version": "2.710",
       "fecha_actualizacion": "05-03-2026",
       "status": "desactualizado",
-      "stars": "3.0"
+      "stars": "3.0",
       "link_descarga_arm64": "https://wrdcdn.net/r/154522/1772697006689/Ronix_64Bits-2.710.707.apk",
       "link_descarga_arm32": "https://wrdcdn.net/r/154522/1772697074296/Ronix_32Bits-2.710.707.apk", 
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/RONIX.webp"
     }
+  }
 }
