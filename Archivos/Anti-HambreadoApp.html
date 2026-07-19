@@ -1,1185 +1,2334 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>AHST App | Descarga</title>
-    <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Descubre Anti-Hambreado v3: una app móvil reconstruida, más rápida, clara y completa."
+    />
+    <title>Anti-Hambreado v3 | App oficial</title>
+    <link
+      rel="icon"
+      href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg"
+      type="image/jpeg"
+    />
     <style>
-        :root {
-            --bg-dark: #000000;
-            --bg-elev: #09090b;
-            --glass-bg: rgba(28, 28, 30, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --primary: #FF0044;
-            --primary-glow: rgba(255, 0, 68, 0.4);
-            --text-main: #FFFFFF;
-            --text-secondary: #8E8E93;
-            --android-green: #3DDC84;
-            --font-display: 'Outfit', sans-serif;
-            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      :root {
+        color-scheme: dark;
+        --black: #000000;
+        --surface: #080808;
+        --surface-raised: #101010;
+        --line: #252525;
+        --line-strong: #3a3a3a;
+        --white: #f7f7f5;
+        --muted: #a2a2a2;
+        --red: #e51b3e;
+        --red-dark: #7f0c20;
+        --green: #68dc95;
+        --yellow: #f3c94f;
+        --blue: #6ea8ff;
+        --violet: #a78bfa;
+        --orange: #ff9f43;
+        --space-1: 0.5rem;
+        --space-2: 0.75rem;
+        --space-3: 1rem;
+        --space-4: 1.5rem;
+        --space-5: 2rem;
+        --space-6: 3rem;
+        --space-7: 4.5rem;
+        --space-8: 7rem;
+        --radius-sm: 0.65rem;
+        --radius-md: 1rem;
+        --container: 78rem;
+        --reading: 42rem;
+        --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--black);
+        scroll-behavior: smooth;
+        scrollbar-color: var(--line-strong) var(--black);
+      }
+
+      body {
+        min-width: 20rem;
+        min-height: 100vh;
+        margin: 0;
+        overflow-x: clip;
+        background:
+          radial-gradient(
+            circle at 78% 8%,
+            rgba(229, 27, 62, 0.11),
+            transparent 24rem
+          ),
+          var(--black);
+        color: var(--white);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        font-size: 1rem;
+        line-height: 1.6;
+        text-rendering: optimizeLegibility;
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+          );
+        background-size: 3rem 3rem;
+        content: "";
+        mask-image: linear-gradient(to bottom, black, transparent 85%);
+        pointer-events: none;
+      }
+
+      button,
+      a {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      img,
+      video {
+        display: block;
+        max-width: 100%;
+      }
+
+      ::selection {
+        background: var(--red);
+        color: white;
+      }
+
+      :focus-visible {
+        outline: 0.18rem solid var(--white);
+        outline-offset: 0.25rem;
+      }
+
+      .skip-link {
+        position: fixed;
+        top: var(--space-3);
+        left: var(--space-3);
+        z-index: 100;
+        padding: var(--space-2) var(--space-3);
+        translate: 0 -200%;
+        background: var(--white);
+        color: var(--black);
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .skip-link:focus {
+        translate: 0;
+      }
+
+      .scroll-progress {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 90;
+        height: 0.18rem;
+        transform: scaleX(0);
+        transform-origin: left;
+        background: var(--red);
+        pointer-events: none;
+      }
+
+      .shell {
+        width: min(100% - 2rem, var(--container));
+        margin-inline: auto;
+      }
+
+      .site-header {
+        position: absolute;
+        inset: 0 0 auto;
+        z-index: 40;
+      }
+
+      .nav {
+        display: flex;
+        min-height: 5.25rem;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-3);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
+        font-weight: 760;
+        letter-spacing: -0.03em;
+        text-decoration: none;
+      }
+
+      .brand img {
+        width: 2rem;
+        aspect-ratio: 1;
+        border: 1px solid var(--line-strong);
+        border-radius: 0.5rem;
+        object-fit: cover;
+      }
+
+      .brand small {
+        color: var(--muted);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .menu-trigger {
+        display: grid;
+        width: 2.75rem;
+        min-width: 2.75rem;
+        aspect-ratio: 1;
+        place-content: center;
+        gap: 0.28rem;
+        padding: 0;
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--white);
+        cursor: pointer;
+      }
+
+      .menu-trigger span {
+        width: 1.15rem;
+        height: 0.1rem;
+        background: currentColor;
+        transition:
+          width 0.25s var(--ease-out),
+          translate 0.25s var(--ease-out);
+      }
+
+      .menu-trigger span:nth-child(2) {
+        width: 0.82rem;
+        justify-self: end;
+      }
+
+      .menu-trigger:hover span:nth-child(2),
+      .menu-trigger:focus-visible span:nth-child(2) {
+        width: 1.15rem;
+      }
+
+      .mobile-menu {
+        position: fixed;
+        inset: 0 0 0 auto;
+        width: min(100%, 32rem);
+        max-width: none;
+        height: 100dvh;
+        max-height: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-left: 1px solid var(--line-strong);
+        background: var(--black);
+        color: var(--white);
+      }
+
+      .mobile-menu::backdrop {
+        background: rgba(0, 0, 0, 0.78);
+      }
+
+      .mobile-menu[open] {
+        animation: menu-enter 0.38s var(--ease-out) both;
+      }
+
+      .menu-inner {
+        display: flex;
+        min-height: 100%;
+        flex-direction: column;
+        padding: max(1rem, env(safe-area-inset-top)) 1rem
+          max(1rem, env(safe-area-inset-bottom));
+      }
+
+      .menu-head {
+        display: flex;
+        min-height: 4.5rem;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-3);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .menu-head p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .menu-close {
+        width: 2.75rem;
+        min-width: 2.75rem;
+        aspect-ratio: 1;
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--white);
+        cursor: pointer;
+        font-size: 1.35rem;
+        line-height: 1;
+      }
+
+      .mobile-menu h2 {
+        max-width: 9ch;
+        margin: var(--space-6) 0 var(--space-5);
+        font-size: clamp(2.4rem, 9vw, 4.5rem);
+        font-weight: 760;
+        letter-spacing: -0.06em;
+      }
+
+      .menu-list {
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid var(--line-strong);
+        list-style: none;
+      }
+
+      .menu-list a {
+        display: grid;
+        min-height: 3.6rem;
+        grid-template-columns: 2rem 1fr auto;
+        align-items: center;
+        gap: 0.5rem;
+        border-bottom: 1px solid var(--line);
+        color: var(--white);
+        font-size: clamp(1rem, 4vw, 1.3rem);
+        font-weight: 720;
+        letter-spacing: -0.025em;
+        text-decoration: none;
+      }
+
+      .menu-icon {
+        display: grid;
+        place-items: center;
+        color: var(--red);
+      }
+
+      .menu-icon svg {
+        width: 1.2rem;
+        height: 1.2rem;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.8;
+      }
+
+      .menu-list a span:last-child {
+        color: #626262;
+        font-size: 0.9rem;
+        transition:
+          color 0.2s ease,
+          translate 0.2s ease;
+      }
+
+      .menu-list a:hover span:last-child,
+      .menu-list a:focus-visible span:last-child {
+        color: var(--red);
+        translate: 0.2rem 0;
+      }
+
+      .menu-download-link {
+        display: inline-flex;
+        min-height: 3.25rem;
+        align-items: center;
+        justify-content: center;
+        margin-top: auto;
+        border: 1px solid var(--red);
+        border-radius: var(--radius-sm);
+        background: var(--red);
+        color: white;
+        font-size: 0.86rem;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      html.menu-open {
+        overflow: hidden;
+      }
+
+      @keyframes menu-enter {
+        from {
+          opacity: 0;
+          transform: translate3d(3.5rem, 0, 0);
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+      }
+
+      .hero {
+        display: grid;
+        min-height: 100svh;
+        align-items: center;
+        gap: var(--space-6);
+        overflow: clip;
+        padding-block: 8rem var(--space-7);
+      }
+
+      .hero-copy {
+        position: relative;
+        z-index: 2;
+        max-width: 39rem;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        margin: 0 0 var(--space-4);
+        color: #c7c7c7;
+        font-size: 0.73rem;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 1.75rem;
+        height: 0.15rem;
+        background: var(--red);
+        content: "";
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1,
+      h2,
+      h3 {
+        line-height: 1.04;
+        text-wrap: balance;
+      }
+
+      h1 {
+        max-width: 11ch;
+        margin-bottom: var(--space-4);
+        font-size: clamp(3rem, 8.4vw, 7.25rem);
+        font-weight: 790;
+        letter-spacing: -0.075em;
+      }
+
+      .hero-lede {
+        max-width: 38rem;
+        margin-bottom: var(--space-5);
+        color: #c2c2c2;
+        font-size: clamp(1.02rem, 1.7vw, 1.22rem);
+      }
+
+      .hero-lede strong {
+        color: var(--white);
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--space-3);
+      }
+
+      .primary-action,
+      .text-action {
+        display: inline-flex;
+        min-height: 3.25rem;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .primary-action {
+        position: relative;
+        min-width: 10.5rem;
+        overflow: hidden;
+        border: 1px solid #ff3859;
+        border-radius: var(--radius-sm);
+        background: linear-gradient(115deg, #f12649, #a50f29 55%, #090909);
+        box-shadow: 0 1rem 3rem rgba(229, 27, 62, 0.18);
+        color: white;
+      }
+
+      .primary-action::after {
+        position: absolute;
+        inset: -40% auto -40% -25%;
+        width: 18%;
+        rotate: 16deg;
+        background: rgba(255, 255, 255, 0.85);
+        filter: blur(0.25rem);
+        content: "";
+        translate: -250% 0;
+        transition: translate 0.75s var(--ease-out);
+      }
+
+      .primary-action:hover::after,
+      .primary-action:focus-visible::after {
+        translate: 850% 0;
+      }
+
+      .text-action {
+        padding-inline: 0.75rem;
+        color: #c5c5c5;
+      }
+
+      .text-action::after {
+        margin-left: 0.65rem;
+        color: var(--red);
+        content: "↘";
+      }
+
+      .release-line {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem 1.25rem;
+        margin: var(--space-5) 0 0;
+        color: #777;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .release-line span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+
+      .release-line span::before {
+        width: 0.32rem;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: var(--red);
+        content: "";
+      }
+
+      .hero-visual {
+        position: relative;
+        width: min(100%, 23rem);
+        justify-self: center;
+        perspective: 90rem;
+      }
+
+      .hero-visual::before {
+        position: absolute;
+        inset: 13% -25%;
+        z-index: -1;
+        border: 1px solid rgba(229, 27, 62, 0.28);
+        border-radius: 50%;
+        content: "";
+        transform: rotateX(68deg) rotateZ(-16deg);
+        box-shadow: 0 0 5rem rgba(229, 27, 62, 0.15);
+      }
+
+      .hero-visual::after {
+        position: absolute;
+        right: -1rem;
+        bottom: 16%;
+        z-index: -1;
+        width: 8rem;
+        height: 22rem;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(229, 27, 62, 0.2),
+          transparent
+        );
+        content: "";
+        filter: blur(1rem);
+        transform: translateZ(-8rem) rotate(22deg);
+      }
+
+      .device-figure {
+        margin: 0;
+      }
+
+      .device-motion {
+        transform-style: preserve-3d;
+      }
+
+      .device-shell {
+        --tilt-x: 0deg;
+        --tilt-y: 0deg;
+        position: relative;
+        width: 100%;
+        aspect-ratio: 9 / 19.6;
+        padding: 0.42rem;
+        border: 1px solid #3b3b3b;
+        border-radius: clamp(2rem, 6vw, 3rem);
+        background: linear-gradient(
+          145deg,
+          #2c2c2c,
+          #070707 22%,
+          #171717 80%,
+          #3c3c3c
+        );
+        box-shadow:
+          0 2.5rem 5rem rgba(0, 0, 0, 0.65),
+          -0.75rem 0.2rem 2.5rem rgba(229, 27, 62, 0.1),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+        transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+        transform-style: preserve-3d;
+        transition: transform 0.35s var(--ease-out);
+      }
+
+      .device-shell::before {
+        position: absolute;
+        top: 17%;
+        right: -0.17rem;
+        width: 0.15rem;
+        height: 12%;
+        border-radius: 0.15rem;
+        background: #5a5a5a;
+        content: "";
+      }
+
+      .device-shell::after {
+        position: absolute;
+        top: 0.72rem;
+        left: 50%;
+        z-index: 3;
+        width: 25%;
+        height: 1.15rem;
+        border-radius: 999px;
+        background:
+          radial-gradient(
+            circle at 82% 50%,
+            #14283a 0 0.13rem,
+            #071018 0.14rem 0.2rem,
+            transparent 0.21rem
+          ),
+          #020202;
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.035),
+          0 0.1rem 0.3rem rgba(0, 0, 0, 0.5);
+        content: "";
+        transform: translateX(-50%) translateZ(0.35rem);
+      }
+
+      .device-screen {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+        border: 1px solid #161616;
+        border-radius: calc(clamp(2rem, 6vw, 3rem) - 0.45rem);
+        background: #020202;
+        transform: translateZ(0.2rem);
+      }
+
+      .device-screen video {
+        width: 100%;
+        height: 100%;
+        background: #000;
+        object-fit: cover;
+      }
+
+      .device-screen::after {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          115deg,
+          rgba(255, 255, 255, 0.09),
+          transparent 22%,
+          transparent 75%,
+          rgba(255, 255, 255, 0.025)
+        );
+        content: "";
+        pointer-events: none;
+      }
+
+      .video-fallback {
+        position: absolute;
+        inset: 0;
+        display: none;
+        place-content: center;
+        margin: 0;
+        padding: var(--space-5);
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .device-screen.is-error .video-fallback {
+        display: grid;
+      }
+
+      .device-caption {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--space-3);
+        margin-top: var(--space-3);
+        color: #8f8f8f;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .device-caption strong {
+        color: var(--white);
+      }
+
+      .intro {
+        display: grid;
+        align-items: end;
+        gap: var(--space-5);
+        padding-block: var(--space-8) var(--space-7);
+        border-top: 1px solid var(--line);
+      }
+
+      .section-number {
+        color: var(--red);
+        font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+      }
+
+      .section-heading {
+        max-width: 13ch;
+        margin-bottom: 0;
+        font-size: clamp(2.4rem, 6.5vw, 5.8rem);
+        font-weight: 760;
+        letter-spacing: -0.065em;
+      }
+
+      .intro p:last-child {
+        max-width: 33rem;
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .video-control {
+        display: inline-flex;
+        min-height: 2.75rem;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        justify-self: start;
+        padding: 0.65rem 1rem;
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--white);
+        cursor: pointer;
+        font-size: 0.78rem;
+        font-weight: 750;
+      }
+
+      .video-control::before {
+        color: var(--red);
+        content: "Ⅱ";
+        font-size: 0.72rem;
+      }
+
+      .video-control[aria-pressed="true"]::before {
+        content: "▶";
+      }
+
+      .demo-chapter {
+        display: grid;
+        min-height: 100svh;
+        align-items: center;
+        gap: clamp(3rem, 10vw, 9rem);
+        overflow: clip;
+        padding-block: var(--space-7);
+        border-top: 1px solid var(--line);
+        content-visibility: auto;
+        contain-intrinsic-size: auto none auto 62rem;
+        perspective: 100rem;
+      }
+
+      .demo-chapter .device-figure {
+        width: min(100%, 21rem);
+        justify-self: center;
+      }
+
+      .chapter-copy {
+        max-width: 35rem;
+      }
+
+      .chapter-index {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: var(--space-4);
+        color: var(--red);
+        font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+
+      .chapter-index::after {
+        width: 3.5rem;
+        height: 1px;
+        background: var(--red-dark);
+        content: "";
+      }
+
+      .chapter-copy h3 {
+        margin-bottom: var(--space-4);
+        font-size: clamp(2.6rem, 6vw, 5.4rem);
+        font-weight: 750;
+        letter-spacing: -0.065em;
+      }
+
+      .chapter-copy p {
+        max-width: 38rem;
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.5vw, 1.16rem);
+      }
+
+      .chapter-copy strong {
+        color: var(--white);
+      }
+
+      .accent-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        margin: var(--space-5) 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .accent-list span {
+        padding: 0.35rem 0.65rem;
+        border-left: 0.15rem solid var(--accent, var(--red));
+        background: #0a0a0a;
+        color: #c1c1c1;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .accent-list span:nth-child(2) {
+        --accent: var(--blue);
+      }
+
+      .accent-list span:nth-child(3) {
+        --accent: var(--violet);
+      }
+
+      .accent-list span:nth-child(4) {
+        --accent: var(--yellow);
+      }
+
+      .android-break {
+        position: relative;
+        display: grid;
+        min-height: clamp(22rem, 55svh, 38rem);
+        place-items: center;
+        overflow: clip;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        content-visibility: auto;
+        contain-intrinsic-size: auto none auto 42rem;
+        isolation: isolate;
+      }
+
+      .android-break::after {
+        position: absolute;
+        bottom: 13%;
+        left: 50%;
+        z-index: -1;
+        width: min(72vw, 44rem);
+        height: 16%;
+        border: 1px solid rgba(229, 27, 62, 0.34);
+        border-radius: 50%;
+        box-shadow: 0 0 5rem rgba(229, 27, 62, 0.16);
+        content: "";
+        transform: translateX(-50%) rotateX(66deg);
+      }
+
+      .android-bot {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 36rem);
+        filter: drop-shadow(0 2rem 4rem rgba(90, 120, 255, 0.16));
+        mix-blend-mode: screen;
+      }
+
+      .android-break.is-error .android-bot {
+        display: none;
+      }
+
+      .release {
+        padding-block: var(--space-8);
+        border-top: 1px solid var(--line);
+      }
+
+      .release-head {
+        display: grid;
+        gap: var(--space-5);
+        margin-bottom: var(--space-7);
+      }
+
+      .release-head .section-heading {
+        max-width: 15ch;
+      }
+
+      .release-summary {
+        max-width: 38rem;
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.8vw, 1.22rem);
+      }
+
+      .release-summary strong {
+        color: var(--white);
+      }
+
+      .change-groups {
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid var(--line-strong);
+        list-style: none;
+      }
+
+      .change-group {
+        display: grid;
+        gap: var(--space-4);
+        padding-block: clamp(2.25rem, 5vw, 4rem);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .change-title {
+        display: grid;
+        grid-template-columns: 2.4rem 1fr;
+        gap: 0.75rem;
+        align-items: start;
+      }
+
+      .change-title span {
+        padding-top: 0.32rem;
+        color: var(--red);
+        font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+        font-size: 0.7rem;
+        font-weight: 800;
+      }
+
+      .change-title h3 {
+        margin: 0;
+        font-size: clamp(1.55rem, 3vw, 2.45rem);
+        font-weight: 720;
+        letter-spacing: -0.04em;
+      }
+
+      .change-list {
+        display: grid;
+        gap: var(--space-4);
+        margin: 0;
+        padding-left: 1.2rem;
+        color: #b6b6b6;
+      }
+
+      .change-list li {
+        max-width: 54rem;
+        padding-left: 0.4rem;
+      }
+
+      .change-list li::marker {
+        color: var(--red);
+      }
+
+      .change-list strong {
+        color: var(--white);
+      }
+
+      .faq {
+        padding-block: var(--space-8);
+        border-top: 1px solid var(--line);
+        content-visibility: auto;
+        contain-intrinsic-size: auto none auto 54rem;
+      }
+
+      .faq-head {
+        display: grid;
+        gap: var(--space-5);
+        margin-bottom: var(--space-7);
+      }
+
+      .faq-head .section-heading {
+        max-width: 14ch;
+      }
+
+      .faq-intro {
+        max-width: 38rem;
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.8vw, 1.22rem);
+      }
+
+      .faq-list {
+        border-top: 1px solid var(--line-strong);
+      }
+
+      .faq-item {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .faq-item summary {
+        display: grid;
+        min-height: 5rem;
+        grid-template-columns: minmax(0, 1fr) 2.5rem;
+        align-items: center;
+        gap: var(--space-3);
+        cursor: pointer;
+        font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+        font-weight: 720;
+        letter-spacing: -0.025em;
+        list-style: none;
+      }
+
+      .faq-item summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .faq-item summary::after {
+        display: grid;
+        width: 2.25rem;
+        aspect-ratio: 1;
+        place-items: center;
+        border: 1px solid var(--line-strong);
+        border-radius: 50%;
+        color: var(--muted);
+        content: "+";
+        font-size: 1.3rem;
+        font-weight: 400;
+        transition:
+          border-color 0.25s ease,
+          color 0.25s ease,
+          transform 0.35s var(--ease-out);
+      }
+
+      .faq-item[open] summary::after {
+        border-color: var(--red-dark);
+        color: var(--red);
+        transform: rotate(45deg);
+      }
+
+      .faq-answer {
+        max-width: 54rem;
+        padding: 0 3.5rem var(--space-5) 0;
+        color: #b6b6b6;
+      }
+
+      .faq-answer p:last-child {
+        margin-bottom: 0;
+      }
+
+      .faq-answer strong {
+        color: var(--white);
+      }
+
+      .faq-answer a {
+        color: var(--white);
+        text-decoration-color: var(--red);
+        text-underline-offset: 0.2rem;
+      }
+
+      .security-note {
+        margin-top: var(--space-4);
+        padding: var(--space-3) var(--space-4);
+        border-left: 0.18rem solid var(--red);
+        background: #090909;
+        color: #d1d1d1;
+      }
+
+      .closing {
+        position: relative;
+        display: grid;
+        min-height: 70svh;
+        place-content: center;
+        overflow: hidden;
+        padding-block: var(--space-8);
+        border-top: 1px solid var(--line);
+        text-align: center;
+      }
+
+      .closing::before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: -1;
+        width: min(75vw, 55rem);
+        aspect-ratio: 1;
+        border: 1px solid rgba(229, 27, 62, 0.2);
+        border-radius: 50%;
+        content: "";
+        transform: translate(-50%, -50%) rotateX(70deg);
+        box-shadow:
+          inset 0 0 6rem rgba(229, 27, 62, 0.09),
+          0 0 7rem rgba(229, 27, 62, 0.08);
+      }
+
+      .closing h2 {
+        max-width: 11ch;
+        margin: 0 auto var(--space-5);
+        font-size: clamp(2.7rem, 8vw, 7rem);
+        font-weight: 780;
+        letter-spacing: -0.075em;
+      }
+
+      .closing p {
+        max-width: 35rem;
+        margin: 0 auto var(--space-5);
+        color: var(--muted);
+      }
+
+      .closing .primary-action {
+        justify-self: center;
+      }
+
+      .footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: var(--space-3);
+        padding-block: var(--space-5);
+        border-top: 1px solid var(--line);
+        color: #777;
+        font-size: 0.75rem;
+      }
+
+      .footer a {
+        color: #b5b5b5;
+        text-underline-offset: 0.2rem;
+      }
+
+      @media (min-width: 48rem) {
+        .shell {
+          width: min(100% - 4rem, var(--container));
         }
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-            max-width: 100vw;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: var(--font-body);
+
+        .hero {
+          grid-template-columns: minmax(0, 1.15fr) minmax(19rem, 0.65fr);
         }
-        body {
-            min-height: 100vh;
-            min-height: 100dvh;
-            position: relative;
+
+        .hero-visual {
+          transform: translateY(2rem) rotateZ(1.2deg);
         }
-        .ambient-blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            z-index: 0;
-            opacity: 0.45;
-            animation: breathe 14s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
-            pointer-events: none;
+
+        .intro,
+        .release-head,
+        .faq-head {
+          grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
         }
-        .blob-tr {
-            width: 400px;
-            height: 400px;
-            background: var(--primary-glow);
-            top: -150px;
-            right: -100px;
+
+        .intro .video-control {
+          grid-column: 2;
         }
-        .blob-bl {
-            width: 450px;
-            height: 450px;
-            background: rgba(94, 92, 230, 0.2);
-            bottom: 20%;
-            left: -150px;
-            animation-delay: -7s;
+
+        .demo-chapter {
+          grid-template-columns: minmax(18rem, 0.8fr) minmax(0, 1.2fr);
         }
-        .blob-center {
-            width: 350px;
-            height: 350px;
-            background: rgba(255, 66, 87, 0.15);
-            top: 50%;
-            right: -50px;
-            animation-delay: -3s;
+
+        .demo-chapter[data-side="right"] .device-figure {
+          order: 2;
         }
-        @keyframes breathe {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(-40px, 40px) scale(1.15); }
+
+        .demo-chapter[data-side="right"] .chapter-copy {
+          order: 1;
+          justify-self: end;
         }
-        .landing-wrapper {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px 60px 24px;
+
+        .change-group {
+          grid-template-columns: minmax(15rem, 0.65fr) minmax(0, 1.35fr);
         }
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 24px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            margin-bottom: 40px;
+      }
+
+      @media (min-width: 80rem) {
+        .hero-visual {
+          width: min(100%, 25rem);
         }
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+
+        .demo-chapter .device-figure {
+          width: min(100%, 22.5rem);
         }
-        .nav-brand img {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            object-fit: cover;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      @media (max-width: 34rem) {
+        .nav {
+          gap: 0.5rem;
         }
-        .nav-brand span {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 18px;
-            letter-spacing: -0.5px;
-            background: linear-gradient(180deg, #ffffff 0%, #dcdcdf 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        .brand {
+          gap: 0.45rem;
         }
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-weight: 600;
-            transition: color 0.3s ease;
+
+        .brand span {
+          font-size: 0.88rem;
         }
-        .nav-link:hover {
-            color: var(--text-main);
+
+        .brand small {
+          font-size: 0.58rem;
         }
-        .nav-link i {
-            color: var(--primary);
+
+        .hero-actions {
+          align-items: stretch;
+          flex-direction: column;
         }
-        .hero-section {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 40px;
-            align-items: center;
-            margin-bottom: 60px;
-            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+
+        .primary-action,
+        .text-action {
+          width: 100%;
         }
-        @keyframes slideUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
+
+        .device-caption {
+          font-size: 0.64rem;
         }
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+      }
+
+      @media (pointer: fine) and (hover: hover) {
+        .device-shell[data-tilt] {
+          will-change: transform;
         }
-        .dynamic-island {
-            background: #000;
-            border-radius: 30px;
-            height: 38px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 16px;
-            gap: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 0 0 1.5px rgba(255,255,255,0.08), 0 15px 35px rgba(0,0,0,0.8);
-            width: 230px;
+      }
+
+      @supports ((animation-timeline: view()) and (animation-range: entry)) {
+        .scroll-progress {
+          animation: progress linear both;
+          animation-timeline: scroll(root block);
         }
-        .island-icon {
-            color: var(--android-green);
-            font-size: 16px;
-            animation: pulseIcon 2.5s infinite ease-in-out;
+
+        .chapter-copy {
+          animation: copy-reveal linear both;
+          animation-timeline: view();
+          animation-range: entry 6% cover 38%;
         }
-        @keyframes pulseIcon {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); text-shadow: 0 0 12px rgba(61, 220, 132, 0.6); }
+
+        .change-group {
+          animation: row-reveal linear both;
+          animation-timeline: view();
+          animation-range: entry 4% cover 30%;
         }
-        .island-text {
-            font-size: 13px;
-            font-weight: 600;
-            color: #fff;
-            letter-spacing: -0.3px;
+
+        @keyframes progress {
+          to {
+            transform: scaleX(1);
+          }
         }
-        .logo-area {
-            position: relative;
-            margin-bottom: 24px;
-            perspective: 1000px;
+
+        @keyframes copy-reveal {
+          from {
+            opacity: 0;
+            transform: translate3d(0, 5rem, 0);
+          }
         }
-        .app-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 24px;
-            object-fit: cover;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+        @keyframes row-reveal {
+          from {
+            opacity: 0;
+            transform: translate3d(0, 3rem, 0);
+          }
         }
-        .logo-area:hover .app-icon {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 25px 45px rgba(255, 0, 68, 0.25);
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .primary-action::after {
+          animation: action-shine 3.6s 1s ease-in-out infinite;
         }
-        .badge-pro {
-            position: absolute;
-            bottom: -5px;
-            right: -10px;
-            background: var(--android-green);
-            color: #000;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 20px;
-            box-shadow: 0 6px 15px rgba(61, 220, 132, 0.4);
-            border: 2px solid #000;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+
+        .motion-ready .demo-chapter .device-motion {
+          opacity: 0;
+          transform: translate3d(-9rem, 12rem, -30rem) rotateX(22deg)
+            rotateY(48deg) rotateZ(-6deg) scale(0.62);
         }
-        h1.app-title {
-            font-family: var(--font-display);
-            font-size: 46px;
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            margin-bottom: 12px;
-            background: linear-gradient(180deg, #ffffff 0%, #a0a0a5 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        .motion-ready .demo-chapter[data-side="right"] .device-motion {
+          transform: translate3d(9rem, 12rem, -30rem) rotateX(22deg)
+            rotateY(-48deg) rotateZ(6deg) scale(0.62);
         }
-        .app-desc {
-            font-size: 16px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 30px;
-            max-width: 480px;
+
+        .motion-ready .demo-chapter.is-revealed .device-motion {
+          animation: phone-arrival-left 1.45s cubic-bezier(0.32, 0.02, 0.18, 1)
+            both;
         }
-        .action-wrapper {
-            width: 100%;
-            max-width: 320px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+
+        .motion-ready
+          .demo-chapter[data-side="right"].is-revealed
+          .device-motion {
+          animation-name: phone-arrival-right;
         }
-        .btn-download {
-            width: 100%;
-            height: 56px;
-            border-radius: 28px;
-            background: var(--text-main);
-            color: #000;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            font-family: var(--font-display);
-            font-size: 17px;
-            font-weight: 700;
-            border: none;
-            box-shadow: 0 12px 30px rgba(255,255,255,0.2);
-            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+
+        .hero-copy {
+          animation: hero-enter 0.9s var(--ease-out) both;
         }
-        .btn-download i {
-            font-size: 18px;
+
+        .hero-visual {
+          animation: visual-enter 1.2s 0.08s var(--ease-out) both;
         }
-        .btn-download::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent);
-            transform: skewX(-20deg);
-            animation: buttonShine 4s infinite 2s;
+
+        @keyframes hero-enter {
+          from {
+            opacity: 0;
+            transform: translate3d(0, 2.5rem, 0);
+          }
         }
-        @keyframes buttonShine {
-            0% { left: -100%; }
-            20% { left: 200%; }
-            100% { left: 200%; }
+
+        @keyframes action-shine {
+          0%,
+          62% {
+            translate: -250% 0;
+          }
+
+          82%,
+          100% {
+            translate: 850% 0;
+          }
         }
-        .btn-download:active {
-            transform: scale(0.96);
-            box-shadow: 0 4px 10px rgba(255,255,255,0.15);
-            background: #e0e0e0;
+
+        @keyframes visual-enter {
+          from {
+            opacity: 0;
+            transform: translate3d(3rem, 5rem, -10rem) rotateY(-16deg)
+              scale(0.92);
+          }
         }
-        .app-metadata {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 16px;
-            font-size: 12px;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-        .metadata-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .hero-phone {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .phone-carousel-container {
-            width: 270px;
-            height: 550px;
-            perspective: 1500px;
-            position: relative;
-        }
-        .phone-stage {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.8s ease;
-            transform-style: preserve-3d;
-        }
-        .phone-stage.active {
-            transform: translate3d(0, 0, 0) scale(1);
+
+        @keyframes phone-arrival-left {
+          0% {
+            opacity: 0;
+            transform: translate3d(-9rem, 12rem, -30rem) rotateX(22deg)
+              rotateY(48deg) rotateZ(-6deg) scale(0.62);
+          }
+
+          28% {
             opacity: 1;
-            z-index: 10;
-            pointer-events: auto;
+          }
+
+          68% {
+            opacity: 1;
+            transform: translate3d(0, -1.25rem, 1.5rem) rotateX(-2deg)
+              rotateY(-5deg) rotateZ(0.5deg) scale(1.025);
+          }
+
+          100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) rotateX(0) rotateY(0) rotateZ(0)
+              scale(1);
+          }
         }
-        .phone-stage.exit-left {
-            transform: translate3d(-180px, 0, -250px) rotateY(-30deg);
+
+        @keyframes phone-arrival-right {
+          0% {
             opacity: 0;
-            z-index: 1;
-            pointer-events: none;
-        }
-        .phone-stage.exit-right {
-            transform: translate3d(180px, 0, -250px) rotateY(30deg);
-            opacity: 0;
-            z-index: 1;
-            pointer-events: none;
-        }
-        .phone-stage.enter {
-            transform: translate3d(0, 0, -300px) scale(0.8);
-            opacity: 0;
-            z-index: 1;
-            pointer-events: none;
-            transition: none;
-        }
-        .phone-body {
-            width: 100%;
-            height: 100%;
-            background: #09090b;
-            border: 11px solid #1c1c1e;
-            border-radius: 44px;
-            box-shadow: 
-                0 25px 55px rgba(0, 0, 0, 0.85),
-                0 0 0 2px rgba(255, 255, 255, 0.12),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        .phone-body:hover {
-            transform: scale(1.03) rotateX(6deg) rotateY(-8deg) rotateZ(1deg);
-        }
-        .phone-stage.active.floating .phone-body {
-            animation: floatPhone 6s ease-in-out infinite;
-        }
-        .phone-glare {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 50%);
-            border-radius: 33px;
-            pointer-events: none;
-            z-index: 10;
-        }
-        .phone-screen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 33px;
-            overflow: hidden;
-            background: #000;
-        }
-        .phone-screenshot {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: auto;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            transform: translate3d(0, 0, 0);
-            -webkit-transform: translate3d(0, 0, 0);
-        }
-        .phone-notch {
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 25px;
-            background: #000;
-            border-radius: 18px;
-            z-index: 20;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 12px;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
-        }
-        .notch-camera {
-            width: 7px;
-            height: 7px;
-            background: #111;
-            border-radius: 50%;
-            box-shadow: inset 0 0 2px rgba(255,255,255,0.3);
-        }
-        .notch-speaker {
-            width: 35px;
-            height: 3px;
-            background: #222;
-            border-radius: 1.5px;
-        }
-        .phone-button-volume-up,
-        .phone-button-volume-down,
-        .phone-button-power {
-            position: absolute;
-            background: #1c1c1e;
-            border-radius: 2px;
-        }
-        .phone-button-volume-up {
-            left: -14px;
-            top: 110px;
-            width: 3px;
-            height: 45px;
-        }
-        .phone-button-volume-down {
-            left: -14px;
-            top: 165px;
-            width: 3px;
-            height: 45px;
-        }
-        .phone-button-power {
-            right: -14px;
-            top: 130px;
-            width: 3px;
-            height: 65px;
-        }
-        @keyframes floatPhone {
-            0% { transform: translateY(0px) rotateX(4deg) rotateY(-6deg) rotateZ(0.5deg); }
-            50% { transform: translateY(-28px) rotateX(8deg) rotateY(-3deg) rotateZ(-1.5deg); }
-            100% { transform: translateY(0px) rotateX(4deg) rotateY(-6deg) rotateZ(0.5deg); }
-        }
-        .section-divider {
-            text-align: center;
-            margin: 60px 0 35px 0;
-        }
-        .section-title {
-            font-family: var(--font-display);
-            font-size: 30px;
-            font-weight: 800;
-            letter-spacing: -0.8px;
-            margin-bottom: 8px;
-            background: linear-gradient(180deg, #ffffff 0%, #b0b0b5 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .section-subtitle {
-            font-size: 14px;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 20px;
-            margin-bottom: 50px;
-        }
-        .feature-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-        }
-        .feature-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(255, 0, 68, 0.25);
-            box-shadow: 0 20px 40px rgba(255, 0, 68, 0.1);
-        }
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            margin-bottom: 16px;
-        }
-        .icon-bypass { color: #BF5AF2; }
-        .icon-scripts { color: var(--android-green); }
-        .icon-executors { color: #0A84FF; }
-        .icon-shield { color: #FF9F0A; }
-        .feature-card h3 {
-            font-size: 17px;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            margin-bottom: 8px;
-            color: #fff;
-        }
-        .feature-card p {
-            font-size: 13.5px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-        .team-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-bottom: 50px;
-        }
-        .founder-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 28px;
-            padding: 28px;
-            display: flex;
-            align-items: center;
-            gap: 28px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            transition: all 0.3s ease;
-        }
-        .founder-card:hover {
-            border-color: rgba(255, 0, 68, 0.2);
-            box-shadow: 0 20px 45px rgba(255,0,68,0.06);
-        }
-        .member-badge {
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            background: var(--primary);
-            color: #fff;
-            font-size: 9px;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 20px;
-            letter-spacing: 0.8px;
-        }
-        .member-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-            object-fit: cover;
-            border: 1px solid rgba(255,255,255,0.1);
-            flex-shrink: 0;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-        .member-info {
-            display: flex;
-            flex-direction: column;
-        }
-        .member-info h3 {
-            font-size: 19px;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: -0.4px;
-            margin-bottom: 2px;
-        }
-        .member-role {
-            font-size: 12px;
-            color: var(--primary);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-        .member-bio {
-            font-size: 13.5px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            max-width: 650px;
-        }
-        .members-subgrid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-        .member-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-        }
-        .member-card:hover {
-            border-color: rgba(255,255,255,0.15);
-            transform: translateY(-3px);
-        }
-        .member-avatar-sm {
-            width: 54px;
-            height: 54px;
-            border-radius: 14px;
-            object-fit: cover;
-            border: 1px solid rgba(255,255,255,0.08);
-            flex-shrink: 0;
-        }
-        .member-details {
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-        }
-        .member-details h4 {
-            font-size: 15px;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: -0.3px;
-            margin-bottom: 1px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .role-tag {
-            font-size: 10px;
-            color: var(--text-secondary);
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-        .member-details p {
-            font-size: 12px;
-            color: var(--text-secondary);
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .partner-card {
-            background: linear-gradient(135deg, rgba(28, 28, 33, 0.45) 0%, rgba(15, 15, 17, 0.3) 100%);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 28px;
-            padding: 32px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            margin-bottom: 50px;
-            transition: all 0.3s ease;
-        }
-        .partner-card:hover {
-            border-color: rgba(255,255,255,0.15);
-        }
-        .partner-details {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .partner-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: var(--primary);
-            margin-bottom: 16px;
-        }
-        .partner-details h3 {
-            font-size: 21px;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-        }
-        .partner-details p {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 24px;
-            max-width: 700px;
-        }
-        .partner-perks {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 28px;
-        }
-        .perk-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #fff;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 8px 16px;
-            border-radius: 20px;
-        }
-        .perk-item i {
-            color: var(--android-green);
-        }
-        .btn-partner {
-            height: 46px;
-            padding: 0 24px;
-            border-radius: 23px;
-            background: transparent;
-            color: var(--text-main);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-display);
-            font-size: 15px;
-            font-weight: 600;
-            border: 1.5px solid rgba(255,255,255,0.15);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        .btn-partner:active {
-            transform: scale(0.96);
-            background: rgba(255,255,255,0.06);
-            border-color: rgba(255,255,255,0.25);
-        }
-        .faq-container {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-bottom: 60px;
-        }
-        .faq-item {
-            background: var(--glass-bg);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            transition: border-color 0.3s ease;
-        }
-        .faq-item.active {
-            border-color: rgba(255, 0, 68, 0.2);
-        }
-        .faq-header {
-            width: 100%;
-            min-height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 18px 24px;
-            background: transparent;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            text-align: left;
-            font-size: 15px;
-            font-weight: 600;
-            color: #fff;
-            letter-spacing: -0.3px;
-        }
-        .faq-header i {
-            font-size: 13px;
-            color: var(--text-secondary);
-            transition: transform 0.3s ease, color 0.3s ease;
-            flex-shrink: 0;
-        }
-        .faq-body {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .faq-body p {
-            padding: 0 24px 20px 24px;
-            font-size: 13.5px;
-            color: var(--text-secondary);
-            line-height: 1.55;
-        }
-        .footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 30px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-            text-align: center;
-        }
-        .footer p {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-        .footer-socials {
-            display: flex;
-            gap: 16px;
-        }
-        .footer-socials a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            font-size: 16px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        .footer-socials a:hover {
-            color: #fff;
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(255,255,255,0.15);
-            transform: translateY(-2px);
-        }
-        @media (max-width: 850px) {
-            .hero-section {
-                grid-template-columns: 1fr;
-                gap: 50px;
-                text-align: center;
-            }
-            .hero-content {
-                align-items: center;
-            }
-            .app-desc {
-                max-width: 100%;
-            }
-        }
-        @media (max-width: 600px) {
-            h1.app-title {
-                font-size: 36px;
-            }
-            .founder-card {
-                flex-direction: column;
-                text-align: center;
-                gap: 20px;
-            }
-            .member-avatar {
-                width: 70px;
-                height: 70px;
-            }
-            .member-bio {
-                max-width: 100%;
-            }
-            .perk-item {
-                width: 100%;
-                justify-content: center;
-            }
-        }
+            transform: translate3d(9rem, 12rem, -30rem) rotateX(22deg)
+              rotateY(-48deg) rotateZ(6deg) scale(0.62);
+          }
+
+          28% {
+            opacity: 1;
+          }
+
+          68% {
+            opacity: 1;
+            transform: translate3d(0, -1.25rem, 1.5rem) rotateX(-2deg)
+              rotateY(5deg) rotateZ(-0.5deg) scale(1.025);
+          }
+
+          100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) rotateX(0) rotateY(0) rotateZ(0)
+              scale(1);
+          }
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+
+        .scroll-progress {
+          display: none;
+        }
+      }
     </style>
-</head>
-<body>
-    <div class="ambient-blob blob-tr"></div>
-    <div class="ambient-blob blob-bl"></div>
-    <div class="ambient-blob blob-center"></div>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
 
-    <div class="landing-wrapper">
-        <header class="navbar">
-            <div class="nav-brand">
-                <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo">
-                <span>AHST Official</span>
-            </div>
-            <a href="https://antihambreadoscriptteam.github.io/" target="_blank" class="nav-link">
-                <i class="fa-solid fa-globe"></i> Web Principal
-            </a>
-        </header>
+    <header class="site-header">
+      <nav class="nav shell" aria-label="Navegación principal">
+        <a
+          class="brand"
+          href="#inicio"
+          aria-label="Anti-Hambreado, ir al inicio"
+        >
+          <img
+            src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg"
+            alt=""
+            width="32"
+            height="32"
+          />
+          <span>Anti-Hambreado</span>
+          <small>V3</small>
+        </a>
+        <button
+          class="menu-trigger"
+          type="button"
+          aria-label="Abrir menú"
+          aria-haspopup="dialog"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+      </nav>
+    </header>
 
-        <section class="hero-section">
-            <div class="hero-content">
-                <div class="dynamic-island">
-                    <i class="fa-brands fa-android island-icon"></i>
-                    <span class="island-text">Solo para Android OS</span>
-                </div>
-                <div class="logo-area">
-                    <div class="app-icon-wrapper">
-                        <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Anti-Hambreado App Logo" class="app-icon">
-                        <div class="badge-pro"><i class="fa-solid fa-bolt"></i> APK</div>
-                    </div>
-                </div>
-                <h1 class="app-title">Anti-Hambreado</h1>
-                <p class="app-desc">La herramienta definitiva de automatización y bypass. Despídete de los acortadores molestos y accede a tus recursos favoritos al instante.</p>
-                <div class="action-wrapper">
-                    <a href="https://www.mediafire.com/file/fiiml1ta8kn4jx8/Anti-Hambreado+V3.apk/file" target="_blank" class="btn-download">
-                        <i class="fa-solid fa-cloud-arrow-down"></i> Descargar APK
-                    </a>
-                    <div class="app-metadata">
-                        <div class="metadata-item"><i class="fa-solid fa-tag"></i> V 3.0</div>
-                        <div class="metadata-item"><i class="fa-solid fa-folder-open"></i> ~20 MB</div>
-                        <div class="metadata-item"><i class="fa-solid fa-star"></i> Oficial</div>
-                    </div>
-                </div>
-            </div>
+    <dialog class="mobile-menu" id="mobile-menu" aria-labelledby="menu-title">
+      <div class="menu-inner">
+        <div class="menu-head">
+          <p>Anti-Hambreado v3</p>
+          <button class="menu-close" type="button" aria-label="Cerrar menú">
+            ×
+          </button>
+        </div>
+        <h2 id="menu-title">Ir a una sección</h2>
+        <nav aria-label="Secciones de la app">
+          <ul class="menu-list">
+            <li>
+              <a href="#inicio"
+                ><span class="menu-icon" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24">
+                    <path d="M3 11.5 12 4l9 7.5"></path>
+                    <path d="M5.5 10.5V20h13v-9.5M9.5 20v-6h5v6"></path></svg
+                ></span>
+                <span>Inicio</span><span aria-hidden="true">→</span></a
+              >
+            </li>
+            <li>
+              <a href="#scripts"
+                ><span class="menu-icon" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24">
+                    <path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 4l-4 16"></path></svg
+                ></span>
+                <span>Scripts</span><span aria-hidden="true">→</span></a
+              >
+            </li>
+            <li>
+              <a href="#executores"
+                ><span class="menu-icon" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24">
+                    <path d="m13 2-8 12h7l-1 8 8-12h-7l1-8Z"></path></svg
+                ></span>
+                <span>Executores</span><span aria-hidden="true">→</span></a
+              >
+            </li>
+            <li>
+              <a href="#bypass"
+                ><span class="menu-icon" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24">
+                    <circle cx="8" cy="15" r="4"></circle>
+                    <path d="m11 12 8-8M16 7l2 2M14 9l2 2"></path></svg
+                ></span>
+                <span>Bypass</span><span aria-hidden="true">→</span></a
+              >
+            </li>
+            <li>
+              <a href="#usuario"
+                ><span class="menu-icon" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="8" r="3.5"></circle>
+                    <path
+                      d="M5 21c.6-4.3 3-6.5 7-6.5s6.4 2.2 7 6.5"
+                    ></path></svg
+                ></span>
+                <span>Usuario</span><span aria-hidden="true">→</span></a
+              >
+            </li>
+            <li>
+              <a href="#team"
+                ><span class="menu-icon" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24">
+                    <circle cx="9" cy="8" r="3"></circle>
+                    <circle cx="17" cy="10" r="2.5"></circle>
+                    <path
+                      d="M3 20c.5-4 2.5-6 6-6s5.5 2 6 6M15 15c3-.5 5 1.2 6 4"
+                    ></path></svg
+                ></span>
+                <span>Team</span><span aria-hidden="true">→</span></a
+              >
+            </li>
+            <li>
+              <a href="#novedades"
+                ><span class="menu-icon" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24">
+                    <path
+                      d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7 2.5 7h-17S6 15 6 9"
+                    ></path>
+                    <path d="M10 20h4"></path></svg
+                ></span>
+                <span>Novedades v3</span><span aria-hidden="true">→</span></a
+              >
+            </li>
+            <li>
+              <a href="#faq"
+                ><span class="menu-icon" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path
+                      d="M9.8 9a2.4 2.4 0 1 1 3.2 2.27c-.7.3-1 .85-1 1.73"
+                    ></path>
+                    <path d="M12 17h.01"></path></svg
+                ></span>
+                <span>Preguntas frecuentes</span
+                ><span aria-hidden="true">→</span></a
+              >
+            </li>
+          </ul>
+        </nav>
+        <a
+          class="menu-download-link"
+          href="https://www.mediafire.com/file/fiiml1ta8kn4jx8/Anti-Hambreado+V3.apk/file"
+          target="_blank"
+          rel="noreferrer"
+          >Descargar APK</a
+        >
+      </div>
+    </dialog>
 
-            <div class="hero-phone">
-                <div class="phone-carousel-container">
-                    <div class="phone-stage active floating" id="stage-1">
-                        <div class="phone-body">
-                            <div class="phone-glare"></div>
-                            <div class="phone-screen">
-                                <div class="phone-notch">
-                                    <div class="notch-camera"></div>
-                                    <div class="notch-speaker"></div>
-                                </div>
-                                <img class="phone-screenshot" id="screen-1" src="" alt="App Interface">
-                            </div>
-                            <div class="phone-button-volume-up"></div>
-                            <div class="phone-button-volume-down"></div>
-                            <div class="phone-button-power"></div>
-                        </div>
-                    </div>
-                    <div class="phone-stage enter" id="stage-2">
-                        <div class="phone-body">
-                            <div class="phone-glare"></div>
-                            <div class="phone-screen">
-                                <div class="phone-notch">
-                                    <div class="notch-camera"></div>
-                                    <div class="notch-speaker"></div>
-                                </div>
-                                <img class="phone-screenshot" id="screen-2" src="" alt="App Interface">
-                            </div>
-                            <div class="phone-button-volume-up"></div>
-                            <div class="phone-button-volume-down"></div>
-                            <div class="phone-button-power"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <main id="contenido" tabindex="-1">
+      <section class="hero shell" id="inicio">
+        <div class="hero-copy">
+          <p class="eyebrow">La actualización más ambiciosa</p>
+          <h1>Links directos hoy, mañana y siempre.</h1>
+          <p class="hero-lede">
+            <strong>Anti-Hambreado v3</strong> reconstruye la experiencia móvil,
+            amplía la biblioteca y reescribe gran parte del APK para que todo se
+            sienta más rápido, claro y estable.
+          </p>
+          <div class="hero-actions">
+            <a
+              class="primary-action"
+              href="https://www.mediafire.com/file/fiiml1ta8kn4jx8/Anti-Hambreado+V3.apk/file"
+              target="_blank"
+              rel="noreferrer"
+              >Descargar APK</a
+            >
+            <a class="text-action" href="#recorrido">Ver la app</a>
+          </div>
+          <p class="release-line">
+            <span>V3 oficial</span>
+            <span>Android</span>
+            <span>AMOLED</span>
+          </p>
+        </div>
 
-        <section class="section-divider">
-            <h2 class="section-title">¿Qué hace especial a nuestra App?</h2>
-            <p class="section-subtitle">Diseñada para ofrecer la mejor experiencia sin complicaciones</p>
-        </section>
+        <figure class="device-figure hero-visual">
+          <div class="device-motion">
+            <div class="device-shell" data-tilt>
+              <div class="device-screen">
+                <video
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  aria-hidden="true"
+                >
+                  <source
+                    src="https://file.garden/alVrmPF1qmak3SyZ/WebMedia/Screen_Recording_20260718_193129_AHST%20APP.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <p class="video-fallback">
+                  No se pudo cargar esta demostración.
+                </p>
+              </div>
+            </div>
+          </div>
+          <figcaption class="device-caption" id="caption-home">
+            <strong>01 · Inicio</strong><span>Interfaz real</span>
+          </figcaption>
+        </figure>
+      </section>
 
-        <section class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon icon-bypass"><i class="fa-solid fa-key"></i></div>
-                <h3>Bypass en Vivo</h3>
-                <p>Salta acortadores abusivos como Linkvertise en tiempo real con consola de registro detallada y directa en tu pantalla.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon icon-scripts"><i class="fa-solid fa-code"></i></div>
-                <h3>Biblioteca de Scripts</h3>
-                <p>Busca, filtra y copia con un solo toque scripts para tus juegos favoritos, eliminando las redirecciones innecesarias.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon icon-executors"><i class="fa-solid fa-bolt"></i></div>
-                <h3>Monitoreo de Executores</h3>
-                <p>Revisa el estado de soporte, arquitectura compatible (ARM64/ARM32) y alertas de riesgo antes de realizar descargas.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon icon-shield"><i class="fa-solid fa-shield-heart"></i></div>
-                <h3>Seguridad Primero</h3>
-                <p>Todos los recursos son auditados periódicamente. Disfruta de un entorno completamente libre de adware o spyware.</p>
-            </div>
-        </section>
+      <div class="android-break shell" aria-hidden="true">
+        <video class="android-bot" muted loop playsinline preload="metadata">
+          <source
+            src="https://www.gstatic.com/marketing-cms/70/cf/d01cdfc84a2292c8e2556d23930d/neural-bot-voyager-2x-av1.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
 
-        <section class="section-divider">
-            <h2 class="section-title">El Equipo Detrás</h2>
-            <p class="section-subtitle">Conoce a los creadores e impulsores del proyecto</p>
-        </section>
+      <section class="shell" id="recorrido">
+        <div class="intro">
+          <div>
+            <p class="section-number">01 — RECORRIDO</p>
+            <h2 class="section-heading">
+              Seis secciones. Una app reconstruida.
+            </h2>
+          </div>
+          <p>
+            Cada grabación muestra la versión real de la app. Los videos se
+            reproducen únicamente cuando están cerca de tu pantalla para reducir
+            el consumo en teléfono.
+          </p>
+          <button class="video-control" type="button" aria-pressed="false">
+            Pausar videos
+          </button>
+        </div>
 
-        <section class="team-grid">
-            <div class="founder-card">
-                <div class="member-badge">FUNDADOR</div>
-                <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/TheRealBanHammer.png" alt="TheBanHammer" class="member-avatar">
-                <div class="member-info">
-                    <h3>TheBanHammer</h3>
-                    <p class="member-role">Creador & Líder</p>
-                    <p class="member-bio">Inició el proyecto el 16 de marzo de 2025 enfocado en liberar a la comunidad de enlaces abusivos y priorizar el respeto al usuario.</p>
+        <article class="demo-chapter" id="scripts">
+          <figure class="device-figure">
+            <div class="device-motion">
+              <div class="device-shell" data-tilt>
+                <div class="device-screen">
+                  <video
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-hidden="true"
+                  >
+                    <source
+                      src="https://file.garden/alVrmPF1qmak3SyZ/WebMedia/Screen_Recording_20260718_193150_AHST%20APP.mp4"
+                      type="video/mp4"
+                    />
+                  </video>
+                  <p class="video-fallback">
+                    No se pudo cargar esta demostración.
+                  </p>
                 </div>
+              </div>
             </div>
+            <figcaption class="device-caption" id="caption-scripts">
+              <strong>02 · Scripts</strong><span>Biblioteca oficial</span>
+            </figcaption>
+          </figure>
+          <div class="chapter-copy">
+            <p class="chapter-index">02 / 06</p>
+            <h3>Scripts</h3>
+            <p>
+              Dieciséis scripts nuevos se integran sin borrar entradas ni
+              alterar favoritos. Filtros, categorías, contadores y tarjetas ya
+              no se cruzan en pantallas pequeñas.
+            </p>
+            <div class="accent-list" aria-hidden="true">
+              <span>16 nuevos</span>
+              <span>Búsqueda rápida</span>
+              <span>Favoritos amarillos</span>
+            </div>
+          </div>
+        </article>
 
-            <div class="members-subgrid">
-                <div class="member-card">
-                    <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/KYS-FELICIA.png" alt="FeliciaXxxTop" class="member-avatar-sm">
-                    <div class="member-details">
-                        <h4>FeliciaXxxTop</h4>
-                        <span class="role-tag">Hub & Core Dev</span>
-                        <p>Desarrolladora principal del Script Hub y guardiana del orden del team.</p>
-                    </div>
+        <article class="demo-chapter" id="executores" data-side="right">
+          <figure class="device-figure">
+            <div class="device-motion">
+              <div class="device-shell" data-tilt>
+                <div class="device-screen">
+                  <video
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-hidden="true"
+                  >
+                    <source
+                      src="https://file.garden/alVrmPF1qmak3SyZ/WebMedia/Screen_Recording_20260718_193209_AHST%20APP.mp4"
+                      type="video/mp4"
+                    />
+                  </video>
+                  <p class="video-fallback">
+                    No se pudo cargar esta demostración.
+                  </p>
                 </div>
-                <div class="member-card">
-                    <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/IWOOZY0SKID.png" alt="iWoozy" class="member-avatar-sm">
-                    <div class="member-details">
-                        <h4>iWoozy</h4>
-                        <span class="role-tag">Maestro del Timing</span>
-                        <p>Atento a actualizaciones y caídas para mantener el sistema siempre estable.</p>
-                    </div>
-                </div>
-                <div class="member-card">
-                    <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/NO-SLOWWW.png" alt="No-Slowww" class="member-avatar-sm">
-                    <div class="member-details">
-                        <h4>No-Slowww</h4>
-                        <span class="role-tag">Velocista</span>
-                        <p>Promotor de rutas ultra rápidas y scripts directos sin vueltas.</p>
-                    </div>
-                </div>
-                <div class="member-card">
-                    <img src="https://antihambreadoscriptteam.github.io/Foto/Miembros/Mw_Anonymous.gif" alt="Mw_Anonymous" class="member-avatar-sm">
-                    <div class="member-details">
-                        <h4>Mw_Anonymous</h4>
-                        <span class="role-tag">Lead Developer Web</span>
-                        <p>Responsable del ecosistema digital y de la experiencia de la app web.</p>
-                    </div>
-                </div>
+              </div>
             </div>
-        </section>
+            <figcaption class="device-caption" id="caption-executores">
+              <strong>03 · Executores</strong><span>Catálogo actualizado</span>
+            </figcaption>
+          </figure>
+          <div class="chapter-copy">
+            <p class="chapter-index">03 / 06</p>
+            <h3>Executores</h3>
+            <p>
+              Una biblioteca más legible, ahora con <strong>Delta iOS</strong> y
+              avisos cuando un executor recibe una actualización. Ves el cambio
+              sin tener que buscarlo.
+            </p>
+            <div class="accent-list" aria-hidden="true">
+              <span>Alertas</span>
+              <span>Delta iOS</span>
+              <span>Dos columnas</span>
+            </div>
+          </div>
+        </article>
 
-        <section class="section-divider">
-            <h2 class="section-title">Programa de Asociados</h2>
-            <p class="section-subtitle">Únete a nuestra red oficial de creadores de contenido</p>
-        </section>
+        <article class="demo-chapter" id="bypass">
+          <figure class="device-figure">
+            <div class="device-motion">
+              <div class="device-shell" data-tilt>
+                <div class="device-screen">
+                  <video
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-hidden="true"
+                  >
+                    <source
+                      src="https://file.garden/alVrmPF1qmak3SyZ/WebMedia/lv_0_20260718193514.mp4"
+                      type="video/mp4"
+                    />
+                  </video>
+                  <p class="video-fallback">
+                    No se pudo cargar esta demostración.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <figcaption class="device-caption" id="caption-bypass">
+              <strong>04 · Bypass</strong><span>Dos rutas</span>
+            </figcaption>
+          </figure>
+          <div class="chapter-copy">
+            <p class="chapter-index">04 / 06</p>
+            <h3>Bypass</h3>
+            <p>
+              <strong>trw.lat e izen.lol</strong> conviven en una sandbox
+              aislada. Puedes elegir Automático o una ruta concreta, consultar
+              el historial y entender cuándo hace falta pegar otra vez el enlace
+              antes del CAPTCHA.
+            </p>
+            <div class="accent-list" aria-hidden="true">
+              <span>Automático</span>
+              <span>Respaldo</span>
+              <span>Historial</span>
+            </div>
+          </div>
+        </article>
 
-        <section class="partner-card">
-            <div class="partner-details">
-                <div class="partner-icon"><i class="fa-solid fa-users-viewfinder"></i></div>
-                <h3>¿Eres creador de contenido?</h3>
-                <p>Si tienes un canal con más de 100 suscriptores, generas contenido de calidad con regularidad y compartes nuestra visión de enlaces sin intermediarios abusivos, ¡este programa es para ti!</p>
-                <div class="partner-perks">
-                    <div class="perk-item"><i class="fa-solid fa-circle-check"></i> Colaboraciones Oficiales</div>
-                    <div class="perk-item"><i class="fa-solid fa-circle-check"></i> Apoyo y Difusión del Team</div>
-                    <div class="perk-item"><i class="fa-solid fa-circle-check"></i> Rango Admin en Discord</div>
+        <article class="demo-chapter" id="usuario" data-side="right">
+          <figure class="device-figure">
+            <div class="device-motion">
+              <div class="device-shell" data-tilt>
+                <div class="device-screen">
+                  <video
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-hidden="true"
+                  >
+                    <source
+                      src="https://file.garden/alVrmPF1qmak3SyZ/WebMedia/Screen_Recording_20260718_193359_AHST%20APP.mp4"
+                      type="video/mp4"
+                    />
+                  </video>
+                  <p class="video-fallback">
+                    No se pudo cargar esta demostración.
+                  </p>
                 </div>
-                <a href="mailto:antianunciostest@gmail.com" class="btn-partner">Contactar con Soporte</a>
+              </div>
             </div>
-        </section>
+            <figcaption class="device-caption" id="caption-usuario">
+              <strong>05 · Usuario</strong><span>Control local</span>
+            </figcaption>
+          </figure>
+          <div class="chapter-copy">
+            <p class="chapter-index">05 / 06</p>
+            <h3>Usuario</h3>
+            <p>
+              Paneles, listas, hojas inferiores y controles táctiles se sienten
+              más cercanos a una app nativa. La campana avisa cuando la propia
+              app tiene una versión nueva y conserva el estado de lectura.
+            </p>
+            <div class="accent-list" aria-hidden="true">
+              <span>Notificaciones</span>
+              <span>Controles táctiles</span>
+              <span>Estado leído</span>
+            </div>
+          </div>
+        </article>
 
-        <section class="section-divider">
-            <h2 class="section-title">Preguntas Frecuentes</h2>
-            <p class="section-subtitle">Resolvemos tus dudas sobre el ecosistema AHST</p>
-        </section>
+        <article class="demo-chapter" id="team">
+          <figure class="device-figure">
+            <div class="device-motion">
+              <div class="device-shell" data-tilt>
+                <div class="device-screen">
+                  <video
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-hidden="true"
+                  >
+                    <source
+                      src="https://file.garden/alVrmPF1qmak3SyZ/WebMedia/Screen_Recording_20260718_193416_AHST%20APP.mp4"
+                      type="video/mp4"
+                    />
+                  </video>
+                  <p class="video-fallback">
+                    No se pudo cargar esta demostración.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <figcaption class="device-caption" id="caption-team">
+              <strong>06 · Team</strong><span>Sin recortes</span>
+            </figcaption>
+          </figure>
+          <div class="chapter-copy">
+            <p class="chapter-index">06 / 06</p>
+            <h3>Team</h3>
+            <p>
+              La sección conserva la historia, perfiles, música, logros,
+              galería, asociados y preguntas frecuentes. Sus accesos principales
+              ahora copian el enlace o correo y confirman la acción.
+            </p>
+            <div class="accent-list" aria-hidden="true">
+              <span>Historia completa</span>
+              <span>Galería</span>
+              <span>Copiar acciones</span>
+            </div>
+          </div>
+        </article>
+      </section>
 
-        <section class="faq-container">
-            <div class="faq-item">
-                <button class="faq-header">
-                    <span>¿Qué es AHST?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-body">
-                    <p>Anti-Hambreado Script Team centraliza scripts, ejecutores, bypass y recursos en una sola aplicación nativa para que la comunidad acceda a todo de forma segura y veloz.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-header">
-                    <span>¿Los scripts están revisados y son seguros?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-body">
-                    <p>Sí, priorizamos scripts de fuentes estables y reputadas. Sin embargo, recomendamos ejecutarlos con precaución y en cuentas secundarias si tienes dudas sobre su origen.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-header">
-                    <span>¿Cómo funciona el Bypass de acortadores?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-body">
-                    <p>Pega el enlace en el campo del Bypass dentro de la app y nuestro servidor procesará la petición en vivo saltando los intermediarios para darte el enlace directo al instante.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-header">
-                    <span>¿Cuáles son los requisitos de la App?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-body">
-                    <p>La aplicación está compilada en formato APK exclusivamente para Android OS, requiriendo Android 7.0 o superior y una conexión activa a Internet.</p>
-                </div>
-            </div>
-        </section>
+      <section class="release shell" id="novedades">
+        <div class="release-head">
+          <div>
+            <p class="section-number">02 — NOVEDADES V3</p>
+            <h2 class="section-heading">
+              No es un retoque. Es una reconstrucción.
+            </h2>
+          </div>
+          <p class="release-summary">
+            Corregimos muchísimos errores y
+            <strong>reescribimos gran parte del APK</strong>. El resultado
+            conserva la identidad Apple iOS Black + Red, pero cambia la forma de
+            navegar, leer y usar la app.
+          </p>
+        </div>
 
-        <footer class="footer">
-            <p>&copy; 2026 Anti-Hambreado Script Team. Todos los derechos reservados.</p>
-            <div class="footer-socials">
-                <a href="https://antihambreadoscriptteam.github.io/" target="_blank"><i class="fa-solid fa-globe"></i></a>
-                <a href="https://www.mediafire.com/file/fiiml1ta8kn4jx8/Anti-Hambreado+V3.apk/file" target="_blank"><i class="fa-solid fa-download"></i></a>
+        <div class="change-groups">
+          <article class="change-group">
+            <div class="change-title">
+              <span>01</span>
+              <h3>Interfaz y entrada</h3>
             </div>
-        </footer>
-    </div>
+            <ul class="change-list">
+              <li>
+                <strong>Interfaz móvil reconstruida.</strong> Navegación,
+                listas, paneles, hojas inferiores y controles táctiles se
+                acercan a una app nativa de Android sin perder la identidad
+                Apple iOS Black + Red.
+              </li>
+              <li>
+                <strong>AMOLED más profesional.</strong> Negro real, superficies
+                oscuras y un rojo menos intenso; azul, violeta, verde, naranja y
+                amarillo aparecen solo en detalles funcionales.
+              </li>
+              <li>
+                <strong>Navegación Liquid Glass.</strong> La barra inferior
+                ahora es una cápsula translúcida con borde refractivo, reflejos,
+                lente activa, respuesta táctil y deformación fluida entre
+                secciones.
+              </li>
+              <li>
+                <strong>Entrada renovada.</strong> El botón Entrar combina rojo
+                y negro con una raya de luz animada, junto al nuevo lema “Links
+                directos hoy, mañana y siempre”.
+              </li>
+              <li>
+                <strong>Marcos y campos corregidos.</strong> El marco de
+                imágenes ya no recorta contenido y los cuadros de texto dejan
+                atrás la doble línea roja.
+              </li>
+            </ul>
+          </article>
+
+          <article class="change-group">
+            <div class="change-title">
+              <span>02</span>
+              <h3>Zani Queen</h3>
+            </div>
+            <ul class="change-list">
+              <li>
+                <strong>Zani Queen como guía.</strong> La bienvenida, la
+                introducción y el modo agente usan diálogos, colocación
+                inteligente y poses de pie, sentada y hablando.
+              </li>
+              <li>
+                <strong>Zani Queen viva en Inicio.</strong> Los sprites
+                oficiales sustituyen la imagen estática y cambian de pose con
+                pausas aleatorias para evitar un ciclo rígido.
+              </li>
+              <li>
+                <strong>71 frases breves.</strong> El globo se une visualmente
+                al personaje, saluda con el nombre local y alterna bromas y
+                consejos cada 5 a 10 segundos sin repetir el mensaje anterior.
+              </li>
+            </ul>
+          </article>
+
+          <article class="change-group">
+            <div class="change-title">
+              <span>03</span>
+              <h3>Demos y pantallas</h3>
+            </div>
+            <ul class="change-list">
+              <li>
+                <strong>Demostraciones mejoradas.</strong> Inicio, Scripts,
+                Executores, Bypass, Usuario y Team muestran controles legibles,
+                estados claros y contenido sin superposiciones.
+              </li>
+              <li>
+                <strong>Responsive y accesible.</strong> Áreas táctiles, foco,
+                teclado, movimiento reducido, contraste y distribución funcionan
+                desde 320 px sin desbordamiento horizontal.
+              </li>
+              <li>
+                <strong>Tablets aprovechadas.</strong> Entre 700 y 1199 px
+                aparecen márgenes fluidos, accesos rápidos en tres columnas,
+                bibliotecas en dos columnas, paneles centrados y navegación
+                adaptada a ambas orientaciones.
+              </li>
+              <li>
+                <strong>Textos propios de una app.</strong> Guía, Team y
+                Novedades ya no hablan del producto como si fuera una página
+                web.
+              </li>
+            </ul>
+          </article>
+
+          <article class="change-group">
+            <div class="change-title">
+              <span>04</span>
+              <h3>Scripts y executores</h3>
+            </div>
+            <ul class="change-list">
+              <li>
+                <strong>Biblioteca ampliada.</strong> Incorporamos los 16
+                scripts nuevos de la biblioteca oficial sin eliminar entradas ni
+                alterar el orden de los favoritos existentes.
+              </li>
+              <li>
+                <strong>Scripts sin cruces.</strong> Filtros, categorías,
+                contadores y tarjetas dejan de solaparse en pantallas pequeñas,
+                manteniendo la búsqueda rápida y la carga por bloques.
+              </li>
+              <li>
+                <strong>Favoritos amarillos.</strong> Estrellas, filtros y
+                tarjetas favoritas se distinguen del rojo principal con un
+                amarillo funcional.
+              </li>
+              <li>
+                <strong>Delta iOS agregado.</strong> La biblioteca de executores
+                amplía su cobertura con esta nueva opción.
+              </li>
+              <li>
+                <strong>Actualizaciones notificadas.</strong> La app avisa
+                cuando cambia un executor y cuando existe una versión nueva de
+                la propia app.
+              </li>
+            </ul>
+          </article>
+
+          <article class="change-group">
+            <div class="change-title">
+              <span>05</span>
+              <h3>Bypass con respaldo</h3>
+            </div>
+            <ul class="change-list">
+              <li>
+                <strong>Dos rutas.</strong> trw.lat e izen.lol llegan con
+                selector Automático, selección individual, historial y sandbox
+                aislada.
+              </li>
+              <li>
+                <strong>Respaldo corregido.</strong> Si trw.lat falla,
+                Automático ofrece izen.lol o cambia directamente cuando el
+                respaldo automático está activo.
+              </li>
+              <li>
+                <strong>Estados más claros.</strong> La app explica cuándo debes
+                copiar y pegar de nuevo el enlace en izen.lol antes de completar
+                el CAPTCHA.
+              </li>
+            </ul>
+          </article>
+
+          <article class="change-group">
+            <div class="change-title">
+              <span>06</span>
+              <h3>Team sin recortes</h3>
+            </div>
+            <ul class="change-list">
+              <li>
+                <strong>Todo el contenido oficial.</strong> Se conservan
+                historia, propósito, compromisos, perfiles, fechas, música,
+                logros, Zani Queen, galería, perspectiva, asociados, preguntas
+                frecuentes y textos originales.
+              </li>
+              <li>
+                <strong>Acciones al portapapeles.</strong> Discord Oficial,
+                Contactar por Correo y Hub Principal copian su enlace o
+                dirección y muestran una confirmación.
+              </li>
+            </ul>
+          </article>
+
+          <article class="change-group">
+            <div class="change-title">
+              <span>07</span>
+              <h3>Más estable y ligera</h3>
+            </div>
+            <ul class="change-list">
+              <li>
+                <strong>Gran parte del APK reescrita.</strong> Corregimos
+                muchísimos bugs y reorganizamos la base para reducir fallos y
+                facilitar las siguientes versiones.
+              </li>
+              <li>
+                <strong>Novedades sin leer.</strong> La campana muestra un punto
+                rojo cuando hay una actualización y lo elimina después de abrir
+                y cerrar el panel.
+              </li>
+              <li>
+                <strong>Menos trabajo en teléfono.</strong> Imágenes remotas
+                pasan a WebP, los sprites del agente se cargan cuando hacen
+                falta, se reduce el trabajo repetido y las actualizaciones se
+                pausan cuando la app no está visible.
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="faq shell" id="faq">
+        <div class="faq-head">
+          <div>
+            <p class="section-number">03 — PREGUNTAS FRECUENTES</p>
+            <h2 class="section-heading">Antes de instalar, revisa esto.</h2>
+          </div>
+          <p class="faq-intro">
+            Respuestas directas sobre el APK, Play Protect, actualizaciones y
+            compatibilidad.
+          </p>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item" name="faq-group" open>
+            <summary>¿Por qué Play Protect muestra una advertencia?</summary>
+            <div class="faq-answer">
+              <p>
+                Anti-Hambreado se instala como APK fuera de Google Play. Google
+                explica que Play Protect también revisa apps obtenidas desde
+                otras fuentes y puede pedir analizar una app externa que aún no
+                reconoce. Esto puede ocurrir con una versión nueva, pero una
+                advertencia también puede señalar un riesgo real.
+              </p>
+              <p class="security-note">
+                <strong
+                  >El aviso por sí solo no demuestra que exista un virus ni
+                  demuestra que el archivo sea seguro.</strong
+                >
+                Comprueba siempre el origen y espera el resultado del análisis.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item" name="faq-group">
+            <summary>¿Puede tratarse de un falso positivo?</summary>
+            <div class="faq-answer">
+              <p>
+                Sí, Google contempla que una app pueda marcarse o bloquearse por
+                error y ofrece un proceso de apelación para desarrolladores. Sin
+                embargo, no conviene asumir que toda alerta es falsa. Si el
+                aviso identifica una conducta dañina concreta, el análisis
+                bloquea el archivo o la descarga proviene de otro sitio, cancela
+                la instalación.
+              </p>
+              <p>
+                Puedes consultar cómo funciona el análisis en la
+                <a
+                  href="https://support.google.com/googleplay/answer/2812853?hl=es-419"
+                  target="_blank"
+                  rel="noreferrer"
+                  >guía oficial de Google Play Protect</a
+                >.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item" name="faq-group">
+            <summary>¿Tengo que desactivar Play Protect?</summary>
+            <div class="faq-answer">
+              <p>
+                <strong>No.</strong> Anti-Hambreado no te pide desactivar Play
+                Protect ni otras protecciones del teléfono. Si Android ofrece
+                analizar el APK, deja que termine. Si lo bloquea después del
+                análisis, no fuerces la instalación: espera una versión revisada
+                o consulta los canales oficiales del Team.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item" name="faq-group">
+            <summary>¿Cómo compruebo que descargué el APK oficial?</summary>
+            <div class="faq-answer">
+              <p>
+                Usa únicamente los botones <strong>Descargar APK</strong> de
+                esta página. Evita archivos reenviados por mensajes, copias
+                subidas por terceros o enlaces con un destino distinto. Si el
+                origen no coincide o el archivo fue renombrado de forma
+                sospechosa, no lo instales.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item" name="faq-group">
+            <summary>¿Cómo sabré que existe una actualización?</summary>
+            <div class="faq-answer">
+              <p>
+                La app muestra una notificación cuando se actualiza un executor
+                o cuando hay una versión nueva de Anti-Hambreado. Descarga las
+                actualizaciones desde el enlace oficial de esta página para no
+                mezclar builds distintas.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item" name="faq-group">
+            <summary>
+              ¿Delta iOS significa que la app funciona en iPhone?
+            </summary>
+            <div class="faq-answer">
+              <p>
+                No. Anti-Hambreado v3 se distribuye como APK para Android.
+                <strong>Delta iOS</strong> es una entrada dentro de la
+                biblioteca de executores; no convierte el APK en una aplicación
+                instalable en iPhone o iPad.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="closing shell">
+        <p class="eyebrow">Anti-Hambreado v3</p>
+        <h2>La app cambió por dentro y por fuera.</h2>
+        <p>
+          Descarga la versión oficial y recorre una experiencia móvil
+          reconstruida para usarla todos los días.
+        </p>
+        <a
+          class="primary-action"
+          href="https://www.mediafire.com/file/fiiml1ta8kn4jx8/Anti-Hambreado+V3.apk/file"
+          target="_blank"
+          rel="noreferrer"
+          >Descargar APK</a
+        >
+      </section>
+    </main>
+
+    <footer class="footer shell">
+      <span>© 2026 Anti-Hambreado Script Team</span>
+      <a
+        href="https://antihambreadoscriptteam.github.io/"
+        target="_blank"
+        rel="noreferrer"
+        >Web principal ↗</a
+      >
+    </footer>
 
     <script>
-        const faqHeaders = document.querySelectorAll('.faq-header');
-        faqHeaders.forEach(header => {
-            header.addEventListener('click', () => {
-                const item = header.parentElement;
-                const body = item.querySelector('.faq-body');
-                const icon = header.querySelector('i');
-                const isOpen = item.classList.contains('active');
-                
-                document.querySelectorAll('.faq-item').forEach(el => {
-                    el.classList.remove('active');
-                    el.querySelector('.faq-body').style.maxHeight = null;
-                    el.querySelector('.faq-header i').style.transform = 'rotate(0deg)';
-                });
-                
-                if (!isOpen) {
-                    item.classList.add('active');
-                    body.style.maxHeight = body.scrollHeight + 'px';
-                    icon.style.transform = 'rotate(180deg)';
-                }
+      const mobileMenu = document.querySelector(".mobile-menu");
+      const menuTrigger = document.querySelector(".menu-trigger");
+      const menuClose = document.querySelector(".menu-close");
+
+      const closeMenu = () => {
+        if (mobileMenu.open) {
+          mobileMenu.close();
+        }
+      };
+
+      menuTrigger.addEventListener("click", () => {
+        mobileMenu.showModal();
+        menuTrigger.setAttribute("aria-expanded", "true");
+        document.documentElement.classList.add("menu-open");
+      });
+
+      menuClose.addEventListener("click", closeMenu);
+      mobileMenu.addEventListener("click", (event) => {
+        if (event.target === mobileMenu) {
+          closeMenu();
+        }
+      });
+
+      mobileMenu.addEventListener("close", () => {
+        menuTrigger.setAttribute("aria-expanded", "false");
+        document.documentElement.classList.remove("menu-open");
+      });
+
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeMenu);
+      });
+
+      const videos = [...document.querySelectorAll("video")];
+      const videoControl = document.querySelector(".video-control");
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
+      let videosPaused = reducedMotion.matches;
+
+      if (!reducedMotion.matches) {
+        document.documentElement.classList.add("motion-ready");
+        const revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target
+                  .closest(".demo-chapter")
+                  .classList.add("is-revealed");
+                observer.unobserve(entry.target);
+              }
             });
+          },
+          {
+            rootMargin: "0px 0px -8% 0px",
+            threshold: 0.18,
+          },
+        );
+
+        document
+          .querySelectorAll(".demo-chapter .device-figure")
+          .forEach((figure) => revealObserver.observe(figure));
+      }
+
+      const updateVideoControl = () => {
+        videoControl.setAttribute("aria-pressed", String(videosPaused));
+        videoControl.textContent = videosPaused
+          ? "Reproducir videos"
+          : "Pausar videos";
+      };
+
+      const syncVideos = () => {
+        videos.forEach((video) => {
+          const shouldPlay =
+            video.dataset.visible === "true" &&
+            !videosPaused &&
+            !document.hidden;
+          if (shouldPlay) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
         });
+      };
 
-        const demoImages = [
-            "https://antihambreadoscriptteam.github.io/Foto/AppDemo/Screenshot_2026-05-28-16-41-39-648_com.app.mywebapp.png",
-            "https://antihambreadoscriptteam.github.io/Foto/AppDemo/Screenshot_2026-05-28-16-24-17-452_com.app.mywebapp.png",
-            "https://antihambreadoscriptteam.github.io/Foto/AppDemo/Screenshot_2026-05-28-16-41-59-518_com.app.mywebapp.png",
-            "https://antihambreadoscriptteam.github.io/Foto/AppDemo/Screenshot_2026-05-28-16-42-13-778_com.app.mywebapp.png",
-            "https://antihambreadoscriptteam.github.io/Foto/AppDemo/Screenshot_2026-05-28-16-42-23-766_com.app.mywebapp.png",
-            "https://antihambreadoscriptteam.github.io/Foto/AppDemo/Screenshot_2026-05-28-16-42-33-841_com.app.mywebapp.png"
-        ];
+      const videoObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            entry.target.dataset.visible = String(entry.isIntersecting);
+          });
+          syncVideos();
+        },
+        {
+          rootMargin: "160px 0px",
+          threshold: 0.2,
+        },
+      );
 
-        const preloadedImages = [];
-        demoImages.forEach(src => {
-            const img = new Image();
-            img.src = src;
-            preloadedImages.push(img);
+      videos.forEach((video) => {
+        videoObserver.observe(video);
+        video.addEventListener("error", () => {
+          const deviceScreen = video.closest(".device-screen");
+          if (deviceScreen) {
+            deviceScreen.classList.add("is-error");
+          } else {
+            video.closest(".android-break")?.classList.add("is-error");
+          }
         });
+      });
 
-        document.getElementById('screen-1').src = demoImages[0];
-        document.getElementById('screen-2').src = demoImages[1];
-        let activeImgIndex = 0;
-        let activeStage = 1;
+      videoControl.addEventListener("click", () => {
+        videosPaused = !videosPaused;
+        updateVideoControl();
+        syncVideos();
+      });
 
-        setInterval(() => {
-            const nextImgIndex = (activeImgIndex + 1) % demoImages.length;
-            const currentStageEl = document.getElementById(`stage-${activeStage}`);
-            const nextStageEl = document.getElementById(`stage-${activeStage === 1 ? 2 : 1}`);
-            const nextScreenEl = document.getElementById(`screen-${activeStage === 1 ? 2 : 1}`);
-            
-            nextScreenEl.src = demoImages[nextImgIndex];
-            
-            nextStageEl.className = 'phone-stage enter';
-            void nextStageEl.offsetWidth;
-            
-            const exitDirectionClass = Math.random() > 0.5 ? 'phone-stage exit-left' : 'phone-stage exit-right';
-            currentStageEl.className = exitDirectionClass;
-            nextStageEl.className = 'phone-stage active';
-            
-            setTimeout(() => {
-                if (nextStageEl.classList.contains('active')) {
-                    nextStageEl.classList.add('floating');
-                }
-            }, 800);
-            
-            activeStage = activeStage === 1 ? 2 : 1;
-            activeImgIndex = nextImgIndex;
-        }, 5000);
+      reducedMotion.addEventListener("change", (event) => {
+        videosPaused = event.matches;
+        updateVideoControl();
+        syncVideos();
+      });
+
+      document.addEventListener("visibilitychange", syncVideos);
+      updateVideoControl();
+
+      if (
+        window.matchMedia("(pointer: fine) and (hover: hover)").matches &&
+        !reducedMotion.matches
+      ) {
+        document.querySelectorAll("[data-tilt]").forEach((device) => {
+          device.addEventListener("pointermove", (event) => {
+            const bounds = device.getBoundingClientRect();
+            const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+            const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+            device.style.setProperty("--tilt-x", `${y * -7}deg`);
+            device.style.setProperty("--tilt-y", `${x * 9}deg`);
+          });
+
+          device.addEventListener("pointerleave", () => {
+            device.style.setProperty("--tilt-x", "0deg");
+            device.style.setProperty("--tilt-y", "0deg");
+          });
+        });
+      }
     </script>
-</body>
+  </body>
 </html>
