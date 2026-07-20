@@ -30,8 +30,8 @@
     },
     "delta": {
       "nombre": "Delta",
-      "version": "2.727",
-      "fecha_actualizacion": "30-06-2026",
+      "version": "2.729",
+      "fecha_actualizacion": "19-07-2026",
       "status": "peligro",
       "stars": "2.6",
       "link_descarga_arm64": "https://delta.filenetwork.vip/android.html",
