@@ -18,6 +18,15 @@
       "link_descarga_arm64": "https://github.com/1f0yt/community/releases/download/Vegax/Vega.X.apk",
       "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuTWn4Ka7SyJEeq7b5QnVPuoAKs7o1UF1HaM0Cb6mxTg&s=10"
     },
+    "Trigon": {
+      "nombre": "Trigon",
+      "version": "2.731",
+      "fecha_actualizacion": "27-07-2026",
+      "status": "indetectable",
+      "stars": "3.2",
+      "link_descarga_arm64": "",
+      "imagen": ""
+    },
 "fluxusz": {
       "nombre": "Fluxus Z",
       "version": "3.9.5",
@@ -39,8 +48,8 @@
     },
     "delta": {
       "nombre": "Delta",
-      "version": "2.729",
-      "fecha_actualizacion": "19-07-2026",
+      "version": "2.731",
+      "fecha_actualizacion": "27-07-2026",
       "status": "peligro",
       "stars": "2.6",
       "link_descarga_arm64": "https://delta.filenetwork.vip/android.html",
