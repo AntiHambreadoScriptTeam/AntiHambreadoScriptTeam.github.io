@@ -1,4 +1,4 @@
-+<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
@@ -813,6 +813,62 @@
       font-size: clamp(1rem, 2vw, 1.35rem);
     }
 
+    .scroll-cue-wrap {
+      display: none;
+    }
+
+    .scroll-cue {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      min-width: 7.5rem;
+      min-height: 3rem;
+      padding: 0.65rem 1rem;
+      border: 1px solid rgba(245, 242, 236, 0.55);
+      border-radius: 999px;
+      background: rgba(5, 5, 5, 0.82);
+      color: var(--white);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.32);
+      backdrop-filter: blur(10px);
+      touch-action: manipulation;
+      transition: border-color 180ms ease, background 180ms ease;
+    }
+
+    .scroll-cue:hover,
+    .scroll-cue:focus-visible {
+      border-color: var(--red);
+      background: rgba(255, 59, 47, 0.92);
+      color: var(--black);
+    }
+
+    .scroll-cue__arrow {
+      color: var(--red);
+      font-size: 1.1rem;
+      line-height: 1;
+      animation: scroll-cue-float 2.8s var(--ease) infinite;
+    }
+
+    .scroll-cue:hover .scroll-cue__arrow,
+    .scroll-cue:focus-visible .scroll-cue__arrow {
+      color: var(--black);
+    }
+
+    @keyframes scroll-cue-float {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(0.4rem);
+      }
+    }
+
     .video-toggle {
       position: absolute;
       z-index: 5;
@@ -837,6 +893,17 @@
       padding: clamp(5rem, 12vw, 10rem) 0 clamp(6rem, 15vw, 12rem);
       background: var(--red);
       color: var(--black);
+      scroll-margin-top: var(--header-h);
+    }
+
+    @media (max-width: 47.999rem) {
+      .scroll-cue-wrap {
+        position: absolute;
+        top: -4.75rem;
+        left: 50%;
+        display: block;
+        transform: translateX(-50%);
+      }
     }
 
     .media-band__head {
@@ -1690,8 +1757,13 @@
       }
 
       .topbar-text::after,
-      .header-cta::after {
+      .header-cta::after,
+      .scroll-cue__arrow {
         animation: none !important;
+      }
+
+      .topbar-text::after,
+      .header-cta::after {
         opacity: 0 !important;
       }
 
@@ -1816,6 +1888,9 @@
           <p class="hero-meta">Lua · Roblox · HTML · CSS · JavaScript<br>TheRealBanHammer / @therealbanhammerlol</p>
         </div>
         <div class="hero-manifesto" id="hero-manifesto">
+          <div class="scroll-cue-wrap">
+            <a class="scroll-cue" href="#sobre-mi"><span>Scroll</span><span class="scroll-cue__arrow" aria-hidden="true">↓</span></a>
+          </div>
           <h2>Esta es mi bio y también una muestra de lo que puedo hacer con HTML, CSS, JavaScript y motion.</h2>
           <p>Me gusta probar ideas, romper cosas y arreglarlas hasta que queden como quiero.</p>
         </div>
