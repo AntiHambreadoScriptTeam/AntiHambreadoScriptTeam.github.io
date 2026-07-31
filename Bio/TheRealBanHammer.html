@@ -815,6 +815,16 @@
 
     .scroll-cue-wrap {
       display: none;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 220ms ease, visibility 220ms ease;
+    }
+
+    .scroll-cue-wrap.is-cue-active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
     }
 
     .scroll-cue {
@@ -899,10 +909,19 @@
     @media (max-width: 47.999rem) {
       .scroll-cue-wrap {
         position: absolute;
-        top: -4.75rem;
+        z-index: 4;
         left: 50%;
         display: block;
         transform: translateX(-50%);
+      }
+
+      .scroll-cue-wrap--intro {
+        top: auto;
+        bottom: calc(var(--mobile-nav-h) + 1.2rem);
+      }
+
+      .scroll-cue-wrap--manifesto {
+        top: -4.75rem;
       }
     }
 
@@ -1817,6 +1836,21 @@
         transform: none;
       }
     }
+
+    @media (prefers-reduced-motion: reduce) and (max-width: 47.999rem) {
+      .scroll-cue-wrap {
+        position: relative;
+        top: auto;
+        left: auto;
+        display: flex;
+        justify-content: center;
+        margin: 1.5rem auto;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: none !important;
+      }
+    }
   </style>
 </head>
 <body class="is-locked" data-scene="inicio">
@@ -1886,10 +1920,13 @@
             <a class="button" href="https://discord.gg/rTGF5xhe3h" target="_blank" rel="noopener noreferrer">Hablar por Discord</a>
           </div>
           <p class="hero-meta">Lua · Roblox · HTML · CSS · JavaScript<br>TheRealBanHammer / @therealbanhammerlol</p>
+          <div class="scroll-cue-wrap scroll-cue-wrap--intro is-cue-active" id="intro-scroll-cue-wrap">
+            <button class="scroll-cue" id="intro-scroll-cue" type="button"><span>Scroll</span><span class="scroll-cue__arrow" aria-hidden="true">↓</span></button>
+          </div>
         </div>
         <div class="hero-manifesto" id="hero-manifesto">
-          <div class="scroll-cue-wrap">
-            <a class="scroll-cue" href="#sobre-mi"><span>Scroll</span><span class="scroll-cue__arrow" aria-hidden="true">↓</span></a>
+          <div class="scroll-cue-wrap scroll-cue-wrap--manifesto" id="manifesto-scroll-cue-wrap" aria-hidden="true">
+            <a class="scroll-cue" href="#sobre-mi" tabindex="-1"><span>Scroll</span><span class="scroll-cue__arrow" aria-hidden="true">↓</span></a>
           </div>
           <h2>Esta es mi bio y también una muestra de lo que puedo hacer con HTML, CSS, JavaScript y motion.</h2>
           <p>Me gusta probar ideas, romper cosas y arreglarlas hasta que queden como quiero.</p>
@@ -2197,6 +2234,9 @@
       var heroMask = document.getElementById("hero-mask");
       var heroContent = document.getElementById("hero-content");
       var heroManifesto = document.getElementById("hero-manifesto");
+      var introScrollCueWrap = document.getElementById("intro-scroll-cue-wrap");
+      var manifestoScrollCueWrap = document.getElementById("manifesto-scroll-cue-wrap");
+      var introScrollCue = document.getElementById("intro-scroll-cue");
       var videoToggle = document.getElementById("video-toggle");
       var siteHeader = document.getElementById("site-header");
       var scrollMeter = document.getElementById("scroll-meter");
@@ -2233,6 +2273,13 @@
 
       function setTextIfChanged(element, value) {
         if (element && element.textContent !== value) element.textContent = value;
+      }
+
+      function setCueState(wrapper, active) {
+        var control = wrapper.querySelector("a, button");
+        wrapper.classList.toggle("is-cue-active", active);
+        wrapper.setAttribute("aria-hidden", String(!active));
+        control.tabIndex = active ? 0 : -1;
       }
 
       function prepareVideoFrame(video) {
@@ -2368,6 +2415,8 @@
         heroContent.style.opacity = (1 - clamp((progress - 0.12) / 0.26, 0, 1)).toFixed(4);
         heroManifesto.style.transform = "translate3d(0," + ((1 - manifestoProgress) * 32).toFixed(2) + "px,0)";
         heroManifesto.style.opacity = manifestoProgress.toFixed(4);
+        setCueState(introScrollCueWrap, progress < 0.34);
+        setCueState(manifestoScrollCueWrap, progress >= 0.34);
       }
 
       function updateSkills() {
@@ -2448,6 +2497,8 @@
 
       function handleMotionPreference() {
         if (reducedMotion.matches) {
+          setCueState(introScrollCueWrap, true);
+          setCueState(manifestoScrollCueWrap, true);
           entryVideo.pause();
           setActiveVideo(null);
           videoToggle.textContent = "▶";
@@ -2552,6 +2603,19 @@
 
       entry.addEventListener("click", enterSite);
 
+      introScrollCue.addEventListener("click", function () {
+        if (reducedMotion.matches) {
+          heroManifesto.scrollIntoView({ behavior: "auto", block: "center" });
+          return;
+        }
+        var heroTop = hero.getBoundingClientRect().top + window.scrollY;
+        var distance = Math.max(1, hero.offsetHeight - window.innerHeight);
+        window.scrollTo({
+          top: heroTop + distance * 0.72,
+          behavior: reducedMotion.matches ? "auto" : "smooth"
+        });
+      });
+
       videoToggle.addEventListener("click", function () {
         videosPaused = !videosPaused;
         if (videosPaused) setActiveVideo(null);
@@ -2572,6 +2636,10 @@
       });
 
       window.setInterval(nextWord, 1800);
+      if (reducedMotion.matches) {
+        setCueState(introScrollCueWrap, true);
+        setCueState(manifestoScrollCueWrap, true);
+      }
       requestMotionUpdate();
       if (reducedMotion.matches) entryVideo.pause();
       else entryVideo.play().catch(function () { return; });
