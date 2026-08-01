@@ -247,7 +247,7 @@
     .entry__top,
     .entry__bottom {
       display: flex;
-      align-items: center;
+      align-items: start;
       justify-content: space-between;
       gap: 1rem;
       font-family: var(--mono);
@@ -258,7 +258,7 @@
 
     .entry__center {
       display: grid;
-      align-items: center;
+      align-items: start;
       gap: 1rem;
       max-width: 45rem;
     }
@@ -901,8 +901,9 @@
     .media-band {
       position: relative;
       padding: clamp(5rem, 12vw, 10rem) 0 clamp(6rem, 15vw, 12rem);
-      background: var(--red);
-      color: var(--black);
+      --section-active-color: var(--red);
+      background-color: var(--black);
+      color: var(--white);
       scroll-margin-top: var(--header-h);
     }
 
@@ -961,22 +962,6 @@
       animation: audio-aura 1.45s ease-in-out infinite alternate;
     }
 
-    .media-column__frame.is-audio-active::after {
-      content: "●  Sonando";
-      position: absolute;
-      z-index: 4;
-      top: 0.75rem;
-      left: 0.75rem;
-      padding: 0.5rem 0.65rem;
-      background: var(--gold);
-      color: var(--black);
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
     @keyframes audio-aura {
       from {
         box-shadow:
@@ -1026,7 +1011,8 @@
       min-height: 150svh;
       padding: clamp(6rem, 14vw, 11rem) 0 clamp(7rem, 15vw, 12rem);
       overflow: hidden;
-      background: var(--black-soft);
+      --section-active-color: var(--black-soft);
+      background-color: var(--black);
     }
 
     .skills-head {
@@ -1269,90 +1255,83 @@
 
     .gallery-section {
       position: relative;
-      min-height: 175svh;
-      overflow: hidden;
-      background: #3811ff;
+      min-height: 520svh;
+      overflow: clip;
+      --section-active-color: #3811ff;
+      background-color: var(--black);
       color: var(--white);
     }
 
     .gallery-sticky {
       position: sticky;
       top: 0;
-      min-height: 100svh;
+      height: 100svh;
       padding-top: calc(var(--header-h) + 3rem);
       overflow: hidden;
     }
 
     .gallery-head {
       max-width: 75rem;
+      will-change: opacity, translate;
     }
 
     .gallery-track {
-      display: grid;
-      grid-template-columns: 72vw 92vw 58vw 82vw;
-      align-items: start;
+      position: absolute;
+      top: 28svh;
+      left: 0;
+      display: flex;
+      align-items: flex-start;
       gap: 1rem;
       width: max-content;
-      margin-top: clamp(3rem, 8vw, 6rem);
+      margin-top: 0;
       padding-left: var(--gutter);
       padding-right: 20vw;
       will-change: transform;
     }
 
     .gallery-item {
+      flex: 0 0 auto;
       margin: 0;
       min-width: 0;
     }
 
-    .gallery-item:nth-child(2) {
-      margin-top: 17svh;
-    }
-
-    .gallery-item:nth-child(3) {
-      margin-top: 6svh;
-    }
-
-    .gallery-item:nth-child(4) {
-      margin-top: 22svh;
-    }
-
     .gallery-media {
-      aspect-ratio: 4 / 5;
+      height: clamp(22rem, 60svh, 44rem);
+      aspect-ratio: var(--video-ratio, 16 / 9);
       overflow: hidden;
       background: #100650;
-    }
-
-    .gallery-item:nth-child(2) .gallery-media {
-      aspect-ratio: 16 / 10;
-    }
-
-    .gallery-item:nth-child(3) .gallery-media {
-      aspect-ratio: 1 / 1;
-    }
-
-    .gallery-item:nth-child(4) .gallery-media {
-      aspect-ratio: 4 / 3;
     }
 
     .gallery-media video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-    }
-
-    .gallery-item figcaption {
-      max-width: 42rem;
-      padding-top: 0.8rem;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      line-height: 1.5;
+      object-fit: contain;
     }
 
     .spotlight {
       position: relative;
       min-height: 205svh;
       overflow: hidden;
-      background: var(--black-soft);
+      --section-active-color: var(--black-soft);
+      background-color: var(--black);
+    }
+
+    .media-band,
+    .skills-section,
+    .gallery-section,
+    .spotlight {
+      transition: background-color 1200ms var(--ease), color 900ms var(--ease);
+    }
+
+    .media-band.is-title-visible,
+    .skills-section.is-title-visible,
+    .gallery-section.is-title-visible,
+    .spotlight.is-title-visible {
+      background-color: var(--section-active-color);
+    }
+
+    .media-band.is-title-visible {
+      color: var(--black);
     }
 
     .spotlight__stage {
@@ -1582,6 +1561,25 @@
       transform: none;
     }
 
+    .motion-replay {
+      opacity: 0;
+      translate: 0 2rem;
+      transition:
+        opacity 760ms var(--ease),
+        translate 920ms var(--ease),
+        filter 920ms var(--ease);
+      transition-delay: 0ms;
+      filter: blur(0.35rem);
+      will-change: opacity, translate, filter;
+    }
+
+    .motion-replay.is-in-view {
+      opacity: 1;
+      translate: 0 0;
+      filter: none;
+      transition-delay: var(--replay-delay, 0ms);
+    }
+
     @media (min-width: 48rem) {
       :root {
         --header-h: 4.5rem;
@@ -1714,7 +1712,7 @@
       }
 
       .gallery-track {
-        grid-template-columns: 46vw 66vw 40vw 56vw;
+        top: 26svh;
         gap: 2rem;
       }
 
@@ -1756,9 +1754,6 @@
         --container: 96rem;
       }
 
-      .gallery-track {
-        grid-template-columns: 42rem 62rem 38rem 52rem;
-      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1834,6 +1829,13 @@
       .reveal {
         opacity: 1;
         transform: none;
+      }
+
+      .motion-replay {
+        opacity: 1;
+        translate: none;
+        filter: none;
+        transition: none;
       }
     }
 
@@ -2105,7 +2107,7 @@
           <article class="stack-card principle-card" style="--stack-index:1; --card-color:#1676ef; --card-ink:#f5f2ec;">
             <div class="stack-card__inner">
               <div class="stack-card__media">
-                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260731134228.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/jacob_dopper_2026-07-31-19-12-44_1785543164508.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
               </div>
               <div class="stack-card__copy">
                 <p class="eyebrow">Web</p>
@@ -2118,7 +2120,7 @@
           <article class="stack-card principle-card" style="--stack-index:2; --card-color:#ffd43b; --card-ink:#050505;">
             <div class="stack-card__inner">
               <div class="stack-card__media">
-                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260731140039.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7636778152265633044_20260731185236.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
               </div>
               <div class="stack-card__copy">
                 <p class="eyebrow">Equipo</p>
@@ -2137,32 +2139,53 @@
         <header class="gallery-head container reveal">
           <p class="eyebrow">Videos</p>
           <h2 class="section-title" id="gallery-title">Edits que hay en esta página</h2>
-          <p class="section-intro">Son videos y edits que hice yo mismo.</p>
+          <p class="section-intro">Aquí están todos los videos y edits que hice para la página.</p>
         </header>
         <div class="gallery-track" id="gallery-track">
           <figure class="gallery-item">
             <div class="gallery-media">
               <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7623394190969310484_20260713171536.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
             </div>
-            <figcaption>Uno de los videos originales de mi bio.</figcaption>
           </figure>
           <figure class="gallery-item">
             <div class="gallery-media">
-              <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7626313444672752917_20260713172507.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7626313444672752917_20260713172507.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
             </div>
-            <figcaption>Mi gato, porque obviamente tenía que seguir aquí.</figcaption>
           </figure>
           <figure class="gallery-item">
             <div class="gallery-media">
-              <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7482182384918465853_20260730194040.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7482182384918465853_20260730194040.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
             </div>
-            <figcaption>Uno de los videos nuevos que elegí para esta versión.</figcaption>
           </figure>
           <figure class="gallery-item">
             <div class="gallery-media">
-              <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260731140039.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260731140039.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
             </div>
-            <figcaption>Otro de los videos que subí para completar la página.</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <div class="gallery-media">
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7622689736687144213_20260731142712.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+            </div>
+          </figure>
+          <figure class="gallery-item">
+            <div class="gallery-media">
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260730195330.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+            </div>
+          </figure>
+          <figure class="gallery-item">
+            <div class="gallery-media">
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260731134228.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+            </div>
+          </figure>
+          <figure class="gallery-item">
+            <div class="gallery-media">
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/jacob_dopper_2026-07-31-19-12-44_1785543164508.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+            </div>
+          </figure>
+          <figure class="gallery-item">
+            <div class="gallery-media">
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7636778152265633044_20260731185236.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+            </div>
           </figure>
         </div>
       </div>
@@ -2243,6 +2266,7 @@
       var skillsCrownStage = document.getElementById("skills-crown-stage");
       var skillsCrown = document.getElementById("skills-crown");
       var gallerySection = document.querySelector(".gallery-section");
+      var galleryHead = document.querySelector(".gallery-head");
       var galleryTrack = document.getElementById("gallery-track");
       var spotlight = document.getElementById("contacto");
       var spotlightOrb = document.getElementById("spotlight-orb");
@@ -2251,10 +2275,22 @@
       var framedVideos = decorativeVideos.filter(function (video) { return video.id !== "hero-video"; });
       var words = Array.from(document.querySelectorAll(".hero-word"));
       var reveals = Array.from(document.querySelectorAll(".reveal"));
+      var replayTargets = Array.from(document.querySelectorAll(".media-column, .skill, .contact-card"));
+      var colorSections = Array.from(document.querySelectorAll(".media-band, .skills-section, .gallery-section, .spotlight"));
+      var colorTitles = colorSections.map(function (section) {
+        return document.getElementById(section.getAttribute("aria-labelledby"));
+      }).filter(Boolean);
       var navLinks = Array.from(document.querySelectorAll("[data-nav]"));
       var sceneSections = Array.from(document.querySelectorAll("[data-scene-name]"));
       var stackSections = Array.from(document.querySelectorAll("[data-stack]"));
       var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      var galleryAudio = new Audio("https://antihambreadoscriptteam.github.io/Foto/WebSource/BUENATEKK_256k.mp3");
+      galleryAudio.id = "gallery-audio";
+      galleryAudio.hidden = true;
+      galleryAudio.loop = true;
+      galleryAudio.preload = "auto";
+      galleryAudio.volume = 0;
+      document.body.appendChild(galleryAudio);
       var hasEntered = false;
       var videosPaused = false;
       var presenceLoading = false;
@@ -2262,6 +2298,8 @@
       var previousWord = -1;
       var ticking = false;
       var activeVideo = null;
+      var galleryAudioTarget = 0;
+      var galleryAudioFrame = 0;
 
       function clamp(value, min, max) {
         return Math.min(max, Math.max(min, value));
@@ -2269,6 +2307,32 @@
 
       function easeOut(value) {
         return 1 - Math.pow(1 - value, 3);
+      }
+
+      function runGalleryAudioFade() {
+        galleryAudioFrame = 0;
+        var allowed = hasEntered && !videosPaused && !document.hidden;
+        var target = allowed ? galleryAudioTarget : 0;
+        var current = galleryAudio.volume;
+        var next = current + (target - current) * 0.065;
+        if (Math.abs(target - next) < 0.002) next = target;
+        galleryAudio.volume = clamp(next, 0, 0.76);
+        if (target > 0 && galleryAudio.paused) {
+          galleryAudio.play().then(function () {
+            delete document.body.dataset.galleryAudioError;
+          }).catch(function (error) {
+            document.body.dataset.galleryAudioError = error.name || "PlaybackError";
+          });
+        }
+        if (target === 0 && galleryAudio.volume <= 0.002 && !galleryAudio.paused) galleryAudio.pause();
+        if (Math.abs(target - galleryAudio.volume) >= 0.002) {
+          galleryAudioFrame = window.requestAnimationFrame(runGalleryAudioFade);
+        }
+      }
+
+      function setGalleryAudioTarget(value) {
+        galleryAudioTarget = clamp(value, 0, 0.76);
+        if (!galleryAudioFrame) galleryAudioFrame = window.requestAnimationFrame(runGalleryAudioFade);
       }
 
       function setTextIfChanged(element, value) {
@@ -2285,10 +2349,18 @@
       function prepareVideoFrame(video) {
         var frame = video.parentElement;
         frame.classList.add("video-frame");
+        function syncAspectRatio() {
+          if (frame.classList.contains("gallery-media") && video.videoWidth && video.videoHeight) {
+            frame.style.setProperty("--video-ratio", video.videoWidth + " / " + video.videoHeight);
+          }
+        }
         function markReady() {
           frame.classList.remove("is-video-error");
           frame.classList.add("is-video-ready");
         }
+        video.addEventListener("loadedmetadata", syncAspectRatio);
+        video.addEventListener("loadeddata", markReady);
+        video.addEventListener("canplay", markReady);
         video.addEventListener("playing", markReady);
         video.addEventListener("timeupdate", function () {
           if (video.currentTime > 0.04) markReady();
@@ -2297,7 +2369,8 @@
           frame.classList.remove("is-video-ready");
           frame.classList.add("is-video-error");
         });
-        if (!video.paused && video.readyState >= 3) markReady();
+        if (video.readyState >= 1) syncAspectRatio();
+        if (video.readyState >= 2) markReady();
       }
 
       function visibleVideoScore(video) {
@@ -2368,6 +2441,9 @@
         entryVideo.pause();
         document.body.classList.remove("is-locked");
         entry.hidden = true;
+        galleryAudio.play().then(function () {
+          if (galleryAudioTarget === 0) galleryAudio.pause();
+        }).catch(function () { return; });
         playVisibleVideos();
         document.getElementById("hero-title").focus({ preventScroll: true });
       }
@@ -2458,7 +2534,14 @@
         var travel = Math.max(1, gallerySection.offsetHeight - window.innerHeight);
         var progress = clamp(-rect.top / travel, 0, 1);
         var maxShift = Math.max(0, galleryTrack.scrollWidth - window.innerWidth + window.innerWidth * 0.08);
-        galleryTrack.style.transform = "translate3d(" + (-maxShift * progress).toFixed(2) + "px,0,0)";
+        var headExit = easeOut(clamp(progress / 0.18, 0, 1));
+        var trackEntry = easeOut(clamp((progress - 0.03) / 0.09, 0, 1));
+        var trackExit = 1 - easeOut(clamp((progress - 0.9) / 0.09, 0, 1));
+        galleryHead.style.translate = "0 " + (-55 * headExit).toFixed(2) + "vh";
+        galleryHead.style.opacity = (1 - headExit).toFixed(4);
+        galleryTrack.style.opacity = trackEntry.toFixed(4);
+        galleryTrack.style.transform = "translate3d(" + (-maxShift * progress).toFixed(2) + "px," + ((1 - trackEntry) * 8).toFixed(2) + "vh,0)";
+        setGalleryAudioTarget(trackEntry * trackExit * 0.76);
       }
 
       function updateSpotlight() {
@@ -2564,15 +2647,33 @@
 
       framedVideos.forEach(prepareVideoFrame);
 
+      replayTargets.forEach(function (item, index) {
+        item.classList.add("motion-replay");
+        item.style.setProperty("--replay-delay", ((index % 4) * 70) + "ms");
+      });
+
       if ("IntersectionObserver" in window) {
-        var revealObserver = new IntersectionObserver(function (entries, observer) {
+        var revealObserver = new IntersectionObserver(function (entries) {
           entries.forEach(function (item) {
-            if (!item.isIntersecting) return;
-            item.target.classList.add("is-visible");
-            observer.unobserve(item.target);
+            item.target.classList.toggle("is-visible", item.isIntersecting);
           });
         }, { threshold: 0.14 });
         reveals.forEach(function (item) { revealObserver.observe(item); });
+
+        var replayObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (item) {
+            item.target.classList.toggle("is-in-view", item.isIntersecting);
+          });
+        }, { rootMargin: "-6% 0px -8% 0px", threshold: 0.12 });
+        replayTargets.forEach(function (item) { replayObserver.observe(item); });
+
+        var colorObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (item) {
+            var section = item.target.closest(".media-band, .skills-section, .gallery-section, .spotlight");
+            if (section) section.classList.toggle("is-title-visible", item.isIntersecting);
+          });
+        }, { rootMargin: "-8% 0px -8% 0px", threshold: 0.08 });
+        colorTitles.forEach(function (title) { colorObserver.observe(title); });
 
         var sceneObserver = new IntersectionObserver(function (entries) {
           entries.forEach(function (item) {
@@ -2593,6 +2694,8 @@
         framedVideos.forEach(function (video) { videoPreloadObserver.observe(video); });
       } else {
         reveals.forEach(function (item) { item.classList.add("is-visible"); });
+        replayTargets.forEach(function (item) { item.classList.add("is-in-view"); });
+        colorSections.forEach(function (section) { section.classList.add("is-title-visible"); });
         framedVideos.forEach(function (video) {
           video.preload = "auto";
           video.load();
@@ -2618,11 +2721,15 @@
 
       videoToggle.addEventListener("click", function () {
         videosPaused = !videosPaused;
-        if (videosPaused) setActiveVideo(null);
+        if (videosPaused) {
+          setActiveVideo(null);
+        }
         else playVisibleVideos();
         videoToggle.textContent = videosPaused ? "▶" : "Ⅱ";
         videoToggle.setAttribute("aria-pressed", String(videosPaused));
         videoToggle.setAttribute("aria-label", videosPaused ? "Reproducir videos" : "Pausar videos");
+        setGalleryAudioTarget(galleryAudioTarget);
+        requestMotionUpdate();
       });
 
       window.addEventListener("scroll", requestMotionUpdate, { passive: true });
@@ -2632,7 +2739,11 @@
         if (!document.hidden) {
           refreshPresence();
           playVisibleVideos();
-        } else setActiveVideo(null);
+          requestMotionUpdate();
+        } else {
+          setActiveVideo(null);
+          setGalleryAudioTarget(galleryAudioTarget);
+        }
       });
 
       window.setInterval(nextWord, 1800);
