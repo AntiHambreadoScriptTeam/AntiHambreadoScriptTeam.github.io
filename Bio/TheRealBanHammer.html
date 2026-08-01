@@ -1121,6 +1121,26 @@
       background: var(--black-soft);
     }
 
+    .sticker-break {
+      position: relative;
+      display: grid;
+      min-height: 95svh;
+      place-items: center;
+      overflow: clip;
+      padding: calc(var(--header-h) + 2rem) var(--gutter) calc(var(--mobile-nav-h) + 2rem);
+      background: var(--black);
+    }
+
+    .sticker-break__image {
+      display: block;
+      width: min(82vw, 74svh, 48rem);
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 1.5rem 3rem rgba(0, 0, 0, 0.42));
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
     .stack-section + .stack-section {
       padding-top: 2rem;
     }
@@ -2083,6 +2103,10 @@
       </div>
     </section>
 
+    <div class="sticker-break" aria-hidden="true">
+      <img class="sticker-break__image" src="https://cdn.discordapp.com/emojis/1019372135300468736.png?size=4096&amp;quality=lossless" alt="" width="512" height="512" loading="lazy" decoding="async" draggable="false">
+    </div>
+
     <section class="stack-section" data-scene-name="proyectos" data-stack aria-labelledby="principles-title">
       <div class="container">
         <header class="stack-head reveal">
@@ -2133,6 +2157,10 @@
         </div>
       </div>
     </section>
+
+    <div class="sticker-break" aria-hidden="true">
+      <img class="sticker-break__image" src="https://cdn.discordapp.com/emojis/907091184931987496.gif?size=4096&amp;quality=lossless" alt="" width="512" height="512" loading="lazy" decoding="async" draggable="false">
+    </div>
 
     <section class="gallery-section" data-scene-name="proyectos" aria-labelledby="gallery-title">
       <div class="gallery-sticky">
@@ -2275,7 +2303,7 @@
       var framedVideos = decorativeVideos.filter(function (video) { return video.id !== "hero-video"; });
       var words = Array.from(document.querySelectorAll(".hero-word"));
       var reveals = Array.from(document.querySelectorAll(".reveal"));
-      var replayTargets = Array.from(document.querySelectorAll(".media-column, .skill, .contact-card"));
+      var replayTargets = Array.from(document.querySelectorAll(".media-column, .skill, .contact-card, .sticker-break__image"));
       var colorSections = Array.from(document.querySelectorAll(".media-band, .skills-section, .gallery-section, .spotlight"));
       var colorTitles = colorSections.map(function (section) {
         return document.getElementById(section.getAttribute("aria-labelledby"));
