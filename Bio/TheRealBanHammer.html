@@ -3005,8 +3005,8 @@
           <span class="entry__title"><span class="visually-hidden">TheRealBanHammer</span><span class="entry__title-line" aria-hidden="true"><span class="entry__title-text">TheReal</span></span><span class="entry__title-line entry__title-line--accent" aria-hidden="true"><span class="entry__title-text">BanHammer</span></span></span>
            <span class="entry__statement">En esta página metí todo lo que sé de HTML, CSS y JavaScript para mostrar mis habilidades. Si quieres una página así, escríbeme por Discord.</span>
            <span class="entry__loader" id="entry-loader" aria-live="polite">
-             <span class="entry__loader-top"><span class="entry__loader-label">Cargando videos</span><strong class="entry__loader-percent" id="entry-progress">0%</strong></span>
-             <span class="entry__progress-track" id="entry-progress-track" role="progressbar" aria-label="Carga real de los videos" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="entry__progress-bar" id="entry-progress-bar"></span></span>
+             <span class="entry__loader-top"><span class="entry__loader-label">Cargando primera mitad</span><strong class="entry__loader-percent" id="entry-progress">0%</strong></span>
+             <span class="entry__progress-track" id="entry-progress-track" role="progressbar" aria-label="Carga real de la primera mitad de los videos" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="entry__progress-bar" id="entry-progress-bar"></span></span>
              <span class="entry__loader-status" id="entry-load-status">Preparando reproducción...</span>
            </span>
            <span class="entry__action">Esperando carga...</span>
@@ -4304,6 +4304,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
         loadingSources.add(source);
         return true;
       });
+      var priorityVideoCount = Math.max(1, Math.ceil(loadingVideos.length / 2));
+      var priorityVideos = loadingVideos.slice(0, priorityVideoCount);
+      var prioritySources = new Set(priorityVideos.map(function (video) { return video.getAttribute("src") || video.currentSrc; }));
+      var backgroundSources = new Set(loadingVideos.slice(priorityVideoCount).map(function (video) { return video.getAttribute("src") || video.currentSrc; }));
       var framedVideos = decorativeVideos.filter(function (video) { return video.id !== "hero-video"; });
       var words = Array.from(document.querySelectorAll(".hero-word"));
       var reveals = Array.from(document.querySelectorAll(".reveal"));
@@ -4337,6 +4341,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
       var editorTypingDone = false;
       var editorTypingTimer = 0;
       var entryReady = false;
+      var backgroundLoadingStarted = false;
 
       function clamp(value, min, max) {
         return Math.min(max, Math.max(min, value));
@@ -4370,22 +4375,26 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
         return !video.error && video.readyState >= 4;
       }
 
+      function hasVideoSource(video, sources) {
+        return sources.has(video.getAttribute("src") || video.currentSrc);
+      }
+
       function updateEntryLoading() {
         var totalRatio = 0;
         var loadedCount = 0;
         var errorCount = 0;
-        loadingVideos.forEach(function (video) {
+        priorityVideos.forEach(function (video) {
           totalRatio += video.error ? 1 : videoLoadRatio(video);
           if (videoIsFullyLoaded(video)) loadedCount += 1;
           if (video.error) errorCount += 1;
         });
-        var progress = loadingVideos.length ? Math.round(totalRatio / loadingVideos.length * 100) : 100;
+        var progress = priorityVideos.length ? Math.round(totalRatio / priorityVideos.length * 100) : 100;
         var settledCount = loadedCount + errorCount;
-        var settled = settledCount === loadingVideos.length;
+        var settled = settledCount === priorityVideos.length;
         entryProgress.textContent = progress + "%";
         entryProgressTrack.setAttribute("aria-valuenow", String(progress));
         entryProgressBar.style.transform = "scaleX(" + (progress / 100).toFixed(4) + ")";
-        entryLoadStatus.textContent = errorCount ? settledCount + " de " + loadingVideos.length + " listos · " + errorCount + " con error" : loadedCount + " de " + loadingVideos.length + " videos listos";
+        entryLoadStatus.textContent = errorCount ? settledCount + " de " + priorityVideos.length + " prioritarios listos · " + errorCount + " con error" : loadedCount + " de " + priorityVideos.length + " prioritarios listos";
         entry.classList.toggle("has-load-errors", errorCount > 0);
         if (!reducedMotion.matches && videoIsFullyLoaded(entryVideo) && entryVideo.paused) entryVideo.play().catch(function () { return; });
         if (!settled || entryReady) return;
@@ -4394,21 +4403,42 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
         entry.disabled = false;
         entry.setAttribute("aria-disabled", "false");
         entryAction.textContent = errorCount ? "Entrar con videos no disponibles\u00a0 →" : "Toca para entrar\u00a0 →";
-        entryLoadStatus.textContent = errorCount ? "Carga terminada · algunos videos no están disponibles" : "Todos los videos están listos para reproducirse";
+        entryLoadStatus.textContent = errorCount ? "Carga base terminada · algunos videos no están disponibles" : "Primera mitad lista · el resto carga en segundo plano";
+        window.setTimeout(startBackgroundVideoLoading, 0);
+      }
+
+      function attachVideoLoadingListeners(video) {
+        ["loadedmetadata", "loadeddata", "canplay", "canplaythrough", "durationchange", "progress", "readystatechange"].forEach(function (eventName) {
+          video.addEventListener(eventName, updateEntryLoading);
+        });
+        video.addEventListener("error", updateEntryLoading);
+      }
+
+      function startBackgroundVideoLoading() {
+        if (backgroundLoadingStarted) return;
+        backgroundLoadingStarted = true;
+        allVideos.forEach(function (video) {
+          if (!hasVideoSource(video, backgroundSources)) return;
+          video.preload = "auto";
+          if (video.readyState === 0) video.load();
+        });
       }
 
       function startVideoLoading() {
-        loadingVideos.forEach(function (video) {
-          ["loadedmetadata", "loadeddata", "canplay", "canplaythrough", "durationchange", "progress", "readystatechange"].forEach(function (eventName) {
-            video.addEventListener(eventName, updateEntryLoading);
-          });
-          video.addEventListener("error", updateEntryLoading);
-          video.preload = "auto";
+        allVideos.forEach(function (video) {
+          if (hasVideoSource(video, prioritySources)) {
+            attachVideoLoadingListeners(video);
+            video.preload = "auto";
+            if (video.readyState === 0) video.load();
+            return;
+          }
+          if (hasVideoSource(video, backgroundSources)) video.preload = "none";
+        });
+        priorityVideos.forEach(function (video) {
           if (video.readyState === 0) video.load();
         });
         updateEntryLoading();
       }
-
       function runGalleryAudioFade() {
         galleryAudioFrame = 0;
         var allowed = hasEntered && !videosPaused && !document.hidden;
@@ -4624,6 +4654,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
       }
 
       function finishSiteEntry() {
+        startBackgroundVideoLoading();
         entryVideo.pause();
         document.body.classList.remove("is-locked");
         entry.hidden = true;
@@ -4908,6 +4939,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
           entries.forEach(function (item) {
             if (!item.isIntersecting) return;
             var video = item.target;
+            if (!backgroundLoadingStarted && hasVideoSource(video, backgroundSources)) return;
             video.preload = "auto";
             if (video.readyState === 0) video.load();
             observer.unobserve(video);
@@ -4924,6 +4956,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
         replayTargets.forEach(function (item) { item.classList.add("is-in-view"); });
         colorSections.forEach(function (section) { section.classList.add("is-title-visible"); });
         framedVideos.forEach(function (video) {
+          if (!backgroundLoadingStarted && hasVideoSource(video, backgroundSources)) return;
           video.preload = "auto";
           video.load();
         });
