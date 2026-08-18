@@ -41,7 +41,7 @@
       "nombre": "ArceusX",
       "version": "2.3.0",
       "fecha_actualizacion": "10-08-2026",
-      "status": "desactualizado",
+      "status": "detectable",
       "stars": "3.4",
       "link_descarga_arm64": "https://android.spdmteam.com/",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/ARCEUS.jpeg"
@@ -50,7 +50,7 @@
       "nombre": "Delta",
       "version": "2.733",
       "fecha_actualizacion": "10-08-2026",
-      "status": "detectable",
+      "status": "peligro",
       "stars": "2.1",
       "link_descarga_arm64": "https://delta.filenetwork.vip/android.html",
       "link_descarga_arm32": "https://delta.filenetwork.vip/android.html",
