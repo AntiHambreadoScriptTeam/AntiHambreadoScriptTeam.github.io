@@ -4654,10 +4654,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
         var completedVideos = mediaLoadItems.filter(function (item) { return item.type === "video" && item.done; }).length;
         var totalImages = mediaLoadItems.filter(function (item) { return item.type === "image"; }).length;
         var completedImages = mediaLoadItems.filter(function (item) { return item.type === "image" && item.done; }).length;
-        var progress = totalVideos ? completedVideos / totalVideos * 100 : completed / mediaLoadItems.length * 100;
+        var progress = mediaLoadItems.reduce(function (total, item) { return total + item.progress; }, 0) / mediaLoadItems.length * 100;
         loaderCount.textContent = completedVideos + " / " + totalVideos + " videos únicos";
         if (mediaLoadFailed) loaderStatus.textContent = mediaLoadFailed + " archivo(s) no respondieron";
-        else if (mediaLoadActive) loaderStatus.textContent = "Descargando " + mediaLoadActive + " fuentes únicas en paralelo · " + completedImages + " / " + totalImages + " imágenes";
+        else if (mediaLoadActive) loaderStatus.textContent = "Descargando todas las fuentes únicas en paralelo · " + completedImages + " / " + totalImages + " imágenes";
         else loaderStatus.textContent = "Preparando multimedia original";
         if (completed === mediaLoadItems.length && mediaLoadActive === 0) finishLoading();
         else setLoadingTarget(Math.min(99.9, progress));
@@ -4741,7 +4741,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
         mediaLoadQueueIndex = 0;
         mediaLoadActive = 0;
         mediaLoadFailed = 0;
-        mediaLoadConcurrency = window.innerWidth < 600 ? 5 : 10;
+        mediaLoadConcurrency = mediaLoadItems.length || 1;
         loadingTarget = 0;
         loadingValue = 0;
         renderLoadingProgress(0);
