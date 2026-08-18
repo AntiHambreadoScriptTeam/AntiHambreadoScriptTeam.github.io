@@ -355,6 +355,78 @@
       animation: entry-copy-reveal 760ms var(--ease) 680ms both;
     }
 
+    .entry__loader {
+      display: grid;
+      gap: 0.7rem;
+      width: min(100%, 31rem);
+      margin-top: 1.5rem;
+    }
+
+    .entry__loader-top {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .entry__loader-label,
+    .entry__loader-status {
+      color: rgba(245, 242, 236, 0.7);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      line-height: 1.35;
+      text-transform: uppercase;
+    }
+
+    .entry__loader-percent {
+      min-width: 4ch;
+      color: var(--white);
+      font-family: var(--display);
+      font-size: clamp(3.2rem, 15vw, 7rem);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.1em;
+      line-height: 0.72;
+      text-align: right;
+    }
+
+    .entry__progress-track {
+      display: block;
+      height: 0.7rem;
+      padding: 0.15rem;
+      border: 1px solid rgba(245, 242, 236, 0.45);
+      background: rgba(5, 5, 5, 0.45);
+    }
+
+    .entry__progress-bar {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 180ms linear;
+    }
+
+    .entry__action {
+      transition: background 180ms ease, color 180ms ease, opacity 180ms ease;
+    }
+
+    .entry:not(.is-ready) .entry__action {
+      background: rgba(245, 242, 236, 0.16);
+      color: rgba(245, 242, 236, 0.66);
+      cursor: progress;
+    }
+
+    .entry.is-ready .entry__loader-status {
+      color: var(--green);
+    }
+
+    .entry.has-load-errors .entry__loader-status {
+      color: var(--gold);
+    }
+
     .entry__action {
       display: inline-flex;
       align-items: center;
@@ -2922,7 +2994,7 @@
 <body class="is-locked" data-scene="inicio">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-  <button class="entry" id="entry" type="button" aria-label="Entrar a la bio de TheRealBanHammer y activar el audio de los videos">
+  <button class="entry" id="entry" type="button" disabled aria-disabled="true" aria-label="Entrar a la bio de TheRealBanHammer y activar el audio de los videos">
     <video class="entry__video" id="entry-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7622689736687144213_20260731142712.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true" disablepictureinpicture disableremoteplayback></video>
     <span class="entry__shade" aria-hidden="true"></span>
     <span class="entry__content">
@@ -2931,8 +3003,13 @@
         <img class="entry__crown" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/crown-mask.png" alt="" width="1254" height="1254">
         <span>
           <span class="entry__title"><span class="visually-hidden">TheRealBanHammer</span><span class="entry__title-line" aria-hidden="true"><span class="entry__title-text">TheReal</span></span><span class="entry__title-line entry__title-line--accent" aria-hidden="true"><span class="entry__title-text">BanHammer</span></span></span>
-          <span class="entry__statement">En esta página metí todo lo que sé de HTML, CSS y JavaScript para mostrar mis habilidades. Si quieres una página así, escríbeme por Discord.</span>
-          <span class="entry__action">Toca para entrar&nbsp; →</span>
+           <span class="entry__statement">En esta página metí todo lo que sé de HTML, CSS y JavaScript para mostrar mis habilidades. Si quieres una página así, escríbeme por Discord.</span>
+           <span class="entry__loader" id="entry-loader" aria-live="polite">
+             <span class="entry__loader-top"><span class="entry__loader-label">Cargando videos</span><strong class="entry__loader-percent" id="entry-progress">0%</strong></span>
+             <span class="entry__progress-track" id="entry-progress-track" role="progressbar" aria-label="Carga real de los videos" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="entry__progress-bar" id="entry-progress-bar"></span></span>
+             <span class="entry__loader-status" id="entry-load-status">Preparando reproducción...</span>
+           </span>
+           <span class="entry__action">Esperando carga...</span>
         </span>
       </span>
       <span class="entry__bottom"><span>Scripts / Web / Roblox</span><span>Audio de videos al entrar</span></span>
@@ -3162,7 +3239,7 @@
           <article class="stack-card principle-card" style="--stack-index:0; --card-color:#d42bb1; --card-ink:#f5f2ec;">
             <div class="stack-card__inner">
               <div class="stack-card__media">
-                <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7482182384918465853_20260730194040.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7482182384918465853_20260730194040.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
               </div>
               <div class="stack-card__copy">
                 <p class="eyebrow">Scripts</p>
@@ -3175,7 +3252,7 @@
           <article class="stack-card principle-card" style="--stack-index:1; --card-color:#1676ef; --card-ink:#f5f2ec;">
             <div class="stack-card__inner">
               <div class="stack-card__media">
-                <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/jacob_dopper_2026-07-31-19-12-44_1785543164508.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/jacob_dopper_2026-07-31-19-12-44_1785543164508.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
               </div>
               <div class="stack-card__copy">
                 <p class="eyebrow">Web</p>
@@ -3188,7 +3265,7 @@
           <article class="stack-card principle-card" style="--stack-index:2; --card-color:#ffd43b; --card-ink:#050505;">
             <div class="stack-card__inner">
               <div class="stack-card__media">
-                <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7636778152265633044_20260731185236.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7636778152265633044_20260731185236.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
               </div>
               <div class="stack-card__copy">
                 <p class="eyebrow">Equipo</p>
@@ -4186,6 +4263,11 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
       var DISCORD_USER_ID = "1287075617090568284";
       var entry = document.getElementById("entry");
       var entryVideo = document.getElementById("entry-video");
+      var entryProgress = document.getElementById("entry-progress");
+      var entryProgressTrack = document.getElementById("entry-progress-track");
+      var entryProgressBar = document.getElementById("entry-progress-bar");
+      var entryLoadStatus = document.getElementById("entry-load-status");
+      var entryAction = entry.querySelector(".entry__action");
       var hero = document.getElementById("inicio");
       var heroMask = document.getElementById("hero-mask");
       var heroContent = document.getElementById("hero-content");
@@ -4214,6 +4296,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
       var spotlightOrb = document.getElementById("spotlight-orb");
       var spotlightContent = document.getElementById("spotlight-content");
       var decorativeVideos = Array.from(document.querySelectorAll(".decorative-video"));
+      var allVideos = Array.from(document.querySelectorAll("video"));
+      var loadingSources = new Set();
+      var loadingVideos = allVideos.filter(function (video) {
+        var source = video.getAttribute("src") || video.currentSrc;
+        if (!source || loadingSources.has(source)) return false;
+        loadingSources.add(source);
+        return true;
+      });
       var framedVideos = decorativeVideos.filter(function (video) { return video.id !== "hero-video"; });
       var words = Array.from(document.querySelectorAll(".hero-word"));
       var reveals = Array.from(document.querySelectorAll(".reveal"));
@@ -4246,6 +4336,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
       var editorTypingStarted = false;
       var editorTypingDone = false;
       var editorTypingTimer = 0;
+      var entryReady = false;
 
       function clamp(value, min, max) {
         return Math.min(max, Math.max(min, value));
@@ -4253,6 +4344,69 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
 
       function easeOut(value) {
         return 1 - Math.pow(1 - value, 3);
+      }
+
+      function bufferedVideoRatio(video) {
+        if (video.error || !Number.isFinite(video.duration) || video.duration <= 0 || !video.buffered.length) return 0;
+        var bufferedEnd = 0;
+        for (var index = 0; index < video.buffered.length; index += 1) {
+          bufferedEnd = Math.max(bufferedEnd, video.buffered.end(index));
+        }
+        return clamp(bufferedEnd / video.duration, 0, 1);
+      }
+
+      function videoLoadRatio(video) {
+        if (video.error) return 0;
+        if (video.readyState >= 4) return 1;
+        var bufferedRatio = bufferedVideoRatio(video);
+        if (Number.isFinite(video.duration) && video.duration > 0) return bufferedRatio;
+        if (video.readyState >= 3) return 0.75;
+        if (video.readyState >= 2) return 0.45;
+        if (video.readyState >= 1) return 0.2;
+        return 0;
+      }
+
+      function videoIsFullyLoaded(video) {
+        return !video.error && video.readyState >= 4;
+      }
+
+      function updateEntryLoading() {
+        var totalRatio = 0;
+        var loadedCount = 0;
+        var errorCount = 0;
+        loadingVideos.forEach(function (video) {
+          totalRatio += video.error ? 1 : videoLoadRatio(video);
+          if (videoIsFullyLoaded(video)) loadedCount += 1;
+          if (video.error) errorCount += 1;
+        });
+        var progress = loadingVideos.length ? Math.round(totalRatio / loadingVideos.length * 100) : 100;
+        var settledCount = loadedCount + errorCount;
+        var settled = settledCount === loadingVideos.length;
+        entryProgress.textContent = progress + "%";
+        entryProgressTrack.setAttribute("aria-valuenow", String(progress));
+        entryProgressBar.style.transform = "scaleX(" + (progress / 100).toFixed(4) + ")";
+        entryLoadStatus.textContent = errorCount ? settledCount + " de " + loadingVideos.length + " listos · " + errorCount + " con error" : loadedCount + " de " + loadingVideos.length + " videos listos";
+        entry.classList.toggle("has-load-errors", errorCount > 0);
+        if (!reducedMotion.matches && videoIsFullyLoaded(entryVideo) && entryVideo.paused) entryVideo.play().catch(function () { return; });
+        if (!settled || entryReady) return;
+        entryReady = true;
+        entry.classList.add("is-ready");
+        entry.disabled = false;
+        entry.setAttribute("aria-disabled", "false");
+        entryAction.textContent = errorCount ? "Entrar con videos no disponibles\u00a0 →" : "Toca para entrar\u00a0 →";
+        entryLoadStatus.textContent = errorCount ? "Carga terminada · algunos videos no están disponibles" : "Todos los videos están listos para reproducirse";
+      }
+
+      function startVideoLoading() {
+        loadingVideos.forEach(function (video) {
+          ["loadedmetadata", "loadeddata", "canplay", "canplaythrough", "durationchange", "progress", "readystatechange"].forEach(function (eventName) {
+            video.addEventListener(eventName, updateEntryLoading);
+          });
+          video.addEventListener("error", updateEntryLoading);
+          video.preload = "auto";
+          if (video.readyState === 0) video.load();
+        });
+        updateEntryLoading();
       }
 
       function runGalleryAudioFade() {
@@ -4388,6 +4542,43 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
         return visibleRatio * 2 + horizontal * 0.35 + vertical * 0.65;
       }
 
+      function stackCardForVideo(video) {
+        return video.closest(".stack-card");
+      }
+
+      function stackIndex(card) {
+        return parseFloat(window.getComputedStyle(card).getPropertyValue("--stack-index")) || 0;
+      }
+
+      function cardsOverlap(first, second) {
+        var firstRect = first.getBoundingClientRect();
+        var secondRect = second.getBoundingClientRect();
+        return Math.min(firstRect.right, secondRect.right) - Math.max(firstRect.left, secondRect.left) > 1 &&
+          Math.min(firstRect.bottom, secondRect.bottom) - Math.max(firstRect.top, secondRect.top) > 1;
+      }
+
+      function isCoveredStackVideo(video, candidates) {
+        var card = stackCardForVideo(video);
+        if (!card) return false;
+        var section = card.closest("[data-stack]");
+        return candidates.some(function (otherVideo) {
+          if (otherVideo === video) return false;
+          var otherCard = stackCardForVideo(otherVideo);
+          if (!otherCard || otherCard.closest("[data-stack]") !== section || !cardsOverlap(card, otherCard)) return false;
+          return stackIndex(otherCard) > stackIndex(card);
+        });
+      }
+
+      function audioCandidate(visibleVideos) {
+        var candidates = visibleVideos.filter(function (video) { return !video.hasAttribute("data-silent"); });
+        var uncovered = candidates.filter(function (video) { return !isCoveredStackVideo(video, candidates); });
+        var pool = uncovered.length ? uncovered : candidates;
+        return pool.reduce(function (best, video) {
+          if (!best || visibleVideoScore(video) > visibleVideoScore(best)) return video;
+          return best;
+        }, null);
+      }
+
       function setActiveVideo(nextVideo, visibleVideos) {
         var visibleSet = new Set(visibleVideos || []);
         activeVideo = nextVideo;
@@ -4424,18 +4615,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
           setActiveVideo(null);
           return;
         }
-        var candidate = null;
-        var bestScore = 0;
         var visibleVideos = [];
         decorativeVideos.forEach(function (video) {
           var score = visibleVideoScore(video);
           if (score > 0) visibleVideos.push(video);
-          if (!video.hasAttribute("data-silent") && score > bestScore) {
-            bestScore = score;
-            candidate = video;
-          }
         });
-        setActiveVideo(candidate, visibleVideos);
+        setActiveVideo(audioCandidate(visibleVideos), visibleVideos);
       }
 
       function finishSiteEntry() {
@@ -4450,7 +4635,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
       }
 
       function enterSite() {
-        if (hasEntered) return;
+        if (hasEntered || !entryReady) return;
         hasEntered = true;
         if (reducedMotion.matches) {
           finishSiteEntry();
@@ -4675,6 +4860,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
       }
 
       framedVideos.forEach(prepareVideoFrame);
+      startVideoLoading();
 
       replayTargets.forEach(function (item, index) {
         item.classList.add("motion-replay");
@@ -4794,7 +4980,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
       }
       requestMotionUpdate();
       if (reducedMotion.matches) entryVideo.pause();
-      else entryVideo.play().catch(function () { return; });
       refreshPresence();
       window.setInterval(refreshPresence, 15000);
     })();
