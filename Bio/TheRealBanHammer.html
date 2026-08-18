@@ -209,6 +209,53 @@
       transition: opacity 700ms var(--ease), visibility 700ms var(--ease);
     }
 
+    .entry::before {
+      position: absolute;
+      z-index: 4;
+      inset: 0;
+      background: var(--red);
+      content: "";
+      pointer-events: none;
+      transform: translate3d(-101%, 0, 0);
+    }
+
+    .entry.is-exiting {
+      pointer-events: none;
+      animation: entry-shell-exit 1050ms cubic-bezier(0.76, 0, 0.24, 1) both;
+    }
+
+    .entry.is-exiting::before {
+      animation: entry-red-cover 470ms cubic-bezier(0.76, 0, 0.24, 1) both;
+    }
+
+    .entry.is-exiting .entry__top,
+    .entry.is-exiting .entry__bottom,
+    .entry.is-exiting .entry__crown {
+      animation: entry-meta-exit 300ms ease both;
+    }
+
+    .entry.is-exiting .entry__title-text {
+      animation: entry-title-exit 390ms cubic-bezier(0.7, 0, 0.84, 0) both;
+    }
+
+    .entry.is-exiting .entry__title-line--accent .entry__title-text {
+      animation-delay: 55ms;
+    }
+
+    .entry.is-exiting .entry__statement {
+      animation: entry-meta-exit 280ms ease 35ms both;
+    }
+
+    .entry.is-exiting .entry__action {
+      animation: entry-button-press 320ms cubic-bezier(0.7, 0, 0.84, 0) both;
+    }
+
+    body.is-entering .site-header,
+    body.is-entering .motion-hero {
+      animation: site-reveal 780ms cubic-bezier(0.16, 1, 0.3, 1) 410ms both;
+      transform-origin: center top;
+    }
+
     .entry[hidden] {
       display: none;
     }
@@ -271,6 +318,7 @@
     }
 
     .entry__title {
+      display: block;
       margin: 0;
       font-family: var(--display);
       font-size: clamp(3.3rem, 15vw, 9rem);
@@ -278,9 +326,22 @@
       letter-spacing: -0.07em;
     }
 
-    .entry__title span {
+    .entry__title-line {
       display: block;
+      overflow: hidden;
+      padding: 0 0.08em 0.12em 0;
+      margin: 0 -0.08em -0.12em 0;
+    }
+
+    .entry__title-text {
+      display: block;
+      transform-origin: left bottom;
+      animation: entry-title-reveal 980ms cubic-bezier(0.16, 1, 0.3, 1) 90ms both;
+    }
+
+    .entry__title-line--accent .entry__title-text {
       color: var(--red);
+      animation-delay: 220ms;
     }
 
     .entry__statement {
@@ -291,6 +352,7 @@
       font-size: clamp(0.9rem, 2.4vw, 1.1rem);
       font-weight: 600;
       line-height: 1.5;
+      animation: entry-copy-reveal 760ms var(--ease) 680ms both;
     }
 
     .entry__action {
@@ -302,6 +364,7 @@
       background: var(--white);
       color: var(--black);
       font-weight: 800;
+      animation: entry-action-reveal 720ms cubic-bezier(0.16, 1, 0.3, 1) 850ms both;
     }
 
     @keyframes entry-breathe {
@@ -312,6 +375,121 @@
       to {
         transform: translateY(-0.5rem) scale(1);
         opacity: 0.88;
+      }
+    }
+
+    @keyframes entry-title-reveal {
+      0% {
+        opacity: 0;
+        filter: blur(0.65rem);
+        transform: translate3d(0, 112%, 0) rotate(2.5deg);
+      }
+      58% {
+        opacity: 1;
+        filter: blur(0.08rem);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translate3d(0, 0, 0) rotate(0);
+      }
+    }
+
+    @keyframes entry-copy-reveal {
+      from {
+        opacity: 0;
+        clip-path: inset(0 0 100% 0);
+        transform: translate3d(0, 1rem, 0);
+      }
+      to {
+        opacity: 1;
+        clip-path: inset(0);
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @keyframes entry-action-reveal {
+      from {
+        opacity: 0;
+        transform: translate3d(0, 1.15rem, 0) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+    }
+
+    @keyframes entry-red-cover {
+      from {
+        transform: translate3d(-101%, 0, 0);
+      }
+      to {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @keyframes entry-shell-exit {
+      0%, 44% {
+        clip-path: inset(0);
+      }
+      100% {
+        clip-path: inset(0 0 0 100%);
+      }
+    }
+
+    @keyframes entry-title-exit {
+      from {
+        opacity: 1;
+        filter: blur(0);
+        transform: translate3d(0, 0, 0) rotate(0);
+      }
+      to {
+        opacity: 0;
+        filter: blur(0.35rem);
+        transform: translate3d(0, -112%, 0) rotate(-2deg);
+      }
+    }
+
+    @keyframes entry-meta-exit {
+      from {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+      to {
+        opacity: 0;
+        transform: translate3d(0, -0.75rem, 0);
+      }
+    }
+
+    @keyframes entry-button-press {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      35% {
+        background: var(--red);
+        color: var(--white);
+        opacity: 1;
+        transform: scale(0.96);
+      }
+      100% {
+        background: var(--red);
+        color: var(--white);
+        opacity: 0;
+        transform: translate3d(0, -0.7rem, 0) scale(1.02);
+      }
+    }
+
+    @keyframes site-reveal {
+      from {
+        filter: blur(0.45rem) brightness(0.55);
+        opacity: 0.35;
+        transform: scale(1.025);
+      }
+      to {
+        filter: none;
+        opacity: 1;
+        transform: scale(1);
       }
     }
 
@@ -1016,66 +1194,114 @@
     }
 
     .skills-head {
+      display: grid;
+      gap: 1rem;
       max-width: 75rem;
       margin-inline: auto;
-      text-align: center;
+      text-align: left;
     }
 
     .skills-grid {
       display: grid;
-      gap: 2rem;
+      gap: 0.75rem;
       margin: clamp(3.5rem, 9vw, 7rem) 0 0;
       padding: 0;
       list-style: none;
     }
 
     .skill {
-      padding-top: 1.25rem;
-      border-top: 1px solid var(--line);
+      --skill-accent: var(--green);
+      position: relative;
+      display: flex;
+      min-height: 17rem;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 1.25rem;
+      border: 1px solid var(--line);
+      border-top: 0.25rem solid var(--skill-accent);
+      background: var(--black-soft);
+      transition: border-color 220ms ease, background-color 220ms ease, transform 220ms var(--ease);
+    }
+
+    .skill::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 5rem;
+      height: 5rem;
+      border-right: 1px solid color-mix(in srgb, var(--skill-accent) 72%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--skill-accent) 72%, transparent);
+      pointer-events: none;
+    }
+
+    .skill:hover {
+      background: #171717;
+      transform: translateY(-0.35rem);
     }
 
     .skill__icon {
       display: grid;
       place-items: center;
-      width: 3.25rem;
-      height: 3.25rem;
-      margin-bottom: 1rem;
-      border: 2px solid var(--green);
-      color: var(--green);
+      width: 3.5rem;
+      height: 3.5rem;
+      margin-bottom: 2.25rem;
+      border: 1px solid var(--skill-accent);
+      color: var(--skill-accent);
       font-family: var(--mono);
       font-size: 0.8rem;
       font-weight: 600;
+      box-shadow: 0.35rem 0.35rem 0 var(--skill-accent);
     }
 
     .skill__top {
       display: flex;
-      align-items: baseline;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 1rem;
     }
 
     .skill h3 {
       margin: 0;
-      font-size: 1.15rem;
-      line-height: 1.1;
+      font-size: clamp(1.2rem, 2vw, 1.55rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
     }
 
     .skill__score {
-      color: var(--green);
+      display: grid;
+      justify-items: end;
+      color: var(--skill-accent);
       font-family: var(--mono);
-      font-size: 0.8rem;
+      line-height: 0.8;
+      white-space: nowrap;
+    }
+
+    .skill__score strong {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      font-weight: 500;
+      letter-spacing: -0.12em;
+    }
+
+    .skill__score small {
+      margin-top: 0.35rem;
+      color: var(--white-dim);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .skill p {
-      margin: 0.6rem 0 0;
+      max-width: 22rem;
+      margin: 1rem 0 1.5rem;
       color: var(--white-dim);
-      font-size: 0.94rem;
+      font-size: 0.96rem;
     }
 
     .skill progress {
       width: 100%;
-      height: 0.32rem;
-      margin-top: 1rem;
+      height: 0.45rem;
+      margin-top: auto;
       border: 0;
       background: #303030;
       appearance: none;
@@ -1086,12 +1312,17 @@
     }
 
     .skill progress::-webkit-progress-value {
-      background: var(--green);
+      background: var(--skill-accent);
     }
 
     .skill progress::-moz-progress-bar {
-      background: var(--green);
+      background: var(--skill-accent);
     }
+
+    .skill:nth-child(2) { --skill-accent: var(--blue); }
+    .skill:nth-child(3) { --skill-accent: var(--purple); }
+    .skill:nth-child(4) { --skill-accent: var(--red); }
+    .skill:nth-child(5) { --skill-accent: var(--gold); }
 
     .skills-cta {
       display: grid;
@@ -1273,59 +1504,259 @@
       filter: saturate(0.85) contrast(1.08);
     }
 
-    .gallery-section {
+    .editor-section {
       position: relative;
-      min-height: 520svh;
+      min-height: 360svh;
       overflow: clip;
-      --section-active-color: #3811ff;
+      --section-active-color: #111111;
       background-color: var(--black);
       color: var(--white);
     }
 
-    .gallery-sticky {
+    .editor-sticky {
       position: sticky;
       top: 0;
-      height: 100svh;
+      display: grid;
+      align-content: start;
+      min-height: 100svh;
       padding-top: calc(var(--header-h) + 3rem);
       overflow: hidden;
     }
 
-    .gallery-head {
+    .editor-head {
       max-width: 75rem;
       will-change: opacity, translate;
     }
 
-    .gallery-track {
-      position: absolute;
-      top: 28svh;
-      left: 0;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      width: max-content;
-      margin-top: 0;
-      padding-left: var(--gutter);
-      padding-right: 20vw;
-      will-change: transform;
+    .editor-layout {
+      display: grid;
+      gap: 0.9rem;
+      width: min(92rem, calc(100% - 2 * var(--gutter)));
+      margin: clamp(2rem, 5vw, 4rem) auto 0;
+      will-change: opacity, transform;
     }
 
-    .gallery-item {
-      flex: 0 0 auto;
-      margin: 0;
-      min-width: 0;
-    }
-
-    .gallery-media {
-      height: clamp(22rem, 60svh, 44rem);
-      aspect-ratio: var(--video-ratio, 16 / 9);
+    .editor-shell {
       overflow: hidden;
-      background: #100650;
+      border: 1px solid rgba(245, 242, 236, 0.2);
+      background: #0d0e10;
+      box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.34);
     }
 
-    .gallery-media video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+    .editor-titlebar,
+    .editor-statusbar,
+    .editor-tabs,
+    .editor-bottom {
+      display: flex;
+      align-items: center;
+    }
+
+    .editor-titlebar {
+      min-height: 2.85rem;
+      justify-content: space-between;
+      padding: 0 1rem;
+      border-bottom: 1px solid rgba(245, 242, 236, 0.12);
+      background: #18191c;
+    }
+
+    .editor-traffic {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .editor-traffic span {
+      width: 0.65rem;
+      height: 0.65rem;
+      border-radius: 50%;
+      background: var(--white-dim);
+    }
+
+    .editor-traffic span:first-child { background: var(--red); }
+    .editor-traffic span:nth-child(2) { background: var(--gold); }
+    .editor-traffic span:nth-child(3) { background: var(--green); }
+
+    .editor-titlebar__name,
+    .editor-statusbar,
+    .editor-file-tree,
+    .editor-tabs {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+    }
+
+    .editor-titlebar__name {
+      color: var(--white-dim);
+      letter-spacing: 0.04em;
+    }
+
+    .editor-titlebar__mode {
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+    }
+
+    .editor-body {
+      display: grid;
+      min-height: clamp(22rem, 54svh, 42rem);
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .editor-sidebar {
+      display: none;
+      padding: 1.2rem 0.9rem;
+      border-right: 1px solid rgba(245, 242, 236, 0.12);
+      background: #111214;
+    }
+
+    .editor-sidebar__label {
+      margin: 0 0 1rem;
+      color: var(--white-dim);
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .editor-file-tree {
+      display: grid;
+      gap: 0.65rem;
+      color: var(--white-dim);
+      line-height: 1.35;
+    }
+
+    .editor-file-tree span {
+      display: block;
+      padding: 0.4rem 0.5rem;
+    }
+
+    .editor-file-tree .is-folder { color: var(--gold); }
+    .editor-file-tree .is-file { color: var(--white); background: rgba(255, 59, 47, 0.14); }
+    .editor-file-tree .is-file::before { content: "◆ "; color: var(--red); }
+
+    .editor-workbench {
+      min-width: 0;
+      background: #0d0e10;
+    }
+
+    .editor-tabs {
+      min-height: 2.7rem;
+      gap: 1.2rem;
+      padding: 0 1rem;
+      border-bottom: 1px solid rgba(245, 242, 236, 0.1);
+      color: var(--white-dim);
+    }
+
+    .editor-tabs span:first-child {
+      align-self: stretch;
+      display: inline-flex;
+      align-items: center;
+      border-bottom: 2px solid var(--red);
+      color: var(--white);
+    }
+
+    .editor-code-scroll {
+      height: clamp(18rem, 48svh, 36rem);
+      overflow: auto;
+      scrollbar-color: #484a50 #0d0e10;
+    }
+
+    .editor-code {
+      display: grid;
+      grid-template-columns: 3rem minmax(0, 1fr);
+      min-width: max-content;
+      padding: 1.25rem 0;
+      font-family: var(--mono);
+      font-size: clamp(0.68rem, 1.15vw, 0.82rem);
+      line-height: 1.65;
+    }
+
+    .editor-line-numbers,
+    .editor-code__text {
+      margin: 0;
+      white-space: pre;
+    }
+
+    .editor-line-numbers {
+      padding-right: 1rem;
+      color: #555960;
+      text-align: right;
+      user-select: none;
+    }
+
+    .editor-code__text {
+      min-height: 100%;
+      padding-right: 1.5rem;
+      color: #d5d8df;
+    }
+
+    .editor-code__caret {
+      display: inline-block;
+      width: 0.55em;
+      height: 1.2em;
+      margin-left: 0.12em;
+      vertical-align: -0.2em;
+      background: var(--red);
+      animation: editor-caret 900ms steps(1) infinite;
+    }
+
+    @keyframes editor-caret {
+      50% { opacity: 0; }
+    }
+
+    .editor-statusbar {
+      justify-content: space-between;
+      min-height: 1.8rem;
+      gap: 1rem;
+      padding: 0 0.85rem;
+      background: #20252d;
+      color: #d7dce3;
+      font-size: 0.62rem;
+    }
+
+    .editor-statusbar span:last-child { color: var(--green); }
+
+    .editor-bottom {
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 1rem;
+      border-top: 1px solid rgba(245, 242, 236, 0.12);
+      background: #111214;
+    }
+
+    .editor-bottom p {
+      margin: 0;
+      color: var(--white-dim);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+    }
+
+    .editor-replay {
+      min-height: 2.75rem;
+      padding: 0.65rem 0.9rem;
+      border: 1px solid var(--red);
+      background: transparent;
+      color: var(--white);
+      font: 600 0.72rem var(--mono);
+      cursor: pointer;
+      transition: background-color 180ms ease, color 180ms ease;
+    }
+
+    .editor-replay:hover,
+    .editor-replay:focus-visible {
+      background: var(--red);
+      color: var(--black);
+    }
+
+    .editor-note {
+      margin: 0;
+      color: var(--white-dim);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      text-align: right;
+    }
+
+    .gallery-section {
+      display: none;
     }
 
     .spotlight {
@@ -1338,14 +1769,14 @@
 
     .media-band,
     .skills-section,
-    .gallery-section,
+    .editor-section,
     .spotlight {
       transition: background-color 1200ms var(--ease), color 900ms var(--ease);
     }
 
     .media-band.is-title-visible,
     .skills-section.is-title-visible,
-    .gallery-section.is-title-visible,
+    .editor-section.is-title-visible,
     .spotlight.is-title-visible {
       background-color: var(--section-active-color);
     }
@@ -1688,8 +2119,38 @@
       }
 
       .skills-grid {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 0.75rem;
+      }
+
+      .skills-head {
+        grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+        align-items: end;
+      }
+
+      .skills-grid .skill {
+        grid-column: span 3;
+      }
+
+      .skills-grid .skill:first-child {
+        grid-column: span 6;
+        grid-row: span 2;
+        min-height: 34.75rem;
+        padding: 2rem;
+      }
+
+      .skills-grid .skill:first-child .skill__icon {
+        width: 4.25rem;
+        height: 4.25rem;
+        margin-bottom: auto;
+      }
+
+      .skills-grid .skill:first-child h3 {
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+      }
+
+      .skills-grid .skill:first-child .skill__score strong {
+        font-size: clamp(3rem, 7vw, 5.5rem);
       }
 
       .stack-card > a,
@@ -1731,9 +2192,17 @@
         min-height: 0;
       }
 
-      .gallery-track {
-        top: 26svh;
-        gap: 2rem;
+      .editor-sidebar {
+        display: block;
+        padding-inline: 1.25rem;
+      }
+
+      .editor-body {
+        grid-template-columns: 12rem minmax(0, 1fr);
+      }
+
+      .editor-layout {
+        gap: 1.25rem;
       }
 
       .spotlight__content {
@@ -1808,7 +2277,7 @@
       .hero-content,
       .hero-manifesto,
       .skills-crown,
-      .gallery-track,
+      .editor-layout,
       .spotlight__orb,
       .stack-card {
         opacity: 1 !important;
@@ -1826,7 +2295,7 @@
       }
 
       .hero-sticky,
-      .gallery-sticky,
+      .editor-sticky,
       .spotlight__stage {
         position: relative;
       }
@@ -1836,7 +2305,7 @@
         top: auto;
       }
 
-      .gallery-section,
+      .editor-section,
       .spotlight {
         min-height: auto;
       }
@@ -1873,6 +2342,581 @@
         transform: none !important;
       }
     }
+    .editor-section {
+      min-height: 0;
+      overflow: visible;
+      background: #0d0d0d;
+    }
+
+    .editor-sticky {
+      position: relative;
+      min-height: 0;
+      padding-bottom: clamp(5rem, 10vw, 9rem);
+      overflow: visible;
+    }
+
+    .editor-head,
+    .editor-layout {
+      will-change: auto;
+    }
+
+    .editor-head {
+      opacity: 1;
+      translate: none;
+    }
+
+    .editor-layout {
+      width: min(96rem, calc(100% - 2 * var(--gutter)));
+      gap: 0;
+    }
+
+    .editor-shell {
+      --vscode-border: #2b2b2b;
+      --vscode-panel: #181818;
+      --vscode-panel-raised: #1f1f1f;
+      --vscode-editor: #1e1e1e;
+      overflow: hidden;
+      border: 1px solid var(--vscode-border);
+      border-radius: 0.25rem;
+      background: var(--vscode-editor);
+      color: #cccccc;
+      box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.38);
+      font-family: "Segoe UI", var(--body);
+    }
+
+    .editor-menubar {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+      min-height: 2.2rem;
+      border-bottom: 1px solid var(--vscode-border);
+      background: #181818;
+      color: #cccccc;
+      font: 0.75rem "Segoe UI", var(--body);
+      user-select: none;
+    }
+
+    .editor-menu-group,
+    .editor-window-controls,
+    .editor-tab-actions,
+    .editor-status-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .editor-menu-group {
+      min-width: 0;
+      gap: 0.05rem;
+      padding-left: 0.45rem;
+      white-space: nowrap;
+    }
+
+    .editor-app-mark {
+      display: grid;
+      flex: 0 0 auto;
+      width: 1.7rem;
+      height: 1.7rem;
+      place-items: center;
+      color: #23a8f2;
+    }
+
+    .editor-app-mark svg {
+      width: 1.05rem;
+      height: 1.05rem;
+      fill: currentColor;
+    }
+
+    .editor-menu-item {
+      padding: 0.32rem 0.48rem;
+      border-radius: 0.18rem;
+    }
+
+    .editor-menu-item:hover {
+      background: #2a2d2e;
+      color: #ffffff;
+    }
+
+    .editor-titlebar__name {
+      overflow: hidden;
+      max-width: min(34vw, 31rem);
+      padding: 0 1rem;
+      color: #dddddd;
+      font-size: 0.75rem;
+      letter-spacing: 0;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .editor-window-controls {
+      justify-self: end;
+      align-self: stretch;
+    }
+
+    .editor-window-controls span {
+      display: grid;
+      width: 2.8rem;
+      place-items: center;
+      color: #c7c7c7;
+      font-size: 0.85rem;
+    }
+
+    .editor-window-controls span:last-child:hover {
+      background: #c42b1c;
+      color: #ffffff;
+    }
+
+    .editor-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      height: clamp(30rem, 62svh, 42rem);
+      min-height: 0;
+    }
+
+    .editor-activitybar,
+    .editor-sidebar {
+      display: none;
+    }
+
+    .editor-activitybar {
+      position: relative;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid var(--vscode-border);
+      background: #181818;
+      color: #868686;
+    }
+
+    .editor-activity-group {
+      display: grid;
+      width: 100%;
+    }
+
+    .editor-activity-icon {
+      position: relative;
+      display: grid;
+      width: 100%;
+      min-height: 3rem;
+      place-items: center;
+      color: inherit;
+    }
+
+    .editor-activity-icon svg {
+      width: 1.45rem;
+      height: 1.45rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.55;
+    }
+
+    .editor-activity-icon.is-active {
+      color: #ffffff;
+    }
+
+    .editor-activity-icon.is-active::before {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 2px;
+      background: #0078d4;
+      content: "";
+    }
+
+    .editor-sidebar {
+      min-width: 0;
+      flex-direction: column;
+      padding: 0;
+      border-right: 1px solid var(--vscode-border);
+      background: #181818;
+      color: #cccccc;
+    }
+
+    .editor-sidebar__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 2.2rem;
+      padding: 0 0.55rem 0 1rem;
+    }
+
+    .editor-sidebar__label {
+      margin: 0;
+      color: #bbbbbb;
+      font: 0.7rem "Segoe UI", var(--body);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .editor-sidebar__more {
+      color: #c7c7c7;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+    }
+
+    .editor-file-tree {
+      display: block;
+      margin: 0;
+      padding: 0;
+      color: #cccccc;
+      font: 0.75rem "Segoe UI", var(--body);
+      line-height: 1;
+      list-style: none;
+    }
+
+    .editor-file-tree li {
+      display: flex;
+      align-items: center;
+      min-height: 1.45rem;
+      gap: 0.3rem;
+      padding: 0 0.45rem;
+      white-space: nowrap;
+    }
+
+    .editor-file-tree li:hover {
+      background: #2a2d2e;
+    }
+
+    .editor-file-tree .tree-root {
+      color: #f0f0f0;
+      font-weight: 600;
+    }
+
+    .editor-file-tree .tree-depth-1 {
+      padding-left: 1.15rem;
+    }
+
+    .editor-file-tree .tree-depth-2 {
+      padding-left: 2rem;
+    }
+
+    .editor-file-tree .is-file {
+      background: #37373d;
+      color: #ffffff;
+    }
+
+    .editor-file-tree .is-file:hover {
+      background: #37373d;
+    }
+
+    .tree-chevron {
+      width: 0.55rem;
+      color: #c7c7c7;
+      font-size: 0.65rem;
+      text-align: center;
+    }
+
+    .tree-folder-icon {
+      color: #dcb67a;
+    }
+
+    .tree-lua-icon {
+      color: #51a8dd;
+      font-size: 0.62rem;
+    }
+
+    .tree-config-icon {
+      color: #8ec07c;
+    }
+
+    .editor-sidebar__sections {
+      margin-top: auto;
+      border-top: 1px solid var(--vscode-border);
+    }
+
+    .editor-sidebar__sections span {
+      display: block;
+      min-height: 1.45rem;
+      padding: 0.32rem 0.65rem;
+      border-bottom: 1px solid var(--vscode-border);
+      color: #d7d7d7;
+      font-size: 0.66rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .editor-main {
+      display: grid;
+      min-width: 0;
+      min-height: 0;
+      grid-template-rows: 2.25rem minmax(0, 1fr);
+      background: var(--vscode-editor);
+    }
+
+    .editor-tabs {
+      justify-content: space-between;
+      min-height: 2.25rem;
+      gap: 0;
+      padding: 0;
+      border-bottom: 1px solid var(--vscode-border);
+      background: #181818;
+      color: #969696;
+      font: 0.75rem "Segoe UI", var(--body);
+    }
+
+    .editor-tab {
+      position: relative;
+      align-self: stretch;
+      display: inline-flex;
+      align-items: center;
+      min-width: 9.8rem;
+      gap: 0.48rem;
+      padding: 0 0.7rem;
+      border-right: 1px solid var(--vscode-border);
+      background: var(--vscode-editor);
+      color: #ffffff;
+    }
+
+    .editor-tab::before {
+      position: absolute;
+      inset: 0 0 auto;
+      height: 1px;
+      background: #0078d4;
+      content: "";
+    }
+
+    .editor-tab__icon {
+      color: #51a8dd;
+      font-size: 0.62rem;
+    }
+
+    .editor-tab__close {
+      margin-left: auto;
+      color: #c8c8c8;
+      font-size: 0.9rem;
+    }
+
+    .editor-tab-actions {
+      gap: 0.15rem;
+      padding-right: 0.45rem;
+      color: #c8c8c8;
+    }
+
+    .editor-chrome-icon {
+      display: grid;
+      min-width: 1.65rem;
+      min-height: 1.65rem;
+      place-items: center;
+      border-radius: 0.2rem;
+    }
+
+    .editor-chrome-icon:hover {
+      background: #2a2d2e;
+      color: #ffffff;
+    }
+
+    .editor-chrome-icon svg {
+      width: 0.95rem;
+      height: 0.95rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.6;
+    }
+
+    .editor-panes {
+      display: grid;
+      min-width: 0;
+      min-height: 0;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .editor-workbench {
+      display: grid;
+      min-width: 0;
+      min-height: 0;
+      grid-template-rows: 1.9rem minmax(0, 1fr);
+      background: var(--vscode-editor);
+    }
+
+    .editor-breadcrumbs {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      gap: 0.35rem;
+      padding: 0 0.8rem;
+      color: #b3b3b3;
+      font-size: 0.72rem;
+      white-space: nowrap;
+    }
+
+    .editor-breadcrumbs span:last-child {
+      overflow: hidden;
+      color: #e1e1e1;
+      text-overflow: ellipsis;
+    }
+
+    .editor-breadcrumbs__lua {
+      color: #51a8dd;
+      font-size: 0.58rem;
+    }
+
+    .editor-code-scroll {
+      height: auto;
+      min-height: 0;
+      overflow: auto;
+      background: var(--vscode-editor);
+      scrollbar-color: #5b5b5b transparent;
+      scrollbar-width: thin;
+    }
+
+    .editor-code-scroll::-webkit-scrollbar {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    .editor-code-scroll::-webkit-scrollbar-thumb {
+      background: #55585d;
+    }
+
+    .editor-code {
+      display: grid;
+      grid-template-columns: 4.2rem max-content;
+      min-width: max-content;
+      min-height: 100%;
+      padding: 0.35rem 0 1.2rem;
+      font-family: "Cascadia Mono", "Consolas", var(--mono);
+      font-size: clamp(0.68rem, 0.8vw, 0.82rem);
+      line-height: 1.62;
+    }
+
+    .editor-line-numbers,
+    .editor-code-content,
+    .editor-code__text {
+      margin: 0;
+      white-space: pre;
+    }
+
+    .editor-line-numbers {
+      padding: 0 1rem 0 0.4rem;
+      color: #858585;
+      text-align: right;
+      user-select: none;
+    }
+
+    .editor-code-content {
+      min-height: 100%;
+      padding-right: 2rem;
+      color: #d4d4d4;
+    }
+
+    .editor-code__text {
+      padding: 0;
+      color: #d4d4d4;
+    }
+
+    .editor-code__caret {
+      display: inline-block;
+      width: 1px;
+      height: 1.2em;
+      margin-left: 0.06em;
+      vertical-align: -0.2em;
+      background: #aeafad;
+      animation: editor-caret 900ms steps(1) infinite;
+    }
+
+    .token-keyword {
+      color: #c586c0;
+    }
+
+    .token-string {
+      color: #ce9178;
+    }
+
+    .token-comment {
+      color: #6a9955;
+    }
+
+    .token-number {
+      color: #b5cea8;
+    }
+
+    .token-call {
+      color: #dcdcaa;
+    }
+
+    .editor-statusbar {
+      justify-content: space-between;
+      min-height: 1.45rem;
+      gap: 0.7rem;
+      padding: 0 0.55rem;
+      background: #007acc;
+      color: #ffffff;
+      font: 0.66rem "Segoe UI", var(--body);
+    }
+
+    .editor-statusbar span:last-child {
+      color: inherit;
+    }
+
+    .editor-status-group {
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .editor-status-item {
+      white-space: nowrap;
+    }
+
+    @media (min-width: 48rem) {
+      .editor-body {
+        grid-template-columns: 3rem 13.5rem minmax(0, 1fr);
+      }
+
+      .editor-activitybar,
+      .editor-sidebar {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 69.999rem) {
+      .editor-titlebar__name {
+        display: none;
+      }
+
+      .editor-menubar {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+    }
+
+    @media (max-width: 47.999rem) {
+      .editor-layout {
+        width: calc(100% - 1rem);
+        margin-top: 2rem;
+      }
+
+      .editor-body {
+        height: min(33rem, 68svh);
+        min-height: 25rem;
+      }
+
+      .editor-menu-item:nth-of-type(n + 4) {
+        display: none;
+      }
+
+      .editor-window-controls span {
+        width: 2.25rem;
+      }
+
+      .editor-window-controls span:first-child {
+        display: none;
+      }
+
+      .editor-code {
+        grid-template-columns: 3.3rem max-content;
+        font-size: 0.68rem;
+      }
+
+      .editor-line-numbers {
+        padding-right: 0.7rem;
+      }
+
+      .editor-status-group .editor-status-item:nth-child(n + 3) {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body class="is-locked" data-scene="inicio">
@@ -1886,7 +2930,7 @@
       <span class="entry__center">
         <img class="entry__crown" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/crown-mask.png" alt="" width="1254" height="1254">
         <span>
-          <span class="entry__title">TheReal<span>BanHammer</span></span>
+          <span class="entry__title"><span class="visually-hidden">TheRealBanHammer</span><span class="entry__title-line" aria-hidden="true"><span class="entry__title-text">TheReal</span></span><span class="entry__title-line entry__title-line--accent" aria-hidden="true"><span class="entry__title-text">BanHammer</span></span></span>
           <span class="entry__statement">En esta página metí todo lo que sé de HTML, CSS y JavaScript para mostrar mis habilidades. Si quieres una página así, escríbeme por Discord.</span>
           <span class="entry__action">Toca para entrar&nbsp; →</span>
         </span>
@@ -1911,7 +2955,7 @@
     <a class="header-cta" href="https://discord.gg/rTGF5xhe3h" target="_blank" rel="noopener noreferrer"><span>Discord ↗</span></a>
   </header>
 
-  <main id="contenido">
+  <main id="contenido" aria-label="Contenido principal">
     <section class="motion-hero" id="inicio" data-scene-name="inicio" aria-labelledby="hero-title">
       <div class="hero-sticky">
         <video class="hero-video decorative-video" id="hero-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260730195330.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true" disablepictureinpicture disableremoteplayback></video>
@@ -2000,31 +3044,31 @@
         <ul class="skills-grid" aria-label="Habilidades de TheRealBanHammer">
           <li class="skill reveal">
             <span class="skill__icon" aria-hidden="true">LU</span>
-            <div class="skill__top"><h3>Lua / Roblox</h3><span class="skill__score">92</span></div>
+            <div class="skill__top"><h3>Lua / Roblox</h3><span class="skill__score"><strong>92</strong><small>de 100</small></span></div>
             <p>Es lo que más uso para hacer scripts e interfaces de Roblox.</p>
             <progress max="100" value="92" aria-label="Lua y Roblox: 92 de 100">92 de 100</progress>
           </li>
           <li class="skill reveal">
             <span class="skill__icon" aria-hidden="true">&lt;/&gt;</span>
-            <div class="skill__top"><h3>HTML / CSS</h3><span class="skill__score">86</span></div>
+            <div class="skill__top"><h3>HTML / CSS</h3><span class="skill__score"><strong>86</strong><small>de 100</small></span></div>
             <p>Hago la estructura, el diseño y adapto todo para móvil.</p>
             <progress max="100" value="86" aria-label="HTML y CSS: 86 de 100">86 de 100</progress>
           </li>
           <li class="skill reveal">
             <span class="skill__icon" aria-hidden="true">UI</span>
-            <div class="skill__top"><h3>Interfaces web</h3><span class="skill__score">82</span></div>
+            <div class="skill__top"><h3>Interfaces web</h3><span class="skill__score"><strong>82</strong><small>de 100</small></span></div>
             <p>Pienso dónde va cada cosa para que la página sea fácil de usar.</p>
             <progress max="100" value="82" aria-label="Interfaces web: 82 de 100">82 de 100</progress>
           </li>
           <li class="skill reveal">
             <span class="skill__icon" aria-hidden="true">JS</span>
-            <div class="skill__top"><h3>JavaScript</h3><span class="skill__score">74</span></div>
+            <div class="skill__top"><h3>JavaScript</h3><span class="skill__score"><strong>74</strong><small>de 100</small></span></div>
             <p>Lo uso para las animaciones, los controles y los datos en vivo.</p>
             <progress max="100" value="74" aria-label="JavaScript: 74 de 100">74 de 100</progress>
           </li>
           <li class="skill reveal">
             <span class="skill__icon" aria-hidden="true">DIR</span>
-            <div class="skill__top"><h3>Dirección</h3><span class="skill__score">80</span></div>
+            <div class="skill__top"><h3>Dirección</h3><span class="skill__score"><strong>80</strong><small>de 100</small></span></div>
             <p>Me organizo con otras personas y ayudo a que el proyecto sí se termine.</p>
             <progress max="100" value="80" aria-label="Dirección de proyectos: 80 de 100">80 de 100</progress>
           </li>
@@ -2118,7 +3162,7 @@
           <article class="stack-card principle-card" style="--stack-index:0; --card-color:#d42bb1; --card-ink:#f5f2ec;">
             <div class="stack-card__inner">
               <div class="stack-card__media">
-                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7482182384918465853_20260730194040.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+                <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7482182384918465853_20260730194040.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
               </div>
               <div class="stack-card__copy">
                 <p class="eyebrow">Scripts</p>
@@ -2131,7 +3175,7 @@
           <article class="stack-card principle-card" style="--stack-index:1; --card-color:#1676ef; --card-ink:#f5f2ec;">
             <div class="stack-card__inner">
               <div class="stack-card__media">
-                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/jacob_dopper_2026-07-31-19-12-44_1785543164508.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+                <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/jacob_dopper_2026-07-31-19-12-44_1785543164508.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
               </div>
               <div class="stack-card__copy">
                 <p class="eyebrow">Web</p>
@@ -2144,7 +3188,7 @@
           <article class="stack-card principle-card" style="--stack-index:2; --card-color:#ffd43b; --card-ink:#050505;">
             <div class="stack-card__inner">
               <div class="stack-card__media">
-                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7636778152265633044_20260731185236.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+                <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7636778152265633044_20260731185236.mp4" muted loop playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
               </div>
               <div class="stack-card__copy">
                 <p class="eyebrow">Equipo</p>
@@ -2161,6 +3205,867 @@
     <div class="sticker-break" aria-hidden="true">
       <img class="sticker-break__image" src="https://cdn.discordapp.com/emojis/907091184931987496.gif?size=4096&amp;quality=lossless" alt="" width="512" height="512" loading="lazy" decoding="async" draggable="false">
     </div>
+
+    <section class="editor-section" data-scene-name="proyectos" aria-labelledby="editor-title">
+      <div class="editor-sticky">
+        <header class="editor-head container">
+          <p class="eyebrow">Código en vivo</p>
+          <h2 class="section-title" id="editor-title">Así se ve cuando estoy trabajando</h2>
+          <p class="section-intro">Una pequeña ventana a lo que hago: leer el problema, escribir el script y dejarlo listo para probar.</p>
+        </header>
+        <div class="editor-layout" id="editor-layout">
+          <div class="editor-shell" id="editor-shell">
+            <div class="editor-menubar">
+              <div class="editor-menu-group">
+                <span class="editor-app-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17.6 2 6.9 12.1l-3.6-2.7L2 10.1l3.6 3.4L2 16.9l1.3.7 3.6-2.7L17.6 25l4.4-1.8V3.8L17.6 2Zm0 5.4v9.2l-6.1-4.6 6.1-4.6Z" transform="translate(0 -1.5) scale(.96)"/></svg></span>
+                <span class="editor-menu-item">Archivo</span>
+                <span class="editor-menu-item">Editar</span>
+                <span class="editor-menu-item">Selección</span>
+                <span class="editor-menu-item">Ver</span>
+                <span class="editor-menu-item">Ir</span>
+                <span class="editor-menu-item">Ejecutar</span>
+                <span class="editor-menu-item">Terminal</span>
+                <span class="editor-menu-item">Ayuda</span>
+              </div>
+              <span class="editor-titlebar__name">Bio - BanHammer — Visual Studio Code</span>
+              <div class="editor-window-controls" aria-hidden="true"><span>—</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="editor-body">
+              <aside class="editor-activitybar" aria-label="Actividad del editor">
+                <div class="editor-activity-group">
+                  <span class="editor-activity-icon is-active"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v14H6zM9 3v5h9M3 7h3v14h10v-1"/></svg></span>
+                  <span class="editor-activity-icon"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.2"/><path d="m15 15 5 5"/></svg></span>
+                  <span class="editor-activity-icon"><svg viewBox="0 0 24 24"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="7" r="2"/><path d="M6 7v10M8 17c6 0 8-3 8-8"/></svg></span>
+                  <span class="editor-activity-icon"><svg viewBox="0 0 24 24"><path d="m7 4 11 8-11 8z"/><circle cx="17.5" cy="18" r="3.5"/></svg></span>
+                  <span class="editor-activity-icon"><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM17 13v8M13 17h8"/></svg></span>
+                </div>
+                <div class="editor-activity-group">
+                  <span class="editor-activity-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><circle cx="12" cy="12" r="9"/><path d="M5.5 18c1.4-2.3 3.6-3.5 6.5-3.5s5.1 1.2 6.5 3.5"/></svg></span>
+                  <span class="editor-activity-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4M8.4 4.8 10 3.5h4l1.6 1.3M19.2 8.4 20.5 10v4l-1.3 1.6M15.6 19.2 14 20.5h-4l-1.6-1.3M4.8 15.6 3.5 14v-4l1.3-1.6"/></svg></span>
+                </div>
+              </aside>
+              <aside class="editor-sidebar" aria-label="Archivos del proyecto">
+                <div class="editor-sidebar__top"><p class="editor-sidebar__label">Explorador</p><span class="editor-sidebar__more" aria-hidden="true">···</span></div>
+                <ul class="editor-file-tree">
+                  <li class="tree-root"><span class="tree-chevron">⌄</span><span>BIO - BANHAMMER</span></li>
+                  <li class="tree-depth-1"><span class="tree-chevron">›</span><span class="tree-folder-icon">▱</span><span>.vscode</span></li>
+                  <li class="tree-depth-1"><span class="tree-chevron">⌄</span><span class="tree-folder-icon">▱</span><span>Scripts</span></li>
+                  <li class="tree-depth-2 is-file"><span class="tree-lua-icon">◆</span><span>BanHammer.lua</span></li>
+                  <li class="tree-depth-2"><span class="tree-config-icon">●</span><span>config.lua</span></li>
+                  <li class="tree-depth-1"><span class="tree-lua-icon">#</span><span>README.md</span></li>
+                </ul>
+                <div class="editor-sidebar__sections"><span>› Esquema</span><span>› Línea de tiempo</span></div>
+              </aside>
+              <div class="editor-main">
+                <div class="editor-tabs">
+                  <div class="editor-tab"><span class="editor-tab__icon">◆</span><span>BanHammer.lua</span><span class="editor-tab__close" aria-hidden="true">×</span></div>
+                  <div class="editor-tab-actions" aria-hidden="true"><span class="editor-chrome-icon"><svg viewBox="0 0 20 20"><path d="M3 3h14v14H3zM12 3v14"/></svg></span><span class="editor-chrome-icon">···</span></div>
+                </div>
+                <div class="editor-panes">
+                  <section class="editor-workbench" aria-label="Editor de BanHammer.lua">
+                    <div class="editor-breadcrumbs"><span>Scripts</span><span>›</span><span class="editor-breadcrumbs__lua">◆</span><span>BanHammer.lua</span><span>›</span><span>hook_req(options)</span></div>
+                    <div class="editor-code-scroll" id="editor-code-scroll">
+                      <div class="editor-code">
+                        <pre class="editor-line-numbers" id="editor-line-numbers" aria-hidden="true">1</pre>
+                        <pre class="editor-code-content"><code class="editor-code__text" id="editor-code" aria-live="polite"></code><span class="editor-code__caret" aria-hidden="true"></span></pre>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+            <div class="editor-statusbar">
+              <div class="editor-status-group"><span class="editor-status-item">⑂ main*</span><span class="editor-status-item">× 0&nbsp;&nbsp;△ 0</span></div>
+              <div class="editor-status-group"><span class="editor-status-item">Ln <span id="editor-line">1</span>, Col <span id="editor-column">1</span></span><span class="editor-status-item">Espacios: 4</span><span class="editor-status-item">UTF-8</span><span class="editor-status-item">LF</span><span class="editor-status-item">{ } Lua</span><span class="editor-status-item">✓ Listo</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script type="text/plain" id="editor-source">
+local main_script_content = ""
+pcall(function()
+    main_script_content = game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTeam/AntiHambreadoScriptTeam.github.io/refs/heads/main/Scripts/HoshiCrack/downloaded_file_4.lua")
+end)
+
+local function hook_req(options)
+    if options and options.Url then
+        local lowerUrl = options.Url:lower()
+        if lowerUrl:find("hoshi") or lowerUrl:find("api/loader") then
+            if lowerUrl:find("keyless") and not lowerUrl:find("session") then
+                return {StatusCode = 200, StatusMessage = "OK", Headers = {["content-type"] = "application/json"}, Body = '{"ok":true,"keyless":true}'}
+            elseif lowerUrl:find("keyless%-session") or lowerUrl:find("session") then
+                return {StatusCode = 200, StatusMessage = "OK", Headers = {["content-type"] = "application/json"}, Body = '{"ok":true,"session_token":"[TOKEN_OCULTO]"}'}
+            elseif lowerUrl:find("verify") then
+                return {StatusCode = 200, StatusMessage = "OK", Headers = {["content-type"] = "application/json"}, Body = '{"ok":true,"tier":"free"}'}
+            elseif lowerUrl:find("report") then
+                return {StatusCode = 200, StatusMessage = "OK", Headers = {["content-type"] = "application/json"}, Body = '{"ok":true}'}
+            elseif lowerUrl:find("script") then
+                return {StatusCode = 200, StatusMessage = "OK", Headers = {["content-type"] = "application/json"}, Body = main_script_content}
+            end
+        end
+    end
+end
+
+local function apply_hook(t, k)
+    local old
+    old = hookfunction(t[k], function(options)
+        local mock = hook_req(options)
+        if mock then return mock end
+        return old(options)
+    end)
+end
+
+if type(request) == "function" then
+    local old
+    old = hookfunction(request, function(options)
+        local mock = hook_req(options)
+        if mock then return mock end
+        return old(options)
+    end)
+end
+
+if type(http_request) == "function" then
+    local old
+    old = hookfunction(http_request, function(options)
+        local mock = hook_req(options)
+        if mock then return mock end
+        return old(options)
+    end)
+end
+
+if syn and type(syn.request) == "function" then
+    apply_hook(syn, "request")
+end
+
+if http and type(http.request) == "function" then
+    apply_hook(http, "request")
+end
+
+if Fluxus and type(Fluxus.request) == "function" then
+    apply_hook(Fluxus, "request")
+end
+
+local function hook_get(url)
+    local lowerUrl = url:lower()
+    if lowerUrl:find("hoshi") or lowerUrl:find("api/loader") then
+        if lowerUrl:find("keyless") and not lowerUrl:find("session") then
+            return '{"ok":true,"keyless":true}'
+        elseif lowerUrl:find("keyless%-session") or lowerUrl:find("session") then
+            return '{"ok":true,"session_token":"[TOKEN_OCULTO]"}'
+        elseif lowerUrl:find("verify") then
+            return '{"ok":true,"tier":"free"}'
+        elseif lowerUrl:find("report") then
+            return '{"ok":true}'
+        elseif lowerUrl:find("script") then
+            return main_script_content
+        end
+    end
+end
+
+local oldHttpGet
+oldHttpGet = hookfunction(game.HttpGet, function(self, url, ...)
+    local mock = hook_get(url)
+    if mock then return mock end
+    return oldHttpGet(self, url, ...)
+end)
+
+local oldHttpGetAsync
+oldHttpGetAsync = hookfunction(game.HttpGetAsync, function(self, url, ...)
+    local mock = hook_get(url)
+    if mock then return mock end
+    return oldHttpGetAsync(self, url, ...)
+end)
+
+local __skidderDiscord="https://discord.gg/rTGF5xhe3h"
+local __skidderOpenAsset="rbxthumb://type=Asset&amp;id=124559243299882&amp;w=150&amp;h=150"
+local __skidderLogoUrl="https://antihambreadoscriptteam.github.io/Foto/Miembros/TheRealBanHammer.png"
+local __skidderNotificationTitle="Cracked By TheRealBanHammer - Skidder final Boss"
+local __skidderConnections=setmetatable({},{__mode="k"})
+local __skidderOpenButtons=setmetatable({},{__mode="k"})
+local __skidderMarkerCache=setmetatable({},{__mode="k"})
+local __skidderQueuedRoots=setmetatable({},{__mode="k"})
+local __skidderWrappedClipboard={}
+local __skidderLogoAsset
+local function __skidderNormalizeText(v)
+	if type(v)~="string" then return v end
+	while v:find("https://https://",1,true) do
+		v=v:gsub("https://https://","https://")
+	end
+	while v:find("http://http://",1,true) do
+		v=v:gsub("http://http://","http://")
+	end
+	while v:find("https://http://",1,true) do
+		v=v:gsub("https://http://","https://")
+	end
+	local token="__SKIDDER_DISCORD_LINK__"
+	v=v:gsub("https://discord%.gg/[%w_%-]+",token)
+	v=v:gsub("http://discord%.gg/[%w_%-]+",token)
+	v=v:gsub("https://discord%.com/invite/[%w_%-]+",token)
+	v=v:gsub("http://discord%.com/invite/[%w_%-]+",token)
+	v=v:gsub("discord%.gg/[%w_%-]+",token)
+	v=v:gsub("discord%.com/invite/[%w_%-]+",token)
+	v=v:gsub(token,__skidderDiscord)
+	v=v:gsub("HOSHI","SKIDDER")
+	v=v:gsub("Hoshi","Skidder")
+	v=v:gsub("hoshi","skidder")
+	return v
+end
+local function __skidderService(n)
+	local ok,s=pcall(function()
+		return game:GetService(n)
+	end)
+	if ok then return s end
+end
+local function __skidderClipboard(v)
+	v=__skidderNormalizeText(v or __skidderDiscord)
+	local f=rawget(getgenv and getgenv() or _G,"setclipboard") or rawget(getgenv and getgenv() or _G,"toclipboard") or rawget(getgenv and getgenv() or _G,"set_clipboard")
+	if type(f)=="function" then pcall(f,v) end
+end
+local function __skidderPatchClipboardFunction(n)
+	if __skidderWrappedClipboard[n] then return end
+	local env=getgenv and getgenv() or _G
+	local f=rawget(env,n)
+	if type(f)~="function" or __skidderConnections[f] then return end
+	__skidderConnections[f]=true
+	__skidderWrappedClipboard[n]=true
+	env[n]=function(v,...)
+		return f(__skidderNormalizeText(v),...)
+	end
+end
+local function __skidderGetLogo()
+	if __skidderLogoAsset then return __skidderLogoAsset end
+	__skidderLogoAsset=__skidderLogoUrl
+	local requestFunction=rawget(getgenv and getgenv() or _G,"request") or rawget(getgenv and getgenv() or _G,"http_request") or syn and syn.request or http and http.request
+	if type(requestFunction)=="function" and type(writefile)=="function" and type(getcustomasset)=="function" then
+		local ok,res=pcall(requestFunction,{Url=__skidderLogoUrl,Method="GET"})
+		if ok and res and res.Body and tostring(res.StatusCode or 200):sub(1,1)=="2" then
+			local path="skidder_notification_logo.png"
+			pcall(writefile,path,res.Body)
+			local okAsset,asset=pcall(getcustomasset,path)
+			if okAsset and asset then __skidderLogoAsset=asset end
+		end
+	end
+	return __skidderLogoAsset
+end
+local function __skidderPathName(o)
+	local parts={}
+	local current=o
+	for _=1,10 do
+		if not current then break end
+		pcall(function()
+			parts[#parts+1]=current.Name or ""
+		end)
+		current=current.Parent
+	end
+	return table.concat(parts," "):lower()
+end
+local function isInsideSkidderLoop(o)
+	local current = o
+	for _ = 1, 20 do
+		if not current then break end
+		local ok, name = pcall(function() return current.Name end)
+		if ok and name == "SkidderDiscordLoop" then return true end
+		current = current.Parent
+	end
+	return false
+end
+local function __skidderScreenRoot(o)
+	local current=o
+	for _=1,20 do
+		if not current then break end
+		local ok,result=pcall(function()
+			return current:IsA("ScreenGui") and current or nil
+		end)
+		if ok and result then return result end
+		current=current.Parent
+	end
+end
+local function __skidderBlockedOpenSignal(signal)
+	if signal:find("chat",1,true) or signal:find("playerlist",1,true) or signal:find("leader",1,true) or signal:find("backpack",1,true) or signal:find("robloxgui",1,true) or signal:find("friend",1,true) or signal:find("avatar",1,true) or signal:find("thumbnail",1,true) then return true end
+	if signal:find("tab",1,true) or signal:find("dropdown",1,true) or signal:find("slider",1,true) or signal:find("section",1,true) or signal:find("notification",1,true) or signal:find("shop",1,true) or signal:find("setting",1,true) or signal:find("settings",1,true) or signal:find("speed",1,true) then return true end
+	if signal:find("medal",1,true) or signal:find("medalla",1,true) or signal:find("search",1,true) or signal:find("busqueda",1,true) or signal:find("bÃºsqueda",1,true) or signal:find("buscar",1,true) or signal:find("profile",1,true) then return true end
+	if signal:find("micro",1,true) or signal:find("mic",1,true) or signal:find("voice",1,true) or signal:find("mute",1,true) or signal:find("silencio",1,true) or signal:find("topbar",1,true) then return true end
+	return false
+end
+local function __skidderInsideLargePanel(o, screenSz)
+	local current=o.Parent
+	for _=1,15 do
+		if not current or current:IsA("ScreenGui") or current:IsA("CoreGui") then break end
+		if current:IsA("GuiObject") then
+			local okSz,sz=pcall(function()
+				return current.AbsoluteSize
+			end)
+			if okSz and sz.X&gt;220 and sz.Y&gt;160 and sz.X&lt;(screenSz.X-20) and sz.Y&lt;(screenSz.Y-20) then return true end
+		end
+		current=current.Parent
+	end
+	return false
+end
+local function __skidderHasUiMarker(root)
+	if not root then return false end
+	local cached=__skidderMarkerCache[root]
+	if cached~=nil then return cached end
+	local ok,desc=pcall(function()
+		return root:GetDescendants()
+	end)
+	if not ok then
+		__skidderMarkerCache[root]=false
+		return false
+	end
+	local foundTitle=false
+	local foundControl=false
+	for _,item in ipairs(desc) do
+		if item:IsA("TextLabel") or item:IsA("TextButton") or item:IsA("TextBox") then
+			local text=""
+			pcall(function()
+				text=(item.Text or ""):lower()
+			end)
+			if text:find("skidder",1,true) or text:find("hoshi",1,true) then foundTitle=true end
+			if text:find("copy discord",1,true) or text:find("auto win",1,true) or text:find("rebirth",1,true) or text:find("speed",1,true) or text:find("shop",1,true) or text:find("settings",1,true) then foundControl=true end
+			if foundTitle and foundControl then
+				__skidderMarkerCache[root]=true
+				return true
+			end
+		end
+	end
+	__skidderMarkerCache[root]=false
+	return false
+end
+local function __skidderLooksLikeChromeToggle(o)
+	if isInsideSkidderLoop(o) then return false end
+	local path=__skidderPathName(o)
+	local n=(o.Name or ""):lower()
+	local text=""
+	pcall(function()
+		text=(o.Text or ""):lower()
+	end)
+	local direct=n.." "..text
+	local signal=direct.." "..path
+	if __skidderBlockedOpenSignal(signal) then return false end
+	local root=__skidderScreenRoot(o)
+	local ok,size,pos=pcall(function()
+		return o.AbsoluteSize,o.AbsolutePosition
+	end)
+	if not ok then return false end
+	if size.X&gt;0 and size.Y&gt;0 then
+		if size.X&lt;28 or size.Y&lt;28 or size.X&gt;150 or size.Y&gt;150 or math.abs(size.X-size.Y)&gt;32 then return false end
+	end
+	local hasHChild = false
+	pcall(function()
+		for _, child in ipairs(o:GetChildren()) do
+			if child:IsA("TextLabel") or child:IsA("TextBox") or child:IsA("TextButton") then
+				local cText = (child.Text or ""):lower()
+				if cText == "h" or cText:find("hoshi", 1, true) or cText:find("skidder", 1, true) then
+					hasHChild = true
+				end
+			end
+		end
+	end)
+	if text=="h" or direct:find("hoshi",1,true) or direct:find("skidder",1,true) or hasHChild then return true end
+	
+	local isSmallAndTopLeft = pos.X &lt; 200 and pos.Y &lt; 150 and size.X &gt;= 28 and size.X &lt;= 80 and size.Y &gt;= 28 and size.Y &lt;= 80
+	if isSmallAndTopLeft and root then
+		local inCoreGui = false
+		pcall(function() inCoreGui = (root.Parent and root.Parent.Name == "CoreGui") end)
+		if inCoreGui then
+			local numDescendants = 0
+			pcall(function() numDescendants = #root:GetDescendants() end)
+			if numDescendants &gt; 0 and numDescendants &lt; 30 then
+				return true
+			end
+		end
+		if __skidderHasUiMarker(root) then return true end
+	end
+
+	if not root or not __skidderHasUiMarker(root) then return false end
+	if not (o:IsA("ImageButton") or o:IsA("ImageLabel")) then return false end
+	local screenSz=Vector2.new(9999,9999)
+	pcall(function()
+		screenSz=root.AbsoluteSize
+	end)
+	if not screenSz or screenSz.X==0 then screenSz=Vector2.new(9999,9999) end
+	if __skidderInsideLargePanel(o,screenSz) then return false end
+	return true
+end
+local function __skidderLooksLikeOpenButton(o)
+	if not (o:IsA("ImageButton") or o:IsA("ImageLabel") or o:IsA("TextButton")) then return false end
+	return __skidderLooksLikeChromeToggle(o)
+end
+local function __skidderOpenButtonScore(o)
+	if not __skidderLooksLikeOpenButton(o) then return nil end
+	local path=__skidderPathName(o)
+	local n=(o.Name or ""):lower()
+	local text=""
+	pcall(function()
+		text=(o.Text or ""):lower()
+	end)
+	local direct=n.." "..text
+	local signal=direct.." "..path
+	local ok,size,pos=pcall(function()
+		return o.AbsoluteSize,o.AbsolutePosition
+	end)
+	if not ok then return nil end
+	local score=0
+	if o:IsA("ImageButton") then score+=40 end
+	
+	local hasImageChild = false
+	pcall(function()
+		for _,c in ipairs(o:GetChildren()) do
+			if c:IsA("ImageLabel") or c:IsA("ImageButton") then
+				hasImageChild = true
+			end
+		end
+	end)
+	if hasImageChild then score+=30 end
+
+	local hasHTextChild = false
+	pcall(function()
+		for _, child in ipairs(o:GetChildren()) do
+			if child:IsA("TextLabel") or child:IsA("TextBox") or child:IsA("TextButton") then
+				local cText = (child.Text or ""):lower()
+				if cText == "h" or cText:find("hoshi", 1, true) or cText:find("skidder", 1, true) then
+					hasHTextChild = true
+				end
+			end
+		end
+	end)
+
+	local isSmallAndTopLeft = pos.X &lt; 200 and pos.Y &lt; 150 and size.X &gt;= 28 and size.X &lt;= 80 and size.Y &gt;= 28 and size.Y &lt;= 80
+	if isSmallAndTopLeft and root then
+		local inCoreGui = false
+		pcall(function() inCoreGui = (root.Parent and root.Parent.Name == "CoreGui") end)
+		if inCoreGui then
+			local numDescendants = 0
+			pcall(function() numDescendants = #root:GetDescendants() end)
+			if numDescendants &gt; 0 and numDescendants &lt; 30 then
+				score += 300
+			end
+		end
+	end
+
+	if text=="h" or hasHTextChild then score+=220 end
+	if direct:find("hoshi",1,true) then score+=180 end
+	if direct:find("skidder",1,true) then score+=120 end
+	if __skidderHasUiMarker(__skidderScreenRoot(o)) then score+=90 end
+	if pos.X&lt;220 or pos.Y&lt;100 then score+=18 end
+	
+	local root = __skidderScreenRoot(o)
+	local screenSz = Vector2.new(9999, 9999)
+	if root then
+		pcall(function() screenSz = root.AbsoluteSize end)
+	end
+	if screenSz.X == 0 then screenSz = Vector2.new(9999, 9999) end
+
+	if __skidderInsideLargePanel(o,screenSz) then score-=300 end
+
+	score-=math.abs(size.X-size.Y)
+	return score
+end
+local function __skidderApplyOpenAsset(o)
+	pcall(function()
+		if o:IsA("ImageButton") or o:IsA("ImageLabel") then
+			o.Image=__skidderOpenAsset
+			o.ImageRectOffset=Vector2.new(0,0)
+			o.ImageRectSize=Vector2.new(0,0)
+			o.ScaleType=Enum.ScaleType.Crop
+			if not rawget(__skidderConnections, o) then
+				rawset(__skidderConnections, o, true)
+				pcall(function()
+					o:GetPropertyChangedSignal("Image"):Connect(function()
+						pcall(function()
+							o.Image = __skidderOpenAsset
+							o.ImageRectOffset = Vector2.new(0,0)
+							o.ImageRectSize = Vector2.new(0,0)
+							o.ScaleType = Enum.ScaleType.Crop
+						end)
+					end)
+				end)
+			end
+		elseif o:IsA("TextButton") then
+			o.TextTransparency=1
+			local image=o:FindFirstChild("__SkidderToggleIcon")
+			if not image then
+				image=Instance.new("ImageLabel")
+				image.Name="__SkidderToggleIcon"
+				image.BackgroundTransparency=1
+				image.Active=false
+				image.Selectable=false
+				image.AnchorPoint=Vector2.new(0.5,0.5)
+				image.Position=UDim2.fromScale(0.5,0.5)
+				image.Size=UDim2.fromScale(1,1)
+				image.ZIndex=o.ZIndex+1
+				image.Parent=o
+			end
+			image.Image=__skidderOpenAsset
+			image.ImageRectOffset=Vector2.new(0,0)
+			image.ImageRectSize=Vector2.new(0,0)
+			image.ScaleType=Enum.ScaleType.Crop
+			if not rawget(__skidderConnections,image) then
+				rawset(__skidderConnections,image,true)
+				pcall(function()
+					image:GetPropertyChangedSignal("Image"):Connect(function()
+						pcall(function()
+							image.Image=__skidderOpenAsset
+							image.ImageRectOffset=Vector2.new(0,0)
+							image.ImageRectSize=Vector2.new(0,0)
+							image.ScaleType=Enum.ScaleType.Crop
+						end)
+					end)
+				end)
+			end
+		end
+	end)
+end
+local function __skidderPatchOpenCandidates(root)
+	if not root then return end
+	local best,bestScore
+	local ok,desc=pcall(function()
+		return root:GetDescendants()
+	end)
+	if not ok then return end
+	for _,item in ipairs(desc) do
+		local score=__skidderOpenButtonScore(item)
+		if score then
+			if not bestScore or score&gt;bestScore then
+				best=item
+				bestScore=score
+			end
+		end
+	end
+	if best then
+		__skidderOpenButtons[root]=best
+		__skidderApplyOpenAsset(best)
+	end
+end
+local function __skidderPatchObject(o)
+	if not o or isInsideSkidderLoop(o) then return end
+	local okClass=pcall(function()
+		return o.ClassName
+	end)
+	if not okClass then return end
+	if o.Name=="__SkidderOpenAsset" then
+		pcall(function()
+			o:Destroy()
+		end)
+		return
+	end
+	if o:IsA("TextLabel") or o:IsA("TextButton") or o:IsA("TextBox") then
+		pcall(function()
+			local patched=__skidderNormalizeText(o.Text)
+			if patched~=o.Text then o.Text=patched end
+		end)
+	end
+	if o:IsA("TextButton") or o:IsA("ImageButton") then
+		local label=""
+		pcall(function()
+			label=(o.Text or "").." "..(o.Name or "")
+		end)
+		if label:lower():find("discord") and not __skidderConnections[o] then
+			__skidderConnections[o]=true
+			pcall(function()
+				o.Activated:Connect(function()
+					__skidderClipboard(__skidderDiscord)
+				end)
+			end)
+			pcall(function()
+				o.MouseButton1Click:Connect(function()
+					__skidderClipboard(__skidderDiscord)
+				end)
+			end)
+		end
+	end
+end
+local function __skidderPatchTree(root)
+	if not root or isInsideSkidderLoop(root) then return end
+	__skidderPatchObject(root)
+	local ok,desc=pcall(function()
+		return root:GetDescendants()
+	end)
+	if ok then
+		for _,o in ipairs(desc) do __skidderPatchObject(o) end
+	end
+	__skidderPatchOpenCandidates(root)
+end
+local function __skidderQueueRoot(root)
+	if root then
+		__skidderMarkerCache[root]=nil
+		__skidderQueuedRoots[root]=true
+	end
+end
+local function __skidderDescendantAdded(o)
+	if isInsideSkidderLoop(o) then return end
+	__skidderPatchObject(o)
+	__skidderQueueRoot(__skidderScreenRoot(o))
+end
+local function __skidderPatchScreenChildren(container)
+	if not container then return end
+	local ok,children=pcall(function()
+		return container:GetChildren()
+	end)
+	if not ok then return end
+	for _,child in ipairs(children) do
+		local isScreen=false
+		pcall(function()
+			isScreen=child:IsA("ScreenGui") and child.Name ~= "SkidderDiscordLoop"
+		end)
+		if isScreen then __skidderPatchTree(child) end
+	end
+end
+task.spawn(function()
+	__skidderPatchClipboardFunction("setclipboard")
+	__skidderPatchClipboardFunction("toclipboard")
+	__skidderPatchClipboardFunction("set_clipboard")
+	local players=__skidderService("Players")
+	local coreGui=__skidderService("CoreGui")
+	local playerGui=players and players.LocalPlayer and players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+	local hookmetamethod = rawget(getgenv and getgenv() or _G, "hookmetamethod")
+	local hookfunction = rawget(getgenv and getgenv() or _G, "hookfunction")
+	local checkcaller = rawget(getgenv and getgenv() or _G, "checkcaller") or function() return true end
+	local oldInstanceNew = rawget(getgenv and getgenv() or _G, "Instance") and rawget(rawget(getgenv and getgenv() or _G, "Instance"), "new")
+
+	local function isProbablyToggleButton(o)
+		local ok, res = pcall(function()
+			if not o or not o.Parent then return false end
+			if isInsideSkidderLoop(o) then return false end
+			if not (o:IsA("ImageButton") or o:IsA("ImageLabel")) then return false end
+			local size = o.AbsoluteSize
+			if size.X &gt; 0 and size.Y &gt; 0 then
+				if size.X &lt; 20 or size.Y &lt; 20 or size.X &gt; 150 or size.Y &gt; 150 then return false end
+			end
+			local current = o
+			local screenGui = nil
+			local depth = 0
+			local insideLargePanel = false
+			for i = 1, 15 do
+				current = current.Parent
+				if not current then break end
+				depth = i
+				if current:IsA("ScreenGui") then
+					screenGui = current
+					break
+				end
+				if current:IsA("GuiObject") then
+					local sz = current.AbsoluteSize
+					if sz.X &gt; 200 and sz.Y &gt; 150 then
+						insideLargePanel = true
+					end
+				end
+			end
+			if not screenGui then return false end
+			if insideLargePanel then return false end
+			if depth &gt; 2 then return false end
+			local parentName = screenGui.Parent and screenGui.Parent.Name or ""
+			if parentName ~= "CoreGui" and parentName ~= "PlayerGui" then
+				local root = screenGui.Parent
+				if root then
+					local isSystem = (root.Name == "CoreGui" or root.Name == "PlayerGui" or (root.Parent and (root.Parent.Name == "CoreGui" or root.Parent.Name == "PlayerGui")))
+					if not isSystem then return false end
+				end
+			end
+			return true
+		end)
+		return ok and res
+	end
+
+	if hookmetamethod then
+		local oldNewIndex
+		oldNewIndex = hookmetamethod(game, "__newindex", function(self, key, value)
+			if not checkcaller() then
+				return oldNewIndex(self, key, value)
+			end
+			if (key == "Image" or key == "image") and type(value) == "string" and value ~= __skidderOpenAsset then
+				task.spawn(function()
+					task.wait(0.05)
+					pcall(function()
+						if self and self.Parent and isProbablyToggleButton(self) then
+							oldNewIndex(self, "Image", __skidderOpenAsset)
+							pcall(function()
+								self.ImageRectOffset = Vector2.new(0,0)
+								self.ImageRectSize = Vector2.new(0,0)
+								self.ScaleType = Enum.ScaleType.Crop
+							end)
+						end
+					end)
+				end)
+			end
+			return oldNewIndex(self, key, value)
+		end)
+	end
+
+	if hookfunction and oldInstanceNew then
+		hookfunction(Instance.new, function(className, parent)
+			local obj = oldInstanceNew(className, parent)
+			pcall(function()
+				if className == "ImageButton" or className == "ImageLabel" then
+					task.spawn(function()
+						task.wait(0.05)
+						if obj and obj.Parent and isProbablyToggleButton(obj) then
+							pcall(function()
+								obj.Image = __skidderOpenAsset
+								obj.ImageRectOffset = Vector2.new(0,0)
+								obj.ImageRectSize = Vector2.new(0,0)
+								obj.ScaleType = Enum.ScaleType.Crop
+							end)
+							obj:GetPropertyChangedSignal("Image"):Connect(function()
+								pcall(function()
+									if obj.Image ~= __skidderOpenAsset then
+										obj.Image = __skidderOpenAsset
+										obj.ImageRectOffset = Vector2.new(0,0)
+										obj.ImageRectSize = Vector2.new(0,0)
+										obj.ScaleType = Enum.ScaleType.Crop
+									end
+								end)
+							end)
+						end
+					end)
+				end
+			end)
+			return obj
+		end)
+	end
+
+	if coreGui then
+		pcall(function()
+			coreGui.DescendantAdded:Connect(__skidderDescendantAdded)
+		end)
+	end
+	if playerGui then
+		pcall(function()
+			playerGui.DescendantAdded:Connect(__skidderDescendantAdded)
+		end)
+	end
+	__skidderPatchScreenChildren(coreGui)
+	__skidderPatchScreenChildren(playerGui)
+	task.spawn(function()
+		while task.wait(0.25) do
+			local processed=0
+			for root in pairs(__skidderQueuedRoots) do
+				__skidderQueuedRoots[root]=nil
+				__skidderPatchOpenCandidates(root)
+				processed+=1
+				if processed&gt;=4 then break end
+			end
+		end
+	end)
+	task.spawn(function()
+		while task.wait(2) do
+			pcall(function()
+				if coreGui then
+					local ok, children = pcall(function() return coreGui:GetChildren() end)
+					if ok and children then
+						for _, child in ipairs(children) do
+							if child:IsA("ScreenGui") and child.Name ~= "SkidderDiscordLoop" then
+								__skidderPatchOpenCandidates(child)
+							end
+						end
+					end
+				end
+				if playerGui then
+					local ok, children = pcall(function() return playerGui:GetChildren() end)
+					if ok and children then
+						for _, child in ipairs(children) do
+							if child:IsA("ScreenGui") and child.Name ~= "SkidderDiscordLoop" then
+								__skidderPatchOpenCandidates(child)
+							end
+						end
+					end
+				end
+			end)
+		end
+	end)
+	while task.wait(5) do
+		__skidderPatchClipboardFunction("setclipboard")
+		__skidderPatchClipboardFunction("toclipboard")
+		__skidderPatchClipboardFunction("set_clipboard")
+	end
+end)
+task.spawn(function()
+	local tweenService=__skidderService("TweenService")
+	local coreGui=__skidderService("CoreGui")
+	local players=__skidderService("Players")
+	local parent=coreGui or players and players.LocalPlayer and players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+	if not parent or not tweenService then return end
+	local gui=Instance.new("ScreenGui")
+	gui.Name="SkidderDiscordLoop"
+	gui.ResetOnSpawn=false
+	gui.IgnoreGuiInset=true
+	gui.ZIndexBehavior=Enum.ZIndexBehavior.Sibling
+	pcall(function()
+		gui.Parent=parent
+	end)
+	local frame=Instance.new("Frame")
+	frame.Name="Notification"
+	frame.AnchorPoint=Vector2.new(0.5,0)
+	frame.Position=UDim2.new(0.5,0,0,-150)
+	frame.Size=UDim2.new(0,860,0,106)
+	frame.BackgroundColor3=Color3.fromRGB(14,15,20)
+	frame.BackgroundTransparency=0.05
+	frame.BorderSizePixel=0
+	frame.Parent=gui
+	local corner=Instance.new("UICorner")
+	corner.CornerRadius=UDim.new(0,22)
+	corner.Parent=frame
+	local stroke=Instance.new("UIStroke")
+	stroke.Color=Color3.fromRGB(255,255,255)
+	stroke.Transparency=0.78
+	stroke.Thickness=1
+	stroke.Parent=frame
+	local pad=Instance.new("UIPadding")
+	pad.PaddingLeft=UDim.new(0,16)
+	pad.PaddingRight=UDim.new(0,16)
+	pad.PaddingTop=UDim.new(0,14)
+	pad.PaddingBottom=UDim.new(0,14)
+	pad.Parent=frame
+	local logo=Instance.new("ImageLabel")
+	logo.Name="Logo"
+	logo.Size=UDim2.new(0,64,0,64)
+	logo.Position=UDim2.new(0,0,0.5,-32)
+	logo.BackgroundTransparency=1
+	logo.Image=__skidderGetLogo()
+	logo.ScaleType=Enum.ScaleType.Crop
+	logo.Parent=frame
+	local logoCorner=Instance.new("UICorner")
+	logoCorner.CornerRadius=UDim.new(0,16)
+	logoCorner.Parent=logo
+	local title=Instance.new("TextLabel")
+	title.Name="Title"
+	title.Position=UDim2.new(0,80,0,4)
+	title.Size=UDim2.new(1,-96,0,32)
+	title.BackgroundTransparency=1
+	title.Font=Enum.Font.GothamBold
+	title.Text=__skidderNotificationTitle
+	title.TextColor3=Color3.fromRGB(255,255,255)
+	title.TextSize=16
+	title.TextXAlignment=Enum.TextXAlignment.Left
+	title.TextTruncate=Enum.TextTruncate.None
+	title.Parent=frame
+	local body=Instance.new("TextLabel")
+	body.Name="Discord"
+	body.Position=UDim2.new(0,80,0,44)
+	body.Size=UDim2.new(1,-96,0,34)
+	body.BackgroundTransparency=1
+	body.Font=Enum.Font.GothamMedium
+	body.Text="Ãšnete a mi Discord: "..__skidderDiscord
+	body.TextColor3=Color3.fromRGB(209,213,224)
+	body.TextSize=14
+	body.TextXAlignment=Enum.TextXAlignment.Left
+	body.TextTruncate=Enum.TextTruncate.None
+	body.Parent=frame
+	while true do
+		task.wait(math.random(1, 20))
+		__skidderClipboard(__skidderDiscord)
+		logo.Image=__skidderGetLogo()
+		frame.Position=UDim2.new(0.5,0,0,-150)
+		tweenService:Create(frame,TweenInfo.new(0.45,Enum.EasingStyle.Quint,Enum.EasingDirection.Out),{Position=UDim2.new(0.5,0,0,22)}):Play()
+		task.wait(5)
+		tweenService:Create(frame,TweenInfo.new(0.38,Enum.EasingStyle.Quint,Enum.EasingDirection.In),{Position=UDim2.new(0.5,0,0,-150)}):Play()
+		task.wait(20)
+	end
+end)
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTeam/AntiHambreadoScriptTeam.github.io/refs/heads/main/Scripts/HoshiCrack/downloaded_file_4.lua"))()
+      </script>
+    </section>
 
     <section class="gallery-section" data-scene-name="proyectos" aria-labelledby="gallery-title">
       <div class="gallery-sticky">
@@ -2296,6 +4201,15 @@
       var gallerySection = document.querySelector(".gallery-section");
       var galleryHead = document.querySelector(".gallery-head");
       var galleryTrack = document.getElementById("gallery-track");
+      var editorSection = document.querySelector(".editor-section");
+      var editorHead = document.querySelector(".editor-head");
+      var editorShell = document.getElementById("editor-shell");
+      var editorCode = document.getElementById("editor-code");
+      var editorCodeScroll = document.getElementById("editor-code-scroll");
+      var editorLineNumbers = document.getElementById("editor-line-numbers");
+      var editorLine = document.getElementById("editor-line");
+      var editorColumn = document.getElementById("editor-column");
+      var editorSource = document.getElementById("editor-source").textContent.trim().replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
       var spotlight = document.getElementById("contacto");
       var spotlightOrb = document.getElementById("spotlight-orb");
       var spotlightContent = document.getElementById("spotlight-content");
@@ -2304,7 +4218,7 @@
       var words = Array.from(document.querySelectorAll(".hero-word"));
       var reveals = Array.from(document.querySelectorAll(".reveal"));
       var replayTargets = Array.from(document.querySelectorAll(".media-column, .skill, .contact-card, .sticker-break__image"));
-      var colorSections = Array.from(document.querySelectorAll(".media-band, .skills-section, .gallery-section, .spotlight"));
+      var colorSections = Array.from(document.querySelectorAll(".media-band, .skills-section, .editor-section, .gallery-section, .spotlight"));
       var colorTitles = colorSections.map(function (section) {
         return document.getElementById(section.getAttribute("aria-labelledby"));
       }).filter(Boolean);
@@ -2328,6 +4242,10 @@
       var activeVideo = null;
       var galleryAudioTarget = 0;
       var galleryAudioFrame = 0;
+      var editorTypingIndex = 0;
+      var editorTypingStarted = false;
+      var editorTypingDone = false;
+      var editorTypingTimer = 0;
 
       function clamp(value, min, max) {
         return Math.min(max, Math.max(min, value));
@@ -2365,6 +4283,61 @@
 
       function setTextIfChanged(element, value) {
         if (element && element.textContent !== value) element.textContent = value;
+      }
+
+      function escapeEditorToken(value) {
+        return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      }
+
+      function highlightEditorLine(line) {
+        var pattern = /(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|--.*$|\b(?:and|break|do|else|elseif|end|false|for|function|if|in|local|nil|not|or|repeat|return|then|true|until|while)\b|\b\d+(?:\.\d+)?\b|[A-Za-z_]\w*(?=\s*\())/g;
+        var output = "";
+        var cursor = 0;
+        line.replace(pattern, function (token, offset) {
+          var className = "token-call";
+          output += escapeEditorToken(line.slice(cursor, offset));
+          if (token.indexOf("--") === 0) className = "token-comment";
+          else if (token.charAt(0) === "\"" || token.charAt(0) === "'") className = "token-string";
+          else if (/^\d/.test(token)) className = "token-number";
+          else if (/^(?:and|break|do|else|elseif|end|false|for|function|if|in|local|nil|not|or|repeat|return|then|true|until|while)$/.test(token)) className = "token-keyword";
+          output += '<span class="' + className + '">' + escapeEditorToken(token) + "</span>";
+          cursor = offset + token.length;
+          return token;
+        });
+        return output + escapeEditorToken(line.slice(cursor));
+      }
+
+      function renderEditorCode() {
+        var visible = editorSource.slice(0, editorTypingIndex);
+        var lines = visible ? visible.split("\n") : [""];
+        editorCode.innerHTML = lines.map(highlightEditorLine).join("\n");
+        editorLineNumbers.textContent = lines.map(function (_, index) { return index + 1; }).join("\n");
+        setTextIfChanged(editorLine, String(lines.length));
+        setTextIfChanged(editorColumn, String((lines[lines.length - 1] || "").length + 1));
+        editorCodeScroll.scrollTop = editorCodeScroll.scrollHeight;
+      }
+
+      function startEditorTyping() {
+        if (editorTypingStarted && !editorTypingDone) return;
+        editorTypingStarted = true;
+        if (reducedMotion.matches) {
+          editorTypingIndex = editorSource.length;
+          editorTypingDone = true;
+          renderEditorCode();
+          return;
+        }
+        editorTypingDone = false;
+        function writeChunk() {
+          editorTypingTimer = 0;
+          editorTypingIndex = Math.min(editorSource.length, editorTypingIndex + 18);
+          renderEditorCode();
+          if (editorTypingIndex < editorSource.length) {
+            editorTypingTimer = window.setTimeout(writeChunk, 16);
+          } else {
+            editorTypingDone = true;
+          }
+        }
+        if (!editorTypingTimer) editorTypingTimer = window.setTimeout(writeChunk, 160);
       }
 
       function setCueState(wrapper, active) {
@@ -2429,6 +4402,7 @@
           var hasAudio = video === nextVideo;
           video.muted = !hasAudio;
           video.volume = 1;
+          if (video.readyState < 2) video.load();
           var playback = video.play();
           if (playback && hasAudio) {
             playback.then(function () {
@@ -2464,8 +4438,7 @@
         setActiveVideo(candidate, visibleVideos);
       }
 
-      function enterSite() {
-        hasEntered = true;
+      function finishSiteEntry() {
         entryVideo.pause();
         document.body.classList.remove("is-locked");
         entry.hidden = true;
@@ -2474,6 +4447,21 @@
         }).catch(function () { return; });
         playVisibleVideos();
         document.getElementById("hero-title").focus({ preventScroll: true });
+      }
+
+      function enterSite() {
+        if (hasEntered) return;
+        hasEntered = true;
+        if (reducedMotion.matches) {
+          finishSiteEntry();
+          return;
+        }
+        entry.classList.add("is-exiting");
+        entry.setAttribute("aria-busy", "true");
+        document.body.classList.add("is-entering");
+        window.scrollTo(0, 0);
+        window.setTimeout(finishSiteEntry, 1050);
+        window.setTimeout(function () { document.body.classList.remove("is-entering"); }, 1300);
       }
 
       function updateWords() {
@@ -2570,6 +4558,19 @@
         galleryTrack.style.opacity = trackEntry.toFixed(4);
         galleryTrack.style.transform = "translate3d(" + (-maxShift * progress).toFixed(2) + "px," + ((1 - trackEntry) * 8).toFixed(2) + "vh,0)";
         setGalleryAudioTarget(trackEntry * trackExit * 0.76);
+      }
+
+      function updateEditor() {
+        var rect = editorSection.getBoundingClientRect();
+        var travel = Math.max(1, editorSection.offsetHeight - window.innerHeight);
+        var progress = clamp(-rect.top / travel, 0, 1);
+        var headExit = easeOut(clamp(progress / 0.16, 0, 1));
+        var shellEntry = easeOut(clamp((progress - 0.02) / 0.12, 0, 1));
+        editorHead.style.translate = "0 " + (-34 * headExit).toFixed(2) + "px";
+        editorHead.style.opacity = (1 - headExit).toFixed(4);
+        editorShell.style.opacity = shellEntry.toFixed(4);
+        editorShell.style.transform = "translate3d(0," + ((1 - shellEntry) * 32).toFixed(2) + "px,0)";
+        if (progress > 0.01 && progress < 0.88) startEditorTyping();
       }
 
       function updateSpotlight() {
@@ -2697,11 +4698,18 @@
 
         var colorObserver = new IntersectionObserver(function (entries) {
           entries.forEach(function (item) {
-            var section = item.target.closest(".media-band, .skills-section, .gallery-section, .spotlight");
+            var section = item.target.closest(".media-band, .skills-section, .editor-section, .gallery-section, .spotlight");
             if (section) section.classList.toggle("is-title-visible", item.isIntersecting);
           });
         }, { rootMargin: "-8% 0px -8% 0px", threshold: 0.08 });
         colorTitles.forEach(function (title) { colorObserver.observe(title); });
+
+        var editorObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (item) {
+            if (item.isIntersecting) startEditorTyping();
+          });
+        }, { threshold: 0.2 });
+        editorObserver.observe(editorShell);
 
         var sceneObserver = new IntersectionObserver(function (entries) {
           entries.forEach(function (item) {
@@ -2720,6 +4728,11 @@
           });
         }, { rootMargin: "160% 0px", threshold: 0 });
         framedVideos.forEach(function (video) { videoPreloadObserver.observe(video); });
+
+        var videoVisibilityObserver = new IntersectionObserver(function (entries) {
+          if (entries.some(function (item) { return item.isIntersecting; })) requestMotionUpdate();
+        }, { threshold: 0.18 });
+        framedVideos.forEach(function (video) { videoVisibilityObserver.observe(video); });
       } else {
         reveals.forEach(function (item) { item.classList.add("is-visible"); });
         replayTargets.forEach(function (item) { item.classList.add("is-in-view"); });
