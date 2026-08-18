@@ -422,6 +422,33 @@
       transition: width 120ms linear;
     }
 
+    .loader__actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .loader__skip {
+      min-height: 2.75rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(245, 242, 236, 0.42);
+      background: transparent;
+      color: var(--white);
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+
+    .loader__skip:hover,
+    .loader__skip:focus-visible {
+      border-color: var(--red);
+      background: var(--red);
+      color: var(--black);
+    }
+
     .loader__footer span:last-child {
       color: var(--white-dim);
       text-align: right;
@@ -3178,11 +3205,12 @@
     <div class="loader__shell">
       <div class="loader__meta"><span>TheRealBanHammer</span><strong>Inicializando bio</strong></div>
       <div class="loader__core">
-        <p class="loader__label">Preparando la entrada</p>
+        <p class="loader__label" id="loader-status">Preparando multimedia original</p>
         <p class="loader__percent" aria-hidden="true"><span id="loader-percent">0</span>%</p>
         <div class="loader__progress" role="progressbar" aria-label="Progreso de carga" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="loader-progress"></span></div>
+        <div class="loader__actions"><button class="loader__skip" id="loader-skip" type="button">Saltar y entrar</button></div>
       </div>
-      <div class="loader__footer"><span>Scripts / Web / Roblox</span><span>Entrada 01</span></div>
+      <div class="loader__footer"><span id="loader-count">0 / 9 videos únicos</span><span>Entrada 01</span></div>
     </div>
   </section>
 
@@ -3196,7 +3224,7 @@
   </dialog>
 
   <button class="entry is-waiting" id="entry" type="button" aria-hidden="true" aria-label="Entrar a la bio de TheRealBanHammer y activar el audio de los videos">
-        <video class="entry__video" id="entry-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7622689736687144213_20260731142712.mp4" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true" disablepictureinpicture disableremoteplayback></video>
+        <video class="entry__video" id="entry-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7622689736687144213_20260731142712.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true" disablepictureinpicture disableremoteplayback></video>
     <span class="entry__shade" aria-hidden="true"></span>
     <span class="entry__content">
       <span class="entry__top"><span>therealbanhammerlol</span><span>Bio / 2026</span></span>
@@ -3231,7 +3259,7 @@
   <main id="contenido" aria-label="Contenido principal">
     <section class="motion-hero" id="inicio" data-scene-name="inicio" aria-labelledby="hero-title">
       <div class="hero-sticky">
-        <video class="hero-video decorative-video" id="hero-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260730195330.mp4" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true" disablepictureinpicture disableremoteplayback></video>
+        <video class="hero-video decorative-video" id="hero-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260730195330.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true" disablepictureinpicture disableremoteplayback></video>
         <div class="hero-vignette" aria-hidden="true"></div>
         <div class="hero-mask" id="hero-mask" aria-hidden="true"></div>
         <div class="hero-content container" id="hero-content">
@@ -3284,21 +3312,21 @@
         <div class="media-columns">
           <article class="media-column reveal">
             <div class="media-column__frame">
-              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7623394190969310484_20260713171536.mp4" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7623394190969310484_20260713171536.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
             </div>
             <h3>En Roblox</h3>
             <p>Hago scripts e interfaces que se puedan usar bien tanto en teléfono como en computadora.</p>
           </article>
           <article class="media-column reveal">
             <div class="media-column__frame">
-              <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260731134228.mp4" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260731134228.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
             </div>
             <h3>En la web</h3>
             <p>Armo páginas responsive y les doy una identidad propia sin complicar lo que deberían hacer.</p>
           </article>
           <article class="media-column reveal">
             <div class="media-column__frame">
-              <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260731140039.mp4" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260731140039.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
             </div>
             <h3>En equipo</h3>
             <p>También ayudo a ordenar ideas, corregir detalles y dejar los proyectos listos para publicar.</p>
@@ -3435,7 +3463,7 @@
           <article class="stack-card principle-card" style="--stack-index:0; --card-color:#d42bb1; --card-ink:#f5f2ec;">
             <div class="stack-card__inner">
               <div class="stack-card__media">
-                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7482182384918465853_20260730194040.mp4" loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7482182384918465853_20260730194040.mp4" loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
               </div>
               <div class="stack-card__copy">
                 <p class="eyebrow">Scripts</p>
@@ -3448,7 +3476,7 @@
           <article class="stack-card principle-card" style="--stack-index:1; --card-color:#1676ef; --card-ink:#f5f2ec;">
             <div class="stack-card__inner">
               <div class="stack-card__media">
-                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/jacob_dopper_2026-07-31-19-12-44_1785543164508.mp4" loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/jacob_dopper_2026-07-31-19-12-44_1785543164508.mp4" loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
               </div>
               <div class="stack-card__copy">
                 <p class="eyebrow">Web</p>
@@ -3461,7 +3489,7 @@
           <article class="stack-card principle-card" style="--stack-index:2; --card-color:#ffd43b; --card-ink:#050505;">
             <div class="stack-card__inner">
               <div class="stack-card__media">
-                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7636778152265633044_20260731185236.mp4" loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+                <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7636778152265633044_20260731185236.mp4" loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
               </div>
               <div class="stack-card__copy">
                 <p class="eyebrow">Equipo</p>
@@ -4350,47 +4378,47 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
         <div class="gallery-track" id="gallery-track">
           <figure class="gallery-item">
             <div class="gallery-media">
-              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7623394190969310484_20260713171536.mp4" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7623394190969310484_20260713171536.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
             </div>
           </figure>
           <figure class="gallery-item">
             <div class="gallery-media">
-              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7626313444672752917_20260713172507.mp4" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7626313444672752917_20260713172507.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
             </div>
           </figure>
           <figure class="gallery-item">
             <div class="gallery-media">
-              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7482182384918465853_20260730194040.mp4" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7482182384918465853_20260730194040.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
             </div>
           </figure>
           <figure class="gallery-item">
             <div class="gallery-media">
-              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260731140039.mp4" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260731140039.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
             </div>
           </figure>
           <figure class="gallery-item">
             <div class="gallery-media">
-              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7622689736687144213_20260731142712.mp4" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7622689736687144213_20260731142712.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
             </div>
           </figure>
           <figure class="gallery-item">
             <div class="gallery-media">
-              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260730195330.mp4" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260730195330.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
             </div>
           </figure>
           <figure class="gallery-item">
             <div class="gallery-media">
-              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260731134228.mp4" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_0_20260731134228.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
             </div>
           </figure>
           <figure class="gallery-item">
             <div class="gallery-media">
-              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/jacob_dopper_2026-07-31-19-12-44_1785543164508.mp4" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/jacob_dopper_2026-07-31-19-12-44_1785543164508.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
             </div>
           </figure>
           <figure class="gallery-item">
             <div class="gallery-media">
-              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7636778152265633044_20260731185236.mp4" muted loop playsinline preload="auto" tabindex="-1" aria-hidden="true"></video>
+              <video class="decorative-video" data-silent src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7636778152265633044_20260731185236.mp4" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
             </div>
           </figure>
         </div>
@@ -4400,7 +4428,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
     <section class="spotlight" id="contacto" data-scene-name="contacto" aria-labelledby="contact-title">
       <div class="spotlight__stage">
         <div class="spotlight__orb" id="spotlight-orb" aria-hidden="true">
-          <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7626313444672752917_20260713172507.mp4" muted loop playsinline preload="auto" tabindex="-1"></video>
+          <video class="decorative-video" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/lv_7626313444672752917_20260713172507.mp4" muted loop playsinline preload="none" tabindex="-1"></video>
           <img class="spotlight__crown" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/crown-mask.png" alt="" width="1254" height="1254">
         </div>
         <div class="spotlight__content container" id="spotlight-content">
@@ -4461,6 +4489,9 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
       var loaderPercent = document.getElementById("loader-percent");
       var loaderProgress = document.getElementById("loader-progress");
       var loaderProgressBar = loaderProgress.parentElement;
+      var loaderStatus = document.getElementById("loader-status");
+      var loaderCount = document.getElementById("loader-count");
+      var loaderSkip = document.getElementById("loader-skip");
       var videoPlayer = document.getElementById("video-player");
       var videoPlayerVideo = document.getElementById("video-player-video");
       var videoPlayerClose = document.getElementById("video-player-close");
@@ -4532,30 +4563,36 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
       var loadingValue = 0;
       var loadingFinished = false;
       var loadingAnimationFrame = 0;
+      var mediaLoadItems = [];
+      var mediaLoadQueueIndex = 0;
+      var mediaLoadActive = 0;
+      var mediaLoadFailed = 0;
+      var mediaLoadConcurrency = 5;
+      var loadingSkipped = false;
 
       function clamp(value, min, max) {
         return Math.min(max, Math.max(min, value));
       }
 
       function renderLoadingProgress(value) {
-        var roundedValue = Math.round(value);
+        var roundedValue = value >= 100 ? 100 : Math.min(99, Math.floor(value));
         loaderPercent.textContent = String(roundedValue);
         loaderProgress.style.width = roundedValue + "%";
         loaderProgressBar.setAttribute("aria-valuenow", String(roundedValue));
       }
 
       function animateLoading() {
+        if (loadingSkipped) return;
         loadingAnimationFrame = 0;
         loadingValue += (loadingTarget - loadingValue) * 0.18;
-        if (loadingTarget >= 100) loadingValue = Math.min(100, loadingValue + 0.9);
-        if (Math.abs(loadingTarget - loadingValue) < 0.08) loadingValue = loadingTarget;
+        if (loadingFinished && Math.abs(loadingTarget - loadingValue) < 0.08) loadingValue = loadingTarget;
         renderLoadingProgress(loadingValue);
-        if (loadingValue < 100) loadingAnimationFrame = window.requestAnimationFrame(animateLoading);
+        if (!loadingFinished || loadingValue < 100) loadingAnimationFrame = window.requestAnimationFrame(animateLoading);
         else revealEntry();
       }
 
       function setLoadingTarget(value) {
-        loadingTarget = Math.max(loadingTarget, value);
+        loadingTarget = clamp(value, 0, 100);
         if (!loadingAnimationFrame) loadingAnimationFrame = window.requestAnimationFrame(animateLoading);
       }
 
@@ -4570,43 +4607,145 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
       }
 
       function finishLoading() {
-        if (loadingFinished) return;
+        if (loadingFinished || loadingSkipped) return;
         loadingFinished = true;
         setLoadingTarget(100);
       }
 
+      function skipLoading() {
+        if (loadingSkipped || loadingFinished) return;
+        loadingSkipped = true;
+        loadingFinished = true;
+        loaderSkip.hidden = true;
+        loaderStatus.textContent = "Carga omitida · los videos seguirán descargándose";
+        revealEntry();
+      }
+
+      function videoBufferProgress(video) {
+        if (!Number.isFinite(video.duration) || video.duration <= 0) return video.readyState >= 3 ? 0.12 : 0;
+        if (!video.buffered.length) return 0;
+        var bufferedEnd = video.buffered.end(video.buffered.length - 1);
+        return clamp(bufferedEnd / video.duration, 0, 1);
+      }
+
+      function videoHasFullBuffer(video) {
+        if (!Number.isFinite(video.duration) || video.duration <= 0 || video.readyState < 3 || !video.buffered.length) return false;
+        var bufferedEnd = video.buffered.end(video.buffered.length - 1);
+        if (bufferedEnd >= video.duration - 0.25) return true;
+        return video.readyState >= 4 && bufferedEnd / video.duration >= 0.82;
+      }
+
+      function mediaItemState(item) {
+        if (item.type === "image") {
+          var imageReady = item.elements.every(function (image) { return image.complete && image.naturalWidth > 0; });
+          return { progress: imageReady ? 1 : 0, ready: imageReady, errors: item.elements.filter(function (image) { return image.complete && image.naturalWidth === 0; }).length };
+        }
+        var video = item.elements[0];
+        return { progress: videoBufferProgress(video), ready: videoHasFullBuffer(video), errors: video.error ? 1 : 0 };
+      }
+
+      function updateMediaLoading() {
+        if (!mediaLoadItems.length) {
+          finishLoading();
+          return;
+        }
+        var completed = mediaLoadItems.filter(function (item) { return item.done; }).length;
+        var totalVideos = mediaLoadItems.filter(function (item) { return item.type === "video"; }).length;
+        var completedVideos = mediaLoadItems.filter(function (item) { return item.type === "video" && item.done; }).length;
+        var totalImages = mediaLoadItems.filter(function (item) { return item.type === "image"; }).length;
+        var completedImages = mediaLoadItems.filter(function (item) { return item.type === "image" && item.done; }).length;
+        var progress = totalVideos ? completedVideos / totalVideos * 100 : completed / mediaLoadItems.length * 100;
+        loaderCount.textContent = completedVideos + " / " + totalVideos + " videos únicos";
+        if (mediaLoadFailed) loaderStatus.textContent = mediaLoadFailed + " archivo(s) no respondieron";
+        else if (mediaLoadActive) loaderStatus.textContent = "Descargando " + mediaLoadActive + " fuentes únicas en paralelo · " + completedImages + " / " + totalImages + " imágenes";
+        else loaderStatus.textContent = "Preparando multimedia original";
+        if (completed === mediaLoadItems.length && mediaLoadActive === 0) finishLoading();
+        else setLoadingTarget(Math.min(99.9, progress));
+      }
+
+      function finishMediaItem(item, failed) {
+        if (item.done) return;
+        item.done = true;
+        item.progress = 1;
+        item.failed = failed;
+        if (failed) mediaLoadFailed += 1;
+        mediaLoadActive = Math.max(0, mediaLoadActive - 1);
+        if (item.timer) window.clearInterval(item.timer);
+        updateMediaLoading();
+        startMediaQueue();
+      }
+
+      function startMediaItem(item) {
+        item.attempts += 1;
+        item.elements.forEach(function (element) {
+          if (item.type === "video") {
+            element.preload = "auto";
+          } else {
+            element.loading = "eager";
+            element.decoding = "async";
+          }
+        });
+        if (item.type === "video") item.elements[0].load();
+        mediaLoadActive += 1;
+        item.timer = window.setInterval(function () {
+          var state = mediaItemState(item);
+          item.progress = state.progress;
+          if (state.ready) {
+            finishMediaItem(item, false);
+            return;
+          }
+          var itemHasError = item.type === "video" ? state.errors > 0 : state.errors === item.elements.length;
+          if (itemHasError && item.attempts < 3) {
+            if (item.type === "video") item.elements[0].load();
+            item.attempts += 1;
+          } else if (itemHasError && item.attempts >= 3) {
+            finishMediaItem(item, true);
+            return;
+          }
+          updateMediaLoading();
+        }, 250);
+        updateMediaLoading();
+      }
+
+      function startMediaQueue() {
+        while (mediaLoadActive < mediaLoadConcurrency && mediaLoadQueueIndex < mediaLoadItems.length) {
+          startMediaItem(mediaLoadItems[mediaLoadQueueIndex]);
+          mediaLoadQueueIndex += 1;
+        }
+        updateMediaLoading();
+      }
+
+      function buildMediaLoadItems() {
+        var sourceItems = new Map();
+        document.querySelectorAll("video, img").forEach(function (media) {
+          if (media.tagName === "IMG") {
+            var imageSource = media.currentSrc || media.src;
+            if (!imageSource) return;
+            if (!sourceItems.has(imageSource)) sourceItems.set(imageSource, { type: "image", source: imageSource, elements: [], progress: 0, attempts: 0, done: false });
+            sourceItems.get(imageSource).elements.push(media);
+            return;
+          }
+          var video = media;
+          if (video === videoPlayerVideo) return;
+          var source = video.getAttribute("src") || video.currentSrc;
+          if (!source) return;
+          video.preload = "none";
+          if (!sourceItems.has(source)) sourceItems.set(source, { type: "video", source: source, elements: [], progress: 0, attempts: 0, done: false });
+          sourceItems.get(source).elements.push(video);
+        });
+        return Array.from(sourceItems.values());
+      }
+
       function startLoading() {
-        setLoadingTarget(18);
-        var entryImage = new Image();
-        var imageReady = false;
-        var videoReady = false;
-
-        function markImageReady() {
-          if (imageReady) return;
-          imageReady = true;
-          setLoadingTarget(42);
-          if (videoReady) finishLoading();
-        }
-
-        function markVideoReady() {
-          if (videoReady) return;
-          videoReady = true;
-          setLoadingTarget(84);
-          if (imageReady) finishLoading();
-        }
-
-        entryImage.onload = markImageReady;
-        entryImage.onerror = markImageReady;
-        entryImage.src = document.querySelector(".entry__crown").src;
-        entryVideo.addEventListener("loadedmetadata", function () { setLoadingTarget(64); }, { once: true });
-        entryVideo.addEventListener("loadeddata", markVideoReady, { once: true });
-        entryVideo.addEventListener("canplay", markVideoReady, { once: true });
-        entryVideo.addEventListener("error", markVideoReady, { once: true });
-        entryVideo.load();
-        window.setTimeout(function () { setLoadingTarget(64); }, 900);
-        window.setTimeout(function () { markVideoReady(); }, 1900);
-        window.setTimeout(function () { markImageReady(); }, 2100);
-        window.setTimeout(finishLoading, 2600);
+        mediaLoadItems = buildMediaLoadItems();
+        mediaLoadQueueIndex = 0;
+        mediaLoadActive = 0;
+        mediaLoadFailed = 0;
+        mediaLoadConcurrency = window.innerWidth < 600 ? 5 : 10;
+        loadingTarget = 0;
+        loadingValue = 0;
+        renderLoadingProgress(0);
+        startMediaQueue();
       }
 
       function easeOut(value) {
@@ -4775,17 +4914,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
           trigger.setAttribute("aria-label", "Abrir video en el reproductor original");
           trigger.addEventListener("click", function () { openVideoPlayer(video); });
           frame.appendChild(trigger);
-        });
-      }
-
-      function loadAllMedia() {
-        document.querySelectorAll("video").forEach(function (video) {
-          video.preload = "auto";
-          if (video.readyState === 0) video.load();
-        });
-        document.querySelectorAll("img").forEach(function (image) {
-          image.loading = "eager";
-          image.decoding = "async";
         });
       }
 
@@ -5116,8 +5244,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
       videoPlayer.addEventListener("close", function () {
         if (videoPlayerVideo.src) closeVideoPlayer();
       });
-      loadAllMedia();
-
       replayTargets.forEach(function (item, index) {
         item.classList.add("motion-replay");
         item.style.setProperty("--replay-delay", ((index % 4) * 70) + "ms");
@@ -5173,6 +5299,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/AntiHambreadoScriptTe
       updateWords();
       startLoading();
 
+      loaderSkip.addEventListener("click", skipLoading);
       entry.addEventListener("click", enterSite);
 
       introScrollCue.addEventListener("click", function () {
