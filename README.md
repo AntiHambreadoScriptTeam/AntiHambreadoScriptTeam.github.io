@@ -7,7 +7,7 @@
 
 
 
-# Anti-Hambreado Script Team
+#          Anti-Hambreado Script Team
 
 <p align="center">
   <b>Links directos hoy, mañana y siempre.</b>
