@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 #          Anti-Hambreado Script Team
 
 <p align="center">
