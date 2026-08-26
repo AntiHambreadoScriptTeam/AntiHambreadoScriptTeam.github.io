@@ -126,16 +126,6 @@ AntiHambreadoScriptTeam
 
 ---
 
-## ⚠️ Aviso
-
-Los proyectos y scripts publicados pueden dejar de funcionar debido a actualizaciones de Roblox, cambios realizados por los desarrolladores de cada experiencia o modificaciones en herramientas externas.
-
-Utiliza cualquier script o herramienta bajo tu propia responsabilidad.
-
-**Anti-Hambreado Script Team no está afiliado oficialmente con Roblox Corporation.**
-
----
-
 ## ⭐ Apoya el proyecto
 
 Si te gusta nuestro trabajo:
