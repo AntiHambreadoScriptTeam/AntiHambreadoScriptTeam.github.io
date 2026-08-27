@@ -1,14 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
 <!--
 ██████╗░ ██╗ ██████╗░ ░░░░ ░█████╗░ ░█████╗░ ███╗░░░███╗ ██████╗░ ██╗ ░█████╗░ ███╗░░██╗ ███████╗ ░░░░░░ ░██████╗ ░█████╗░ ██████╗░ ██╗ ██████╗░ ████████╗
 ██╔══██╗ ██║ ██╔══██╗ ░░░░ ██╔══██╗ ██╔══██╗ ████╗░████║ ██╔══██╗ ██║ ██╔══██╗ ████╗░██║ ██╔════╝ ░░░░░░ ██╔════╝ ██╔══██╗ ██╔══██╗ ██║ ██╔══██╗ ╚══██╔══╝
@@ -103,10 +92,27 @@ body {
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
 }
+.nav-link {
+    position: relative;
+    letter-spacing: 0.01em;
+    border: 1px solid transparent;
+}
+.nav-link svg {
+    opacity: 0.42;
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+.nav-link:hover svg {
+    opacity: 0.85;
+}
 .nav-link.active {
-    background-color: rgba(255,255,255,0.08);
+    background: linear-gradient(90deg, rgba(248, 113, 113, 0.16), rgba(248, 113, 113, 0.04) 70%, transparent);
+    color: #fecaca;
+    border-color: rgba(248, 113, 113, 0.14);
+    box-shadow: inset 2px 0 0 #f87171;
+}
+.nav-link.active svg {
     color: #f87171;
-    border-right: 3px solid #f87171;
+    opacity: 1;
 }
 .toast {
     transform: translateY(150%);
@@ -222,6 +228,232 @@ body {
 .search-aura-card:hover::after {
     opacity: 1;
 }
+
+/* iOS 27 Liquid Glass */
+.topbar-shell {
+    width: 100%;
+    max-width: 100%;
+    transition: max-width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+#topbar.is-compact .topbar-shell {
+    max-width: 26rem;
+}
+@media (max-width: 640px) {
+    #topbar.is-compact .topbar-shell {
+        max-width: 17.75rem;
+    }
+}
+#topbar.is-compact .topbar-label {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+#topbar.is-compact .topbar-brand {
+    gap: 0;
+    padding-left: 0.35rem;
+    padding-right: 0;
+}
+#topbar.is-compact .topbar-brand-text {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+#topbar.is-compact .liquid-glass-btn {
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+}
+.topbar-label,
+.topbar-brand-text {
+    display: inline-block;
+    max-width: 12rem;
+    opacity: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: max-width 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
+}
+
+.liquid-glass {
+    position: relative;
+    isolation: isolate;
+    background: rgba(8, 12, 22, 0.55);
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 8px 28px -16px rgba(0, 0, 0, 0.55);
+}
+.liquid-glass > * {
+    position: relative;
+    z-index: 2;
+}
+.liquid-glass-btn {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.liquid-glass-btn:hover {
+    transform: translateY(-0.5px);
+    border-color: rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.09);
+}
+.liquid-glass-btn:active {
+    transform: scale(0.97);
+}
+.liquid-glass-fav {
+    color: #facc15;
+    border-color: rgba(250, 204, 21, 0.28);
+    background: rgba(250, 204, 21, 0.12);
+}
+.liquid-glass-fav:hover {
+    color: #fde047;
+    border-color: rgba(250, 204, 21, 0.45);
+    background: rgba(250, 204, 21, 0.2);
+}
+.liquid-glass-btn.is-fav,
+.fav-toggle.is-fav {
+    color: #facc15;
+    border-color: rgba(250, 204, 21, 0.35);
+    background: rgba(250, 204, 21, 0.12);
+}
+.liquid-glass-discord {
+    color: #c4b5fd;
+    border-color: rgba(139, 92, 246, 0.28);
+    background: rgba(139, 92, 246, 0.14);
+}
+.liquid-glass-discord:hover {
+    color: #ddd6fe;
+    border-color: rgba(139, 92, 246, 0.45);
+    background: rgba(139, 92, 246, 0.22);
+}
+.liquid-glass-whatsapp {
+    color: #6ee7b7;
+    border-color: rgba(16, 185, 129, 0.18);
+    background: rgba(16, 185, 129, 0.1);
+}
+.liquid-glass-whatsapp:hover {
+    color: #a7f3d0;
+    border-color: rgba(16, 185, 129, 0.32);
+    background: rgba(16, 185, 129, 0.16);
+}
+@media (prefers-reduced-transparency: reduce) {
+    .liquid-glass {
+        background: rgba(15, 23, 42, 0.94);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+}
+
+#sidebar {
+    background: rgba(3, 7, 18, 0.78);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 16px 0 48px -28px rgba(0, 0, 0, 0.7);
+}
+#sidebar-header {
+    border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+}
+#categories-list .nav-link {
+    font-size: 12.5px;
+    font-weight: 500;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    color: rgba(203, 213, 225, 0.78);
+    transform-origin: left center;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+#categories-list .nav-link:hover {
+    color: #f1f5f9;
+    background: rgba(255, 255, 255, 0.045);
+    transform: scale(1.04);
+}
+#categories-list .nav-link::before {
+    content: "📁";
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    width: 1rem;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    line-height: 1;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+#categories-list .nav-link:hover::before,
+#categories-list .nav-link.active::before {
+    opacity: 1;
+}
+#categories-list .nav-link:hover > svg,
+#categories-list .nav-link.active > svg {
+    opacity: 0;
+}
+
+/* Roulette */
+.roulette-window {
+    overflow: hidden;
+}
+#roulette-strip {
+    will-change: transform;
+}
+.roulette-item {
+    text-transform: uppercase;
+}
+
+.fav-count-badge:empty,
+.fav-count-badge[data-count="0"] {
+    display: none;
+}
+
+#searchInput,
+#favorites-search {
+    appearance: none;
+    -webkit-appearance: none;
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(51, 65, 85, 0.7);
+    color: #e2e8f0;
+    box-shadow: none;
+    outline: none;
+    caret-color: #f87171;
+}
+#searchInput:hover,
+#favorites-search:hover {
+    background: rgba(15, 23, 42, 0.8);
+    border-color: rgba(71, 85, 105, 0.9);
+}
+#searchInput:focus,
+#favorites-search:focus {
+    background: rgba(15, 23, 42, 0.9);
+    border-color: rgba(127, 29, 29, 0.7);
+}
+#searchInput::placeholder,
+#favorites-search::placeholder {
+    color: #64748b;
+}
+#searchInput:-webkit-autofill,
+#searchInput:-webkit-autofill:hover,
+#searchInput:-webkit-autofill:focus,
+#favorites-search:-webkit-autofill,
+#favorites-search:-webkit-autofill:hover,
+#favorites-search:-webkit-autofill:focus {
+    -webkit-text-fill-color: #e2e8f0;
+    caret-color: #f87171;
+    box-shadow: 0 0 0 1000px #0b1220 inset;
+    transition: background-color 99999s ease-out;
+}
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+}
 </style>
 </head>
 <body class="relative min-h-screen overflow-x-hidden antialiased selection:bg-red-500/30 selection:text-red-200">
@@ -235,22 +467,25 @@ body {
     <div class="absolute bottom-[-10rem] left-1/3 h-[420px] w-[420px] rounded-full bg-gradient-to-tr from-red-700/40 via-rose-700/30 to-red-500/30 blur-[140px] animate-pulse-slow transition-colors duration-1000" style="animation-delay: 2s;"></div>
 </div>
 
-<nav id="sidebar" class="sidebar fixed inset-y-0 left-0 z-50 w-72 flex flex-col border-r border-white/10 bg-slate-950/80 backdrop-blur-xl transition-all duration-300 -translate-x-full lg:translate-x-0">
-    <div id="sidebar-header" class="flex h-20 shrink-0 items-center px-6 border-b border-white/10">
-        <div class="flex items-center gap-3">
-            <div class="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-red-500/20 to-red-600/20 border border-red-500/30 shadow-[0_0_15px_var(--tw-shadow-color)] shadow-red-500/30">
-                <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" class="rounded-xl w-full h-full object-cover p-0.5" alt="Logo">
+<nav id="sidebar" class="sidebar fixed inset-y-0 left-0 z-50 w-72 flex flex-col border-r border-white/10 bg-slate-950/80 backdrop-blur-2xl transition-all duration-300 -translate-x-full lg:translate-x-0">
+    <div id="sidebar-header" class="flex h-[4.25rem] shrink-0 items-center px-5 border-b border-white/10">
+        <div class="flex items-center gap-3 min-w-0">
+            <div class="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 overflow-hidden">
+                <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" class="w-full h-full object-cover" alt="Logo">
             </div>
-            <span class="text-sm font-bold tracking-widest text-slate-100 uppercase">ANTI-HAMBREADO</span>
+            <div class="min-w-0">
+                <span class="block text-[11px] font-semibold tracking-[0.22em] text-white/90">ANTI-HAMBREADO</span>
+                <span class="block text-[10px] tracking-[0.16em] text-slate-500 uppercase mt-0.5">Script Team</span>
+            </div>
         </div>
-        <button id="close-sidebar" class="ml-auto flex lg:hidden h-8 w-8 items-center justify-center rounded-full bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white">
+        <button id="close-sidebar" class="ml-auto flex lg:hidden h-8 w-8 items-center justify-center rounded-lg bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
         </button>
     </div>
-    <div id="sidebar-search-container" class="p-4">
+    <div id="sidebar-search-container" class="px-4 pt-4 pb-3">
         <div class="relative flex items-center">
-            <svg class="absolute left-3 h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-            <input type="text" id="searchInput" placeholder="Buscar scripts..." class="w-full rounded-xl border border-white/10 bg-white/5 py-2.5 pl-10 pr-4 text-sm text-slate-200 placeholder-slate-500 outline-none transition-all hover:bg-white/10 focus:border-red-500/50 focus:bg-white/10 focus:shadow-[0_0_20px_var(--tw-shadow-color)] shadow-red-500/15">
+            <svg class="absolute left-3 h-3.5 w-3.5 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+            <input type="text" id="searchInput" placeholder="Buscar scripts..." autocomplete="off" class="w-full rounded-lg py-2.5 pl-9 pr-3 text-[13px] text-slate-200 outline-none transition-colors">
         </div>
     </div>
     <div id="sidebar-menu" class="flex-1 overflow-y-auto thin-scrollbar px-3 pb-6">
@@ -258,6 +493,11 @@ body {
             <a href="#" onclick="showSection('welcome')" class="nav-link active flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-slate-100" id="nav-welcome">
                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 Inicio
+            </a>
+            <a href="#" onclick="showSection('favoritos')" class="nav-link flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-slate-100" id="nav-favoritos">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                Favoritos
+                <span id="fav-count-badge" data-count="0" class="fav-count-badge ml-auto min-w-[1.25rem] rounded-full bg-amber-400/20 px-1.5 py-0.5 text-center text-[10px] font-bold text-amber-300"></span>
             </a>
             <a href="https://antihambreadoscriptteam.github.io/executores" target="_blank" class="nav-link flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-slate-100">
                 <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
@@ -268,7 +508,7 @@ body {
                 Nuestro YouTube
             </a>
         </div>
-        <div class="mt-8 mb-3 px-3 text-xs font-bold uppercase tracking-widest text-slate-500">Juegos Populares</div>
+        <div class="mt-6 mb-2 px-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">Juegos</div>
         <div class="space-y-1" id="categories-list">
 
             <a href="#" onclick="showSection('welcome')" class="nav-link flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-200" id="nav-welcome">
@@ -742,21 +982,33 @@ body {
 </nav>
 
 <div class="lg:pl-72 flex flex-col min-h-screen">
-    <header class="sticky top-0 z-40 flex h-20 items-center justify-between border-b border-white/5 bg-slate-950/50 px-4 backdrop-blur-xl sm:px-6 lg:px-8">
-        <button id="open-sidebar" class="flex lg:hidden h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white">
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        </button>
-        <div class="hidden lg:flex items-center gap-4"></div>
-        
-        <div class="flex items-center gap-4">
-            <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="group flex h-10 items-center gap-2 rounded-xl border border-rose-500/20 bg-rose-500/10 px-4 text-sm font-semibold text-rose-300 transition-all hover:bg-rose-500/20 hover:text-rose-200 hover:shadow-[0_0_20px_rgba(244,63,94,0.2)]">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
-                Discord
-            </a>
-            <a href="https://whatsapp.com/channel/0029VbCWPet42DcfSt2khY43" target="_blank" class="group flex h-10 items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 text-sm font-semibold text-emerald-300 transition-all hover:bg-emerald-500/20 hover:text-emerald-200 hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]">
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-                WhatsApp
-            </a>
+    <header id="topbar" class="sticky top-0 z-40 flex justify-center px-3 pt-3 pb-2 sm:px-5 lg:px-6">
+        <div id="topbar-shell" class="topbar-shell">
+            <div class="liquid-glass flex h-[3.35rem] items-center justify-between gap-2 rounded-2xl px-1.5 sm:px-2">
+                <div class="flex items-center gap-1.5 min-w-0">
+                    <button id="open-sidebar" class="liquid-glass-btn flex lg:hidden h-10 w-10 items-center justify-center rounded-xl text-slate-100" aria-label="Abrir menú">
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                    <div class="topbar-brand hidden lg:flex items-center gap-2.5 pl-2.5 pr-1 min-w-0">
+                        <img src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="" class="h-7 w-7 rounded-lg object-cover ring-1 ring-white/25 shrink-0">
+                        <span class="topbar-brand-text text-[11px] font-bold tracking-[0.18em] text-white/90">ANTI-HAMBREADO</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1.5 pr-0.5 shrink-0">
+                    <button type="button" onclick="showSection('favoritos')" id="topbar-fav-btn" class="liquid-glass-btn liquid-glass-fav flex h-10 items-center justify-center gap-2 rounded-xl px-2.5 sm:px-3.5 text-sm font-semibold" title="Ver favoritos">
+                        <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                        <span class="topbar-label hidden sm:inline">Favoritos</span>
+                    </button>
+                    <a href="https://discord.gg/rTGF5xhe3h" target="_blank" class="liquid-glass-btn liquid-glass-discord flex h-10 items-center justify-center gap-2 rounded-xl px-2.5 sm:px-4 text-sm font-semibold">
+                        <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                        <span class="topbar-label hidden sm:inline">Discord</span>
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029VbCWPet42DcfSt2khY43" target="_blank" class="liquid-glass-btn liquid-glass-whatsapp flex h-10 items-center justify-center gap-2 rounded-xl px-2.5 sm:px-4 text-sm font-semibold">
+                        <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                        <span class="topbar-label hidden sm:inline">WhatsApp</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -784,13 +1036,12 @@ body {
                 </h1>
                 <div class="mt-8 flex flex-col items-center justify-center w-full px-4">
                     <div class="text-2xl sm:text-4xl lg:text-4xl font-bold tracking-tight text-white/90">
-                        Scripts para 
+                        Scripts para
                     </div>
-                    <div class="relative mt-2 h-12 sm:h-16 lg:h-20 w-[95vw] sm:w-full max-w-7xl overflow-hidden text-center">
-                        <div id="roulette-container" class="absolute inset-x-0 top-0 flex flex-col transition-transform duration-[400ms] ease-in-out" style="transform: translateY(0);">
-                            <div id="dynamic-game-name-1" class="h-12 sm:h-16 lg:h-20 flex items-center justify-center font-black text-2xl sm:text-4xl lg:text-5xl whitespace-nowrap drop-shadow-[0_0_20px_var(--tw-shadow-color)] shadow-white/30">
-                            </div>
-                            <div id="dynamic-game-name-2" class="h-12 sm:h-16 lg:h-20 flex items-center justify-center font-black text-2xl sm:text-4xl lg:text-5xl whitespace-nowrap drop-shadow-[0_0_20px_var(--tw-shadow-color)] shadow-white/30">
+                    <div class="relative mt-3 w-full max-w-4xl">
+                        <div id="roulette-window" class="roulette-window relative mx-auto h-14 sm:h-[4.5rem] lg:h-20 w-full overflow-hidden text-center">
+                            <div id="roulette-strip" class="absolute inset-x-0 top-0 flex flex-col">
+                                <div id="dynamic-game-name-1" class="roulette-item h-14 sm:h-[4.5rem] lg:h-20 flex items-center justify-center font-black text-2xl sm:text-4xl lg:text-5xl whitespace-nowrap"></div>
                             </div>
                         </div>
                     </div>
@@ -911,6 +1162,35 @@ body {
             </div>
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" id="search-cards-container">
             </div>
+        </div>
+
+        <div id="section-favoritos" class="content-section hidden animate-fade-in-up transition-opacity duration-300">
+            <div class="mb-10 text-center sm:text-left border-b border-white/5 pb-8">
+                <div class="inline-flex items-center gap-2 rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-amber-300 backdrop-blur-sm mb-4">TUS SCRIPTS</div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400 mb-4">FAVORITOS</h2>
+                <p class="text-slate-400 max-w-2xl sm:text-lg">Los scripts que guardaste con la estrella. Se conservan en este navegador.</p>
+            </div>
+            <div id="favorites-search-wrap" class="mb-8 hidden">
+                <div class="relative max-w-xl mx-auto sm:mx-0">
+                    <svg class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                    <input type="search" id="favorites-search" placeholder="Buscar en tus favoritos..." autocomplete="off" class="w-full rounded-xl py-3 pl-11 pr-11 text-sm text-slate-200 outline-none transition-colors">
+                    <button type="button" id="favorites-search-clear" class="absolute right-2.5 top-1/2 hidden h-7 w-7 -translate-y-1/2 items-center justify-center rounded-lg text-slate-500 hover:bg-white/10 hover:text-white" aria-label="Limpiar búsqueda">
+                        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="grid gap-6 sm:grid-cols-2 2xl:grid-cols-3" id="favorites-cards-container"></div>
+            <div id="favorites-empty" class="hidden text-center py-20 text-slate-500 flex-col items-center">
+                <svg class="h-12 w-12 text-amber-400/40 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                <p class="text-slate-300 font-semibold mb-1">Aún no tienes favoritos</p>
+                <p class="text-sm text-slate-500 max-w-md mx-auto">Toca la estrella en cualquier script para guardarlo aquí y copiarlo más rápido la próxima vez.</p>
+            </div>
+            <div id="favorites-search-empty" class="hidden text-center py-16 text-slate-500 flex-col items-center">
+                <svg class="h-10 w-10 text-slate-600 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                <p class="text-slate-300 font-semibold mb-1">Sin resultados en favoritos</p>
+                <p class="text-sm text-slate-500">Prueba con el nombre del script o del juego.</p>
+            </div>
+            <div class="h-12"></div>
         </div>
 
         <div id="section-99-noches-en-el-bosque" class="content-section hidden animate-fade-in-up transition-opacity duration-300">
@@ -5286,15 +5566,199 @@ end)</code></pre>
 </div>
 
 <div id="toast" class="toast fixed bottom-6 right-6 z-[100] flex items-center gap-3 rounded-xl border border-red-500/30 bg-slate-900/90 px-5 py-4 text-sm font-bold text-white shadow-[0_10px_40px_rgba(239,68,68,0.3)] backdrop-blur-xl">
-    <div class="flex h-8 w-8 items-center justify-center rounded-full bg-red-500 text-white shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+    <div id="toast-icon" class="flex h-8 w-8 items-center justify-center rounded-full bg-red-500 text-white shadow-[0_0_10px_rgba(239,68,68,0.5)]">
         <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"></path></svg>
     </div>
-    ¡Copiado con éxito!
+    <span id="toast-message">¡Copiado con éxito!</span>
 </div>
 
 <div id="mobile-overlay" class="fixed inset-0 z-40 hidden bg-slate-950/80 backdrop-blur-sm lg:hidden transition-opacity"></div>
 
 <script>
+    const FAV_STORAGE_KEY = 'ahst-script-favorites';
+    let toastHideTimer = null;
+
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        const msg = document.getElementById('toast-message');
+        if (!toast) return;
+        if (msg) msg.textContent = message;
+        toast.classList.add('show');
+        if (toastHideTimer) clearTimeout(toastHideTimer);
+        toastHideTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function getFavorites() {
+        try {
+            const parsed = JSON.parse(localStorage.getItem(FAV_STORAGE_KEY) || '[]');
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    function saveFavorites(ids) {
+        localStorage.setItem(FAV_STORAGE_KEY, JSON.stringify(ids));
+    }
+
+    function sourceScriptCards() {
+        return document.querySelectorAll('.content-section:not(#section-favoritos):not(#section-search-results) .script-card-item');
+    }
+
+    function injectFavoriteButtons() {
+        sourceScriptCards().forEach((card, i) => {
+            if (card.dataset.favId) return;
+            const favId = 'script-fav-' + i;
+            card.dataset.favId = favId;
+            const header = card.querySelector('.relative.flex.items-center.justify-between');
+            if (!header) return;
+            const copyBtn = header.querySelector('button');
+            const favBtn = document.createElement('button');
+            favBtn.type = 'button';
+            favBtn.className = 'fav-toggle shrink-0 flex items-center justify-center h-8 w-8 rounded-full border border-white/10 bg-white/5 text-slate-300 transition-all hover:bg-amber-400 hover:text-slate-950 hover:border-amber-400 hover:shadow-[0_0_15px_rgba(251,191,36,0.45)] hover:scale-105';
+            favBtn.dataset.favId = favId;
+            favBtn.title = 'Añadir a favoritos';
+            favBtn.setAttribute('aria-label', 'Añadir a favoritos');
+            favBtn.innerHTML = '<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>';
+            const actions = document.createElement('div');
+            actions.className = 'flex items-center gap-2 shrink-0';
+            if (copyBtn) {
+                copyBtn.replaceWith(actions);
+                actions.appendChild(favBtn);
+                actions.appendChild(copyBtn);
+            } else {
+                header.appendChild(actions);
+                actions.appendChild(favBtn);
+            }
+        });
+    }
+
+    function syncFavButtons() {
+        const favs = new Set(getFavorites());
+        document.querySelectorAll('.fav-toggle').forEach(btn => {
+            const on = favs.has(btn.dataset.favId);
+            btn.classList.toggle('is-fav', on);
+            btn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
+            const path = btn.querySelector('path');
+            if (path) path.setAttribute('fill', on ? 'currentColor' : 'none');
+        });
+        const topbarFav = document.getElementById('topbar-fav-btn');
+        if (topbarFav) topbarFav.classList.toggle('is-fav', favs.size > 0);
+        updateFavBadge();
+    }
+
+    function updateFavBadge() {
+        const count = getFavorites().length;
+        const badge = document.getElementById('fav-count-badge');
+        if (!badge) return;
+        badge.dataset.count = String(count);
+        badge.textContent = count > 0 ? String(count) : '';
+    }
+
+    function toggleFavorite(id) {
+        if (!id) return;
+        let favs = getFavorites();
+        const adding = !favs.includes(id);
+        favs = adding ? [id, ...favs] : favs.filter(x => x !== id);
+        saveFavorites(favs);
+        syncFavButtons();
+        const favSection = document.getElementById('section-favoritos');
+        if (favSection && favSection.classList.contains('active')) renderFavorites();
+        showToast(adding ? 'Guardado en favoritos' : 'Quitado de favoritos');
+    }
+
+    function normalizeSearch(text) {
+        return String(text || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+    }
+
+    function filterFavoriteCards() {
+        const input = document.getElementById('favorites-search');
+        const clearBtn = document.getElementById('favorites-search-clear');
+        const searchEmpty = document.getElementById('favorites-search-empty');
+        const query = normalizeSearch(input ? input.value : '');
+        if (clearBtn) {
+            clearBtn.classList.toggle('hidden', !query);
+            clearBtn.classList.toggle('flex', !!query);
+        }
+        const cards = document.querySelectorAll('#favorites-cards-container .script-card-item');
+        let shown = 0;
+        cards.forEach(card => {
+            const haystack = [
+                card.getAttribute('data-title') || '',
+                card.querySelector('h3') ? card.querySelector('h3').innerText : '',
+                card.querySelector('.fav-game-badge') ? card.querySelector('.fav-game-badge').textContent : ''
+            ].join(' ');
+            const match = !query || normalizeSearch(haystack).includes(query);
+            card.classList.toggle('hidden', !match);
+            if (match) shown++;
+        });
+        const hasFavs = getFavorites().length > 0;
+        if (searchEmpty) {
+            const showEmptySearch = hasFavs && !!query && shown === 0;
+            searchEmpty.classList.toggle('hidden', !showEmptySearch);
+            searchEmpty.classList.toggle('flex', showEmptySearch);
+        }
+    }
+
+    function renderFavorites() {
+        const container = document.getElementById('favorites-cards-container');
+        const empty = document.getElementById('favorites-empty');
+        const searchWrap = document.getElementById('favorites-search-wrap');
+        const searchEmpty = document.getElementById('favorites-search-empty');
+        if (!container || !empty) return;
+        const favs = getFavorites();
+        container.innerHTML = '';
+        if (searchEmpty) {
+            searchEmpty.classList.add('hidden');
+            searchEmpty.classList.remove('flex');
+        }
+        if (favs.length === 0) {
+            empty.classList.remove('hidden');
+            empty.classList.add('flex');
+            if (searchWrap) searchWrap.classList.add('hidden');
+            return;
+        }
+        empty.classList.add('hidden');
+        empty.classList.remove('flex');
+        if (searchWrap) searchWrap.classList.remove('hidden');
+        const originals = Array.from(sourceScriptCards());
+        const fragment = document.createDocumentFragment();
+        favs.forEach(id => {
+            const original = originals.find(card => card.dataset.favId === id);
+            if (!original) return;
+            const clone = original.cloneNode(true);
+            const section = original.closest('.content-section');
+            const gameTitle = section ? section.querySelector('h2') : null;
+            if (gameTitle) {
+                const body = clone.querySelector('.relative.p-5');
+                if (body && !body.querySelector('.fav-game-badge')) {
+                    const badge = document.createElement('div');
+                    badge.className = 'fav-game-badge inline-flex items-center gap-1.5 rounded-md bg-red-500/10 border border-red-500/20 px-2 py-0.5 text-[10px] font-semibold text-red-300 mb-3 w-fit';
+                    badge.textContent = gameTitle.innerText.toUpperCase();
+                    body.insertBefore(badge, body.firstChild);
+                }
+            }
+            fragment.appendChild(clone);
+        });
+        container.appendChild(fragment);
+        syncFavButtons();
+        filterFavoriteCards();
+    }
+
+    const favoritesSearchInput = document.getElementById('favorites-search');
+    if (favoritesSearchInput) {
+        favoritesSearchInput.addEventListener('input', filterFavoriteCards);
+    }
+    const favoritesSearchClear = document.getElementById('favorites-search-clear');
+    if (favoritesSearchClear) {
+        favoritesSearchClear.addEventListener('click', () => {
+            if (!favoritesSearchInput) return;
+            favoritesSearchInput.value = '';
+            favoritesSearchInput.focus();
+            filterFavoriteCards();
+        });
+    }
+
     function showSection(id) {
         document.querySelectorAll('.content-section').forEach(el => {
             el.classList.add('hidden');
@@ -5313,6 +5777,8 @@ end)</code></pre>
             const nav = document.getElementById('nav-' + id);
             if (nav) nav.classList.add('active');
         }
+
+        if (id === 'favoritos') renderFavorites();
         
         if (window.innerWidth < 1024 && !document.body.classList.contains('searching-active')) {
             document.body.classList.remove('sidebar-open');
@@ -5322,24 +5788,32 @@ end)</code></pre>
     }
 
     function copyCode(id, btn) {
-        const text = document.getElementById(id).innerText;
+        const el = document.getElementById(id);
+        if (!el) return;
+        const text = el.innerText;
         navigator.clipboard.writeText(text).then(() => {
             const originalHTML = btn.innerHTML;
             btn.innerHTML = '<svg class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"></path></svg>';
             btn.classList.add('border-emerald-500', 'bg-emerald-500', 'shadow-[0_0_15px_rgba(16,185,129,0.5)]', 'text-white', 'scale-110');
             btn.classList.remove('text-slate-300', 'border-white/10', 'bg-white/5', 'hover:bg-red-500', 'hover:border-red-500');
             
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
+            showToast('¡Copiado con éxito!');
             
             setTimeout(() => {
                 btn.innerHTML = originalHTML;
                 btn.classList.remove('border-emerald-500', 'bg-emerald-500', 'shadow-[0_0_15px_rgba(16,185,129,0.5)]', 'text-white', 'scale-110');
                 btn.classList.add('text-slate-300', 'border-white/10', 'bg-white/5', 'hover:bg-red-500', 'hover:border-red-500');
-                toast.classList.remove('show');
             }, 2500);
         });
     }
+
+    document.addEventListener('click', (e) => {
+        const favBtn = e.target.closest('.fav-toggle');
+        if (!favBtn) return;
+        e.preventDefault();
+        e.stopPropagation();
+        toggleFavorite(favBtn.dataset.favId);
+    });
 
     document.getElementById('open-sidebar').addEventListener('click', () => {
         document.body.classList.add('sidebar-open');
@@ -5363,7 +5837,7 @@ end)</code></pre>
     function getCachedScripts() {
         if (cachedScripts) return cachedScripts;
         cachedScripts = [];
-        document.querySelectorAll('.script-card-item').forEach(card => {
+        sourceScriptCards().forEach(card => {
             const section = card.closest('.content-section');
             const gameTitle = section ? section.querySelector('h2').innerText : '';
             const cleanGameTitle = gameTitle.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -5461,12 +5935,12 @@ end)</code></pre>
         if (hash) {
             showSection(hash);
         }
-        document.querySelectorAll('.script-card-item').forEach(card => {
+        sourceScriptCards().forEach(card => {
             const codeEl = card.querySelector('code');
             if (codeEl) {
                 const text = codeEl.innerText.trim();
                 if (text.includes('mediafire.com')) {
-                    const button = card.querySelector('button');
+                    const button = card.querySelector('button:not(.fav-toggle)');
                     if (button) {
                         button.setAttribute('title', 'Abrir Link');
                         button.setAttribute('onclick', `window.open('${text}', '_blank')`);
@@ -5475,6 +5949,8 @@ end)</code></pre>
                 }
             }
         });
+        injectFavoriteButtons();
+        syncFavButtons();
     });
 
     const themeColorPalettes = {
@@ -5549,6 +6025,8 @@ end)</code></pre>
 
     let gamePool = [];
     let isTransitioning = false;
+    let currentRouletteName = '';
+    let rouletteTimer = null;
     
     function shuffleArray(array) {
         const newArr = [...array];
@@ -5557,6 +6035,113 @@ end)</code></pre>
             [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
         }
         return newArr;
+    }
+
+    function nextGameName() {
+        if (gamePool.length === 0) gamePool = shuffleArray(availableGames);
+        if (gamePool.length > 1 && gamePool[0] === currentRouletteName) {
+            gamePool.push(gamePool.shift());
+        }
+        return gamePool.shift() || currentRouletteName;
+    }
+
+    function escapeRouletteText(text) {
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    function rouletteItemHTML(name) {
+        const color = stringToHSL(name);
+        return `<div class="roulette-item h-14 sm:h-[4.5rem] lg:h-20 flex items-center justify-center px-4 font-black text-2xl sm:text-4xl lg:text-5xl whitespace-nowrap tracking-tight" style="color:${color};filter:drop-shadow(0 0 18px ${color})">${escapeRouletteText(name)}</div>`;
+    }
+
+    function applyGameTheme(name) {
+        const [nextRoot, nextSec] = getThemeForGame(name);
+        const uniqueColor = stringToHSL(name);
+        const headerScriptTeam = document.getElementById('header-script-team');
+        changeThemeClass(nextRoot, nextSec);
+        if (headerScriptTeam) {
+            headerScriptTeam.style.background = `linear-gradient(to right, ${uniqueColor}, #fff, ${uniqueColor})`;
+            headerScriptTeam.style.webkitBackgroundClip = 'text';
+            headerScriptTeam.style.webkitTextFillColor = 'transparent';
+        }
+    }
+
+    function setRouletteName(name) {
+        currentRouletteName = name;
+        const strip = document.getElementById('roulette-strip');
+        if (!strip) return;
+        strip.getAnimations().forEach(a => a.cancel());
+        strip.innerHTML = rouletteItemHTML(name);
+        strip.style.transform = 'translateY(0px)';
+        strip.style.filter = 'none';
+        applyGameTheme(name);
+    }
+
+    function spinRoulette() {
+        const strip = document.getElementById('roulette-strip');
+        const windowEl = document.getElementById('roulette-window');
+        if (!strip || !windowEl || isTransitioning || availableGames.length === 0) return Promise.resolve();
+        isTransitioning = true;
+
+        const passCount = 12 + Math.floor(Math.random() * 6);
+        const names = [];
+        for (let i = 0; i < passCount; i++) names.push(nextGameName());
+        const winner = names[names.length - 1];
+        const startName = currentRouletteName || nextGameName();
+
+        strip.getAnimations().forEach(a => a.cancel());
+        strip.innerHTML = [startName, ...names].map(rouletteItemHTML).join('');
+        strip.style.transform = 'translateY(0px)';
+        strip.style.filter = 'none';
+        void strip.offsetHeight;
+        const firstItem = strip.querySelector('.roulette-item');
+        const itemH = (firstItem && firstItem.offsetHeight) || windowEl.clientHeight || 80;
+
+        const distance = names.length * itemH;
+        const duration = 2200 + Math.floor(Math.random() * 500);
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (reduceMotion) {
+            setRouletteName(winner);
+            isTransitioning = false;
+            return Promise.resolve();
+        }
+
+        const anim = strip.animate([
+            { transform: 'translateY(0px)', offset: 0 },
+            { transform: `translateY(-${distance * 0.45}px)`, offset: 0.32 },
+            { transform: `translateY(-${distance}px)`, offset: 1 }
+        ], {
+            duration,
+            easing: 'cubic-bezier(0.12, 0.82, 0.08, 1)',
+            fill: 'forwards'
+        });
+
+        return anim.finished.then(() => {
+            setRouletteName(winner);
+            isTransitioning = false;
+        }).catch(() => {
+            setRouletteName(winner);
+            isTransitioning = false;
+        });
+    }
+
+    function startRouletteLoop() {
+        if (rouletteTimer) clearTimeout(rouletteTimer);
+        const holdMs = 2400;
+        const tick = () => {
+            const welcome = document.getElementById('section-welcome');
+            const visible = welcome && !welcome.classList.contains('hidden');
+            const run = visible ? spinRoulette() : Promise.resolve();
+            run.finally(() => {
+                rouletteTimer = setTimeout(tick, holdMs);
+            });
+        };
+        rouletteTimer = setTimeout(tick, holdMs);
     }
 
     function getHueForGame(name) {
@@ -5603,81 +6188,27 @@ end)</code></pre>
         return `hsl(${h}, ${s}%, ${l}%)`;
     }
 
-    function cycleGameName() {
-        if(isTransitioning) return;
-        
-        const container = document.getElementById('roulette-container');
-        const name1 = document.getElementById('dynamic-game-name-1');
-        const name2 = document.getElementById('dynamic-game-name-2');
-        const headerScriptTeam = document.getElementById('header-script-team');
-        if(!container || !name1 || !name2) return;
-
-        if (gamePool.length === 0) {
-            gamePool = shuffleArray(availableGames);
-            if (gamePool[0] === name1.innerText && gamePool.length > 1) {
-                gamePool.push(gamePool.shift());
-            }
-        }
-        
-        const nextGame = gamePool.shift();
-        const [nextRoot, nextSec] = getThemeForGame(nextGame);
-        const uniqueColor = stringToHSL(nextGame);
-        
-        name2.innerText = nextGame;
-        name2.style.color = uniqueColor;
-        name2.style.setProperty('--tw-shadow-color', uniqueColor);
-        
-        isTransitioning = true;
-        
-        changeThemeClass(nextRoot, nextSec);
-        if(headerScriptTeam) {
-            headerScriptTeam.style.background = `linear-gradient(to right, ${uniqueColor}, #fff, ${uniqueColor})`;
-            headerScriptTeam.style.webkitBackgroundClip = 'text';
-            headerScriptTeam.style.webkitTextFillColor = 'transparent';
-        }
-        
-        container.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        container.style.transform = 'translateY(-50%)';
-        
-        setTimeout(() => {
-            name1.innerText = nextGame;
-            name1.style.color = uniqueColor;
-            name1.style.setProperty('--tw-shadow-color', uniqueColor);
-            
-            container.style.transition = 'none';
-            container.style.transform = 'translateY(0)';
-            
-            void container.offsetHeight;
-            container.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
-            isTransitioning = false;
-        }, 600);
-    }
-
     setTimeout(() => {
         gamePool = shuffleArray(availableGames);
-        
         if (gamePool.length > 0) {
-            const firstGame = gamePool.shift();
-            const [firstRoot, firstSec] = getThemeForGame(firstGame);
-            const firstColor = stringToHSL(firstGame);
-            const name1 = document.getElementById('dynamic-game-name-1');
-            const headerScriptTeam = document.getElementById('header-script-team');
-            
-            if(name1) {
-                name1.innerText = firstGame;
-                name1.style.color = firstColor;
-                name1.style.setProperty('--tw-shadow-color', firstColor);
-            }
-            if(headerScriptTeam) {
-                headerScriptTeam.style.background = `linear-gradient(to right, ${firstColor}, #fff, ${firstColor})`;
-                headerScriptTeam.style.webkitBackgroundClip = 'text';
-                headerScriptTeam.style.webkitTextFillColor = 'transparent';
-            }
-            changeThemeClass(firstRoot, firstSec);
+            setRouletteName(nextGameName());
         }
-        
-        setInterval(cycleGameName, 1700);
-    }, 500);
+        startRouletteLoop();
+    }, 400);
+
+    (function initTopbarScroll() {
+        const topbar = document.getElementById('topbar');
+        if (!topbar) return;
+        let compact = false;
+        const update = () => {
+            const next = window.scrollY > 28;
+            if (next === compact) return;
+            compact = next;
+            topbar.classList.toggle('is-compact', compact);
+        };
+        window.addEventListener('scroll', update, { passive: true });
+        update();
+    })();
 </script>
 </body>
 </html>
