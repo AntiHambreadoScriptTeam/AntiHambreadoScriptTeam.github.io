@@ -23,7 +23,7 @@
 // @match        https://*.fast-links.org/*
 // @match        https://loot-reward.com/*
 // @match        https://*.loot-reward.com/*
-// @icon         https://testlinks.github.io/77d1f64f-8b9b-44b9-b1c0-483a8f0f4719.png
+// @icon         https://testlinks.github.io/image.png
 // @downloadURL  https://antihambreadoscriptteam.github.io/UserScripts/AdmavenBypass-V1.user.js
 // @updateURL    https://antihambreadoscriptteam.github.io/UserScripts/AdmavenBypass-V1.user.js
 // @run-at       document-start
