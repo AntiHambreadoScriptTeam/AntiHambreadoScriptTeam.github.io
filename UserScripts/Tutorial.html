@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0d0d0d">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Guía paso a paso para preparar e instalar Work.ink Bypass y VegaX Bypass con Tampermonkey o Violentmonkey en PC, Android, iPhone y iPad.">
-  <title>Work.ink y VegaX Bypass · Guía de UserScripts</title>
+  <meta name="description" content="Guía paso a paso para preparar e instalar Work.ink Bypass, VegaX Bypass y Admaven Bypass con Tampermonkey o Violentmonkey en PC, Android, iPhone y iPad.">
+  <title>Work.ink, VegaX y Admaven Bypass · Guía de UserScripts</title>
   <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -414,10 +414,46 @@
       letter-spacing: 0.07em;
       text-transform: uppercase;
     }
-    .title-workink, .title-vegax { display: inline-block; color: transparent; -webkit-background-clip: text; background-clip: text; background-size: 240% 100%; -webkit-text-fill-color: transparent; will-change: background-position; }
-    .title-workink { background-image: linear-gradient(110deg, #087b43 0%, #30e783 21%, #caffdc 38%, #42f295 50%, #069451 72%, #8bffb9 100%); animation: title-gradient-flow 3.8s cubic-bezier(.45, 0, .2, 1) infinite alternate; }
-    .title-vegax { background-image: linear-gradient(110deg, #a60d26 0%, #ff334d 22%, #ffd0d7 39%, #ff536b 52%, #be1029 74%, #ff8798 100%); animation: title-gradient-flow 4.15s cubic-bezier(.45, 0, .2, 1) infinite alternate-reverse; }
-    @keyframes title-gradient-flow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+    .title-workink, .title-vegax {
+      position: relative;
+      display: inline-block;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      background-size: 320% 140%;
+      -webkit-text-fill-color: transparent;
+      will-change: background-position, filter;
+    }
+    .title-workink {
+      background-image: linear-gradient(118deg, #022616 0%, #087a42 11%, #2dff94 24%, #f4fff8 36%, #7dffc4 45%, #12d06e 56%, #0a6b3c 68%, #c8ffe0 82%, #065c34 100%);
+      filter: drop-shadow(0 0 22px rgba(46, 255, 148, 0.22));
+      animation: title-gradient-flow 5.4s cubic-bezier(.45, 0, .2, 1) infinite alternate;
+    }
+    .title-vegax {
+      background-image: linear-gradient(118deg, #3a040c 0%, #c40d28 11%, #ff6b7d 24%, #fff1f3 36%, #ff8a9a 45%, #ef2342 56%, #8e0e22 68%, #ffd0d6 82%, #6a0814 100%);
+      filter: drop-shadow(0 0 22px rgba(255, 51, 77, 0.28));
+      animation: title-gradient-flow 5.8s cubic-bezier(.45, 0, .2, 1) infinite alternate-reverse;
+    }
+    .title-workink::after, .title-vegax::after {
+      position: absolute;
+      inset: 0;
+      content: attr(data-shine);
+      pointer-events: none;
+      background-image: linear-gradient(108deg, transparent 26%, rgba(255, 255, 255, 0) 38%, rgba(255, 255, 255, 0.96) 50%, rgba(255, 255, 255, 0) 62%, transparent 74%);
+      background-size: 240% 100%;
+      background-repeat: no-repeat;
+      background-position: 185% 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: title-reflection 5.2s cubic-bezier(.4, 0, .2, 1) infinite;
+    }
+    .title-vegax::after { animation-delay: 1.15s; }
+    @keyframes title-gradient-flow { from { background-position: 0% 42%; } to { background-position: 100% 58%; } }
+    @keyframes title-reflection {
+      0%, 58% { background-position: 185% 0; }
+      100% { background-position: -90% 0; }
+    }
 
     .install-order {
       position: relative;
@@ -635,7 +671,7 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
-    .script-options { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .script-options { display: grid; gap: 10px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .script-option {
       display: grid;
       min-width: 0;
@@ -696,7 +732,8 @@
     .route-browser-logo img { width: 27px; height: 27px; object-fit: contain; }
     .route-summary h4 { margin: 0 0 3px; font-size: 13px; }
     .route-summary p { margin: 0; color: var(--muted-2); font-size: 10px; }
-    .route-actions { display: flex; flex: 0 0 auto; gap: 8px; }
+    .route-actions { display: flex; flex: 0 0 auto; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+    .route-actions .button { white-space: nowrap; }
     .guide-notice {
       display: none;
       margin-top: 15px;
@@ -762,8 +799,8 @@
     #changelogView { min-height: 100svh; }
     #changelog { min-height: 100svh; padding-top: calc(var(--header-h) + 86px); }
     .view-return { margin-bottom: 28px; }
-    .changelog-tabs { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 12px; }
-    .changelog-tabs button { min-height: 52px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.02); color: var(--muted); cursor: pointer; font-size: 12px; font-weight: 800; }
+    .changelog-tabs { display: grid; gap: 8px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 12px; }
+    .changelog-tabs button { min-height: 52px; padding-inline: 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.02); color: var(--muted); cursor: pointer; font-size: 12px; font-weight: 800; line-height: 1.25; white-space: normal; }
     .changelog-tabs button[aria-selected="true"] { border-color: var(--red); background: rgba(255, 51, 77, 0.09); color: #fff; }
     .release-card { padding: 24px; border-radius: var(--radius-sm); }
     .release-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
@@ -852,8 +889,6 @@
     .video-frame video::-webkit-media-controls,
     .video-frame video::-webkit-media-controls-enclosure,
     .video-frame video::-webkit-media-controls-panel { display: none !important; -webkit-appearance: none; }
-    .video-fallback { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 15px 18px; border-top: 1px solid var(--line); color: var(--muted-2); font-size: 10px; }
-    .video-fallback a { color: var(--red); font-weight: 700; text-underline-offset: 3px; }
 
     .safety-grid { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .safety-card { min-height: 155px; padding: 22px; border-radius: var(--radius-sm); }
@@ -904,6 +939,7 @@
       .logo-tile { width: 66px; height: 66px; }
       .logo-tile img { width: 46px; height: 46px; }
       .route-config { grid-template-columns: 1fr; }
+      .script-options { grid-template-columns: 1fr; }
       .after-grid { gap: 38px; grid-template-columns: 1fr; }
       .after-grid .section-heading { position: static; }
     }
@@ -929,12 +965,12 @@
       .logo-tile { opacity: 0.085; filter: grayscale(1) brightness(0.82); }
       .logo-field-bright {
         display: grid;
-        -webkit-mask-image: radial-gradient(circle, #000 0 24%, rgba(0, 0, 0, 0.92) 38%, rgba(0, 0, 0, 0.36) 61%, transparent 76%);
-        mask-image: radial-gradient(circle, #000 0 24%, rgba(0, 0, 0, 0.92) 38%, rgba(0, 0, 0, 0.36) 61%, transparent 76%);
+        -webkit-mask-image: radial-gradient(circle, #000 0 16%, rgba(0, 0, 0, 0.88) 34%, rgba(0, 0, 0, 0.28) 58%, transparent 72%);
+        mask-image: radial-gradient(circle, #000 0 16%, rgba(0, 0, 0, 0.88) 34%, rgba(0, 0, 0, 0.28) 58%, transparent 72%);
         -webkit-mask-repeat: no-repeat;
         mask-repeat: no-repeat;
-        -webkit-mask-size: 430px 430px;
-        mask-size: 430px 430px;
+        -webkit-mask-size: 168px 168px;
+        mask-size: 168px 168px;
         animation: invisible-pointer-scan 6s linear infinite;
         will-change: -webkit-mask-position, mask-position;
       }
@@ -953,11 +989,11 @@
       .route-summary { align-items: stretch; margin-top: 18px; padding: 14px; flex-direction: column; }
       .route-actions { display: grid; width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .route-actions .button { min-width: 0; padding-inline: 8px; white-space: normal; }
+      .route-actions #scriptDownload { grid-column: 1 / -1; }
       .guide-install { align-items: stretch; flex-direction: column; }
       .guide-install .button { width: 100%; }
       .safety-grid { grid-template-columns: 1fr; }
       .showcase-head { align-items: flex-start; padding: 22px 18px; flex-direction: column; }
-      .video-fallback { align-items: flex-start; flex-direction: column; }
       .footer-shell { align-items: flex-start; flex-direction: column; }
       .footer-links { justify-content: flex-start; }
       .release-card { padding: 19px 17px; }
@@ -1004,14 +1040,14 @@
     }
 
     @keyframes invisible-pointer-scan {
-      0% { -webkit-mask-position: -300px 0%; mask-position: -300px 0%; }
-      23% { -webkit-mask-position: calc(100% + 300px) 10%; mask-position: calc(100% + 300px) 10%; }
-      25% { -webkit-mask-position: calc(100% + 300px) 18%; mask-position: calc(100% + 300px) 18%; }
-      48% { -webkit-mask-position: -300px 25%; mask-position: -300px 25%; }
-      50% { -webkit-mask-position: -300px 30%; mask-position: -300px 30%; }
-      73% { -webkit-mask-position: calc(100% + 300px) 35%; mask-position: calc(100% + 300px) 35%; }
-      75% { -webkit-mask-position: calc(100% + 300px) 39%; mask-position: calc(100% + 300px) 39%; }
-      100% { -webkit-mask-position: -300px 44%; mask-position: -300px 44%; }
+      0% { -webkit-mask-position: -90px 0%; mask-position: -90px 0%; }
+      23% { -webkit-mask-position: calc(100% + 90px) 10%; mask-position: calc(100% + 90px) 10%; }
+      25% { -webkit-mask-position: calc(100% + 90px) 18%; mask-position: calc(100% + 90px) 18%; }
+      48% { -webkit-mask-position: -90px 25%; mask-position: -90px 25%; }
+      50% { -webkit-mask-position: -90px 30%; mask-position: -90px 30%; }
+      73% { -webkit-mask-position: calc(100% + 90px) 35%; mask-position: calc(100% + 90px) 35%; }
+      75% { -webkit-mask-position: calc(100% + 90px) 39%; mask-position: calc(100% + 90px) 39%; }
+      100% { -webkit-mask-position: -90px 44%; mask-position: -90px 44%; }
     }
 
     @media (hover: none), (pointer: coarse) {
@@ -1090,14 +1126,14 @@
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="eyebrow hero-reveal">PC · Android · iPhone / iPad</p>
-          <h1 class="hero-reveal">Instala <span class="title-workink">Work.ink</span> y <span class="title-vegax">VegaX</span> Bypass <span class="hero-accent">paso a paso</span></h1>
-          <p class="hero-lead hero-reveal">Instala primero <strong>Tampermonkey o Violentmonkey</strong>, elige el bypass y sigue los pasos de tu dispositivo. VegaX es un executor de Roblox; su UserScript está pensado para su proceso web, no para ejecutar código dentro del juego.</p>
+          <h1 class="hero-reveal">Instala <span class="title-workink" data-shine="Work.ink">Work.ink</span> y <span class="title-vegax" data-shine="VegaX">VegaX</span> Bypass <span class="hero-accent">paso a paso</span></h1>
+          <p class="hero-lead hero-reveal">Instala primero <strong>Tampermonkey o Violentmonkey</strong>, elige Work.ink, VegaX o Admaven y sigue los pasos de tu dispositivo. VegaX es un executor de Roblox; su UserScript está pensado para su proceso web, no para ejecutar código dentro del juego.</p>
           <div class="hero-actions hero-reveal">
             <a class="button button-primary" data-pressable href="#guia">Ver los pasos<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             <a class="button button-secondary" data-pressable href="#showcase">Ver demostración<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8.5 7.5v9l7-4.5-7-4.5Z" stroke-linejoin="round"/><circle cx="12" cy="12" r="9"/></svg></a>
           </div>
           <ul class="hero-facts hero-reveal" aria-label="Datos del tutorial">
-            <li>2 UserScripts de AHST</li>
+            <li>3 UserScripts de AHST</li>
             <li>Enlaces revisados 25 AGO 2026</li>
           </ul>
         </div>
@@ -1106,14 +1142,14 @@
           <div class="order-head">
             <div class="script-lockup">
               <img data-logo="AHST" src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo de Anti-Hambreado Script Team">
-              <span><strong>Work.ink + VegaX</strong><small>UserScripts de AHST</small></span>
+              <span><strong>Work.ink + VegaX + Admaven</strong><small>UserScripts de AHST</small></span>
             </div>
-            <span class="version-tag">2 UserScripts</span>
+            <span class="version-tag">3 UserScripts</span>
           </div>
           <ol class="order-list">
             <li><span class="order-number">01</span><span><strong>Navegador compatible</strong><small>Depende de tu dispositivo</small></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v12H4zM9 21h6M12 17v4" stroke-linecap="round"/></svg></li>
             <li><span class="order-number">02</span><span><strong>Gestor de UserScripts</strong><small>Tampermonkey o Violentmonkey</small></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 9V7a4 4 0 0 1 8 0v2m-9 0h10a2 2 0 0 1 2 2v9H5v-9a2 2 0 0 1 2-2Z"/></svg></li>
-            <li><span class="order-number">03</span><span><strong>Elige tu bypass</strong><small>Work.ink Bypass o VegaX Bypass</small></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h7l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h5M9 14l2 2 4-5" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
+            <li><span class="order-number">03</span><span><strong>Elige tu bypass</strong><small>Work.ink, VegaX o Admaven Bypass</small></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h7l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h5M9 14l2 2 4-5" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
           </ol>
           <p class="quick-pick"><strong>Opción sencilla:</strong> Firefox + Tampermonkey funciona en PC y Android. En iPhone/iPad usa Safari + Tampermonkey.</p>
         </aside>
@@ -1155,6 +1191,11 @@
                   <span><strong>VegaX Bypass</strong><small>Para el acceso web del executor de Roblox</small></span>
                   <span class="script-status">Listo</span>
                 </button>
+                <button class="script-option" type="button" data-script="admaven" aria-pressed="false">
+                  <img class="script-option-icon" data-logo="Admaven Bypass" src="https://testlinks.github.io/image.png" alt="Logo de Admaven Bypass">
+                  <span><strong>Admaven Bypass</strong><small>Para el bypass instantáneo de LootLabs</small></span>
+                  <span class="script-status">Listo</span>
+                </button>
               </div>
             </div>
             <div class="route-config">
@@ -1184,15 +1225,12 @@
               </div>
               <div class="route-actions">
                 <a class="button button-secondary button-compact" id="browserDownload" data-pressable href="https://www.google.com/chrome/" target="_blank" rel="noopener noreferrer">Descargar Chrome</a>
-                <a class="button button-primary button-compact" id="managerDownload" data-pressable href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank" rel="noopener noreferrer">Instalar Tampermonkey</a>
+                <a class="button button-secondary button-compact" id="managerDownload" data-pressable href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank" rel="noopener noreferrer">Instalar Tampermonkey</a>
+                <a class="button button-primary button-compact" id="scriptDownload" data-pressable href="https://antihambreadoscriptteam.github.io/UserScripts/WorkinkBypass-V1.user.js" target="_blank" rel="noopener noreferrer">Instalar Work.ink Bypass</a>
               </div>
             </div>
             <div class="guide-notice" id="guideNotice"></div>
             <div class="steps-list" id="stepsList"></div>
-            <div class="guide-install" id="guideInstall">
-              <p id="scriptAvailability">Este botón abre Work.ink Bypass dentro del gestor seleccionado. Si sólo ves código, revisa que el gestor esté instalado y activo.</p>
-              <a class="button button-primary" id="scriptDownload" data-pressable href="https://antihambreadoscriptteam.github.io/UserScripts/WorkinkBypass-V1.user.js" target="_blank" rel="noopener noreferrer">Instalar Work.ink Bypass<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 20h14" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
           </div>
         </div>
       </div>
@@ -1227,7 +1265,7 @@
               <source id="showcaseSource" src="https://file.garden/alVrmPF1qmak3SyZ/Work.ink%20Bypass/lv_0_20260824155133.mp4" type="video/mp4">
             </video>
           </div>
-          <div class="video-fallback"><a id="showcaseLink" href="https://file.garden/alVrmPF1qmak3SyZ/Work.ink%20Bypass/lv_0_20260824155133.mp4" target="_blank" rel="noopener noreferrer">Abrir video de Work.ink Bypass</a></div>
+
         </div>
       </div>
     </section>
@@ -1236,7 +1274,7 @@
       <div class="container">
         <header class="section-heading reveal"><p class="section-kicker">Antes de instalar</p><h2>Permisos y límites</h2></header>
         <div class="safety-grid">
-          <article class="safety-card glass reveal"><h3>No son herramientas oficiales</h3><p>Work.ink Bypass y VegaX Bypass son proyectos comunitarios de AHST. No están afiliados a Work.ink, Vega X, Roblox, Tampermonkey, Violentmonkey ni a los navegadores mostrados.</p></article>
+          <article class="safety-card glass reveal"><h3>No son herramientas oficiales</h3><p>Work.ink Bypass, VegaX Bypass y Admaven Bypass son proyectos comunitarios de AHST. No están afiliados a Work.ink, Vega X, Roblox, AdMaven, LootLabs, Tampermonkey, Violentmonkey ni a los navegadores mostrados.</p></article>
           <article class="safety-card glass reveal"><h3>Revisa dónde se ejecutan</h3><p>Antes de instalar, revisa los campos <code>@match</code> o <code>@include</code>. Esos metadatos indican en qué páginas puede ejecutarse cada UserScript.</p></article>
           <article class="safety-card glass reveal"><h3>Sesión, HWID y claves</h3><p>Work.ink puede usar datos de sesión; Vega X envía un HWID al iniciar su proceso de clave. No compartas cookies, códigos, HWID, claves ni diagnósticos.</p></article>
           <article class="safety-card glass reveal"><h3>CAPTCHA y terceros</h3><p>Los CAPTCHA son manuales. Work.ink, PandaAuth o LootLabs pueden abrir páginas de terceros; revisa el dominio antes de aceptar permisos o descargar archivos.</p></article>
@@ -1271,6 +1309,7 @@
           <div class="changelog-tabs" role="tablist" aria-label="Selecciona el changelog">
             <button type="button" role="tab" data-changelog="workink" aria-selected="true">Work.ink Bypass</button>
             <button type="button" role="tab" data-changelog="vegax" aria-selected="false">VegaX Bypass</button>
+            <button type="button" role="tab" data-changelog="admaven" aria-selected="false">Admaven Bypass</button>
           </div>
           <article class="release-card glass" id="changelogPanel" role="tabpanel">
             <header class="release-head">
@@ -1332,7 +1371,7 @@
 
   <footer class="site-footer">
     <div class="container footer-shell">
-      <p class="footer-copy"><strong>Guía comunitaria de AHST.</strong> No está afiliada a Work.ink, Vega X ni Roblox. Las marcas e iconos pertenecen a sus respectivos titulares.</p>
+      <p class="footer-copy"><strong>Guía comunitaria de AHST.</strong> No está afiliada a Work.ink, Vega X, AdMaven, LootLabs ni Roblox. Las marcas e iconos pertenecen a sus respectivos titulares.</p>
       <nav class="footer-links" aria-label="Fuentes oficiales">
         <a href="https://www.tampermonkey.net/" target="_blank" rel="noopener noreferrer">Tampermonkey</a>
         <a href="https://violentmonkey.github.io/get-it/" target="_blank" rel="noopener noreferrer">Violentmonkey</a>
@@ -1395,13 +1434,33 @@
           ],
           videoUrl: "https://file.garden/alVrmPF1qmak3SyZ/VegaX%20Bypass/lv_0_20260825005204.mp4",
           videoDescription: "Recorrido real de VegaX Bypass desde PandaAuth hasta la generación de la clave."
+        },
+        admaven: {
+          name: "Admaven Bypass",
+          file: "AdmavenBypass-V1.user.js",
+          url: "https://antihambreadoscriptteam.github.io/UserScripts/AdmavenBypass-V1.user.js",
+          purpose: "bypass instantáneo de LootLabs / AdMaven",
+          test: "Abre un enlace de LootLabs o AdMaven en el mismo navegador. Si pide captcha, resuélvelo; al terminar pulsa <strong>Continuar</strong>.",
+          functioningTitle: "Qué hace Admaven Bypass",
+          functioningIntro: "Flujo instantáneo que aparece al abrir un enlace de LootLabs o AdMaven.",
+          note: "Admaven Bypass intercepta LootLabs, completa las tareas en segundo plano y deja el CAPTCHA en manos del usuario. Al terminar muestra Continuar; no redirige solo.",
+          flow: [
+            ["Abre el enlace de LootLabs o AdMaven", "Usa el mismo navegador donde instalaste el gestor. Si la pestaña ya estaba abierta, <strong>recárgala una vez</strong>."],
+            ["Espera la detección del bypass", "El UserScript reconoce la página, intercepta la sesión y empieza a completar las tareas en segundo plano."],
+            ["Completa el CAPTCHA si aparece", "Si LootLabs pide una comprobación, resuélvela. El bypass continúa cuando queda confirmada."],
+            ["Deja que resuelva el destino", "La consola muestra el progreso mientras obtiene el destino final. No cierres la pestaña."],
+            ["Pulsa Continuar", "Cuando aparezca <strong>Continuar</strong>, púlsalo una vez para ir al destino. No hay redirección automática."]
+          ],
+          videoUrl: "https://file.garden/alVrmPF1qmak3SyZ/Admaven%20Bypass/2026-09-04%2017-07-41.mp4",
+          videoRate: 2,
+          videoDescription: "Recorrido real del bypass instantáneo de LootLabs / AdMaven."
         }
       };
 
       const CHANGELOGS = {
         vegax: {
           name: "VegaX Bypass",
-          version: "v0.67",
+          version: "v0.68",
           logo: "https://testlinks.github.io/77d1f64f-8b9b-44b9-b1c0-483a8f0f4719.png",
           changes: `[+] Añadido el UserScript VegaX Bypass - AHST para el sistema de claves de Vega X.
 [+] Añadidos TheRealBanHammer como creador y el logotipo personalizado del UserScript.
@@ -1449,6 +1508,7 @@
 [-] Removida la espera infinita cuando una tarea no llega a iniciar su contador.
 [-] Removida la necesidad de pulsar manualmente Copy Key al terminar.
 [-] Removido el flujo antiguo de LootLabs basado en captcha y WebSocket.
+[*] Arreglado el bypass de Admaven.
 [*] Arreglado el problema que abría muchas pestañas sin llegar correctamente a LootLabs.
 [*] Arreglada la detección tardía del selector de proveedor cuando PandaAuth demora en cargar la sesión.
 [*] Arreglado el error PandaAuth no confirmó la selección de LootLabs mediante espera ampliada y recuperación automática.
@@ -1529,6 +1589,13 @@
 [*] Arreglado el enlace final para abrirse solamente después de un clic real.
 [*] Arreglado el flujo para mantener al usuario en la pestaña original de Work.ink.
 [*] Actualizada la versión del UserScript a 0.67.`
+        },
+        admaven: {
+          name: "Admaven Bypass",
+          version: "v0.68",
+          logo: "https://testlinks.github.io/image.png",
+          changes: `[+] Lanzado al público el UserScript Admaven Bypass - AHST.
+[*] Arreglado el bug que impedía el bypass.`
         }
       };
 
@@ -1655,8 +1722,6 @@
       const managerDownload = document.getElementById("managerDownload");
       const guideNotice = document.getElementById("guideNotice");
       const stepsList = document.getElementById("stepsList");
-      const guideInstall = document.getElementById("guideInstall");
-      const scriptAvailability = document.getElementById("scriptAvailability");
       const scriptDownload = document.getElementById("scriptDownload");
       const functioningTitle = document.getElementById("functioningTitle");
       const functioningIntro = document.getElementById("functioningIntro");
@@ -1667,7 +1732,6 @@
       const showcaseSource = document.getElementById("showcaseSource");
       const showcaseTitle = document.getElementById("showcaseTitle");
       const showcaseDescription = document.getElementById("showcaseDescription");
-      const showcaseLink = document.getElementById("showcaseLink");
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
       const menuToggle = document.getElementById("menuToggle");
       const menuBackdrop = document.getElementById("menuBackdrop");
@@ -1774,7 +1838,7 @@
         changelogName.textContent = release.name;
         changelogVersion.textContent = release.version;
         changelogTabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.changelog === key)));
-        changelogGroups.replaceChildren(...Object.entries(groupMeta).map(([symbol, meta], index) => {
+        changelogGroups.replaceChildren(...Object.entries(groupMeta).filter(([symbol]) => groups[symbol].length).map(([symbol, meta], index) => {
           const details = document.createElement("details");
           details.className = "change-group " + meta.className;
           details.open = index === 0;
@@ -1885,13 +1949,12 @@
         showcaseTitle.textContent = "Demostración de " + script.name;
         showcaseDescription.textContent = script.videoDescription;
         showcaseVideo.setAttribute("aria-label", "Demostración de " + script.name);
-        showcaseLink.href = script.videoUrl;
-        showcaseLink.textContent = "Abrir video de " + script.name;
         if (showcaseSource.getAttribute("src") !== script.videoUrl) {
           showcaseVideo.pause();
           showcaseSource.src = script.videoUrl;
           showcaseVideo.load();
         }
+        applyVideoRate();
 
         if (window.gsap && !reducedMotion.matches) {
           window.gsap.fromTo("#flowList .flow-step", { y: 7, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.055, ease: "power2.out", clearProps: "transform,opacity" });
@@ -2001,8 +2064,8 @@
         deviceTabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.device === state.device)));
         managerTabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.manager === state.manager)));
         scriptDownload.href = script.url;
-        scriptDownload.childNodes[0].nodeValue = "Instalar " + script.name;
-        scriptAvailability.textContent = "Este botón abre " + script.name + " dentro del gestor seleccionado. Si sólo ves código, revisa que el gestor esté instalado y activo.";
+        scriptDownload.textContent = "Instalar " + script.name;
+        scriptDownload.title = "Si sólo ves código, revisa que el gestor esté instalado y activo.";
         renderSelectedScript();
 
         if (unavailableIOS) {
@@ -2011,7 +2074,6 @@
           guideNotice.classList.add("is-visible");
           guideNotice.innerHTML = 'No hay una descarga oficial de Violentmonkey para Safari. <button type="button" data-use-tampermonkey>Usar Tampermonkey</button>';
           stepsList.innerHTML = "";
-          guideInstall.hidden = true;
           guideNotice.querySelector("[data-use-tampermonkey]").addEventListener("click", () => {
             state.manager = "tampermonkey";
             state.browser = "safari";
@@ -2035,7 +2097,6 @@
         const browser = ASSETS[state.browser];
         const manager = MANAGERS[state.manager];
         routeSummary.hidden = false;
-        guideInstall.hidden = false;
         routeLogo.src = browser.logo;
         routeLogo.alt = "Logo de " + browser.name;
         routeTitle.textContent = script.name + " · " + platform.label;
@@ -2095,6 +2156,7 @@
         { name: "AHST", src: "https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" },
         { name: "Work.ink Bypass", src: "https://testlinks.github.io/bf758e72-4d1e-4e76-a630-9fc97440e316.png" },
         { name: "VegaX Bypass", src: "https://testlinks.github.io/77d1f64f-8b9b-44b9-b1c0-483a8f0f4719.png" },
+        { name: "Admaven Bypass", src: "https://testlinks.github.io/image.png" },
         { name: "Android", src: "https://cdn.simpleicons.org/android/3DDC84" },
         { name: "Windows", src: "https://upload.wikimedia.org/wikipedia/commons/8/87/Windows_logo_-_2021.svg" },
         { name: "iOS", src: "https://cdn.simpleicons.org/ios/FFFFFF" },
@@ -2119,8 +2181,9 @@
       const logoFieldBright = document.getElementById("logoFieldBright");
       const hero = document.querySelector(".hero");
       const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
-      const touchExperience = window.matchMedia("(hover: none), (pointer: coarse)").matches || navigator.maxTouchPoints > 0;
-      const mobileBackground = window.innerWidth <= 760 || touchExperience;
+      const coarsePointer = window.matchMedia("(hover: none), (pointer: coarse)");
+      const canHoverLight = finePointer.matches && !reducedMotion.matches;
+      const mobileBackground = !canHoverLight && (window.innerWidth <= 760 || coarsePointer.matches);
       const logoCount = window.innerWidth < 560 ? 112 : window.innerWidth < 980 ? 88 : 96;
       const randomizedLogos = Array.from({ length: logoCount }, (_, index) => logoSources[index % logoSources.length]);
       for (let index = randomizedLogos.length - 1; index > 0; index -= 1) {
@@ -2167,9 +2230,9 @@
         logoTiles.forEach((tile, index) => {
           const center = centers[index];
           const distance = Math.hypot(pointerX - center.x, pointerY - center.y);
-          const lightRadius = mobileBackground ? 470 : 330;
+          const lightRadius = mobileBackground ? 150 : 330;
           let intensity = Math.max(0, 1 - distance / lightRadius);
-          intensity = Math.pow(intensity, mobileBackground ? 1.25 : 2);
+          intensity = Math.pow(intensity, mobileBackground ? 2.35 : 2);
           if (intensity > 0.01) {
             tile.style.opacity = String(0.07 + intensity * 0.93);
             tile.style.filter = "grayscale(" + (100 - intensity * 100) + "%) brightness(" + (0.74 + intensity * 0.56) + ") drop-shadow(0 0 " + (intensity * 22) + "px rgba(255,51,77," + (intensity * 0.82) + "))";
@@ -2184,7 +2247,7 @@
         });
       }
 
-      if (finePointer.matches && !touchExperience && !reducedMotion.matches) {
+      if (canHoverLight) {
         requestAnimationFrame(measureLogos);
         window.addEventListener("resize", () => requestAnimationFrame(measureLogos), { passive: true });
         hero.addEventListener("pointermove", (event) => {
@@ -2333,15 +2396,24 @@
       let videoNearViewport = false;
       let videoActivated = false;
 
+      function applyVideoRate() {
+        const rate = Number(SCRIPTS[state.script].videoRate) || 1;
+        showcaseVideo.defaultPlaybackRate = rate;
+        try { showcaseVideo.playbackRate = rate; } catch {}
+      }
+
       function ensureVideoPlayback() {
         showcaseVideo.muted = true;
         showcaseVideo.defaultMuted = true;
         showcaseVideo.loop = true;
         showcaseVideo.playsInline = true;
         showcaseVideo.removeAttribute("controls");
+        applyVideoRate();
         if (!videoNearViewport || document.hidden) return;
         const attempt = showcaseVideo.play();
-        if (attempt && typeof attempt.catch === "function") attempt.catch(() => {});
+        if (attempt && typeof attempt.catch === "function") {
+          attempt.then(applyVideoRate).catch(() => {});
+        }
       }
 
       showcaseVideo.addEventListener("loadedmetadata", () => {
