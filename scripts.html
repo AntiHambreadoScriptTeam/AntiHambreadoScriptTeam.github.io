@@ -1,6 +1,3 @@
-
-
-
 <!--
 ██████╗░ ██╗ ██████╗░ ░░░░ ░█████╗░ ░█████╗░ ███╗░░░███╗ ██████╗░ ██╗ ░█████╗░ ███╗░░██╗ ███████╗ ░░░░░░ ░██████╗ ░█████╗░ ██████╗░ ██╗ ██████╗░ ████████╗
 ██╔══██╗ ██║ ██╔══██╗ ░░░░ ██╔══██╗ ██╔══██╗ ████╗░████║ ██╔══██╗ ██║ ██╔══██╗ ████╗░██║ ██╔════╝ ░░░░░░ ██╔════╝ ██╔══██╗ ██╔══██╗ ██║ ██╔══██╗ ╚══██╔══╝
@@ -412,6 +409,10 @@ body {
 .fav-count-badge:empty,
 .fav-count-badge[data-count="0"] {
     display: none;
+}
+
+.shared-view .script-card-item:not(.is-shared-target) {
+    display: none !important;
 }
 
 #searchInput,
@@ -5735,15 +5736,23 @@ end)</code></pre>
             favBtn.title = 'Añadir a favoritos';
             favBtn.setAttribute('aria-label', 'Añadir a favoritos');
             favBtn.innerHTML = '<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>';
+            const shareBtn = document.createElement('button');
+            shareBtn.type = 'button';
+            shareBtn.className = 'share-toggle shrink-0 flex items-center justify-center h-8 w-8 rounded-full border border-white/10 bg-white/5 text-slate-300 transition-all hover:bg-sky-500 hover:text-white hover:border-sky-500 hover:shadow-[0_0_15px_rgba(14,165,233,0.4)] hover:scale-105';
+            shareBtn.title = 'Compartir script';
+            shareBtn.setAttribute('aria-label', 'Compartir script');
+            shareBtn.innerHTML = '<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>';
             const actions = document.createElement('div');
             actions.className = 'flex items-center gap-2 shrink-0';
             if (copyBtn) {
                 copyBtn.replaceWith(actions);
                 actions.appendChild(favBtn);
+                actions.appendChild(shareBtn);
                 actions.appendChild(copyBtn);
             } else {
                 header.appendChild(actions);
                 actions.appendChild(favBtn);
+                actions.appendChild(shareBtn);
             }
         });
     }
@@ -5874,7 +5883,159 @@ end)</code></pre>
         });
     }
 
-    function showSection(id) {
+    function slugifyShare(text) {
+        return String(text || '')
+            .toLowerCase()
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '') || 'script';
+    }
+
+    function assignShareSlugs() {
+        const used = {};
+        sourceScriptCards().forEach(card => {
+            const section = card.closest('.content-section');
+            const sectionId = section && section.id ? section.id.replace(/^section-/, '') : '';
+            const title = card.getAttribute('data-title') || (card.querySelector('h3') ? card.querySelector('h3').textContent : '') || '';
+            let slug = slugifyShare(title);
+            if (!used[sectionId]) used[sectionId] = {};
+            if (used[sectionId][slug]) {
+                const code = card.querySelector('code');
+                slug = slug + '-' + (code && code.id ? code.id.replace(/^code_/, '') : '2');
+            }
+            used[sectionId][slug] = true;
+            card.dataset.shareSlug = slug;
+            card.dataset.shareSection = sectionId;
+        });
+    }
+
+    function buildHash(sectionId, scriptSlug) {
+        if (!sectionId || sectionId === 'welcome' || sectionId === 'search-results') return '#/';
+        if (scriptSlug) return '#/' + sectionId + '/' + scriptSlug;
+        return '#/' + sectionId;
+    }
+
+    function parseRoute(hashValue) {
+        let raw = String(hashValue != null ? hashValue : (location.hash || '')).replace(/^#/, '');
+        raw = raw.replace(/^\/+/, '');
+        const parts = raw.split('/').filter(Boolean).map(function (part) {
+            try { return decodeURIComponent(part); } catch (e) { return part; }
+        });
+        return { section: parts[0] || 'welcome', script: parts[1] || '' };
+    }
+
+    let ignoreHashChange = false;
+
+    function setRouteHash(sectionId, scriptSlug) {
+        const next = buildHash(sectionId, scriptSlug);
+        const current = location.hash || '';
+        if (current === next) return;
+        if ((next === '#/' || next === '') && (current === '' || current === '#' || current === '#/')) return;
+        ignoreHashChange = true;
+        history.replaceState(null, '', next);
+        ignoreHashChange = false;
+    }
+
+    function clearSharedView() {
+        document.querySelectorAll('.content-section.shared-view').forEach(s => s.classList.remove('shared-view'));
+        document.querySelectorAll('.is-shared-target').forEach(c => c.classList.remove('is-shared-target'));
+        document.querySelectorAll('.shared-script-banner').forEach(b => b.remove());
+    }
+
+    function applySharedScriptFilter(sectionId, scriptSlug) {
+        clearSharedView();
+        if (!scriptSlug) return false;
+        const section = document.getElementById('section-' + sectionId);
+        if (!section) return false;
+        const cards = section.querySelectorAll('.script-card-item');
+        let target = null;
+        cards.forEach(card => {
+            if (card.dataset.shareSlug === scriptSlug) target = card;
+        });
+        if (!target) return false;
+        section.classList.add('shared-view');
+        target.classList.add('is-shared-target');
+        const grid = section.querySelector('.grid.gap-6');
+        if (grid && !section.querySelector('.shared-script-banner')) {
+            const banner = document.createElement('div');
+            banner.className = 'shared-script-banner mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-sky-500/20 bg-sky-500/10 px-5 py-4';
+            banner.innerHTML = '<div><p class="text-sm font-bold text-sky-200">Script compartido</p><p class="text-xs text-slate-400 mt-0.5">Solo se muestra esta tarjeta.</p></div><button type="button" class="shared-view-all shrink-0 inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-bold text-white hover:bg-white/10">Ver todos</button>';
+            banner.querySelector('.shared-view-all').addEventListener('click', () => showSection(sectionId));
+            grid.parentNode.insertBefore(banner, grid);
+        }
+        return true;
+    }
+
+    function applyRoute(hashValue) {
+        const route = parseRoute(hashValue);
+        let id = route.section;
+        if (id === 'search-results') id = 'welcome';
+        if (!document.getElementById('section-' + id)) id = 'welcome';
+        const hadScript = !!route.script;
+        showSection(id, { scriptSlug: route.script, skipHash: true });
+        if (hadScript && id !== 'welcome' && id !== 'favoritos') {
+            const section = document.getElementById('section-' + id);
+            if (section && !section.classList.contains('shared-view')) {
+                showToast('No se encontró ese script');
+            }
+        }
+    }
+
+    function fallbackCopyShare(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+            document.execCommand('copy');
+            showToast('Enlace copiado');
+        } catch (err) {
+            window.prompt('Copia el enlace:', text);
+        }
+        document.body.removeChild(ta);
+    }
+
+    function shareScript(card) {
+        if (!card) return;
+        const sectionId = card.dataset.shareSection;
+        const slug = card.dataset.shareSlug;
+        if (!sectionId || !slug) return;
+        const url = location.origin + location.pathname + location.search + '#/' + sectionId + '/' + slug;
+        const go = () => {
+            document.body.classList.remove('searching-active');
+            const si = document.getElementById('searchInput');
+            if (si) si.value = '';
+            showSection(sectionId, { scriptSlug: slug });
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(() => {
+                showToast('Enlace copiado');
+                go();
+            }).catch(() => {
+                fallbackCopyShare(url);
+                go();
+            });
+        } else {
+            fallbackCopyShare(url);
+            go();
+        }
+    }
+
+    function wireNavHashes() {
+        document.querySelectorAll('a[onclick]').forEach(a => {
+            const m = String(a.getAttribute('onclick') || '').match(/showSection\(['"]([^'"]+)['"]\)/);
+            if (!m) return;
+            a.setAttribute('href', buildHash(m[1]));
+        });
+    }
+
+    function showSection(id, options) {
+        options = options || {};
+        const scriptSlug = options.scriptSlug || '';
+
         document.querySelectorAll('.content-section').forEach(el => {
             el.classList.add('hidden');
             el.classList.remove('active');
@@ -5894,12 +6055,25 @@ end)</code></pre>
         }
 
         if (id === 'favoritos') renderFavorites();
+
+        if (id !== 'search-results') {
+            if (scriptSlug && id !== 'favoritos' && id !== 'welcome') {
+                applySharedScriptFilter(id, scriptSlug);
+            } else {
+                clearSharedView();
+            }
+        }
         
         if (window.innerWidth < 1024 && !document.body.classList.contains('searching-active')) {
             document.body.classList.remove('sidebar-open');
-            document.getElementById('mobile-overlay').classList.add('hidden');
+            const overlay = document.getElementById('mobile-overlay');
+            if (overlay) overlay.classList.add('hidden');
         }
         window.scrollTo({top: 0, behavior: 'smooth'});
+
+        if (!options.skipHash && id !== 'search-results') {
+            setRouteHash(id, scriptSlug);
+        }
     }
 
     function copyCode(id, btn) {
@@ -5923,12 +6097,23 @@ end)</code></pre>
     }
 
     document.addEventListener('click', (e) => {
+        const a = e.target.closest('a[href="#"], a[href^="#/"]');
+        if (a && String(a.getAttribute('onclick') || '').indexOf('showSection') !== -1 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+            e.preventDefault();
+        }
+        const shareBtn = e.target.closest('.share-toggle');
+        if (shareBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            shareScript(shareBtn.closest('.script-card-item'));
+            return;
+        }
         const favBtn = e.target.closest('.fav-toggle');
         if (!favBtn) return;
         e.preventDefault();
         e.stopPropagation();
         toggleFavorite(favBtn.dataset.favId);
-    });
+    }, true);
 
     document.getElementById('open-sidebar').addEventListener('click', () => {
         document.body.classList.add('sidebar-open');
@@ -6045,28 +6230,30 @@ end)</code></pre>
         }
     });
 
-    window.addEventListener('load', () => {
-        const hash = window.location.hash.replace('#', '');
-        if (hash) {
-            showSection(hash);
-        }
-        sourceScriptCards().forEach(card => {
-            const codeEl = card.querySelector('code');
-            if (codeEl) {
-                const text = codeEl.innerText.trim();
-                if (text.includes('mediafire.com')) {
-                    const button = card.querySelector('button:not(.fav-toggle)');
-                    if (button) {
-                        button.setAttribute('title', 'Abrir Link');
-                        button.setAttribute('onclick', `window.open('${text}', '_blank')`);
-                        button.innerHTML = `<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`;
-                    }
+    window.addEventListener('hashchange', () => {
+        if (ignoreHashChange) return;
+        applyRoute();
+    });
+
+    assignShareSlugs();
+    sourceScriptCards().forEach(card => {
+        const codeEl = card.querySelector('code');
+        if (codeEl) {
+            const text = codeEl.innerText.trim();
+            if (text.includes('mediafire.com')) {
+                const button = card.querySelector('button:not(.fav-toggle):not(.share-toggle)');
+                if (button) {
+                    button.setAttribute('title', 'Abrir Link');
+                    button.setAttribute('onclick', `window.open('${text}', '_blank')`);
+                    button.innerHTML = `<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`;
                 }
             }
-        });
-        injectFavoriteButtons();
-        syncFavButtons();
+        }
     });
+    injectFavoriteButtons();
+    syncFavButtons();
+    wireNavHashes();
+    applyRoute();
 
     const themeColorPalettes = {
         'blox fruits': ['orange', 'amber'],
