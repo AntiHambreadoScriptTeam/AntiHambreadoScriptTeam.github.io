@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0d0d0d">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Guía paso a paso para preparar e instalar Work.ink Bypass, VegaX Bypass y Admaven Bypass con Tampermonkey o Violentmonkey en PC, Android, iPhone y iPad.">
-  <title>Work.ink, VegaX y Admaven Bypass · Guía de UserScripts</title>
+  <meta name="description" content="Guía paso a paso para preparar e instalar Work.ink Bypass, VegaX Bypass, Admaven Bypass y Linkvertise Bypass con Tampermonkey o Violentmonkey en PC, Android, iPhone y iPad.">
+  <title>Work.ink, VegaX, Admaven y Linkvertise Bypass · Guía de UserScripts</title>
   <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -671,7 +671,7 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
-    .script-options { display: grid; gap: 10px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .script-options { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .script-option {
       display: grid;
       min-width: 0;
@@ -799,7 +799,7 @@
     #changelogView { min-height: 100svh; }
     #changelog { min-height: 100svh; padding-top: calc(var(--header-h) + 86px); }
     .view-return { margin-bottom: 28px; }
-    .changelog-tabs { display: grid; gap: 8px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 12px; }
+    .changelog-tabs { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 12px; }
     .changelog-tabs button { min-height: 52px; padding-inline: 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.02); color: var(--muted); cursor: pointer; font-size: 12px; font-weight: 800; line-height: 1.25; white-space: normal; }
     .changelog-tabs button[aria-selected="true"] { border-color: var(--red); background: rgba(255, 51, 77, 0.09); color: #fff; }
     .release-card { padding: 24px; border-radius: var(--radius-sm); }
@@ -1127,13 +1127,13 @@
         <div class="hero-copy">
           <p class="eyebrow hero-reveal">PC · Android · iPhone / iPad</p>
           <h1 class="hero-reveal">Instala <span class="title-workink" data-shine="Work.ink">Work.ink</span> y <span class="title-vegax" data-shine="VegaX">VegaX</span> Bypass <span class="hero-accent">paso a paso</span></h1>
-          <p class="hero-lead hero-reveal">Instala primero <strong>Tampermonkey o Violentmonkey</strong>, elige Work.ink, VegaX o Admaven y sigue los pasos de tu dispositivo. VegaX es un executor de Roblox; su UserScript está pensado para su proceso web, no para ejecutar código dentro del juego.</p>
+          <p class="hero-lead hero-reveal">Instala primero <strong>Tampermonkey o Violentmonkey</strong>, elige Work.ink, VegaX, Admaven o Linkvertise y sigue los pasos de tu dispositivo. VegaX es un executor de Roblox; su UserScript está pensado para su proceso web, no para ejecutar código dentro del juego.</p>
           <div class="hero-actions hero-reveal">
             <a class="button button-primary" data-pressable href="#guia">Ver los pasos<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             <a class="button button-secondary" data-pressable href="#showcase">Ver demostración<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8.5 7.5v9l7-4.5-7-4.5Z" stroke-linejoin="round"/><circle cx="12" cy="12" r="9"/></svg></a>
           </div>
           <ul class="hero-facts hero-reveal" aria-label="Datos del tutorial">
-            <li>3 UserScripts de AHST</li>
+            <li>4 UserScripts de AHST</li>
             <li>Enlaces revisados 25 AGO 2026</li>
           </ul>
         </div>
@@ -1142,14 +1142,14 @@
           <div class="order-head">
             <div class="script-lockup">
               <img data-logo="AHST" src="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" alt="Logo de Anti-Hambreado Script Team">
-              <span><strong>Work.ink + VegaX + Admaven</strong><small>UserScripts de AHST</small></span>
+              <span><strong>Work.ink + VegaX + Admaven + Linkvertise</strong><small>UserScripts de AHST</small></span>
             </div>
-            <span class="version-tag">3 UserScripts</span>
+            <span class="version-tag">4 UserScripts</span>
           </div>
           <ol class="order-list">
             <li><span class="order-number">01</span><span><strong>Navegador compatible</strong><small>Depende de tu dispositivo</small></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v12H4zM9 21h6M12 17v4" stroke-linecap="round"/></svg></li>
             <li><span class="order-number">02</span><span><strong>Gestor de UserScripts</strong><small>Tampermonkey o Violentmonkey</small></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 9V7a4 4 0 0 1 8 0v2m-9 0h10a2 2 0 0 1 2 2v9H5v-9a2 2 0 0 1 2-2Z"/></svg></li>
-            <li><span class="order-number">03</span><span><strong>Elige tu bypass</strong><small>Work.ink, VegaX o Admaven Bypass</small></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h7l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h5M9 14l2 2 4-5" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
+            <li><span class="order-number">03</span><span><strong>Elige tu bypass</strong><small>Work.ink, VegaX, Admaven o Linkvertise</small></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h7l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h5M9 14l2 2 4-5" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
           </ol>
           <p class="quick-pick"><strong>Opción sencilla:</strong> Firefox + Tampermonkey funciona en PC y Android. En iPhone/iPad usa Safari + Tampermonkey.</p>
         </aside>
@@ -1194,6 +1194,11 @@
                 <button class="script-option" type="button" data-script="admaven" aria-pressed="false">
                   <img class="script-option-icon" data-logo="Admaven Bypass" src="https://testlinks.github.io/image.png" alt="Logo de Admaven Bypass">
                   <span><strong>Admaven Bypass</strong><small>Para el bypass instantáneo de LootLabs</small></span>
+                  <span class="script-status">Listo</span>
+                </button>
+                <button class="script-option" type="button" data-script="linkvertise" aria-pressed="false">
+                  <img class="script-option-icon" data-logo="Linkvertise Bypass" src="https://testlinks.github.io/Linkby.png" alt="Logo de Linkvertise Bypass">
+                  <span><strong>Linkvertise Bypass</strong><small>Para el flujo web de Linkvertise</small></span>
                   <span class="script-status">Listo</span>
                 </button>
               </div>
@@ -1274,7 +1279,7 @@
       <div class="container">
         <header class="section-heading reveal"><p class="section-kicker">Antes de instalar</p><h2>Permisos y límites</h2></header>
         <div class="safety-grid">
-          <article class="safety-card glass reveal"><h3>No son herramientas oficiales</h3><p>Work.ink Bypass, VegaX Bypass y Admaven Bypass son proyectos comunitarios de AHST. No están afiliados a Work.ink, Vega X, Roblox, AdMaven, LootLabs, Tampermonkey, Violentmonkey ni a los navegadores mostrados.</p></article>
+          <article class="safety-card glass reveal"><h3>No son herramientas oficiales</h3><p>Work.ink Bypass, VegaX Bypass, Admaven Bypass y Linkvertise Bypass son proyectos comunitarios de AHST. No están afiliados a Work.ink, Vega X, Roblox, AdMaven, LootLabs, Linkvertise, Tampermonkey, Violentmonkey ni a los navegadores mostrados.</p></article>
           <article class="safety-card glass reveal"><h3>Revisa dónde se ejecutan</h3><p>Antes de instalar, revisa los campos <code>@match</code> o <code>@include</code>. Esos metadatos indican en qué páginas puede ejecutarse cada UserScript.</p></article>
           <article class="safety-card glass reveal"><h3>Sesión, HWID y claves</h3><p>Work.ink puede usar datos de sesión; Vega X envía un HWID al iniciar su proceso de clave. No compartas cookies, códigos, HWID, claves ni diagnósticos.</p></article>
           <article class="safety-card glass reveal"><h3>CAPTCHA y terceros</h3><p>Los CAPTCHA son manuales. Work.ink, PandaAuth o LootLabs pueden abrir páginas de terceros; revisa el dominio antes de aceptar permisos o descargar archivos.</p></article>
@@ -1310,6 +1315,7 @@
             <button type="button" role="tab" data-changelog="workink" aria-selected="true">Work.ink Bypass</button>
             <button type="button" role="tab" data-changelog="vegax" aria-selected="false">VegaX Bypass</button>
             <button type="button" role="tab" data-changelog="admaven" aria-selected="false">Admaven Bypass</button>
+            <button type="button" role="tab" data-changelog="linkvertise" aria-selected="false">Linkvertise Bypass</button>
           </div>
           <article class="release-card glass" id="changelogPanel" role="tabpanel">
             <header class="release-head">
@@ -1371,7 +1377,7 @@
 
   <footer class="site-footer">
     <div class="container footer-shell">
-      <p class="footer-copy"><strong>Guía comunitaria de AHST.</strong> No está afiliada a Work.ink, Vega X, AdMaven, LootLabs ni Roblox. Las marcas e iconos pertenecen a sus respectivos titulares.</p>
+      <p class="footer-copy"><strong>Guía comunitaria de AHST.</strong> No está afiliada a Work.ink, Vega X, AdMaven, LootLabs, Linkvertise ni Roblox. Las marcas e iconos pertenecen a sus respectivos titulares.</p>
       <nav class="footer-links" aria-label="Fuentes oficiales">
         <a href="https://www.tampermonkey.net/" target="_blank" rel="noopener noreferrer">Tampermonkey</a>
         <a href="https://violentmonkey.github.io/get-it/" target="_blank" rel="noopener noreferrer">Violentmonkey</a>
@@ -1454,6 +1460,26 @@
           videoUrl: "https://file.garden/alVrmPF1qmak3SyZ/Admaven%20Bypass/2026-09-04%2017-07-41.mp4",
           videoRate: 2,
           videoDescription: "Recorrido real del bypass instantáneo de LootLabs / AdMaven."
+        },
+        linkvertise: {
+          name: "Linkvertise Bypass",
+          file: "LinkvertiseBypass-V1.user.js",
+          url: "https://antihambreadoscriptteam.github.io/UserScripts/LinkvertiseBypass-V1.user.js",
+          purpose: "flujo web de Linkvertise",
+          test: "Abre un enlace de <code>linkvertise.com</code> en el mismo navegador. Si la pestaña ya estaba abierta, recárgala una vez y espera a que el bypass resuelva el destino.",
+          functioningTitle: "Qué hace Linkvertise Bypass",
+          functioningIntro: "Flujo que aparece después de abrir un enlace de Linkvertise.",
+          note: "Linkvertise Bypass detecta el enlace, lo envía al resolvedor y redirige al destino cuando está listo. No instala nada fuera del navegador.",
+          flow: [
+            ["Abre el enlace de Linkvertise", "Usa el mismo navegador donde instalaste el gestor. Si la pestaña ya estaba abierta, <strong>recárgala una vez</strong>."],
+            ["Espera la detección del bypass", "El UserScript reconoce <code>linkvertise.com</code> y empieza a resolver el destino."],
+            ["Deja que abra el resolvedor", "El bypass continúa en segundo plano. No cierres la pestaña ni pulses anuncios."],
+            ["Espera el destino", "Cuando el resolvedor termina, la consola indica que el bypass está listo."],
+            ["Llega al destino final", "El UserScript redirige al destino automáticamente. Si no avanza, recarga una vez y espera."]
+          ],
+          videoUrl: "https://file.garden/alVrmPF1qmak3SyZ/Linkvertise%20Bypass/2026-09-05%2016-29-43.mp4",
+          videoRate: 2,
+          videoDescription: "Recorrido real de Linkvertise Bypass."
         }
       };
 
@@ -1595,6 +1621,13 @@
           version: "v0.68",
           logo: "https://testlinks.github.io/image.png",
           changes: `[+] Lanzado al público el UserScript Admaven Bypass - AHST.
+[*] Arreglado el bug que impedía el bypass.`
+        },
+        linkvertise: {
+          name: "Linkvertise Bypass",
+          version: "v0.68",
+          logo: "https://testlinks.github.io/Linkby.png",
+          changes: `[+] Lanzado al público el UserScript Linkvertise Bypass - AHST.
 [*] Arreglado el bug que impedía el bypass.`
         }
       };
@@ -2157,6 +2190,7 @@
         { name: "Work.ink Bypass", src: "https://testlinks.github.io/bf758e72-4d1e-4e76-a630-9fc97440e316.png" },
         { name: "VegaX Bypass", src: "https://testlinks.github.io/77d1f64f-8b9b-44b9-b1c0-483a8f0f4719.png" },
         { name: "Admaven Bypass", src: "https://testlinks.github.io/image.png" },
+        { name: "Linkvertise Bypass", src: "https://testlinks.github.io/Linkby.png" },
         { name: "Android", src: "https://cdn.simpleicons.org/android/3DDC84" },
         { name: "Windows", src: "https://upload.wikimedia.org/wikipedia/commons/8/87/Windows_logo_-_2021.svg" },
         { name: "iOS", src: "https://cdn.simpleicons.org/ios/FFFFFF" },
