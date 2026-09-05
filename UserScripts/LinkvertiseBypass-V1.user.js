@@ -25,8 +25,8 @@
 // @exclude      https://blog.linkvertise.com/*
 // @exclude      https://link-mutation.linkvertise.com/*
 // @icon         https://testlinks.github.io/Linkby.png
-// @downloadURL
-// @updateURL
+// @downloadURL  http://antihambreadoscriptteam.github.io/UserScripts/LinkvertiseBypass-V1.user.js
+// @updateURL    http://antihambreadoscriptteam.github.io/UserScripts/LinkvertiseBypass-V1.user.js
 // @run-at       document-start
 // @grant        unsafeWindow
 // @grant        GM_xmlhttpRequest
