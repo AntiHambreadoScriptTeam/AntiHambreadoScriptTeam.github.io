@@ -1281,7 +1281,7 @@
     </section>
   </main>
 
-  <audio id="music" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/loveposion_256k.mp3" preload="none" loop></audio>
+  <audio id="music" src="https://file.garden/alVrmPF1qmak3SyZ/BanHammerBio/loveposion_256k.mp3" preload="none"></audio>
 
   <script>
     (function () {
@@ -1453,6 +1453,14 @@
         document.getElementById("ball-grok").src = "../../grok-bot.html?bare=1";
         document.getElementById("ball-ghost").src = "../../grok-bot-ghost.html?bare=1";
         music.preload = "auto";
+        music.loop = false;
+        music.currentTime = 0;
+        function cutMusic() {
+          if (music.currentTime < 7) return;
+          music.pause();
+          music.removeEventListener("timeupdate", cutMusic);
+        }
+        music.addEventListener("timeupdate", cutMusic);
         music.play().catch(function () { return; });
         showWall("hole");
         pickWall();
