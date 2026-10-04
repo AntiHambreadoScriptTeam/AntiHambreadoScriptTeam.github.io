@@ -1456,7 +1456,7 @@
         music.loop = false;
         music.currentTime = 0;
         function cutMusic() {
-          if (music.currentTime < 7) return;
+          if (music.currentTime < 9) return;
           music.pause();
           music.removeEventListener("timeupdate", cutMusic);
         }
