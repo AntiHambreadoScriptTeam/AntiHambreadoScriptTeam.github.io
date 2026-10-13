@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Guía paso a paso para preparar e instalar Work.ink Bypass, VegaX Bypass, Admaven Bypass y Linkvertise Bypass con Tampermonkey o Violentmonkey en PC, Android, iPhone y iPad.">
-  <title>Work.ink, VegaX, Admaven y Linkvertise Bypass · Guía de UserScripts</title>
+  <meta name="description" content="Guía para instalar Work.ink Bypass, VegaX Bypass, Delta Bypass, Admaven Bypass y Linkvertise Bypass con Tampermonkey o Violentmonkey en PC, Android, iPhone y iPad.">
+  <title>Work.ink, VegaX, Delta, Admaven y Linkvertise Bypass · Guía de UserScripts</title>
   <link rel="icon" href="https://i.postimg.cc/wTpYKGqV/Anti-Hambreado.jpg" type="image/jpeg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -594,7 +594,9 @@
     }
     .script-option:hover { border-color: var(--line-strong); transform: translateY(-2px); }
     .script-option[aria-pressed="true"] { border-color: rgba(255, 255, 255, 0.38); background: rgba(255, 255, 255, 0.06); }
-    .script-option-icon { width: 42px; height: 42px; border: 1px solid var(--line-strong); border-radius: 9px; background: #0b0b0b; object-fit: cover; }
+    .script-option-icon { width: 42px; height: 42px; border: 1px solid var(--line-strong); border-radius: 9px; background: #0b0b0b; object-fit: cover; filter: grayscale(1) brightness(0.45); opacity: 0.62; transition: filter 220ms ease, opacity 220ms ease; }
+    .script-option:hover .script-option-icon,
+    .script-option[aria-pressed="true"] .script-option-icon { filter: none; opacity: 1; }
     .script-option strong, .script-option small { display: block; }
     .script-option strong { font-size: 12px; }
     .script-option small { margin-top: 4px; color: var(--muted-2); font-size: 9px; line-height: 1.4; }
@@ -697,8 +699,11 @@
     .page-view { width: 100%; }
     .page-view[hidden] { display: none; }
     .page-view.is-transitioning { pointer-events: none; will-change: transform, opacity; }
-    #changelogView { min-height: 100svh; }
-    #changelog { min-height: 100svh; padding-top: calc(var(--header-h) + 86px); }
+    #changelogView { min-height: 100svh; background: #14141c; }
+    #changelog, #discord { min-height: 100svh; padding-top: calc(var(--header-h) + 86px); background: #14141c; }
+    .discord-mark { display: block; width: min(280px, 100%); height: auto; margin: 0 0 18px; object-fit: contain; }
+    .discord-cta { margin-top: 8px; }
+    .discord-cta img { width: 18px; height: 18px; object-fit: contain; }
     .view-return { margin-bottom: 28px; }
     .changelog-tabs { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 12px; }
     .changelog-tabs button { min-height: 52px; padding-inline: 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.02); color: var(--muted); cursor: pointer; font-size: 12px; font-weight: 800; line-height: 1.25; white-space: normal; }
@@ -747,6 +752,7 @@
     .credit-extra { display: block; padding: 0; }
     .credit-extra .credit-avatar { border-width: 0 0 1px; border-radius: 0; }
     .credit-extra .credit-avatar img { object-position: center bottom; }
+    .credit-extra .credit-avatar img.is-maxi { object-position: center 40%; }
     .credit-extra > div:last-child { padding: 18px 19px 20px; }
     .credit-extra h3 { margin: 0 0 7px; font-size: 15px; }
     .credit-extra p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.62; }
@@ -1175,7 +1181,7 @@
   <aside class="menu-panel" id="siteMenu" aria-label="Menú principal" hidden>
     <div class="view-tabs" role="group" aria-label="Vista de la página">
       <button class="view-tab" type="button" data-view="tutorial" aria-pressed="true">Tutorial</button>
-      <button class="view-tab" type="button" data-view="changelog" aria-pressed="false">Changelogs</button>
+      <button class="view-tab" type="button" data-view="changelog" aria-pressed="false">Cambios</button>
       <button class="view-tab" type="button" data-view="credits" aria-pressed="false">Créditos</button>
     </div>
     <nav class="menu-links" aria-label="Secciones del tutorial">
@@ -1219,7 +1225,7 @@
       <div class="container hero-copy">
         <p class="eyebrow hero-reveal">PC · Android · iPhone / iPad</p>
         <h1 class="hero-reveal">Instala <span class="hero-roulette" id="heroRoulette"><span class="hero-roulette-sizer" aria-hidden="true">Linkvertise</span><span class="hero-roulette-viewport" aria-hidden="true"><span class="hero-roulette-track" id="heroRouletteTrack"></span></span></span> <span id="heroRouletteLive" class="hero-roulette-live">Work.ink</span> Bypass</h1>
-        <p class="hero-lead hero-reveal">Instálalo una vez y el acortador deja de frenarte. Elige tu dispositivo, sigue los pasos y listo.</p>
+        <p class="hero-lead hero-reveal">Elige el bypass, el dispositivo y un solo gestor. Los pasos de abajo cambian según lo que marques.</p>
         <div class="hero-actions hero-reveal">
           <a class="button button-primary" data-pressable href="#guia">Instalar</a>
         </div>
@@ -1239,7 +1245,7 @@
           <div class="guide-head" id="deviceSection">
             <div class="guide-intro">
               <div><h3>¿Dónde vas a instalarlo?</h3><p>Cambia de opción para ver instrucciones distintas.</p></div>
-              <span class="verified-chip"><i></i> Enlaces revisados · 25 AGO 2026</span>
+              <span class="verified-chip"><i></i> Enlaces revisados · 13 OCT 2026</span>
             </div>
             <div class="device-tabs" role="tablist" aria-label="Selecciona tu dispositivo">
               <button class="device-tab" type="button" role="tab" aria-selected="true" data-device="pc"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v12H4zM8 20h8M12 16v4" stroke-linecap="round"/></svg>PC / Mac</button>
@@ -1254,22 +1260,27 @@
               <div class="script-options" role="group" aria-label="Selecciona el UserScript que quieres preparar">
                 <button class="script-option" type="button" data-script="workink" aria-pressed="true">
                   <img class="script-option-icon" data-logo="Work.ink Bypass" src="https://testlinks.github.io/bf758e72-4d1e-4e76-a630-9fc97440e316.png" alt="Logo de Work.ink Bypass">
-                  <span><strong>Work.ink Bypass</strong><small>Para el flujo web de Work.ink</small></span>
+                  <span><strong>Work.ink Bypass</strong><small>Enlaces de work.ink</small></span>
                   <span class="script-status">Listo</span>
                 </button>
                 <button class="script-option" type="button" data-script="vegax" aria-pressed="false">
                   <img class="script-option-icon" data-logo="VegaX Bypass" src="https://testlinks.github.io/77d1f64f-8b9b-44b9-b1c0-483a8f0f4719.png" alt="Logo de VegaX Bypass">
-                  <span><strong>VegaX Bypass</strong><small>Para el acceso web del executor de Roblox</small></span>
+                  <span><strong>VegaX Bypass</strong><small>Key de Vega X en PandaAuth</small></span>
                   <span class="script-status">Listo</span>
                 </button>
                 <button class="script-option" type="button" data-script="admaven" aria-pressed="false">
                   <img class="script-option-icon" data-logo="Admaven Bypass" src="https://testlinks.github.io/image.png" alt="Logo de Admaven Bypass">
-                  <span><strong>Admaven Bypass</strong><small>Para el bypass instantáneo de LootLabs</small></span>
+                  <span><strong>Admaven Bypass</strong><small>Enlaces de LootLabs</small></span>
                   <span class="script-status">Listo</span>
                 </button>
                 <button class="script-option" type="button" data-script="linkvertise" aria-pressed="false">
                   <img class="script-option-icon" data-logo="Linkvertise Bypass" src="https://testlinks.github.io/Linkby.png" alt="Logo de Linkvertise Bypass">
-                  <span><strong>Linkvertise Bypass</strong><small>Para el flujo web de Linkvertise</small></span>
+                  <span><strong>Linkvertise Bypass</strong><small>Enlaces de linkvertise.com</small></span>
+                  <span class="script-status">Listo</span>
+                </button>
+                <button class="script-option" type="button" data-script="delta" aria-pressed="false">
+                  <img class="script-option-icon" data-logo="Delta Bypass" src="https://testlinks.github.io/deltagay6767.jpg" alt="Logo de Delta Bypass">
+                  <span><strong>Delta Bypass</strong><small>Key de Delta en Platorelay</small></span>
                   <span class="script-status">Listo</span>
                 </button>
               </div>
@@ -1325,15 +1336,15 @@
         <header class="section-heading reveal">
           <p class="section-kicker">Después de instalar</p>
           <h2 id="functioningTitle">Qué hace Work.ink Bypass</h2>
-          <p id="functioningIntro">Guía del flujo que aparece después de abrir un enlace de Work.ink.</p>
-          <div class="product-note" id="productNote"><h3>Work.ink Bypass</h3><p>Automatiza partes del proceso de Work.ink, pero deja las comprobaciones y CAPTCHA que requieren interacción en manos del usuario.</p></div>
+          <p id="functioningIntro">Qué vas a ver en la consola después de abrir un enlace de work.ink.</p>
+          <div class="product-note" id="productNote"><h3>Work.ink Bypass</h3><p>Avanza el enlace, prepara la sesión premium y espera los contadores. Tú resuelves Cloudflare, Turnstile y hCaptcha. El destino no se abre solo: hay que pulsar ABRIR DESTINO FINAL.</p></div>
         </header>
         <div class="flow-list" id="flowList" aria-live="polite">
-          <article class="flow-step reveal"><span class="flow-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span><div><h3>1. Abre el enlace de Work.ink</h3><p>Usa el mismo navegador donde instalaste el gestor. Si la pestaña ya estaba abierta, <strong>recárgala una vez</strong>.</p></div></article>
-          <article class="flow-step reveal"><span class="flow-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 5 6v5c0 4.6 2.8 8.1 7 10 4.2-1.9 7-5.4 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-5" stroke-linecap="round"/></svg></span><div><h3>2. Completa las comprobaciones</h3><p>Espera a Cloudflare o Monocle y resuelve el CAPTCHA. Si aparece vacío, comprueba que JavaScript, cookies e iframes estén permitidos.</p></div></article>
-          <article class="flow-step reveal"><span class="flow-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16v11H4zM4 8l8 6 8-6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>3. Inicia sesión si te lo pide</h3><p>Puede solicitar tu correo y el código enviado por Work.ink. <strong>No compartas ese código con otra persona.</strong></p></div></article>
-          <article class="flow-step reveal"><span class="flow-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg></span><div><h3>4. Espera temporizadores u ofertas</h3><p>Si el navegador bloquea una ventana emergente de <code>work.ink</code>, permítela sólo para ese sitio y vuelve a la pestaña original.</p></div></article>
-          <article class="flow-step reveal"><span class="flow-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14m-5-5 5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>5. Abre el destino final</h3><p>Cuando aparezca <strong>ABRIR DESTINO FINAL</strong>, púlsalo una vez y espera a que abra la nueva pestaña.</p></div></article>
+          <article class="flow-step reveal"><span class="flow-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span><div><h3>1. Abre el enlace de Work.ink</h3><p>Hazlo en el mismo navegador donde instalaste el gestor. Si esa pestaña ya estaba abierta, <strong>recárgala una vez</strong>.</p></div></article>
+          <article class="flow-step reveal"><span class="flow-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 5 6v5c0 4.6 2.8 8.1 7 10 4.2-1.9 7-5.4 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-5" stroke-linecap="round"/></svg></span><div><h3>2. Resuelve el CAPTCHA cuando salga</h3><p>Cloudflare, Turnstile o hCaptcha los completas tú. La consola se aparta para dejarlos visibles. Si el recuadro sale vacío, permite JavaScript, cookies e iframes en <code>work.ink</code> y recarga.</p></div></article>
+          <article class="flow-step reveal"><span class="flow-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16v11H4zM4 8l8 6 8-6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>3. Deja que prepare la sesión premium</h3><p>El script crea el correo temporal y lee el código. Tú sólo intervienes si un CAPTCHA bloquea ese paso. <strong>No pases ese código a otra persona.</strong></p></div></article>
+          <article class="flow-step reveal"><span class="flow-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg></span><div><h3>4. Espera contadores y ofertas</h3><p>No cierres la pestaña. Si el navegador bloquea una ventana de <code>work.ink</code>, permítela sólo para ese sitio. Si la consola pide un clic en una oferta, púlsala una vez y vuelve.</p></div></article>
+          <article class="flow-step reveal"><span class="flow-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 12h14m-5-5 5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>5. Abre el destino final</h3><p>Cuando la consola diga que el bypass terminó, pulsa <strong>ABRIR DESTINO FINAL</strong> una sola vez. No hay redirección automática.</p></div></article>
         </div>
       </div>
     </section>
@@ -1342,7 +1353,7 @@
       <div class="container">
         <div class="showcase-shell glass reveal">
           <header class="showcase-head">
-            <div><h2 id="showcaseTitle">Demostración de Work.ink Bypass</h2><p id="showcaseDescription">Recorrido real del proceso de Work.ink Bypass.</p></div>
+            <div><h2 id="showcaseTitle">Demostración de Work.ink Bypass</h2><p id="showcaseDescription">Desde el enlace de Work.ink hasta el botón del destino final.</p></div>
           </header>
           <div class="video-frame">
             <video id="showcaseVideo" muted loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback controlslist="nodownload noplaybackrate noremoteplayback nofullscreen" tabindex="-1" aria-label="Demostración de Work.ink Bypass">
@@ -1358,10 +1369,10 @@
       <div class="container">
         <header class="section-heading reveal"><p class="section-kicker">Antes de instalar</p><h2>Permisos y límites</h2></header>
         <div class="safety-grid">
-          <article class="safety-card glass reveal"><h3>No son herramientas oficiales</h3><p>Work.ink Bypass, VegaX Bypass, Admaven Bypass y Linkvertise Bypass son proyectos comunitarios de AHST. No están afiliados a Work.ink, Vega X, Roblox, AdMaven, LootLabs, Linkvertise, Tampermonkey, Violentmonkey ni a los navegadores mostrados.</p></article>
-          <article class="safety-card glass reveal"><h3>Revisa dónde se ejecutan</h3><p>Antes de instalar, revisa los campos <code>@match</code> o <code>@include</code>. Esos metadatos indican en qué páginas puede ejecutarse cada UserScript.</p></article>
-          <article class="safety-card glass reveal"><h3>Sesión, HWID y claves</h3><p>Work.ink puede usar datos de sesión; Vega X envía un HWID al iniciar su proceso de clave. No compartas cookies, códigos, HWID, claves ni diagnósticos.</p></article>
-          <article class="safety-card glass reveal"><h3>CAPTCHA y terceros</h3><p>Los CAPTCHA son manuales. Work.ink, PandaAuth o LootLabs pueden abrir páginas de terceros; revisa el dominio antes de aceptar permisos o descargar archivos.</p></article>
+          <article class="safety-card glass reveal"><h3>Dónde actúa cada uno</h3><p>Work.ink Bypass sólo en <code>work.ink</code>. VegaX Bypass en PandaAuth y LootLabs. Delta Bypass en Platorelay y, en el checkpoint, en LootLabs. Admaven Bypass en LootLabs. Linkvertise Bypass en <code>linkvertise.com</code> y en su resolvedor. Ninguno instala el executor ni entra a Roblox.</p></article>
+          <article class="safety-card glass reveal"><h3>Revisa dónde se ejecutan</h3><p>Antes de instalar, mira <code>@match</code> y <code>@grant</code>. Si el nombre del instalador no coincide con el bypass que elegiste, cancela.</p></article>
+          <article class="safety-card glass reveal"><h3>Keys, HWID y tickets</h3><p>Vega X necesita el HWID que manda el executor. Delta necesita el ticket de la URL de Platorelay. No pases cookies, códigos, HWID ni keys a otra persona.</p></article>
+          <article class="safety-card glass reveal"><h3>CAPTCHA y páginas de paso</h3><p>Los CAPTCHA los resuelves tú. En LootLabs, PandaAuth o el resolvedor de Linkvertise, mira el dominio antes de aceptar permisos o descargar algo.</p></article>
         </div>
       </div>
     </section>
@@ -1372,8 +1383,9 @@
         <div class="faq-list reveal">
           <details><summary>El enlace muestra código en lugar del instalador</summary><p>El gestor no está activo en ese navegador. Instálalo, concede acceso a sitios y vuelve a abrir el enlace <code>.user.js</code> dentro del mismo navegador.</p></details>
           <details><summary>El UserScript está instalado pero no inicia</summary><p>Abre el panel del gestor, comprueba que el bypass elegido esté habilitado y recarga la página donde debe funcionar. En Chrome o Edge también activa <strong>Permitir UserScripts</strong> en los detalles de la extensión.</p></details>
-          <details><summary>El CAPTCHA aparece vacío o no termina</summary><p>Permite JavaScript, cookies e iframes para Work.ink. Pausa temporalmente el bloqueo de contenido sólo en ese sitio y recarga.</p></details>
-          <details><summary>No se abre la oferta o el destino final</summary><p>Permite ventanas emergentes para <code>work.ink</code>. Después pulsa el botón una sola vez y espera antes de repetirlo.</p></details>
+          <details><summary>El CAPTCHA aparece vacío o no termina</summary><p>Permite JavaScript, cookies e iframes en el sitio del enlace (<code>work.ink</code>, LootLabs, PandaAuth o Platorelay). Pausa el bloqueo de contenido sólo en ese sitio y recarga.</p></details>
+          <details><summary>No se abre la oferta o el destino final</summary><p>En Work.ink, permite ventanas emergentes para <code>work.ink</code> y pulsa <strong>ABRIR DESTINO FINAL</strong> una sola vez. En LootLabs, pulsa <strong>Continuar</strong> cuando la consola lo muestre. En Linkvertise, espera la redirección del resolvedor.</p></details>
+          <details><summary>Delta no muestra la key</summary><p>Abre el enlace desde Delta, en el mismo navegador, y comprueba que la URL sea <code>auth.platorelay.com</code> con un ticket. Recarga si la pestaña ya estaba abierta. No pulses Continue a la vez que el script. Si pide verificar la cuenta, ese paso es manual. Si dice que la sesión expiró, pide un enlace nuevo. No dejes Admaven Bypass encendido junto con Delta Bypass: los dos actúan en LootLabs.</p></details>
           <details><summary>La interfaz aparece dos veces</summary><p>Probablemente Tampermonkey y Violentmonkey están ejecutando el mismo UserScript. Déjalo activo en un solo gestor.</p></details>
           <details><summary>Quiero pausar o borrar el UserScript</summary><p>Abre el panel de Tampermonkey o Violentmonkey, apaga el interruptor o elige <strong>Eliminar</strong>. En un teléfono compartido, borra también los datos del sitio Work.ink.</p></details>
           <details><summary>Tampermonkey en iPhone es de pago. ¿Hay alternativas?</summary><p>Sí. En Safari usa <strong>Userscripts</strong> (gratis) o <strong>Stay</strong>. También puedes instalar <strong>Orion</strong> (gratis) y cargar Tampermonkey o Violentmonkey como extensión de escritorio, o <strong>Gear Browser</strong>, que trae UserScripts integrados.</p></details>
@@ -1383,27 +1395,16 @@
     </div>
 
     <div class="page-view" id="changelogView" data-page="changelog" hidden inert>
-      <section class="content-section" id="changelog">
+      <section class="content-section" id="discord">
         <div class="container">
           <button class="button button-secondary view-return" type="button" data-view="tutorial">← Volver al tutorial</button>
           <header class="section-heading reveal">
-            <p class="section-kicker">Últimas versiones</p>
-            <h2>Changelogs</h2>
-            <p>Cambios incluidos en los UserScripts que acompañan esta página.</p>
+            <img class="discord-mark" src="https://i.pinimg.com/originals/69/01/c4/6901c471e753e912776c0d4c558aed6a.gif" alt="Logo de Discord" width="280" height="280">
+            <p class="section-kicker">Novedades</p>
+            <h2>Los cambios se anuncian en Discord</h2>
+            <p>Versiones, arreglos y avisos de cuando un bypass deja de funcionar se publican en el servidor de AHST.</p>
           </header>
-          <div class="changelog-tabs" role="tablist" aria-label="Selecciona el changelog">
-            <button type="button" role="tab" data-changelog="workink" aria-selected="true">Work.ink Bypass</button>
-            <button type="button" role="tab" data-changelog="vegax" aria-selected="false">VegaX Bypass</button>
-            <button type="button" role="tab" data-changelog="admaven" aria-selected="false">Admaven Bypass</button>
-            <button type="button" role="tab" data-changelog="linkvertise" aria-selected="false">Linkvertise Bypass</button>
-          </div>
-          <article class="release-card glass" id="changelogPanel" role="tabpanel">
-            <header class="release-head">
-              <div class="release-product"><img id="changelogLogo" data-logo="Work.ink Bypass" src="https://testlinks.github.io/bf758e72-4d1e-4e76-a630-9fc97440e316.png" alt="Logo de Work.ink Bypass"><span><strong id="changelogName">Work.ink Bypass</strong><small id="changelogMeta">Registro completo de cambios</small></span></div>
-              <span class="release-version" id="changelogVersion">v0.67</span>
-            </header>
-            <div class="change-groups" id="changelogGroups"></div>
-          </article>
+          <a class="button button-primary discord-cta" data-pressable href="https://discord.gg/rTGF5xhe3h" target="_blank" rel="noopener noreferrer"><img src="https://cdn.simpleicons.org/discord/5865F2" alt="" width="18" height="18">Entrar al Discord</a>
         </div>
       </section>
     </div>
@@ -1430,8 +1431,8 @@
             <h3 class="credits-subheading">Colaboradores</h3>
             <div class="credit-extras">
               <article class="credit-card credit-extra glass reveal">
-                <div class="credit-avatar"><img src="https://files.catbox.moe/rkpd09.jpg" alt="Foto de perfil de A.J YATES"></div>
-                <div><h3>A.J YATES</h3><p>Dueño y fundador de RIP.LINKVERTISE.LOL. Su API se usa para procesar los enlaces de AdMaven de VegaX.</p></div>
+                <div class="credit-avatar"><img class="is-maxi" src="https://file.garden/alVrmPF1qmak3SyZ/DeltaBypass/maxidiscord" alt="Foto de perfil de Maxi"></div>
+                <div><h3>Maxi</h3><p>Ayudó a testear el UserScript de Delta y proporcionó los enlaces para probarlo.</p></div>
               </article>
               <article class="credit-card credit-extra glass reveal">
                 <div class="credit-avatar"><img src="https://files.catbox.moe/fo0q66.jpg" alt="Foto de perfil de JIGGEY"></div>
@@ -1457,7 +1458,7 @@
 
   <footer class="site-footer">
     <div class="container footer-shell">
-      <p class="footer-copy"><strong>Guía comunitaria de AHST.</strong> No está afiliada a Work.ink, Vega X, AdMaven, LootLabs, Linkvertise ni Roblox. Las marcas e iconos pertenecen a sus respectivos titulares.</p>
+      <p class="footer-copy"><strong>AHST Bypasses.</strong> Un solo gestor, el mismo navegador del enlace. Si un bypass deja de responder, el aviso está en Discord.</p>
       <nav class="footer-links" aria-label="Fuentes oficiales">
         <a href="https://www.tampermonkey.net/" target="_blank" rel="noopener noreferrer">Tampermonkey</a>
         <a href="https://violentmonkey.github.io/get-it/" target="_blank" rel="noopener noreferrer">Violentmonkey</a>
@@ -1491,228 +1492,99 @@
           name: "Work.ink Bypass",
           file: "WorkinkBypass-V1.user.js",
           url: "https://antihambreadoscriptteam.github.io/UserScripts/WorkinkBypass-V1.user.js",
-          purpose: "flujo web de Work.ink",
-          test: "Abre un enlace de <code>work.ink</code> en el mismo navegador. Si ya estaba abierto, recarga la pestaña y completa manualmente cualquier CAPTCHA.",
+          purpose: "enlaces de work.ink",
+          test: "Abre un enlace de <code>work.ink</code> en el mismo navegador. Si ya estaba abierto, recarga la pestaña y resuelve el CAPTCHA si sale.",
           functioningTitle: "Qué hace Work.ink Bypass",
-          functioningIntro: "Flujo que aparece después de abrir un enlace de Work.ink.",
-          note: "Automatiza partes del proceso de Work.ink, pero deja las comprobaciones y CAPTCHA que requieren interacción en manos del usuario.",
+          functioningIntro: "Qué vas a ver en la consola después de abrir un enlace de work.ink.",
+          note: "Avanza el enlace, prepara la sesión premium y espera los contadores. Tú resuelves Cloudflare, Turnstile y hCaptcha. El destino no se abre solo: hay que pulsar ABRIR DESTINO FINAL.",
           flow: [
-            ["Abre el enlace de Work.ink", "Usa el mismo navegador donde instalaste el gestor. Si la pestaña ya estaba abierta, <strong>recárgala una vez</strong>."],
-            ["Completa las comprobaciones", "Espera a Cloudflare o Monocle y resuelve el CAPTCHA. Si aparece vacío, comprueba que JavaScript, cookies e iframes estén permitidos."],
-            ["Inicia sesión si te lo pide", "Puede solicitar tu correo y el código enviado por Work.ink. <strong>No compartas ese código con otra persona.</strong>"],
-            ["Espera temporizadores u ofertas", "Si el navegador bloquea una ventana emergente de <code>work.ink</code>, permítela sólo para ese sitio y vuelve a la pestaña original."],
-            ["Abre el destino final", "Cuando aparezca <strong>ABRIR DESTINO FINAL</strong>, púlsalo una vez y espera a que abra la nueva pestaña."]
+            ["Abre el enlace de Work.ink", "Hazlo en el mismo navegador donde instalaste el gestor. Si esa pestaña ya estaba abierta, <strong>recárgala una vez</strong>."],
+            ["Resuelve el CAPTCHA cuando salga", "Cloudflare, Turnstile o hCaptcha los completas tú. La consola se aparta para dejarlos visibles. Si el recuadro sale vacío, permite JavaScript, cookies e iframes en <code>work.ink</code> y recarga."],
+            ["Deja que prepare la sesión premium", "El script crea el correo temporal y lee el código. Tú sólo intervienes si un CAPTCHA bloquea ese paso. <strong>No pases ese código a otra persona.</strong>"],
+            ["Espera contadores y ofertas", "No cierres la pestaña. Si el navegador bloquea una ventana de <code>work.ink</code>, permítela sólo para ese sitio. Si la consola pide un clic en una oferta, púlsala una vez y vuelve."],
+            ["Abre el destino final", "Cuando la consola diga que el bypass terminó, pulsa <strong>ABRIR DESTINO FINAL</strong> una sola vez. No hay redirección automática."]
           ],
           videoUrl: "https://file.garden/alVrmPF1qmak3SyZ/Work.ink%20Bypass/lv_0_20260824155133.mp4",
-          videoDescription: "Recorrido real del proceso de Work.ink Bypass."
+          videoDescription: "Desde el enlace de Work.ink hasta el botón del destino final."
         },
         vegax: {
           name: "VegaX Bypass",
           file: "VegaxBypass-V1.user.js",
           url: "https://antihambreadoscriptteam.github.io/UserScripts/VegaxBypass-V1.user.js",
-          purpose: "proceso web de acceso de Vega X",
-          test: "Desde Vega X, abre la página para obtener la clave. Debe llegar a <code>ads.pandauth.com/getkey/vegax</code> con el parámetro HWID; el UserScript no instala el executor ni ejecuta código dentro de Roblox.",
+          purpose: "key de Vega X en PandaAuth",
+          test: "Desde Vega X, abre Obtener clave. La página tiene que ser <code>ads.pandauth.com/getkey/vegax</code> con el HWID. El UserScript no instala el executor.",
           functioningTitle: "Qué hace VegaX Bypass",
-          functioningIntro: "Flujo de acceso y generación de clave para el executor Vega X.",
-          note: "VegaX Bypass actúa en PandaAuth y LootLabs. Automatiza los dos checkpoints, resuelve el enlace intermedio y copia la clave generada; los CAPTCHA siguen siendo manuales.",
+          functioningIntro: "Cómo se genera la key de Vega X después de abrirla desde el executor.",
+          note: "Sólo empieza si abres la key desde Vega X, para que PandaAuth reciba el HWID. Elige LootLabs, completa los 2 checkpoints y pulsa Copy Key. El captcha lo resuelves tú. Luego pegas la key en Vega X.",
           flow: [
-            ["Abre Obtener clave desde Vega X", "Inicia el proceso desde el executor para que PandaAuth reciba tu <strong>HWID</strong>. Abrir la página sin ese dato no permite comenzar."],
-            ["Espera la detección de PandaAuth", "El UserScript reconoce Vega X, prepara los <strong>2 checkpoints</strong> y selecciona LootLabs como proveedor del proceso."],
-            ["Completa cualquier CAPTCHA", "Las tareas se abren y avanzan automáticamente. Si PandaAuth muestra una comprobación, la interfaz se aparta para que la resuelvas manualmente."],
-            ["Deja que resuelva LootLabs", "En las páginas compatibles de LootLabs, el bypass consulta el destino en segundo plano y regresa a PandaAuth para registrar el checkpoint."],
-            ["Recibe la clave de Vega X", "Al terminar los dos checkpoints, solicita la clave final y pulsa <strong>Copy Key</strong> automáticamente. Después vuelve a Vega X y pega la clave."]
+            ["Abre Obtener clave desde Vega X", "Tiene que salir de Vega X para que PandaAuth reciba tu <strong>HWID</strong>. Si abres la página sin ese dato, el script no puede empezar."],
+            ["Deja que arme los 2 checkpoints", "En <code>ads.pandauth.com/getkey/vegax</code> el script elige LootLabs y lanza las tareas. No pulses los botones a la vez que él."],
+            ["Resuelve el CAPTCHA si sale", "Las tareas avanzan solas. Si PandaAuth o LootLabs piden captcha, la consola se aparta: resuélvelo y el script retoma."],
+            ["En LootLabs pulsa Continuar", "El bypass completa las tareas en segundo plano. Cuando aparezca <strong>Continuar</strong>, púlsalo una vez para volver a PandaAuth y registrar el checkpoint."],
+            ["Pega la key en Vega X", "Con los 2 checkpoints listos, el script pulsa <strong>Copy Key</strong>. Vuelve a Vega X y pega la key."]
           ],
           videoUrl: "https://file.garden/alVrmPF1qmak3SyZ/VegaX%20Bypass/lv_0_20260825005204.mp4",
-          videoDescription: "Recorrido real de VegaX Bypass desde PandaAuth hasta la generación de la clave."
+          videoDescription: "Desde PandaAuth hasta la key copiada."
         },
         admaven: {
           name: "Admaven Bypass",
           file: "AdmavenBypass-V1.user.js",
           url: "https://antihambreadoscriptteam.github.io/UserScripts/AdmavenBypass-V1.user.js",
-          purpose: "bypass instantáneo de LootLabs / AdMaven",
-          test: "Abre un enlace de LootLabs o AdMaven en el mismo navegador. Si pide captcha, resuélvelo; al terminar pulsa <strong>Continuar</strong>.",
+          purpose: "enlaces de LootLabs",
+          test: "Abre un enlace de LootLabs en el mismo navegador. Si pide captcha, resuélvelo. Al terminar pulsa <strong>Continuar</strong>.",
           functioningTitle: "Qué hace Admaven Bypass",
-          functioningIntro: "Flujo instantáneo que aparece al abrir un enlace de LootLabs o AdMaven.",
-          note: "Admaven Bypass intercepta LootLabs, completa las tareas en segundo plano y deja el CAPTCHA en manos del usuario. Al terminar muestra Continuar; no redirige solo.",
+          functioningIntro: "Qué ocurre al abrir un enlace de LootLabs con este script.",
+          note: "Intercepta la sesión de LootLabs y completa las tareas en segundo plano. El captcha lo resuelves tú. Al terminar muestra Continuar y no redirige solo. No lo dejes activo junto con Delta Bypass: los dos actúan en las mismas páginas.",
           flow: [
-            ["Abre el enlace de LootLabs o AdMaven", "Usa el mismo navegador donde instalaste el gestor. Si la pestaña ya estaba abierta, <strong>recárgala una vez</strong>."],
-            ["Espera la detección del bypass", "El UserScript reconoce la página, intercepta la sesión y empieza a completar las tareas en segundo plano."],
-            ["Completa el CAPTCHA si aparece", "Si LootLabs pide una comprobación, resuélvela. El bypass continúa cuando queda confirmada."],
-            ["Deja que resuelva el destino", "La consola muestra el progreso mientras obtiene el destino final. No cierres la pestaña."],
-            ["Pulsa Continuar", "Cuando aparezca <strong>Continuar</strong>, púlsalo una vez para ir al destino. No hay redirección automática."]
+            ["Abre el enlace de LootLabs", "Hazlo en el mismo navegador del gestor. Si la pestaña ya estaba abierta, <strong>recárgala una vez</strong>."],
+            ["Espera a que arranque la consola", "Tiene que decir que LootLabs fue detectado y que está autocompletando. No pulses los anuncios de la página."],
+            ["Resuelve el captcha si sale", "Aparece en el panel de la consola. Complétalo. El script sigue cuando queda confirmado."],
+            ["No cierres la pestaña", "La consola va marcando la conexión y el destino. Si se queda en error, recarga una vez."],
+            ["Pulsa Continuar", "Cuando diga que el bypass terminó, pulsa <strong>Continuar</strong> una vez. No hay redirección automática."]
           ],
           videoUrl: "https://file.garden/alVrmPF1qmak3SyZ/Admaven%20Bypass/2026-09-04%2017-07-41.mp4",
           videoRate: 2,
-          videoDescription: "Recorrido real del bypass instantáneo de LootLabs / AdMaven."
+          videoDescription: "Desde el enlace de LootLabs hasta Continuar."
         },
         linkvertise: {
           name: "Linkvertise Bypass",
           file: "LinkvertiseBypass-V1.user.js",
           url: "https://antihambreadoscriptteam.github.io/UserScripts/LinkvertiseBypass-V1.user.js",
-          purpose: "flujo web de Linkvertise",
-          test: "Abre un enlace de <code>linkvertise.com</code> en el mismo navegador. Si la pestaña ya estaba abierta, recárgala una vez y espera a que el bypass resuelva el destino.",
+          purpose: "enlaces de linkvertise.com",
+          test: "Abre un enlace de <code>linkvertise.com</code> en el mismo navegador. Si ya estaba abierto, recárgalo. El script te manda al resolvedor y luego al destino.",
           functioningTitle: "Qué hace Linkvertise Bypass",
-          functioningIntro: "Flujo que aparece después de abrir un enlace de Linkvertise.",
-          note: "Linkvertise Bypass detecta el enlace, lo envía al resolvedor y redirige al destino cuando está listo. No instala nada fuera del navegador.",
+          functioningIntro: "Qué ocurre al abrir un enlace de linkvertise.com.",
+          note: "En linkvertise.com te manda al resolvedor. Cuando el destino está listo, cambia de página él mismo. No instala nada fuera del navegador.",
           flow: [
-            ["Abre el enlace de Linkvertise", "Usa el mismo navegador donde instalaste el gestor. Si la pestaña ya estaba abierta, <strong>recárgala una vez</strong>."],
-            ["Espera la detección del bypass", "El UserScript reconoce <code>linkvertise.com</code> y empieza a resolver el destino."],
-            ["Deja que abra el resolvedor", "El bypass continúa en segundo plano. No cierres la pestaña ni pulses anuncios."],
-            ["Espera el destino", "Cuando el resolvedor termina, la consola indica que el bypass está listo."],
-            ["Llega al destino final", "El UserScript redirige al destino automáticamente. Si no avanza, recarga una vez y espera."]
+            ["Abre el enlace de Linkvertise", "Hazlo en el mismo navegador del gestor. Si la pestaña ya estaba abierta, <strong>recárgala una vez</strong>."],
+            ["Deja que te mande al resolvedor", "El script detecta <code>linkvertise.com</code> y abre el resolvedor en esa misma pestaña. No pulses anuncios."],
+            ["Resuelve el CAPTCHA si sale ahí", "Quédate en esa pestaña. Si el resolvedor pide una comprobación, complétala."],
+            ["Espera el aviso de la consola", "Cuando termina, dice <strong>Bypass listo. Redirigiendo…</strong> No cierres la página antes."],
+            ["Llegas al destino", "El cambio de página es automático. Si se queda quieto, recarga una vez y espera."]
           ],
           videoUrl: "https://file.garden/alVrmPF1qmak3SyZ/Linkvertise%20Bypass/2026-09-05%2016-29-43.mp4",
           videoRate: 2,
-          videoDescription: "Recorrido real de Linkvertise Bypass."
-        }
-      };
-
-      const CHANGELOGS = {
-        vegax: {
-          name: "VegaX Bypass",
-          version: "v0.68",
-          logo: "https://testlinks.github.io/77d1f64f-8b9b-44b9-b1c0-483a8f0f4719.png",
-          changes: `[+] Añadido el UserScript VegaX Bypass - AHST para el sistema de claves de Vega X.
-[+] Añadidos TheRealBanHammer como creador y el logotipo personalizado del UserScript.
-[+] Añadida compatibilidad con PandaAuth y los distintos dominios utilizados por LootLabs.
-[+] Añadida una interfaz Shadow DOM inspirada en la consola de WorkinkBypass.
-[+] Añadidos registros de progreso con hora, estados, errores y desplazamiento automático.
-[+] Añadido diseño adaptable para escritorio y dispositivos móviles.
-[+] Añadidas animaciones con compatibilidad para la preferencia de movimiento reducido.
-[+] Añadida selección automática del proveedor LootLabs.
-[+] Añadida automatización completa de los dos checkpoints de PandaAuth.
-[+] Añadida automatización del panel final necesario para generar la clave.
-[+] Añadida detección automática de los botones Continue to Next Step, Generate Key y Create Key.
-[+] Añadida ejecución simultánea de todas las tareas disponibles en cada panel.
-[+] Añadido seguimiento independiente para cada tarea ejecutada en paralelo.
-[+] Añadida detección del contador y del estado real de aceptación de cada tarea.
-[+] Añadidos reintentos limitados para tareas que no comienzan o cuyo contador no avanza.
-[+] Añadido cierre automático de las pestañas correspondientes a tareas confirmadas.
-[+] Añadido cierre de seguridad para pestañas que superan el tiempo máximo.
-[+] Añadido bloqueo de ventanas emergentes y redirecciones publicitarias no permitidas.
-[+] Añadidas ventanas virtuales para que los clics publicitarios bloqueados no rompan el flujo de PandaAuth.
-[+] Añadida protección de enlaces y formularios contra destinos ajenos a PandaAuth y LootLabs.
-[+] Añadida espera del callback oficial de PandaAuth antes de continuar al siguiente checkpoint.
-[+] Añadida recuperación automática cuando PandaAuth no confirma la selección del proveedor.
-[+] Añadido un límite de recuperaciones para impedir ciclos infinitos de recargas.
-[+] Añadida pausa segura para permitir intervención manual cuando se agotan las recuperaciones.
-[+] Añadida detección del estado All Checkpoints Complete y del progreso 2/2.
-[+] Añadida conservación del progreso 2/2 durante los reintentos del panel final.
-[+] Añadida detección automática de la pantalla Key Generated Successfully.
-[+] Añadido clic automático en Copy Key hasta cinco veces.
-[+] Añadida detención anticipada de los clics al detectar la confirmación de copia.
-[+] Añadida compatibilidad con mensajes de confirmación de copia en inglés y español.
-[+] Añadida redirección automática al destino final después de resolver LootLabs.
-[+] Añadidos hasta tres intentos para resolver un enlace de LootLabs sin abandonar su página.
-[+] Añadida validación de que el destino final use HTTP o HTTPS antes de redirigir.
-[+] Añadidas dos cintas decorativas de baja opacidad detrás de la consola de LootLabs.
-[+] Añadidas velocidades diferentes y movimiento continuo hacia la derecha para las cintas.
-[+] Añadido pointer-events none a los elementos decorativos para que nunca bloqueen controles.
-[-] Removida la espera inicial de diez segundos antes de procesar LootLabs.
-[-] Removido el límite de tres tareas simultáneas.
-[-] Removida la apertura descontrolada de pestañas publicitarias.
-[-] Removidas las redirecciones hacia dominios publicitarios ajenos al flujo permitido.
-[-] Removida la modificación forzada del parámetro useSecondary de PandaAuth.
-[-] Removida la recarga de PandaAuth cuando los dos checkpoints ya están completos.
-[-] Removido el reinicio accidental desde el checkpoint 2/2 al checkpoint 1/2.
-[-] Removida la espera infinita cuando una tarea no llega a iniciar su contador.
-[-] Removida la necesidad de pulsar manualmente Copy Key al terminar.
-[-] Removido el flujo antiguo de LootLabs basado en captcha y WebSocket.
-[*] Arreglado el bypass de Admaven.
-[*] Arreglado el problema que abría muchas pestañas sin llegar correctamente a LootLabs.
-[*] Arreglada la detección tardía del selector de proveedor cuando PandaAuth demora en cargar la sesión.
-[*] Arreglado el error PandaAuth no confirmó la selección de LootLabs mediante espera ampliada y recuperación automática.
-[*] Arreglado el procesamiento prematuro de callbacks que todavía contenían datos pendientes en la URL.
-[*] Arreglado el avance falso de tareas que PandaAuth aceptaba visualmente sin incrementar su contador.
-[*] Arreglados los reintentos de tareas para cerrar sus pestañas y liberar correctamente su estado activo.
-[*] Arreglada la pérdida del progreso final causada por una recarga durante All Checkpoints Complete.
-[*] Arreglado el ciclo que repetía checkpoints después de completar los dos requeridos.
-[*] Arreglada la transición desde el segundo checkpoint hasta Generate Key.
-[*] Arreglada la ejecución de las cuatro tareas del panel final.
-[*] Arreglado el bloqueo de los primeros clics publicitarios de Copy Key mediante un máximo de cinco intentos.
-[*] Arreglado el ocultamiento de la interfaz para dejar visibles las comprobaciones manuales de PandaAuth.
-[*] Arreglado el retorno automático de la interfaz después de completar una comprobación.
-[*] Arreglada la prevención de doble clic y de ejecuciones duplicadas sobre el mismo control.
-[*] Arreglada la seguridad del destino final para impedir redirecciones inválidas o internas.
-[*] Arreglada la continuidad visual de las cintas mediante grupos duplicados en un bucle sin cortes.`
+          videoDescription: "Desde linkvertise.com hasta el destino."
         },
-        workink: {
-          name: "Work.ink Bypass",
-          version: "v0.67",
-          logo: "https://testlinks.github.io/bf758e72-4d1e-4e76-a630-9fc97440e316.png",
-          changes: `[+] Traducido todo el UserScript al español.
-[+] Añadida una interfaz de pantalla completa.
-[+] Añadida una consola visual con mensajes del progreso del bypass.
-[+] Añadido el título “Work.Ink Bypass”.
-[+] Añadido “AHST” junto al título.
-[+] Añadido el subtítulo “Anti-Hambreado Script team”.
-[+] Añadido TheRealBanHammer como autor y crédito principal.
-[+] Añadido un diseño AMOLED negro y minimalista.
-[+] Añadido un degradado oscuro al título.
-[+] Añadido un reflejo blanco sobre el título cada 5 segundos.
-[+] Añadidos los tres círculos rojo, amarillo y verde a la consola.
-[+] Añadidas animaciones ligeras basadas en las reglas de HyperFrames.
-[+] Añadido soporte para prefers-reduced-motion.
-[+] Añadido un contador visible que disminuye segundo a segundo.
-[+] Añadido un formulario de inicio de sesión cuando falta la cuenta premium.
-[+] Añadida la solicitud de una dirección Gmail para iniciar sesión.
-[+] Añadida validación del correo introducido.
-[+] Añadido manejo de sesiones premium inválidas o caducadas.
-[+] Añadido manejo de enlaces que requieren una cuenta premium.
-[+] Añadidos paneles especiales para Turnstile y hCaptcha.
-[+] Añadida una pantalla de recuperación para /_api/v2/destination/.
-[+] Añadido el botón “ABRIR DESTINO FINAL” dentro de la consola.
-[+] Añadido un enlace nativo para conservar el clic real del usuario.
-[+] Añadida navegación manual al destino final en la misma pestaña.
-[+] Añadido almacenamiento de información de diagnóstico del bypass.
-[+] Añadido soporte responsive para pantallas móviles.
-[+] Añadido desplazamiento automático de la consola al último mensaje.
-[+] Añadida protección contra desbordamiento horizontal.
-[+] Añadida prioridad visual máxima para los CAPTCHA.
-[-] Removidos los textos decorativos e informativos innecesarios.
-[-] Removido el texto “UserScript activo”.
-[-] Removido el texto que explicaba que la interfaz se ocultaba para mostrar el CAPTCHA.
-[-] Removidos los mensajes duplicados fuera de la consola.
-[-] Removidos los indicadores de estado innecesarios.
-[-] Removido el botón visible para exportar diagnósticos.
-[-] Removidos los fondos decorativos, orbes, ruido y degradados excesivos.
-[-] Removido el estilo Liquid Glass excesivo de la interfaz principal.
-[-] Removido el número interno de compilación del encabezado de la consola.
-[-] Removido Herobrine de los créditos.
-[-] Removido Herobrine de la interfaz.
-[-] Removida la redirección automática al terminar el bypass.
-[-] Removido el contador de 30 segundos para la redirección final.
-[-] Removidas las recargas automáticas de la URL /_api/v2/destination/.
-[-] Removido el intento de abrir automáticamente el destino final.
-[*] Arreglado el contador para actualizarse cada segundo en lugar de cada 10 segundos.
-[*] Arreglado el error de cuenta premium cuando el usuario no ha iniciado sesión.
-[*] Arreglado el manejo de tokens premium inválidos o caducados.
-[*] Arreglado el montaje de la interfaz para que no cubra el Cloudflare inicial.
-[*] Arreglado el orden de las capas para que los CAPTCHA nunca aparezcan debajo de la interfaz.
-[*] Arreglado el ocultamiento temporal de la interfaz mientras se resuelve un CAPTCHA.
-[*] Arreglada la restauración de la interfaz después de completar un CAPTCHA.
-[*] Arreglado el diseño móvil del título, AHST y la consola.
-[*] Arreglado el desbordamiento horizontal en pantallas pequeñas.
-[*] Arreglada la legibilidad de la consola con un estilo AMOLED.
-[*] Arreglado el flujo final para que espere una acción manual del usuario.
-[*] Arreglado el destino final para que aparezca como botón dentro de la consola.
-[*] Arreglado el enlace final para abrirse solamente después de un clic real.
-[*] Arreglado el flujo para mantener al usuario en la pestaña original de Work.ink.
-[*] Actualizada la versión del UserScript a 0.67.`
-        },
-        admaven: {
-          name: "Admaven Bypass",
-          version: "v0.68",
-          logo: "https://testlinks.github.io/image.png",
-          changes: `[+] Lanzado al público el UserScript Admaven Bypass - AHST.
-[*] Arreglado el bug que impedía el bypass.`
-        },
-        linkvertise: {
-          name: "Linkvertise Bypass",
-          version: "v0.68",
-          logo: "https://testlinks.github.io/Linkby.png",
-          changes: `[+] Lanzado al público el UserScript Linkvertise Bypass - AHST.
-[*] Arreglado el bug que impedía el bypass.`
+        delta: {
+          name: "Delta Bypass",
+          installName: "Platorelay Bypass - AHST",
+          file: "DeltaBypass.user.js",
+          url: "https://antihambreadoscriptteam.github.io/UserScripts/DeltaBypass.user.js",
+          purpose: "key de Delta en Platorelay",
+          test: "Desde Delta, abre el enlace de la key en este navegador. Tiene que cargar <code>auth.platorelay.com</code> con un ticket. Si ya estaba abierto, recárgalo. En el instalador el nombre es <code>Platorelay Bypass - AHST</code>.",
+          functioningTitle: "Qué hace Delta Bypass",
+          functioningIntro: "Cómo se obtiene la key de Delta después de abrir el enlace de Platorelay.",
+          note: "Trabaja en Platorelay: si ya hay key activa, la muestra y la copia. Si faltan checkpoints, pulsa Continue, pasa por LootLabs y al volver copia la key. El captcha y la verificación de cuenta los haces tú. No lo dejes activo junto con Admaven Bypass.",
+          flow: [
+            ["Abre la key desde Delta", "Usa el mismo navegador del gestor. La URL tiene que ser <code>auth.platorelay.com</code> con un ticket (<code>d</code> o <code>ticket</code>). Si la pestaña ya estaba abierta, <strong>recárgala</strong>."],
+            ["Si ya tienes key, cópiala", "La consola la muestra, la copia al portapapeles y pone un contador hasta que expire. Pégala en Delta. Si dice que la sesión expiró, pide un enlace nuevo."],
+            ["Deja que pulse Continue", "Si faltan checkpoints, espera unos segundos: el script pulsa <strong>Continue</strong> o <strong>Lootlabs</strong>. No pulses tú esos botones a la vez."],
+            ["En LootLabs resuelve el captcha", "Ahí corre el bypass de LootLabs. Si sale captcha, complétalo y pulsa <strong>Continuar</strong> para volver. No hace falta tener Admaven Bypass encendido."],
+            ["Pega la key en Delta", "Al volver a Create Key, el script espera, pulsa Continue y luego Copy. La key queda en la consola y en el portapapeles. Si el sitio pide verificar la cuenta, ese paso es manual."]
+          ],
+          videoUrl: "https://file.garden/alVrmPF1qmak3SyZ/DeltaBypass/export-1791931441882.mp4",
+          videoDescription: "Desde el enlace de Delta hasta la key copiada."
         }
       };
 
@@ -1892,11 +1764,6 @@
       const creditsView = document.getElementById("creditsView");
       const pageOrder = ["tutorial", "changelog", "credits"];
       const pageViews = { tutorial: tutorialView, changelog: changelogView, credits: creditsView };
-      const changelogTabs = [...document.querySelectorAll("[data-changelog]")];
-      const changelogLogo = document.getElementById("changelogLogo");
-      const changelogName = document.getElementById("changelogName");
-      const changelogVersion = document.getElementById("changelogVersion");
-      const changelogGroups = document.getElementById("changelogGroups");
       let activeView = "tutorial";
 
       function closeMenu(returnFocus = false) {
@@ -1944,7 +1811,7 @@
         const direction = pageOrder.indexOf(nextViewName) > pageOrder.indexOf(activeView) ? 1 : -1;
         activeView = nextViewName;
         viewTabs.forEach((tab) => tab.setAttribute("aria-pressed", String(tab.dataset.view === activeView)));
-        if (updateHash) history.replaceState(null, "", activeView === "changelog" ? "#changelog" : activeView === "credits" ? "#creditos" : "#inicio");
+        if (updateHash) history.replaceState(null, "", activeView === "changelog" ? "#discord" : activeView === "credits" ? "#creditos" : "#inicio");
         closeMenu();
 
         const showNextView = () => {
@@ -1977,47 +1844,6 @@
         }
       }
 
-      function renderChangelog(key) {
-        const release = CHANGELOGS[key];
-        const groups = { "+": [], "-": [], "*": [] };
-        release.changes.split("\n").forEach((line) => {
-          const match = line.match(/^\[([+*\-])\]\s*(.+)$/);
-          if (match) groups[match[1]].push(match[2]);
-        });
-        const groupMeta = {
-          "+": { title: "Añadido", className: "is-added" },
-          "-": { title: "Removido", className: "is-removed" },
-          "*": { title: "Arreglado", className: "is-fixed" }
-        };
-        changelogLogo.src = release.logo;
-        changelogLogo.alt = "Logo de " + release.name;
-        changelogLogo.dataset.logo = release.name;
-        changelogName.textContent = release.name;
-        changelogVersion.textContent = release.version;
-        changelogTabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.changelog === key)));
-        changelogGroups.replaceChildren(...Object.entries(groupMeta).filter(([symbol]) => groups[symbol].length).map(([symbol, meta], index) => {
-          const details = document.createElement("details");
-          details.className = "change-group " + meta.className;
-          details.open = index === 0;
-          const summary = document.createElement("summary");
-          const metaWrap = document.createElement("span");
-          metaWrap.className = "change-summary-meta";
-          const count = Object.assign(document.createElement("span"), { className: "change-summary-count", textContent: groups[symbol].length + " cambios" });
-          const toggle = Object.assign(document.createElement("span"), { className: "change-summary-toggle", textContent: "+" });
-          toggle.setAttribute("aria-hidden", "true");
-          metaWrap.append(count, toggle);
-          summary.append(document.createTextNode(meta.title), metaWrap);
-          const list = document.createElement("ul");
-          list.className = "change-list";
-          groups[symbol].forEach((change) => list.append(Object.assign(document.createElement("li"), { textContent: change })));
-          details.append(summary, list);
-          return details;
-        }));
-        if (window.gsap && !reducedMotion.matches) {
-          window.gsap.fromTo("#changelogPanel", { y: 8, opacity: 0 }, { y: 0, opacity: 1, duration: 0.46, ease: "power2.out", clearProps: "transform,opacity" });
-        }
-      }
-
       menuToggle.addEventListener("click", () => menuToggle.getAttribute("aria-expanded") === "true" ? closeMenu(true) : openMenu());
       menuBackdrop.addEventListener("click", () => closeMenu(true));
       siteMenu.querySelectorAll("a[target='_blank']").forEach((link) => link.addEventListener("click", () => closeMenu()));
@@ -2036,7 +1862,6 @@
           });
         });
       });
-      changelogTabs.forEach((tab) => tab.addEventListener("click", () => renderChangelog(tab.dataset.changelog)));
       let swipeStart = null;
       document.getElementById("main").addEventListener("touchstart", (event) => {
         const touch = event.changedTouches[0];
@@ -2053,8 +1878,7 @@
         if (deltaX < 0 && currentIndex < pageOrder.length - 1) setPageView(pageOrder[currentIndex + 1]);
         if (deltaX > 0 && currentIndex > 0) setPageView(pageOrder[currentIndex - 1]);
       }, { passive: true });
-      renderChangelog("workink");
-      const initialView = location.hash === "#changelog" ? "changelog" : location.hash === "#creditos" ? "credits" : "tutorial";
+      const initialView = location.hash === "#changelog" || location.hash === "#discord" ? "changelog" : location.hash === "#creditos" ? "credits" : "tutorial";
       activeView = initialView;
       Object.entries(pageViews).forEach(([name, view]) => {
         view.hidden = name !== initialView;
@@ -2081,7 +1905,7 @@
           },
           {
             title: "Revisa y confirma",
-            body: "Comprueba que el nombre identifique <code>" + script.name + "</code> y revisa sus campos <code>@match</code>, <code>@include</code> y <code>@grant</code>. Instálalo sólo si corresponden al " + script.purpose + "."
+            body: "Comprueba que el nombre identifique <code>" + (script.installName || script.name) + "</code> y revisa <code>@match</code> y <code>@grant</code>. Instálalo sólo si esos campos cubren este uso: " + script.purpose + "."
           },
           {
             title: "Comprueba que esté activo",
@@ -2589,7 +2413,7 @@
       updateScroll();
 
       (function startHeroRoulette() {
-        const names = ["Work.ink", "VegaX", "Admaven", "Linkvertise"];
+        const names = ["Work.ink", "VegaX", "Admaven", "Linkvertise", "Delta"];
         const track = document.getElementById("heroRouletteTrack");
         const viewport = document.querySelector(".hero-roulette-viewport");
         const roulette = document.getElementById("heroRoulette");
