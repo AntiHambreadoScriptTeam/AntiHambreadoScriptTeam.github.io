@@ -20,9 +20,9 @@
     },   
     "arceus": {
       "nombre": "ArceusX",
-      "version": "2.3.7",
-      "fecha_actualizacion": "12-10-2026",
-      "status": "detectable",
+      "version": "2.3.8",
+      "fecha_actualizacion": "29-10-2026",
+      "status": "indetectable",
       "stars": "4.3",
       "link_descarga_arm64": "https://android.spdmteam.com/",
       "imagen": "https://antihambreadoscriptteam.github.io/Foto/ARCEUS.jpeg"
