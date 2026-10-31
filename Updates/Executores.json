@@ -20,8 +20,8 @@
     },   
     "arceus": {
       "nombre": "ArceusX",
-      "version": "2.3.8",
-      "fecha_actualizacion": "29-10-2026",
+      "version": "2.3.9",
+      "fecha_actualizacion": "31-10-2026",
       "status": "indetectable",
       "stars": "4.3",
       "link_descarga_arm64": "https://android.spdmteam.com/",
@@ -30,7 +30,7 @@
     "delta": {
       "nombre": "Delta",
       "version": "2.743",
-      "fecha_actualizacion": "20-10-2026",
+      "fecha_actualizacion": "27-10-2026",
       "status": "peligro",
       "stars": "2.0",
       "link_descarga_arm64": "https://delta.filenetwork.vip/android.html",
