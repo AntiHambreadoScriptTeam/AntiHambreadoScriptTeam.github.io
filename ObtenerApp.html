@@ -1,1 +1,4570 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Anti-Hambreado: scripts, executores y bypass de enlaces en una sola app para Android y Windows. Sin acortadores, sin anuncios, con enlaces directos."
+    />
+    <title>Anti-Hambreado | Scripts, executores y bypass para Android y Windows</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 0 136 112'%3E%3Cpath d='M18 84 L10 34 L40 58 L64 22 L88 58 L118 34 L110 84 Z' fill='%23ff1e3c' stroke='%23ff1e3c' stroke-width='8' stroke-linejoin='round'/%3E%3Crect x='14' y='82' width='100' height='16' rx='5' fill='%23ff1e3c'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #000;
+        --fg: #fff;
+        --red: #dc0f2b;
+        --red-hi: #ff4d61;
+        --red-deep: #9e0018;
+        --muted: rgba(255, 255, 255, 0.64);
+        --faint: rgba(255, 255, 255, 0.52);
+        --s1: #0a0a0a;
+        --s2: #111;
+        --s3: #191919;
+        --line: rgba(255, 255, 255, 0.09);
+        --line-2: rgba(255, 255, 255, 0.16);
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+        --wrap: 74rem;
+        --r-xl: 1.75rem;
+        --r-lg: 1.25rem;
+        --font: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        --mono: "Geist Mono", ui-monospace, "Cascadia Code", monospace;
+      }
 
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--bg);
+        scroll-behavior: smooth;
+        scroll-padding-top: 5rem;
+        scrollbar-color: #2a2a2a var(--bg);
+        scrollbar-width: thin;
+      }
+
+      body {
+        margin: 0;
+        min-width: 20rem;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--font);
+        font-size: 1rem;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: clip;
+      }
+
+      ::selection {
+        background: var(--red);
+        color: #fff;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--red);
+        outline-offset: 3px;
+        border-radius: 0.5rem;
+      }
+
+      a {
+        color: inherit;
+        text-underline-offset: 0.2em;
+      }
+
+      button {
+        font: inherit;
+        color: inherit;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-weight: 500;
+        letter-spacing: -0.035em;
+        text-wrap: balance;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
+
+      .wrap {
+        width: min(100% - 2rem, var(--wrap));
+        margin-inline: auto;
+      }
+
+      .icon {
+        width: 1.15em;
+        height: 1.15em;
+        flex: none;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .icon.fill {
+        fill: currentColor;
+        stroke: none;
+      }
+
+      /* ---------- Crown ---------- */
+      .crown {
+        display: inline-block;
+        overflow: visible;
+      }
+
+      .crown-star {
+        fill: var(--red-hi);
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+
+      .crown-live .crown-star {
+        animation: twinkle 3.2s var(--ease-io) infinite;
+      }
+
+      .crown-live .crown-star:nth-of-type(2) {
+        animation-delay: 0.45s;
+      }
+
+      .crown-live .crown-star:nth-of-type(3) {
+        animation-delay: 0.9s;
+      }
+
+      .crown-live .crown-glint {
+        animation: glint 5.5s var(--ease-io) infinite;
+      }
+
+      .crown-live .crown-gem {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: gem 5.5s var(--ease-io) infinite;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          transform: scale(1) rotate(0deg);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(0.55) rotate(45deg);
+          opacity: 0.55;
+        }
+      }
+
+      @keyframes glint {
+        0%,
+        62% {
+          transform: translateX(-60px) skewX(-20deg);
+        }
+        82%,
+        100% {
+          transform: translateX(170px) skewX(-20deg);
+        }
+      }
+
+      @keyframes gem {
+        0%,
+        66%,
+        100% {
+          transform: scale(1);
+        }
+        74% {
+          transform: scale(1.25);
+        }
+      }
+
+      /* ---------- Header ---------- */
+      .site-header {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 50;
+        transition:
+          background-color 0.4s var(--ease),
+          border-color 0.4s var(--ease),
+          backdrop-filter 0.4s var(--ease);
+        border-bottom: 1px solid transparent;
+      }
+
+      .site-header.is-scrolled {
+        background: rgba(0, 0, 0, 0.72);
+        border-color: var(--line);
+        backdrop-filter: blur(18px) saturate(1.4);
+        -webkit-backdrop-filter: blur(18px) saturate(1.4);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        height: 4.5rem;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        text-decoration: none;
+        font-size: 1.05rem;
+      }
+
+      .brand .crown {
+        width: 1.75rem;
+        height: auto;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 0.25rem;
+        padding: 0.3rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .nav-links a {
+        padding: 0.45rem 0.95rem;
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        text-decoration: none;
+        transition:
+          color 0.25s,
+          background-color 0.25s;
+      }
+
+      .nav-links a:hover {
+        color: var(--fg);
+        background: rgba(255, 255, 255, 0.07);
+      }
+
+      .nav-cta {
+        opacity: 0;
+        translate: 0 -6px;
+        pointer-events: none;
+        transition:
+          opacity 0.4s var(--ease),
+          translate 0.4s var(--ease);
+      }
+
+      .site-header.is-scrolled .nav-cta {
+        opacity: 1;
+        translate: 0;
+        pointer-events: auto;
+      }
+
+      /* ---------- Buttons ---------- */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        min-height: 3.25rem;
+        padding: 0 1.6rem;
+        border: 0;
+        border-radius: 999px;
+        font-size: 1.05rem;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+          transform 0.35s var(--ease),
+          background-color 0.25s,
+          box-shadow 0.35s var(--ease);
+      }
+
+      .btn:active {
+        transform: scale(0.97);
+      }
+
+      .btn-primary {
+        background: var(--red);
+        color: #fff;
+        box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.8);
+      }
+
+      .btn-primary:hover {
+        background: #c40c26;
+        box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.9);
+      }
+
+      .btn-ghost {
+        background: rgba(255, 255, 255, 0.09);
+        color: var(--fg);
+      }
+
+      .btn-ghost:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .btn-sm {
+        min-height: 2.6rem;
+        padding: 0 1.15rem;
+        font-size: 0.95rem;
+      }
+
+      .btn .icon {
+        width: 1.2em;
+        height: 1.2em;
+      }
+
+      /* ---------- Reveal ---------- */
+      .js .rv {
+        opacity: 0;
+        transform: translateY(28px);
+        filter: blur(8px);
+        transition:
+          opacity 1s var(--ease),
+          transform 1.1s var(--ease),
+          filter 1s var(--ease);
+        transition-delay: var(--d, 0s);
+      }
+
+      .js .rv.in {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+
+      /* ---------- Hero ---------- */
+      .hero {
+        position: relative;
+        padding-top: clamp(8rem, 18vh, 11rem);
+        text-align: center;
+      }
+
+      .hero::before {
+        position: absolute;
+        inset: -10rem 0 auto;
+        height: 46rem;
+        z-index: -1;
+        background: radial-gradient(
+          ellipse 50% 40% at 50% 40%,
+          rgba(255, 30, 60, 0.16),
+          transparent 70%
+        );
+        content: "";
+        pointer-events: none;
+      }
+
+      .announce {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 0.4rem 0.45rem 0.4rem 1rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--muted);
+        font-size: 0.92rem;
+        text-decoration: none;
+        transition:
+          border-color 0.3s,
+          background-color 0.3s;
+      }
+
+      .announce strong {
+        color: var(--fg);
+        font-weight: 500;
+      }
+
+      .announce:hover {
+        border-color: var(--line-2);
+        background: rgba(255, 255, 255, 0.07);
+      }
+
+      .announce .arrow {
+        display: grid;
+        place-items: center;
+        width: 1.75rem;
+        height: 1.75rem;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--fg);
+      }
+
+      .hero h1 {
+        margin-top: 1.75rem;
+        font-size: clamp(2.6rem, 7.4vw, 5.75rem);
+        line-height: 1;
+        letter-spacing: -0.04em;
+      }
+
+      .hero h1 .crown {
+        width: 1.02em;
+        height: auto;
+        margin: 0 0.08em 0 0.06em;
+        vertical-align: -0.1em;
+      }
+
+      .hero h1 .line {
+        display: block;
+      }
+
+      .js .hero h1 .crown {
+        animation: crown-drop 1.3s var(--ease) 0.25s both;
+      }
+
+      @keyframes crown-drop {
+        0% {
+          opacity: 0;
+          transform: translateY(-0.6em) rotate(-14deg) scale(0.7);
+          filter: blur(6px);
+        }
+        60% {
+          opacity: 1;
+          filter: blur(0);
+        }
+        100% {
+          transform: none;
+        }
+      }
+
+      .hero-lede {
+        max-width: 40rem;
+        margin: 1.6rem auto 0;
+        color: var(--muted);
+        font-size: clamp(1.08rem, 1.9vw, 1.3rem);
+        line-height: 1.5;
+        text-wrap: pretty;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-top: 2.25rem;
+      }
+
+      .hero-meta {
+        margin-top: 1rem;
+        color: var(--faint);
+        font-size: 0.88rem;
+      }
+
+      .hero-meta a {
+        color: var(--muted);
+      }
+
+      /* ---------- Hero mockup ---------- */
+      .mock-wrap {
+        position: relative;
+        margin-top: clamp(3rem, 7vw, 5rem);
+      }
+
+      .mock-wrap::after {
+        position: absolute;
+        inset: auto 8% -3rem;
+        height: 6rem;
+        z-index: -1;
+        background: radial-gradient(ellipse at center, rgba(255, 30, 60, 0.28), transparent 70%);
+        filter: blur(20px);
+        content: "";
+      }
+
+      .mock {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--line-2);
+        border-radius: clamp(0.9rem, 2vw, 1.5rem);
+        background: #070707;
+        box-shadow: 0 50px 100px -40px rgba(0, 0, 0, 0.9);
+        text-align: left;
+      }
+
+      .mock-stage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1120px;
+        height: 660px;
+        transform-origin: 0 0;
+        font-size: 15px;
+        line-height: 1.4;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .m-titlebar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 44px;
+        padding: 0 0 0 18px;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 13px;
+        flex: none;
+      }
+
+      .m-titlebar .crown {
+        width: 18px;
+      }
+
+      .m-winctl {
+        display: flex;
+        margin-left: auto;
+        height: 100%;
+      }
+
+      .m-winctl span {
+        display: grid;
+        place-items: center;
+        width: 46px;
+        color: var(--faint);
+      }
+
+      .m-body {
+        display: flex;
+        flex: 1;
+        min-height: 0;
+      }
+
+      .m-side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        width: 72px;
+        padding: 14px 0;
+        border-right: 1px solid var(--line);
+        flex: none;
+      }
+
+      .m-side-btn {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        color: var(--faint);
+        transition:
+          background-color 0.35s var(--ease),
+          color 0.35s var(--ease);
+      }
+
+      .m-side-btn .icon {
+        width: 20px;
+        height: 20px;
+      }
+
+      .m-side-btn.is-active {
+        background: rgba(255, 30, 60, 0.14);
+        color: var(--red-hi);
+      }
+
+      .m-side-btn.is-active::before {
+        position: absolute;
+        left: -14px;
+        width: 3px;
+        height: 20px;
+        border-radius: 2px;
+        background: var(--red);
+        content: "";
+      }
+
+      .m-side-spacer {
+        flex: 1;
+      }
+
+      .m-avatar {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: #222;
+        color: var(--fg);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .m-main {
+        position: relative;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .m-view {
+        position: absolute;
+        inset: 0;
+        padding: 26px 30px;
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+          opacity 0.5s var(--ease),
+          transform 0.6s var(--ease);
+        pointer-events: none;
+      }
+
+      .m-view.is-active {
+        opacity: 1;
+        transform: none;
+      }
+
+      .m-hello {
+        color: var(--faint);
+        font-size: 13px;
+      }
+
+      .m-view .m-h {
+        margin-top: 4px;
+        font-size: 28px;
+        letter-spacing: -0.03em;
+      }
+
+      .m-sub {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .m-search {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 46px;
+        margin-top: 18px;
+        padding: 0 14px;
+        border: 1px solid var(--line-2);
+        border-radius: 12px;
+        background: var(--s2);
+        color: var(--faint);
+        transition: border-color 0.3s;
+      }
+
+      .m-search.is-focus {
+        border-color: rgba(255, 30, 60, 0.6);
+      }
+
+      .m-typed {
+        color: var(--fg);
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+
+      .m-ph {
+        font-size: 15px;
+      }
+
+      .m-caret {
+        width: 2px;
+        height: 18px;
+        margin-left: -8px;
+        background: var(--red);
+        animation: caret 1s steps(1) infinite;
+      }
+
+      @keyframes caret {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .m-kbd {
+        margin-left: auto;
+        padding: 2px 8px;
+        border: 1px solid var(--line-2);
+        border-radius: 6px;
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      .m-chips {
+        display: flex;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .m-chip {
+        padding: 5px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 12.5px;
+      }
+
+      .m-chip.is-on {
+        border-color: transparent;
+        background: var(--fg);
+        color: #000;
+      }
+
+      .m-list {
+        display: flex;
+        flex-direction: column;
+        margin: 16px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .m-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        height: 52px;
+        margin-bottom: 8px;
+        padding: 0 10px 0 16px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--s1);
+        overflow: hidden;
+        transition:
+          opacity 0.4s var(--ease),
+          height 0.5s var(--ease),
+          margin 0.5s var(--ease),
+          border-width 0.5s var(--ease),
+          border-color 0.4s var(--ease),
+          background-color 0.4s var(--ease);
+      }
+
+      .m-row.is-out {
+        height: 0;
+        margin-bottom: 0;
+        opacity: 0;
+        border-width: 0;
+      }
+
+      .m-row.is-hot {
+        border-color: rgba(255, 30, 60, 0.55);
+        background: rgba(255, 30, 60, 0.06);
+      }
+
+      .m-row-name {
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+      }
+
+      .m-row-meta {
+        color: var(--faint);
+        font-size: 12.5px;
+      }
+
+      .m-copy {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-left: auto;
+        padding: 7px 14px;
+        border: 1px solid var(--line-2);
+        border-radius: 9px;
+        font-size: 13px;
+        transition:
+          background-color 0.3s,
+          border-color 0.3s,
+          transform 0.2s var(--ease);
+      }
+
+      .m-copy.is-done {
+        border-color: transparent;
+        background: var(--red);
+      }
+
+      .m-copy.is-press,
+      .m-btn.is-press,
+      .m-side-btn.is-press {
+        transform: scale(0.92);
+      }
+
+      .m-input {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 50px;
+        margin-top: 20px;
+        padding: 0 8px 0 14px;
+        border: 1px solid var(--line-2);
+        border-radius: 12px;
+        background: var(--s2);
+        color: var(--faint);
+      }
+
+      .m-url {
+        flex: 1;
+        overflow: hidden;
+        color: var(--fg);
+        font-family: var(--mono);
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      .m-btn {
+        padding: 9px 16px;
+        border-radius: 9px;
+        background: var(--fg);
+        color: #000;
+        font-size: 13px;
+        font-weight: 500;
+        transition: transform 0.2s var(--ease);
+      }
+
+      .m-mode {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+        padding: 6px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 12.5px;
+      }
+
+      .m-mode i {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--red);
+      }
+
+      .m-route {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-top: 26px;
+      }
+
+      .m-node {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border: 1px solid var(--line-2);
+        border-radius: 12px;
+        background: var(--s1);
+        color: var(--muted);
+        font-size: 13.5px;
+        transition:
+          border-color 0.4s,
+          color 0.4s,
+          background-color 0.4s;
+      }
+
+      .m-node .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #333;
+        transition: background-color 0.3s;
+      }
+
+      .m-node.is-run {
+        border-color: rgba(255, 255, 255, 0.5);
+        color: var(--fg);
+      }
+
+      .m-node.is-run .dot {
+        background: var(--fg);
+        animation: pulse 0.8s var(--ease-io) infinite;
+      }
+
+      .m-node.is-fail {
+        color: var(--faint);
+        text-decoration: line-through;
+      }
+
+      .m-node.is-fail .dot {
+        background: #555;
+      }
+
+      .m-node.is-ok {
+        border-color: rgba(255, 30, 60, 0.7);
+        background: rgba(255, 30, 60, 0.1);
+        color: var(--fg);
+      }
+
+      .m-node.is-ok .dot {
+        background: var(--red);
+      }
+
+      @keyframes pulse {
+        50% {
+          opacity: 0.25;
+        }
+      }
+
+      .m-link {
+        position: relative;
+        width: 44px;
+        height: 2px;
+        background: #262626;
+        overflow: hidden;
+      }
+
+      .m-link::after {
+        position: absolute;
+        inset: 0;
+        background: var(--red);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.6s var(--ease);
+        content: "";
+      }
+
+      .m-link.is-on::after {
+        transform: scaleX(1);
+      }
+
+      .m-result {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 26px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--s1);
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+          opacity 0.5s var(--ease),
+          transform 0.6s var(--ease);
+      }
+
+      .m-result.is-on {
+        opacity: 1;
+        transform: none;
+      }
+
+      .m-result-icon {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: var(--red);
+      }
+
+      .m-result small {
+        display: block;
+        color: var(--faint);
+        font-size: 12px;
+      }
+
+      .m-zani {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        width: 300px;
+        padding: 22px 20px;
+        border-left: 1px solid var(--line);
+        flex: none;
+      }
+
+      .m-zani-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .zani-avatar {
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(255, 30, 60, 0.35);
+        border-radius: 50%;
+        background: radial-gradient(circle at 50% 30%, rgba(255, 30, 60, 0.25), #0b0b0b 70%);
+        flex: none;
+      }
+
+      .zani-avatar .crown {
+        width: 22px;
+      }
+
+      .m-zani-head strong {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .m-zani-head span {
+        color: var(--faint);
+        font-size: 12px;
+      }
+
+      .m-bubble {
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: 4px 14px 14px 14px;
+        background: var(--s2);
+        font-size: 13.5px;
+        line-height: 1.45;
+        transition:
+          opacity 0.35s var(--ease),
+          transform 0.45s var(--ease);
+      }
+
+      .m-bubble.is-swap {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      .m-act-title {
+        margin-top: 8px;
+        color: var(--faint);
+        font-size: 12px;
+        letter-spacing: 0.02em;
+      }
+
+      .m-acts {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .m-acts li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        color: var(--muted);
+        font-size: 12.5px;
+        animation: act-in 0.6s var(--ease) both;
+      }
+
+      .m-acts li .icon {
+        color: var(--red-hi);
+      }
+
+      @keyframes act-in {
+        from {
+          opacity: 0;
+          transform: translateY(-8px);
+        }
+      }
+
+      .m-toast {
+        position: absolute;
+        bottom: 26px;
+        left: 50%;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        background: var(--fg);
+        color: #000;
+        font-size: 13.5px;
+        font-weight: 500;
+        opacity: 0;
+        transform: translate(-50%, 16px);
+        transition:
+          opacity 0.4s var(--ease),
+          transform 0.5s var(--ease);
+        box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
+      }
+
+      .m-toast .icon {
+        color: var(--red);
+      }
+
+      .m-toast.is-on {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      .m-cursor {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        width: 22px;
+        height: 22px;
+        transform: translate(700px, 520px);
+        transition: transform 0.9s var(--ease);
+        pointer-events: none;
+      }
+
+      .m-cursor svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+      }
+
+      .m-cursor::after {
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: 22px;
+        height: 22px;
+        border: 2px solid var(--red);
+        border-radius: 50%;
+        opacity: 0;
+        content: "";
+      }
+
+      .m-cursor.is-click::after {
+        animation: ripple 0.5s var(--ease) forwards;
+      }
+
+      @keyframes ripple {
+        from {
+          opacity: 1;
+          transform: scale(0.3);
+        }
+        to {
+          opacity: 0;
+          transform: scale(1.6);
+        }
+      }
+
+      .mock-stage.is-compact .m-zani {
+        display: none;
+      }
+
+      .mock-stage.is-compact .m-side {
+        width: 60px;
+      }
+
+      /* ---------- Sections ---------- */
+      .section {
+        padding-block: clamp(6rem, 13vw, 10rem) 0;
+      }
+
+      .section-head {
+        max-width: 50rem;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .section-head h2 {
+        font-size: clamp(2.1rem, 5vw, 3.6rem);
+        line-height: 1.05;
+      }
+
+      .section-head p {
+        max-width: 42rem;
+        margin: 1.25rem auto 0;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+        text-wrap: pretty;
+      }
+
+      /* ---------- Platforms ---------- */
+      .platforms {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 3.5rem;
+      }
+
+      .card {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--r-xl);
+        background: linear-gradient(180deg, #0f0f0f, #080808);
+      }
+
+      .card-copy {
+        padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2.25rem) 0;
+      }
+
+      .card-copy h3 {
+        font-size: clamp(1.3rem, 2.2vw, 1.55rem);
+        letter-spacing: -0.025em;
+      }
+
+      .card-copy p {
+        max-width: 30rem;
+        margin-top: 0.5rem;
+        color: var(--muted);
+        text-wrap: pretty;
+      }
+
+      .plat-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        margin-bottom: 1rem;
+        color: var(--fg);
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      .plat-tag .icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        color: var(--red-hi);
+      }
+
+      .plat-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin: 1.1rem 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .plat-list li {
+        padding: 0.3rem 0.75rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .scene {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin-top: 1.5rem;
+      }
+
+      .scene text {
+        font-family: var(--font);
+      }
+
+      .scene * {
+        animation-play-state: paused !important;
+      }
+
+      .scene.playing * {
+        animation-play-state: running !important;
+      }
+
+      /* SVG shared */
+      .sv-panel {
+        fill: #0d0d0d;
+        stroke: rgba(255, 255, 255, 0.12);
+      }
+
+      .sv-field {
+        fill: #141414;
+        stroke: rgba(255, 255, 255, 0.14);
+      }
+
+      .sv-row {
+        fill: #0f0f0f;
+        stroke: rgba(255, 255, 255, 0.08);
+      }
+
+      .sv-t {
+        fill: #fff;
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      .sv-m {
+        fill: rgba(255, 255, 255, 0.5);
+        font-size: 12.5px;
+      }
+
+      .sv-s {
+        fill: rgba(255, 255, 255, 0.5);
+        font-size: 11px;
+      }
+
+      .sv-red {
+        fill: var(--red);
+      }
+
+      .sv-stroke {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.5);
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .sv-anim {
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+
+      /* Phone scene */
+      .ph-ind {
+        animation: ph-ind 9s var(--ease) infinite;
+        transform-box: view-box;
+      }
+
+      @keyframes ph-ind {
+        0%,
+        18% {
+          transform: translateX(0) scaleX(1);
+        }
+        22% {
+          transform: translateX(14px) scaleX(1.5);
+        }
+        26%,
+        43% {
+          transform: translateX(33px) scaleX(1);
+        }
+        47% {
+          transform: translateX(48px) scaleX(1.5);
+        }
+        51%,
+        68% {
+          transform: translateX(66px) scaleX(1);
+        }
+        72% {
+          transform: translateX(80px) scaleX(1.5);
+        }
+        76%,
+        93% {
+          transform: translateX(99px) scaleX(1);
+        }
+        97% {
+          transform: translateX(40px) scaleX(1.8);
+        }
+        100% {
+          transform: translateX(0) scaleX(1);
+        }
+      }
+
+      .ph-screen {
+        animation: ph-screen 9s var(--ease) infinite;
+      }
+
+      .ph-screen-2 {
+        animation-name: ph-screen-2;
+      }
+
+      .ph-screen-3 {
+        animation-name: ph-screen-3;
+      }
+
+      .ph-screen-4 {
+        animation-name: ph-screen-4;
+      }
+
+      @keyframes ph-screen {
+        0%,
+        19% {
+          opacity: 1;
+          transform: none;
+        }
+        23%,
+        96% {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        100% {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @keyframes ph-screen-2 {
+        0%,
+        21% {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        25%,
+        44% {
+          opacity: 1;
+          transform: none;
+        }
+        48%,
+        100% {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+      }
+
+      @keyframes ph-screen-3 {
+        0%,
+        46% {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        50%,
+        69% {
+          opacity: 1;
+          transform: none;
+        }
+        73%,
+        100% {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+      }
+
+      @keyframes ph-screen-4 {
+        0%,
+        71% {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        75%,
+        94% {
+          opacity: 1;
+          transform: none;
+        }
+        98%,
+        100% {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+      }
+
+      /* Desktop scene: Ctrl K */
+      .dk-key {
+        animation: dk-key 8s var(--ease) infinite;
+      }
+
+      .dk-key-2 {
+        animation-delay: 0.08s;
+      }
+
+      @keyframes dk-key {
+        0%,
+        8%,
+        14%,
+        100% {
+          transform: translateY(0);
+        }
+        10%,
+        12% {
+          transform: translateY(3px);
+        }
+      }
+
+      .dk-dim {
+        animation: dk-dim 8s var(--ease) infinite;
+      }
+
+      @keyframes dk-dim {
+        0%,
+        12% {
+          opacity: 0;
+        }
+        18%,
+        88% {
+          opacity: 1;
+        }
+        94%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .dk-pal {
+        animation: dk-pal 8s var(--ease) infinite;
+      }
+
+      @keyframes dk-pal {
+        0%,
+        12% {
+          opacity: 0;
+          transform: translateY(-10px) scale(0.96);
+        }
+        20%,
+        88% {
+          opacity: 1;
+          transform: none;
+        }
+        94%,
+        100% {
+          opacity: 0;
+          transform: translateY(-10px) scale(0.96);
+        }
+      }
+
+      .dk-typed {
+        animation: dk-typed 8s infinite;
+      }
+
+      @keyframes dk-typed {
+        0%,
+        24% {
+          clip-path: inset(0 100% 0 0);
+          animation-timing-function: steps(7, end);
+        }
+        44%,
+        100% {
+          clip-path: inset(0 0 0 0);
+        }
+      }
+
+      .dk-res {
+        animation: dk-res 8s var(--ease) infinite;
+      }
+
+      .dk-res-2 {
+        animation-name: dk-res-2;
+      }
+
+      @keyframes dk-res {
+        0%,
+        30% {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        36%,
+        88% {
+          opacity: 1;
+          transform: none;
+        }
+        94%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes dk-res-2 {
+        0%,
+        40% {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        46%,
+        88% {
+          opacity: 1;
+          transform: none;
+        }
+        94%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .dk-sel {
+        animation: dk-sel 8s var(--ease) infinite;
+      }
+
+      @keyframes dk-sel {
+        0%,
+        50% {
+          opacity: 0;
+        }
+        56%,
+        88% {
+          opacity: 1;
+        }
+        94%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .dk-enter {
+        animation: dk-enter 8s var(--ease) infinite;
+      }
+
+      @keyframes dk-enter {
+        0%,
+        64% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        68%,
+        86% {
+          opacity: 1;
+          transform: none;
+        }
+        92%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* ---------- Bento ---------- */
+      .bento {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 3.5rem;
+      }
+
+      .bento .wide {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        align-items: center;
+      }
+
+      .bento .wide .card-copy {
+        padding-bottom: clamp(1.5rem, 3vw, 2.25rem);
+      }
+
+      .bento .wide .scene {
+        margin: 0;
+        padding: 1.5rem;
+      }
+
+      /* Card: copy script */
+      .ca-typed {
+        animation: ca-typed 8s infinite;
+      }
+
+      @keyframes ca-typed {
+        0%,
+        6% {
+          clip-path: inset(0 100% 0 0);
+          animation-timing-function: steps(5, end);
+        }
+        20%,
+        92% {
+          clip-path: inset(0 0 0 0);
+        }
+        96%,
+        100% {
+          clip-path: inset(0 100% 0 0);
+        }
+      }
+
+      .ca-caret {
+        animation: ca-caret 8s infinite;
+      }
+
+      @keyframes ca-caret {
+        0%,
+        6% {
+          transform: translateX(0);
+          animation-timing-function: steps(5, end);
+        }
+        20%,
+        92% {
+          transform: translateX(52px);
+        }
+        96%,
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      .ca-fade {
+        animation: ca-fade 8s var(--ease) infinite;
+      }
+
+      @keyframes ca-fade {
+        0%,
+        22% {
+          opacity: 1;
+        }
+        30%,
+        90% {
+          opacity: 0;
+        }
+        97%,
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .ca-hit {
+        animation: ca-hit 8s var(--ease) infinite;
+      }
+
+      @keyframes ca-hit {
+        0%,
+        24% {
+          transform: translateY(0);
+        }
+        34%,
+        90% {
+          transform: translateY(-112px);
+        }
+        97%,
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      .ca-hit-bg {
+        animation: ca-hit-bg 8s var(--ease) infinite;
+      }
+
+      @keyframes ca-hit-bg {
+        0%,
+        30% {
+          stroke: rgba(255, 255, 255, 0.08);
+          fill: #0f0f0f;
+        }
+        36%,
+        90% {
+          stroke: rgba(255, 30, 60, 0.6);
+          fill: #1a070b;
+        }
+        97%,
+        100% {
+          stroke: rgba(255, 255, 255, 0.08);
+          fill: #0f0f0f;
+        }
+      }
+
+      .ca-btn {
+        animation: ca-btn 8s var(--ease) infinite;
+      }
+
+      @keyframes ca-btn {
+        0%,
+        46% {
+          fill: transparent;
+          stroke: rgba(255, 255, 255, 0.25);
+        }
+        49%,
+        90% {
+          fill: #dc0f2b;
+          stroke: transparent;
+        }
+        97%,
+        100% {
+          fill: transparent;
+          stroke: rgba(255, 255, 255, 0.25);
+        }
+      }
+
+      .ca-l1 {
+        animation: ca-l1 8s infinite;
+      }
+
+      .ca-l2 {
+        animation: ca-l2 8s infinite;
+      }
+
+      @keyframes ca-l1 {
+        0%,
+        47% {
+          opacity: 1;
+        }
+        49%,
+        92% {
+          opacity: 0;
+        }
+        96%,
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes ca-l2 {
+        0%,
+        47% {
+          opacity: 0;
+        }
+        49%,
+        90% {
+          opacity: 1;
+        }
+        94%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .ca-cursor {
+        animation: ca-cursor 8s var(--ease) infinite;
+      }
+
+      @keyframes ca-cursor {
+        0%,
+        34% {
+          transform: translate(330px, 300px);
+          opacity: 0;
+        }
+        36% {
+          opacity: 1;
+        }
+        44% {
+          transform: translate(412px, 116px) scale(1);
+        }
+        46% {
+          transform: translate(412px, 116px) scale(0.8);
+        }
+        48%,
+        70% {
+          transform: translate(412px, 116px) scale(1);
+          opacity: 1;
+        }
+        78%,
+        100% {
+          transform: translate(460px, 150px);
+          opacity: 0;
+        }
+      }
+
+      .ca-toast {
+        animation: ca-toast 8s var(--ease) infinite;
+      }
+
+      @keyframes ca-toast {
+        0%,
+        50% {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        56%,
+        86% {
+          opacity: 1;
+          transform: none;
+        }
+        92%,
+        100% {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+      }
+
+      /* Card: bypass */
+      .bp-path {
+        fill: none;
+        stroke-width: 2.4;
+        stroke-linecap: round;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+      }
+
+      .bp-base {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.1);
+        stroke-width: 2;
+        stroke-dasharray: 4 6;
+      }
+
+      .bp-p1 {
+        stroke: #fff;
+        animation: bp-p1 8s var(--ease-io) infinite;
+      }
+
+      .bp-p2 {
+        stroke: rgba(255, 255, 255, 0.55);
+        animation: bp-p2 8s var(--ease-io) infinite;
+      }
+
+      .bp-p3 {
+        stroke: var(--red);
+        animation: bp-p3 8s var(--ease-io) infinite;
+      }
+
+      .bp-p4 {
+        stroke: var(--red);
+        animation: bp-p4 8s var(--ease-io) infinite;
+      }
+
+      @keyframes bp-p1 {
+        0%,
+        5% {
+          stroke-dashoffset: 1;
+        }
+        16%,
+        100% {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes bp-p2 {
+        0%,
+        28% {
+          stroke-dashoffset: 1;
+        }
+        36%,
+        100% {
+          stroke-dashoffset: 0.52;
+        }
+      }
+
+      @keyframes bp-p3 {
+        0%,
+        44% {
+          stroke-dashoffset: 1;
+        }
+        54%,
+        100% {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes bp-p4 {
+        0%,
+        60% {
+          stroke-dashoffset: 1;
+        }
+        70%,
+        100% {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      .bp-all {
+        animation: bp-all 8s var(--ease) infinite;
+      }
+
+      @keyframes bp-all {
+        0%,
+        90% {
+          opacity: 1;
+        }
+        96% {
+          opacity: 0.15;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .bp-trw {
+        animation: bp-trw 8s var(--ease) infinite;
+      }
+
+      @keyframes bp-trw {
+        0%,
+        15% {
+          stroke: rgba(255, 255, 255, 0.14);
+        }
+        18%,
+        34% {
+          stroke: rgba(255, 255, 255, 0.7);
+        }
+        40%,
+        100% {
+          stroke: rgba(255, 255, 255, 0.14);
+        }
+      }
+
+      .bp-izen {
+        animation: bp-izen 8s var(--ease) infinite;
+      }
+
+      @keyframes bp-izen {
+        0%,
+        52% {
+          stroke: rgba(255, 255, 255, 0.14);
+          fill: #0d0d0d;
+        }
+        56%,
+        90% {
+          stroke: rgba(255, 30, 60, 0.8);
+          fill: #1a070b;
+        }
+        96%,
+        100% {
+          stroke: rgba(255, 255, 255, 0.14);
+          fill: #0d0d0d;
+        }
+      }
+
+      .bp-x {
+        animation: bp-x 8s var(--ease) infinite;
+      }
+
+      @keyframes bp-x {
+        0%,
+        35% {
+          transform: scale(0);
+        }
+        40%,
+        90% {
+          transform: scale(1);
+        }
+        96%,
+        100% {
+          transform: scale(0);
+        }
+      }
+
+      .bp-res {
+        animation: bp-res 8s var(--ease) infinite;
+      }
+
+      @keyframes bp-res {
+        0%,
+        70% {
+          fill: #0d0d0d;
+          stroke: rgba(255, 255, 255, 0.14);
+        }
+        74%,
+        90% {
+          fill: #dc0f2b;
+          stroke: #ff1e3c;
+        }
+        96%,
+        100% {
+          fill: #0d0d0d;
+          stroke: rgba(255, 255, 255, 0.14);
+        }
+      }
+
+      .bp-check {
+        animation: bp-check 8s var(--ease) infinite;
+      }
+
+      @keyframes bp-check {
+        0%,
+        72% {
+          opacity: 0;
+          transform: scale(0.4);
+        }
+        78%,
+        90% {
+          opacity: 1;
+          transform: none;
+        }
+        96%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .bp-spin {
+        animation: bp-spin 8s linear infinite;
+      }
+
+      @keyframes bp-spin {
+        0%,
+        17% {
+          opacity: 0;
+          transform: rotate(0deg);
+        }
+        19% {
+          opacity: 1;
+        }
+        34% {
+          opacity: 1;
+          transform: rotate(540deg);
+        }
+        36%,
+        100% {
+          opacity: 0;
+          transform: rotate(540deg);
+        }
+      }
+
+      .bp-sand {
+        animation: bp-sand 8s var(--ease) infinite;
+      }
+
+      @keyframes bp-sand {
+        0%,
+        54% {
+          opacity: 0;
+          transform: translateY(-4px);
+        }
+        60%,
+        90% {
+          opacity: 1;
+          transform: none;
+        }
+        96%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* Card: executors */
+      .ex-scan {
+        animation: ex-scan 8s var(--ease) infinite;
+      }
+
+      @keyframes ex-scan {
+        0%,
+        6% {
+          transform: translateY(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        20% {
+          transform: translateY(0);
+        }
+        30%,
+        84% {
+          transform: translateY(58px);
+          opacity: 1;
+        }
+        92%,
+        100% {
+          transform: translateY(58px);
+          opacity: 0;
+        }
+      }
+
+      .ex-dim {
+        animation: ex-dim 8s var(--ease) infinite;
+      }
+
+      @keyframes ex-dim {
+        0%,
+        34% {
+          opacity: 0;
+        }
+        40%,
+        82% {
+          opacity: 1;
+        }
+        88%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .ex-sheet {
+        animation: ex-sheet 8s var(--ease) infinite;
+      }
+
+      @keyframes ex-sheet {
+        0%,
+        34% {
+          transform: translateY(185px);
+        }
+        44%,
+        80% {
+          transform: none;
+        }
+        88%,
+        100% {
+          transform: translateY(185px);
+        }
+      }
+
+      .ex-pill {
+        animation: ex-pill 8s var(--ease) infinite;
+      }
+
+      @keyframes ex-pill {
+        0%,
+        66% {
+          fill: transparent;
+        }
+        70%,
+        80% {
+          fill: rgba(255, 255, 255, 0.12);
+        }
+        86%,
+        100% {
+          fill: transparent;
+        }
+      }
+
+      /* Card: Zani chat */
+      .card-copy .zani-note {
+        margin-top: 0.9rem;
+        padding: 0.75rem 0.9rem;
+        border: 1px solid var(--line);
+        border-radius: 0.8rem;
+        background: rgba(255, 255, 255, 0.03);
+        font-size: 0.9rem;
+      }
+
+      .zani-note strong {
+        color: var(--fg);
+        font-weight: 500;
+      }
+
+      .zani-note a {
+        color: var(--fg);
+        text-decoration-color: var(--red);
+      }
+
+      .chat {
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+        width: auto;
+        min-height: 19rem;
+        margin: 1.5rem 1.5rem 0;
+        padding: 1.25rem;
+        border: 1px solid var(--line);
+        border-bottom: 0;
+        border-radius: 1.1rem 1.1rem 0 0;
+        background: #0c0c0c;
+        font-size: 0.93rem;
+      }
+
+      .chat-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 0.6rem;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      .chat-row .zani-avatar {
+        width: 2rem;
+        height: 2rem;
+      }
+
+      .chat-row .zani-avatar .crown {
+        width: 1.1rem;
+      }
+
+      .chat-b {
+        max-width: 80%;
+        padding: 0.6rem 0.9rem;
+        border-radius: 1rem 1rem 1rem 0.3rem;
+        background: #1a1a1a;
+        line-height: 1.4;
+      }
+
+      .chat-b b {
+        display: block;
+        color: var(--red-hi);
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .chat-row.me {
+        justify-content: flex-end;
+      }
+
+      .chat-row.me .chat-b {
+        border-radius: 1rem 1rem 0.3rem 1rem;
+        background: var(--fg);
+        color: #000;
+      }
+
+      .chat-typing {
+        display: inline-flex;
+        gap: 4px;
+        padding: 0.85rem 0.9rem;
+      }
+
+      .chat-typing i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--faint);
+        animation: dots 1s var(--ease-io) infinite;
+      }
+
+      .chat-typing i:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+
+      .chat-typing i:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+
+      @keyframes dots {
+        50% {
+          transform: translateY(-4px);
+          opacity: 0.4;
+        }
+      }
+
+      .chat-c1 {
+        animation: chat-c1 10s var(--ease) infinite;
+      }
+
+      .chat-c2 {
+        animation: chat-c2 10s var(--ease) infinite;
+      }
+
+      .chat-c3 {
+        animation: chat-c3 10s var(--ease) infinite;
+      }
+
+      .chat-c4 {
+        animation: chat-c4 10s var(--ease) infinite;
+      }
+
+      .chat-c5 {
+        animation: chat-c5 10s var(--ease) infinite;
+      }
+
+      @keyframes chat-c1 {
+        0%,
+        3% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        7%,
+        92% {
+          opacity: 1;
+          transform: none;
+        }
+        97%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes chat-c2 {
+        0%,
+        16% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        20%,
+        92% {
+          opacity: 1;
+          transform: none;
+        }
+        97%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes chat-c3 {
+        0%,
+        26% {
+          opacity: 0;
+          transform: translateY(10px);
+          max-height: 3rem;
+        }
+        29%,
+        40% {
+          opacity: 1;
+          transform: none;
+          max-height: 3rem;
+        }
+        43%,
+        100% {
+          opacity: 0;
+          max-height: 0;
+        }
+      }
+
+      @keyframes chat-c4 {
+        0%,
+        42% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        46%,
+        92% {
+          opacity: 1;
+          transform: none;
+        }
+        97%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes chat-c5 {
+        0%,
+        60% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        64%,
+        92% {
+          opacity: 1;
+          transform: none;
+        }
+        97%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* Card: notifications */
+      .nt-bell {
+        transform-box: fill-box;
+        transform-origin: 50% 8%;
+        animation: nt-bell 7s var(--ease-io) infinite;
+      }
+
+      @keyframes nt-bell {
+        0%,
+        8%,
+        100% {
+          transform: rotate(0);
+        }
+        10% {
+          transform: rotate(16deg);
+        }
+        13% {
+          transform: rotate(-13deg);
+        }
+        16% {
+          transform: rotate(8deg);
+        }
+        19% {
+          transform: rotate(0);
+        }
+      }
+
+      .nt-dot {
+        animation: nt-dot 7s var(--ease) infinite;
+      }
+
+      @keyframes nt-dot {
+        0%,
+        8% {
+          transform: scale(0);
+        }
+        12%,
+        86% {
+          transform: scale(1);
+        }
+        92%,
+        100% {
+          transform: scale(0);
+        }
+      }
+
+      .nt-n {
+        animation: nt-n1 7s var(--ease) infinite;
+      }
+
+      .nt-n2 {
+        animation-name: nt-n2;
+      }
+
+      .nt-n3 {
+        animation-name: nt-n3;
+      }
+
+      @keyframes nt-n1 {
+        0%,
+        14% {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        22%,
+        88% {
+          opacity: 1;
+          transform: none;
+        }
+        94%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes nt-n2 {
+        0%,
+        32% {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        40%,
+        88% {
+          opacity: 1;
+          transform: none;
+        }
+        94%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes nt-n3 {
+        0%,
+        50% {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        58%,
+        88% {
+          opacity: 1;
+          transform: none;
+        }
+        94%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* ---------- Use cases ---------- */
+      .cases {
+        display: grid;
+        grid-template-columns: minmax(15rem, 0.8fr) minmax(0, 2fr);
+        gap: 1.25rem;
+        margin-top: 3.5rem;
+      }
+
+      .case-tabs {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .case-tab {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+        padding: 0.85rem 1rem;
+        overflow: hidden;
+        border: 1px solid transparent;
+        border-radius: 0.9rem;
+        background: transparent;
+        color: var(--muted);
+        font-size: 1rem;
+        text-align: left;
+        cursor: pointer;
+        transition:
+          color 0.3s,
+          background-color 0.3s,
+          border-color 0.3s;
+      }
+
+      .case-tab:hover {
+        color: var(--fg);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .case-tab[aria-selected="true"] {
+        border-color: var(--line);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--fg);
+      }
+
+      .case-tab .icon {
+        color: var(--faint);
+        transition: color 0.3s;
+      }
+
+      .case-tab[aria-selected="true"] .icon {
+        color: var(--red-hi);
+      }
+
+      .case-tab .bar {
+        position: absolute;
+        inset: auto 1rem 0;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--red);
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+
+      .case-panel {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 2rem;
+        min-height: 25rem;
+        padding: clamp(1.5rem, 3vw, 2.5rem);
+        border: 1px solid var(--line);
+        border-radius: var(--r-xl);
+        background:
+          radial-gradient(ellipse 60% 70% at 100% 0%, rgba(255, 30, 60, 0.09), transparent 70%),
+          linear-gradient(180deg, #0f0f0f, #080808);
+      }
+
+      .case-copy {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .case-badges {
+        display: flex;
+        gap: 0.4rem;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.3rem 0.7rem;
+        border: 1px solid var(--line-2);
+        border-radius: 999px;
+        font-size: 0.82rem;
+      }
+
+      .badge .icon {
+        width: 0.95rem;
+        height: 0.95rem;
+        color: var(--red-hi);
+      }
+
+      .case-copy h3 {
+        margin-top: 1.25rem;
+        font-size: clamp(1.45rem, 2.6vw, 2rem);
+        line-height: 1.1;
+      }
+
+      .case-copy p {
+        margin-top: 0.85rem;
+        color: var(--muted);
+        text-wrap: pretty;
+      }
+
+      .case-example {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-top: auto;
+        padding: 0.8rem 1rem;
+        border: 1px solid var(--line);
+        border-radius: 0.8rem;
+        background: #0b0b0b;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        overflow-wrap: anywhere;
+      }
+
+      .case-example .icon {
+        color: var(--red-hi);
+      }
+
+      .case-steps {
+        position: relative;
+        display: grid;
+        align-content: center;
+        gap: 0.6rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .case-step {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+        padding: 0.95rem 1rem;
+        border: 1px solid var(--line);
+        border-radius: 0.95rem;
+        background: #0b0b0b;
+        color: var(--faint);
+        transition:
+          color 0.5s var(--ease),
+          border-color 0.5s var(--ease),
+          background-color 0.5s var(--ease),
+          transform 0.6s var(--ease);
+      }
+
+      .case-step .st {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 1.9rem;
+        height: 1.9rem;
+        border: 1px solid var(--line-2);
+        border-radius: 50%;
+        font-size: 0.8rem;
+        font-variant-numeric: tabular-nums;
+        flex: none;
+        transition:
+          background-color 0.4s,
+          border-color 0.4s;
+      }
+
+      .case-step .st .icon {
+        position: absolute;
+        width: 0.95rem;
+        height: 0.95rem;
+        opacity: 0;
+        transform: scale(0.4);
+        transition:
+          opacity 0.3s,
+          transform 0.4s var(--ease);
+      }
+
+      .case-step.is-run {
+        border-color: rgba(255, 255, 255, 0.28);
+        color: var(--fg);
+        transform: translateX(4px);
+      }
+
+      .case-step.is-run .st {
+        border-color: var(--fg);
+        animation: pulse 0.9s var(--ease-io) infinite;
+      }
+
+      .case-step.is-done {
+        color: var(--fg);
+      }
+
+      .case-step.is-done .st {
+        border-color: var(--red);
+        background: var(--red);
+        color: transparent;
+      }
+
+      .case-step.is-done .st .icon {
+        opacity: 1;
+        transform: none;
+        color: #fff;
+      }
+
+      .case-anim > * {
+        animation: case-in 0.7s var(--ease) both;
+      }
+
+      .case-anim > *:nth-child(2) {
+        animation-delay: 0.06s;
+      }
+
+      .case-anim > *:nth-child(3) {
+        animation-delay: 0.12s;
+      }
+
+      .case-anim > *:nth-child(4) {
+        animation-delay: 0.18s;
+      }
+
+      .case-anim > *:nth-child(5) {
+        animation-delay: 0.24s;
+      }
+
+      @keyframes case-in {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+          filter: blur(4px);
+        }
+      }
+
+      /* ---------- Manifesto ---------- */
+      .manifesto {
+        max-width: 60rem;
+        margin: 0 auto;
+        text-align: left;
+      }
+
+      .manifesto-text {
+        font-size: clamp(1.7rem, 4.2vw, 3.1rem);
+        line-height: 1.2;
+        letter-spacing: -0.03em;
+        font-weight: 500;
+        text-wrap: pretty;
+      }
+
+      .js .manifesto-text .w {
+        color: rgba(255, 255, 255, 0.16);
+        transition: color 0.4s var(--ease);
+      }
+
+      .js .manifesto-text .w.lit {
+        color: var(--fg);
+      }
+
+      .js .manifesto-text .w.lit.hl {
+        color: var(--red-hi);
+      }
+
+      .manifesto-sign {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 2.25rem;
+        color: var(--muted);
+      }
+
+      .manifesto-sign .zani-avatar {
+        width: 2.75rem;
+        height: 2.75rem;
+      }
+
+      .manifesto-sign .zani-avatar .crown {
+        width: 1.5rem;
+      }
+
+      .manifesto-sign strong {
+        display: block;
+        color: var(--fg);
+        font-weight: 500;
+      }
+
+      .facts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 2rem;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+      }
+
+      .facts b {
+        color: var(--fg);
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* ---------- Downloads ---------- */
+      .downloads {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 3.5rem;
+      }
+
+      .dl {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        padding: 1.75rem;
+        border: 1px solid var(--line);
+        border-radius: var(--r-xl);
+        background: linear-gradient(180deg, #0f0f0f, #080808);
+        text-decoration: none;
+        transition:
+          border-color 0.35s var(--ease),
+          transform 0.5s var(--ease),
+          background-color 0.35s;
+      }
+
+      .dl:hover {
+        border-color: var(--line-2);
+        transform: translateY(-4px);
+      }
+
+      .dl.is-rec {
+        border-color: rgba(255, 30, 60, 0.55);
+        background:
+          radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 30, 60, 0.14), transparent 70%),
+          linear-gradient(180deg, #0f0f0f, #080808);
+      }
+
+      .dl-icon {
+        display: grid;
+        place-items: center;
+        width: 3rem;
+        height: 3rem;
+        margin-bottom: 1rem;
+        border: 1px solid var(--line-2);
+        border-radius: 0.9rem;
+        color: var(--fg);
+      }
+
+      .dl-icon .icon {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      .dl.is-rec .dl-icon {
+        border-color: transparent;
+        background: var(--red);
+      }
+
+      .dl h3 {
+        font-size: 1.3rem;
+        letter-spacing: -0.02em;
+      }
+
+      .dl p {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .dl-meta {
+        margin-top: 0.25rem;
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 0.78rem;
+      }
+
+      .dl-go {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        margin-top: 1.5rem;
+        color: var(--fg);
+        font-weight: 500;
+      }
+
+      .dl-go .icon {
+        transition: transform 0.35s var(--ease);
+      }
+
+      .dl:hover .dl-go .icon {
+        transform: translateY(2px);
+      }
+
+      .dl-rec {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        display: none;
+        padding: 0.25rem 0.65rem;
+        border-radius: 999px;
+        background: rgba(255, 30, 60, 0.15);
+        color: var(--red-hi);
+        font-size: 0.78rem;
+        font-weight: 500;
+      }
+
+      .dl.is-rec .dl-rec {
+        display: block;
+      }
+
+      .dl-help {
+        margin-top: 1.25rem;
+        color: var(--faint);
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      /* ---------- FAQ ---------- */
+      .faq {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+        gap: 3rem;
+      }
+
+      .faq .section-head {
+        margin: 0;
+        text-align: left;
+      }
+
+      .faq .section-head p {
+        margin-left: 0;
+      }
+
+      .faq-list {
+        border-top: 1px solid var(--line);
+      }
+
+      .faq-item {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .faq-item summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1.35rem 0;
+        font-size: 1.08rem;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        list-style: none;
+        cursor: pointer;
+      }
+
+      .faq-item summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .faq-item summary .pm {
+        position: relative;
+        width: 1.75rem;
+        height: 1.75rem;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.07);
+        flex: none;
+        transition:
+          background-color 0.3s,
+          transform 0.45s var(--ease);
+      }
+
+      .faq-item summary .pm::before,
+      .faq-item summary .pm::after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0.7rem;
+        height: 1.6px;
+        background: var(--fg);
+        translate: -50% -50%;
+        content: "";
+        transition: transform 0.45s var(--ease);
+      }
+
+      .faq-item summary .pm::after {
+        transform: rotate(90deg);
+      }
+
+      .faq-item[open] summary .pm {
+        background: var(--red);
+        transform: rotate(180deg);
+      }
+
+      .faq-item[open] summary .pm::after {
+        transform: rotate(0deg);
+      }
+
+      .faq-item::details-content {
+        block-size: 0;
+        overflow: hidden;
+        transition:
+          block-size 0.5s var(--ease),
+          content-visibility 0.5s allow-discrete;
+      }
+
+      .faq-item[open]::details-content {
+        block-size: auto;
+      }
+
+      @supports (interpolate-size: allow-keywords) {
+        :root {
+          interpolate-size: allow-keywords;
+        }
+      }
+
+      .faq-answer {
+        padding: 0 3rem 1.5rem 0;
+        color: var(--muted);
+      }
+
+      .faq-answer p + p {
+        margin-top: 0.75rem;
+      }
+
+      .faq-answer strong {
+        color: var(--fg);
+        font-weight: 500;
+      }
+
+      /* ---------- Closing ---------- */
+      .closing {
+        padding-block: clamp(7rem, 14vw, 11rem);
+        text-align: center;
+      }
+
+      .closing .crown {
+        width: clamp(5rem, 10vw, 7rem);
+        height: auto;
+        filter: drop-shadow(0 12px 30px rgba(255, 30, 60, 0.45));
+      }
+
+      .closing h2 {
+        margin-top: 2rem;
+        font-size: clamp(2.3rem, 6vw, 4.5rem);
+        line-height: 1.02;
+        letter-spacing: -0.04em;
+      }
+
+      .closing p {
+        margin-top: 1rem;
+        color: var(--muted);
+        font-size: 1.15rem;
+      }
+
+      .closing .hero-actions {
+        margin-top: 2rem;
+      }
+
+      .footer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-block: 2rem 2.5rem;
+        border-top: 1px solid var(--line);
+        color: var(--faint);
+        font-size: 0.9rem;
+      }
+
+      .footer nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+      }
+
+      .footer a {
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.25s;
+      }
+
+      .footer a:hover {
+        color: var(--fg);
+      }
+
+      /* ---------- Responsive ---------- */
+      @media (max-width: 960px) {
+        .nav-links {
+          display: none;
+        }
+
+        .nav-cta {
+          opacity: 1;
+          translate: 0;
+          pointer-events: auto;
+        }
+
+        .cases {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .case-tabs {
+          flex-direction: row;
+          gap: 0.4rem;
+          overflow-x: auto;
+          margin-inline: -1rem;
+          padding: 0 1rem 0.25rem;
+          scrollbar-width: none;
+          scroll-snap-type: x mandatory;
+        }
+
+        .case-tabs::-webkit-scrollbar {
+          display: none;
+        }
+
+        .case-tabs li {
+          flex: none;
+          scroll-snap-align: start;
+        }
+
+        .case-tab {
+          width: auto;
+          padding: 0.65rem 0.95rem;
+          border-color: var(--line);
+          border-radius: 999px;
+          font-size: 0.92rem;
+          white-space: nowrap;
+        }
+
+        .case-tab .bar {
+          inset: auto 0.9rem 0;
+        }
+
+        .downloads {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .faq {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 2rem;
+        }
+
+        .bento .wide {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .bento .wide .card-copy {
+          padding-bottom: 0;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .platforms,
+        .bento {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .case-panel {
+          grid-template-columns: minmax(0, 1fr);
+          min-height: 0;
+        }
+
+        .case-example {
+          margin-top: 1.25rem;
+        }
+
+        .hero-actions .btn {
+          width: 100%;
+          max-width: 22rem;
+        }
+
+        .faq-answer {
+          padding-right: 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001s !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001s !important;
+        }
+
+        .js .rv {
+          opacity: 1;
+          transform: none;
+          filter: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+
+    <!-- Shared SVG defs: crown gradients + icon sprite -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="crown-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ff5a6c" />
+          <stop offset="1" stop-color="#e00020" />
+        </linearGradient>
+        <linearGradient id="crown-glint" x1="0" x2="1">
+          <stop offset="0" stop-color="#fff" stop-opacity="0" />
+          <stop offset="0.5" stop-color="#fff" stop-opacity="0.8" />
+          <stop offset="1" stop-color="#fff" stop-opacity="0" />
+        </linearGradient>
+        <clipPath id="crown-clip">
+          <path d="M18 84 L10 34 L40 58 L64 22 L88 58 L118 34 L110 84 Z" />
+          <rect x="14" y="80" width="100" height="18" rx="5" />
+        </clipPath>
+      </defs>
+
+      <symbol id="crown" viewBox="-4 0 136 112">
+        <path
+          d="M18 84 L10 34 L40 58 L64 22 L88 58 L118 34 L110 84 Z"
+          fill="url(#crown-grad)"
+          stroke="url(#crown-grad)"
+          stroke-width="8"
+          stroke-linejoin="round"
+        />
+        <rect x="14" y="82" width="100" height="16" rx="5" fill="#ff2a46" />
+        <path d="M64 81 L71 90 L64 99 L57 90 Z" fill="#8c0016" />
+        <path class="crown-star" d="M10 20 Q11.8 28.2 20 30 Q11.8 31.8 10 40 Q8.2 31.8 0 30 Q8.2 28.2 10 20Z" />
+        <path class="crown-star" d="M64 6 Q66.2 15.8 76 18 Q66.2 20.2 64 30 Q61.8 20.2 52 18 Q61.8 15.8 64 6Z" />
+        <path class="crown-star" d="M118 20 Q119.8 28.2 128 30 Q119.8 31.8 118 40 Q116.2 31.8 108 30 Q116.2 28.2 118 20Z" />
+      </symbol>
+
+      <symbol id="i-windows" viewBox="0 0 24 24">
+        <path d="M3 5.1 10.4 4v7.2H3V5.1Zm8.4-1.2L21 2.5v8.7h-9.6V3.9ZM3 12.4h7.4v7.2L3 18.5v-6.1Zm8.4 0H21v9.1l-9.6-1.4v-7.7Z" />
+      </symbol>
+      <symbol id="i-android" viewBox="0 0 24 24">
+        <path
+          d="M17.6 9.5 19.4 6.4a.4.4 0 0 0-.7-.4l-1.8 3.1A11 11 0 0 0 12 8a11 11 0 0 0-4.9 1.1L5.3 6a.4.4 0 0 0-.7.4l1.8 3.1A10.4 10.4 0 0 0 1 18h22a10.4 10.4 0 0 0-5.4-8.5ZM7 15.3a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Zm10 0a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z"
+        />
+      </symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5" /><path d="M15 9V6.5A2.5 2.5 0 0 0 12.5 4h-6A2.5 2.5 0 0 0 4 6.5v6A2.5 2.5 0 0 0 6.5 15H9" /></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" /></symbol>
+      <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3.2-3.2a4.5 4.5 0 0 0-6.4-6.4L11.8 5.8" /><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3.2 3.2a4.5 4.5 0 0 0 6.4 6.4l1.4-1.4" /></symbol>
+      <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 13.5h6L10 21l8-10.5h-6L13 3Z" /></symbol>
+      <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16" /></symbol>
+      <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4.5" /><path d="m11.2 11.8 8.3-8.3M16.5 6.5l2.5 2.5M14.5 8.5l2 2" /></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-4v-6h-5v6h-4A1.5 1.5 0 0 1 4 19v-8.5Z" /></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.5" /><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 5.2a3.5 3.5 0 0 1 0 6.6M18.5 14.2A6.5 6.5 0 0 1 21.5 20" /></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15L6 16ZM10 20.5a2.2 2.2 0 0 0 4 0" /></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9L12 3.5Z" /></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" /></symbol>
+      <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v12M6.5 10.5 12 16l5.5-5.5M5 20h14" /></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.2 2.9 8 7 9.5 4.1-1.5 7-5.3 7-9.5V6l-7-3Z" /><path d="M12 8.5v4M12 15.5v.1" /></symbol>
+      <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2.5" /><path d="M6.5 10h.1M10 10h.1M13.5 10h.1M17 10h.1M7.5 14h9" /></symbol>
+      <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" /><path d="M9.5 9.5h5v5h-5zM9 2.5V6M15 2.5V6M9 18v3.5M15 18v3.5M2.5 9H6M2.5 15H6M18 9h3.5M18 15h3.5" /></symbol>
+    </svg>
+
+    <header class="site-header" id="header">
+      <div class="wrap nav">
+        <a class="brand" href="#inicio" aria-label="Anti-Hambreado, inicio">
+          <svg class="crown" viewBox="-4 0 136 112" aria-hidden="true"><use href="#crown" /></svg>
+          Anti-Hambreado
+        </a>
+        <nav class="nav-links" aria-label="Principal">
+          <a href="#pantallas">Plataformas</a>
+          <a href="#funciones">Funciones</a>
+          <a href="#casos">Casos de uso</a>
+          <a href="#descargar">Descargar</a>
+          <a href="#faq">Preguntas</a>
+        </nav>
+        <a class="btn btn-primary btn-sm nav-cta" href="#descargar" data-dl data-dl-short>
+          <svg class="icon fill" aria-hidden="true" data-dl-icon><use href="#i-down" /></svg>
+          <span data-dl-label>Descargar</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <!-- ================= HERO ================= -->
+      <section class="hero wrap">
+        <a class="announce rv" href="#descargar">
+          <span><strong>Nuevo: app para Windows</strong> · x64 y ARM64</span>
+          <span class="arrow"><svg class="icon" aria-hidden="true"><use href="#i-arrow" /></svg></span>
+        </a>
+
+        <h1 class="rv" style="--d: 0.05s">
+          <span class="line">
+            Conoce
+            <svg class="crown crown-live" viewBox="-4 0 136 112" role="img" aria-label="corona">
+              <path
+                d="M18 84 L10 34 L40 58 L64 22 L88 58 L118 34 L110 84 Z"
+                fill="url(#crown-grad)"
+                stroke="url(#crown-grad)"
+                stroke-width="8"
+                stroke-linejoin="round"
+              />
+              <rect x="14" y="82" width="100" height="16" rx="5" fill="#ff2a46" />
+              <path
+                d="M24 78 L19 46 L41 64 L64 34 L87 64 L109 46 L104 78"
+                fill="none"
+                stroke="#fff"
+                stroke-opacity="0.22"
+                stroke-width="2.5"
+                stroke-linejoin="round"
+              />
+              <path class="crown-gem" d="M64 81 L71 90 L64 99 L57 90 Z" fill="#8c0016" />
+              <g clip-path="url(#crown-clip)">
+                <rect class="crown-glint" x="0" y="0" width="26" height="112" fill="url(#crown-glint)" />
+              </g>
+              <path class="crown-star" d="M10 20 Q11.8 28.2 20 30 Q11.8 31.8 10 40 Q8.2 31.8 0 30 Q8.2 28.2 10 20Z" />
+              <path class="crown-star" d="M64 6 Q66.2 15.8 76 18 Q66.2 20.2 64 30 Q61.8 20.2 52 18 Q61.8 15.8 64 6Z" />
+              <path class="crown-star" d="M118 20 Q119.8 28.2 128 30 Q119.8 31.8 118 40 Q116.2 31.8 108 30 Q116.2 28.2 118 20Z" />
+            </svg>
+          </span>
+          <span class="line">Anti-Hambreado</span>
+        </h1>
+
+        <p class="hero-lede rv" style="--d: 0.12s">
+          Scripts, executores y bypass de enlaces en una sola app. Busca el juego, copia el script y
+          sigue, en tu teléfono Android o en tu PC con Windows.
+        </p>
+
+        <div class="hero-actions rv" style="--d: 0.18s">
+          <a class="btn btn-primary" href="#descargar" data-dl>
+            <svg class="icon fill" aria-hidden="true" data-dl-icon><use href="#i-down" /></svg>
+            <span data-dl-label>Descargar</span>
+          </a>
+          <a class="btn btn-ghost" href="#casos">Ver casos de uso</a>
+        </div>
+        <p class="hero-meta rv" style="--d: 0.22s">
+          <span data-dl-meta>Disponible para Android y Windows</span> ·
+          <a href="#descargar">Otras descargas</a>
+        </p>
+
+        <!-- Animated app mockup -->
+        <div class="mock-wrap rv" style="--d: 0.3s">
+          <div class="mock" id="heroMock" aria-hidden="true">
+            <div class="mock-stage">
+              <div class="m-titlebar">
+                <svg class="crown" viewBox="-4 0 136 112"><use href="#crown" /></svg>
+                Anti-Hambreado Team
+                <div class="m-winctl">
+                  <span><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0 5h10" stroke="currentColor" /></svg></span>
+                  <span><svg width="10" height="10" viewBox="0 0 10 10"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor" /></svg></span>
+                  <span><svg width="10" height="10" viewBox="0 0 10 10"><path d="m0 0 10 10M10 0 0 10" stroke="currentColor" /></svg></span>
+                </div>
+              </div>
+              <div class="m-body">
+                <aside class="m-side">
+                  <span class="m-side-btn" data-side="home"><svg class="icon"><use href="#i-home" /></svg></span>
+                  <span class="m-side-btn is-active" data-side="scripts"><svg class="icon"><use href="#i-code" /></svg></span>
+                  <span class="m-side-btn" data-side="exec"><svg class="icon"><use href="#i-bolt" /></svg></span>
+                  <span class="m-side-btn" data-side="bypass"><svg class="icon"><use href="#i-key" /></svg></span>
+                  <span class="m-side-btn" data-side="team"><svg class="icon"><use href="#i-users" /></svg></span>
+                  <span class="m-side-spacer"></span>
+                  <span class="m-avatar">U</span>
+                </aside>
+
+                <section class="m-main">
+                  <div class="m-view is-active" data-view="scripts">
+                    <p class="m-hello">Hola, Usuario</p>
+                    <div class="m-h">Scripts</div>
+                    <div class="m-search">
+                      <svg class="icon"><use href="#i-search" /></svg>
+                      <span class="m-typed"></span><span class="m-caret"></span>
+                      <span class="m-ph">Buscar script o juego</span>
+                      <span class="m-kbd">Ctrl K</span>
+                    </div>
+                    <div class="m-chips">
+                      <span class="m-chip is-on">Todos · 274</span>
+                      <span class="m-chip">Favoritos</span>
+                      <span class="m-chip">Nuevos</span>
+                      <span class="m-chip">A–Z</span>
+                    </div>
+                    <ul class="m-list">
+                      <li class="m-row" data-name="ARSENAL"><span class="m-row-name">ARSENAL</span><span class="m-row-meta">4 scripts</span><span class="m-copy"><svg class="icon"><use href="#i-copy" /></svg>Copiar</span></li>
+                      <li class="m-row" data-name="BEE SWARM SIMULATOR"><span class="m-row-name">BEE SWARM SIMULATOR</span><span class="m-row-meta">2 scripts</span><span class="m-copy"><svg class="icon"><use href="#i-copy" /></svg>Copiar</span></li>
+                      <li class="m-row" data-name="BITE BY NIGHT"><span class="m-row-name">BITE BY NIGHT</span><span class="m-row-meta">1 script</span><span class="m-copy"><svg class="icon"><use href="#i-copy" /></svg>Copiar</span></li>
+                      <li class="m-row" data-name="BLADE BALL"><span class="m-row-name">BLADE BALL</span><span class="m-row-meta">3 scripts</span><span class="m-copy"><svg class="icon"><use href="#i-copy" /></svg>Copiar</span></li>
+                      <li class="m-row" data-name="BLOCK SPIN"><span class="m-row-name">BLOCK SPIN</span><span class="m-row-meta">2 scripts</span><span class="m-copy"><svg class="icon"><use href="#i-copy" /></svg>Copiar</span></li>
+                      <li class="m-row" data-name="99 NOCHES EN EL BOSQUE"><span class="m-row-name">99 NOCHES EN EL BOSQUE</span><span class="m-row-meta">3 scripts</span><span class="m-copy"><svg class="icon"><use href="#i-copy" /></svg>Copiar</span></li>
+                    </ul>
+                  </div>
+
+                  <div class="m-view" data-view="bypass">
+                    <p class="m-hello">Dos rutas, un resultado</p>
+                    <div class="m-h">Bypass</div>
+                    <p class="m-sub">Pega un enlace. Primero probamos trw.lat y, si hace falta, abrimos el respaldo aislado.</p>
+                    <div class="m-input">
+                      <svg class="icon"><use href="#i-link" /></svg>
+                      <span class="m-url"></span>
+                      <span class="m-btn">Resolver enlace</span>
+                    </div>
+                    <span class="m-mode"><i></i>Modo Automático · trw.lat + izen.lol</span>
+                    <div class="m-route">
+                      <span class="m-node" data-node="trw"><span class="dot"></span>trw.lat</span>
+                      <span class="m-link" data-link="1"></span>
+                      <span class="m-node" data-node="izen"><span class="dot"></span>izen.lol · sandbox</span>
+                      <span class="m-link" data-link="2"></span>
+                      <span class="m-node" data-node="done"><span class="dot"></span>Resultado</span>
+                    </div>
+                    <div class="m-result">
+                      <span class="m-result-icon"><svg class="icon"><use href="#i-check" /></svg></span>
+                      <div>
+                        Enlace directo listo
+                        <small>Guardado en tu historial de bypass</small>
+                      </div>
+                      <span class="m-copy is-done"><svg class="icon"><use href="#i-copy" /></svg>Copiar</span>
+                    </div>
+                  </div>
+                </section>
+
+                <aside class="m-zani">
+                  <div class="m-zani-head">
+                    <span class="zani-avatar"><svg class="crown" viewBox="-4 0 136 112"><use href="#crown" /></svg></span>
+                    <div><strong>Zani Queen</strong><span>Tu guía en la app</span></div>
+                  </div>
+                  <p class="m-bubble">Hola, Usuario. Escribe el juego y yo te digo dónde está el script.</p>
+                  <p class="m-act-title">Actividad reciente</p>
+                  <ul class="m-acts">
+                    <li><svg class="icon"><use href="#i-bell" /></svg>ArceusX se actualizó a v2.3.8</li>
+                  </ul>
+                </aside>
+              </div>
+              <div class="m-toast"><svg class="icon"><use href="#i-check" /></svg><span>Script copiado</span></div>
+              <div class="m-cursor">
+                <svg viewBox="0 0 24 24"><path d="M4 2.5v17l4.6-4.4 3 6.6 3-1.3-3-6.5H18L4 2.5Z" fill="#fff" stroke="#000" stroke-width="1.2" stroke-linejoin="round" /></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PLATFORMS ================= -->
+      <section class="section wrap" id="pantallas">
+        <div class="section-head">
+          <h2 class="rv">Una app pensada para cada pantalla</h2>
+          <p class="rv" style="--d: 0.08s">
+            La misma biblioteca de scripts, executores y rutas de bypass. En Android cabe en una mano; en Windows
+            aprovecha el teclado, la barra lateral y el espacio de tu monitor.
+          </p>
+        </div>
+
+        <div class="platforms">
+          <article class="card rv">
+            <div class="card-copy">
+              <span class="plat-tag"><svg class="icon fill" aria-hidden="true"><use href="#i-android" /></svg>Android · v3.0.1</span>
+              <h3>Todo a un toque, en tu bolsillo</h3>
+              <p>Navegación inferior Liquid Glass, Zani Queen en Inicio y executores con versión, estado y arquitectura ARM64 o ARM32.</p>
+              <ul class="plat-list">
+                <li>Negro AMOLED</li>
+                <li>ARM64 y ARM32</li>
+                <li>Desde 320 px hasta tablet</li>
+              </ul>
+            </div>
+            <svg class="scene" viewBox="0 0 480 330" aria-hidden="true">
+              <g transform="translate(150 12) scale(0.82)">
+                <rect x="0" y="0" width="220" height="380" rx="34" fill="#0b0b0b" stroke="rgba(255,255,255,.18)" />
+                <rect x="84" y="12" width="52" height="14" rx="7" fill="#000" />
+                <!-- screen 1: inicio -->
+                <g class="ph-screen sv-anim">
+                  <text x="20" y="62" class="sv-s">LINKS DIRECTOS HOY, MAÑANA Y SIEMPRE</text>
+                  <text x="20" y="92" class="sv-t" style="font-size: 22px">Hola Usuario</text>
+                  <rect x="20" y="110" width="180" height="46" rx="12" class="sv-row" />
+                  <text x="36" y="138" class="sv-t" style="font-size: 13px">Copiado rápido</text>
+                  <rect x="20" y="164" width="180" height="46" rx="12" class="sv-row" />
+                  <text x="36" y="192" class="sv-t" style="font-size: 13px">Bypass dual · 57 rutas</text>
+                  <rect x="20" y="218" width="180" height="46" rx="12" class="sv-row" />
+                  <text x="36" y="246" class="sv-t" style="font-size: 13px">Executores · ARM64</text>
+                </g>
+                <!-- screen 2: scripts -->
+                <g class="ph-screen ph-screen-2 sv-anim">
+                  <text x="20" y="80" class="sv-t" style="font-size: 22px">Scripts</text>
+                  <rect x="20" y="96" width="180" height="34" rx="10" class="sv-field" />
+                  <text x="36" y="118" class="sv-m">Buscar juego…</text>
+                  <text x="20" y="160" class="sv-t" style="font-size: 12.5px">BLADE BALL</text>
+                  <rect x="146" y="146" width="54" height="22" rx="7" class="sv-red" />
+                  <text x="157" y="161" class="sv-t" style="font-size: 11px">Copiar</text>
+                  <text x="20" y="198" class="sv-t" style="font-size: 12.5px">ARSENAL</text>
+                  <rect x="146" y="184" width="54" height="22" rx="7" fill="none" stroke="rgba(255,255,255,.25)" />
+                  <text x="157" y="199" class="sv-t" style="font-size: 11px">Copiar</text>
+                  <text x="20" y="236" class="sv-t" style="font-size: 12.5px">BEE SWARM SIM</text>
+                  <rect x="146" y="222" width="54" height="22" rx="7" fill="none" stroke="rgba(255,255,255,.25)" />
+                  <text x="157" y="237" class="sv-t" style="font-size: 11px">Copiar</text>
+                </g>
+                <!-- screen 3: executores -->
+                <g class="ph-screen ph-screen-3 sv-anim">
+                  <text x="20" y="80" class="sv-t" style="font-size: 22px">Executores</text>
+                  <rect x="20" y="98" width="180" height="58" rx="12" class="sv-row" />
+                  <text x="34" y="122" class="sv-t" style="font-size: 13px">ArceusX</text>
+                  <text x="34" y="142" class="sv-s">v2.3.8 · ARM64</text>
+                  <rect x="124" y="112" width="64" height="20" rx="10" fill="none" stroke="rgba(255,255,255,.5)" />
+                  <text x="131" y="126" class="sv-t" style="font-size: 9.5px">Indetectable</text>
+                  <rect x="20" y="164" width="180" height="58" rx="12" class="sv-row" />
+                  <text x="34" y="188" class="sv-t" style="font-size: 13px">Delta</text>
+                  <text x="34" y="208" class="sv-s">v2.743 · ARM64 · ARM32</text>
+                  <rect x="134" y="178" width="54" height="20" rx="10" class="sv-red" />
+                  <text x="141" y="192" class="sv-t" style="font-size: 9.5px">Peligroso</text>
+                </g>
+                <!-- screen 4: bypass -->
+                <g class="ph-screen ph-screen-4 sv-anim">
+                  <text x="20" y="80" class="sv-t" style="font-size: 22px">Bypass</text>
+                  <rect x="20" y="96" width="180" height="34" rx="10" class="sv-field" />
+                  <text x="34" y="118" class="sv-m" style="font-family: var(--mono); font-size: 10.5px">linkvertise.com/…</text>
+                  <rect x="20" y="140" width="180" height="34" rx="10" fill="#fff" />
+                  <text x="68" y="162" style="font-size: 12.5px; fill: #000; font-weight: 500">Resolver enlace</text>
+                  <circle cx="34" cy="204" r="5" class="sv-red" />
+                  <text x="46" y="208" class="sv-m">Automático · trw.lat + izen.lol</text>
+                </g>
+                <!-- bottom liquid nav -->
+                <rect x="14" y="304" width="192" height="50" rx="25" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)" />
+                <rect class="ph-ind" x="22" y="310" width="44" height="38" rx="19" fill="rgba(255,30,60,.22)" stroke="rgba(255,30,60,.6)" />
+                <g class="sv-stroke" style="stroke-width: 1.6">
+                  <use href="#i-home" x="34" y="319" width="20" height="20" />
+                  <use href="#i-code" x="67" y="319" width="20" height="20" />
+                  <use href="#i-bolt" x="100" y="319" width="20" height="20" />
+                  <use href="#i-key" x="133" y="319" width="20" height="20" />
+                  <use href="#i-users" x="166" y="319" width="20" height="20" />
+                </g>
+              </g>
+            </svg>
+          </article>
+
+          <article class="card rv" style="--d: 0.08s">
+            <div class="card-copy">
+              <span class="plat-tag"><svg class="icon fill" aria-hidden="true"><use href="#i-windows" /></svg>Windows · 1.0.0</span>
+              <h3>Más rápido con teclado y pantalla grande</h3>
+              <p>Barra lateral, buscador global con Ctrl K y una lista de executores para Windows que se actualiza sola.</p>
+              <ul class="plat-list">
+                <li>Windows 10 y 11</li>
+                <li>x64 y ARM64</li>
+                <li>Buscador Ctrl K</li>
+              </ul>
+            </div>
+            <svg class="scene" viewBox="0 0 480 330" aria-hidden="true">
+              <g transform="translate(24 20)">
+                <rect x="0" y="0" width="432" height="270" rx="14" fill="#0b0b0b" stroke="rgba(255,255,255,.18)" />
+                <path d="M0 30h432" stroke="rgba(255,255,255,.08)" />
+                <use href="#crown" x="12" y="9" width="16" height="13" />
+                <text x="34" y="20" class="sv-s">Anti-Hambreado Team</text>
+                <path d="M54 30v240" stroke="rgba(255,255,255,.08)" />
+                <rect x="13" y="46" width="28" height="28" rx="8" fill="rgba(255,30,60,.16)" />
+                <g class="sv-stroke" style="stroke-width: 1.6">
+                  <use href="#i-home" x="19" y="52" width="16" height="16" style="stroke: #ff4d61" />
+                  <use href="#i-code" x="19" y="90" width="16" height="16" />
+                  <use href="#i-bolt" x="19" y="124" width="16" height="16" />
+                  <use href="#i-key" x="19" y="158" width="16" height="16" />
+                  <use href="#i-users" x="19" y="192" width="16" height="16" />
+                </g>
+                <text x="76" y="64" class="sv-t" style="font-size: 20px">Hola, Usuario</text>
+                <text x="76" y="84" class="sv-m">Busca el juego, copia el script y sigue.</text>
+                <rect x="76" y="102" width="104" height="64" rx="10" class="sv-row" />
+                <text x="88" y="140" class="sv-t" style="font-size: 12px">Copiado rápido</text>
+                <rect x="188" y="102" width="104" height="64" rx="10" class="sv-row" />
+                <text x="200" y="140" class="sv-t" style="font-size: 12px">Bypass dual</text>
+                <rect x="300" y="102" width="112" height="64" rx="10" class="sv-row" />
+                <text x="312" y="140" class="sv-t" style="font-size: 12px">Executores</text>
+                <text x="76" y="196" class="sv-t" style="font-size: 13px">Juegos con scripts</text>
+                <text x="76" y="222" class="sv-m">ABYSS · ARSENAL · BLADE BALL · BLOCK SPIN</text>
+
+                <!-- Ctrl K palette -->
+                <rect class="dk-dim" x="1" y="31" width="430" height="238" rx="0" fill="rgba(0,0,0,.6)" />
+                <g class="dk-pal sv-anim">
+                  <rect x="96" y="54" width="260" height="164" rx="14" fill="#141414" stroke="rgba(255,255,255,.18)" />
+                  <use href="#i-search" x="112" y="70" width="16" height="16" class="sv-stroke" />
+                  <text x="136" y="83" class="sv-t dk-typed" style="font-size: 14px">arsenal</text>
+                  <path d="M96 100h260" stroke="rgba(255,255,255,.08)" />
+                  <rect class="dk-sel" x="104" y="110" width="244" height="36" rx="9" fill="rgba(255,30,60,.16)" stroke="rgba(255,30,60,.5)" />
+                  <g class="dk-res sv-anim">
+                    <text x="118" y="133" class="sv-t" style="font-size: 12.5px">ARSENAL</text>
+                    <text x="288" y="133" class="sv-s">4 scripts</text>
+                  </g>
+                  <g class="dk-res dk-res-2 sv-anim">
+                    <text x="118" y="173" class="sv-t" style="font-size: 12.5px; opacity: 0.6">ARISE CROSSOVER</text>
+                    <text x="288" y="173" class="sv-s">Script</text>
+                  </g>
+                  <g class="dk-enter sv-anim">
+                    <rect x="292" y="190" width="52" height="18" rx="5" fill="none" stroke="rgba(255,255,255,.3)" />
+                    <text x="302" y="203" class="sv-s" style="fill: #fff">Enter</text>
+                  </g>
+                </g>
+              </g>
+              <!-- keys -->
+              <g transform="translate(176 296)">
+                <g class="dk-key sv-anim">
+                  <rect x="0" y="0" width="58" height="28" rx="7" fill="#151515" stroke="rgba(255,255,255,.22)" />
+                  <text x="16" y="19" class="sv-t" style="font-size: 12px; font-family: var(--mono)">Ctrl</text>
+                </g>
+                <g class="dk-key dk-key-2 sv-anim">
+                  <rect x="70" y="0" width="58" height="28" rx="7" fill="#151515" stroke="rgba(255,255,255,.22)" />
+                  <text x="95" y="19" class="sv-t" style="font-size: 12px; font-family: var(--mono)">K</text>
+                </g>
+              </g>
+            </svg>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================= FEATURES / BENTO ================= -->
+      <section class="section wrap" id="funciones">
+        <div class="section-head">
+          <h2 class="rv">Todo lo que buscas, sin rodeos</h2>
+          <p class="rv" style="--d: 0.08s">
+            Si el enlace trae acortador, pásalo por Bypass. Si necesitas un executor, revisa primero su estado. Y si te
+            pierdes, Zani Queen te explica cada sección.
+          </p>
+        </div>
+
+        <div class="bento">
+          <!-- Copy -->
+          <article class="card rv">
+            <div class="card-copy">
+              <h3>Copia el script en segundos</h3>
+              <p>274 scripts para 104 juegos. Escribe el nombre, toca Copiar y pégalo en tu executor. Si es un archivo, usa Abrir.</p>
+            </div>
+            <svg class="scene" viewBox="0 0 480 320" aria-hidden="true">
+              <rect x="24" y="24" width="432" height="48" rx="14" class="sv-field" />
+              <use href="#i-search" x="42" y="38" width="20" height="20" class="sv-stroke" />
+              <text x="76" y="54" class="sv-t ca-typed" style="letter-spacing: 0.02em">BLADE</text>
+              <rect class="ca-caret" x="77" y="37" width="2" height="22" fill="#dc0f2b" />
+
+              <g class="ca-fade">
+                <rect x="24" y="88" width="432" height="48" rx="12" class="sv-row" />
+                <text x="44" y="117" class="sv-t" style="font-size: 13.5px">BEE SWARM SIMULATOR</text>
+                <text x="384" y="117" class="sv-s">2 scripts</text>
+              </g>
+              <g class="ca-fade">
+                <rect x="24" y="144" width="432" height="48" rx="12" class="sv-row" />
+                <text x="44" y="173" class="sv-t" style="font-size: 13.5px">BITE BY NIGHT</text>
+                <text x="390" y="173" class="sv-s">1 script</text>
+              </g>
+              <g class="ca-hit">
+                <rect x="24" y="200" width="432" height="48" rx="12" class="sv-row ca-hit-bg" />
+                <text x="44" y="229" class="sv-t" style="font-size: 13.5px">BLADE BALL</text>
+                <text x="290" y="229" class="sv-s">3 scripts</text>
+                <rect x="368" y="209" width="78" height="30" rx="9" class="ca-btn" />
+                <text x="385" y="229" class="sv-t ca-l1" style="font-size: 12.5px">Copiar</text>
+                <text x="380" y="229" class="sv-t ca-l2" style="font-size: 12.5px">Copiado</text>
+              </g>
+              <g class="ca-fade">
+                <rect x="24" y="256" width="432" height="48" rx="12" class="sv-row" />
+                <text x="44" y="285" class="sv-t" style="font-size: 13.5px">BLOCK SPIN</text>
+                <text x="384" y="285" class="sv-s">2 scripts</text>
+              </g>
+
+              <g class="ca-toast">
+                <rect x="150" y="250" width="180" height="40" rx="20" fill="#fff" />
+                <use href="#i-check" x="168" y="260" width="20" height="20" style="fill: none; stroke: #ff1e3c; stroke-width: 2.4; stroke-linecap: round" />
+                <text x="196" y="275" style="font-size: 13.5px; font-weight: 500; fill: #000">Script copiado</text>
+              </g>
+
+              <g class="ca-cursor">
+                <path d="M0 0v17l4.6-4.4 3 6.6 3-1.3-3-6.5H14L0 0Z" fill="#fff" stroke="#000" stroke-width="1.2" stroke-linejoin="round" />
+              </g>
+            </svg>
+          </article>
+
+          <!-- Bypass -->
+          <article class="card rv" style="--d: 0.08s">
+            <div class="card-copy">
+              <h3>Bypass con respaldo automático</h3>
+              <p>57 rutas compatibles y dos motores. Si trw.lat no responde, Automático abre izen.lol en una sandbox aislada.</p>
+            </div>
+            <svg class="scene" viewBox="0 0 480 320" aria-hidden="true">
+              <g class="bp-all">
+                <rect x="24" y="16" width="168" height="30" rx="15" fill="none" stroke="rgba(255,255,255,.14)" />
+                <circle cx="42" cy="31" r="4" class="sv-red" />
+                <text x="54" y="35" class="sv-m">Modo Automático</text>
+
+                <path class="bp-base" d="M130 170 C164 170 160 96 196 96" />
+                <path class="bp-base" d="M300 96 C336 96 330 170 362 170" />
+                <path class="bp-base" d="M130 170 C164 170 160 244 196 244" />
+                <path class="bp-base" d="M300 244 C336 244 330 170 362 170" />
+
+                <path class="bp-path bp-p1" pathLength="1" d="M130 170 C164 170 160 96 196 96" />
+                <path class="bp-path bp-p2" pathLength="1" d="M300 96 C336 96 330 170 362 170" />
+                <path class="bp-path bp-p3" pathLength="1" d="M130 170 C164 170 160 244 196 244" />
+                <path class="bp-path bp-p4" pathLength="1" d="M300 244 C336 244 330 170 362 170" />
+
+                <rect x="20" y="148" width="110" height="44" rx="22" fill="#fff" />
+                <use href="#i-link" x="36" y="160" width="20" height="20" style="fill: none; stroke: #000; stroke-width: 2; stroke-linecap: round" />
+                <text x="62" y="175" style="font-size: 14px; font-weight: 500; fill: #000">Enlace</text>
+
+                <rect x="196" y="74" width="104" height="44" rx="14" fill="#0d0d0d" class="bp-trw" stroke-width="1.5" />
+                <text x="224" y="101" class="sv-t" style="font-size: 14px">trw.lat</text>
+                <g transform="translate(286 82)">
+                  <circle class="bp-spin sv-anim" cx="0" cy="0" r="6" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="22 40" />
+                </g>
+
+                <g transform="translate(331 129)">
+                  <g class="bp-x sv-anim">
+                    <circle r="11" fill="#1c1c1c" stroke="rgba(255,255,255,.3)" />
+                    <path d="M-4 -4 4 4M4 -4 -4 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" />
+                  </g>
+                </g>
+
+                <rect x="196" y="222" width="104" height="44" rx="14" class="bp-izen" stroke-width="1.5" />
+                <text x="220" y="249" class="sv-t" style="font-size: 14px">izen.lol</text>
+                <g class="bp-sand">
+                  <text x="202" y="290" class="sv-s">Sandbox aislada</text>
+                </g>
+
+                <rect x="362" y="148" width="98" height="44" rx="22" class="bp-res" stroke-width="1.5" />
+                <text x="384" y="175" class="sv-t" style="font-size: 14px">Listo</text>
+                <g class="bp-check sv-anim">
+                  <circle cx="440" cy="170" r="9" fill="#fff" />
+                  <path d="m435.5 170.5 3 3 6-6" fill="none" stroke="#ff1e3c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+              </g>
+            </svg>
+          </article>
+
+          <!-- Executors -->
+          <article class="card rv">
+            <div class="card-copy">
+              <h3>Executores con estado real</h3>
+              <p>Versión, fecha y estado de cada executor. Si uno es peligroso o está descontinuado, lo ves antes de salir de la app.</p>
+            </div>
+            <svg class="scene" viewBox="0 0 480 320" aria-hidden="true">
+              <rect x="24" y="16" width="432" height="38" rx="19" fill="none" stroke="rgba(255,255,255,.1)" />
+              <rect x="30" y="21" width="90" height="28" rx="14" fill="#fff" />
+              <text x="52" y="40" style="font-size: 12.5px; font-weight: 500; fill: #000">Todos · 5</text>
+              <text x="140" y="40" class="sv-m">Actualizados · 1</text>
+              <text x="262" y="40" class="sv-m">Peligrosos · 2</text>
+              <text x="372" y="40" class="sv-m">Favoritos</text>
+
+              <rect class="ex-scan" x="20" y="68" width="440" height="54" rx="14" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)" />
+
+              <text x="40" y="91" class="sv-t">ArceusX</text>
+              <text x="40" y="110" class="sv-s">v2.3.8 · 29-10-2026 · ARM64</text>
+              <rect x="356" y="82" width="88" height="24" rx="12" fill="none" stroke="rgba(255,255,255,.5)" />
+              <text x="370" y="98" class="sv-t" style="font-size: 11.5px">Indetectable</text>
+
+              <text x="40" y="149" class="sv-t">Delta</text>
+              <text x="40" y="168" class="sv-s">v2.743 · 20-10-2026 · ARM64 · ARM32</text>
+              <rect x="366" y="140" width="78" height="24" rx="12" class="sv-red" />
+              <text x="380" y="156" class="sv-t" style="font-size: 11.5px">Peligroso</text>
+
+              <text x="40" y="207" class="sv-t">Trigon</text>
+              <text x="40" y="226" class="sv-s">v2.730 · 27-07-2026 · ARM64</text>
+              <rect x="338" y="198" width="106" height="24" rx="12" fill="rgba(255,255,255,.08)" />
+              <text x="350" y="214" class="sv-m" style="font-size: 11.5px">Desactualizado</text>
+
+              <text x="40" y="265" class="sv-t">VegaX</text>
+              <text x="40" y="284" class="sv-s">v2.734 · 22-08-2026 · ARM64</text>
+              <rect x="338" y="256" width="106" height="24" rx="12" fill="rgba(255,255,255,.08)" />
+              <text x="350" y="272" class="sv-m" style="font-size: 11.5px">Desactualizado</text>
+
+              <rect class="ex-dim" x="0" y="0" width="480" height="320" fill="rgba(0,0,0,.62)" />
+              <g class="ex-sheet">
+                <rect x="40" y="150" width="400" height="170" rx="20" fill="#151515" stroke="rgba(255,255,255,.16)" />
+                <rect x="216" y="160" width="48" height="4" rx="2" fill="rgba(255,255,255,.25)" />
+                <circle cx="80" cy="200" r="18" fill="rgba(255,30,60,.16)" />
+                <use href="#i-shield" x="69" y="189" width="22" height="22" style="fill: none; stroke: #ff4d61; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round" />
+                <text x="110" y="196" class="sv-t" style="font-size: 16px">Alerta de seguridad</text>
+                <text x="110" y="216" class="sv-m">Delta está marcado como peligroso.</text>
+                <text x="110" y="234" class="sv-m">Revisa el riesgo antes de continuar.</text>
+                <rect x="64" y="256" width="170" height="40" rx="12" fill="#fff" />
+                <text x="122" y="281" style="font-size: 13.5px; font-weight: 500; fill: #000">Cancelar</text>
+                <rect x="246" y="256" width="170" height="40" rx="12" class="ex-pill" stroke="rgba(255,255,255,.2)" />
+                <text x="298" y="281" class="sv-t" style="font-size: 13.5px">Continuar</text>
+              </g>
+            </svg>
+          </article>
+
+          <!-- Zani -->
+          <article class="card rv" style="--d: 0.08s">
+            <div class="card-copy">
+              <h3>Zani Queen te acompaña</h3>
+              <p>La guía interactiva recorre cada sección con ejemplos reales. Te saluda por tu nombre y suelta consejos mientras usas la app.</p>
+              <p class="zani-note">
+                ¿Quieres platicar con <strong>Zani AI</strong>? Por ahora solo está en
+                <a href="https://antihambreadoscriptteam.github.io/" target="_blank" rel="noreferrer">nuestra web</a>
+                o etiquetando a <strong>@zaniqueen</strong> en Discord. Aún no está disponible en la app de Android ni de Windows.
+              </p>
+            </div>
+            <div class="chat scene" aria-hidden="true">
+              <div class="chat-row chat-c1">
+                <span class="zani-avatar"><svg class="crown" viewBox="-4 0 136 112"><use href="#crown" /></svg></span>
+                <p class="chat-b"><b>Zani Queen</b>Hola, voy a acompañarte por la app. ¿Cómo quieres que te llame?</p>
+              </div>
+              <div class="chat-row me chat-c2"><p class="chat-b">Usuario</p></div>
+              <div class="chat-row chat-c3">
+                <span class="zani-avatar"><svg class="crown" viewBox="-4 0 136 112"><use href="#crown" /></svg></span>
+                <p class="chat-b chat-typing"><i></i><i></i><i></i></p>
+              </div>
+              <div class="chat-row chat-c4">
+                <span class="zani-avatar"><svg class="crown" viewBox="-4 0 136 112"><use href="#crown" /></svg></span>
+                <p class="chat-b"><b>Zani Queen</b>Listo, Usuario. Aquí no vendemos humo: busca el juego, copia el script y sigue.</p>
+              </div>
+              <div class="chat-row chat-c5">
+                <span class="zani-avatar"><svg class="crown" viewBox="-4 0 136 112"><use href="#crown" /></svg></span>
+                <p class="chat-b"><b>Consejo</b>¿El enlace trae acortador? Pégalo en Bypass y yo elijo la ruta.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Notifications (wide) -->
+          <article class="card wide rv">
+            <div class="card-copy">
+              <h3>Te avisa cuando algo cambia</h3>
+              <p>La campana marca con un punto rojo cada executor actualizado y cada versión nueva de la app, y lo quita cuando ya lo leíste.</p>
+            </div>
+            <svg class="scene" viewBox="0 0 560 260" aria-hidden="true">
+              <g transform="translate(40 92)">
+                <circle cx="38" cy="38" r="38" fill="#121212" stroke="rgba(255,255,255,.12)" />
+                <g class="nt-bell">
+                  <use href="#i-bell" x="16" y="16" width="44" height="44" style="fill: none; stroke: #fff; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round" />
+                </g>
+                <circle class="nt-dot sv-anim" cx="58" cy="18" r="7" fill="#dc0f2b" stroke="#000" stroke-width="3" />
+              </g>
+              <g class="nt-n sv-anim">
+                <rect x="160" y="28" width="370" height="58" rx="16" fill="#121212" stroke="rgba(255,255,255,.12)" />
+                <use href="#i-bolt" x="180" y="46" width="22" height="22" style="fill: none; stroke: #ff4d61; stroke-width: 1.8; stroke-linejoin: round" />
+                <text x="216" y="54" class="sv-t" style="font-size: 14px">ArceusX se actualizó</text>
+                <text x="216" y="73" class="sv-s">v2.3.8 · Indetectable · ARM64</text>
+                <text x="482" y="54" class="sv-s">ahora</text>
+              </g>
+              <g class="nt-n nt-n2 sv-anim">
+                <rect x="160" y="100" width="370" height="58" rx="16" fill="#121212" stroke="rgba(255,255,255,.12)" />
+                <use href="#i-down" x="180" y="118" width="22" height="22" style="fill: none; stroke: #ff4d61; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round" />
+                <text x="216" y="126" class="sv-t" style="font-size: 14px">Nueva versión de la app</text>
+                <text x="216" y="145" class="sv-s">Descárgala desde el enlace oficial</text>
+                <text x="470" y="126" class="sv-s">hace 2 h</text>
+              </g>
+              <g class="nt-n nt-n3 sv-anim">
+                <rect x="160" y="172" width="370" height="58" rx="16" fill="#121212" stroke="rgba(255,255,255,.12)" />
+                <use href="#i-code" x="180" y="190" width="22" height="22" style="fill: none; stroke: #ff4d61; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round" />
+                <text x="216" y="198" class="sv-t" style="font-size: 14px">16 scripts nuevos en la biblioteca</text>
+                <text x="216" y="217" class="sv-s">Tus favoritos se quedan como estaban</text>
+                <text x="482" y="198" class="sv-s">ayer</text>
+              </g>
+            </svg>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================= USE CASES ================= -->
+      <section class="section wrap" id="casos">
+        <div class="section-head">
+          <h2 class="rv">Un caso para cada momento</h2>
+          <p class="rv" style="--d: 0.08s">
+            Lo que la comunidad resuelve todos los días con Anti-Hambreado, paso a paso, en Android y en Windows.
+          </p>
+        </div>
+
+        <div class="cases rv" style="--d: 0.1s">
+          <ul class="case-tabs" role="tablist" aria-label="Casos de uso" id="caseTabs"></ul>
+          <div class="case-panel" role="tabpanel" id="casePanel" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- ================= MANIFESTO ================= -->
+      <section class="section wrap">
+        <div class="manifesto">
+          <p class="manifesto-text" id="manifesto">
+            Nada de laberintos de acortadores, ventanas emergentes ni descargas sospechosas. Buscas el juego, copias el
+            script y sigues. Un proyecto *sin *fines *de *lucro, *sin *anuncios y con *enlaces *directos.
+          </p>
+          <div class="manifesto-sign rv">
+            <span class="zani-avatar"><svg class="crown" viewBox="-4 0 136 112"><use href="#crown" /></svg></span>
+            <div>
+              <strong>Anti-Hambreado Script Team</strong>
+              Defendiendo a la comunidad desde el 16 de marzo de 2025
+            </div>
+          </div>
+          <div class="facts rv">
+            <span><b>274</b> scripts</span>
+            <span><b>104</b> juegos</span>
+            <span><b>57</b> rutas de bypass</span>
+            <span><b>0</b> anuncios</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= DOWNLOADS ================= -->
+      <section class="section wrap" id="descargar">
+        <div class="section-head">
+          <h2 class="rv">Descarga Anti-Hambreado</h2>
+          <p class="rv" style="--d: 0.08s">En tu escritorio y en tu bolsillo. Elige la versión de tu equipo.</p>
+        </div>
+
+        <div class="downloads">
+          <a
+            class="dl rv"
+            data-key="winx64"
+            href="https://www.mediafire.com/file/jwhnnufkns61iuu/AHST-Setup-1.0.0-x64.exe/file"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span class="dl-rec">Recomendado para ti</span>
+            <span class="dl-icon"><svg class="icon fill" aria-hidden="true"><use href="#i-windows" /></svg></span>
+            <h3>Windows x64</h3>
+            <p>Para la mayoría de las PC con Intel o AMD. Windows 10 y 11.</p>
+            <span class="dl-meta">AHST-Setup-1.0.0-x64.exe</span>
+            <span class="dl-go">Descargar <svg class="icon" aria-hidden="true"><use href="#i-down" /></svg></span>
+          </a>
+          <a
+            class="dl rv"
+            style="--d: 0.06s"
+            data-key="winarm"
+            href="https://www.mediafire.com/file/ag5q1plpnzve659/AHST-Setup-1.0.0-arm64.exe/file"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span class="dl-rec">Recomendado para ti</span>
+            <span class="dl-icon"><svg class="icon" aria-hidden="true"><use href="#i-cpu" /></svg></span>
+            <h3>Windows ARM64</h3>
+            <p>Para laptops con Snapdragon u otro procesador ARM. Windows 11.</p>
+            <span class="dl-meta">AHST-Setup-1.0.0-arm64.exe</span>
+            <span class="dl-go">Descargar <svg class="icon" aria-hidden="true"><use href="#i-down" /></svg></span>
+          </a>
+          <a
+            class="dl rv"
+            style="--d: 0.12s"
+            data-key="android"
+            href="https://www.mediafire.com/file/6qmqrm37caarsja/Anti-Hambreado+App+3.0.1.apk/file"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span class="dl-rec">Recomendado para ti</span>
+            <span class="dl-icon"><svg class="icon fill" aria-hidden="true"><use href="#i-android" /></svg></span>
+            <h3>Android</h3>
+            <p>APK oficial para teléfonos y tablets Android.</p>
+            <span class="dl-meta">Anti-Hambreado App 3.0.1.apk</span>
+            <span class="dl-go">Descargar APK <svg class="icon" aria-hidden="true"><use href="#i-down" /></svg></span>
+          </a>
+        </div>
+        <p class="dl-help rv">
+          ¿No sabes si tu PC es x64 o ARM64? Ve a Configuración › Sistema › Información y revisa «Tipo de sistema».
+        </p>
+      </section>
+
+      <!-- ================= FAQ ================= -->
+      <section class="section wrap" id="faq">
+        <div class="faq">
+          <div class="section-head">
+            <h2 class="rv">Preguntas frecuentes</h2>
+            <p class="rv" style="--d: 0.08s">Respuestas directas sobre la instalación, las advertencias de seguridad y tus datos.</p>
+          </div>
+          <div class="faq-list rv" style="--d: 0.1s">
+            <details class="faq-item" name="faq" open>
+              <summary>¿Qué versión de Windows descargo?<span class="pm" aria-hidden="true"></span></summary>
+              <div class="faq-answer">
+                <p>
+                  <strong>x64</strong> es la correcta para casi todas las PC con procesador Intel o AMD.
+                  <strong>ARM64</strong> es para equipos con Snapdragon u otro procesador ARM. Esta página intenta
+                  detectarlo y te marca la recomendada, pero puedes confirmarlo en Configuración › Sistema ›
+                  Información.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item" name="faq">
+              <summary>¿Por qué Windows muestra «Windows protegió tu PC»?<span class="pm" aria-hidden="true"></span></summary>
+              <div class="faq-answer">
+                <p>
+                  SmartScreen suele avisar con instaladores nuevos que todavía no tienen reputación. El aviso por sí
+                  solo no demuestra que haya un virus, pero tampoco que el archivo sea seguro.
+                </p>
+                <p>
+                  <strong>Descarga el instalador solo desde los botones de esta página</strong> y verifica que el
+                  archivo se llame AHST-Setup-1.0.0. Si viene de otro sitio o tiene otro nombre, no lo ejecutes.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item" name="faq">
+              <summary>¿Por qué Play Protect muestra una advertencia en Android?<span class="pm" aria-hidden="true"></span></summary>
+              <div class="faq-answer">
+                <p>
+                  Anti-Hambreado se instala como APK fuera de Google Play, y Play Protect también revisa apps de otras
+                  fuentes. Puede pedirte analizar una versión nueva que aún no reconoce.
+                </p>
+                <p>
+                  <strong>No necesitas desactivar Play Protect.</strong> Deja que termine el análisis. Si lo bloquea,
+                  no fuerces la instalación: consulta la
+                  <a href="https://support.google.com/googleplay/answer/2812853?hl=es-419" target="_blank" rel="noreferrer">guía oficial de Google Play Protect</a>
+                  o los canales oficiales del Team.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item" name="faq">
+              <summary>¿Mis favoritos pasan del teléfono a la PC?<span class="pm" aria-hidden="true"></span></summary>
+              <div class="faq-answer">
+                <p>
+                  No. Tu nombre, favoritos e historial se guardan solo en el dispositivo donde los creaste. Si limpias
+                  los datos de la app, esa información puede borrarse.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item" name="faq">
+              <summary>¿Cómo sabré que hay una actualización?<span class="pm" aria-hidden="true"></span></summary>
+              <div class="faq-answer">
+                <p>
+                  La campana muestra un punto rojo cuando se actualiza un executor o sale una versión nueva de la app.
+                  Descarga siempre desde esta página para no mezclar versiones.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item" name="faq">
+              <summary>¿Puedo platicar con Zani AI desde la app?<span class="pm" aria-hidden="true"></span></summary>
+              <div class="faq-answer">
+                <p>
+                  Todavía no. En la app de Android y de Windows, Zani Queen es una guía con diálogos y consejos.
+                  <strong>Zani AI</strong>, la versión con la que puedes platicar, por ahora solo está disponible en
+                  <a href="https://antihambreadoscriptteam.github.io/" target="_blank" rel="noreferrer">nuestra web</a>
+                  o etiquetando a <strong>@zaniqueen</strong> en Discord.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item" name="faq">
+              <summary>¿Funciona en iPhone o Mac?<span class="pm" aria-hidden="true"></span></summary>
+              <div class="faq-answer">
+                <p>
+                  Por ahora solo hay versiones para Android y Windows. Delta iOS aparece como una entrada dentro de la
+                  biblioteca de executores, pero no convierte la app en algo instalable en iPhone, iPad o Mac.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item" name="faq">
+              <summary>¿Tiene anuncios o cuesta algo?<span class="pm" aria-hidden="true"></span></summary>
+              <div class="faq-answer">
+                <p>
+                  No. Es un proyecto sin fines de lucro y sin monetización: no vas a ver anuncios ni acortadores
+                  obligatorios dentro de la app.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CLOSING ================= -->
+      <section class="closing wrap">
+        <svg class="crown crown-live rv" viewBox="-4 0 136 112" aria-hidden="true">
+          <path d="M18 84 L10 34 L40 58 L64 22 L88 58 L118 34 L110 84 Z" fill="url(#crown-grad)" stroke="url(#crown-grad)" stroke-width="8" stroke-linejoin="round" />
+          <rect x="14" y="82" width="100" height="16" rx="5" fill="#ff2a46" />
+          <path d="M24 78 L19 46 L41 64 L64 34 L87 64 L109 46 L104 78" fill="none" stroke="#fff" stroke-opacity="0.22" stroke-width="2.5" stroke-linejoin="round" />
+          <path class="crown-gem" d="M64 81 L71 90 L64 99 L57 90 Z" fill="#8c0016" />
+          <g clip-path="url(#crown-clip)"><rect class="crown-glint" x="0" y="0" width="26" height="112" fill="url(#crown-glint)" /></g>
+          <path class="crown-star" d="M10 20 Q11.8 28.2 20 30 Q11.8 31.8 10 40 Q8.2 31.8 0 30 Q8.2 28.2 10 20Z" />
+          <path class="crown-star" d="M64 6 Q66.2 15.8 76 18 Q66.2 20.2 64 30 Q61.8 20.2 52 18 Q61.8 15.8 64 6Z" />
+          <path class="crown-star" d="M118 20 Q119.8 28.2 128 30 Q119.8 31.8 118 40 Q116.2 31.8 108 30 Q116.2 28.2 118 20Z" />
+        </svg>
+        <h2 class="rv" style="--d: 0.06s">Links directos hoy, mañana y siempre.</h2>
+        <p class="rv" style="--d: 0.1s">Descarga la versión oficial y olvídate de los acortadores.</p>
+        <div class="hero-actions rv" style="--d: 0.14s">
+          <a class="btn btn-primary" href="#descargar" data-dl>
+            <svg class="icon fill" aria-hidden="true" data-dl-icon><use href="#i-down" /></svg>
+            <span data-dl-label>Descargar</span>
+          </a>
+          <a class="btn btn-ghost" href="#descargar">Todas las descargas</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap footer">
+      <span>© 2026 Anti-Hambreado Script Team</span>
+      <nav aria-label="Pie de página">
+        <a href="#casos">Casos de uso</a>
+        <a href="#descargar">Descargar</a>
+        <a href="#faq">Preguntas</a>
+        <a href="https://antihambreadoscriptteam.github.io/" target="_blank" rel="noreferrer">Web principal ↗</a>
+      </nav>
+    </footer>
+
+    <script>
+      (() => {
+        const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const $ = (s, r = document) => r.querySelector(s);
+        const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+        /* ---------- Device-aware download ---------- */
+        const DL = {
+          android: {
+            href: "https://www.mediafire.com/file/6qmqrm37caarsja/Anti-Hambreado+App+3.0.1.apk/file",
+            label: "Descargar para Android",
+            short: "Descargar APK",
+            icon: "#i-android",
+            meta: "APK oficial · versión 3.0.1",
+          },
+          winx64: {
+            href: "https://www.mediafire.com/file/jwhnnufkns61iuu/AHST-Setup-1.0.0-x64.exe/file",
+            label: "Descargar para Windows",
+            short: "Descargar",
+            icon: "#i-windows",
+            meta: "Windows 10 y 11 · x64 · versión 1.0.0",
+          },
+          winarm: {
+            href: "https://www.mediafire.com/file/ag5q1plpnzve659/AHST-Setup-1.0.0-arm64.exe/file",
+            label: "Descargar para Windows",
+            short: "Descargar",
+            icon: "#i-windows",
+            meta: "Windows 11 · ARM64 · versión 1.0.0",
+          },
+        };
+
+        const detect = async () => {
+          const ua = navigator.userAgent;
+          const uad = navigator.userAgentData;
+          const platform = (uad && uad.platform) || navigator.platform || "";
+          if (/Android/i.test(ua) || /Android/i.test(platform)) return "android";
+          if (/Windows/i.test(ua) || /^Win/i.test(platform)) {
+            try {
+              if (uad && uad.getHighEntropyValues) {
+                const v = await uad.getHighEntropyValues(["architecture"]);
+                if (v.architecture === "arm") return "winarm";
+              }
+            } catch (e) {}
+            if (/ARM64|aarch64/i.test(ua)) return "winarm";
+            return "winx64";
+          }
+          return null;
+        };
+
+        detect().then((key) => {
+          const d = key && DL[key];
+          if (!d) {
+            $$("[data-dl-label]").forEach((el) => (el.textContent = "Ver descargas"));
+            return;
+          }
+          $$("[data-dl]").forEach((a) => {
+            a.href = d.href;
+            a.target = "_blank";
+            a.rel = "noreferrer";
+            const label = $("[data-dl-label]", a);
+            if (label) label.textContent = a.hasAttribute("data-dl-short") ? d.short : d.label;
+            const icon = $("[data-dl-icon]", a);
+            if (icon) {
+              icon.innerHTML = `<use href="${d.icon}" />`;
+              icon.classList.add("fill");
+            }
+          });
+          $$("[data-dl-meta]").forEach((el) => (el.textContent = d.meta));
+          const rec = $(`.dl[data-key="${key}"]`);
+          if (rec) {
+            rec.classList.add("is-rec");
+            rec.parentElement.prepend(rec);
+          }
+        });
+
+        /* ---------- Header ---------- */
+        const header = $("#header");
+        const onScroll = () => header.classList.toggle("is-scrolled", scrollY > 40);
+        addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+
+        /* ---------- Reveal + scene playback ---------- */
+        const revealIO = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("in");
+                revealIO.unobserve(e.target);
+              }
+            });
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+        );
+        $$(".rv").forEach((el) => revealIO.observe(el));
+
+        const sceneIO = new IntersectionObserver(
+          (entries) => entries.forEach((e) => e.target.classList.toggle("playing", e.isIntersecting)),
+          { threshold: 0.15 }
+        );
+        $$(".scene").forEach((el) => sceneIO.observe(el));
+
+        /* ---------- Hero mockup ---------- */
+        const mock = $("#heroMock");
+        const stage = $(".mock-stage", mock);
+        let scale = 1;
+        const fit = () => {
+          const w = mock.clientWidth;
+          const compact = w < 760;
+          stage.classList.toggle("is-compact", compact);
+          const bw = compact ? 680 : 1120;
+          const bh = compact ? 600 : 660;
+          scale = w / bw;
+          stage.style.width = bw + "px";
+          stage.style.height = bh + "px";
+          stage.style.transform = `scale(${scale})`;
+          mock.style.height = bh * scale + "px";
+        };
+        new ResizeObserver(fit).observe(mock);
+        fit();
+
+        const typed = $(".m-typed", stage);
+        const ph = $(".m-ph", stage);
+        const search = $(".m-search", stage);
+        const rows = $$(".m-row", stage);
+        const bubble = $(".m-bubble", stage);
+        const acts = $(".m-acts", stage);
+        const toastEl = $(".m-toast", stage);
+        const cursor = $(".m-cursor", stage);
+        const url = $(".m-url", stage);
+        const result = $(".m-result", stage);
+
+        let visible = false;
+        let waiters = [];
+        new IntersectionObserver(([e]) => {
+          visible = e.isIntersecting;
+          if (visible) {
+            waiters.forEach((r) => r());
+            waiters = [];
+          }
+        }).observe(mock);
+        const sleep = (ms) =>
+          new Promise((r) => setTimeout(r, ms)).then(() =>
+            visible ? null : new Promise((r) => waiters.push(r))
+          );
+
+        const showView = (name) =>
+          $$(".m-view", stage).forEach((v) => v.classList.toggle("is-active", v.dataset.view === name));
+        const setSide = (name) =>
+          $$(".m-side-btn", stage).forEach((b) => b.classList.toggle("is-active", b.dataset.side === name));
+        const filter = (q) => {
+          const Q = q.toUpperCase();
+          rows.forEach((r) => r.classList.toggle("is-out", Q && !r.dataset.name.startsWith(Q)));
+          ph.style.display = q ? "none" : "";
+        };
+        const zani = async (text) => {
+          bubble.classList.add("is-swap");
+          await sleep(300);
+          bubble.textContent = text;
+          bubble.classList.remove("is-swap");
+        };
+        const addAct = (icon, text) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<svg class="icon"><use href="${icon}" /></svg>${text}`;
+          acts.prepend(li);
+          while (acts.children.length > 4) acts.lastElementChild.remove();
+        };
+        const moveCursor = async (el, dx = 0.6, dy = 0.6) => {
+          const s = stage.getBoundingClientRect();
+          const r = el.getBoundingClientRect();
+          const x = (r.left - s.left + r.width * dx) / scale;
+          const y = (r.top - s.top + r.height * dy) / scale;
+          cursor.style.transform = `translate(${x}px, ${y}px)`;
+          await sleep(950);
+        };
+        const click = async (el) => {
+          cursor.classList.remove("is-click");
+          void cursor.offsetWidth;
+          cursor.classList.add("is-click");
+          if (el) {
+            el.classList.add("is-press");
+            await sleep(160);
+            el.classList.remove("is-press");
+          }
+        };
+        const toast = (text) => {
+          $("span", toastEl).textContent = text;
+          toastEl.classList.add("is-on");
+        };
+        const sideBtn = (n) => $(`.m-side-btn[data-side="${n}"]`, stage);
+
+        const resetScripts = () => {
+          typed.textContent = "";
+          filter("");
+          rows.forEach((r) => r.classList.remove("is-hot"));
+          $$(".m-view[data-view=scripts] .m-copy", stage).forEach((b) => {
+            b.classList.remove("is-done");
+            b.lastChild.textContent = "Copiar";
+          });
+        };
+
+        const sceneScripts = async () => {
+          resetScripts();
+          showView("scripts");
+          setSide("scripts");
+          await zani("Hola, Usuario. Escribe el juego y yo te digo dónde está el script.");
+          await moveCursor(search, 0.3, 0.5);
+          await click();
+          search.classList.add("is-focus");
+          await sleep(300);
+          for (const ch of "blade") {
+            typed.textContent += ch;
+            filter(typed.textContent);
+            await sleep(170);
+          }
+          await sleep(500);
+          const row = rows.find((r) => r.dataset.name === "BLADE BALL");
+          row.classList.add("is-hot");
+          const btn = $(".m-copy", row);
+          await moveCursor(btn, 0.5, 0.55);
+          await click(btn);
+          btn.classList.add("is-done");
+          btn.lastChild.textContent = "Copiado";
+          toast("Script de BLADE BALL copiado");
+          addAct("#i-copy", "Copiaste BLADE BALL");
+          await zani("Listo, ya está en tu portapapeles. Pégalo en tu executor.");
+          await sleep(2600);
+          toastEl.classList.remove("is-on");
+          search.classList.remove("is-focus");
+        };
+
+        const sceneBypass = async () => {
+          const nodes = $$(".m-node", stage);
+          const links = $$(".m-link", stage);
+          nodes.forEach((n) => n.classList.remove("is-run", "is-fail", "is-ok"));
+          links.forEach((l) => l.classList.remove("is-on"));
+          result.classList.remove("is-on");
+          url.textContent = "";
+          await moveCursor(sideBtn("bypass"), 0.5, 0.5);
+          await click(sideBtn("bypass"));
+          setSide("bypass");
+          showView("bypass");
+          await zani("¿El enlace trae acortador? Pégalo aquí y yo elijo la ruta.");
+          await sleep(500);
+          const link = "https://linkvertise.com/58213/blade-ball-script";
+          for (let i = 0; i < link.length; i += 3) {
+            url.textContent = link.slice(0, i + 3);
+            await sleep(40);
+          }
+          await sleep(300);
+          const go = $(".m-btn", stage);
+          await moveCursor(go, 0.5, 0.55);
+          await click(go);
+          const [trw, izen, done] = nodes;
+          trw.classList.add("is-run");
+          await sleep(1500);
+          trw.classList.replace("is-run", "is-fail");
+          links[0].classList.add("is-on");
+          await zani("trw.lat no respondió. Abro el respaldo aislado.");
+          izen.classList.add("is-run");
+          await sleep(1500);
+          izen.classList.replace("is-run", "is-ok");
+          links[1].classList.add("is-on");
+          done.classList.add("is-ok");
+          result.classList.add("is-on");
+          addAct("#i-key", "Bypass resuelto con izen.lol");
+          await zani("Listo. El enlace directo quedó en tu historial.");
+          await sleep(2800);
+          await moveCursor(sideBtn("scripts"), 0.5, 0.5);
+          await click(sideBtn("scripts"));
+        };
+
+        if (reduce) {
+          typed.textContent = "blade";
+          filter("blade");
+          rows.find((r) => r.dataset.name === "BLADE BALL").classList.add("is-hot");
+          cursor.style.display = "none";
+        } else {
+          (async () => {
+            await sleep(1200);
+            for (;;) {
+              await sceneScripts();
+              await sceneBypass();
+            }
+          })();
+        }
+
+        /* ---------- Use cases ---------- */
+        const CASES = [
+          {
+            tab: "Conseguir un script",
+            icon: "#i-code",
+            plats: ["android", "windows"],
+            title: "Del juego al script en segundos",
+            desc: "Busca el juego, toca Copiar y pégalo en tu executor. Si la entrada es un archivo, usa Abrir. Funciona igual en el teléfono y en la PC.",
+            example: "BLADE BALL · 3 scripts · Copiar",
+            steps: ["Escribe el nombre del juego", "Filtra por letra o categoría", "Toca Copiar o Abrir", "Pégalo en tu executor"],
+          },
+          {
+            tab: "Saltar un acortador",
+            icon: "#i-key",
+            plats: ["android", "windows"],
+            title: "Un enlace con acortador, resuelto",
+            desc: "Pega la URL completa en Bypass. El modo Automático prueba trw.lat y, si hace falta, abre izen.lol en una sandbox aislada. Nunca pegues contraseñas ni tokens.",
+            example: "https://linkvertise.com/…",
+            steps: ["Pega la URL completa", "Automático intenta con trw.lat", "Si falla, abre el respaldo izen.lol", "El resultado queda en tu historial"],
+          },
+          {
+            tab: "Executor para Android",
+            icon: "#i-android",
+            iconFill: true,
+            plats: ["android"],
+            title: "El executor correcto para tu teléfono",
+            desc: "Revisa versión, estado y arquitectura ARM64 o ARM32 antes de descargar. Si un executor es peligroso o está descontinuado, verás la advertencia antes de salir de la app.",
+            example: "ArceusX · v2.3.8 · ARM64 · Indetectable",
+            steps: ["Abre Executores", "Filtra por Actualizados o Favoritos", "Confirma ARM64 o ARM32", "Lee la alerta si es peligroso"],
+          },
+          {
+            tab: "Executor para Windows",
+            icon: "#i-windows",
+            iconFill: true,
+            plats: ["windows"],
+            title: "Executores para tu PC, siempre al día",
+            desc: "La lista de executores para Windows se actualiza sola, sin que tengas que buscar nada. Revisa su estado y si es gratis o premium antes de descargar.",
+            example: "Lista de Windows · actualizada automáticamente",
+            steps: ["Abre Executores en la barra lateral", "La lista se actualiza sola", "Revisa estado y si es gratis o premium", "Descarga con la advertencia a la vista"],
+          },
+          {
+            tab: "Buscar con Ctrl K",
+            icon: "#i-keyboard",
+            plats: ["windows"],
+            title: "Encuentra todo sin soltar el teclado",
+            desc: "En Windows, el buscador global se abre con Ctrl K desde cualquier sección. Escribe, muévete con las flechas y entra con Enter.",
+            example: "Ctrl K → arsenal → Enter",
+            steps: ["Presiona Ctrl K", "Escribe el juego o script", "Muévete con las flechas", "Enter para abrirlo"],
+          },
+          {
+            tab: "Guardar favoritos",
+            icon: "#i-star",
+            plats: ["android", "windows"],
+            title: "Tus juegos de siempre, a un toque",
+            desc: "Marca scripts y executores con estrella y revisa tu historial de bypass. Todo se guarda solo en tu dispositivo, sin cuentas.",
+            example: "Scripts fav · Exec fav · Bypass",
+            steps: ["Toca la estrella", "Filtra por Favoritos", "Revisa tu historial de bypass", "Todo queda en tu dispositivo"],
+          },
+          {
+            tab: "Estar al día",
+            icon: "#i-bell",
+            plats: ["android", "windows"],
+            title: "Entérate antes que nadie",
+            desc: "Activa las notificaciones y la app te avisa cuando un executor se actualiza o sale una versión nueva. El punto rojo desaparece cuando ya lo leíste.",
+            example: "ArceusX · v2.3.8 · Actualizado",
+            steps: ["Activa las notificaciones", "Recibe el aviso del cambio", "Abre Novedades", "El punto rojo se va al leerlo"],
+          },
+        ];
+
+        const tabsEl = $("#caseTabs");
+        const panel = $("#casePanel");
+        const PLAT = {
+          android: '<span class="badge"><svg class="icon fill"><use href="#i-android" /></svg>Android</span>',
+          windows: '<span class="badge"><svg class="icon fill"><use href="#i-windows" /></svg>Windows</span>',
+        };
+        tabsEl.innerHTML = CASES.map(
+          (c, i) => `<li role="presentation"><button class="case-tab" role="tab" id="case-tab-${i}" aria-controls="casePanel" aria-selected="false" data-i="${i}">
+            <svg class="icon${c.iconFill ? " fill" : ""}" aria-hidden="true"><use href="${c.icon}" /></svg>${c.tab}<span class="bar"></span></button></li>`
+        ).join("");
+        const tabs = $$(".case-tab", tabsEl);
+
+        let current = -1;
+        let timers = [];
+        let barAnim = null;
+        let paused = false;
+        let inView = false;
+        const clearTimers = () => {
+          timers.forEach(clearTimeout);
+          timers = [];
+        };
+        const STEP = 1300;
+
+        const select = (i, user = false) => {
+          clearTimers();
+          current = i;
+          const c = CASES[i];
+          tabs.forEach((t, k) => {
+            t.setAttribute("aria-selected", k === i ? "true" : "false");
+            t.tabIndex = k === i ? 0 : -1;
+          });
+          panel.setAttribute("aria-labelledby", `case-tab-${i}`);
+          panel.innerHTML = `
+            <div class="case-copy case-anim">
+              <div class="case-badges">${c.plats.map((p) => PLAT[p]).join("")}</div>
+              <h3>${c.title}</h3>
+              <p>${c.desc}</p>
+              <div class="case-example"><svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>${c.example}</div>
+            </div>
+            <ol class="case-steps case-anim">
+              ${c.steps
+                .map(
+                  (s, k) => `<li class="case-step"><span class="st">${k + 1}<svg class="icon"><use href="#i-check" /></svg></span>${s}</li>`
+                )
+                .join("")}
+            </ol>`;
+          if (user && matchMedia("(max-width: 960px)").matches) {
+            tabs[i].scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+          }
+          const steps = $$(".case-step", panel);
+          const total = steps.length * STEP + 1800;
+
+          if (reduce) {
+            steps.forEach((s) => s.classList.add("is-done"));
+            return;
+          }
+          steps.forEach((s, k) => {
+            timers.push(setTimeout(() => s.classList.add("is-run"), 500 + k * STEP));
+            timers.push(
+              setTimeout(() => {
+                s.classList.remove("is-run");
+                s.classList.add("is-done");
+              }, 500 + k * STEP + STEP * 0.8)
+            );
+          });
+
+          tabs.forEach((t) => {
+            const b = $(".bar", t);
+            b.getAnimations().forEach((a) => a.cancel());
+          });
+          barAnim = $(".bar", tabs[i]).animate([{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }], {
+            duration: total,
+            easing: "linear",
+            fill: "forwards",
+          });
+          barAnim.onfinish = () => {
+            if (!paused) select((current + 1) % CASES.length);
+          };
+          if (paused || !inView) barAnim.pause();
+        };
+
+        tabs.forEach((t) => t.addEventListener("click", () => select(+t.dataset.i, true)));
+        tabsEl.addEventListener("keydown", (e) => {
+          if (!["ArrowDown", "ArrowUp", "ArrowLeft", "ArrowRight"].includes(e.key)) return;
+          e.preventDefault();
+          const dir = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : -1;
+          const n = (current + dir + CASES.length) % CASES.length;
+          select(n, true);
+          tabs[n].focus();
+        });
+
+        const casesBox = $(".cases");
+        const setPaused = (p) => {
+          paused = p;
+          if (!barAnim) return;
+          p || !inView ? barAnim.pause() : barAnim.play();
+        };
+        casesBox.addEventListener("pointerenter", () => setPaused(true));
+        casesBox.addEventListener("pointerleave", () => setPaused(false));
+        casesBox.addEventListener("focusin", () => setPaused(true));
+        casesBox.addEventListener("focusout", () => setPaused(false));
+        new IntersectionObserver(
+          ([e]) => {
+            inView = e.isIntersecting;
+            if (inView && current === -1) select(0);
+            else if (barAnim) inView && !paused ? barAnim.play() : barAnim.pause();
+          },
+          { threshold: 0.3 }
+        ).observe(casesBox);
+
+        const man = $("#manifesto");
+        const raw = man.textContent.trim().split(/\s+/);
+        man.innerHTML = raw
+          .map((w) => {
+            const hl = w.startsWith("*");
+            return `<span class="w${hl ? " hl" : ""}">${hl ? w.slice(1) : w}</span>`;
+          })
+          .join(" ");
+        const words = $$(".w", man);
+        const light = () => {
+          const r = man.getBoundingClientRect();
+          const vh = innerHeight;
+          const p = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (r.height + vh * 0.35)));
+          const n = Math.round(p * words.length);
+          words.forEach((w, i) => w.classList.toggle("lit", i < n));
+        };
+        if (reduce) words.forEach((w) => w.classList.add("lit"));
+        else {
+          addEventListener("scroll", light, { passive: true });
+          light();
+        }
+      })();
+    </script>
+  </body>
+</html>
