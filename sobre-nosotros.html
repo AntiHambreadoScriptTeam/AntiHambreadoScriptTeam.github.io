@@ -302,7 +302,8 @@ img{display:block;max-width:100%}
 .foot__cols a:hover{color:#fff;transform:translateX(5px)}
 .foot__bot{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;padding:0 var(--pad) 18px;max-width:var(--maxw);margin-inline:auto;font:500 10px/1.6 var(--m);letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
 .foot__bot span[id]{cursor:pointer}
-.foot__mega{position:relative;line-height:.74;text-align:center;margin-bottom:-.15em;user-select:none}
+.foot__mega{position:relative;line-height:.74;text-align:center;margin-bottom:-.15em;user-select:none;pointer-events:none}
+.foot__grid,.foot__bot{position:relative;z-index:1}
 .foot__mega span{display:block;font-weight:800;font-size:min(40vw,580px);letter-spacing:-.06em;white-space:nowrap}
 .foot__mega .o{color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.22)}
 .foot__mega .f{position:absolute;inset:0;color:var(--accent);clip-path:inset(0 100% 0 0)}
@@ -601,7 +602,7 @@ img{display:block;max-width:100%}
   </div>
   <div class="foot__bot">
     <span>&copy; 2026 Anti-Hambreado Script Team</span>
-    <span id="egg">Diseñado por Mw_Anonymous y FeliciaXxxTop</span>
+    <span id="egg">Diseñado por TheRealBanHammer y FeliciaXxxTop</span>
   </div>
   <div class="foot__mega" aria-hidden="true"><span class="o">AHST</span><span class="f" id="megaFill">AHST</span></div>
 </footer>
