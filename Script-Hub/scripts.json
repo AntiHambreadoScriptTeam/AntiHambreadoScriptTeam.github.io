@@ -1,0 +1,1341 @@
+{
+  "hub": "AHST HUB",
+  "totalGames": 105,
+  "totalScripts": 280,
+  "games": {
+    "99 NOCHES EN EL BOSQUE": [
+      {
+        "name": "BONK HUB",
+        "script": "getgenv().ScriptMode = \"Kaitan\"\nloadstring(game:HttpGet('https://bonkhubloader.netlify.app/', true))()"
+      },
+      {
+        "name": "BONK HUB NORMAL",
+        "script": "loadstring(game:HttpGet(\"https://bonkhub.online/loader.lua\",true))()"
+      },
+      {
+        "name": "FOXNAME",
+        "script": "getgenv().hop = \"old\"\ngetgenv().reducelag = true\ngetgenv().blackscreen = false\ngetgenv().AutoFarm = false\ngetgenv().autoexecuter = true\ngetgenv().WebhookURL = \"\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FoxnameFarmdiamond.lua\"))()"
+      },
+      {
+        "name": "FOXNAME V2",
+        "script": "loadstring(game:HttpGet('https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FNDayFarm.lua'))()"
+      },
+      {
+        "name": "H4X HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/H4xScripts/Loader/refs/heads/main/loader.lua\", true))()"
+      },
+      {
+        "name": "NUEVO SCRIPT",
+        "script": "loadstring(game:HttpGet(\"https://soluna-script.vercel.app/99-Nights-in-the-Forest.lua\",true))()"
+      },
+      {
+        "name": "SERIOUSLY",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Seriously56/99-Nights/refs/heads/main/99%20nights\", true))()"
+      },
+      {
+        "name": "VOID WARE",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/nightsintheforest.lua\", true))()"
+      },
+      {
+        "name": "VORTEX HUB",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/80aed6b06a7e38e8260a1b82638ff65b.lua\"))()"
+      },
+      {
+        "name": "INF CANDY",
+        "script": "_G.Auto = true\n\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\nlocal Event = ReplicatedStorage.RemoteEvents.CarnivalCompleteShootingGallery\n\nlocal function findTargets(parent, depth)\n    if depth > 3 then return {} end\n\n    local targets = {}\n\n    for _, child in ipairs(parent:GetChildren()) do\n        if child:IsA(\"BasePart\") then\n            table.insert(targets, child)\n        end\n\n        for _, subTarget in ipairs(findTargets(child, depth + 1)) do\n            table.insert(targets, subTarget)\n        end\n    end\n\n    return targets\nend\n\nspawn(function()\n    while task.wait(3) do\n\n        local targets = {}\n        local areas = {\n            workspace.Map,\n            workspace.Items,\n            workspace.Characters\n        }\n\n        for _, area in ipairs(areas) do\n            for _, target in ipairs(findTargets(area, 0)) do\n                table.insert(targets, target)\n            end\n        end\n\n        for index, target in ipairs(targets) do\n            if not _G.Auto then break end\n\n            local success = pcall(function()\n                Event:FireServer(target)\n            end)\n            task.wait(0.05)\n        end\n    end\nend)"
+      },
+      {
+        "name": "FOXNAME HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FoxnameHub.lua\"))()"
+      },
+      {
+        "name": "FOXNAME FARM DAYS Y GEMS",
+        "script": "getgenv().maxday = 100\ngetgenv().webhook = \"Url Here\"\nloadstring(game:HttpGet('https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/FNDayFarm.lua'))()"
+      }
+    ],
+    "ARISE CROSSOVER": [
+      {
+        "name": "GOOMBA HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/JustLevel/goombahub/main/AriseCrossover.lua\"))()"
+      }
+    ],
+    "ATTACK ON TITAN REVOLUTION": [
+      {
+        "name": "TITANIC HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/TITANIC-HUB/THUB/main/Loader.lua\"))()"
+      },
+      {
+        "name": "LUNARZ",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/LunarZR/bomba/refs/heads/main/AOTR1\"))()"
+      },
+      {
+        "name": "TEKKIT HUB",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v4/loaders/705e7fe7aa288f0fe86900cedb1119b1.lua\"))()"
+      },
+      {
+        "name": "ECLIPSE HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/nocturnalxen/EclipseHubAotr/refs/heads/main/eclipsemain\", true))()"
+      },
+      {
+        "name": "LINUX HUB",
+        "script": "loadstring(game:HttpGet(\"https://pastefy.app/pDcs7hGN/raw\"))()"
+      },
+      {
+        "name": "MIST HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/xytuu/MistHub/refs/heads/main/aotr\", true))()"
+      },
+      {
+        "name": "SYMBIOTE HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ssssssssss21/Symbiote/refs/heads/main/symbiote-loader.lua\"))()"
+      },
+      {
+        "name": "AXON HUB",
+        "script": "loadstring(game:HttpGet(\"https://xenith-auth.online/v1/loader/5b193fc732db5c93\"))()"
+      },
+      {
+        "name": "LIX HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Lixtron/Hub/refs/heads/main/loader\"))()"
+      }
+    ],
+    "ANIME WEAPONS": [
+      {
+        "name": "NEW OMG HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      }
+    ],
+    "ANIME WARRIORS": [
+      {
+        "name": "YUTO HUB V3",
+        "script": "repeat wait() until game:IsLoaded()\nloadstring(game:HttpGet(('https://raw.githubusercontent.com/Binintrozza/yutv2e/main/Yutohub')))()"
+      }
+    ],
+    "ANIME FIGHTING SIMULADOR": [
+      {
+        "name": "SHADOW HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ShadowXScript/Shadow-Hub/refs/heads/main/AFSE/loader.lua\"))()"
+      }
+    ],
+    "ARSENAL": [
+      {
+        "name": "FELICIA SCRIPT",
+        "script": "loadstring(game:HttpGet(\"https://antihambreadoscriptteam.github.io/Scripts/Arsenal.lua\"))()"
+      }
+    ],
+    "ABYSS": [
+      {
+        "name": "IMP HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/alan11ago/Hub/refs/heads/main/ImpHub.lua\"))()"
+      },
+      {
+        "name": "JUMANTARA HUB",
+        "script": "loadstring(game:HttpGet(\"https://hub.jumanexus.net/main.lua\"))()"
+      }
+    ],
+    "ANIMAL HOSPITAL": [
+      {
+        "name": "AXON HUB",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/97c3f6db55a2cf72141537a85458e5a7.lua\"))()"
+      },
+      {
+        "name": "MINI HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/MinityD/roblox-utils/main/animal%20hospital.lua\"))()"
+      },
+      {
+        "name": "FOXNAME HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/caomod2077/Script/main/FN_AnimalHospital.lua\"))()"
+      },
+      {
+        "name": "AJJAN HUB",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v4/loaders/359e97f8618e9008afe5f496184ebb7c.lua\"))()"
+      },
+      {
+        "name": "STE HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/SteWasHere/Hub/main/loader.lua\"))()"
+      }
+    ],
+    "ANIME FINAL QUESTS": [
+      {
+        "name": "NEW OMG HUB 2025",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      },
+      {
+        "name": "BIGFROOT HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/hanniii1/Loader/refs/heads/main/BFLoader.lua\"))()"
+      }
+    ],
+    "ANIME GHOST": [
+      {
+        "name": "MAI HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/LunaS3ven/Script/Games/Loader.lua\"))()"
+      }
+    ],
+    "ANIME PIECE": [
+      {
+        "name": "OMG HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      }
+    ],
+    "ANIME VANGUARD": [
+      {
+        "name": "GOOMBA HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/JustLevel/goombahub/main/goombahub.lua\"))()"
+      }
+    ],
+    "BLADE BALL": [
+      {
+        "name": "RISE HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/joshhhie/rise/refs/heads/main/loader.lua\"))()"
+      }
+    ],
+    "BASICALLY FNF: REMIX": [
+      {
+        "name": "AUTO PLAYER",
+        "script": "loadstring(game:HttpGet(\"https://rawscripts.net/raw/Basically-FNF:-Remix-AutoPlayer-Lite-9989\"))()"
+      }
+    ],
+    "BLOCK SPIN": [
+      {
+        "name": "HERMANOS-DEV",
+        "script": "local loader = loadstring\nlocal url = \"https://raw.githubusercontent.com/hermanos-dev/hermanos-hub/refs/heads/main/BlockSpin/blockspin-pvp.lua\"\nlocal response = game:HttpGet(url)\nloader(response)()"
+      },
+      {
+        "name": "QUARTY",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/xQuartyx/QuartyzScript/main/Loader.lua\"))()"
+      }
+    ],
+    "BLOODMONEY": [
+      {
+        "name": "ANTI-HAMBREADO TEAM SCRIPT | BLOODMONEY",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/FloppHub-Team/Scripts-idk/refs/heads/main/BloodMoney%20Script.txt\"))()"
+      }
+    ],
+    "BLOX FRUITS": [
+      {
+        "name": "PVP SCRIPT",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v4/loaders/cc815ef92aaf3ed41a37aa4d87cd93ff.lua\"))()"
+      },
+      {
+        "name": "OMG HUB KAITUN",
+        "script": "getgenv().SettingFarm ={\n    [\"Team\"] = \"Pirates\",\n    [\"Configuration\"] = {\n        [\"HopWhenIdle\"] = true,\n        [\"AutoHop\"] = true,\n        [\"AutoHopDelay\"] = 60 * 60,\n        [\"FpsBoost\"] = false,\n        [\"AutoExecute\"] = true,\n    },\n    [\"Settings\"] = {\n        [\"StayInSea2UntilHaveDarkFragments\"] = true,\n    },\n    [\"Race\"] = {\n        [\"Select Race\"] = {\"Mink\"},\n        [\"Reroll Race\"] = true,\n    },\n    [\"Lock Fps\"] = {\n        [\"Enabled\"] = false,\n        [\"FPS\"] = 10,\n    },\n    [\"Get Items\"] = {\n        [\"Saber\"] = true,\n        [\"All Melees\"] =  true,\n        [\"Skull Guitar\"] = true,\n        [\"Cursed Dual Katana\"] = true,\n        [\"RaceV2\"] = true,\n    },\n    [\"Select Hop\"] = {\n        [\"Hop Find Don Swan [Trevor]\"] = true,\n    },\n    [\"Buy Items\"] = {\n        [\"Abilitys\"] = true,\n        [\"Base Swords\"] = true,\n        [\"Legendary Swords\"] = true,\n        [\"Haki Scrolls\"] = true,\n    },\n    [\"Sniper Fruit Shop\"] = {\n        [\"Enabled\"] = true,\n        [\"Fruit\"] = {\"Leopard-Leopard\",\"Kitsune-Kitsune\",\"Dragon-Dragon\",\"Yeti-Yeti\",\"Gas-Gas\"},\n    },\n    [\"Webhook\"] = {\n        [\"Enabled\"] = false,\n        [\"WebhookUrl\"] = \"\",\n    }\n}\ngetgenv().Mode = \"Kaitun\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      },
+      {
+        "name": "ANDEPZAIHUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/h6hbii/AnDepZaiHub/refs/heads/main/AndepzaiHub.lua\"))()"
+      },
+      {
+        "name": "ASTRAL HUB",
+        "script": "loadstring(game:HttpGet('https://cdn.robloxscripts.gg/public/furky/furky-astral-source.lua'))()"
+      },
+      {
+        "name": "BLUE X HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua\"))()"
+      },
+      {
+        "name": "DAT THG",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/LuaCrack/DatThg/refs/heads/main/DatThgV2\"))()"
+      },
+      {
+        "name": "GRAVITY HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Dev-GravityHub/BloxFruit/refs/heads/main/Main.lua\"))()"
+      },
+      {
+        "name": "HOHO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\"))()"
+      },
+      {
+        "name": "NEW OMG HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      },
+      {
+        "name": "SCRIPT SERVER HOP",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/noguchihyuga/script/refs/heads/main/hopserver.lua\"))()"
+      },
+      {
+        "name": "TEDDY HUB",
+        "script": "repeat wait() until game:IsLoaded() and game.Players.LocalPlayer\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/TeddyHub.lua\"))()"
+      },
+      {
+        "name": "TEDDY SERVER BOSS HUB",
+        "script": "repeat task.wait() until game:IsLoaded() and game:GetService(\"Players\") and game.Players.LocalPlayer and game.Players.LocalPlayer:FindFirstChild(\"PlayerGui\")\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/TEDDYHUB-FREEMIUM\"))()"
+      },
+      {
+        "name": "TEDDY MAIN 2026",
+        "script": "repeat task.wait() until game:IsLoaded() and game:GetService(\"Players\") and game.Players.LocalPlayer and game.Players.LocalPlayer:FindFirstChild(\"PlayerGui\")\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/teddyhubdev/diepvy/refs/heads/main/TeddyHub.lua\"))()"
+      },
+      {
+        "name": "TEDDY HUB KAITUN",
+        "script": "getgenv()[\"Config\"] = {\n    [\"Fps Boost\"] = true,\n    [\"FPS Cap\"] = 30,\n    [\"Quests\"] = {\n        [\"Pull Level\"] = true,\n        [\"Upgrading Race\"] = true,\n    },\n    [\"Hopping\"] = {\n        [\"Auto Hop\"] = true,\n        [\"Hop Idle\"] = true,\n        [\"High Ping Hop\"] = true,\n        [\"Player Nearing Hop\"] = true,\n    },\n    [\"Sniper Fruit Shop\"] = {\n        [\"Enabled\"] = true,\n        [\"Fruit\"] = {\n            \"Kitsune-Kitsune\",\n            \"Dragon-Dragon\",\n            \"Yeti-Yeti\",\n            \"Gas-Gas\"\n        },\n    },\n    [\"Oneclick\"] = {\n        [\"Auto Fully Fighting Style\"] = true,\n        [\"Rainbow Haki\"] = true,\n        [\"Skull Guitar\"] = true,\n        [\"Cursed Dual Katana\"] = true,\n        [\"Saber\"] = true,\n        [\"Get Ghoul\"] = false,\n        [\"Collect Berries\"] = false,\n        [\"Haki Legendery\"] = false,\n        [\"TTK\"] = false,\n    },\n}\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/teddyhubdev/diepvy/refs/heads/main/TeddyHub-kaitunBF.lua\"))()"
+      },
+      {
+        "name": "TEDDY SECRETS QUESTS",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/teddyhubdev/diepvy/refs/heads/main/SecretQuest.lua\"))()"
+      },
+      {
+        "name": "ESMERALD HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/bloxfruitsnokey/Redz/refs/heads/main/Emerald/script.luau\"))()"
+      },
+      {
+        "name": "ARC HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/bloxfruitsnokey/Arcylic/refs/heads/main/ARC/script.luau\"))()"
+      },
+      {
+        "name": "TSUO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts\"))()"
+      },
+      {
+        "name": "W-AZURE",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/85e904ae1ff30824c1aa007fc7324f8f.lua\"))()"
+      },
+      {
+        "name": "ARYA KAITUN",
+        "script": "Config = {\nTeam = \"Pirates\",\nConfiguration = {\nHopWhenIdle = true,\nAutoHop = true,\nAutoHopDelay = 60 * 60,\nFpsBoost = false,\nBlackScreen = true\n},\nItems = {\nAutoFullyMelees = true,\nSaber = true,\nCursedDualKatana = false,\nSoulGuitar = false,\nRaceV2 = true\n},\nSettings = {\nStayInSea2UntilHaveDarkFragments = false\n}\n}\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/hhl29042008-ops/script/refs/heads/main/cac\"))()"
+      },
+      {
+        "name": "REDZ HUB FAKE",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/20f318386e3fbf069ee3fa797cfc9f34.lua\"))()"
+      },
+      {
+        "name": "XETER HUB",
+        "script": "getgenv().Version = \"V3\"\ngetgenv().Team = \"Marines\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/TlDinhKhoi/Xeter/refs/heads/main/Main.lua\"))()"
+      },
+      {
+        "name": "HIRU HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/HiruKiddo/Source/main/HiruHubFree.lua\"))()"
+      },
+      {
+        "name": "KING RUA HUB",
+        "script": "repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer loadstring(game:HttpGet(\"https://raw.githubusercontent.com/shinichi-dz/phucshinyeuem/refs/heads/main/KingRuaHub.lua\"))()"
+      },
+      {
+        "name": "BACON HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/vinh129150/hack/refs/heads/main/Bloxfruits.lua\"))()"
+      },
+      {
+        "name": "FLOPPBLOX",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/FloppHub-Team/BloxFruits-Script/refs/heads/main/FloppHubX.lua\"))()"
+      },
+      {
+        "name": "HOP BOSS SCRIPT",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/WhiteX1208/Scripts/refs/heads/main/HopScript.luau\"))()"
+      },
+      {
+        "name": "FLOW BLOXFRUITS",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v4/loaders/5946add9ab91f1e04cb005346a8b1968.lua\"))()"
+      },
+      {
+        "name": "SOLIX HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua\"))()"
+      },
+      {
+        "name": "RELZ HUB 2026",
+        "script": "loadstring(game:HttpGet(\"https://relzhub.farrelghibran.com/loader.lua\"))()"
+      },
+      {
+        "name": "REDZ HUB (REMAKE)",
+        "script": "local Settings = {\n  JoinTeam = \"Pirates\";\n  Translator = true;\n}\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/PlockScripts/newredz/refs/heads/main/Remake-version.luau\"))(Settings)"
+      },
+      {
+        "name": "MIDNIGHT X",
+        "script": "repeat wait() until game:IsLoaded() and game.Players.LocalPlayer\ngetgenv().Team = \"Pirates\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/Ohofo2279/Midnight/refs/heads/main/MidnightX-BloxFruits.lua\"))()"
+      },
+      {
+        "name": "QUANTUM ONYX",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/flazhy/QuantumOnyx/refs/heads/main/QuantumOnyx.lua\"))()"
+      },
+      {
+        "name": "POLE HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/bloxfruitsnokey/Banana/refs/heads/main/Pole/script.luau\"))()"
+      },
+      {
+        "name": "AURORA HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/bloxfruitsnokey/Stellar/refs/heads/main/Aurora/script.luau\"))()"
+      },
+      {
+        "name": "H4X SCRIPT",
+        "script": "loadstring(game:HttpGet(\"https://H4xScripts.xyz/loader\"))()"
+      }
+    ],
+    "BLUE LOCK RIVALS": [
+      {
+        "name": "OMG HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      }
+    ],
+    "BOB ESPONJA TOWER DEFENSE": [
+      {
+        "name": "IMP HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/alan11ago/Hub/refs/heads/main/ImpHub.lua\"))()"
+      }
+    ],
+    "BROKEN BLADE": [
+      {
+        "name": "AXON HUB",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/97c3f6db55a2cf72141537a85458e5a7.lua\"))()"
+      }
+    ],
+    "BUILD A BOAT": [
+      {
+        "name": "BABFT",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/example-prog/Build-A-Boat-For-Treasure/refs/heads/main/BABFT\"))()"
+      }
+    ],
+    "BUILD A RING FARM": [
+      {
+        "name": "LUXY HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omnie7/Luxy-Hub/refs/heads/main/main.lua\"))()"
+      }
+    ],
+    "BEE SWARM SIMULATOR": [
+      {
+        "name": "MACROWARE",
+        "script": "loadstring(game:HttpGet(\"https://macroware.cc/loader.lua\"))()"
+      }
+    ],
+    "BRAINROT SEA": [
+      {
+        "name": "STATS OP",
+        "script": "loadstring(game:HttpGet(\"https://antihambreadoscriptteam.github.io/Scripts/Brainrot%20Sea.lua\"))()"
+      }
+    ],
+    "BIZARRE LINEAGE": [
+      {
+        "name": "BLACK HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Skibidiking123/Fisch1/refs/heads/main/FischMain\"))()"
+      },
+      {
+        "name": "NEW OMG HUB 2025",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      }
+    ],
+    "BITE BY NIGHT": [
+      {
+        "name": "CELERON'S BITE BY NIGHT",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ghostofcelleron/Celeron/refs/heads/main/Celeron's%20Loader\"))()"
+      }
+    ],
+    "CATCH 1 BILLION DUCKS": [
+      {
+        "name": "OUROBOROS HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/loader.lua\"))()"
+      }
+    ],
+    "CATCH A BRAINROT": [
+      {
+        "name": "CHIYO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua\"))()"
+      }
+    ],
+    "CLOVER TIME": [
+      {
+        "name": "OUROBOROS HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/loader.lua\"))()"
+      }
+    ],
+    "CREATURE OF SONARÍA": [
+      {
+        "name": "IMP HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/alan11ago/Hub/refs/heads/main/ImpHub.lua\"))()"
+      }
+    ],
+    "DANDY'S WORLD": [
+      {
+        "name": "DANDY'S WORLD HUB",
+        "script": "loadstring(game:HttpGet(\"https://pastebin.com/raw/H3u62n7D\"))()"
+      }
+    ],
+    "DEAD DEFENSE": [
+      {
+        "name": "GUMANBA",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/gumanba/Scripts/main/DeadDefense\"))()"
+      }
+    ],
+    "DEAD RAILS": [
+      {
+        "name": "NAT HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ArdyBotzz/NatHub/refs/heads/master/NatHub.lua\"))()"
+      },
+      {
+        "name": "SKULL HUB",
+        "script": "loadstring(game:HttpGet('https://raw.githubusercontent.com/hungquan99/SkullHub/main/loader.lua'))()"
+      },
+      {
+        "name": "GRAMPYSIM V7 AUTOBONOS",
+        "script": "loadstring(game:HttpGet(\"https://pastebin.com/raw/0JVAwPp8\"))()"
+      },
+      {
+        "name": "XUAN AUTOBONDS",
+        "script": "_G.TzuanWebhook = \"linkwebhook\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/tzuanyeuban/TzuanHub/refs/heads/main/autobondnew.lua\"))()"
+      },
+      {
+        "name": "FOXNAME AUTO-BOND",
+        "script": "loadstring(game:HttpGet('https://raw.githubusercontent.com/afkar-gg/sc/refs/heads/main/auto-bond'))()"
+      }
+    ],
+    "DEMON BLADE": [
+      {
+        "name": "DEMON BLADE SCRIPT",
+        "script": "loadstring(game:HttpGet('https://raw.githubusercontent.com/shakaUnlocked/IiI/refs/heads/main/dbrw.lua'))()"
+      }
+    ],
+    "DEMON FALL": [
+      {
+        "name": "NOOB HUB",
+        "script": "loadstring(game:HttpGet(('https://raw.githubusercontent.com/NOOBHUBX/DemonFall/main/NOOB%20HUB.Lua'),true))()"
+      }
+    ],
+    "DIG": [
+      {
+        "name": "FROSTBYTE",
+        "script": "loadstring(game:HttpGet(\"https://init.frostbyte.lol\"))()"
+      }
+    ],
+    "DOORS": [
+      {
+        "name": "DOORS SCRIPT",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/TheHunterSolo1/Scripts/refs/heads/main/Protected_2809220311826785.lua.txt\"))()"
+      }
+    ],
+    "DRAGON BALL RAGE": [
+      {
+        "name": "IMP HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/alan11ago/Hub/refs/heads/main/ImpHub.lua\"))()"
+      }
+    ],
+    "DRAGON BLOX": [
+      {
+        "name": "DEMONIC HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Prosexy/Demonic-HUB-V2/main/DemonicHub_V2.lua\", true))()"
+      }
+    ],
+    "DEATH BALL": [
+      {
+        "name": "NATIVE HUB",
+        "script": "script_key=\"PasteKeyHere\";\n(loadstring or load)(game:HttpGet(\"https://getnative.cc/script/loader\"))()"
+      }
+    ],
+    "DUNGEON LOOTR": [
+      {
+        "name": "OUROBOROS HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/loader.lua\"))()"
+      }
+    ],
+    "DUNGEON QUEST REBORN": [
+      {
+        "name": "APEL HUB 2026",
+        "script": "loadstring(game:HttpGet(\"https://apelhub.com/loader.lua\"))()"
+      }
+    ],
+    "EVADE": [
+      {
+        "name": "SPEEDHAX",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/thesigmacorex/RobloxScripts/main/speedhax\"))()"
+      },
+      {
+        "name": "TORAISME",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/gumanba/Scripts/main/EvadeEvent\"))()"
+      },
+      {
+        "name": "FELICIA SCRIPT",
+        "script": "loadstring(game:HttpGet(\"https://antihambreadoscriptteam.github.io/Scripts/Evade.lua\"))()"
+      },
+      {
+        "name": "EVADE EVENT SCRIPT",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/gumanba/Scripts/main/EvadeEvent\"))()"
+      }
+    ],
+    "EVOMON": [
+      {
+        "name": "RENDANG",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/JualNasiRendang/nasirendang-evomon/main/nasirendang-evomon.lua\"))()"
+      }
+    ],
+    "FISCH": [
+      {
+        "name": "ALCHEMY HUB",
+        "script": "loadstring(game:HttpGet(\"https://scripts.alchemyhub.xyz\"))()"
+      },
+      {
+        "name": "NATIVE HUB",
+        "script": "script_key=\"PasteKeyHere\";\n(loadstring or load)(game:HttpGet(\"https://getnative.cc/script/loader\"))()"
+      },
+      {
+        "name": "NATIVE HUB NEW",
+        "script": "script_key=\"PasteKeyHere\";\n(loadstring or load)(game:HttpGet(\"https://getnative.cc/script/loader\"))()"
+      },
+      {
+        "name": "RIFT HUB",
+        "script": "loadstring(game:HttpGet(\"https://rifton.top/loader.lua\"))()"
+      },
+      {
+        "name": "ZENITH HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/rxito/ZenithHub/refs/heads/main/Loader\"))()"
+      },
+      {
+        "name": "LUNOR HUB",
+        "script": "script_key = 'Insert Lunor Key Here';\nloadstring(game:HttpGet('https://raw.githubusercontent.com/Catto-YFCN/Lunor_Dependencies/refs/heads/main/Loader'))()",
+        "note": "Key: https://ads.luarmor.net/get_key?for=LinkvertiseAD12_Hours-HhMMjfiZOeFt"
+      },
+      {
+        "name": "MENG HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/GrexXMeng/Mengs/refs/heads/main/library\"))()"
+      }
+    ],
+    "FISH IT": [
+      {
+        "name": "BLESSED HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/mynamewendel-ctrl/Blessed-Hub-X-/refs/heads/main/Fish%20it\"))()"
+      },
+      {
+        "name": "NAT HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ArdyBotzz/NatHub/refs/heads/master/NatHub.lua\"))()"
+      }
+    ],
+    "FORSAKEN": [
+      {
+        "name": "LOLNOTAKID",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/LolnotaKid/project/refs/heads/main/obfuscated_script-1758536932336.lua.txt\"))()\nprint(\"V1\")"
+      },
+      {
+        "name": "TSUO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts\"))()"
+      },
+      {
+        "name": "VOIDWARE",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/VapeVoidware/VW-Add/refs/heads/main/newforsaken.lua\"))()"
+      },
+      {
+        "name": "FORGE HUB",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/d5ed1fbd4301b1d18d75153c5b47181d.lua\"))()"
+      },
+      {
+        "name": "FORSAKEN HELPER",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/zxcursedsocute/Forsaken-Script/refs/heads/main/lua\"))()"
+      }
+    ],
+    "FRUIT BATTLEGROUNDS": [
+      {
+        "name": "DEVSEHUB",
+        "script": "script_key=\"replacekey\";\nloadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/d92ae761864b636f15e5214d8b9e1b57.lua\"))()",
+        "note": "Key: https://ads.luarmor.net/get_key?for=DevseHUB_KEY-LpxFTiZSpAVU"
+      },
+      {
+        "name": "IMP HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/alan11ago/Hub/refs/heads/main/ImpHub.lua\"))()"
+      }
+    ],
+    "GRAND PIECE ONLINE": [
+      {
+        "name": "SWITCH HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/cloneref/SwitchHubRecode/refs/heads/main/Loader/SwitchHubLoaderAlotGame.lua\"))()"
+      }
+    ],
+    "GROW A CHICKEN FIGHTER": [
+      {
+        "name": "CHIYO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua\"))()"
+      }
+    ],
+    "GROW A GARDEN": [
+      {
+        "name": "BONK HUB",
+        "script": "loadstring(game:HttpGet(\"https://bonkhub.online/loader.lua\",true))()"
+      },
+      {
+        "name": "DUPLICAR DINERO",
+        "script": "loadstring(game:HttpGet('https://lunor.dev/loader'))()"
+      },
+      {
+        "name": "GUMANBA",
+        "script": "loadstring(game:HttpGet('https://lunor.dev/loader'))()"
+      },
+      {
+        "name": "KICIAHOOK",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/loader.luau\"))()"
+      },
+      {
+        "name": "LUNOR HUB",
+        "script": "script_key = 'Insert Lunor Key Here';\nloadstring(game:HttpGet('https://raw.githubusercontent.com/Catto-YFCN/Lunor_Dependencies/refs/heads/main/Loader'))()",
+        "note": "Key: https://ads.luarmor.net/get_key?for=LinkvertiseAD12_Hours-HhMMjfiZOeFt"
+      },
+      {
+        "name": "NAT HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ArdyBotzz/NatHub/refs/heads/master/NatHub.lua\"))()"
+      },
+      {
+        "name": "NO LAG HUB",
+        "script": "loadstring(game:HttpGet(\"https://rawscripts.net/raw/Grow-a-Garden-NoLag-Hub-no-key-38699\"))()"
+      },
+      {
+        "name": "SPEED HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua\", true))()"
+      },
+      {
+        "name": "THUNDAR Z",
+        "script": "loadstring(game:HttpGet('https://raw.githubusercontent.com/ThundarZ/Welcome/refs/heads/main/Main/GaG/Main.lua'))()"
+      },
+      {
+        "name": "SOLIX HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua\"))()"
+      }
+    ],
+    "GROW A GARDEN 2": [
+      {
+        "name": "CHIYO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua\"))()"
+      },
+      {
+        "name": "SPEED HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua\", true))()"
+      },
+      {
+        "name": "GAG2 SPAWNER",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/scripteredwinter/scripts/main/gag2spawner\"))()"
+      },
+      {
+        "name": "LUMIN HUB",
+        "script": "loadstring(game:HttpGet(\"http://luminon.top/loader.lua\"))()"
+      },
+      {
+        "name": "OMG HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      }
+    ],
+    "GARDEN TOWER DEFENSE": [
+      {
+        "name": "THUNDER HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/NAVAAI098/Thunder-Hub/main/Loader.lua\"))()"
+      }
+    ],
+    "HAZE SEAS": [
+      {
+        "name": "AXEL HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/lostinnowheres/Loader/refs/heads/main/Loader.Lua\"))()"
+      },
+      {
+        "name": "OMG HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      }
+    ],
+    "HUNTY ZOMBIE": [
+      {
+        "name": "ALCHEMY HUB",
+        "script": "loadstring(game:HttpGet(\"https://scripts.alchemyhub.xyz\"))()"
+      },
+      {
+        "name": "CHIYO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua\"))()"
+      },
+      {
+        "name": "HUNTY ZOMBIE SCRIPT",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/gumanba/Scripts/main/HuntyZombie\"))()"
+      },
+      {
+        "name": "MIRAGE HUB",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/7fde878980fdf87c0e522274f0d1ac3c.lua\"))()"
+      },
+      {
+        "name": "SOLIX HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua\"))()"
+      },
+      {
+        "name": "TYPE HUB",
+        "script": "script_key = \"\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/meobeo8/type/main/Loader\"))()"
+      },
+      {
+        "name": "ZEE HUB",
+        "script": "loadstring(game:HttpGet(\"https://zuwz.me/Ls-Zee-Hub-HZ\"))()"
+      }
+    ],
+    "INK GAME": [
+      {
+        "name": "VOID WARE",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/inkgame.lua\", true))()"
+      },
+      {
+        "name": "AX SCRIPTS",
+        "script": "loadstring(game:HttpGet(\"https://officialaxscripts.vercel.app/scripts/AX-Loader.lua\"))()"
+      },
+      {
+        "name": "RINGTA HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/wefwef34/inkgames.github.io/refs/heads/main/ringta.lua\"))()"
+      }
+    ],
+    "IRON SOUL": [
+      {
+        "name": "NEMESIS HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/x2zu/loader/main/freeloader.lua\", true))()"
+      },
+      {
+        "name": "BIGFROOT",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/hanniii1/Loader/refs/heads/main/BFLoader.lua\"))()"
+      }
+    ],
+    "JAILBREAK": [
+      {
+        "name": "SOLIX",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/debunked69/solixloader/refs/heads/main/solix%20v2%20new%20loader.lua\"))()"
+      },
+      {
+        "name": "AUTO ARREST",
+        "script": "loadstring(game:HttpGet('http://scripts.projectauto.xyz/AutoArrestV4'))()"
+      },
+      {
+        "name": "AUTOROB",
+        "script": "loadstring(game:HttpGet('http://scripts.projectauto.xyz/AutoRobV6'))()"
+      }
+    ],
+    "JUJUTSU INFINITE": [
+      {
+        "name": "SOLIX HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua\"))()"
+      }
+    ],
+    "JUJUTSU ZERO": [
+      {
+        "name": "SIMCA HUB",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/3186a4f30fcd853ae613dcbee2534612.lua\"))()"
+      }
+    ],
+    "KING LEGACY": [
+      {
+        "name": "ARC HUB",
+        "script": "getgenv().RaidUI = false\ngetgenv().CustomDistance = 10\ngetgenv().ResetFirstLoad = true\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/ChopLoris/ArcHub/main/main.lua\"))()"
+      },
+      {
+        "name": "OMG HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      },
+      {
+        "name": "WUKONG HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/duymanhm6-cyber/wukonghud/refs/heads/main/wukonghud\"))()"
+      },
+      {
+        "name": "WUKONG HUD",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/duymanhm6-cyber/wukonghud/refs/heads/main/wukonghud\"))()"
+      },
+      {
+        "name": "ZEE HUB",
+        "script": "loadstring(game:HttpGet(\"https://zuwz.me/Ls-Zee-Hub-KL\"))()"
+      }
+    ],
+    "KICK A LUCKY BLOCK": [
+      {
+        "name": "FARTEZ HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/fartez127-design/FARTEZHUB/refs/heads/main/FARTEZHUBXKickaLuckyBlock\"))()"
+      },
+      {
+        "name": "CHIYO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua\"))()"
+      }
+    ],
+    "KAISEN": [
+      {
+        "name": "NEW OMG HUB 2025",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      }
+    ],
+    "MINE A MOUNTAIN": [
+      {
+        "name": "CHIYO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua\"))()"
+      }
+    ],
+    "MUSCLE LEGENDS": [
+      {
+        "name": "ECLIPSE HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/nocturnalxen/EclipseHubAotr/refs/heads/main/eclipsemain\", true))()"
+      },
+      {
+        "name": "SPEED HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua\", true))()"
+      },
+      {
+        "name": "MUSCLE LEGENDS",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ikzzz1444/Script/main/moonveil2.lua\"))()"
+      }
+    ],
+    "MURDER MYSTERY": [
+      {
+        "name": "MM2 NAVIDAD",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/gumanba/Scripts/main/mm2\"))()"
+      },
+      {
+        "name": "FOXNAME MURDER MYSTERY 2",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/xv3gasx/Murder-Mystery-2/refs/heads/main/Release.lua\"))()"
+      },
+      {
+        "name": "HONEY LUA",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ThatSick/HoneyLua/refs/heads/main/Loader.luau\"))()"
+      },
+      {
+        "name": "PULSE HUB",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v4/loaders/5857a6cfae3b902eb3c2dff7cdbf173b.lua\"))()"
+      }
+    ],
+    "NINJA TIMES": [
+      {
+        "name": "SCYLLA",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/acezqqq/Scylla/refs/heads/main/Loader.lua\"))()"
+      }
+    ],
+    "NOTORIETY PAYDAY": [
+      {
+        "name": "XXMZ HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/XScommunity/XXMZ/refs/heads/main/Notoriety\"))()"
+      }
+    ],
+    "PIGGY": [
+      {
+        "name": "STARHACK HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/StarHackScripts/StarHack-Hub-Deepstar-Hub/refs/heads/main/StarHack%20Hub%20-%20Piggy%20Pro%20Hub.txt\"))()"
+      }
+    ],
+    "PLANTAS VS BRAINROT": [
+      {
+        "name": "BLESSED HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/mynamewendel-ctrl/Blessed-Hub-X-/refs/heads/main/Plants-Vs-Brainrots.lua\"))()"
+      },
+      {
+        "name": "CHIYO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua\"))()"
+      },
+      {
+        "name": "RIFT HUB",
+        "script": "loadstring(game:HttpGet(\"https://rifton.top/loader.lua\"))()"
+      },
+      {
+        "name": "SPEED HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua\", true))()"
+      }
+    ],
+    "PREHISTORIC FARM": [
+      {
+        "name": "OUROBOROS HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/loader.lua\"))()"
+      }
+    ],
+    "PROJECT SLAYERS 2": [
+      {
+        "name": "AIRFLOW HUB",
+        "script": "loadstring(game:HttpGet(\"https://airflowscript.com/loader\"))()"
+      },
+      {
+        "name": "BIGFROOT HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/hanniii1/Loader/refs/heads/main/BFLoader.lua\"))()"
+      }
+    ],
+    "PROSPECTING": [
+      {
+        "name": "NUEVO SCRIPT",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/x2zu/loader/main/games/Prospecting.lua\"))()"
+      }
+    ],
+    "RAISE A FLOPPA": [
+      {
+        "name": "RAISE A FLOPPA SCRIPT",
+        "script": "loadstring(game:HttpGet(\"https://pastebin.com/raw/Fif1YVVR\"))()"
+      }
+    ],
+    "RAISE ANIMALS": [
+      {
+        "name": "TBAO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/tbao143/thaibao/refs/heads/main/TbaoHub\"))()"
+      },
+      {
+        "name": "JINKX HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/stormskmonkey/JinkX/main/Loader.lua\"))()"
+      }
+    ],
+    "RIDE A PET": [
+      {
+        "name": "OUROBOROS HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/loader.lua\"))()"
+      }
+    ],
+    "RIVALS": [
+      {
+        "name": "SOLIX HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua\"))()"
+      }
+    ],
+    "RNG SLIME": [
+      {
+        "name": "CHIYO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua\"))()"
+      }
+    ],
+    "SCRIPTS UNIVERSALES": [
+      {
+        "name": "FloppHub",
+        "script": "loadstring(game:HttpGet(\"https://is.gd/JwNMnE\"))()"
+      },
+      {
+        "name": "FLYLING SCRIPT",
+        "script": "pcall(function()\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/hellohellohell012321/KAWAII-FREAKY-FLING/main/kawaii_freaky_fling.lua\",true))()\nend)"
+      }
+    ],
+    "SMASH PROJECT": [
+      {
+        "name": "NEXOR HUB",
+        "script": "loadstring(game:HttpGet('https://raw.githubusercontent.com/NexorHub/Games/refs/heads/main/Universal/Scripts.lua'))();"
+      }
+    ],
+    "STEAL A BRAINROT": [
+      {
+        "name": "AJJAN",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/onliengamerop/Steal-a-brainrot/refs/heads/main/Protected_3771863424757750.lua.txt\"))()"
+      },
+      {
+        "name": "ARBIX TP NUEVO",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Youifpg/Steal-a-Brianrot/refs/heads/main/original_script-obfuscated.lua\"))()"
+      },
+      {
+        "name": "CHILLI HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua\"))()"
+      },
+      {
+        "name": "HOHO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\"))()"
+      },
+      {
+        "name": "KENGER HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/iw929wiwiw/KenGerHub/refs/heads/main/Anti%20Hit\"))()"
+      },
+      {
+        "name": "LEGENDS BRAINROT",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Akbar123s/Script-Roblox-/refs/heads/main/nabaruBrainrot\"))()",
+        "note": "Key: ayam"
+      },
+      {
+        "name": "LEMON HUB",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/ffdfeadf0af798741806ea404682a938.lua\"))()"
+      },
+      {
+        "name": "LENNON V3",
+        "script": "loadstring(game:HttpGet(\"https://pastefy.app/J3oDjwQ5/raw\"))()"
+      },
+      {
+        "name": "LURK HACK V4",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/egor2078f/lurkhackv4/refs/heads/main/main.lua\", true))()"
+      },
+      {
+        "name": "MAKAL HUB",
+        "script": "local a,b,c=loadstring,(syn and syn.request)or(http and http.request)or(request)or(http_request),assert;c(a and b,\"Executor not Supported\")a(b({Url=\"https://makalhub.vercel.app/api/script/loader\",Method=\"GET\"}).Body)()"
+      },
+      {
+        "name": "MIRANDAN HUB",
+        "script": "loadstring(game:HttpGet(\"https://pastefy.app/mTbfVy0H/raw\", true))()"
+      },
+      {
+        "name": "PUSARX",
+        "script": "script_key = \"\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/Estevansit0/KJJK/refs/heads/main/PusarX-loader.lua\"))()"
+      },
+      {
+        "name": "TELEGUIADOS HUB",
+        "script": "local Players = game:GetService(\"Players\")\nlocal player = Players.LocalPlayer or Players.PlayerAdded:Wait()\n\nlocal scriptExecuted = false\nlocal loadedScripts = {}\nlocal function loadScript(url)\n    if loadedScripts[url] then return end\n    loadedScripts[url] = true\n    local success, result = pcall(function()\n        return loadstring(game:HttpGet(url, true))()\n    end)\n    if not success then\n        warn(\"[Failed to load]:\", url, result)\n    end\nend\n\nlocal pid = game.PlaceId\nlocal specialPlaceIds = {\n    [109983668079237] = true,\n    [128762245270197] = true,\n    [96342491571673] = true\n}\n\nif specialPlaceIds[pid] then\n    local success1, result1 = pcall(function()\n        loadScript(\"https://gist.githubusercontent.com/UCT-hub/0fd2f8d2fd66882d0f81bd02af9bbdc3/raw/2cdb639b53b455d0192eef961e81d1c4f0a29620/UCTHUB\")\n    end)\n    local success2, result2 = pcall(function()\n        loadScript(\"https://gist.githubusercontent.com/UCT-hub/e2cc5514ebf4f97e8e3bf3ac08b8d862/raw/3c5d4203f927c3ea16215e2c9479eba5fe19fdbc/gistfile1.txt\")\n    end)\n\n    if not success1 then\n        warn(\"Failed to load Stel script:\", result1)\n    end\n    if not success2 then\n        warn(\"Failed to load Warger script:\", result2)\n    end\n    return\nend"
+      },
+      {
+        "name": "TP ARBIX",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Youifpg/Steal-a-Brainrot-op/refs/heads/main/THXZ1N.lua\"))()"
+      },
+      {
+        "name": "AUTO BUY DEALER",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AutoBuyBrainrotDealer/Auto-Buy/refs/heads/main/AutoBuyDealer\"))()"
+      },
+      {
+        "name": "UGLYS FISHING",
+        "script": "getgenv().SELL_ONLY = {\n    [\"Trippi Troppi\"] = true,\n    [\"Trulimero Trulicina\"] = true,\n    [\"Bananita Dolphinita\"] = true,\n    [\"Blueberrinni Octopusini\"] = true,\n    [\"Tralalero Tralala\"] = true,\n    [\"Orcalero Orcala\"] = true,\n    [\"Tralalita Tralala\"] = true,\n    [\"Trippi Troppi Troppa Trippa\"] = true,\n    [\"Crabbo Limonetta\"] = true,\n    [\"Los Orcalitos\"] = true,\n    [\"Orcalita Orcala\"] = true,\n    [\"Squalanana\"] = true,\n    [\"Belula Beluga\"] = true,\n    [\"Tentacolo Tecnico\"] = true,\n    [\"Extinct Tralalero\"] = true,\n    [\"Las Tralaleritos\"] = true,\n    [\"Zombie Tralala\"] = true,\n    [\"Boatito Auratito\"] = true,\n    [\"Las Tralaleritas\"] = true,\n    [\"Graipuss Medussi\"] = true,\n}\n\nloadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/6de00c2d8f740f73e4ea721a5e533cf6.lua\"))()"
+      },
+      {
+        "name": "NAMELESS HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ily123950/Vulkan/refs/heads/main/Tr\"))()"
+      }
+    ],
+    "BREAK AND STEAL AN EGG": [
+      {
+        "name": "SERENITY HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/MUshihara/Serenity-hub/main/loader.lua\"))()"
+      }
+    ],
+    "STEAL AN EGG": [
+      {
+        "name": "CHIYO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua\"))()"
+      },
+      {
+        "name": "SOLIX HUB KAITUN",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua\"))()"
+      },
+      {
+        "name": "BIGFROOT",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/hanniii1/Loader/refs/heads/main/BFLoader.lua\"))()"
+      },
+      {
+        "name": "OMGHUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      },
+      {
+        "name": "CHILLI HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua\"))()"
+      }
+    ],
+    "SHINDO LIFE 2": [
+      {
+        "name": "IMP HUB",
+        "script": "script_key = \"\";\nloadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/34824c86db1eba5e5e39c7c2d6d7fdfe.lua\"))()"
+      },
+      {
+        "name": "SOLIX HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua\"))()"
+      },
+      {
+        "name": "DZ HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Dexz00/DzHub/refs/heads/main/loader.lua\"))()"
+      }
+    ],
+    "SOLO HUNTER": [
+      {
+        "name": "IMP HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/alan11ago/Hub/refs/heads/main/ImpHub.lua\"))()"
+      },
+      {
+        "name": "AEONIC HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/mazino45/main/refs/heads/main/MainScript.lua\"))()"
+      },
+      {
+        "name": "6FOOT SOLO HUNTER",
+        "script": "loadstring(game:HttpGet('https://raw.githubusercontent.com/SlamminPig/6FootScripts/refs/heads/main/Scripts/SoloHunters.lua'))();"
+      }
+    ],
+    "SURVIVE LAVA BRAINROT": [
+      {
+        "name": "SURVIVE LAVA BRAINROT",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/gumanba/Scripts/main/SurviveLAVAforBrainrots\"))()"
+      }
+    ],
+    "SURVIVE THE APOCALYPSE": [
+      {
+        "name": "PINAT HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/xploitforceofficial-stack/pinatpublicloader/refs/heads/main/pinatloader.lua\"))()"
+      }
+    ],
+    "SAILOR PIECE": [
+      {
+        "name": "NEW OMG HUB 2025",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      },
+      {
+        "name": "SOLIX HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua\"))()"
+      },
+      {
+        "name": "TAOLAO",
+        "script": "loadstring(game:HttpGet(\"https://api.jnkie.com/api/v1/luascripts/public/52d7bb3829a25a2f9b476d1eb84c8d1d4271fda532b61574b926dd7cd2e9d3e9/download\"))()"
+      },
+      {
+        "name": "TWVZ",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ZhangJunZ84/twvzyyds/refs/heads/main/sailorpiece.lua\"))()"
+      },
+      {
+        "name": "SPECTRUM HUB",
+        "script": "loadstring(game:HttpGet('https://raw.githubusercontent.com/xZPUHigh/Spectrum-Cloud/main/Loader.lua'))()"
+      },
+      {
+        "name": "WUKONG HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/duymanhm6-cyber/wukonghud/refs/heads/main/wukonghud\"))()"
+      },
+      {
+        "name": "CHIYO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua\"))()"
+      },
+      {
+        "name": "SPEED HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua\", true))()"
+      }
+    ],
+    "THE STRONGEST BATTLEGROUNDS": [
+      {
+        "name": "MINHNHAT HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/minhnhatdepzai8-cloud/MinhNhat-HUB-V5/refs/heads/main/MinhNhatDZ.lua.txt\"))()"
+      },
+      {
+        "name": "SANS MOVESET",
+        "script": "loadstring(game:HttpGet(\"https://paste.ee/r/rF9d3\"))()"
+      }
+    ],
+    "THE FORGE": [
+      {
+        "name": "CHIYO HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua\"))()"
+      },
+      {
+        "name": "LUNOR HUB",
+        "script": "loadstring(game:HttpGet('https://lunor.dev/loader'))()"
+      },
+      {
+        "name": "MIRAGE HUB",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/2075c39b9a5a2e4414c59c93fe8a5f06.lua\"))()"
+      },
+      {
+        "name": "BALLA HUB",
+        "script": "loadstring(game:HttpGet(\"https://rblx.gaballa.cc/loader\"))()"
+      },
+      {
+        "name": "VOID64BIT (V0ID64BIT)",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/280c3c5ae0ed18010fea0d86c424fdb5.lua\"))()"
+      }
+    ],
+    "TSUNAMI BRAINROT": [
+      {
+        "name": "SPEED HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua\", true))()"
+      },
+      {
+        "name": "EKUVE HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ekuve/ekuvehub/main/main.lua\"))()"
+      },
+      {
+        "name": "TORA IS ME",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/gumanba/Scripts/main/EscapeTsunamiForBrainrots\"))()"
+      },
+      {
+        "name": "SOLIX HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua\"))()"
+      },
+      {
+        "name": "LUMIN",
+        "script": "loadstring(game:HttpGet(\"http://luminon.top/loader.lua\"))()"
+      },
+      {
+        "name": "AJJAN HUB",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v4/loaders/832af29a13a41951e31129a974a1e8cc.lua\"))()"
+      }
+    ],
+    "TOWER DEFENSE SIMULATOR": [
+      {
+        "name": "IMP HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/alan11ago/Hub/refs/heads/main/ImpHub.lua\"))()"
+      }
+    ],
+    "UNIVERSAL TOWER DEFENSE": [
+      {
+        "name": "NOUSIGI HUB",
+        "script": "loadstring(game:HttpGet(\"https://nousigi.com/loader.lua\"))()"
+      }
+    ],
+    "VOX SEAS": [
+      {
+        "name": "FARM DINERO",
+        "script": "loadstring(game:HttpGet('https://raw.githubusercontent.com/shakaUnlocked/IiI/refs/heads/main/AutoVoxSeas.lua'))()"
+      },
+      {
+        "name": "LEGEND HUB",
+        "script": "loadstring(game:HttpGet(\"https://pastefy.app/ULaWpxKm/raw\"))()"
+      },
+      {
+        "name": "NEXUS HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/CrazyHub123/NexusHubRevival/refs/heads/main/NewLoader.lua\"))()"
+      },
+      {
+        "name": "OMG HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      },
+      {
+        "name": "SPARKX SCRIPT",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/FloppHub-Team/Scripts-idk/refs/heads/main/Main/Vox%20Seas%20Open%20Source%20Cracked\"))()"
+      },
+      {
+        "name": "TYPE HUB",
+        "script": "repeat wait() until game:IsLoaded() and game.Players.LocalPlayer\nscript_key = \"\";\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/meobeo8/type/main/Loader\"))()"
+      }
+    ],
+    "WEAK LEGACY": [
+      {
+        "name": "L4BIB HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/L4BIBKAZI/L4BIB-HUB/refs/heads/main/Weak%20Legacy%202\"))()"
+      },
+      {
+        "name": "NEW OMG HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      },
+      {
+        "name": "WEAK LEGACY SCRIPT",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/OhhMyGehlee/sh/refs/heads/main/a\"))()"
+      }
+    ],
+    "ANIME APOCALIPSIS": [
+      {
+        "name": "AEONIC HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/mazino45/main/refs/heads/main/MainScript.lua\"))()"
+      },
+      {
+        "name": "SOLIX HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua\"))()"
+      }
+    ],
+    "WIZARD ARCHEMY": [
+      {
+        "name": "AXON HUB",
+        "script": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/97c3f6db55a2cf72141537a85458e5a7.lua\"))()"
+      }
+    ],
+    "+1 LOOT TO FORGE": [
+      {
+        "name": "SELUX HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/seltonmt012/sel01-rbx/main/loader.lua\"))()"
+      },
+      {
+        "name": "BIGFROOT HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/hanniii1/Loader/refs/heads/main/BFLoader.lua\"))()"
+      }
+    ],
+    "+1 SPEED KEYBOARD ESCAPE": [
+      {
+        "name": "1+ SPEED KEYBOARD",
+        "script": "loadstring(game:HttpGet(\"https://antihambreadoscriptteam.github.io/Scripts/KeyboardChocolate.lua\"))()"
+      },
+      {
+        "name": "HOSHI HUB",
+        "script": "loadstring(game:HttpGet(\"https://antihambreadoscriptteam.github.io/Scripts/HoshiOnTheShit.html\"))()"
+      },
+      {
+        "name": "LUXY HUB",
+        "script": "loadstring(game:HttpGet(\"https://www.luxyhub.space/api/loader/luxyhub\"))()"
+      },
+      {
+        "name": "SPEED HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua\", true))()"
+      }
+    ],
+    "+1 SPEED MONKEY ESCAPE": [
+      {
+        "name": "SPEED HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua\", true))()"
+      }
+    ],
+    "ANIME ASTRAL": [
+      {
+        "name": "YUTO HUB V3",
+        "script": "repeat wait() until game:IsLoaded()\nloadstring(game:HttpGet(('https://raw.githubusercontent.com/Binintrozza/yutv2e/main/Yutohub')))()"
+      }
+    ],
+    "ANIME DIMENSIONS SIMULATOR": [
+      {
+        "name": "SLH HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Yanwanlnwza/SmellLikeHacker/main/Animedimensions.lua\"))()"
+      }
+    ],
+    "ANIME EXPEDITIONS": [
+      {
+        "name": "BIGFROOT HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/hanniii1/Loader/refs/heads/main/BFLoader.lua\"))()"
+      }
+    ],
+    "ANIME ZERO": [
+      {
+        "name": "BIGFROOT HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/hanniii1/Loader/refs/heads/main/BFLoader.lua\"))()"
+      }
+    ]
+  }
+}
