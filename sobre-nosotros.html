@@ -334,7 +334,7 @@ function CrownKit(host, opt) {
   var k = { st: 'idle', md: 'neutral', sleeping: false, avatar: null };
   var stT = 0, mdT = 0, lookT = 0, lastAct = Date.now();
   var SPONT = [['glance', 24], ['thinking', 16], ['working', 14], ['waiting', 10], ['happy', 16], ['blocked', 8], ['done', 12]];
-  var DUR = { thinking: [2600, 1800], working: [5200, 2600], waiting: [4400, 2200], blocked: [3600, 1200], done: [6200, 0] };
+  var DUR = { thinking: [2000, 1200], working: [4200, 1400], waiting: [3200, 1400], blocked: [2600, 800], done: [4400, 0] };
   function on() { return !document.hidden && (!opt.active || opt.active()); }
   function push(o) { if (k.avatar) k.avatar.update(o || { state: k.st, mood: k.md }); }
   k.state = function (s, ms, next) {
@@ -366,7 +366,7 @@ function CrownKit(host, opt) {
   };
   k.react = function (name, ms) {
     if (name === 'glance') return k.glance();
-    if (name === 'happy') return k.mood('happy', ms || 2400 + Math.random() * 1400);
+    if (name === 'happy') return k.mood('happy', ms || 1800 + Math.random() * 1000);
     var d = DUR[name] || [2400, 0];
     return k.state(name, ms || d[0] + Math.random() * d[1]);
   };
@@ -387,7 +387,7 @@ function CrownKit(host, opt) {
   }
   function spont() {
     if (on() && !k.busy() && !k.sleeping && (!opt.calm || !opt.calm())) k.react(pick());
-    setTimeout(spont, 7000 + Math.random() * 9000);
+    setTimeout(spont, 2200 + Math.random() * 2600);
   }
   function sleepCheck() {
     if (!k.sleeping && !k.busy() && on() && Date.now() - lastAct > (opt.sleepAfter || 30000)) {
@@ -401,7 +401,7 @@ function CrownKit(host, opt) {
     k.avatar = m.mountAvatar(host, { definition: DEF, color: '#f2384b', followPointer: opt.follow !== false, state: k.st, mood: k.md, label: opt.label == null ? "Queen's Crown" : opt.label });
   }).catch(function () {});
   ['pointermove', 'pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll'].forEach(function (ev) { window.addEventListener(ev, k.activity, { passive: true }); });
-  setTimeout(spont, opt.firstSpont || 7000);
+  setTimeout(spont, opt.firstSpont || 2000);
   setInterval(sleepCheck, 1000);
   return k;
 }
