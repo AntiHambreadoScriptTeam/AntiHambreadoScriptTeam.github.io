@@ -328,26 +328,26 @@ img{display:block;max-width:100%}
 .qc .qc-pose,.qc .qc-bob,.qc .qc-sway,.qc .qc-shake,.qc .qc-squash,.qc .qc-spin,.qc .qc-shadow-bob,.qc .qc-shadow-hop{transform-box:view-box;transform-origin:50px 88px}
 .qc .qc-spin{transform-origin:50px 60px}
 .qc .qc-shadow-bob,.qc .qc-shadow-hop{transform-origin:50px 91px}
-.qc .qc-pose{transition:transform .7s cubic-bezier(.34,1.4,.64,1)}
+.qc .qc-pose{transition:transform .42s ease-in-out}
 .qc .qc-bob{animation:qcBob 3.4s ease-in-out infinite}
 .qc .qc-shadow-bob{animation:qcShadowBob 3.4s ease-in-out infinite}
 .qc .qc-sway{animation:qcSway 5.3s ease-in-out infinite}
 .qc .qc-lid,.qc .qc-blink,.qc .qc-happy,.qc .qc-open{transform-box:fill-box;transform-origin:center}
-.qc .qc-lid{transition:transform .45s cubic-bezier(.34,1.4,.64,1)}
-.qc .qc-blink{transition:transform .09s ease-out}
-.qc.qc-blinking .qc-blink{transform:scaleY(.08);transition-duration:.06s}
-.qc .qc-open{transition:opacity .14s,transform .22s}
-.qc .qc-happy{opacity:0;transform:translateY(2px) scale(.6);transition:opacity .16s,transform .45s cubic-bezier(.34,1.56,.64,1)}
-.qc .qc-gaze{transition:transform .5s cubic-bezier(.34,1.3,.64,1)}
-.qc .qc-ribbon{opacity:0;transition:opacity .35s}
+.qc .qc-lid{transition:transform .42s ease-in-out}
+.qc .qc-blink{transition:transform .095s ease-in-out}
+.qc.qc-blinking .qc-blink{transform:scaleY(.08)}
+.qc .qc-open{transition:opacity .21s,transform .21s}
+.qc .qc-happy{opacity:0;transform:translateY(2px) scale(.6);transition:opacity .21s,transform .42s ease-in-out}
+.qc .qc-gaze{transition:transform .42s ease-in-out}
+.qc .qc-ribbon{opacity:0;transition:opacity .42s}
 .qc .qc-ribbon ellipse{fill:none;stroke:#ffd24a;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:18 32;animation:qcSweep 1.1s linear infinite}
 .qc .qc-ribbon .qc-r2{stroke:#fff4d6;stroke-width:1.2;stroke-dasharray:6 44;animation-duration:.8s}
-.qc .qc-tw{fill:#fff4d6;transform-box:fill-box;transform-origin:center;transform:scale(0);opacity:0}
-.qc .qc-dots,.qc .qc-zz{opacity:0;transition:opacity .3s}
+.qc .qc-tw{fill:#fff4d6;transform-box:fill-box;transform-origin:center;animation:qcTwinkle 2.6s ease-in-out infinite}
+.qc .qc-dots,.qc .qc-zz{opacity:0;transition:opacity .42s}
 .qc .qc-dots circle{fill:#f2384b;transform-box:fill-box;transform-origin:center;animation:qcDot 1.2s ease-in-out infinite}
 .qc .qc-dots circle:nth-child(2){animation-delay:.2s}
 .qc .qc-dots circle:nth-child(3){animation-delay:.4s}
-.qc .qc-bang{transform-box:fill-box;transform-origin:50% 100%;transform:scale(0);transition:transform .26s cubic-bezier(.5,0,.75,0)}
+.qc .qc-bang{transform-box:fill-box;transform-origin:50% 100%;transform:scale(0);transition:transform .36s ease-in-out}
 .qc .qc-bang-wob{transform-box:fill-box;transform-origin:50% 100%;animation:qcWob .5s ease-in-out infinite}
 .qc .qc-zz path{fill:none;stroke:#f2384b;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transform-box:fill-box;transform-origin:center;animation:qcZz 2.2s ease-in-out infinite}
 .qc .qc-zz path:nth-child(2){animation-delay:.7s}
@@ -359,7 +359,6 @@ img{display:block;max-width:100%}
 .qc[data-st=working] .qc-pose{transform:translateY(.4px) rotate(3deg) scale(1.01,.985)}
 .qc[data-st=working] .qc-lid{transform:scaleY(.72)}
 .qc[data-st=working] .qc-gaze{animation:qcDart 3.1s ease-in-out infinite}
-.qc[data-st=working] .qc-bob,.qc[data-st=working] .qc-shadow-bob{animation-duration:.7s}
 .qc[data-st=working] .qc-ribbon{animation:qcTurn 7.5s ease-in-out 1.2s infinite}
 .qc[data-st=waiting] .qc-pose{transform:rotate(7deg)}
 .qc[data-st=waiting] .qc-lid{transform:scaleY(.2)}
@@ -368,9 +367,8 @@ img{display:block;max-width:100%}
 .qc[data-st=waiting] .qc-squash{animation:qcSigh 6.5s ease-in-out infinite}
 .qc[data-st=blocked] .qc-pose{transform:scale(.99,1.03)}
 .qc[data-st=blocked] .qc-lid{transform:scale(1.06,1.08)}
-.qc[data-st=blocked] .qc-bob,.qc[data-st=blocked] .qc-sway,.qc[data-st=blocked] .qc-shadow-bob{animation-play-state:paused}
-.qc[data-st=blocked] .qc-shake{animation:qcJolt 3s linear infinite}
-.qc[data-st=blocked] .qc-bang{transform:scale(1);transition:transform .5s cubic-bezier(.34,1.9,.64,1)}
+.qc[data-st=blocked] .qc-shake{animation:qcShake 4s linear infinite}
+.qc[data-st=blocked] .qc-bang{transform:scale(1);animation:qcBangIn .66s ease-in-out}
 .qc[data-st=done] .qc-open,.qc[data-mood=happy] .qc-open{opacity:0;transform:scaleY(.1)}
 .qc[data-st=done] .qc-happy,.qc[data-mood=happy] .qc-happy{opacity:1;transform:none}
 .qc[data-st=done] .qc-squash{animation:qcHops 6.2s ease-in-out infinite}
@@ -378,9 +376,9 @@ img{display:block;max-width:100%}
 .qc[data-st=done] .qc-spin{animation:qcFlip 6.2s ease-in-out infinite}
 .qc[data-st=done] .qc-cf{animation:qcConfetti 6.2s cubic-bezier(.2,.7,.3,1) infinite}
 .qc[data-st=done] .qc-ribbon{animation:qcCage 6.2s ease-in-out infinite}
-.qc[data-st=idle][data-mood=happy] .qc-squash{animation:qcHop .92s ease-in-out infinite}
-.qc[data-st=idle][data-mood=happy] .qc-shadow-hop{animation:qcShadowHop .92s ease-in-out infinite}
-.qc[data-st=done] .qc-tw,.qc[data-mood=happy] .qc-tw,.qc.qc-sparkle .qc-tw{animation:qcTwinkle 2.6s ease-in-out infinite}
+.qc[data-st=idle][data-mood=happy] .qc-squash{animation:qcHop .92s linear infinite}
+.qc[data-st=idle][data-mood=happy] .qc-sway{animation:qcHappyRoll 1.84s ease-in-out infinite}
+.qc[data-st=thinking] .qc-squash{animation:qcThinkLift 5.2s ease-in-out infinite}
 @keyframes qcBob{0%,100%{transform:translateY(0) scale(1.008,.99)}50%{transform:translateY(-1.6px) scale(.995,1.01)}}
 @keyframes qcSway{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}
 @keyframes qcShadowBob{0%,100%{transform:scale(1)}50%{transform:scale(.94)}}
@@ -391,15 +389,17 @@ img{display:block;max-width:100%}
 @keyframes qcTwinkle{0%,55%,100%{transform:scale(0) rotate(0);opacity:0}70%{transform:scale(1) rotate(45deg);opacity:1}85%{transform:scale(.2) rotate(90deg);opacity:0}}
 @keyframes qcDart{0%,100%{transform:translate(.6px,1.4px)}20%{transform:translate(-.8px,1.2px)}40%{transform:translate(.9px,1.6px)}60%{transform:translate(-.5px,1.3px)}80%{transform:translate(.7px,1.5px)}}
 @keyframes qcTurn{0%{opacity:0}3%,17%{opacity:1}20%,100%{opacity:0}}
-@keyframes qcSigh{0%,40%,100%{transform:none}12%{transform:translateY(-.6px) scale(1.015,1.03)}26%{transform:scale(1.03,.96)}}
-@keyframes qcJolt{0%{transform:none}5%{transform:translateY(-3px)}10%{transform:translateY(0)}13%{transform:translateX(-1.6px)}16%{transform:translateX(1.6px)}19%{transform:translateX(-1.3px)}22%{transform:translateX(1.3px)}25%{transform:translateX(-.8px)}28%{transform:translateX(.6px)}31%,100%{transform:none}}
+@keyframes qcSigh{0%,33.3%,100%{transform:none}16.6%{transform:scale(1,1.025)}}
+@keyframes qcShake{0%,4.9%{transform:none}5%{transform:translateX(-1.6px)}8%{transform:translateX(1.6px)}11%{transform:translateX(-1.3px)}14%{transform:translateX(1.3px)}17%{transform:translateX(-.8px)}20%{transform:translateX(.6px)}23%,60.4%{transform:none}60.5%{transform:translateX(-1.2px)}63.5%{transform:translateX(1.2px)}66.5%{transform:translateX(-.6px)}69.5%,100%{transform:none}}
+@keyframes qcBangIn{0%{transform:scale(0)}55%{transform:scale(1.3)}100%{transform:scale(1)}}
 @keyframes qcHops{0%{transform:none}4.84%{transform:scale(1.09,.88)}12.58%{transform:translateY(-10px) scale(.94,1.08)}20.32%{transform:translateY(0) scale(1.07,.92)}25.16%,31.94%{transform:none}36.77%{transform:scale(1.08,.9)}44.52%{transform:translateY(-8px) scale(.95,1.06)}52.26%{transform:translateY(0) scale(1.06,.93)}57.1%,100%{transform:none}}
 @keyframes qcShadowHops{0%{transform:none;opacity:1}4.84%{transform:scale(1.1)}12.58%{transform:scale(.6);opacity:.5}20.32%{transform:scale(1.08);opacity:1}25.16%,31.94%{transform:none}36.77%{transform:scale(1.08)}44.52%{transform:scale(.66);opacity:.55}52.26%{transform:scale(1.06);opacity:1}57.1%,100%{transform:none;opacity:1}}
-@keyframes qcFlip{0%,5.81%{transform:none}9.19%{transform:scaleX(.05)}12.58%{transform:scaleX(-1)}15.97%{transform:scaleX(-.05)}19.35%,36.77%{transform:none}40.16%{transform:scaleX(-.05)}43.55%{transform:scaleX(-1)}46.94%{transform:scaleX(.05)}50.32%,100%{transform:none}}
+@keyframes qcFlip{0%,5.81%{transform:none}9.19%{transform:scaleX(.05)}12.58%{transform:scaleX(-1)}15.97%{transform:scaleX(-.05)}19.35%,100%{transform:none}}
 @keyframes qcConfetti{0%,3.87%{transform:translate(50px,48px) scale(0) rotate(0);opacity:0}5.81%{transform:translate(50px,48px) scale(1) rotate(0);opacity:1}20.32%{transform:translate(calc(50px + var(--x)),calc(48px + var(--y))) scale(.9) rotate(var(--r));opacity:1}24.19%{transform:translate(calc(50px + var(--x)),calc(52px + var(--y))) scale(.4) rotate(var(--r));opacity:0}35.81%{transform:translate(50px,48px) scale(0) rotate(0);opacity:0}37.74%{transform:translate(50px,48px) scale(1) rotate(0);opacity:1}52.26%{transform:translate(calc(50px - var(--x)),calc(48px + var(--y))) scale(.9) rotate(calc(var(--r) * -1));opacity:1}56.13%,100%{transform:translate(calc(50px - var(--x)),calc(52px + var(--y))) scale(.4) rotate(calc(var(--r) * -1));opacity:0}}
 @keyframes qcCage{0%{opacity:0}3%,54%{opacity:1}58%,100%{opacity:0}}
-@keyframes qcHop{0%,100%{transform:translateY(0) scale(1.06,.94)}15%{transform:translateY(-.6px) scale(.96,1.05)}50%{transform:translateY(-3.2px) scale(.98,1.02)}85%{transform:translateY(0) scale(1.02,.98)}}
-@keyframes qcShadowHop{0%,100%{transform:scale(1.04);opacity:1}50%{transform:scale(.82);opacity:.6}}
+@keyframes qcHop{0%,100%{transform:translateY(0) scale(1.07,.91)}6%,94%{transform:translateY(-.72px) scale(1.032,.962)}12%,88%{transform:translateY(-1.35px) scale(.994,1.013)}25%,75%{transform:translateY(-2.4px) scale(.989,1.023)}37.5%,62.5%{transform:translateY(-3px) scale(.986,1.028)}50%{transform:translateY(-3.2px) scale(.985,1.03)}}
+@keyframes qcHappyRoll{0%,100%{transform:rotate(0)}25%{transform:rotate(4.5deg)}75%{transform:rotate(-4.5deg)}}
+@keyframes qcThinkLift{0%,100%{transform:translateY(0)}50%{transform:translateY(-1px)}}
 @media (prefers-reduced-motion:reduce){.qc *{animation:none!important;transition-duration:.01s!important}}
 </style>
 <script>
@@ -408,10 +408,10 @@ function CrownKit(svg, opt) {
   var RMk = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   var look = svg.querySelector('.qc-look');
   var k = { st: 'idle', md: 'neutral', sleeping: false };
-  var stT = 0, mdT = 0, fxT = 0, lastAct = Date.now();
+  var stT = 0, mdT = 0, lastAct = Date.now();
   var g = { x: 0, y: 0, px: 0, py: 0, rx: 0, ry: 0, lastPtr: 0, glanceUntil: 0 };
-  var SPONT = [['glance', 24], ['thinking', 14], ['working', 12], ['waiting', 8], ['happy', 13], ['sparkle', 12], ['blocked', 7], ['done', 8], ['blink', 6]];
-  var DUR = { thinking: [2600, 1800], working: [3800, 1400], waiting: [4400, 1800], blocked: [2600, 400], done: [4100, 0] };
+  var SPONT = [['glance', 24], ['thinking', 16], ['working', 14], ['waiting', 10], ['happy', 16], ['blocked', 8], ['done', 12]];
+  var DUR = { thinking: [2600, 1800], working: [3800, 1400], waiting: [4400, 1800], blocked: [4000, 0], done: [4100, 0] };
   function on() { return !document.hidden && (!opt.active || opt.active()); }
   function paint() { svg.setAttribute('data-st', k.st); svg.setAttribute('data-mood', k.md); }
   function rearm() { svg.setAttribute('data-st', 'idle'); void svg.getBoundingClientRect(); }
@@ -432,37 +432,23 @@ function CrownKit(svg, opt) {
     if (ms) mdT = setTimeout(function () { k.md = 'neutral'; paint(); }, ms);
     return k;
   };
-  k.sparkle = function (ms) {
-    clearTimeout(fxT);
-    svg.classList.remove('qc-sparkle');
-    void svg.getBoundingClientRect();
-    svg.classList.add('qc-sparkle');
-    fxT = setTimeout(function () { svg.classList.remove('qc-sparkle'); }, ms || 2600);
-    return k;
-  };
   k.blink = function () {
     if (k.md === 'happy' || k.st === 'done' || svg.classList.contains('qc-blinking')) return k;
     svg.classList.add('qc-blinking');
-    setTimeout(function () { svg.classList.remove('qc-blinking'); }, 120);
+    setTimeout(function () { svg.classList.remove('qc-blinking'); }, 190);
     return k;
   };
+  function wanderPoint() { return Math.random() < .4 ? [0, 0] : [(Math.random() * 2 - 1) * 1.8, (Math.random() * 2 - 1) * 1.05]; }
   k.glance = function (dir) {
-    var n = 0, steps = dir ? 1 : 2 + Math.floor(Math.random() * 3), total = 0;
-    var seq = [];
-    for (var i = 0; i < steps; i++) {
-      var t = 420 + Math.random() * 560;
-      seq.push([dir ? dir[0] : (Math.random() * 2 - 1) * 2.8, dir ? dir[1] : (Math.random() * 2 - 1) * 1.5, t]);
-      total += t;
-    }
-    if (dir) seq[0][2] = total = 1400;
+    var n = 0, seq = [], total = 0, steps = dir ? 1 : 2 + Math.floor(Math.random() * 2);
+    for (var i = 0; i < steps; i++) { seq.push(dir ? [dir[0], dir[1]] : wanderPoint()); total += 1900; }
     g.glanceUntil = Date.now() + total;
     (function step() {
       if (n >= seq.length) { g.rx = 0; g.ry = 0; return; }
-      var s = seq[n++];
-      g.rx = s[0];
-      g.ry = s[1];
-      if (Math.random() < .3) setTimeout(k.blink, s[2] * .5);
-      setTimeout(step, s[2]);
+      g.rx = seq[n][0];
+      g.ry = seq[n][1];
+      n++;
+      setTimeout(step, 1900);
     })();
     return k;
   };
@@ -471,16 +457,14 @@ function CrownKit(svg, opt) {
     if (!r.width) return k;
     var dx = cx - (r.left + r.width / 2), dy = cy - (r.top + r.height * .62);
     var d = Math.max(Math.sqrt(dx * dx + dy * dy), 1), m = Math.min(d / 260, 1);
-    g.px = Math.max(-3.2, Math.min(3.2, dx / d * 3.2 * m));
-    g.py = Math.max(-2.4, Math.min(2.4, dy / d * 2.4 * m));
+    g.px = Math.max(-3, Math.min(3, dx / d * 3 * m));
+    g.py = Math.max(-3, Math.min(3, dy / d * 3 * m));
     g.lastPtr = Date.now();
     return k;
   };
   k.react = function (name, ms) {
     if (name === 'glance') return k.glance();
     if (name === 'happy') return k.mood('happy', ms || 2200 + Math.random() * 1200);
-    if (name === 'sparkle') return k.sparkle(ms || 2600);
-    if (name === 'blink') { k.blink(); setTimeout(k.blink, 250); return k; }
     var d = DUR[name] || [2400, 0];
     return k.state(name, ms || d[0] + Math.random() * d[1]);
   };
@@ -490,8 +474,6 @@ function CrownKit(svg, opt) {
     if (!k.sleeping) return;
     k.sleeping = false;
     if (k.st === 'waiting') k.state('idle');
-    k.blink();
-    setTimeout(k.blink, 260);
     if (opt.onWake) opt.onWake();
   };
   function pick() {
@@ -505,9 +487,14 @@ function CrownKit(svg, opt) {
     if (on() && !k.busy() && !k.sleeping && (!opt.calm || !opt.calm())) k.react(pick());
     setTimeout(spont, 6500 + Math.random() * 8500);
   }
-  function blinkLoop() {
-    if (on()) { k.blink(); if (Math.random() < .25) setTimeout(k.blink, 260); }
-    setTimeout(blinkLoop, (k.st === 'waiting' ? 4200 : 2400) + Math.random() * 3800);
+  function blinkSlot() {
+    var at = 500 + Math.random() * 2900, dbl = Math.random() > .8;
+    setTimeout(function () { if (on()) { k.blink(); if (dbl) setTimeout(k.blink, 340); } }, at);
+    setTimeout(blinkSlot, 4200);
+  }
+  function wanderLoop() {
+    if (k.st === 'idle' && Date.now() >= g.glanceUntil) { var p = wanderPoint(); g.rx = p[0]; g.ry = p[1]; }
+    setTimeout(wanderLoop, 1900);
   }
   function sleepCheck() {
     if (!k.sleeping && !k.busy() && on() && Date.now() - lastAct > (opt.sleepAfter || 30000)) {
@@ -519,7 +506,7 @@ function CrownKit(svg, opt) {
   function frame() {
     var now = Date.now(), f = k.st === 'idle' ? 1 : .35, tx, ty;
     if (now < g.glanceUntil || now - g.lastPtr > 2600) { tx = g.rx; ty = g.ry; } else { tx = g.px; ty = g.py; }
-    var nx = g.x + (tx * f - g.x) * .12, ny = g.y + (ty * f - g.y) * .12;
+    var nx = g.x + (tx * f - g.x) * .25, ny = g.y + (ty * f - g.y) * .25;
     if (look && (Math.abs(nx - g.x) > .004 || Math.abs(ny - g.y) > .004)) look.setAttribute('transform', 'translate(' + nx.toFixed(2) + ' ' + ny.toFixed(2) + ')');
     g.x = nx;
     g.y = ny;
@@ -533,7 +520,8 @@ function CrownKit(svg, opt) {
   }
   ['keydown', 'wheel', 'touchstart', 'scroll'].forEach(function (ev) { window.addEventListener(ev, k.activity, { passive: true }); });
   if (!RMk) {
-    setTimeout(blinkLoop, 2600);
+    blinkSlot();
+    setTimeout(wanderLoop, 1900);
     setTimeout(spont, opt.firstSpont || 7000);
     setInterval(sleepCheck, 1000);
     requestAnimationFrame(frame);
@@ -842,24 +830,10 @@ function CrownKit(svg, opt) {
 
   var crownEl = null, qc = null;
   var bot = {
-    hop: function () {
-      if (!GO || !crownEl) return;
-      gsap.timeline({ overwrite: 'auto' })
-        .to(crownEl, { y: -16, scaleX: 0.94, scaleY: 1.07, duration: 0.26, ease: 'power2.out', transformOrigin: '50% 90%' })
-        .to(crownEl, { y: 0, scaleX: 1.08, scaleY: 0.9, duration: 0.2, ease: 'power2.in' })
-        .to(crownEl, { scaleX: 1, scaleY: 1, duration: 0.9, ease: 'elastic.out(1,.38)' });
-    },
-    wiggle: function () {
-      if (!GO || !crownEl) return;
-      gsap.timeline({ overwrite: 'auto' })
-        .to(crownEl, { rotation: -14, duration: 0.18, ease: 'power2.out', transformOrigin: '50% 80%' })
-        .to(crownEl, { rotation: 11, duration: 0.2, ease: 'power2.inOut' })
-        .to(crownEl, { rotation: 0, duration: 1, ease: 'elastic.out(1,.32)' });
-    },
     happy: function (ms) {
       if (!qc) return;
       if (qc.st === 'waiting' || qc.st === 'blocked') qc.state('idle');
-      qc.mood('happy', ms || 2600).sparkle(ms || 2600);
+      qc.mood('happy', ms || 2600);
     },
     celebrate: function () { if (qc) qc.mood('neutral').state('done', 4100); },
     blink: function () { if (qc) qc.blink(); },
@@ -872,7 +846,7 @@ function CrownKit(svg, opt) {
       active: function () { return B.docked || B.still || window.pageYOffset < window.innerHeight * 0.6; },
       sleepAfter: 12000,
       onSleep: function () { sleepy = true; },
-      onWake: function () { sleepy = false; setTimeout(bot.hop, 300); }
+      onWake: function () { sleepy = false; }
     });
     if (RM) return;
     setTimeout(function () { if (window.pageYOffset < window.innerHeight * 0.5) bot.celebrate(); }, 1100);
@@ -884,10 +858,10 @@ function CrownKit(svg, opt) {
     listening: function () { bot.act('waiting', 3400); },
     working: function () { bot.act('working', 4200); },
     excited: function () { bot.celebrate(); },
-    proud: function () { bot.happy(2400); bot.hop(); },
+    proud: function () { bot.happy(2400); },
     happy: function () { bot.happy(2600); },
     shy: function () { if (qc) qc.glance([-2.6, 1.2]); bot.happy(2200); },
-    playful: function () { bot.wiggle(); if (qc) qc.sparkle(2600); setTimeout(bot.hop, 380); },
+    playful: function () { bot.happy(1800); setTimeout(function () { if (qc) qc.glance(); }, 1800); },
     celebrate: function () { bot.celebrate(); }
   };
 
@@ -895,7 +869,6 @@ function CrownKit(svg, opt) {
   function moodTo(name, id) {
     if (id === 'inicio') { if (Date.now() - bootAt > 2500) bot.happy(2400); return; }
     if (MOODS[name] && (B.docked || B.still)) MOODS[name]();
-    if (B.docked) bot.hop();
   }
 
   var buddy = $('#buddy'), stage = $('#stage'), lens = $('#buddyLens'), sayEl = $('#say');
@@ -959,16 +932,13 @@ function CrownKit(svg, opt) {
 
   var SECRETS = ['Hunger level: 0%', 'Cero acortadores, cero dramas.', 'Zani Queen aprueba esta página.', 'Sin anuncios desde 2025.', '¡Otra vuelta! ¡Otra vuelta!', 'Soy roja por naturaleza, no por neón.'];
   var secretN = -1;
-  var pokeN = 0, pokeT = null, POKES = ['happy', 'done', 'sparkle', 'glance', 'happy', 'thinking'];
+  var pokeN = 0, pokeT = null, POKES = ['happy', 'done', 'glance', 'happy', 'thinking'];
   function poke() {
     activity();
     pokeN++;
     clearTimeout(pokeT);
     pokeT = setTimeout(function () { pokeN = 0; }, 1400);
-    bot.wiggle();
-    setTimeout(bot.hop, 420);
-    setTimeout(bot.blink, 900);
-    if (pokeN >= 4) { pokeN = 0; bot.act('blocked', 2600); }
+    if (pokeN >= 4) { pokeN = 0; bot.act('blocked'); }
     else bot.act(POKES[Math.floor(Math.random() * POKES.length)]);
     if (B.docked || B.still) {
       var n;
@@ -1075,7 +1045,7 @@ function CrownKit(svg, opt) {
       lgCur += (target - lgCur) * 0.08;
       if (Math.abs(lgCur - lgLast) > 0.6) { lgMap.setAttribute('scale', lgCur.toFixed(1)); lgLast = lgCur; }
     }
-    if (qc && Math.abs(app.vel) > 48 && !qc.busy() && Date.now() - (app.jolt || 0) > 7000) { app.jolt = Date.now(); qc.state('blocked', 1500); }
+    if (qc && Math.abs(app.vel) > 48 && !qc.busy() && Date.now() - (app.jolt || 0) > 7000) { app.jolt = Date.now(); qc.state('blocked', 4000); }
     if (!app.lenis) app.vel *= 0.9;
     requestAnimationFrame(floatLoop);
   }
