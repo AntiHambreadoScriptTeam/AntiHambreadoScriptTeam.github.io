@@ -1124,143 +1124,154 @@
       .zani-stage { width: 300px; height: 450px; }
     }
 
-    .wiz { --ok: #3ddc84; --ring: #ff334d; scroll-margin-top: 96px; max-width: 920px; margin-inline: auto; border-radius: var(--radius); overflow: hidden; }
-    .wiz [hidden] { display: none !important; }
-    .wiz-top-right { display: flex; flex: 0 0 auto; align-items: center; gap: 10px; }
-    .wiz-mode { padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 999px; background: rgba(255, 255, 255, 0.05); color: #fff; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
-    .wiz-mode:hover { border-color: rgba(255, 255, 255, 0.45); }
-    .wiz-pro { display: grid; gap: 12px; }
-    .wiz-pro-item { display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255, 255, 255, 0.025); }
-    .wiz-pro-item .wiz-num { width: 34px; height: 34px; border-radius: 10px; font-size: 16px; }
-    .wiz-pro-item h4 { margin: 4px 0 8px; font-size: 16px; }
-    .wiz-pro-item > div { display: grid; gap: 10px; min-width: 0; }
-    .wiz-pro-item .wiz-text, .wiz-pro-item .wiz-list li { font-size: 14px; }
-    .wiz-pro-item .wiz-cta .button { min-height: 44px; font-size: 13px; }
-    .wiz-photo summary { color: var(--muted); font-size: 13px; font-weight: 700; cursor: pointer; }
-    .wiz-photo[open] summary { margin-bottom: 10px; }
     .skill-gate-card p strong { color: #fff; }
     .skill-gate-foot { margin-top: 14px !important; font-size: 12px !important; text-align: center; }
-    .zani-focus { position: fixed; z-index: 1500; top: 0; left: 0; width: 0; height: 0; border-radius: 18px; pointer-events: none; box-shadow: 0 0 0 3px #ff334d, 0 0 0 9px rgba(255, 51, 77, 0.22), 0 0 0 200vmax rgba(0, 0, 0, 0.55); transition: top 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), left 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s; }
+    .skill-gate-actions .button { justify-content: flex-start; gap: 12px; min-height: 58px; padding-inline: 18px; text-align: left; }
+    .skill-gate-actions .button svg { width: 20px; height: 20px; }
+    .skill-gate-actions .button small { display: block; margin-top: 2px; font-size: 12px; font-weight: 500; opacity: 0.7; }
+
+    .ico { display: inline-block; flex: 0 0 auto; width: 18px; height: 18px; vertical-align: -3px; }
+
+    .wiz { --accent: #ff334d; --ok: #2fbf71; scroll-margin-top: 96px; max-width: 880px; margin-inline: auto; overflow: hidden; border-radius: var(--radius); }
+    .wiz [hidden] { display: none !important; }
+    .wiz-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 58px; padding: 10px 24px; border-bottom: 1px solid var(--line); }
+    .wiz-path { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 2px; min-width: 0; color: var(--muted); font-size: 13px; }
+    .wiz-path button { display: inline-flex; align-items: center; gap: 7px; padding: 4px 6px; border: 0; border-radius: 6px; background: none; color: #e9e9e6; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .wiz-path button:hover { background: rgba(255, 255, 255, 0.06); }
+    .wiz-path img { width: 16px; height: 16px; border-radius: 3px; object-fit: contain; }
+    .wiz-path .sep { width: 14px; height: 14px; color: #55554f; }
+    .wiz-top-right { display: flex; flex: 0 0 auto; align-items: center; gap: 14px; }
+    .wiz-count { color: var(--muted); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .wiz-mode { display: inline-flex; align-items: center; gap: 7px; padding: 7px 11px; border: 1px solid var(--line-strong); border-radius: 8px; background: none; color: #e9e9e6; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .wiz-mode:hover { border-color: rgba(255, 255, 255, 0.4); }
+    .wiz-mode svg { width: 15px; height: 15px; }
+    .wiz-bar { height: 2px; background: var(--line); }
+    .wiz-bar span { display: block; width: 0; height: 100%; background: var(--accent); transition: width 0.4s ease; }
+    .wiz-body { padding: 30px 32px 8px; }
+    .wiz-q { margin: 0 0 6px; font-family: "Space Grotesk", "Inter", sans-serif; font-size: clamp(22px, 3.6vw, 30px); line-height: 1.15; letter-spacing: -0.02em; }
+    .wiz-sub { margin: 0 0 22px; color: #a3a39e; font-size: 15px; }
+    .wiz-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .wiz-option { display: flex; align-items: center; gap: 14px; min-height: 72px; padding: 12px 14px; border: 1px solid var(--line-strong); border-radius: 12px; background: #121213; color: inherit; text-align: left; text-decoration: none; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+    .wiz-option:hover { border-color: rgba(255, 255, 255, 0.42); background: #171718; }
+    .wiz-option:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .wiz-option > img, .wiz-option > .wiz-glyph { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 9px; object-fit: contain; }
+    .wiz-glyph { display: grid; place-items: center; background: #1c1c1e; color: #e9e9e6; }
+    .wiz-glyph svg { width: 22px; height: 22px; }
+    .wiz-option-text { flex: 1 1 auto; min-width: 0; }
+    .wiz-option strong { display: block; font-size: 15px; line-height: 1.3; }
+    .wiz-option small { display: block; margin-top: 2px; color: #8e8e89; font-size: 13px; line-height: 1.35; }
+    .wiz-option .wiz-go { flex: 0 0 auto; width: 18px; height: 18px; color: #6b6b66; }
+    .wiz-option.is-guess { border-color: rgba(47, 191, 113, 0.55); }
+    .wiz-option .wiz-guess { display: flex; align-items: center; gap: 5px; margin-top: 4px; color: #6fd8a0; font-size: 12px; font-weight: 600; }
+    .wiz-option .wiz-guess svg { width: 13px; height: 13px; }
+    .wiz-option.is-old { opacity: 0.72; }
+    .wiz-group-label { margin: 22px 0 8px; color: #8e8e89; font-size: 13px; font-weight: 600; }
+    .wiz-group-label:first-of-type { margin-top: 0; }
+    .wiz-step-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+    .wiz-num { display: grid; flex: 0 0 auto; width: 34px; height: 34px; margin-top: 2px; place-items: center; border: 1.5px solid #fff; border-radius: 50%; font-family: "Space Grotesk", sans-serif; font-size: 16px; font-weight: 700; }
+    .wiz-flow { display: grid; gap: 18px; }
+    .wiz-text { margin: 0; color: #d6d6d2; font-size: 16px; line-height: 1.65; }
+    .wiz-text strong { color: #fff; }
+    .wiz-text a { color: #fff; }
+    kbd { display: inline-block; min-width: 22px; padding: 0 6px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 5px; background: #161617; font: 600 13px/1.6 "Inter", sans-serif; text-align: center; }
+    .wiz-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; counter-reset: li; }
+    .wiz-list li { position: relative; padding-left: 34px; color: #d6d6d2; font-size: 16px; line-height: 1.55; }
+    .wiz-list li::before { position: absolute; top: 1px; left: 0; display: grid; width: 22px; height: 22px; place-items: center; border-radius: 50%; background: #1f1f21; color: #fff; font-size: 12px; font-weight: 700; counter-increment: li; content: counter(li); }
+    .wiz-list li strong { color: #fff; }
+    .shot { margin: 0; }
+    .shot-frame { overflow: hidden; border: 1px solid var(--line-strong); border-radius: 10px; background: #111; }
+    .shot-frame img { width: 100%; height: auto; }
+    .shot.is-phone .shot-frame { max-width: 320px; margin-inline: auto; }
+    .shot.is-narrow .shot-frame { max-width: 480px; margin-inline: auto; }
+    .shot figcaption { margin-top: 8px; color: #8e8e89; font-size: 13px; text-align: center; }
+    .mock { max-width: 440px; margin-inline: auto; padding: 18px 20px; border: 1px solid var(--line-strong); border-radius: 10px; background: #202124; color: #e8eaed; font-family: "Segoe UI", system-ui, sans-serif; }
+    .mock-title { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
+    .mock-sub { margin: 0 0 16px; color: #9aa0a6; font-size: 13px; }
+    .mock-actions { display: flex; justify-content: flex-end; gap: 10px; }
+    .mock-btn { padding: 7px 15px; border: 1px solid #5f6368; border-radius: 999px; color: #a8c7fa; font-size: 13px; font-weight: 600; }
+    .mock-btn.is-main { border-color: #a8c7fa; background: #a8c7fa; color: #062e6f; outline: 3px solid var(--accent); outline-offset: 4px; }
+    .mock-cap { margin-top: 8px; color: #8e8e89; font-size: 13px; text-align: center; }
+    .copy-box { display: flex; align-items: stretch; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 10px; background: #121213; }
+    .copy-box code { flex: 1 1 auto; min-width: 0; padding: 13px 15px; overflow-x: auto; color: #fff; font: 500 14px ui-monospace, "Cascadia Mono", Consolas, monospace; white-space: nowrap; }
+    .copy-box button { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 8px; padding: 0 18px; border: 0; border-left: 1px solid var(--line-strong); background: #fff; color: #000; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .copy-box button svg { width: 16px; height: 16px; }
+    .copy-box button.is-done { background: var(--ok); color: #03140a; }
+    .wiz-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+    .wiz-cta .button { gap: 9px; min-height: 50px; padding-inline: 20px; font-size: 15px; }
+    .wiz-cta .button svg { width: 16px; height: 16px; }
+    .wiz-note { display: flex; gap: 10px; margin: 0; color: #b8b8b3; font-size: 14px; line-height: 1.55; }
+    .wiz-note svg { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; color: #8e8e89; }
+    .wiz-note strong { color: #fff; }
+    .wiz-note.is-warn svg { color: #ff6b80; }
+    .wiz-more { border-top: 1px solid var(--line); padding-top: 14px; }
+    .wiz-more summary { display: inline-flex; align-items: center; gap: 8px; color: #b8b8b3; font-size: 14px; font-weight: 600; cursor: pointer; list-style: none; }
+    .wiz-more summary::-webkit-details-marker { display: none; }
+    .wiz-more summary svg { width: 16px; height: 16px; transition: transform 0.2s; }
+    .wiz-more[open] summary svg { transform: rotate(90deg); }
+    .wiz-more[open] summary { margin-bottom: 14px; }
+    .wiz-mgr { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding-top: 14px; border-top: 1px solid var(--line); color: #8e8e89; font-size: 13px; }
+    .wiz-mgr label { display: inline-flex; align-items: center; gap: 7px; color: #d6d6d2; cursor: pointer; }
+    .wiz-mgr input { accent-color: #fff; }
+    .wiz-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 22px 32px 28px; }
+    .wiz-nav .button { gap: 8px; min-height: 52px; }
+    .wiz-nav .button svg { width: 17px; height: 17px; }
+    .wiz-next { min-width: 210px; font-size: 15px !important; }
+    .wiz-next.is-done { border-color: var(--ok); background: var(--ok); color: #03140a; }
+    .wiz-done { padding: 10px 0 24px; text-align: center; }
+    .wiz-done img { width: 140px; margin: 0 auto 6px; }
+    .wiz-done .wiz-cta { justify-content: center; margin-top: 18px; }
+    .wiz-pro-list { display: grid; gap: 8px; }
+    .wiz-pro-help { display: grid; gap: 14px; margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .wiz-pro-help h4 { margin: 0; font-size: 15px; }
+    .wiz-links { display: flex; flex-wrap: wrap; gap: 8px; }
+    .wiz-links a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--line-strong); border-radius: 8px; color: #e9e9e6; font-size: 13px; font-weight: 600; text-decoration: none; }
+    .wiz-links a:hover { border-color: rgba(255, 255, 255, 0.45); }
+    .wiz-links img { width: 16px; height: 16px; object-fit: contain; }
+
+    .zani-focus { position: fixed; z-index: 1500; top: 0; left: 0; width: 0; height: 0; border: 3px solid var(--red); border-radius: 12px; pointer-events: none; box-shadow: 0 0 0 200vmax rgba(0, 0, 0, 0.6); transition: top 0.3s ease, left 0.3s ease, width 0.3s ease, height 0.3s ease; }
     .zani-focus[hidden] { display: none; }
-    .zani-focus.is-soft { box-shadow: 0 0 0 3px #ff334d, 0 0 0 9px rgba(255, 51, 77, 0.22), 0 0 0 200vmax rgba(0, 0, 0, 0.18); }
-    @media (prefers-reduced-motion: no-preference) {
-      .zani-focus { animation: focusPulse 1.6s ease-in-out infinite; }
-      @keyframes focusPulse { 50% { outline: 6px solid rgba(255, 51, 77, 0.35); outline-offset: 6px; } }
-    }
+    .zani-focus.is-soft { box-shadow: 0 0 0 200vmax rgba(0, 0, 0, 0.28); }
+    .zani-bubble { border-radius: 18px; }
     .zani-bubble-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
-    .zani-bubble-head strong { margin: 0 !important; }
-    .zani-bubble p strong, .zani-hint strong { display: inline; margin: 0; color: #fff; font-size: inherit; font-weight: 800; letter-spacing: 0; text-transform: none; }
-    .zani-progress { color: #ff8a9a; font-size: 11px; font-weight: 800; }
-    .zani-bubble p#zaniLine { font-size: 15px; line-height: 1.5; color: #fff; }
+    .zani-bubble-head strong { margin: 0 !important; color: #fff !important; font-size: 13px !important; letter-spacing: 0 !important; text-transform: none !important; }
+    .zani-progress { color: #8e8e89; font-size: 12px; font-weight: 600; }
+    .zani-bubble p#zaniLine { color: #fff; font-size: 15px; line-height: 1.5; }
+    .zani-bubble p strong, .zani-hint strong { display: inline; margin: 0; color: #fff; font-size: inherit; font-weight: 700; letter-spacing: 0; text-transform: none; }
     .zani-hint:empty { display: none; }
-    .zani-hint { padding: 8px 10px; border-radius: 10px; background: rgba(255, 51, 77, 0.12); color: #ffc2cb !important; font-size: 12px !important; font-weight: 600; }
-    .zani-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-    .zani-tool { padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: 999px; background: rgba(255, 255, 255, 0.05); color: #e6e6e3; font-size: 12px; font-weight: 700; cursor: pointer; }
-    .zani-tool:hover, .zani-tool[aria-pressed="true"] { border-color: #fff; background: #fff; color: #000; }
-    .zani-peek { position: fixed; z-index: 1600; right: max(14px, env(safe-area-inset-right)); bottom: max(14px, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 8px; padding: 6px 14px 6px 6px; border: 1px solid var(--line-strong); border-radius: 999px; background: rgba(12, 12, 14, 0.9); color: #fff; font-size: 13px; font-weight: 800; cursor: pointer; box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5); }
-    .zani-peek img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; object-position: 50% 12%; background: #222; }
+    .zani-hint { margin-top: 8px; color: #b8b8b3 !important; font-size: 13px !important; }
+    .zani-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
+    .zani-tool { display: inline-flex; align-items: center; gap: 6px; padding: 6px 9px; border: 1px solid var(--line-strong); border-radius: 7px; background: none; color: #d6d6d2; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .zani-tool svg { width: 14px; height: 14px; }
+    .zani-tool:hover, .zani-tool[aria-pressed="true"] { border-color: #fff; color: #fff; }
+    .zani-tool[aria-pressed="true"] { background: #fff; color: #000; }
+    .zani-peek { position: fixed; z-index: 1600; right: max(14px, env(safe-area-inset-right)); bottom: max(14px, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 8px; padding: 5px 14px 5px 5px; border: 1px solid var(--line-strong); border-radius: 999px; background: #121213; color: #fff; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .zani-peek img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; object-position: 50% 12%; background: #222; }
     .zani-peek[hidden] { display: none; }
     body.zani-on .site-footer { padding-bottom: 180px; }
-    @media (max-width: 640px) {
-      .wiz-top { flex-wrap: wrap; }
-      .wiz-crumbs { flex: 1 1 100%; }
+    @media (min-width: 1100px) {
+      body.zani-on .wiz { max-width: calc(100% - 340px); margin-left: 0; }
+    }
+
+    @media (max-width: 700px) {
+      .wiz-options { grid-template-columns: 1fr; }
+      .wiz-top { flex-wrap: wrap; padding: 10px 14px; }
+      .wiz-path { flex: 1 1 100%; }
       .wiz-top-right { width: 100%; justify-content: space-between; }
+      .wiz-body { padding: 22px 16px 6px; }
+      .wiz-nav { padding: 16px 16px 22px; }
+      .wiz-nav .button { flex: 1 1 auto; }
+      .wiz-next { min-width: 0; }
+      .copy-box { flex-direction: column; }
+      .copy-box button { justify-content: center; min-height: 46px; border-top: 1px solid var(--line-strong); border-left: 0; }
     }
     @media (max-width: 760px) {
       body.zani-on .wiz-nav { padding-bottom: calc(var(--zani-h, 170px) + 18px); }
       .zani-guide { align-items: flex-end; }
       .zani-bubble { flex: 1 1 auto; width: auto; min-width: 0; }
       .zani-stage { flex: 0 0 auto; width: 84px !important; height: 126px !important; }
-      .zani-skip { margin-top: 8px; }
-      .zani-bubble p#zaniLine { font-size: 13px; }
-      .zani-tools { gap: 4px; }
-      .zani-tool { padding: 5px 8px; font-size: 11px; }
-    }
-    .menu-zani { text-decoration: none; }
-    .wiz-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 22px; border-bottom: 1px solid var(--line); }
-    .wiz-crumbs { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
-    .wiz-crumb { display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border: 1px solid var(--line-strong); border-radius: 999px; background: rgba(255, 255, 255, 0.04); color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; }
-    .wiz-crumb img { width: 16px; height: 16px; border-radius: 4px; object-fit: contain; }
-    .wiz-crumb:hover { color: #fff; border-color: rgba(255, 255, 255, 0.35); }
-    .wiz-count { flex: 0 0 auto; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.04em; }
-    .wiz-bar { height: 4px; background: rgba(255, 255, 255, 0.06); }
-    .wiz-bar span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--ring), #ff8a5c); transition: width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
-    .wiz-body { padding: 30px 30px 26px; }
-    .wiz-q { margin: 0 0 6px; font-family: "Space Grotesk", "Inter", sans-serif; font-size: clamp(24px, 4.2vw, 34px); line-height: 1.12; letter-spacing: -0.02em; }
-    .wiz-sub { margin: 0 0 22px; color: var(--muted); font-size: 16px; }
-    .wiz-choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
-    .wiz-choice { position: relative; display: flex; align-items: center; gap: 14px; min-height: 84px; padding: 16px 18px; border: 1px solid var(--line-strong); border-radius: 18px; background: rgba(255, 255, 255, 0.035); text-align: left; cursor: pointer; transition: border-color 0.2s, background 0.2s, transform 0.2s; }
-    .wiz-choice:hover { border-color: rgba(255, 255, 255, 0.45); background: rgba(255, 255, 255, 0.07); transform: translateY(-2px); }
-    .wiz-choice img, .wiz-choice .wiz-emoji { flex: 0 0 auto; width: 46px; height: 46px; border-radius: 12px; object-fit: contain; }
-    .wiz-emoji { display: grid; place-items: center; background: rgba(255, 255, 255, 0.06); font-size: 26px; }
-    .wiz-choice strong { display: block; font-size: 17px; line-height: 1.25; }
-    .wiz-choice small { display: block; margin-top: 3px; color: var(--muted); font-size: 13px; line-height: 1.35; }
-    .wiz-choice.is-guess { border-color: var(--ok); box-shadow: 0 0 0 3px rgba(61, 220, 132, 0.16); }
-    .wiz-choice .wiz-flag { position: absolute; top: -9px; right: 12px; padding: 2px 9px; border-radius: 999px; background: var(--ok); color: #04170c; font-size: 11px; font-weight: 800; }
-    .wiz-step { display: grid; grid-template-columns: 1fr; gap: 18px; }
-    .wiz-step-head { display: flex; align-items: flex-start; gap: 14px; }
-    .wiz-num { display: grid; flex: 0 0 auto; width: 48px; height: 48px; place-items: center; border-radius: 14px; background: #fff; color: #000; font-family: "Space Grotesk", sans-serif; font-size: 22px; font-weight: 700; }
-    .wiz-text { margin: 0; color: #dcdcd8; font-size: 17px; line-height: 1.6; }
-    .wiz-text strong { color: #fff; }
-    .wiz-text kbd { display: inline-block; padding: 1px 7px; border: 1px solid var(--line-strong); border-bottom-width: 3px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); font: 600 14px "Inter", sans-serif; }
-    .wiz-list { margin: 10px 0 0; padding-left: 0; list-style: none; counter-reset: li; }
-    .wiz-list li { position: relative; margin: 8px 0; padding-left: 36px; color: #dcdcd8; font-size: 16px; }
-    .wiz-list li::before { position: absolute; top: 1px; left: 0; display: grid; width: 24px; height: 24px; place-items: center; border-radius: 50%; background: rgba(255, 51, 77, 0.18); color: #ff8a9a; font-size: 12px; font-weight: 800; counter-increment: li; content: counter(li); }
-    .shot { position: relative; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 16px; background: #111; container-type: inline-size; }
-    .shot img { width: 100%; height: auto; }
-    .shot.is-phone { max-width: 340px; margin-inline: auto; }
-    .shot.is-narrow { max-width: 460px; margin-inline: auto; }
-    .shot-cap { margin: 8px 2px 0; color: var(--muted-2); font-size: 12px; text-align: center; }
-    .ring { position: absolute; width: var(--w, 9%); aspect-ratio: var(--ar, 1); border: 3px solid var(--ring); border-radius: 999px; box-shadow: 0 0 0 4px rgba(255, 51, 77, 0.25), 0 0 24px rgba(255, 51, 77, 0.55); transform: translate(-50%, -50%); pointer-events: none; animation: ringPulse 1.4s ease-in-out infinite; }
-    .ring-tag { position: absolute; padding: 4px 10px; border-radius: 999px; background: var(--ring); color: #fff; font-size: clamp(11px, 1.9cqw, 14px); font-weight: 800; white-space: nowrap; transform: translate(-50%, 0); pointer-events: none; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45); }
-    .fake-pill { position: absolute; display: grid; place-items: center; border-radius: 999px; background: #a8c7fa; color: #062e6f; font-size: 1.02cqw; font-weight: 600; white-space: nowrap; transform: translate(-50%, -50%); }
-    @keyframes ringPulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.12); } }
-    .mock { max-width: 460px; margin-inline: auto; padding: 18px 20px; border: 1px solid var(--line-strong); border-radius: 16px; background: #202124; color: #e8eaed; font-family: "Segoe UI", system-ui, sans-serif; }
-    .mock-title { margin: 0 0 6px; font-size: 16px; font-weight: 600; }
-    .mock-sub { margin: 0 0 16px; color: #9aa0a6; font-size: 13px; }
-    .mock-actions { display: flex; justify-content: flex-end; gap: 10px; }
-    .mock-btn { position: relative; padding: 8px 16px; border: 1px solid #5f6368; border-radius: 999px; background: transparent; color: #a8c7fa; font-size: 14px; font-weight: 600; }
-    .mock-btn.is-main { border-color: #a8c7fa; background: #a8c7fa; color: #062e6f; }
-    .mock-btn.is-main::after { position: absolute; inset: -7px; border: 3px solid var(--ring); border-radius: 999px; content: ""; animation: ringPulse2 1.4s ease-in-out infinite; }
-    @keyframes ringPulse2 { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-    .copy-box { display: flex; align-items: stretch; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 14px; background: rgba(255, 255, 255, 0.04); }
-    .copy-box code { flex: 1 1 auto; min-width: 0; padding: 14px 16px; overflow-x: auto; color: #fff; font: 600 15px ui-monospace, "Cascadia Mono", Consolas, monospace; white-space: nowrap; }
-    .copy-box button { flex: 0 0 auto; padding: 0 20px; border: 0; border-left: 1px solid var(--line-strong); background: #fff; color: #000; font-weight: 800; cursor: pointer; }
-    .copy-box button.is-done { background: var(--ok); }
-    .wiz-cta { display: flex; flex-wrap: wrap; gap: 10px; }
-    .wiz-cta .button { min-height: 54px; padding-inline: 22px; font-size: 15px; }
-    .wiz-note { display: flex; gap: 12px; padding: 13px 15px; border: 1px solid rgba(255, 196, 0, 0.28); border-radius: 14px; background: rgba(255, 196, 0, 0.07); color: #f3e2a8; font-size: 14px; line-height: 1.5; }
-    .wiz-note::before { flex: 0 0 auto; content: "💡"; }
-    .wiz-note.is-warn { border-color: rgba(255, 51, 77, 0.35); background: rgba(255, 51, 77, 0.08); color: #ffc2cb; }
-    .wiz-note.is-warn::before { content: "⚠️"; }
-    .wiz-alt summary { color: var(--muted); font-size: 14px; font-weight: 600; cursor: pointer; }
-    .wiz-alt[open] summary { margin-bottom: 12px; }
-    .wiz-zani { display: flex; align-items: flex-end; gap: 10px; }
-    .wiz-zani img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; object-position: 50% 12%; background: rgba(255, 255, 255, 0.06); border: 1px solid var(--line-strong); }
-    .wiz-zani p { position: relative; margin: 0; padding: 10px 14px; border: 1px solid var(--line-strong); border-radius: 16px 16px 16px 4px; background: rgba(255, 255, 255, 0.05); color: #e9e9e6; font-size: 14px; }
-    .wiz-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 30px 26px; }
-    .wiz-nav .button { min-height: 56px; }
-    .wiz-next { min-width: 220px; font-size: 16px !important; }
-    .wiz-next.is-done { border-color: var(--ok); background: var(--ok); color: #04170c; }
-    .wiz-done { text-align: center; }
-    .wiz-done .wiz-big { font-size: 64px; line-height: 1; }
-    .wiz-done img.zani-done { width: 150px; margin: 0 auto 10px; }
-    .wiz-mgr { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; color: var(--muted); font-size: 13px; }
-    .wiz-mgr button { padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 999px; background: transparent; color: var(--muted); font-size: 12px; font-weight: 700; cursor: pointer; }
-    .wiz-mgr button[aria-pressed="true"] { border-color: #fff; background: #fff; color: #000; }
-    @media (max-width: 640px) {
-      .wiz-top { padding: 13px 16px; }
-      .wiz-body { padding: 22px 16px 18px; }
-      .wiz-nav { padding: 12px 16px 20px; }
-      .wiz-nav .button { flex: 1 1 auto; }
-      .wiz-next { min-width: 0; }
-      .wiz-num { width: 40px; height: 40px; font-size: 19px; }
-      .wiz-text { font-size: 16px; }
-      .copy-box { flex-direction: column; }
-      .copy-box button { min-height: 46px; border-top: 1px solid var(--line-strong); border-left: 0; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .ring, .mock-btn.is-main::after { animation: none; }
+      .zani-bubble p#zaniLine { font-size: 14px; }
+      .zani-tool span { display: none; }
+      .shot.is-phone .shot-frame { max-width: 200px; }
     }
   </style>
 </head>
@@ -1270,14 +1281,13 @@
 
   <div class="skill-gate" id="skillGate" role="dialog" aria-modal="true" aria-labelledby="skillGateTitle" hidden>
     <div class="skill-gate-card glass">
-      <p class="skill-gate-kicker">AHST · Guía</p>
       <h2 id="skillGateTitle">¿Ya sabes usar UserScripts?</h2>
-      <p>Si ya instalaste Tampermonkey o Violentmonkey alguna vez, usa el <strong>modo rápido</strong>: todos los pasos en una sola lista. Si es tu primera vez, <strong>Zani Queen</strong> te acompaña y te señala dónde tocar en cada paso.</p>
+      <p>Si ya instalaste Tampermonkey o Violentmonkey alguna vez, te damos los enlaces directos. Si es tu primera vez, <strong>Zani Queen</strong> te acompaña y te señala dónde tocar en cada paso.</p>
       <div class="skill-gate-actions">
-        <button class="button button-primary" type="button" data-skill="beginner">No, es mi primera vez · Guíame</button>
-        <button class="button button-secondary" type="button" data-skill="known">Sí, ya sé usarlos</button>
+        <button class="button button-primary" type="button" data-skill="beginner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11.5V5a1.5 1.5 0 0 1 3 0v5.5"/><path d="M12 10.5V4a1.5 1.5 0 0 1 3 0v6.5"/><path d="M15 10.5V6a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-6 6h-1a6 6 0 0 1-4.7-2.3L3.6 14.3a1.5 1.5 0 0 1 2.3-1.9L9 15V11.5"/></svg><span>No, es mi primera vez<small>Guíame paso a paso</small></span></button>
+        <button class="button button-secondary" type="button" data-skill="known"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg><span>Sí, ya sé usarlos<small>Dame los enlaces directos</small></span></button>
       </div>
-      <p class="skill-gate-foot">Puedes cambiar de modo cuando quieras desde la guía.</p>
+      <p class="skill-gate-foot">Puedes cambiar de opción cuando quieras desde la guía.</p>
     </div>
   </div>
 
@@ -1291,11 +1301,11 @@
       <p id="zaniLine">Hola. Te voy a llevar de la mano.</p>
       <div class="zani-hint" id="zaniHint"></div>
       <div class="zani-tools">
-        <button class="zani-tool" id="zaniVoice" type="button" aria-pressed="false" title="Leer en voz alta">🔊 Escuchar</button>
-        <button class="zani-tool" id="zaniShow" type="button" title="Volver a señalar">👉 ¿Dónde?</button>
-        <button class="zani-tool" id="zaniMin" type="button" title="Esconder a Zani">Esconder</button>
+        <button class="zani-tool" id="zaniVoice" type="button" aria-pressed="false" aria-label="Leer en voz alta" title="Leer en voz alta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg><span>Escuchar</span></button>
+        <button class="zani-tool" id="zaniShow" type="button" aria-label="Volver a señalar" title="Volver a señalar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg><span>¿Dónde?</span></button>
+        <button class="zani-tool" id="zaniMin" type="button" aria-label="Esconder a Zani" title="Esconder a Zani"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg><span>Esconder</span></button>
+        <button class="zani-tool" id="zaniSkip" type="button" aria-label="Quitar la guía" title="Quitar la guía"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Quitar guía</span></button>
       </div>
-      <button class="zani-skip" id="zaniSkip" type="button">Ya entendí, quitar la guía</button>
     </div>
     <div class="zani-stage" id="zaniStage" data-pose="talking" role="img" aria-label="Zani Queen">
       <img class="zani-frame zani-frame-a zani-pose-standing" src="https://file.garden/alVrmPF1qmak3SyZ/ZaniQueenRework/standing-a.png" alt="" width="480" height="720" decoding="async">
@@ -1371,7 +1381,6 @@
         <img class="lockr-dots" src="https://lockr.net/media/home-dots.png" alt="">
       </div>
       <div class="container hero-copy">
-        <p class="eyebrow hero-reveal">PC · Android · iPhone / iPad</p>
         <h1 class="hero-reveal">Instala <span class="hero-roulette" id="heroRoulette"><span class="hero-roulette-sizer" aria-hidden="true">Linkvertise</span><span class="hero-roulette-viewport" aria-hidden="true"><span class="hero-roulette-track" id="heroRouletteTrack"></span></span></span> <span id="heroRouletteLive" class="hero-roulette-live">Work.ink</span> Bypass</h1>
         <p class="hero-lead hero-reveal">Una guía con fotos, un paso a la vez. No necesitas saber nada: sólo haz lo que dice cada paso.</p>
         <div class="hero-actions hero-reveal">
@@ -1384,14 +1393,13 @@
     <section class="content-section" id="guia">
       <div class="container">
         <header class="section-heading reveal">
-          <p class="section-kicker">Instalación paso a paso</p>
-          <h2>Te llevamos de la mano</h2>
+          <h2>Instálalo paso a paso</h2>
           <p>Contesta 3 preguntas y te mostramos un paso a la vez, con fotos. Haz lo que dice cada paso y pulsa <strong>Ya lo hice</strong>. Si te equivocas, pulsa <strong>Atrás</strong>.</p>
         </header>
 
         <div class="wiz glass reveal" id="wiz">
           <div class="wiz-top">
-            <div class="wiz-crumbs" id="wizCrumbs"></div>
+            <nav class="wiz-path" id="wizPath" aria-label="Tus respuestas"></nav>
             <div class="wiz-top-right">
               <span class="wiz-count" id="wizCount"></span>
               <button class="wiz-mode" id="wizMode" type="button"></button>
@@ -1400,8 +1408,8 @@
           <div class="wiz-bar" aria-hidden="true"><span id="wizBar"></span></div>
           <div class="wiz-body" id="wizBody" aria-live="polite"></div>
           <div class="wiz-nav" id="wizNav">
-            <button class="button button-secondary" type="button" id="wizBack">← Atrás</button>
-            <button class="button button-primary wiz-next" type="button" id="wizNext">Ya lo hice →</button>
+            <button class="button button-secondary" type="button" id="wizBack"></button>
+            <button class="button button-primary wiz-next" type="button" id="wizNext"></button>
           </div>
         </div>
       </div>
@@ -1410,7 +1418,6 @@
     <section class="content-section" id="funcionamiento">
       <div class="container after-grid">
         <header class="section-heading reveal">
-          <p class="section-kicker">Después de instalar</p>
           <h2 id="functioningTitle">Qué hace Work.ink Bypass</h2>
           <p id="functioningIntro">Qué vas a ver en la consola después de abrir un enlace de work.ink.</p>
           <div class="product-note" id="productNote"><h3>Work.ink Bypass</h3><p>Avanza el enlace, prepara la sesión premium y espera los contadores. Tú resuelves Cloudflare, Turnstile y hCaptcha. El destino no se abre solo: hay que pulsar ABRIR DESTINO FINAL.</p></div>
@@ -1443,7 +1450,7 @@
 
     <section class="content-section" id="seguridad">
       <div class="container">
-        <header class="section-heading reveal"><p class="section-kicker">Antes de instalar</p><h2>Permisos y límites</h2></header>
+        <header class="section-heading reveal"><h2>Permisos y límites</h2></header>
         <div class="safety-grid">
           <article class="safety-card glass reveal"><h3>Dónde actúa cada uno</h3><p>Work.ink Bypass sólo en <code>work.ink</code>. VegaX Bypass en PandaAuth y LootLabs. Delta Bypass en Platorelay y, en el checkpoint, en LootLabs. Admaven Bypass en LootLabs. Linkvertise Bypass en <code>linkvertise.com</code> y en su resolvedor. Ninguno instala el executor ni entra a Roblox.</p></article>
           <article class="safety-card glass reveal"><h3>Revisa dónde se ejecutan</h3><p>Antes de instalar, mira <code>@match</code> y <code>@grant</code>. Si el nombre del instalador no coincide con el bypass que elegiste, cancela.</p></article>
@@ -1455,7 +1462,7 @@
 
     <section class="content-section" id="ayuda">
       <div class="container">
-        <header class="section-heading reveal"><p class="section-kicker">Solución de problemas</p><h2>Si algo no funciona</h2></header>
+        <header class="section-heading reveal"><h2>Si algo no funciona</h2></header>
         <div class="faq-list reveal">
           <details><summary>El enlace muestra código en lugar del instalador</summary><p>El gestor no está activo en ese navegador. Instálalo, concede acceso a sitios y vuelve a abrir el enlace <code>.user.js</code> dentro del mismo navegador.</p></details>
           <details><summary>El UserScript está instalado pero no inicia</summary><p>Abre el panel del gestor, comprueba que el bypass elegido esté habilitado y recarga la página donde debe funcionar. En Chrome o Edge también activa <strong>Permitir UserScripts</strong> en los detalles de la extensión.</p></details>
@@ -1476,7 +1483,6 @@
           <button class="button button-secondary view-return" type="button" data-view="tutorial">← Volver al tutorial</button>
           <header class="section-heading reveal">
             <img class="discord-mark" src="https://i.pinimg.com/originals/69/01/c4/6901c471e753e912776c0d4c558aed6a.gif" alt="Logo de Discord" width="280" height="280">
-            <p class="section-kicker">Novedades</p>
             <h2>Los cambios se anuncian en Discord</h2>
             <p>Versiones, arreglos y avisos de cuando un bypass deja de funcionar se publican en el servidor de AHST.</p>
           </header>
@@ -1490,7 +1496,6 @@
         <div class="container">
           <button class="button button-secondary view-return" type="button" data-view="tutorial">← Volver al tutorial</button>
           <header class="section-heading reveal">
-            <p class="section-kicker">Equipo y colaboradores</p>
             <h2>Créditos</h2>
           </header>
 
@@ -1973,10 +1978,25 @@
         }
       }
 
-      const IMG = "media/guia/";
-      const ZANI = {
-        talk: "https://file.garden/alVrmPF1qmak3SyZ/ZaniQueenRework/talking-a.png",
-        happy: "https://file.garden/alVrmPF1qmak3SyZ/ZaniQueenRework/petting-a.png"
+      const IMG = "https://file.garden/alVrmPF1qmak3SyZ/TutorialJS/";
+      const ZANI_HAPPY = "https://file.garden/alVrmPF1qmak3SyZ/ZaniQueenRework/petting-a.png";
+      const SVG = (d) => '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + "</svg>";
+      const ICON = {
+        next: SVG('<path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>'),
+        back: SVG('<path d="M19 12H5"/><path d="m11 18-6-6 6-6"/>'),
+        chevron: SVG('<path d="m9 6 6 6-6 6"/>'),
+        check: SVG('<path d="m5 12 5 5 9-10"/>'),
+        external: SVG('<path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/>'),
+        download: SVG('<path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/>'),
+        copy: SVG('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/>'),
+        info: SVG('<circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><path d="M12 7.5v.5"/>'),
+        warn: SVG('<path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17v.5"/>'),
+        list: SVG('<path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01"/>'),
+        guide: SVG('<path d="M4 19V5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2Z"/><path d="M8 7h6M8 11h6"/>'),
+        monitor: SVG('<rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/>'),
+        phone: SVG('<rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18h2"/>'),
+        tablet: SVG('<rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M11 18h2"/>'),
+        restart: SVG('<path d="M4 12a8 8 0 1 0 2.3-5.6"/><path d="M4 4v4h4"/>')
       };
       const SCRIPT_LOGOS = {
         workink: "https://testlinks.github.io/bf758e72-4d1e-4e76-a630-9fc97440e316.png",
@@ -1992,16 +2012,24 @@
         linkvertise: "Enlaces de linkvertise.com",
         delta: "Key de Delta (Platorelay)"
       };
-      const LOGOS = {
-        chrome: "https://www.google.com/chrome/static/images/chrome-logo-m100.svg",
-        edge: "https://edgecdn-embza6g8cacagcbn.z01.azurefd.net/welcome/static/favicon.png",
-        firefox: "https://www.mozilla.org/media/protocol/img/logos/firefox/browser/logo.eb1324e44442.svg",
+      const LOGO = {
+        chrome: ASSETS.chrome.logo,
+        edge: ASSETS.edge.logo,
+        firefox: ASSETS.firefox.logo,
         brave: "https://brave.com/static-assets/images/brave-logo-sans-text.svg",
         opera: "https://cdn.simpleicons.org/opera/FF1B2D",
-        safari: "https://www.apple.com/v/safari/u/images/overview/privacy_icon_safari__gdqq6axl0d6y_large_2x.png",
-        violentmonkey: "https://violentmonkey.github.io/_astro/vm.C4h557K-.png",
+        safari: ASSETS.safari.logo,
+        orion: ASSETS.orion.logo,
+        gear: ASSETS.gear.logo,
+        lemur: ASSETS.lemur.logo,
+        quetta: ASSETS.quetta.logo,
+        yandex: ASSETS.yandex.logo,
+        mises: ASSETS.mises.logo,
+        kiwi: ASSETS.kiwi.logo,
+        stay: "https://stayfork.app/favicon.ico",
+        userscripts: IMG + "ios-userscripts-icono.jpg",
         tampermonkey: "https://www.tampermonkey.net/images/icon180.png",
-        userscripts: IMG + "ios-userscripts-icono.jpg"
+        violentmonkey: "https://violentmonkey.github.io/_astro/vm.C4h557K-.png"
       };
       const EXT = {
         violentmonkey: {
@@ -2011,8 +2039,7 @@
           chromeStore: URLS.violentChrome,
           edgeStore: URLS.violentEdge,
           firefoxStore: URLS.violentFirefox,
-          androidFirefox: "https://addons.mozilla.org/android/addon/violentmonkey/",
-          installBtn: "Instalar"
+          androidFirefox: "https://addons.mozilla.org/android/addon/violentmonkey/"
         },
         tampermonkey: {
           name: "Tampermonkey",
@@ -2021,50 +2048,67 @@
           chromeStore: URLS.tamperChrome,
           edgeStore: URLS.tamperEdge,
           firefoxStore: URLS.tamperFirefox,
-          androidFirefox: "https://addons.mozilla.org/android/addon/tampermonkey/",
-          installBtn: "Instalar"
+          androidFirefox: "https://addons.mozilla.org/android/addon/tampermonkey/"
         }
       };
+      const DEVICES = [
+        { id: "pc", name: "Computadora", hint: "Windows, Mac o Linux", icon: ICON.monitor },
+        { id: "android", name: "Teléfono o tablet Android", hint: "Samsung, Xiaomi, Motorola, Honor…", icon: ICON.phone },
+        { id: "ios", name: "iPhone o iPad", hint: "Apple", icon: ICON.tablet }
+      ];
       const BROWSERS = {
         pc: [
-          { id: "chrome", name: "Google Chrome", hint: "El navegador más común" },
+          { id: "chrome", name: "Google Chrome", hint: "El más común" },
           { id: "edge", name: "Microsoft Edge", hint: "Viene con Windows" },
-          { id: "opera", name: "Opera / Opera GX", hint: "El navegador \"gamer\"" },
+          { id: "opera", name: "Opera / Opera GX", hint: "El de los gamers" },
           { id: "brave", name: "Brave", hint: "El del león naranja" },
           { id: "firefox", name: "Firefox", hint: "El zorro naranja" }
         ],
         android: [
-          { id: "firefox", name: "Firefox", hint: "Recomendado · el más fácil" },
-          { id: "edge", name: "Microsoft Edge", hint: "También funciona" }
+          { id: "firefox", name: "Firefox", hint: "Recomendado: el más fácil" },
+          { id: "edge", name: "Microsoft Edge", hint: "Con Tampermonkey" },
+          { id: "lemur", name: "Lemur Browser", hint: "Acepta extensiones de Chrome" },
+          { id: "quetta", name: "Quetta Browser", hint: "Acepta extensiones de Chrome" },
+          { id: "yandex", name: "Yandex Browser", hint: "Acepta extensiones de Chrome" },
+          { id: "mises", name: "Mises Browser", hint: "Experimental" },
+          { id: "kiwi", name: "Kiwi Browser", hint: "Ya no recibe actualizaciones", old: true }
         ],
         ios: [
-          { id: "safari", name: "Safari + Userscripts", hint: "Gratis · el de siempre del iPhone" }
+          { id: "safari", name: "Safari + Userscripts", hint: "Gratis. Recomendado", logo: "userscripts" },
+          { id: "stay", name: "Safari + Stay", hint: "Gratis, con extras de pago", logo: "stay" },
+          { id: "orion", name: "Orion Browser", hint: "Gratis. Usa Violentmonkey o Tampermonkey" },
+          { id: "gear", name: "Gear Browser", hint: "Trae UserScripts incluidos" },
+          { id: "tmsafari", name: "Safari + Tampermonkey", hint: "De pago", logo: "tampermonkey" }
         ]
       };
-      const DEVICES = [
-        { id: "pc", name: "Computadora", hint: "Windows, Mac o Linux", emoji: "💻" },
-        { id: "android", name: "Teléfono Android", hint: "Samsung, Xiaomi, Motorola…", emoji: "🤖" },
-        { id: "ios", name: "iPhone o iPad", hint: "Apple", emoji: "📱" }
-      ];
-      const BROWSER_INFO = {
-        chrome: { scheme: "chrome", store: "chromeStore", idKey: "chromeId", add: "Añadir a Chrome", confirm: "Añadir extensión", label: "Chrome" },
-        brave: { scheme: "brave", store: "chromeStore", idKey: "chromeId", add: "Añadir a Brave", confirm: "Añadir extensión", label: "Brave" },
-        opera: { scheme: "opera", store: "chromeStore", idKey: "chromeId", add: "Añadir a Opera", confirm: "Instalar", label: "Opera" },
-        edge: { scheme: "edge", store: "edgeStore", idKey: "edgeId", add: "Obtener", confirm: "Agregar extensión", label: "Edge" }
+      const CHROMIUM_PC = {
+        chrome: { scheme: "chrome", store: "chromeStore", idKey: "chromeId", add: "Añadir a Chrome", confirm: "Añadir extensión" },
+        brave: { scheme: "brave", store: "chromeStore", idKey: "chromeId", add: "Añadir a Brave", confirm: "Añadir extensión" },
+        opera: { scheme: "opera", store: "chromeStore", idKey: "chromeId", add: "Añadir a Opera", confirm: "Instalar" },
+        edge: { scheme: "edge", store: "edgeStore", idKey: "edgeId", add: "Obtener", confirm: "Agregar extensión" }
+      };
+      const CHROMIUM_MOBILE = {
+        lemur: { scheme: "chrome" },
+        quetta: { scheme: "chrome" },
+        yandex: { scheme: "browser" },
+        mises: { scheme: "chrome" },
+        kiwi: { scheme: "kiwi" }
       };
 
       const wiz = {
-        crumbs: document.getElementById("wizCrumbs"),
+        path: document.getElementById("wizPath"),
         count: document.getElementById("wizCount"),
         bar: document.getElementById("wizBar"),
         body: document.getElementById("wizBody"),
         nav: document.getElementById("wizNav"),
         back: document.getElementById("wizBack"),
-        next: document.getElementById("wizNext")
+        next: document.getElementById("wizNext"),
+        mode: document.getElementById("wizMode")
       };
-      wiz.mode = document.getElementById("wizMode");
       const flow = { phase: "script", device: null, browser: null, manager: "violentmonkey", i: 0, mode: "guided", guess: { device: null, browser: null } };
       const zani = { on: false, min: false, voice: false, target: null, idle: 0, said: "" };
+      const touch = window.matchMedia("(pointer: coarse)").matches;
+      const tap = touch ? "Toca" : "Pulsa";
 
       function esc(text) {
         return String(text).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
@@ -2075,297 +2119,374 @@
         const ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
         const android = /Android/.test(ua);
         let browser = "chrome";
-        if (/EdgA?\//.test(ua)) browser = "edge";
+        if (/EdgA?\//.test(ua) || /EdgiOS/.test(ua)) browser = "edge";
         else if (/OPR\/|Opera|OPX\//.test(ua)) browser = "opera";
+        else if (/YaBrowser|YaApp/.test(ua)) browser = "yandex";
         else if (/Firefox|FxiOS/.test(ua)) browser = "firefox";
         else if (navigator.brave) browser = "brave";
         const device = ios ? "ios" : android ? "android" : "pc";
-        if (device === "ios") browser = "safari";
-        if (device === "android" && browser !== "edge") browser = "firefox";
+        if (device === "ios") browser = /Orion/.test(ua) ? "orion" : "safari";
+        if (device === "android" && !["edge", "yandex", "firefox"].includes(browser)) browser = "firefox";
+        if (device === "pc" && browser === "yandex") browser = "chrome";
         flow.guess = { device, browser };
       }
 
-      function save() {
+      function store(key, value) {
         try {
-          localStorage.setItem("ahst-wiz", JSON.stringify({ script: state.script, phase: flow.phase, device: flow.device, browser: flow.browser, manager: flow.manager, i: flow.i }));
+          if (value === undefined) return localStorage.getItem(key);
+          localStorage.setItem(key, value);
         } catch {}
+        return null;
+      }
+
+      function save() {
+        store("ahst-wiz", JSON.stringify({ script: state.script, phase: flow.phase, device: flow.device, browser: flow.browser, manager: flow.manager, i: flow.i }));
       }
 
       function load() {
         try {
-          const data = JSON.parse(localStorage.getItem("ahst-wiz") || "null");
+          const data = JSON.parse(store("ahst-wiz") || "null");
           if (!data) return;
           if (SCRIPTS[data.script]) state.script = data.script;
           if (DEVICES.some((d) => d.id === data.device)) flow.device = data.device;
           if (flow.device && BROWSERS[flow.device].some((b) => b.id === data.browser)) flow.browser = data.browser;
           if (EXT[data.manager]) flow.manager = data.manager;
-          if (["script", "device", "browser", "steps", "done"].includes(data.phase)) flow.phase = data.phase;
-          if (flow.phase === "steps" && (!flow.device || !flow.browser)) flow.phase = "script";
-          flow.i = Number(data.i) || 0;
         } catch {}
       }
 
-      function shot(src, alt, opts) {
-        const o = opts || {};
-        const marks = (o.rings || []).map((r) => {
-          const ring = '<span class="ring" style="left:' + r.x + "%;top:" + r.y + "%;--w:" + (r.w || 9) + "%;--ar:" + (r.ar || 1) + '"></span>';
-          const tag = r.tag ? '<span class="ring-tag" style="left:' + (r.tx != null ? r.tx : r.x) + "%;top:" + r.ty + '%">' + r.tag + "</span>" : "";
-          return ring + tag;
-        }).join("");
-        const pills = (o.pills || []).map((p) => '<span class="fake-pill" style="left:' + p.x + "%;top:" + p.y + "%;width:" + p.w + "%;height:" + p.h + '%">' + esc(p.text) + "</span>").join("");
-        return '<figure style="margin:0"><div class="shot' + (o.cls ? " " + o.cls : "") + '"><img src="' + IMG + src + '" alt="' + esc(alt) + '" loading="lazy" decoding="async">' + pills + marks + "</div>" + (o.cap ? '<figcaption class="shot-cap">' + o.cap + "</figcaption>" : "") + "</figure>";
+      function shot(src, alt, cap, cls) {
+        return '<figure class="shot' + (cls ? " " + cls : "") + '"><div class="shot-frame"><img src="' + IMG + src + '" alt="' + esc(alt) + '" loading="lazy" decoding="async"></div>' + (cap ? "<figcaption>" + cap + "</figcaption>" : "") + "</figure>";
       }
 
-      function mock(title, sub, main, other) {
-        return '<div class="mock" role="img" aria-label="' + esc(title) + '"><p class="mock-title">' + title + "</p>" + (sub ? '<p class="mock-sub">' + sub + "</p>" : "") + '<div class="mock-actions">' + (other ? '<span class="mock-btn">' + other + "</span>" : "") + '<span class="mock-btn is-main">' + main + "</span></div></div>";
+      function mock(title, sub, main, other, cap) {
+        return '<div><div class="mock" role="img" aria-label="' + esc(title) + '"><p class="mock-title">' + title + "</p>" + (sub ? '<p class="mock-sub">' + sub + "</p>" : "") + '<div class="mock-actions">' + (other ? '<span class="mock-btn">' + other + "</span>" : "") + '<span class="mock-btn is-main">' + main + "</span></div></div>" + (cap ? '<p class="mock-cap">' + cap + "</p>" : "") + "</div>";
       }
 
       function copyBox(text) {
-        return '<div class="copy-box"><code>' + esc(text) + '</code><button type="button" data-copy="' + esc(text) + '">Copiar</button></div>';
+        return '<div class="copy-box"><code>' + esc(text) + '</code><button type="button" data-copy="' + esc(text) + '">' + ICON.copy + "<span>Copiar</span></button></div>";
       }
 
-      function cta(href, label, primary) {
-        return '<div class="wiz-cta"><a class="button ' + (primary === false ? "button-secondary" : "button-primary") + '" href="' + href + '" target="_blank" rel="noopener noreferrer">' + label + " ↗</a></div>";
+      function cta(href, label, secondary, download) {
+        return '<div class="wiz-cta"><a class="button ' + (secondary ? "button-secondary" : "button-primary") + '" href="' + href + '" target="_blank" rel="noopener noreferrer">' + label + (download ? ICON.download : ICON.external) + "</a></div>";
       }
 
       function note(html, warn) {
-        return '<div class="wiz-note' + (warn ? " is-warn" : "") + '"><span>' + html + "</span></div>";
+        return '<p class="wiz-note' + (warn ? " is-warn" : "") + '">' + (warn ? ICON.warn : ICON.info) + "<span>" + html + "</span></p>";
       }
 
       function list(items) {
         return '<ol class="wiz-list">' + items.map((item) => "<li>" + item + "</li>").join("") + "</ol>";
       }
 
-      function scriptTitle() {
+      function more(title, html) {
+        return '<details class="wiz-more"><summary>' + ICON.chevron + title + "</summary>" + html + "</details>";
+      }
+
+      function scriptName() {
+        return SCRIPTS[state.script].name;
+      }
+
+      function installTitle() {
         const s = SCRIPTS[state.script];
         return s.installName || s.name;
       }
 
-      function installStep(ext, where) {
+      function managerName() {
+        return EXT[flow.manager].name;
+      }
+
+      function codeWarning(name) {
+        return note("¿Ves un montón de texto raro (código) en vez de un botón Instalar? Entonces " + name + " no está activo. Pulsa <strong>Atrás</strong> y revisa los pasos.", true);
+      }
+
+      function installScriptStep(name, howTo, extra) {
         const s = SCRIPTS[state.script];
-        const vm = flow.manager === "violentmonkey";
         return {
           title: "Instala " + s.name,
-          zani: "¡Ahora sí, el script! Pulsa el botón y en la página nueva pulsa Instalar.",
-          html: [
-            '<p class="wiz-text">Pulsa este botón. Se abre una página nueva de <strong>' + ext.name + "</strong> que muestra el script.</p>",
-            cta(s.url, "Instalar " + esc(s.name)),
-            '<p class="wiz-text">En esa página nueva pulsa el botón <strong>' + ext.installBtn + "</strong>. Revisa que el nombre diga <strong>" + esc(scriptTitle()) + "</strong>.</p>",
-            vm ? shot("pc-instalar.jpg", "Página de instalación de Violentmonkey con el botón Instalar", { rings: [{ x: 7.2, y: 91.5, w: 8, ar: 2.6, tag: "Pulsa aquí", ty: 64 }], cap: "Así se ve en Violentmonkey. Si ya lo tenías instalado, el botón dice «Reinstalar»." }) : mock("Instalar " + esc(scriptTitle()), "Tampermonkey muestra el nombre, la versión y los sitios donde funciona.", "Instalar", "Cancelar"),
-            where === "mobile" ? note("Si en vez de la página de instalación ves un montón de texto raro (código), es que " + ext.name + " no quedó activo. Vuelve atrás y revisa los pasos.", true) : note("¿Ves un montón de texto raro (código) en vez del botón Instalar? Entonces " + ext.name + " no está activo. Vuelve atrás y revisa los interruptores.", true)
-          ].join("")
+          zani: "¡Ahora sí, el script! Ábrelo y " + tap.toLowerCase() + " Instalar.",
+          html: (howTo || '<p class="wiz-text">' + tap + " este botón. Se abre una página nueva de <strong>" + name + "</strong>. Ahí " + tap.toLowerCase() + " <strong>Instalar</strong>.</p>" + cta(s.url, "Instalar " + esc(s.name), false, true)) + '<p class="wiz-text">El nombre tiene que decir <strong>' + esc(installTitle()) + "</strong>.</p>" + (extra || "") + codeWarning(name)
         };
+      }
+
+      function linkStep(name, link, where) {
+        return list([tap + " <strong>Copiar</strong>.", "Abre <strong>" + where + "</strong>.", "Toca la barra de arriba (donde se escriben las páginas), mantén el dedo y elige <strong>Pegar</strong>.", "Toca <strong>Ir</strong> en el teclado."]) + copyBox(link);
       }
 
       function testStep() {
-        const s = SCRIPTS[state.script];
         return {
           title: "Pruébalo",
           zani: "Último paso. Abre tu enlace en este mismo navegador y deja que el script trabaje.",
-          html: '<p class="wiz-text">' + s.test + "</p>" + note("Usa <strong>el mismo navegador</strong> donde hiciste todo esto. Si la página ya estaba abierta, <strong>recárgala</strong> una vez.")
+          html: '<p class="wiz-text">' + SCRIPTS[state.script].test + "</p>" + note("Usa <strong>el mismo navegador</strong> donde hiciste todo esto. Si la página ya estaba abierta, <strong>recárgala</strong> una vez.")
         };
       }
 
-      function pcChromiumSteps() {
-        const b = BROWSER_INFO[flow.browser];
+      function pcChromium() {
+        const b = CHROMIUM_PC[flow.browser];
         const ext = EXT[flow.manager];
-        const store = ext[b.store];
         const extUrl = b.scheme + "://extensions/?id=" + ext[b.idKey];
-        const chromeLike = flow.browser !== "edge";
-        const steps = [];
-        steps.push({
-          title: "Instala " + ext.name,
-          zani: ext.name + " es la app que hace funcionar los scripts. Es gratis.",
-          html: [
-            '<p class="wiz-text">Pulsa el botón de abajo. Se abre la tienda de extensiones. Ahí pulsa el botón azul <strong>' + b.add + "</strong>.</p>",
-            cta(store, "Abrir " + ext.name + " en la tienda"),
-            chromeLike && flow.manager === "violentmonkey" ? shot("pc-tienda.jpg", "Ficha de Violentmonkey en Chrome Web Store", { pills: [{ x: 79, y: 48.3, w: 10.8, h: 12.7, text: b.add }], rings: [{ x: 79, y: 48.3, w: 14, ar: 3.4, tag: "Pulsa aquí", ty: 66 }] }) : "",
-            flow.browser === "opera" ? note("En Opera, si arriba sale una barra que dice <strong>Instalar extensiones de Chrome</strong>, pulsa ese botón primero y luego <strong>Añadir a Opera</strong>.") : ""
-          ].join("")
-        });
-        steps.push({
-          title: "Confirma la ventanita",
-          zani: "El navegador siempre pregunta. Es normal.",
-          html: '<p class="wiz-text">Arriba del navegador sale una ventanita que pregunta si quieres añadir ' + ext.name + ". Pulsa <strong>" + b.confirm + "</strong>.</p>" + mock("¿Quieres añadir «" + ext.name + "»?", "Puede leer y cambiar todos tus datos en todos los sitios web.", b.confirm, "Cancelar") + note("Cuando termine, arriba a la derecha aparece una <strong>piececita de puzle</strong> 🧩. Ahí viven tus extensiones.")
-        });
-        steps.push({
-          title: "Abre la página de " + ext.name,
-          zani: "Ahora vamos a darle permiso. Copia y pega, así de fácil.",
-          html: [
-            list(["Pulsa <strong>Copiar</strong>.", "Haz clic arriba, en la barra donde se escriben las páginas (donde dice la dirección).", "Pega con <kbd>Ctrl</kbd> + <kbd>V</kbd> (en Mac <kbd>⌘</kbd> + <kbd>V</kbd>).", "Pulsa <kbd>Enter</kbd>."]),
-            copyBox(extUrl),
-            '<details class="wiz-alt"><summary>¿No te funciona copiar? Hazlo con el puzle 🧩</summary>' + shot("pc-puzle.jpg", "Menú de extensiones de Chrome", { cls: "is-narrow", rings: [{ x: 74.8, y: 3.7, w: 11, tag: "1", ty: 8 }, { x: 64.8, y: 85.9, w: 9, tag: "2", ty: 74 }], cap: "1: pulsa el puzle. 2: pulsa los tres puntitos ⋮ al lado de " + ext.name + " y elige «Administrar extensión»." }) + "</details>"
-          ].join("")
-        });
-        steps.push({
-          title: "Enciende el Modo de desarrollador",
-          zani: "Es un interruptor arriba a la derecha. Tiene que quedar azul.",
-          html: '<p class="wiz-text">Mira <strong>arriba a la derecha</strong> de esa página. Hay un interruptor que dice <strong>Modo de desarrollador</strong>. Haz clic en él para que quede <strong>azul</strong> (encendido).</p>' + shot("pc-modo-dev.jpg", "Interruptor Modo de desarrollador encendido", { rings: [{ x: 98.2, y: 23, w: 4.2, ar: 1.5 }], cap: "Así tiene que quedar: azul y con la bolita a la derecha." }) + (flow.browser === "edge" ? note("En Edge el interruptor está <strong>abajo a la izquierda</strong> y se llama <strong>Modo de programador</strong>.") : "")
-        });
-        steps.push({
-          title: "Enciende «Permitir secuencias de comandos del usuario»",
-          zani: "Sin este interruptor el script no arranca. ¡Es el más importante!",
-          html: '<p class="wiz-text">En la misma página, <strong>baja un poquito</strong> con la rueda del ratón. Busca <strong>Permitir secuencias de comandos del usuario</strong> y enciéndelo (azul).</p>' + shot("pc-permitir.jpg", "Interruptor Permitir secuencias de comandos del usuario", { cls: "is-narrow", rings: [{ x: 93.4, y: 71.5, w: 10, ar: 1.6, tag: "Enciéndelo", tx: 78, ty: 14 }] }) + note("También puede decir <strong>Permitir scripts de usuario</strong> o <strong>Allow User Scripts</strong>. Si no aparece, no pasa nada: tu navegador sólo necesita el paso anterior.")
-        });
-        steps.push(installStep(ext, "pc"));
-        steps.push(testStep());
-        return steps;
+        const usesChromeStore = flow.browser !== "edge";
+        return [
+          {
+            title: "Instala " + ext.name,
+            zani: ext.name + " es el programa que hace funcionar los scripts. Es gratis.",
+            html: '<p class="wiz-text">' + tap + " el botón. Se abre la tienda de extensiones. Ahí " + tap.toLowerCase() + " el botón azul <strong>" + b.add + "</strong>.</p>" + cta(ext[b.store], "Abrir " + ext.name + " en la tienda") + (usesChromeStore && flow.manager === "violentmonkey" ? shot("pc-tienda.jpg", "Ficha de Violentmonkey en Chrome Web Store", flow.browser === "chrome" ? "" : "En " + (flow.browser === "opera" ? "Opera" : "Brave") + " el botón dice «" + b.add + "».") : "") + (flow.browser === "opera" ? note("En Opera, si arriba sale una barra que dice <strong>Instalar extensiones de Chrome</strong>, " + tap.toLowerCase() + " ese botón primero.") : "")
+          },
+          {
+            title: "Acepta la ventanita",
+            zani: "El navegador siempre pregunta antes de instalar. Dile que sí.",
+            html: '<p class="wiz-text">Arriba sale una ventanita que pregunta si quieres añadir ' + ext.name + ". " + tap + " <strong>" + b.confirm + "</strong>.</p>" + mock("¿Quieres añadir «" + ext.name + "»?", "Puede leer y cambiar todos tus datos en todos los sitios web.", b.confirm, "Cancelar", "El botón con borde rojo es el que debes pulsar.")
+          },
+          {
+            title: "Abre la página de " + ext.name,
+            zani: "Ahora vamos a darle permiso. Copia y pega, así de fácil.",
+            html: list([tap + " <strong>Copiar</strong>.", "Haz clic arriba, en la barra donde se escribe la dirección de la página.", "Pega con <kbd>Ctrl</kbd> + <kbd>V</kbd> (en Mac <kbd>⌘</kbd> + <kbd>V</kbd>).", "Pulsa <kbd>Enter</kbd>."]) + copyBox(extUrl) + more("¿No funciona? Hazlo con la pieza de puzle", shot("pc-puzle.jpg", "Menú de extensiones de Chrome", "1: pulsa la pieza de puzle. 2: pulsa los tres puntitos al lado de " + ext.name + " y elige «Administrar extensión».", "is-narrow"))
+          },
+          {
+            title: "Enciende el Modo de desarrollador",
+            zani: "Es un interruptor arriba a la derecha. Tiene que quedar azul.",
+            html: '<p class="wiz-text">Mira <strong>arriba a la derecha</strong> de esa página. Hay un interruptor que dice <strong>Modo de desarrollador</strong>. Haz clic para que quede <strong>azul</strong>.</p>' + shot("pc-modo-dev.jpg", "Interruptor Modo de desarrollador encendido", "Así tiene que quedar: azul, con la bolita a la derecha.") + (flow.browser === "edge" ? note("En Edge el interruptor está <strong>a la izquierda</strong> y se llama <strong>Modo de programador</strong>.") : "")
+          },
+          {
+            title: "Enciende «Permitir secuencias de comandos del usuario»",
+            zani: "Sin este interruptor el script no arranca. ¡Es el más importante!",
+            html: '<p class="wiz-text">En la misma página, <strong>baja un poco</strong> con la rueda del ratón. Busca <strong>Permitir secuencias de comandos del usuario</strong> y enciéndelo.</p>' + shot("pc-permitir.jpg", "Interruptor Permitir secuencias de comandos del usuario", "", "is-narrow") + note("También puede decir <strong>Permitir scripts de usuario</strong> o <strong>Allow User Scripts</strong>. Si no aparece, tu navegador sólo necesita el paso anterior.")
+          },
+          installScriptStep(ext.name, null, flow.manager === "violentmonkey" ? shot("pc-instalar.jpg", "Página de instalación de Violentmonkey", "Si ya lo tenías instalado, el botón dice «Reinstalar».") : mock("Instalar " + esc(installTitle()), "Tampermonkey muestra el nombre, la versión y en qué sitios funciona.", "Instalar", "Cancelar")),
+          testStep()
+        ];
       }
 
-      function pcFirefoxSteps() {
+      function pcFirefox() {
         const ext = EXT[flow.manager];
         return [
           {
             title: "Instala " + ext.name,
-            zani: "En Firefox es más corto. ¡Sin interruptores raros!",
-            html: '<p class="wiz-text">Pulsa el botón de abajo. Se abre la tienda de Firefox. Ahí pulsa el botón azul <strong>Añadir a Firefox</strong>.</p>' + cta(ext.firefoxStore, "Abrir " + ext.name + " en Firefox Add-ons") + mock(ext.name, "Complementos para Firefox", "Añadir a Firefox")
+            zani: "En Firefox es más corto: no hay interruptores raros.",
+            html: '<p class="wiz-text">' + tap + " el botón. Se abre la tienda de Firefox. Ahí pulsa el botón azul <strong>Añadir a Firefox</strong>.</p>" + cta(ext.firefoxStore, "Abrir " + ext.name + " en Firefox")
           },
           {
-            title: "Confirma la ventanita",
+            title: "Acepta la ventanita",
             zani: "Firefox pregunta antes de instalar. Dile que sí.",
-            html: '<p class="wiz-text">Arriba sale una ventanita. Pulsa <strong>Añadir</strong>. Después pulsa <strong>Aceptar</strong>.</p>' + mock("¿Agregar " + ext.name + "?", "Necesita permiso para acceder a tus datos en todos los sitios web.", "Añadir", "Cancelar")
+            html: '<p class="wiz-text">Arriba sale una ventanita. Pulsa <strong>Añadir</strong> y después <strong>Aceptar</strong>.</p>' + mock("¿Agregar " + ext.name + "?", "Necesita permiso para acceder a tus datos en todos los sitios web.", "Añadir", "Cancelar", "El botón con borde rojo es el que debes pulsar.")
           },
-          installStep(ext, "pc"),
+          installScriptStep(ext.name, null, flow.manager === "violentmonkey" ? shot("pc-instalar.jpg", "Página de instalación de Violentmonkey", "Si ya lo tenías instalado, el botón dice «Reinstalar».") : ""),
           testStep()
         ];
       }
 
-      function androidFirefoxSteps() {
+      function androidFirefox() {
         const ext = EXT[flow.manager];
+        const s = SCRIPTS[state.script];
         return [
           {
             title: "Instala Firefox",
             zani: "Chrome del teléfono no deja usar extensiones. Firefox sí.",
-            html: '<p class="wiz-text">Pulsa el botón y toca <strong>Instalar</strong> en Google Play. Luego <strong>abre Firefox</strong>.</p>' + cta("https://play.google.com/store/apps/details?id=org.mozilla.firefox", "Abrir Firefox en Google Play") + note("Desde aquí, <strong>todo lo haces dentro de Firefox</strong>. Puedes abrir esta misma página en Firefox para seguir leyendo.")
+            html: '<p class="wiz-text">' + tap + " el botón y luego <strong>Instalar</strong> en Google Play. Después <strong>abre Firefox</strong>.</p>" + cta(ASSETS.firefox.androidUrl, "Abrir Firefox en Google Play") + note("Desde aquí haz todo <strong>dentro de Firefox</strong>. Puedes abrir esta misma página en Firefox para seguir leyendo.")
           },
           {
             title: "Abre " + ext.name + " dentro de Firefox",
             zani: "Copia el enlace, pégalo arriba en Firefox y listo.",
-            html: list(["Toca <strong>Copiar</strong>.", "Abre <strong>Firefox</strong>.", "Toca la barra de arriba (donde se escriben las páginas), mantén el dedo y elige <strong>Pegar</strong>.", "Toca la flechita o <strong>Ir</strong> del teclado."]) + copyBox(ext.androidFirefox) + '<details class="wiz-alt"><summary>Otra forma: desde el menú ⋮</summary>' + shot("and-ff-menu.png", "Botón de menú de Firefox Android", { cap: "Toca los tres puntitos ⋮ → Extensiones → busca " + ext.name + " y toca +." }) + "</details>"
+            html: linkStep(ext.name, ext.androidFirefox, "Firefox") + more("Otra forma: desde el menú de Firefox", shot("and-ff-menu.png", "Botón de menú de Firefox Android", "Toca los tres puntitos → Extensiones → busca " + ext.name + " y toca +."))
           },
           {
             title: "Toca «Añadir a Firefox» y luego «Añadir»",
-            zani: "Sale una ventanita. Toca Añadir.",
-            html: '<p class="wiz-text">En la página toca el botón azul <strong>Añadir a Firefox</strong>. Luego sale una ventanita con permisos: toca <strong>Añadir</strong> (o <strong>Add</strong>).</p>' + shot("and-ff-anadir.png", "Ventana de permisos de Firefox Android", { cls: "is-phone", cap: "Ejemplo con otra extensión. Con " + ext.name + " sale igual: toca el botón del recuadro rojo." })
+            zani: "Sale una ventanita con permisos. Toca Añadir.",
+            html: '<p class="wiz-text">En la página toca el botón azul <strong>Añadir a Firefox</strong>. Sale una ventanita: toca <strong>Añadir</strong> (en inglés: <strong>Add</strong>).</p>' + shot("and-ff-anadir.png", "Ventana de permisos de Firefox Android", "La foto es de otra extensión. Con " + ext.name + " sale igual.", "is-phone")
           },
           {
             title: "Toca «Entendido»",
             zani: "Ya está instalado. ¡Vamos bien!",
-            html: '<p class="wiz-text">Sale un aviso de que se añadió. Toca <strong>Entendido</strong> (o <strong>Okay, Got it</strong>).</p>' + shot("and-ff-listo.png", "Aviso de extensión añadida en Firefox Android", { cls: "is-phone" })
+            html: '<p class="wiz-text">Sale un aviso de que se añadió. Toca <strong>Entendido</strong> (en inglés: <strong>Okay, Got it</strong>).</p>' + shot("and-ff-listo.png", "Aviso de extensión añadida en Firefox Android", "", "is-phone")
           },
-          {
-            title: "Instala " + SCRIPTS[state.script].name,
-            zani: "Copia el enlace del script y ábrelo en Firefox.",
-            html: list(["Toca <strong>Copiar</strong>.", "En <strong>Firefox</strong>, pega el enlace arriba y ábrelo.", "Sale la página de " + ext.name + ". Toca <strong>Instalar</strong>."]) + copyBox(SCRIPTS[state.script].url) + note("Si ya estás leyendo esto en Firefox, puedes tocar directamente este botón:") + cta(SCRIPTS[state.script].url, "Instalar " + esc(SCRIPTS[state.script].name)) + note("Si ves un montón de texto raro en vez del botón Instalar, " + ext.name + " no se instaló. Vuelve atrás.", true)
-          },
+          installScriptStep(ext.name, linkStep(ext.name, s.url, "Firefox") + '<p class="wiz-text">Sale la página de ' + ext.name + ". Toca <strong>Instalar</strong>.</p>" + cta(s.url, "Ya estoy en Firefox: instalar " + esc(s.name), true, true)),
           testStep()
         ];
       }
 
-      function androidEdgeSteps() {
-        const ext = EXT.tampermonkey;
+      function androidEdge() {
+        const s = SCRIPTS[state.script];
         return [
           {
             title: "Instala Microsoft Edge",
             zani: "Edge para Android sí deja usar extensiones.",
-            html: '<p class="wiz-text">Pulsa el botón, toca <strong>Instalar</strong> y luego <strong>abre Edge</strong>.</p>' + cta("https://play.google.com/store/apps/details?id=com.microsoft.emmx", "Abrir Edge en Google Play") + note("En Edge para teléfono usamos <strong>Tampermonkey</strong>, porque es el que aparece en su lista.")
+            html: '<p class="wiz-text">' + tap + " el botón, toca <strong>Instalar</strong> y luego <strong>abre Edge</strong>.</p>" + cta(ASSETS.edge.androidUrl, "Abrir Edge en Google Play") + note("En Edge para teléfono usamos <strong>Tampermonkey</strong>, porque es el que aparece en su lista.")
           },
-          {
-            title: "Toca el menú ☰",
-            zani: "Las tres rayitas de abajo a la derecha.",
-            html: '<p class="wiz-text">Abajo a la derecha toca las <strong>tres rayitas</strong> (☰).</p>' + shot("and-edge-1.jpg", "Botón de menú de Edge Android", { cls: "is-phone", cap: "Toca donde está el número 1." })
-          },
-          {
-            title: "Toca «Extensiones»",
-            zani: "Es la piececita de puzle.",
-            html: '<p class="wiz-text">Toca <strong>Extensiones</strong> (la pieza de puzle).</p>' + shot("and-edge-2.jpg", "Menú de Edge Android con Extensiones", { cls: "is-phone", cap: "Toca donde está el número 2." })
-          },
-          {
-            title: "Busca Tampermonkey y toca «Obtener»",
-            zani: "Baja en la lista hasta ver el icono negro con dos círculos.",
-            html: '<p class="wiz-text">Sale una lista. Busca <strong>Tampermonkey</strong> y toca <strong>Obtener</strong> (o <strong>Get</strong>). Luego toca <strong>Agregar</strong>.</p>' + note("Cuando esté instalado aparece arriba, en la parte <strong>Instalado</strong>.")
-          },
-          {
-            title: "Abre «Administrar extensiones»",
-            zani: "Volvemos al menú para darle permiso.",
-            html: '<p class="wiz-text">Toca otra vez ☰ → <strong>Extensiones</strong> → <strong>Administrar extensiones</strong>.</p>' + shot("and-edge-3.jpg", "Opción Administrar extensiones en Edge Android", { cls: "is-phone", cap: "Toca donde está el número 3." })
-          },
-          {
-            title: "Toca el engranaje ⚙",
-            zani: "Arriba a la derecha.",
-            html: '<p class="wiz-text">Arriba a la derecha toca el <strong>engranaje</strong> ⚙.</p>' + shot("and-edge-4.jpg", "Engranaje de ajustes en Extensiones de Edge Android", { cls: "is-phone", cap: "Toca donde está el número 4." })
-          },
-          {
-            title: "Enciende «Modo de desarrollador»",
-            zani: "Tiene que quedar azul.",
-            html: '<p class="wiz-text">Enciende <strong>Modo de desarrollador</strong> (Developer Mode). Tiene que quedar <strong>azul</strong>.</p>' + shot("and-edge-5.jpg", "Interruptor Developer Mode encendido en Edge Android", { cls: "is-phone", cap: "Toca donde está el número 5." })
-          },
-          {
-            title: "Instala " + SCRIPTS[state.script].name,
-            zani: "Copia el enlace del script y ábrelo en Edge.",
-            html: list(["Toca <strong>Copiar</strong>.", "En <strong>Edge</strong>, pega el enlace arriba y ábrelo.", "Sale la página de Tampermonkey. Toca <strong>Instalar</strong>."]) + copyBox(SCRIPTS[state.script].url) + cta(SCRIPTS[state.script].url, "Ya estoy en Edge: instalar " + esc(SCRIPTS[state.script].name), false) + note("Si ves texto raro en vez del botón Instalar, revisa que Tampermonkey esté encendido y el Modo de desarrollador también.", true)
-          },
+          { title: "Toca el menú", zani: "Las tres rayitas de abajo a la derecha.", html: '<p class="wiz-text">Abajo a la derecha toca las <strong>tres rayitas</strong>.</p>' + shot("and-edge-1.jpg", "Botón de menú de Edge Android", "", "is-phone") },
+          { title: "Toca «Extensiones»", zani: "Es la pieza de puzle.", html: '<p class="wiz-text">Toca <strong>Extensiones</strong> (la pieza de puzle).</p>' + shot("and-edge-2.jpg", "Menú de Edge Android con Extensiones", "", "is-phone") },
+          { title: "Busca Tampermonkey y toca «Obtener»", zani: "Baja en la lista hasta ver el icono negro con dos círculos.", html: '<p class="wiz-text">Sale una lista. Busca <strong>Tampermonkey</strong> y toca <strong>Obtener</strong> (en inglés: <strong>Get</strong>). Luego toca <strong>Agregar</strong>.</p>' + note("Cuando esté instalado aparece arriba, en la parte <strong>Instalado</strong>.") },
+          { title: "Abre «Administrar extensiones»", zani: "Volvemos al menú para darle permiso.", html: '<p class="wiz-text">Toca otra vez el menú → <strong>Extensiones</strong> → <strong>Administrar extensiones</strong>.</p>' + shot("and-edge-3.jpg", "Opción Administrar extensiones en Edge Android", "", "is-phone") },
+          { title: "Toca el engranaje", zani: "Está arriba a la derecha.", html: '<p class="wiz-text">Arriba a la derecha toca el <strong>engranaje</strong>.</p>' + shot("and-edge-4.jpg", "Engranaje de ajustes en Extensiones de Edge Android", "", "is-phone") },
+          { title: "Enciende «Modo de desarrollador»", zani: "Tiene que quedar azul.", html: '<p class="wiz-text">Enciende <strong>Modo de desarrollador</strong> (en inglés: <strong>Developer Mode</strong>). Tiene que quedar <strong>azul</strong>.</p>' + shot("and-edge-5.jpg", "Interruptor Developer Mode encendido en Edge Android", "", "is-phone") },
+          installScriptStep("Tampermonkey", linkStep("Tampermonkey", s.url, "Edge") + '<p class="wiz-text">Sale la página de Tampermonkey. Toca <strong>Instalar</strong>.</p>' + cta(s.url, "Ya estoy en Edge: instalar " + esc(s.name), true, true)),
           testStep()
         ];
       }
 
-      function iosSteps() {
+      function androidChromium() {
+        const id = flow.browser;
+        const asset = ASSETS[id];
+        const ext = EXT[flow.manager];
+        const s = SCRIPTS[state.script];
+        const storeUrl = id === "kiwi" && flow.manager === "tampermonkey" ? URLS.tamperLegacy : ext.chromeStore;
+        const extPage = CHROMIUM_MOBILE[id].scheme + "://extensions";
+        return [
+          {
+            title: "Instala " + asset.name,
+            zani: asset.name + " deja usar extensiones de Chrome en el teléfono.",
+            html: '<p class="wiz-text">' + tap + " el botón e instala <strong>" + asset.name + "</strong>. Después ábrelo.</p>" + cta(asset.androidUrl, id === "kiwi" ? "Descargar Kiwi (GitHub)" : "Abrir " + esc(asset.name) + " en Google Play") + (id === "kiwi" ? note("Kiwi ya no recibe actualizaciones desde enero de 2025. Si puedes, usa Firefox o Lemur. Descarga sólo el archivo que termina en <strong>-github.apk</strong>.", true) : note("Desde aquí haz todo <strong>dentro de " + asset.name + "</strong>."))
+          },
+          {
+            title: "Abre " + ext.name + " en la tienda de Chrome",
+            zani: "Copia el enlace y pégalo arriba en " + (asset.shortName || asset.name) + ".",
+            html: linkStep(ext.name, storeUrl, asset.shortName || asset.name) + '<p class="wiz-text">En la tienda toca <strong>Añadir a Chrome</strong> y luego <strong>Añadir extensión</strong>.</p>' + note("Si la página te dice que uses la versión de computadora, toca el menú y activa <strong>Vista de escritorio</strong>.")
+          },
+          {
+            title: "Abre la página de extensiones",
+            zani: "Ahora vamos a darle permiso.",
+            html: linkStep(ext.name, extPage, asset.shortName || asset.name) + note("También puedes entrar desde el menú del navegador → <strong>Extensiones</strong>.")
+          },
+          {
+            title: "Enciende el Modo de desarrollador",
+            zani: "Es un interruptor arriba. Tiene que quedar encendido.",
+            html: '<p class="wiz-text">Arriba de esa página hay un interruptor <strong>Modo de desarrollador</strong>. Enciéndelo. Si en ' + ext.name + " aparece <strong>Detalles</strong>, entra y enciende también <strong>Permitir secuencias de comandos del usuario</strong>.</p>" + shot("pc-modo-dev.jpg", "Interruptor Modo de desarrollador", "Así se ve en la computadora. En el teléfono es igual, pero más pequeño.")
+          },
+          installScriptStep(ext.name, linkStep(ext.name, s.url, asset.shortName || asset.name) + '<p class="wiz-text">Sale la página de ' + ext.name + ". Toca <strong>Instalar</strong>.</p>"),
+          testStep()
+        ];
+      }
+
+      function iosUserscripts() {
         const s = SCRIPTS[state.script];
         return [
           {
             title: "Instala la app Userscripts",
             zani: "Es gratis y funciona dentro de Safari.",
-            html: '<p class="wiz-text">Pulsa el botón y toca <strong>Obtener</strong> en el App Store.</p><div class="wiz-zani"><img src="' + LOGOS.userscripts + '" alt="Icono de Userscripts" style="border-radius:14px;object-position:center"><p>Busca este icono: se llama <strong>Userscripts</strong>.</p></div>' + cta(URLS.userscriptsApp, "Abrir Userscripts en el App Store") + note("Cuando se instale, <strong>ábrela una vez</strong> y vuelve aquí. No hace falta tocar nada dentro.")
+            html: '<p class="wiz-text">' + tap + " el botón y toca <strong>Obtener</strong> en el App Store. Cuando se instale, <strong>ábrela una vez</strong> y vuelve aquí.</p>" + cta(URLS.userscriptsApp, "Abrir Userscripts en el App Store")
           },
           {
             title: "En Safari, abre «Administrar extensiones»",
             zani: "Abre Safari y toca el botón de la izquierda de la barra de direcciones.",
-            html: list(["Abre <strong>Safari</strong>.", "Toca el botón que está a la izquierda de la barra de direcciones (parece <strong>aA</strong> o un cuadradito con rayas).", "Toca <strong>Administrar extensiones</strong>."]) + shot("ios-menu.jpg", "Menú de Safari con Administrar extensiones", { cls: "is-phone", rings: [{ x: 30, y: 47.5, w: 62, ar: 5, tag: "Toca aquí", tx: 72, ty: 34 }], cap: "Si tu iPhone está en inglés dice «Manage Extensions»." })
+            html: list(["Abre <strong>Safari</strong>.", "Toca el botón que está a la izquierda de la barra de direcciones (parece <strong>aA</strong>).", "Toca <strong>Administrar extensiones</strong>."]) + shot("ios-menu.jpg", "Menú de Safari con Administrar extensiones", "Si tu iPhone está en inglés, dice «Manage Extensions».", "is-phone")
           },
           {
             title: "Enciende Userscripts",
             zani: "Busca Userscripts en la lista y ponlo en verde.",
-            html: '<p class="wiz-text">Sale una lista. Busca <strong>Userscripts</strong> y toca su interruptor para que quede <strong>verde</strong>. Luego toca <strong>OK</strong> (o <strong>Done</strong>).</p>' + shot("ios-extensiones.jpg", "Lista de extensiones de Safari con Userscripts", { cls: "is-phone", rings: [{ x: 83.5, y: 97, w: 18, ar: 1.7, tag: "Ponlo en verde", tx: 62, ty: 88 }], cap: "Tu lista será distinta. Lo importante es la fila «Userscripts»." })
+            html: '<p class="wiz-text">Busca <strong>Userscripts</strong> y toca su interruptor para que quede <strong>verde</strong>. Luego toca <strong>OK</strong>.</p>' + shot("ios-extensiones.jpg", "Lista de extensiones de Safari", "Tu lista será distinta. Lo importante es la fila «Userscripts».", "is-phone")
           },
           {
             title: "Dale permiso en todos los sitios",
             zani: "Si no le das permiso, Safari no lo deja trabajar.",
-            html: list(["Toca otra vez el botón <strong>aA</strong>.", "Toca <strong>Userscripts</strong>.", "Toca <strong>Permitir siempre</strong> → <strong>Permitir en todos los sitios web</strong>."]) + note("Si no te lo pregunta, también puedes ir a <strong>Ajustes → Apps → Safari → Extensiones → Userscripts</strong> y en «Todos los sitios web» elegir <strong>Permitir</strong>.")
+            html: list(["Toca otra vez el botón <strong>aA</strong>.", "Toca <strong>Userscripts</strong>.", "Toca <strong>Permitir siempre</strong> → <strong>Permitir en todos los sitios web</strong>."]) + note("Si no te lo pregunta: <strong>Ajustes → Apps → Safari → Extensiones → Userscripts</strong> → en «Todos los sitios web» elige <strong>Permitir</strong>.")
           },
-          {
-            title: "Instala " + s.name,
-            zani: "Abre el enlace del script en Safari y toca Install.",
-            html: list(["Toca el botón de abajo (se abre en Safari).", "Toca el botón <strong>aA</strong> → <strong>Userscripts</strong>.", "Toca la barra amarilla <strong>Userscript Detected: Tap to install</strong>.", "Toca <strong>Install</strong>."]) + cta(s.url, "Abrir " + esc(s.name) + " en Safari") + shot("ios-instalar.png", "Barra amarilla Userscript Detected", { cls: "is-narrow", rings: [{ x: 50, y: 50, w: 104, ar: 7.5 }], cap: "Toca esta barra amarilla." }) + '<details class="wiz-alt"><summary>¿No te funciona? Alternativas para iPhone</summary><p class="wiz-text">Puedes usar <a href="' + URLS.orionApp + '" target="_blank" rel="noopener noreferrer">Orion</a> (gratis, acepta Violentmonkey) o <a href="' + URLS.stayApp + '" target="_blank" rel="noopener noreferrer">Stay</a>. Tampermonkey para Safari es de pago.</p></details>'
-          },
+          installScriptStep("Userscripts", list([tap + " el botón de abajo (se abre en Safari).", "Toca <strong>aA</strong> → <strong>Userscripts</strong>.", "Toca la barra amarilla <strong>Userscript Detected: Tap to install</strong>.", "Toca <strong>Install</strong>."]) + cta(s.url, "Abrir " + esc(s.name) + " en Safari") + shot("ios-instalar.png", "Barra amarilla Userscript Detected", "Toca esta barra amarilla.", "is-narrow")),
+          testStep()
+        ];
+      }
+
+      function iosStay() {
+        const s = SCRIPTS[state.script];
+        return [
+          { title: "Instala la app Stay", zani: "Stay es gratis para lo que necesitamos.", html: '<p class="wiz-text">' + tap + " el botón y toca <strong>Obtener</strong>. Ábrela una vez y vuelve aquí.</p>" + cta(URLS.stayApp, "Abrir Stay en el App Store") },
+          { title: "En Safari, abre «Administrar extensiones»", zani: "Botón aA, a la izquierda de la barra de direcciones.", html: list(["Abre <strong>Safari</strong>.", "Toca el botón <strong>aA</strong> a la izquierda de la barra de direcciones.", "Toca <strong>Administrar extensiones</strong>."]) + shot("ios-menu.jpg", "Menú de Safari con Administrar extensiones", "", "is-phone") },
+          { title: "Enciende Stay", zani: "Ponlo en verde y dale permiso en todos los sitios.", html: list(["Busca <strong>Stay</strong> en la lista y ponlo en <strong>verde</strong>. Toca <strong>OK</strong>.", "Toca otra vez <strong>aA</strong> → <strong>Stay</strong> → <strong>Permitir siempre</strong> → <strong>Permitir en todos los sitios web</strong>."]) },
+          installScriptStep("Stay", list([tap + " el botón de abajo (se abre en Safari).", "Toca <strong>aA</strong> → <strong>Stay</strong>.", "Toca <strong>Instalar</strong> (en inglés: <strong>Install</strong>) y luego <strong>Abrir</strong> si te lo pregunta."]) + cta(s.url, "Abrir " + esc(s.name) + " en Safari")),
+          testStep()
+        ];
+      }
+
+      function iosOrion() {
+        const ext = EXT[flow.manager];
+        const s = SCRIPTS[state.script];
+        return [
+          { title: "Instala Orion", zani: "Orion es gratis y acepta extensiones de computadora.", html: '<p class="wiz-text">' + tap + " el botón y toca <strong>Obtener</strong>. Después abre <strong>Orion</strong>.</p>" + cta(URLS.orionApp, "Abrir Orion en el App Store") + note("Desde aquí haz todo <strong>dentro de Orion</strong>, no en Safari.") },
+          { title: "Activa las extensiones", zani: "Hay que decirle a Orion que acepte extensiones.", html: list(["En Orion toca el menú <strong>…</strong> (abajo).", "Toca <strong>Ajustes</strong> → <strong>Extensiones</strong>.", "Enciende <strong>Habilitar extensiones de Firefox</strong>."]) },
+          { title: "Instala " + ext.name, zani: "Copia el enlace y pégalo arriba en Orion.", html: linkStep(ext.name, ext.firefoxStore, "Orion") + '<p class="wiz-text">Toca <strong>Añadir a Orion</strong> y confirma con <strong>Añadir</strong>.</p>' },
+          installScriptStep(ext.name, linkStep(ext.name, s.url, "Orion") + '<p class="wiz-text">Sale la página de ' + ext.name + ". Toca <strong>Instalar</strong>.</p>"),
+          testStep()
+        ];
+      }
+
+      function iosGear() {
+        const s = SCRIPTS[state.script];
+        return [
+          { title: "Instala Gear Browser", zani: "Gear trae los UserScripts incluidos. No necesitas nada más.", html: '<p class="wiz-text">' + tap + " el botón y toca <strong>Obtener</strong>. Después abre <strong>Gear</strong>.</p>" + cta(URLS.gearApp, "Abrir Gear en el App Store") },
+          installScriptStep("Gear", linkStep("Gear", s.url, "Gear") + '<p class="wiz-text">Gear detecta el script. Toca <strong>Instalar</strong>.</p>'),
+          testStep()
+        ];
+      }
+
+      function iosTamperSafari() {
+        const s = SCRIPTS[state.script];
+        return [
+          { title: "Compra Tampermonkey", zani: "Ojo: esta opción cuesta dinero. Userscripts es gratis.", html: '<p class="wiz-text">En iPhone, Tampermonkey para Safari <strong>es de pago</strong>. Si no quieres pagar, pulsa <strong>Atrás</strong> y elige <strong>Safari + Userscripts</strong>.</p>' + cta(URLS.tamperSafari, "Abrir Tampermonkey en el App Store") },
+          { title: "En Safari, abre «Administrar extensiones»", zani: "Botón aA, a la izquierda de la barra de direcciones.", html: list(["Abre <strong>Safari</strong>.", "Toca <strong>aA</strong>.", "Toca <strong>Administrar extensiones</strong>."]) + shot("ios-menu.jpg", "Menú de Safari con Administrar extensiones", "", "is-phone") },
+          { title: "Enciende Tampermonkey", zani: "Ponlo en verde y dale permiso en todos los sitios.", html: list(["Pon <strong>Tampermonkey</strong> en <strong>verde</strong> y toca <strong>OK</strong>.", "Toca <strong>aA</strong> → <strong>Tampermonkey</strong> → <strong>Permitir siempre</strong> → <strong>Permitir en todos los sitios web</strong>."]) },
+          installScriptStep("Tampermonkey", list([tap + " el botón de abajo (se abre en Safari).", "Sale la página de Tampermonkey. Toca <strong>Instalar</strong>."]) + cta(s.url, "Abrir " + esc(s.name) + " en Safari")),
           testStep()
         ];
       }
 
       function buildSteps() {
-        if (flow.device === "ios") return iosSteps();
-        if (flow.device === "android") return flow.browser === "edge" ? androidEdgeSteps() : androidFirefoxSteps();
-        if (flow.browser === "firefox") return pcFirefoxSteps();
-        return pcChromiumSteps();
+        if (flow.device === "ios") {
+          if (flow.browser === "stay") return iosStay();
+          if (flow.browser === "orion") return iosOrion();
+          if (flow.browser === "gear") return iosGear();
+          if (flow.browser === "tmsafari") return iosTamperSafari();
+          return iosUserscripts();
+        }
+        if (flow.device === "android") {
+          if (flow.browser === "edge") return androidEdge();
+          if (CHROMIUM_MOBILE[flow.browser]) return androidChromium();
+          return androidFirefox();
+        }
+        if (flow.browser === "firefox") return pcFirefox();
+        return pcChromium();
       }
 
-      function browserName(id) {
-        const list = BROWSERS[flow.device] || [];
-        const found = list.find((b) => b.id === id);
-        return found ? found.name : id;
+      function browserItem(id) {
+        return (BROWSERS[flow.device] || []).find((b) => b.id === id);
       }
 
-      function choice(attr, id, img, emoji, title, hint, guessed) {
-        const icon = img ? '<img src="' + img + '" alt="" aria-hidden="true">' : '<span class="wiz-emoji" aria-hidden="true">' + emoji + "</span>";
-        return '<button class="wiz-choice' + (guessed ? " is-guess" : "") + '" type="button" ' + attr + '="' + id + '">' + (guessed ? '<span class="wiz-flag">Creo que es este</span>' : "") + icon + "<span><strong>" + title + "</strong><small>" + hint + "</small></span></button>";
+      function browserLogo(item) {
+        return LOGO[item.logo || item.id];
       }
 
-      function renderCrumbs() {
+      function option(attr, id, visual, title, hint, opts) {
+        const o = opts || {};
+        const tag = o.href ? "a" : "button";
+        const extra = o.href ? ' href="' + o.href + '" target="_blank" rel="noopener noreferrer"' : ' type="button" ' + attr + '="' + id + '"';
+        return "<" + tag + ' class="wiz-option' + (o.guess ? " is-guess" : "") + (o.old ? " is-old" : "") + '"' + extra + ">" + visual + '<span class="wiz-option-text"><strong>' + title + "</strong><small>" + hint + "</small>" + (o.guess ? '<span class="wiz-guess">' + ICON.check + "Parece que es el que usas</span>" : "") + "</span>" + (o.href ? ICON.download : ICON.chevron).replace('class="ico"', 'class="ico wiz-go"') + "</" + tag + ">";
+      }
+
+      function img(src) {
+        return '<img src="' + src + '" alt="" aria-hidden="true">';
+      }
+
+      function glyph(svg) {
+        return '<span class="wiz-glyph" aria-hidden="true">' + svg + "</span>";
+      }
+
+      function managerSwitch() {
+        const fixed = flow.device === "ios" && flow.browser !== "orion" || flow.device === "android" && flow.browser === "edge";
+        if (fixed) return "";
+        return '<div class="wiz-mgr"><span>Gestor de scripts:</span>' + ["violentmonkey", "tampermonkey"].map((m) => '<label><input type="radio" name="wizMgr" value="' + m + '"' + (flow.manager === m ? " checked" : "") + ">" + EXT[m].name + (m === "violentmonkey" ? " (recomendado)" : "") + "</label>").join("") + "</div>";
+      }
+
+      function renderPath() {
         const parts = [];
-        if (flow.phase !== "script") parts.push('<button class="wiz-crumb" type="button" data-goto="script"><img src="' + SCRIPT_LOGOS[state.script] + '" alt="">' + SCRIPTS[state.script].name + "</button>");
-        if (flow.device && ["browser", "steps", "done"].includes(flow.phase)) parts.push('<button class="wiz-crumb" type="button" data-goto="device">' + DEVICES.find((d) => d.id === flow.device).emoji + " " + DEVICES.find((d) => d.id === flow.device).name + "</button>");
-        if (flow.browser && ["steps", "done"].includes(flow.phase)) parts.push('<button class="wiz-crumb" type="button" data-goto="browser"><img src="' + LOGOS[flow.browser] + '" alt="">' + browserName(flow.browser) + "</button>");
-        wiz.crumbs.innerHTML = parts.length ? parts.join("") : '<span class="wiz-crumb" style="cursor:default">Empecemos</span>';
-        wiz.crumbs.querySelectorAll("[data-goto]").forEach((btn) => btn.addEventListener("click", () => go(btn.dataset.goto)));
+        const sep = ICON.chevron.replace('class="ico"', 'class="ico sep"');
+        if (flow.mode === "pro") {
+          wiz.path.innerHTML = '<span style="padding:4px 6px">Enlaces directos</span>';
+          return;
+        }
+        if (flow.phase !== "script") parts.push('<button type="button" data-goto="script" title="Cambiar script">' + img(SCRIPT_LOGOS[state.script]) + esc(scriptName()) + "</button>");
+        if (flow.device && ["browser", "steps", "done"].includes(flow.phase)) parts.push('<button type="button" data-goto="device" title="Cambiar aparato">' + DEVICES.find((d) => d.id === flow.device).name + "</button>");
+        if (flow.browser && ["steps", "done"].includes(flow.phase)) {
+          const item = browserItem(flow.browser);
+          parts.push('<button type="button" data-goto="browser" title="Cambiar navegador">' + img(browserLogo(item)) + item.name + "</button>");
+        }
+        wiz.path.innerHTML = parts.length ? parts.join(sep) : '<span style="padding:4px 6px">Empecemos</span>';
+        wiz.path.querySelectorAll("[data-goto]").forEach((btn) => btn.addEventListener("click", () => go(btn.dataset.goto)));
       }
 
       function go(phase) {
@@ -2374,84 +2495,68 @@
         render(true);
       }
 
-      function managerSwitch() {
-        if (flow.device === "ios" || (flow.device === "android" && flow.browser === "edge")) return "";
-        return '<div class="wiz-mgr"><span>Gestor:</span>' + ["violentmonkey", "tampermonkey"].map((m) => '<button type="button" data-mgr="' + m + '" aria-pressed="' + (flow.manager === m) + '">' + EXT[m].name + (m === "violentmonkey" ? " (recomendado)" : "") + "</button>").join("") + "</div>";
+      function renderPro() {
+        wiz.count.textContent = "";
+        wiz.bar.style.width = "100%";
+        const links = (items) => '<div class="wiz-links">' + items.map((l) => '<a href="' + l[2] + '" target="_blank" rel="noopener noreferrer">' + img(l[0]) + l[1] + ICON.external + "</a>").join("") + "</div>";
+        return '<h3 class="wiz-q">¿Qué script quieres?</h3><p class="wiz-sub">Cada botón abre el instalador directo. Necesitas tener Violentmonkey o Tampermonkey activo en ese navegador.</p><div class="wiz-options">' + Object.keys(SCRIPTS).map((key) => option("", key, img(SCRIPT_LOGOS[key]), esc(SCRIPTS[key].name), SCRIPT_HINTS[key], { href: SCRIPTS[key].url })).join("") + '</div><div class="wiz-pro-help"><h4>¿Te falta el gestor?</h4>' + links([[LOGO.violentmonkey, "Violentmonkey · Chrome", URLS.violentChrome], [LOGO.violentmonkey, "Violentmonkey · Edge", URLS.violentEdge], [LOGO.violentmonkey, "Violentmonkey · Firefox", URLS.violentFirefox], [LOGO.tampermonkey, "Tampermonkey · Chrome", URLS.tamperChrome], [LOGO.tampermonkey, "Tampermonkey · Edge", URLS.tamperEdge], [LOGO.tampermonkey, "Tampermonkey · Firefox", URLS.tamperFirefox], [LOGO.userscripts, "Userscripts · iPhone", URLS.userscriptsApp]]) + note("En Chrome, Edge, Opera y Brave enciende <strong>Permitir secuencias de comandos del usuario</strong> en los detalles de la extensión, o el <strong>Modo de desarrollador</strong> si no aparece.") + "</div>";
       }
 
       function render(scroll) {
-        renderCrumbs();
+        renderPath();
         wiz.next.classList.remove("is-done");
+        wiz.back.innerHTML = ICON.back + "Atrás";
+        wiz.mode.innerHTML = flow.mode === "pro" ? ICON.guide + "Guía paso a paso" : ICON.list + "Ya sé usarlos";
         let html = "";
-        if (flow.phase === "script") {
+        if (flow.mode === "pro") {
+          html = renderPro();
+        } else if (flow.phase === "script") {
           wiz.count.textContent = "Pregunta 1 de 3";
           wiz.bar.style.width = "4%";
-          html = '<h3 class="wiz-q">¿Qué script quieres instalar?</h3><p class="wiz-sub">Toca uno. Si no sabes, elige el del sitio de tu enlace.</p><div class="wiz-choices">' + Object.keys(SCRIPTS).map((key) => choice("data-pick-script", key, SCRIPT_LOGOS[key], "", SCRIPTS[key].name, SCRIPT_HINTS[key], false)).join("") + "</div>";
+          html = '<h3 class="wiz-q">¿Qué script quieres instalar?</h3><p class="wiz-sub">' + tap + " uno. Si no sabes, elige el del sitio de tu enlace.</p>" + '<div class="wiz-options">' + Object.keys(SCRIPTS).map((key) => option("data-pick-script", key, img(SCRIPT_LOGOS[key]), esc(SCRIPTS[key].name), SCRIPT_HINTS[key])).join("") + "</div>";
         } else if (flow.phase === "device") {
           wiz.count.textContent = "Pregunta 2 de 3";
           wiz.bar.style.width = "8%";
-          html = '<h3 class="wiz-q">¿Dónde lo vas a usar?</h3><p class="wiz-sub">Elige el aparato donde abres los enlaces.</p><div class="wiz-choices">' + DEVICES.map((d) => choice("data-pick-device", d.id, "", d.emoji, d.name, d.hint, d.id === flow.guess.device)).join("") + "</div>";
+          html = '<h3 class="wiz-q">¿Dónde lo vas a usar?</h3><p class="wiz-sub">Elige el aparato donde abres los enlaces.</p><div class="wiz-options">' + DEVICES.map((d) => option("data-pick-device", d.id, glyph(d.icon), d.name, d.hint, { guess: d.id === flow.guess.device })).join("") + "</div>";
         } else if (flow.phase === "browser") {
           wiz.count.textContent = "Pregunta 3 de 3";
           wiz.bar.style.width = "12%";
-          const options = BROWSERS[flow.device];
           const guess = flow.device === flow.guess.device ? flow.guess.browser : null;
-          html = '<h3 class="wiz-q">' + (flow.device === "ios" ? "En iPhone usamos Safari" : "¿Qué navegador usas?") + '</h3><p class="wiz-sub">' + (flow.device === "pc" ? "Es el programa con el que entras a internet." : flow.device === "android" ? "Chrome del teléfono <strong>no</strong> sirve: no acepta extensiones. Elige uno de estos." : "Con la app gratis Userscripts.") + '</p><div class="wiz-choices">' + options.map((b) => choice("data-pick-browser", b.id, LOGOS[b.id], "", b.name, b.hint, b.id === guess)).join("") + "</div>";
+          const sub = flow.device === "pc" ? "Es el programa con el que entras a internet." : flow.device === "android" ? "Chrome para teléfono <strong>no</strong> sirve porque no acepta extensiones. Elige uno de estos." : "Elige cómo quieres hacerlo. La primera opción es gratis y la más fácil.";
+          html = '<h3 class="wiz-q">' + (flow.device === "ios" ? "¿Con qué app?" : "¿Qué navegador usas?") + '</h3><p class="wiz-sub">' + sub + '</p><div class="wiz-options">' + BROWSERS[flow.device].map((b) => option("data-pick-browser", b.id, img(browserLogo(b)), b.name, b.hint, { guess: b.id === guess, old: b.old })).join("") + "</div>";
         } else if (flow.phase === "steps") {
           const steps = buildSteps();
           if (flow.i >= steps.length) flow.i = steps.length - 1;
           if (flow.i < 0) flow.i = 0;
           const step = steps[flow.i];
-          if (flow.mode === "pro") {
-            wiz.count.textContent = steps.length + " pasos";
-            wiz.bar.style.width = "100%";
-            html = '<h3 class="wiz-q">Todos los pasos</h3><p class="wiz-sub">Modo rápido: todo en una lista. Las fotos están escondidas en «Ver foto».</p>' + managerSwitch() + '<div class="wiz-pro" style="margin-top:16px">' + steps.map((s, k) => '<article class="wiz-pro-item"><span class="wiz-num">' + (k + 1) + "</span><div><h4>" + s.title + "</h4>" + s.html + "</div></article>").join("") + "</div>";
-          } else {
           wiz.count.textContent = "Paso " + (flow.i + 1) + " de " + steps.length;
           wiz.bar.style.width = (14 + 86 * (flow.i + 1) / (steps.length + 1)) + "%";
-          html = '<div class="wiz-step"><div class="wiz-step-head"><span class="wiz-num">' + (flow.i + 1) + '</span><h3 class="wiz-q" style="margin:4px 0 0">' + step.title + "</h3></div>" + (step.zani && !zani.on ? '<div class="wiz-zani"><img src="' + ZANI.talk + '" alt="Zani Queen"><p>' + step.zani + "</p></div>" : "") + step.html + (flow.i === 0 ? managerSwitch() : "") + "</div>";
-          }
-          if (flow.mode === "pro") {
-            wiz.next.textContent = "Ya lo hice →";
-          } else if (flow.i === steps.length - 1) {
-            wiz.next.textContent = "¡Funcionó! ✓";
-            wiz.next.classList.add("is-done");
-          } else {
-            wiz.next.textContent = "Ya lo hice →";
-          }
+          html = '<div class="wiz-step-head"><span class="wiz-num">' + (flow.i + 1) + '</span><h3 class="wiz-q" style="margin:0">' + step.title + '</h3></div><div class="wiz-flow">' + step.html + (flow.i === 0 ? managerSwitch() : "") + "</div>";
+          const last = flow.i === steps.length - 1;
+          wiz.next.innerHTML = last ? ICON.check + "¡Funcionó!" : "Ya lo hice" + ICON.next;
+          wiz.next.classList.toggle("is-done", last);
         } else {
-          wiz.count.textContent = "¡Terminado!";
+          wiz.count.textContent = "Terminado";
           wiz.bar.style.width = "100%";
-          html = '<div class="wiz-done"><img class="zani-done" src="' + ZANI.happy + '" alt="Zani Queen contenta"><h3 class="wiz-q">¡Listo! Ya tienes ' + esc(SCRIPTS[state.script].name) + '</h3><p class="wiz-sub">Ahora abre tu enlace en ese mismo navegador. Abajo te explicamos qué vas a ver.</p><div class="wiz-cta" style="justify-content:center"><a class="button button-primary" href="#funcionamiento">Qué hace el script ↓</a><button class="button button-secondary" type="button" data-restart>Instalar otro script</button></div></div>';
+          html = '<div class="wiz-done"><img src="' + ZANI_HAPPY + '" alt="Zani Queen contenta"><h3 class="wiz-q">¡Listo! Ya tienes ' + esc(scriptName()) + '</h3><p class="wiz-sub">Abre tu enlace en ese mismo navegador. Abajo te explicamos qué vas a ver.</p><div class="wiz-cta"><a class="button button-primary" href="#funcionamiento">Qué hace el script' + ICON.next + '</a><button class="button button-secondary" type="button" data-restart>' + ICON.restart + "Instalar otro script</button></div></div>";
         }
-        wiz.nav.hidden = flow.phase === "done";
-        wiz.next.hidden = flow.phase !== "steps" || flow.mode === "pro";
+        wiz.nav.hidden = flow.phase === "done" || flow.mode === "pro";
+        wiz.next.hidden = flow.phase !== "steps";
         wiz.back.hidden = flow.phase === "script";
-        wiz.mode.textContent = flow.mode === "pro" ? "🐢 Ir paso a paso" : "⚡ Modo rápido";
         wiz.body.innerHTML = html;
-        if (flow.mode === "pro") {
-          wiz.body.querySelectorAll(".wiz-pro-item figure, .wiz-pro-item .mock").forEach((node) => {
-            if (node.closest("details")) return;
-            const box = document.createElement("details");
-            box.className = "wiz-photo";
-            box.innerHTML = "<summary>Ver foto</summary>";
-            node.replaceWith(box);
-            box.appendChild(node);
-          });
-        }
         bindBody();
         save();
         if (scroll) document.getElementById("wiz").scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth", block: "start" });
-        if (window.gsap && !reducedMotion.matches) window.gsap.fromTo(wiz.body, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out", clearProps: "transform,opacity" });
         zaniUpdate();
       }
 
       function copyText(text, button) {
+        const label = button.querySelector("span");
         const done = () => {
-          button.textContent = "¡Copiado!";
+          label.textContent = "¡Copiado!";
           button.classList.add("is-done");
           window.setTimeout(() => {
-            button.textContent = "Copiar";
+            label.textContent = "Copiar";
             button.classList.remove("is-done");
           }, 1800);
         };
@@ -2501,9 +2606,9 @@
           zaniReact("copy");
         }));
         wiz.body.querySelectorAll(".wiz-cta a[target='_blank']").forEach((link) => link.addEventListener("click", () => zaniReact("open")));
-        wiz.body.querySelectorAll(".wiz-alt, .wiz-photo").forEach((box) => box.addEventListener("toggle", () => zaniPlace()));
-        wiz.body.querySelectorAll("[data-mgr]").forEach((btn) => btn.addEventListener("click", () => {
-          flow.manager = btn.dataset.mgr;
+        wiz.body.querySelectorAll("details").forEach((box) => box.addEventListener("toggle", () => zaniPlace()));
+        wiz.body.querySelectorAll("input[name='wizMgr']").forEach((input) => input.addEventListener("change", () => {
+          flow.manager = input.value;
           render(false);
         }));
         wiz.body.querySelectorAll("[data-restart]").forEach((btn) => btn.addEventListener("click", () => go("script")));
@@ -2511,17 +2616,14 @@
 
       wiz.next.addEventListener("click", () => {
         const total = buildSteps().length;
-        if (flow.i >= total - 1) {
-          flow.phase = "done";
-        } else {
-          flow.i += 1;
-        }
+        if (flow.i >= total - 1) flow.phase = "done";
+        else flow.i += 1;
         render(true);
       });
 
       wiz.back.addEventListener("click", () => {
         if (flow.phase === "steps" && flow.i > 0) flow.i -= 1;
-        else if (flow.phase === "steps") flow.phase = flow.device === "ios" ? "device" : "browser";
+        else if (flow.phase === "steps") flow.phase = "browser";
         else if (flow.phase === "browser") flow.phase = "device";
         else if (flow.phase === "device") flow.phase = "script";
         else if (flow.phase === "done") flow.phase = "steps";
@@ -2542,8 +2644,6 @@
         peek: document.getElementById("zaniPeek"),
         gate: document.getElementById("skillGate")
       };
-      const touch = window.matchMedia("(pointer: coarse)").matches;
-      const tap = touch ? "Toca" : "Pulsa";
 
       function zaniPose(pose) {
         zEl.stage.dataset.pose = pose;
@@ -2553,8 +2653,7 @@
         if (!zani.voice || !("speechSynthesis" in window)) return;
         try {
           window.speechSynthesis.cancel();
-          const plain = text.replace(/<[^>]+>/g, "").replace(/[«»→←↗✓]/g, "");
-          const say = new SpeechSynthesisUtterance(plain);
+          const say = new SpeechSynthesisUtterance(text.replace(/<[^>]+>/g, "").replace(/[«»→←]/g, ""));
           say.lang = "es-ES";
           const voice = window.speechSynthesis.getVoices().find((v) => /^es/i.test(v.lang));
           if (voice) say.voice = voice;
@@ -2570,14 +2669,15 @@
         if (line !== zani.said) zaniSpeak(line + (hint ? ". " + hint : ""));
         zani.said = line;
         window.clearTimeout(zani.idle);
-        if (pose !== "petting") {
-          window.setTimeout(() => { if (zEl.line.innerHTML === line && zEl.stage.dataset.pose === "talking") zaniPose("standing"); }, 3200);
-          zani.idle = window.setTimeout(() => {
-            if (!zani.on || zEl.line.innerHTML !== line) return;
-            zaniPose("thinking");
-            zEl.hint.innerHTML = "¿Te atoraste? Mira el <strong>círculo rojo</strong>: ahí es donde tienes que " + tap.toLowerCase() + "r. Si algo salió mal, " + tap.toLowerCase() + " <strong>← Atrás</strong>.";
-          }, 25000);
-        }
+        if (pose === "petting") return;
+        window.setTimeout(() => {
+          if (zEl.line.innerHTML === line && zEl.stage.dataset.pose === "talking") zaniPose("standing");
+        }, 3200);
+        zani.idle = window.setTimeout(() => {
+          if (!zani.on || zEl.line.innerHTML !== line) return;
+          zaniPose("thinking");
+          zEl.hint.innerHTML = "¿Te atoraste? Mira la <strong>flecha roja</strong> en la foto: ahí es donde tienes que tocar. Si algo salió mal, " + tap.toLowerCase() + " <strong>Atrás</strong>.";
+        }, 25000);
       }
 
       function zaniPlace() {
@@ -2590,7 +2690,7 @@
           zEl.focus.hidden = true;
           return;
         }
-        const pad = 8;
+        const pad = 6;
         zEl.focus.hidden = false;
         zEl.focus.style.top = rect.top - pad + "px";
         zEl.focus.style.left = rect.left - pad + "px";
@@ -2634,26 +2734,26 @@
         if (flow.phase === "script") {
           zEl.progress.textContent = "Pregunta 1 de 3";
           zaniSay("¡Hola! Soy Zani y te voy a ayudar en todo. Primero: ¿qué script quieres? " + tap + " el que tenga el nombre de la página de tu enlace.", "Si tu enlace es de <strong>work.ink</strong>, " + tap.toLowerCase() + " Work.ink Bypass.");
-          zaniPoint(wiz.body.querySelector(".wiz-choices"), true);
+          zaniPoint(wiz.body.querySelector(".wiz-options"), true);
         } else if (flow.phase === "device") {
           zEl.progress.textContent = "Pregunta 2 de 3";
-          zaniSay("¡Bien! Ahora dime dónde lo vas a usar: ¿computadora, Android o iPhone?", "El que tiene la etiqueta <strong>verde</strong> es el que creo que estás usando ahora.");
-          zaniPoint(wiz.body.querySelector(".wiz-choice.is-guess") || wiz.body.querySelector(".wiz-choices"), true);
+          zaniSay("¡Bien! Ahora dime dónde lo vas a usar.", "El que dice <strong>Parece que es el que usas</strong> es mi apuesta.");
+          zaniPoint(wiz.body.querySelector(".wiz-option.is-guess") || wiz.body.querySelector(".wiz-options"), true);
         } else if (flow.phase === "browser") {
           zEl.progress.textContent = "Pregunta 3 de 3";
-          const line = flow.device === "android" ? "En el teléfono, Chrome no sirve. " + tap + " <strong>Firefox</strong>: es el más fácil." : flow.device === "ios" ? "En iPhone usamos Safari, el navegador de la brújula azul. " + tap + "lo." : "¿Con qué programa entras a internet? " + tap + " su dibujito.";
-          zaniSay(line, flow.device === "pc" ? "Si no sabes, mira el icono del programa que estás usando para ver esta página." : "");
-          zaniPoint(wiz.body.querySelector(".wiz-choice.is-guess") || wiz.body.querySelector(".wiz-choice"), true);
+          const line = flow.device === "android" ? "En el teléfono, Chrome no sirve. Te recomiendo <strong>Firefox</strong>: es el más fácil." : flow.device === "ios" ? "En iPhone te recomiendo <strong>Safari + Userscripts</strong>: es gratis." : "¿Con qué programa entras a internet? " + tap + " su dibujito.";
+          zaniSay(line, flow.device === "pc" ? "Si no sabes, mira el icono del programa con el que estás viendo esta página." : "");
+          zaniPoint(wiz.body.querySelector(".wiz-option.is-guess") || wiz.body.querySelector(".wiz-option"), true);
         } else if (flow.phase === "steps") {
           const steps = buildSteps();
           const step = steps[flow.i];
           const last = flow.i === steps.length - 1;
           zEl.progress.textContent = "Paso " + (flow.i + 1) + " de " + steps.length;
-          zaniSay(step.zani || step.title, last ? "Cuando el script funcione, " + tap.toLowerCase() + " <strong>¡Funcionó! ✓</strong>" : "Cuando lo hagas, " + tap.toLowerCase() + " <strong>Ya lo hice →</strong> abajo.");
+          zaniSay(step.zani || step.title, last ? "Cuando el script funcione, " + tap.toLowerCase() + " <strong>¡Funcionó!</strong>" : "Cuando lo hagas, " + tap.toLowerCase() + " <strong>Ya lo hice</strong> abajo.");
           zaniPoint(stepTarget(), false);
         } else {
-          zEl.progress.textContent = "¡Terminado!";
-          zaniSay("¡Lo lograste! 🎉 Ya tienes " + esc(SCRIPTS[state.script].name) + ". Abre tu enlace en este mismo navegador y deja que el script trabaje.", "Me voy en unos segundos. ¡Suerte!", "petting");
+          zEl.progress.textContent = "Terminado";
+          zaniSay("¡Lo lograste! Ya tienes " + esc(scriptName()) + ". Abre tu enlace en este mismo navegador y deja que el script trabaje.", "Me voy en unos segundos. ¡Suerte!", "petting");
           zaniPoint(null);
           window.setTimeout(() => {
             if (flow.phase === "done" && zani.on) zaniOff(true);
@@ -2664,10 +2764,10 @@
       function zaniReact(kind) {
         if (!zani.on || flow.mode === "pro" || zani.min) return;
         if (kind === "copy") {
-          zaniSay("¡Copiado! 📋 Ahora pégalo donde te dice la lista, y vuelve a esta página.", "Cuando termines, " + tap.toLowerCase() + " <strong>Ya lo hice →</strong>.");
+          zaniSay("¡Copiado! Ahora pégalo donde te dice la lista, y vuelve a esta página.", "Cuando termines, " + tap.toLowerCase() + " <strong>Ya lo hice</strong>.");
           zaniPoint(wiz.body.querySelector(".wiz-list") || wiz.next, true);
         } else if (kind === "open") {
-          zaniSay("Se abrió otra pestaña. Haz ahí lo que dice este paso y después <strong>vuelve a esta pestaña</strong>.", "Las pestañas están arriba del navegador. Vuelve a la que dice «AHST».");
+          zaniSay("Se abrió otra pestaña. Haz ahí lo que dice este paso y después <strong>vuelve a esta pestaña</strong>.", "Las pestañas están arriba del navegador. Vuelve a la de AHST.");
           zaniPoint(wiz.body.querySelector(".shot, .mock") || wiz.next, true, false);
         }
       }
@@ -2676,10 +2776,8 @@
         zani.on = true;
         zani.min = false;
         flow.mode = "guided";
-        saveMode("guided");
-        if (zEl.guide.hidden) {
-          zEl.guide.classList.remove("is-leaving");
-        }
+        store("ahst-mode", "guided");
+        zEl.guide.classList.remove("is-leaving");
         render(true);
       }
 
@@ -2699,20 +2797,19 @@
         } else {
           zEl.guide.hidden = true;
         }
-        if (flow.phase === "steps" || flow.phase === "done") render(false);
-      }
-
-      function saveMode(mode) {
-        try { localStorage.setItem("ahst-mode", mode); } catch {}
-      }
-
-      function savedMode() {
-        try { return localStorage.getItem("ahst-mode"); } catch { return null; }
       }
 
       function closeGate() {
         zEl.gate.hidden = true;
         document.body.classList.remove("gate-open");
+      }
+
+      function setPro() {
+        flow.mode = "pro";
+        store("ahst-mode", "pro");
+        zani.on = false;
+        zaniOff(false);
+        render(false);
       }
 
       zEl.gate.querySelector("[data-skill='beginner']").addEventListener("click", () => {
@@ -2722,28 +2819,13 @@
       });
       zEl.gate.querySelector("[data-skill='known']").addEventListener("click", () => {
         closeGate();
-        flow.mode = "pro";
-        saveMode("pro");
-        zani.on = false;
-        render(false);
+        setPro();
       });
       wiz.mode.addEventListener("click", () => {
-        if (flow.mode === "pro") {
-          flow.mode = "guided";
-          saveMode("guided");
-          zaniOn();
-        } else {
-          flow.mode = "pro";
-          saveMode("pro");
-          zani.on = false;
-          zaniUpdate();
-          render(false);
-        }
+        if (flow.mode === "pro") zaniOn();
+        else setPro();
       });
-      zEl.skip.addEventListener("click", () => {
-        saveMode("guided-solo");
-        zaniOff(true);
-      });
+      zEl.skip.addEventListener("click", () => zaniOff(true));
       zEl.min.addEventListener("click", () => {
         zani.min = true;
         zaniUpdate();
@@ -2752,9 +2834,7 @@
         zani.min = false;
         zaniUpdate();
       });
-      zEl.show.addEventListener("click", () => {
-        zaniPoint(zani.target || stepTarget(), zEl.focus.classList.contains("is-soft"));
-      });
+      zEl.show.addEventListener("click", () => zaniPoint(zani.target || stepTarget(), zEl.focus.classList.contains("is-soft")));
       zEl.voice.addEventListener("click", () => {
         zani.voice = !zani.voice;
         zEl.voice.setAttribute("aria-pressed", String(zani.voice));
@@ -2786,11 +2866,11 @@
       detect();
       load();
       renderSelectedScript();
-      if (savedMode() === "pro") flow.mode = "pro";
+      if (store("ahst-mode") === "pro") flow.mode = "pro";
       render(false);
       zEl.gate.hidden = false;
       document.body.classList.add("gate-open");
-      zEl.gate.querySelector(savedMode() === "pro" ? "[data-skill='known']" : "[data-skill='beginner']").focus();
+      zEl.gate.querySelector(store("ahst-mode") === "pro" ? "[data-skill='known']" : "[data-skill='beginner']").focus();
 
       const scrollProgress = document.getElementById("scrollProgress");
       const siteHeader = document.querySelector(".site-header");
