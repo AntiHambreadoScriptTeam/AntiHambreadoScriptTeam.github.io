@@ -1,8 +1,14 @@
 {
   "hub": "AHST HUB",
-  "totalGames": 105,
-  "totalScripts": 280,
+  "totalGames": 106,
+  "totalScripts": 286,
   "games": {
+    "CAMERAMAN TOWER DEFENSE": [
+      {
+        "name": "Kero Hub",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/KeroTwT/Kero-Hub/refs/heads/main/KeroHub\"))()"
+      }
+    ],
     "99 NOCHES EN EL BOSQUE": [
       {
         "name": "BONK HUB",
@@ -972,6 +978,10 @@
       {
         "name": "FLYLING SCRIPT",
         "script": "pcall(function()\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/hellohellohell012321/KAWAII-FREAKY-FLING/main/kawaii_freaky_fling.lua\",true))()\nend)"
+      },
+      {
+        "name": "Anti-Hambreado Script Hub",
+        "script": "loadstring(game:HttpGet(\"https://antihambreadoscriptteam.github.io/Script-Hub/Loader.luau\"))()"
       }
     ],
     "SMASH PROJECT": [
@@ -1055,6 +1065,10 @@
       {
         "name": "SERENITY HUB",
         "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/MUshihara/Serenity-hub/main/loader.lua\"))()"
+      },
+      {
+        "name": "BIGFROOT",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/hanniii1/Loader/refs/heads/main/BFLoader.lua\"))()"
       }
     ],
     "STEAL AN EGG": [
@@ -1247,6 +1261,18 @@
       {
         "name": "TYPE HUB",
         "script": "repeat wait() until game:IsLoaded() and game.Players.LocalPlayer\nscript_key = \"\";\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/meobeo8/type/main/Loader\"))()"
+      },
+      {
+        "name": "AETHERIS HUB",
+        "script": "loadstring(game:HttpGet(\"https://getaetherishub.com/loader.lua\"))()"
+      },
+      {
+        "name": "ARCHIVIST HUB",
+        "script": "loadstring(game:HttpGet(\"https://archivist-hub.archivisthub.workers.dev/loader.lua\"))()"
+      },
+      {
+        "name": "SOLIX HUB",
+        "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua\"))()"
       }
     ],
     "WEAK LEGACY": [
