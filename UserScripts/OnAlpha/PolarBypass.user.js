@@ -4,8 +4,8 @@
 // ==UserScript==
 // @name         Polar Patcher - AHST
 // @namespace    https://antihambreadoscriptteam.github.io/
-// @version      1.6
-// @description  
+// @version      1.7
+// @description  Entra a Polar, bloquea las salidas de Admaven y pulsa las misiones. El captcha lo resuelve el usuario.
 // @author       TheRealBanHammer
 // @license      MIT
 // @match        https://bombhacker.pro/*
@@ -29,7 +29,7 @@
 // @match        https://nerventualken.com/*
 // @match        https://*.nerventualken.com/*
 // @match        https://challenges.cloudflare.com/*
-// @icon         https://static.wikia.nocookie.net/chickengun-fanon/images/5/51/PolarPatchet_logo%28with_copyright%29.png/revision/latest/scale-to-width/360?cb=20240119173328&path-prefix=ru
+// @icon         https://static.wikia.nocookie.net/chicken-gun-fanon-english/images/e/e7/Patcher_logo.webp/revision/latest?cb=20231110184857
 // @run-at       document-start
 // @grant        unsafeWindow
 // @grant        GM_cookie
@@ -58,9 +58,8 @@
     const IsPolar = Hostname === "bombhacker.pro" || Hostname.endsWith(".bombhacker.pro");
     if (!IsLoot && !IsPolar) return;
 
-    const Build = "1.6";
+    const Build = "1.7";
     const EntryKey = "polar-patcher-entry";
-    const RetryKey = "polar-patcher-retry";
     const DebugState = {
         build: Build,
         page: IsLoot ? "lootlabs" : "polar",
@@ -74,22 +73,10 @@
     };
     Window.__polarPatcherDebug = DebugState;
 
-    const LootClient = {
-        started: false,
-        needsCaptcha: false,
-        captchaSolved: false,
-        urid: null,
-        cat: null,
-        tid: null,
-        socket: null,
-        heartbeat: null,
-        destination: null,
-        pending: null
-    };
-
     const ReduceMotion = !!(Window.matchMedia && Window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     const UiHost = Document.createElement("div");
     const Shadow = UiHost.attachShadow({ mode: "open" });
+    const LiftedNodes = new Set();
     let UiMounted = false;
     let LastStatus = "";
     let LeftPage = false;
@@ -102,36 +89,27 @@
             :host{all:initial;color-scheme:dark;position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;max-width:none!important;max-height:none!important;margin:0!important;padding:0!important;border:none!important;display:block!important;background:#000!important;z-index:2147483647!important;pointer-events:auto!important;overflow:auto!important}*{box-sizing:border-box}button,input{font:inherit}
             .App{--accent:#62e8cb;position:absolute;inset:0;min-width:280px;min-height:100%;overflow:auto;background:#000;color:#f5f5f7;font-family:Inter,"SF Pro Display","Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
             .Stage{position:relative;z-index:1;display:grid;place-items:center;min-height:100dvh;padding:max(24px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left))}
-            .Glass{position:relative;width:min(900px,100%);transform-origin:50% 50%;will-change:transform,opacity}.Inner{position:relative}.Hero{margin:0 0 24px}.TitleLockup{display:flex;align-items:flex-end;gap:14px;min-width:0}
+            .Glass{position:relative;width:min(900px,100%);transform-origin:50% 50%;will-change:transform,opacity;transition:opacity .25s ease,filter .25s ease}.Inner{position:relative}.Hero{margin:0 0 24px}.TitleLockup{display:flex;align-items:flex-end;gap:14px;min-width:0}
             h1{min-width:0;margin:0;font-size:clamp(2.35rem,7vw,5rem);font-weight:720;letter-spacing:-.055em;line-height:1}.TitleText{position:relative;display:inline-block;color:transparent;background:linear-gradient(180deg,#fff 0%,#c7c7cc 34%,#5a5a60 67%,#080808 100%);background-clip:text;-webkit-background-clip:text}
             .TitleText::after{position:absolute;inset:0;content:attr(data-title);color:transparent;background:linear-gradient(108deg,transparent 38%,rgba(255,255,255,.98) 49%,transparent 60%);background-size:230% 100%;background-position:180% 0;background-clip:text;-webkit-background-clip:text;animation:TitleReflection 5s cubic-bezier(.4,0,.2,1) infinite;pointer-events:none}
             .AhstLockup{display:flex;flex:0 0 auto;flex-direction:column;gap:4px;padding-bottom:4px}.AhstName{color:#d1d1d6;font-size:17px;font-weight:760;letter-spacing:.13em;line-height:1}.AhstLong{max-width:132px;color:rgba(235,235,245,.34);font-size:9px;font-weight:600;letter-spacing:.055em;line-height:1.25}.Subtitle{margin:10px 0 0;color:#636366;font:650 11px/1.4 "SFMono-Regular",Consolas,monospace;letter-spacing:.08em;text-transform:uppercase}
-            .Console,.CaptchaPanel{overflow:hidden;border:1px solid #1c1c1e;border-radius:16px;background:#050505}.ConsoleHead{display:flex;align-items:center;gap:10px;padding:12px 15px;border-bottom:1px solid #1c1c1e;background:#080808}.TerminalDots{display:flex;align-items:center;gap:5px}.TerminalDots i{display:block;width:7px;height:7px;border-radius:50%;opacity:.78}.TerminalDots i:nth-child(1){background:#ff5f57}.TerminalDots i:nth-child(2){background:#febc2e}.TerminalDots i:nth-child(3){background:#28c840}.ConsoleTitle{color:#8e8e93;font:700 10px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.14em;text-transform:uppercase}.WaitTotal{margin-left:auto;color:var(--accent);font:800 13px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.08em}
+            .Console{overflow:hidden;border:1px solid #1c1c1e;border-radius:16px;background:#050505}.ConsoleHead{display:flex;align-items:center;gap:10px;padding:12px 15px;border-bottom:1px solid #1c1c1e;background:#080808}.TerminalDots{display:flex;align-items:center;gap:5px}.TerminalDots i{display:block;width:7px;height:7px;border-radius:50%;opacity:.78}.TerminalDots i:nth-child(1){background:#ff5f57}.TerminalDots i:nth-child(2){background:#febc2e}.TerminalDots i:nth-child(3){background:#28c840}.ConsoleTitle{color:#8e8e93;font:700 10px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.14em;text-transform:uppercase}.WaitTotal{margin-left:auto;color:var(--accent);font:800 13px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.08em}
             .ConsoleBody{height:clamp(300px,50vh,480px);overflow:auto;padding:14px 16px;scrollbar-width:thin;scrollbar-color:#2c2c2e transparent}.Empty{display:grid;place-items:center;height:100%;color:#48484a;font:500 12px/1.6 "SFMono-Regular",Consolas,monospace;text-align:center}.Line{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:9px;padding:5px 0;color:#d1d1d6;font:500 12px/1.55 "SFMono-Regular",Consolas,monospace;word-break:break-word;will-change:transform,opacity}.Prompt{color:var(--accent)}.Time{color:#48484a}.Message{color:#d1d1d6}
-            .CaptchaPanel{margin-top:14px}.CaptchaPanel[hidden]{display:none}.CaptchaBody{display:grid;place-items:center;min-height:340px;padding:10px;background:#000}.CaptchaFrame{display:block;width:min(420px,100%);height:320px;border:0;border-radius:10px;background:#fff}
             .DestinationAction{display:flex;padding:16px 0 4px;gap:9px;flex-wrap:wrap}.DestinationButton{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 18px;border:1px solid var(--accent);border-radius:10px;background:var(--accent);color:#00130f;font:800 11px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.065em;text-decoration:none;cursor:pointer}
-            .KeyPanel{margin:14px 0 4px;border:1px solid #1c1c1e;border-radius:12px;overflow:hidden;background:#050505}.KeyPanel[hidden]{display:none}.KeyHead{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #1c1c1e;background:#080808}.KeyLabel{color:var(--accent);font:700 10px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.14em;text-transform:uppercase}.KeyMeta{color:#8e8e93;font:600 12px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.04em}.KeyValue{padding:14px;font:600 13px/1.6 "SFMono-Regular",Consolas,monospace;color:#f5f5f7;word-break:break-all;-webkit-user-select:all;user-select:all;max-height:120px;overflow:auto}
+            .KeyPanel{margin:14px 0 4px;border:1px solid rgba(98,232,203,.32);border-radius:14px;overflow:hidden;background:#050505;box-shadow:0 0 0 1px rgba(98,232,203,.08) inset}.KeyPanel[hidden]{display:none}.KeyHead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 15px;border-bottom:1px solid #1c1c1e;background:#080808}.KeyLabel{color:var(--accent);font:800 11px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.14em;text-transform:uppercase}.KeyMeta{color:#62e8cb;font:700 11px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.04em}.KeyValue{padding:16px 15px;font:700 15px/1.55 Inter,"SF Pro Display","Segoe UI",system-ui,sans-serif;color:#f5f5f7;word-break:break-word;-webkit-user-select:all;user-select:all;max-height:140px;overflow:auto}.KeySub{padding:0 15px 14px;color:#8e8e93;font:500 12px/1.5 "SFMono-Regular",Consolas,monospace}.KeySub[hidden]{display:none}.KeyActions{display:flex;gap:9px;flex-wrap:wrap;padding:0 15px 15px}.KeyActions[hidden]{display:none}
             @keyframes TitleReflection{0%,70%{background-position:180% 0}100%{background-position:-130% 0}}
-            @media(max-width:620px){.Stage{place-items:start center;padding:24px 14px}.Hero{margin-bottom:20px}.TitleLockup{gap:9px}h1{font-size:clamp(1.65rem,9.3vw,2.35rem)}.AhstLockup{gap:3px;padding-bottom:2px}.AhstName{font-size:13px}.AhstLong{max-width:78px;font-size:7.5px;letter-spacing:.035em}.Console,.CaptchaPanel{border-radius:13px}.ConsoleBody{height:52dvh;padding:12px 13px}.CaptchaBody{min-height:300px;padding:6px}.CaptchaFrame{height:min(320px,48dvh)}.DestinationButton{width:100%}}
+            @media(max-width:620px){.Stage{place-items:start center;padding:24px 14px}.Hero{margin-bottom:20px}.TitleLockup{gap:9px}h1{font-size:clamp(1.65rem,9.3vw,2.35rem)}.AhstLockup{gap:3px;padding-bottom:2px}.AhstName{font-size:13px}.AhstLong{max-width:78px;font-size:7.5px;letter-spacing:.035em}.Console,.KeyPanel{border-radius:13px}.ConsoleBody{height:52dvh;padding:12px 13px}.DestinationButton{width:100%}}
             @media(max-height:720px) and (min-width:621px){.Stage{place-items:start center}.ConsoleBody{height:46vh}}
             @media(prefers-reduced-motion:reduce){.Glass,.Line{will-change:auto}.TitleText::after{animation:none;background:none}}
-            :host(.dock){position:fixed!important;inset:auto 12px 12px 12px!important;width:auto!important;height:auto!important;max-height:220px!important;background:transparent!important;pointer-events:none!important;overflow:visible!important}
-            :host(.dock) .App{position:relative;inset:auto;min-height:0;background:transparent}
-            :host(.dock) .Stage{display:block;min-height:0;padding:0}
-            :host(.dock) .Hero,:host(.dock) .KeyPanel,:host(.dock) .CaptchaPanel{display:none}
-            :host(.dock) .Glass{width:min(560px,100%);margin-left:auto;pointer-events:auto}
-            :host(.dock) .ConsoleBody{height:132px}
-            :host(.captcha-open){background:transparent!important;pointer-events:none!important}
-            :host(.captcha-open) .App{background:transparent!important;pointer-events:none!important}
-            :host(.captcha-open) .Stage{min-height:0;display:block;padding:0}
-            :host(.captcha-open) .Glass{pointer-events:auto;position:fixed;left:50%;bottom:16px;width:min(720px,calc(100% - 24px));transform:translateX(-50%)}
+            :host(.captcha-open){z-index:2147483645!important;background:#000!important;pointer-events:auto!important}
+            :host(.captcha-open) .App{background:#000!important;pointer-events:auto!important}
+            :host(.captcha-open) .Glass{opacity:.42;filter:blur(1.5px)}
         </style>
         <div class="App" data-state="active" role="dialog" aria-modal="true" aria-labelledby="pp-title">
             <main class="Stage"><section class="Glass"><div class="Inner">
                 <header class="Hero"><div class="TitleLockup"><h1 id="pp-title"><span class="TitleText" data-title="Polar Patcher">Polar Patcher</span></h1><span class="AhstLockup"><strong class="AhstName">AHST</strong><span class="AhstLong">Anti-Hambreado Script team</span></span></div><p class="Subtitle">TheRealBanHammer</p></header>
                 <section class="Console" aria-label="Consola de progreso"><div class="ConsoleHead"><span class="TerminalDots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ConsoleTitle">Consola</span><span class="WaitTotal" hidden></span></div><div class="ConsoleBody" aria-live="polite"><div class="Empty">Esperando…</div></div></section>
-                <section class="KeyPanel" hidden><div class="KeyHead"><span class="KeyLabel">Key</span><span class="KeyMeta"></span></div><div class="KeyValue"></div></section>
-                <section class="CaptchaPanel" hidden aria-label="Comprobación de LootLabs"><div class="ConsoleHead"><span class="TerminalDots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ConsoleTitle">Comprobación de LootLabs</span></div><div class="CaptchaBody"><iframe class="CaptchaFrame" title="Captcha de LootLabs"></iframe></div></section>
+                <section class="KeyPanel" hidden><div class="KeyHead"><span class="KeyLabel">Key Completada</span><span class="KeyMeta"></span></div><div class="KeyValue"></div><div class="KeySub" hidden></div><div class="KeyActions" hidden></div></section>
             </div></section></main>
         </div>`;
 
@@ -140,11 +118,12 @@
         glass: Shadow.querySelector(".Glass"),
         consoleBody: Shadow.querySelector(".ConsoleBody"),
         waitTotal: Shadow.querySelector(".WaitTotal"),
-        captchaPanel: Shadow.querySelector(".CaptchaPanel"),
-        captchaFrame: Shadow.querySelector(".CaptchaFrame"),
         keyPanel: Shadow.querySelector(".KeyPanel"),
+        keyLabel: Shadow.querySelector(".KeyLabel"),
         keyMeta: Shadow.querySelector(".KeyMeta"),
-        keyValue: Shadow.querySelector(".KeyValue")
+        keyValue: Shadow.querySelector(".KeyValue"),
+        keySub: Shadow.querySelector(".KeySub"),
+        keyActions: Shadow.querySelector(".KeyActions")
     };
 
     function IsHttpUrl(Value) {
@@ -156,20 +135,18 @@
     }
 
     function UiShouldStayRaised() {
-        return UiMounted && UiHost.style.display !== "none" && UiHost.style.opacity !== "0" && UiHost.style.pointerEvents !== "none";
+        return UiMounted && UiHost.style.display !== "none" && UiHost.style.opacity !== "0";
     }
 
     function InstallUiTopStyle() {
         const Existing = Document.getElementById("pp-top-style");
-        const Dock = UiHost.classList.contains("dock");
-        const Loot = UiHost.classList.contains("loot");
-        const Text = Dock
-            ? "#polar-patcher-ahst.dock{position:fixed!important;left:12px!important;right:12px!important;bottom:12px!important;top:auto!important;width:auto!important;height:auto!important;max-height:220px!important;margin:0!important;background:transparent!important;pointer-events:none!important;z-index:2147483646!important;overflow:visible!important}"
-            : Loot
-                ? "#polar-patcher-ahst.loot,#polar-patcher-ahst.loot:popover-open{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;max-width:none!important;max-height:none!important;margin:0!important;padding:0!important;border:none!important;background:#000!important;z-index:2147483647!important;display:block!important;pointer-events:auto!important;overflow:auto!important}"
-                : "#polar-patcher-ahst,#polar-patcher-ahst:popover-open{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;max-width:none!important;max-height:none!important;margin:0!important;padding:0!important;border:none!important;background:#000!important;z-index:2147483647!important;display:block!important;pointer-events:auto!important;overflow:auto!important}";
+        const CaptchaOpen = UiHost.classList.contains("captcha-open");
+        const ZIndex = CaptchaOpen ? "2147483645" : "2147483647";
+        const Text =
+            "#polar-patcher-ahst,#polar-patcher-ahst:popover-open{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;max-width:none!important;max-height:none!important;margin:0!important;padding:0!important;border:none!important;background:#000!important;z-index:" + ZIndex + "!important;display:block!important;pointer-events:auto!important;overflow:auto!important}" +
+            "[data-pp-captcha-lifted='1'],[data-pp-captcha-lifted='1']:popover-open{position:fixed!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;z-index:2147483647!important;margin:0!important;padding:0!important;border:0!important;background:transparent!important;pointer-events:auto!important;max-width:calc(100vw - 20px)!important;max-height:calc(100dvh - 20px)!important;box-shadow:0 24px 80px rgba(0,0,0,.85)!important}";
         if (Existing) {
-            Existing.textContent = Text;
+            if (Existing.textContent !== Text) Existing.textContent = Text;
             return;
         }
         const Style = Document.createElement("style");
@@ -191,20 +168,25 @@
                     Root.appendChild(UiHost);
                 } catch (ErrorValue) {}
             }
-            UiHost.style.zIndex = UiHost.classList.contains("captcha-open") ? "1" : "2147483647";
-            if (UiHost.classList.contains("dock") || UiHost.classList.contains("captcha-open")) {
-                if (UiHost.classList.contains("captcha-open") && typeof UiHost.hidePopover === "function") {
+            if (UiHost.classList.contains("captcha-open")) {
+                UiHost.style.zIndex = "2147483645";
+                UiHost.style.background = "#000";
+                UiHost.style.pointerEvents = "auto";
+                if (typeof UiHost.hidePopover === "function") {
                     try {
-                        UiHost.hidePopover();
+                        if (UiHost.matches(":popover-open")) UiHost.hidePopover();
                     } catch (ErrorValue) {}
                 }
                 return;
             }
+            UiHost.style.zIndex = "2147483647";
+            UiHost.style.background = "#000";
+            UiHost.style.pointerEvents = "auto";
             if (typeof UiHost.showPopover === "function") {
                 try {
                     const Open = UiHost.matches(":popover-open");
                     const Rival = Array.prototype.some.call(Document.querySelectorAll("dialog[open], [popover]:popover-open"), function (Node) {
-                        return Node !== UiHost;
+                        return Node !== UiHost && Node.getAttribute("data-pp-captcha-lifted") !== "1";
                     });
                     if (!Open) UiHost.showPopover();
                     else if (ForceTopLayer || Rival) {
@@ -236,7 +218,7 @@
                         return Node !== UiHost && Node.id !== "pp-top-style";
                     });
                 });
-                if (Foreign) RaiseUiHost(true);
+                if (Foreign) RaiseUiHost(false);
             }).observe(Document.documentElement, { childList: true, subtree: false });
             if (Document.body) {
                 new MutationObserver(function (Records) {
@@ -245,7 +227,7 @@
                             return Node !== UiHost;
                         });
                     });
-                    if (Foreign) RaiseUiHost(true);
+                    if (Foreign) RaiseUiHost(false);
                 }).observe(Document.body, { childList: true, subtree: false });
             }
         } catch (ErrorValue) {}
@@ -417,14 +399,6 @@
         });
     }
 
-    function SameUrl(Left, Right) {
-        try {
-            return new URL(Left, Window.location.href).href === new URL(Right, Window.location.href).href;
-        } catch (ErrorValue) {
-            return Left === Right;
-        }
-    }
-
     function NavigateTo(Destination, Force) {
         if (LeftPage && !Force) return;
         LeftPage = true;
@@ -444,16 +418,66 @@
             } catch (ErrorValue) {
                 Window.location.href = Destination;
             }
-        }, 400);
+        }, 350);
     }
 
-
-    function ShowKey(Value, Meta) {
-        if (!Value || !Ui.keyPanel) return;
-        Ui.keyValue.textContent = Value;
-        if (Ui.keyMeta) Ui.keyMeta.textContent = Meta || "";
+    function ShowKey(Value, Meta, Subtitle) {
+        if (!Ui.keyPanel) return;
+        SetCaptchaOpen(false);
+        Ui.root.dataset.state = "success";
+        if (Ui.keyLabel) Ui.keyLabel.textContent = Value ? "Key Completada" : "Estado";
+        if (Ui.keyMeta) Ui.keyMeta.textContent = Meta || "✓ Lista";
+        Ui.keyValue.textContent = Value || "¡Key Completada!";
+        if (Ui.keySub) {
+            if (Subtitle) {
+                Ui.keySub.textContent = Subtitle;
+                Ui.keySub.hidden = false;
+            } else {
+                Ui.keySub.textContent = "";
+                Ui.keySub.hidden = true;
+            }
+        }
+        if (Ui.keyActions) {
+            Ui.keyActions.innerHTML = "";
+            if (Value) {
+                const CopyBtn = Document.createElement("button");
+                CopyBtn.type = "button";
+                CopyBtn.className = "DestinationButton";
+                CopyBtn.textContent = "COPIAR KEY";
+                CopyBtn.addEventListener("click", function () {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(Value).then(function () {
+                            CopyBtn.textContent = "¡COPIADA!";
+                            setTimeout(function () {
+                                CopyBtn.textContent = "COPIAR KEY";
+                            }, 1800);
+                        }).catch(function () {});
+                    }
+                });
+                Ui.keyActions.append(CopyBtn);
+                Ui.keyActions.hidden = false;
+            } else {
+                Ui.keyActions.hidden = true;
+            }
+        }
         Ui.keyPanel.hidden = false;
-        DebugState.polar.key = Value;
+        DebugState.polar.completed = true;
+        if (Value) DebugState.polar.key = Value;
+    }
+
+    function ShowKeyCompleted(Key) {
+        if (Key) {
+            UpdateStatus("¡Key Completada! Key encontrada y lista para copiar.", true);
+            ShowKey(Key, "✓ Completada", "Tu key de Polar Patcher está lista.");
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(Key).then(function () {
+                    UpdateStatus("Key copiada al portapapeles.", true);
+                }).catch(function () {});
+            }
+            return;
+        }
+        UpdateStatus("¡Key Completada! Ya puedes volver a Polar Patcher.", true);
+        ShowKey("", "✓ Activada", "Ya puedes volver a Polar Patcher y usarla.");
     }
 
     function IsCaptchaHost(Host) {
@@ -538,6 +562,17 @@
         return String((Node && (Node.innerText || Node.textContent)) || "").replace(/\s+/g, " ").trim();
     }
 
+    function IsVisibleNode(Node) {
+        if (!Node || Node.nodeType !== 1) return false;
+        const Tag = Node.tagName;
+        if (Tag === "SCRIPT" || Tag === "STYLE" || Tag === "NOSCRIPT" || Tag === "TEMPLATE" || Tag === "META" || Tag === "LINK" || Tag === "HEAD") return false;
+        if (Node.closest && Node.closest("#polar-patcher-ahst")) return false;
+        const Style = Window.getComputedStyle(Node);
+        if (!Style || Style.display === "none" || Style.visibility === "hidden" || Number(Style.opacity) === 0) return false;
+        const Rect = Node.getBoundingClientRect();
+        return Rect.width > 0 && Rect.height > 0;
+    }
+
     function FormatWait(Seconds) {
         Seconds = Math.max(0, Math.round(Seconds));
         if (Seconds >= 60 && Seconds % 60 === 0) return (Seconds / 60) + "m";
@@ -547,83 +582,83 @@
 
     function SecondsIn(Text) {
         const Source = String(Text || "");
-        const Pattern = /~\s*(\d+(?:[.,]\d+)?)\s*(minutes?|mins?|min|seconds?|secs?|sec)\b/gi;
-        let Total = 0;
+        const Pattern = /~\s*(\d+(?:[.,]\d+)?)\s*(minutes?|mins?|min|seconds?|secs?|sec|s|m)\b/gi;
+        let MaxVal = 0;
         let Match;
         while ((Match = Pattern.exec(Source))) {
             const Amount = Number(Match[1].replace(",", "."));
-            if (!Amount) continue;
-            Total += /^min/i.test(Match[2]) ? Amount * 60 : Amount;
+            if (!Amount || !isFinite(Amount)) continue;
+            const Unit = Match[2].toLowerCase();
+            const Secs = (Unit === "m" || Unit.indexOf("min") === 0) ? Amount * 60 : Amount;
+            if (Secs > MaxVal && Secs <= 600) MaxVal = Secs;
         }
-        return Total;
+        return MaxVal;
     }
 
-    function EachNode(Root, Visit) {
-        if (!Root || !Root.querySelectorAll) return;
+    function IsTaskDone(Card) {
+        if (!Card) return false;
+        if (Card.classList && (Card.classList.contains("done") || Card.classList.contains("completed"))) return true;
+        if (Card.querySelector && Card.querySelector(".ind-done, .ind-complete, .ind-check, .task-done")) return true;
+        return false;
+    }
+
+    function MissionWait() {
+        let MaxSeconds = 0;
+        const TimeNodes = Document.querySelectorAll(".task-time");
+        if (TimeNodes.length) {
+            let Index;
+            for (Index = 0; Index < TimeNodes.length; Index += 1) {
+                const Node = TimeNodes[Index];
+                if (!IsVisibleNode(Node)) continue;
+                const Card = Node.closest && Node.closest(".task");
+                if (Card && IsTaskDone(Card)) continue;
+                const Secs = SecondsIn(PlainText(Node));
+                if (Secs > MaxSeconds) MaxSeconds = Secs;
+            }
+            if (MaxSeconds > 0) return MaxSeconds;
+        }
+        const Root = Document.getElementById("taskList") || Document.getElementById("tasksCard") || Document.body || Document.documentElement;
+        if (!Root || !Root.querySelectorAll) return 0;
         const Nodes = Root.querySelectorAll("*");
         let Index;
         for (Index = 0; Index < Nodes.length; Index += 1) {
             const Node = Nodes[Index];
-            Visit(Node);
-            if (Node.shadowRoot) EachNode(Node.shadowRoot, Visit);
+            if (Node.children && Node.children.length > 0) continue;
+            if (!IsVisibleNode(Node)) continue;
+            const Text = PlainText(Node);
+            if (Text.length < 2 || Text.length > 40) continue;
+            const Secs = SecondsIn(Text);
+            if (Secs > MaxSeconds && Secs <= 300) MaxSeconds = Secs;
+        }
+        return MaxSeconds;
+    }
+
+    let WaitEnd = 0;
+    let WaitAnchored = false;
+    function SyncWait(Seconds, ForceExtend) {
+        if (!Seconds || Seconds <= 0) return;
+        const Candidate = Date.now() + Seconds * 1000;
+        if (!WaitAnchored) {
+            WaitAnchored = true;
+            WaitEnd = Candidate;
+        } else if (ForceExtend && Candidate > WaitEnd) {
+            WaitEnd = Candidate;
         }
     }
 
-    let WaitBase = 0;
-    let WaitAnchor = 0;
-    function MissionWait() {
-        const Hits = [];
-        EachNode(Document.body || Document.documentElement, function (Node) {
-            if (Node.closest && Node.closest("#polar-patcher-ahst")) return;
-            const Text = PlainText(Node);
-            if (Text.length < 2 || Text.length > 64) return;
-            if (!SecondsIn(Text)) return;
-            Hits.push(Node);
-        });
-        const Leaves = Hits.filter(function (Node) {
-            return !Hits.some(function (Other) {
-                return Other !== Node && Node.contains(Other);
-            });
-        });
-        let Total = 0;
-        Leaves.forEach(function (Node) {
-            Total += SecondsIn(PlainText(Node));
-        });
-        return Total;
-    }
-
-    function ShowRemaining(Total) {
-        if (!Total) {
-            WaitBase = 0;
-            WaitAnchor = 0;
+    function TickWait() {
+        if (!WaitAnchored || !WaitEnd) {
             ShowWait(0);
             return;
         }
-        if (Total !== WaitBase) {
-            WaitBase = Total;
-            WaitAnchor = Date.now();
-        }
-        const Left = Math.max(0, WaitBase - (Date.now() - WaitAnchor) / 1000);
+        const Left = Math.max(0, Math.ceil((WaitEnd - Date.now()) / 1000));
         ShowWait(Left);
     }
 
-    function SetCaptchaOpen(Open) {
-        UiHost.classList.toggle("captcha-open", Open);
-        if (Open) {
-            UiHost.style.zIndex = "1";
-            UiHost.style.background = "transparent";
-            UiHost.style.pointerEvents = "none";
-            if (typeof UiHost.hidePopover === "function") {
-                try {
-                    UiHost.hidePopover();
-                } catch (ErrorValue) {}
-            }
-            return;
-        }
-        UiHost.style.zIndex = "2147483647";
-        UiHost.style.background = "#000";
-        UiHost.style.pointerEvents = "auto";
-        RaiseUiHost(true);
+    function ResetWait() {
+        WaitEnd = 0;
+        WaitAnchored = false;
+        ShowWait(0);
     }
 
     function ShowWait(Seconds) {
@@ -637,19 +672,81 @@
         Ui.waitTotal.textContent = FormatWait(Seconds);
     }
 
+    function ReleaseLiftedNodes() {
+        LiftedNodes.forEach(function (Node) {
+            try {
+                Node.removeAttribute("data-pp-captcha-lifted");
+                if (typeof Node.hidePopover === "function" && Node.matches(":popover-open")) {
+                    Node.hidePopover();
+                }
+            } catch (ErrorValue) {}
+        });
+        LiftedNodes.clear();
+    }
+
+    function SetCaptchaOpen(Open) {
+        const WasOpen = UiHost.classList.contains("captcha-open");
+        UiHost.classList.toggle("captcha-open", Open);
+        if (Open) {
+            UiHost.style.zIndex = "2147483645";
+            UiHost.style.background = "#000";
+            UiHost.style.pointerEvents = "auto";
+            InstallUiTopStyle();
+            if (typeof UiHost.hidePopover === "function") {
+                try {
+                    if (UiHost.matches(":popover-open")) UiHost.hidePopover();
+                } catch (ErrorValue) {}
+            }
+            return;
+        }
+        if (WasOpen || LiftedNodes.size) ReleaseLiftedNodes();
+        UiHost.style.zIndex = "2147483647";
+        UiHost.style.background = "#000";
+        UiHost.style.pointerEvents = "auto";
+        InstallUiTopStyle();
+        RaiseUiHost(true);
+    }
+
     function RaiseNode(Node) {
         if (!Node || (Node.closest && Node.closest("#polar-patcher-ahst"))) return;
+        const Rect = Node.getBoundingClientRect();
+        Node.setAttribute("data-pp-captcha-lifted", "1");
         Node.style.setProperty("position", "fixed", "important");
         Node.style.setProperty("z-index", "2147483647", "important");
         Node.style.setProperty("left", "50%", "important");
-        Node.style.setProperty("top", "22vh", "important");
-        Node.style.setProperty("transform", "translateX(-50%)", "important");
+        Node.style.setProperty("top", "50%", "important");
+        Node.style.setProperty("transform", "translate(-50%, -50%)", "important");
         Node.style.setProperty("pointer-events", "auto", "important");
         Node.style.setProperty("margin", "0", "important");
+        Node.style.setProperty("padding", "0", "important");
+        Node.style.setProperty("border", "0", "important");
+        Node.style.setProperty("border-radius", "16px", "important");
+        Node.style.setProperty("background", "transparent", "important");
+        Node.style.setProperty("max-width", "calc(100vw - 20px)", "important");
+        Node.style.setProperty("max-height", "calc(100dvh - 20px)", "important");
+        if (Rect.width > Window.innerWidth * 0.9 && Rect.height > Window.innerHeight * 0.8) {
+            Node.style.setProperty("width", "min(560px, calc(100vw - 24px))", "important");
+            Node.style.setProperty("height", "min(480px, calc(100dvh - 24px))", "important");
+        }
+        LiftedNodes.add(Node);
         try {
-            Node.setAttribute("popover", "manual");
-            if (typeof Node.showPopover === "function") Node.showPopover();
+            if (Node.getAttribute("popover") !== "manual") Node.setAttribute("popover", "manual");
+            if (typeof Node.showPopover === "function" && !Node.matches(":popover-open")) {
+                Node.showPopover();
+            }
         } catch (ErrorValue) {}
+    }
+
+    function PickCaptchaBox(Frame) {
+        let Candidate = Frame;
+        const Parent = Frame.parentElement;
+        if (Parent && Parent !== Document.body && Parent !== Document.documentElement) {
+            const ParentRect = Parent.getBoundingClientRect();
+            const FullPage = ParentRect.width >= Window.innerWidth * 0.96 && ParentRect.height >= Window.innerHeight * 0.96;
+            const HasTasks = !!(Parent.querySelector && Parent.querySelector("#taskList, .tasks, #tasksCard"));
+            if (!FullPage && !HasTasks) Candidate = Parent;
+        }
+        return Candidate;
     }
 
     function LiftCaptcha() {
@@ -662,11 +759,14 @@
             const Rect = Frame.getBoundingClientRect();
             if (Rect.width < 48 || Rect.height < 40) continue;
             if (!/cloudflare|turnstile|hcaptcha|recaptcha|nerventualken|captcha/.test(Src)) continue;
-            const Box = Frame.parentElement && Frame.parentElement !== Document.body ? Frame.parentElement : Frame;
+            const Box = PickCaptchaBox(Frame);
             RaiseNode(Box);
             Frame.style.setProperty("pointer-events", "auto", "important");
         }
         Document.querySelectorAll(".cf-turnstile, #challenge-stage, #cf-challenge-running").forEach(function (Widget) {
+            if (Widget.closest && Widget.closest("#polar-patcher-ahst")) return;
+            const Rect = Widget.getBoundingClientRect();
+            if (Rect.width < 40 || Rect.height < 30) return;
             RaiseNode(Widget);
         });
     }
@@ -682,7 +782,14 @@
             if (Rect.width < 48 || Rect.height < 40) continue;
             if (/cloudflare|turnstile|hcaptcha|recaptcha|nerventualken|captcha/.test(Src)) return true;
         }
-        return !!Document.querySelector("#challenge-stage, #cf-challenge-running, .cf-turnstile iframe");
+        const Widgets = Document.querySelectorAll("#challenge-stage, #cf-challenge-running, .cf-turnstile");
+        for (Index = 0; Index < Widgets.length; Index += 1) {
+            const Widget = Widgets[Index];
+            if (Widget.closest && Widget.closest("#polar-patcher-ahst")) continue;
+            if (!IsVisibleNode(Widget)) continue;
+            if (Widget.querySelector("iframe") || Widget.id === "challenge-stage" || Widget.id === "cf-challenge-running") return true;
+        }
+        return false;
     }
 
     function Press(Node) {
@@ -693,6 +800,17 @@
     }
 
     function TaskCards() {
+        const Direct = Document.querySelectorAll("#taskList .task, .tasks .task");
+        if (Direct.length) {
+            const List = [];
+            let Index;
+            for (Index = 0; Index < Direct.length; Index += 1) {
+                const Card = Direct[Index];
+                if (!IsVisibleNode(Card) || IsTaskDone(Card)) continue;
+                List.push(Card);
+            }
+            if (List.length) return List;
+        }
         const Nodes = Document.querySelectorAll("a, button, [role='button'], div, li");
         const Cards = [];
         let Index;
@@ -718,6 +836,14 @@
     }
 
     function ClaimControl() {
+        const Direct = Document.getElementById("unlockBtn");
+        if (Direct && !Direct.closest("#polar-patcher-ahst") && IsVisibleNode(Direct)) {
+            const Style = Window.getComputedStyle(Direct);
+            if (!Direct.disabled && Direct.getAttribute("aria-disabled") !== "true" && Style.pointerEvents !== "none" && Style.cursor !== "not-allowed" && Number(Style.opacity) >= 0.5 && !Direct.querySelector("[class*='lock'], .fa-lock")) {
+                return Direct;
+            }
+            return null;
+        }
         const Nodes = Document.querySelectorAll("a, button, [role='button'], div");
         let Index;
         for (Index = 0; Index < Nodes.length; Index += 1) {
@@ -736,13 +862,30 @@
         return null;
     }
 
+    function IsCaptchaTaskCard(Card) {
+        const Text = PlainText(Card);
+        return /confirm you are human|verify you are human|captcha|human verification/i.test(Text);
+    }
+
+    function TaskKey(Card) {
+        if (Card.id) return "id:" + Card.id;
+        const DataI = Card.getAttribute && Card.getAttribute("data-i");
+        if (DataI != null && DataI !== "") return "i:" + DataI;
+        return "t:" + PlainText(Card).toLowerCase().slice(0, 60);
+    }
+
     function RunLootTasks() {
         InstallRedirectGuard();
-        const Done = new Set();
+        const ClickedNodes = new WeakSet();
+        const ClickedKeys = new Set();
+        let LastClickAt = 0;
+        let ClaimedAt = 0;
         UpdateStatus("Admaven a la vista. Bloqueo sus salidas y pulso las misiones. El captcha es tuyo.", true);
-        const Timer = setInterval(function () {
-            const Cards = TaskCards();
-            ShowRemaining(MissionWait());
+        const ClockTimer = setInterval(TickWait, 500);
+        const Step = function () {
+            const DetectedWait = MissionWait();
+            if (DetectedWait > 0) SyncWait(DetectedWait, false);
+            TickWait();
             if (CaptchaWaiting()) {
                 SetCaptchaOpen(true);
                 LiftCaptcha();
@@ -752,22 +895,42 @@
             SetCaptchaOpen(false);
             const Claim = ClaimControl();
             if (Claim) {
-                clearInterval(Timer);
-                UpdateStatus("Misiones listas. Pulso Claim Reward.", true);
-                Press(Claim);
+                ResetWait();
+                if (!ClaimedAt || Date.now() - ClaimedAt > 2500) {
+                    ClaimedAt = Date.now();
+                    UpdateStatus("Misiones listas. Pulso Claim Reward.", true);
+                    Press(Claim);
+                }
                 return;
             }
+            if (Date.now() - LastClickAt < 700) return;
+            const Cards = TaskCards().sort(function (Left, Right) {
+                const LeftCaptcha = IsCaptchaTaskCard(Left) ? 1 : 0;
+                const RightCaptcha = IsCaptchaTaskCard(Right) ? 1 : 0;
+                return LeftCaptcha - RightCaptcha;
+            });
             let Index;
             for (Index = 0; Index < Cards.length; Index += 1) {
                 const Card = Cards[Index];
+                const Key = TaskKey(Card);
+                if (ClickedNodes.has(Card) || ClickedKeys.has(Key)) continue;
+                ClickedNodes.add(Card);
+                ClickedKeys.add(Key);
+                LastClickAt = Date.now();
                 const Label = PlainText(Card);
-                if (Done.has(Label)) continue;
-                Done.add(Label);
+                const CardSecs = SecondsIn(Label);
+                if (CardSecs > 0) SyncWait(CardSecs, true);
                 UpdateStatus("Misión: " + Label.slice(0, 80), true);
                 Press(Card);
                 return;
             }
-        }, 1400);
+        };
+        Step();
+        const Timer = setInterval(Step, 500);
+        Window.addEventListener("beforeunload", function () {
+            clearInterval(Timer);
+            clearInterval(ClockTimer);
+        }, { once: true });
     }
 
     function PageText() {
@@ -791,6 +954,19 @@
         }
     }
 
+    function IsPolarCompletedDocument() {
+        if (!IsPolar) return false;
+        if (CaptchaWaiting()) return false;
+        const Turnstile = Document.querySelector(".cf-turnstile");
+        if (Turnstile && IsVisibleNode(Turnstile)) return false;
+        const Text = PageText();
+        if (/error code\s*\d+/i.test(Text)) return false;
+        if (ReadVisibleKey()) return true;
+        if (/\/(success|complete|completed|done|finish|finished|verified|key)\b/i.test(Window.location.pathname)) return true;
+        if (Document.querySelector(".swal2-success, .alert-success, .fa-check-circle, .fa-circle-check")) return true;
+        return /\b(key\s*(activat|complet|unlock|generat|ready|valid)|success(fully)?\s*(activat|complet|verif)|you\s*can\s*(now\s*)?(return|go\s*back|close)|return\s*to\s*(the\s*)?app|access\s*granted|whitelist(ed)?)\b/i.test(Text);
+    }
+
     function IsPolarFinishDocument() {
         if (!IsPolar) return false;
         if (IsPolarFinishUrl(Window.location.href)) return true;
@@ -800,33 +976,55 @@
 
     function ShowFinishPage() {
         if (!UiMounted) MountUi("loot");
+        let SawCaptcha = false;
+        let CaptchaGoneAt = 0;
+        let Stopped = false;
+        let Timer = 0;
+        const Stop = function () {
+            Stopped = true;
+            if (Timer) clearInterval(Timer);
+        };
         UpdateStatus("Enlaces listos. Resuelve el Cloudflare de encima para terminar.", true);
-        const Timer = setInterval(function () {
-            SetCaptchaOpen(true);
-            LiftCaptcha();
+        const Step = function () {
+            if (Stopped) return;
             const Key = ReadVisibleKey();
             if (Key) {
-                clearInterval(Timer);
-                ShowKey(Key);
+                Stop();
+                ShowKeyCompleted(Key);
+                return;
             }
-        }, 400);
-    }
-
-    function ReleaseFinishPage() {
-        const Host = Document.getElementById("polar-patcher-ahst");
-        const Style = Document.getElementById("pp-top-style");
-        if (typeof UiHost.hidePopover === "function") {
-            try {
-                UiHost.hidePopover();
-            } catch (ErrorValue) {}
-        }
-        if (Host && Host.parentNode) Host.remove();
-        if (Style && Style.parentNode) Style.remove();
-        UiMounted = false;
-        UiHost.style.display = "none";
-        UiHost.style.pointerEvents = "none";
-        DebugState.polar.finish = true;
-        console.log("[Polar Patcher - AHST] Página final. El Turnstile queda libre.");
+            if (CaptchaWaiting()) {
+                SawCaptcha = true;
+                CaptchaGoneAt = 0;
+                SetCaptchaOpen(true);
+                LiftCaptcha();
+                return;
+            }
+            SetCaptchaOpen(false);
+            const Text = PageText();
+            const ErrorMatch = Text.match(/error code\s*(\d+)/i);
+            if (ErrorMatch) {
+                Stop();
+                ShowPolarError(ErrorMatch[1]);
+                return;
+            }
+            if (IsPolarCompletedDocument()) {
+                Stop();
+                ShowKeyCompleted("");
+                return;
+            }
+            if (SawCaptcha) {
+                if (!CaptchaGoneAt) {
+                    CaptchaGoneAt = Date.now();
+                    UpdateStatus("Cloudflare completado. Verificando key…");
+                } else if (Date.now() - CaptchaGoneAt > 1800) {
+                    Stop();
+                    ShowKeyCompleted("");
+                }
+            }
+        };
+        Step();
+        if (!Stopped) Timer = setInterval(Step, 350);
     }
 
     function ReadGatewayUrl() {
@@ -845,31 +1043,16 @@
         return "";
     }
 
-    function RetryGateway(Code) {
-        const Target = GatewayForThisUser();
-        let LastRetry = 0;
-        try {
-            LastRetry = Number(Window.sessionStorage.getItem(RetryKey) || "0");
-        } catch (ErrorValue) {}
-        if (!Target || Date.now() - LastRetry < 90000) {
-            Fail(Code + ". Polar rechazó la sesión de este hardware. Vuelve a abrir tu enlace del gateway.");
-            return;
-        }
-        try {
-            Window.sessionStorage.setItem(RetryKey, String(Date.now()));
-        } catch (ErrorValue) {}
-        UpdateStatus("Error " + Code + ". Limpio la sesión y entro de nuevo con tu hardwareIdentifier…", true);
-        ClearPolarCookies(function () {
-            NavigateTo(Target, true);
-        });
-    }
-
     function ReadVisibleKey() {
         const Nodes = Document.querySelectorAll("input, textarea, code, .key, #key, [data-key]");
         let Index;
         for (Index = 0; Index < Nodes.length; Index += 1) {
             const Node = Nodes[Index];
             if (Node.closest && Node.closest("#polar-patcher-ahst")) continue;
+            if (Node.tagName === "INPUT" && String(Node.type || "").toLowerCase() === "hidden") continue;
+            const Name = String(Node.name || Node.id || "").toLowerCase();
+            if (/turnstile|captcha|cf-/.test(Name)) continue;
+            if (!IsVisibleNode(Node)) continue;
             const Value = String(Node.value || Node.getAttribute("data-key") || Node.textContent || "").trim();
             if (Value.length >= 8 && Value.length <= 128 && !/\s/.test(Value) && !/^https?:/i.test(Value)) return Value;
         }
@@ -877,19 +1060,48 @@
         return Match ? Match[1] : "";
     }
 
+    function ShowPolarError(Code) {
+        DebugState.polar.error = Code;
+        Fail(Code + ". Polar no aceptó esta vuelta. No reintento solo: eso te dejaba en bucle.");
+        const Target = GatewayForThisUser();
+        if (Target && Ui.consoleBody) {
+            const Action = Document.createElement("div");
+            const Button = Document.createElement("button");
+            Action.className = "DestinationAction";
+            Button.type = "button";
+            Button.className = "DestinationButton";
+            Button.textContent = "VOLVER A MI ENLACE";
+            Button.addEventListener("click", function () {
+                Button.disabled = true;
+                ClearPolarCookies(function () {
+                    NavigateTo(Target, true);
+                });
+            });
+            Action.append(Button);
+            Ui.consoleBody.append(Action);
+        }
+    }
+
     function BootPolar() {
         const Started = Date.now();
         let SawSomething = false;
+        let Stopped = false;
+        let Timer = 0;
+        const Stop = function () {
+            Stopped = true;
+            if (Timer) clearInterval(Timer);
+        };
         UpdateStatus("Polar Patcher " + Build + " cargado. Esperando el gateway…");
-        const Timer = setInterval(function () {
+        const Step = function () {
+            if (Stopped) return;
             if (IsPolarFinishDocument()) {
-                clearInterval(Timer);
+                Stop();
                 ShowFinishPage();
                 return;
             }
             const GatewayUrl = ReadGatewayUrl();
             if (GatewayUrl) {
-                clearInterval(Timer);
+                Stop();
                 SawSomething = true;
                 let Puid = "";
                 let HasData = false;
@@ -908,54 +1120,31 @@
             const Text = PageText();
             const ErrorMatch = Text.match(/error code\s*(\d+)/i);
             if (ErrorMatch) {
-                clearInterval(Timer);
+                Stop();
                 SawSomething = true;
-                const Code = ErrorMatch[1];
-                DebugState.polar.error = Code;
-                Fail(Code + ". Polar no aceptó esta vuelta. No reintento solo: eso te dejaba en bucle.");
-                const Target = GatewayForThisUser();
-                if (Target && Ui.consoleBody) {
-                    const Action = Document.createElement("div");
-                    const Button = Document.createElement("button");
-                    Action.className = "DestinationAction";
-                    Button.type = "button";
-                    Button.className = "DestinationButton";
-                    Button.textContent = "VOLVER A MI ENLACE";
-                    Button.addEventListener("click", function () {
-                        Button.disabled = true;
-                        ClearPolarCookies(function () {
-                            NavigateTo(Target, true);
-                        });
-                    });
-                    Action.append(Button);
-                    Ui.consoleBody.append(Action);
-                }
+                ShowPolarError(ErrorMatch[1]);
                 return;
             }
             const Key = ReadVisibleKey();
             if (Key) {
-                clearInterval(Timer);
+                Stop();
                 SawSomething = true;
-                DebugState.polar.key = Key;
-                UpdateStatus("Key de Polar encontrada.", true);
-                ShowKey(Key, "lista para copiar");
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(Key).then(function () {
-                        UpdateStatus("Key copiada al portapapeles.", true);
-                    }).catch(function () {});
-                }
+                ShowKeyCompleted(Key);
+                return;
+            }
+            if (IsPolarCompletedDocument()) {
+                Stop();
+                SawSomething = true;
+                ShowKeyCompleted("");
                 return;
             }
             if (!SawSomething && Date.now() - Started > 20000 && /\/gateway/i.test(Window.location.pathname)) {
-                clearInterval(Timer);
+                Stop();
                 Fail("El gateway no mostró el enlace de Admaven ni una key.");
             }
-            if (Date.now() - Started > 20000 && !/\/gateway/i.test(Window.location.pathname) && !ErrorMatch && !Key) {
-                clearInterval(Timer);
-                if (UiHost.parentNode) UiHost.remove();
-                UiMounted = false;
-            }
-        }, 200);
+        };
+        Step();
+        if (!Stopped) Timer = setInterval(Step, 100);
     }
 
     function WhenBody(Callback) {
